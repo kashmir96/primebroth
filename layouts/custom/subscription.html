@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    {{- partial "head.html" . -}}
+    <meta name="description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta property="og:title" content="{{ .Site.Params.homepage_meta_tags.meta_og_title }}" />
+    <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
+    <meta property="og:url" content="{{ .Site.Params.homepage_meta_tags.meta_og_url }}" />
+    <meta property="og:image" content="{{ .Site.Params.homepage_meta_tags.meta_og_image }}" />
+    <meta property="og:description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
+    <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
+    <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+</head>
+<body>
+    {{- partial "alert.html" . -}}
+    {{- partial "header.html" . -}}
+    <div class="scroll-top rounded-full">
+        <span class="icon-keyboard_arrow_up text-2xl"></span>
+    </div>
+    {{- partial "slide.html" . -}}
+    {{- partial "strip.html" . -}}
+    <!-- Add html below -->
+
+    <div class="container">
+        <div class="row peach max-width text-center ">
+            <h1 class="fade-in-element">Subscription</h1>
+            <p>Subscribe for regular shipments of bone broth and save.</p>
+        </div>
+        <div class="row shopsection">
+            <!-- Beef product card -->
+            <div class="product-card grow col"><a href="/shop/subscription/beef">
+                <p class="stamp">Popular</p>
+                <img src="/img/beef.webp" src="" alt="">
+                <div class="product-details">
+                <p>$29.95/mo</p>
+                <h6>Beef Broth 3pk Subscription</h6>
+                <img class="stars" src="/img/stars/5.webp" alt="review rating for beef bone broth product">
+                <p>(31)</p>
+                </div>
+                </a>
+                </div>
+                 
+                <!-- Chicken product card -->
+                <div class="product-card grow col"><a href="/shop/subscription/chicken">
+                <p class="stamp">Trending</p>
+                
+                <img src="/img/chicken.webp" src="" alt="">
+                <div class="product-details">
+                <p>$29.95/mo</p>
+                <h6>Chicken Broth 3pk Subscription</h6>
+                <img class="stars" src="/img/stars/5.webp" alt="review rating for chicken bone broth product">
+                <p>(25)</p>
+                </div>
+                </a>
+                </div>
+                
+                <!-- Mixed product card -->
+                <div class="product-card grow col"><a href="/shop/subscription/mixed">
+                <img src="/img/mix.webp" src="" alt="">
+                <div class="product-details">
+                <p>$39.95/mo</p>
+                <h6>Mixed Broth 3pk Subscription</h6>
+                <img class="stars" src="/img/stars/5.webp" alt="review rating for mixed bone broth product">
+                <p>(28)</p>
+                </div>
+                </a>
+                </div>
+        </div>
+    </div>
+    <!-- Add html above -->
+    {{- partial "footer.html" . -}}
+</body>
+</html>
+

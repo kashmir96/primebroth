@@ -2377,6 +2377,11 @@ a:not(:hover) {
   text-decoration:none;
 }
 
+/* Set font and font size for all headings */
+h1 {
+  font-size: calc(100% + 220%);
+}
+
 
 .row {
   margin: 50px 0px;
@@ -2572,11 +2577,26 @@ input[type="submit"].fcf-btn-block, input[type="reset"].fcf-btn-block, input[typ
 }
 
 
-.top-banner, .short-banner {
+.top-banner {
   background-image: url('/img/4.webp');
   background-size: cover; /* Adjust this property as per your preference */
-  background-position: center; /* Adjust this property as per your preference */
-  
+  background-position: fixed; /* Adjust this property as per your preference */
+}
+
+.short-banner {
+  background-image: url('/img/making.jpg');
+  background-size: cover; /* Adjust this property as per your preference */
+  background-position: fixed; /* Adjust this property as per your preference */
+  background-attachment: fixed;
+}
+
+.short-banner a { 
+  color: white;
+}
+
+.short-banner>div {
+  border: 0px solid black;
+  border-radius: 10px;
 }
 
 .top-banner {
@@ -2594,14 +2614,15 @@ input[type="submit"].fcf-btn-block, input[type="reset"].fcf-btn-block, input[typ
 
 
 
-.top-banner::before, .testimonial::before, .short-banner::before {
+.testimonial::before, .overlay {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  z-index: -1; /* Pushes the overlay behind the content */
+
 }
 
 
@@ -2613,19 +2634,24 @@ input[type="submit"].fcf-btn-block, input[type="reset"].fcf-btn-block, input[typ
 
 .row {
   margin: 50px 0px;
+  padding: 50px 0px;
 }
 
 .btn-primary {
-  background-color: #E05F00; 
-  border:none;
-  border-radius:22px;
+  background-color:black;
+  color: white;
+  border:1px solid black;
+  border-radius:10px;
   padding: 10px 30px;
   max-width: 200px;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .btn-primary:hover {
-  background-color:#C35200
+  background-color: gray; 
+  border-color: gray;
 }
+
 
 .email-form>.btn-primary {
   border-radius:0px 22px 22px 0px;
@@ -2637,9 +2663,15 @@ input[type="submit"].fcf-btn-block, input[type="reset"].fcf-btn-block, input[typ
   color: #E05F00;
   font-weight: 600;
   border:1px solid #E05F00;
-  border-radius:22px;
+  border-radius:10px;
   padding: 10px 30px;
   max-width: 200px;  
+}
+
+.btn-secondary:hover { 
+  border-color:black;
+  color:black;
+  background-color: transparent;
 }
 
 .email-form>input {
@@ -2673,6 +2705,13 @@ input[type="submit"].fcf-btn-block, input[type="reset"].fcf-btn-block, input[typ
   width: 100vw; /* Use the full width of the viewport */
   left: 50%; /* Move the div to the center of the screen */
   transform: translateX(-50%); /* Adjust the horizontal position */
+}
+
+.max-width { 
+  width: 100vw;
+  position: relative;
+  left: -100px;
+  padding: 50px !important;
 }
 
 .bottom-section {
@@ -2751,12 +2790,9 @@ input[type="submit"].fcf-btn-block, input[type="reset"].fcf-btn-block, input[typ
   margin:0px auto;
 }
 
-.logo {
-  width: 50px;
-}
 
 .full-height {
-  height: 80vh;
+  min-height: 80vh;
 }
 
 .hidden-div.hidden {
@@ -2770,7 +2806,7 @@ input[type="submit"].fcf-btn-block, input[type="reset"].fcf-btn-block, input[typ
 
 .short-banner {
   position: relative;
-  color:white;
+  color:black;
   padding: 15px;
   margin:0px auto;
 }
@@ -2848,3 +2884,338 @@ nav.p-8 {
   padding: 1rem  !important;
 }
 
+
+.scrollbanner, .topbanner, .announcement {
+  position: relative;
+}
+
+.topbanner, .announcement {
+  padding: 0px;
+}
+
+.announcement {
+  margin: 0px auto;
+}
+
+.announcement ul {
+  margin: 0px;
+}
+
+.topbanner {
+  min-height: 68vh;
+  margin:0px;
+}
+
+.bannertext {
+  justify-content: center;
+  align-items: center;
+}
+
+#bannerList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+@keyframes scrollBanner {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+#bannerList li, .announcement li {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 0 5px;
+  transition: background 0.3s ease;
+}
+
+.peach {
+  background: #f6c4aa;
+}
+
+.black {
+  background: black;
+  color:white;
+}
+
+.strong {
+  font-weight: 600;
+}
+
+.product-card:hover { 
+  text-decoration: none;
+}
+
+.product-card { 
+  background-color: rgb(255 255 255 / 0.85);
+  border-radius: 10px;
+}
+
+.short-banner .product-card {
+  margin: 10px;
+}
+
+.product-card a {
+color: black !important;
+}
+
+
+.stars {
+  width: 130px;
+  margin-top: 2px;
+  float:left;
+}
+.product-details { 
+  padding: 20px;
+}
+
+h6 {
+  font-weight: 600;
+}
+
+.stamp { 
+  position: absolute;
+}
+
+.center { 
+  margin: 50px auto;
+}
+
+
+/* shorts */ 
+
+.carousel {
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-inner {
+  display: flex;
+}
+
+.carousel-item {
+  flex: 0 0 33.33%; /* Three items visible at a time */
+  padding: 0 10px;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: auto;
+}
+
+.play-button {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.play-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-40%, -50%);
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 25px solid #fff;
+}
+.element {
+  opacity: 0;
+  transform: translateY(50px); /* Move elements down initially */
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out; /* Include opacity transition */
+}
+
+.element.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.grow {
+  padding: 20px;
+  transition: transform 0.3s ease-in-out; /* Add smooth transition */
+}
+
+.grow:hover {
+  transform: scale(1.05); /* Grow by 10% on hover */
+}
+
+.left {
+  transition-delay: -0.15s; /* Negative delay to fire before default */
+}
+
+.right {
+  transition-delay: 0.15s; /* Positive delay to fire after default */
+}
+
+#bannerlist li {
+  display: inline-flex;
+  padding: 10px 30px;
+}
+
+#bannerlist {
+  text-align: center;
+  margin: 0px auto;
+}
+
+.scrollbanner { 
+    box-shadow: inset 0 -5px 5px -5px rgba(0, 0, 0, 0.2); /* Adjust the values as needed */
+}
+
+.sitelogo {
+  width: 140px;
+  margin: 0px; 
+}
+
+.product-details { 
+  text-align: left;
+}
+
+.about-photos img { 
+  border-radius: 10px;
+  margin: 20px;
+}
+
+.product-images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.product-image {
+ 
+  width: 80px; /* Adjust as needed */
+  margin: 10px;
+  cursor: pointer;
+}
+.product-image:hover {
+  opacity: 0.7;
+}
+.main-image {
+  width: 100%; /* Adjust as needed */
+  display: block;
+  margin: 0 auto;
+}
+
+nav { 
+  border-bottom: .5px solid #F0F0F0;
+}
+
+.container ul li { 
+  list-style: circle ;
+}
+
+.reviews>div { 
+  padding: 25px 0px;
+
+}
+
+.reviews>div:not(:last-child) { 
+  border-bottom: .5px solid white;
+}
+
+.darker { 
+  background-color: rgb(255 255 255 / 90%);
+}
+
+.container>div:first-child{
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
+.fade-in-element {
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.5s ease-in-out; /* Smooth transition */
+}
+
+/* Define the fade-in animation */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+/* Apply the animation when the element becomes visible */
+.fade-in-visible {
+  animation: fadeIn 1s ease forwards;
+}
+
+.shopsection { 
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
+
+.list {
+  width: 100vw;
+  background-color: ccc;
+  margin: -0px 100px 0px;
+  }
+  
+
+
+
+
+
+  
+
+
+  /* Styles for the discount bubble */
+#discountBubble {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: #ff7f0e; /* Change to your desired color */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+/* Styles for the modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 20% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 400px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}

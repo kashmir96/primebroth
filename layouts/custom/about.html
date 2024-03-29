@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    {{- partial "head.html" . -}}
+    <meta name="description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta property="og:title" content="{{ .Site.Params.homepage_meta_tags.meta_og_title }}" />
+    <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
+    <meta property="og:url" content="{{ .Site.Params.homepage_meta_tags.meta_og_url }}" />
+    <meta property="og:image" content="{{ .Site.Params.homepage_meta_tags.meta_og_image }}" />
+    <meta property="og:description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
+    <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
+    <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+</head>
+<body>
+    {{- partial "alert.html" . -}}
+    {{- partial "header.html" . -}}
+    <div class="scroll-top rounded-full">
+        <span class="icon-keyboard_arrow_up text-2xl"></span>
+    </div>
+    {{- partial "slide.html" . -}}
+    {{- partial "strip.html" . -}}
+    <!-- Add html below -->
+
+    <div class="container">
+        <div class="row peach max-width text-center">
+            <h1 class="fade-in-element">About us</h1>
+        </div>
+        <div class="row justify-content-around">
+            <div class="col-8">
+                <p>Hi there,</p>
+                <p>We are Curtis and Anna, founders of PrimeBroth.</p>
+                <p>Nutrition, health and fitness have always been important for us throughout our lives. However, it doesn’t matter how much time or money you invest in your health; it does whatever it wants.</p> 
+                <p>So, Curtis started experiencing joint problems. While searching for the solution, he discovered collagen-rich bone broth that has a joint healing effect. We both added bone broth to our diet since then, yet we also realized its unique nutritional value - dairy and gluten-free and full of protein. 
+                <p>So, we replaced our less natural protein snacks with a bottle of bone broth. We both felt great drinking it daily, but the taste wasn’t as satisfying as its health benefits. </p>
+                <p>At that point, we decided to make our own bone broth, rich in nutrients and pleasant to drink. Discover our delicious bone broth yourself, and your body will thank you.</p>
+            </div>
+            <div class="about-photos col-3">
+                <img src="/img/us.webp" alt="">
+                <img src="/img/anna.jpg" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- Add html above -->
+    {{- partial "footer.html" . -}}
+</body>
+</html>
