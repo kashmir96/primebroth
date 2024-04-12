@@ -72,7 +72,7 @@
         </ul>
 
     </div>
-    <nav class="flex items-center justify-between flex-wrap bg-opacity-100 p-8">
+    <nav class="flex items-center justify-between flex-wrap bg-opacity-100 p-2">
         <div class="flex items-center flex-shrink-0 text-xl text-grey-900 mr-6">
             <a href="http://localhost:1313/"><img alt=""
                     class="sitelogo mr-3" src="/img/logo/logo.png"></a>
@@ -138,9 +138,16 @@
   <span class="close" onclick="closeBubble()">&times;</span>
 </div>
 <div id="modal" class="modal">
-  <div class="modal-content">
+  <div class="modal-content row">
       <span class="close" onclick="closeModal()">&times;</span>
-      <p>This is a modal. You can add your content here.</p>
+      <div>
+      <img class="col-6" src="/img/1.webp" alt="">
+      <div class="col-6">
+        <h1>Want to save 10% on your next order?</h1>
+        <a href="">Sign up</a>
+        <span onclick="closeModal()">&times;No thanks</span>
+      </div>
+    </div>
   </div>
 </div>
 <footer class="bg-tlgray-100">
@@ -193,7 +200,7 @@
     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto" id="mobileMenu">
       <div class="text-lg lg:flex-grow">
       </div>
-      <div class="flex flex-row items-center text-lg">
+      <div class="flex flex-row items-center text-lg d-none d-md-block">
         
         <a href="/pages/delivery/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
           
