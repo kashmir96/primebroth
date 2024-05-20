@@ -2,8 +2,8 @@
 title: "Chicken and Vegetable Soup with Bone Broth"
 description: "A yummy chicken and vegetable soup using PrimeBroth chicken bone broth as a base."
 draft: false
+image: "/img/1.webp"
 cover: 
- image: /img/1.webp
  alt: an image of the soup
 date: 2024-03-22T13:48:01+13:00
 
