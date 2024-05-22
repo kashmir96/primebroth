@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    {{- partial "head.html" . -}}
+    <meta name="description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta property="og:title" content="{{ .Site.Params.homepage_meta_tags.meta_og_title }}" />
+    <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
+    <meta property="og:url" content="{{ .Site.Params.homepage_meta_tags.meta_og_url }}" />
+    <meta property="og:image" content="{{ .Site.Params.homepage_meta_tags.meta_og_image }}" />
+    <meta property="og:description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
+    <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
+    <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+    <script>
+        window.addEventListener('load', (event) => {
+          fathom.trackEvent('checkout completed');
+        });
+        </script>
+</head>
+<body>
+    {{- partial "alert.html" . -}}
+    {{- partial "header.html" . -}}
+    <div class="scroll-top rounded-full">
+        <span class="icon-keyboard_arrow_up text-2xl"></span>
+    </div>
+    {{- partial "slide.html" . -}}
+    {{- partial "strip.html" . -}}
+    <!-- Add html below -->
+
+    <div class="container">
+        <div class="row peach max-width text-center">
+            <h1 class="fade-in-element">Thank you for your order!</h1>
+        </div>
+        <div class="row justify-content-around">
+            <div class="col">
+                <p>Thanks for your order of Primebroth!</p>
+                <p>We will process your order and have it shipped within 1-2 business days. Keep an eye on your inbox, we'll let you know when your broth is on the way! </p>
+                <p>If you have any questions or queries about your order, get in touch with hello@primebroth.co.nz and we will help you out! </p>
+            </div>
+        </div>
+    </div>
+    <!-- Add html above -->
+    {{- partial "footer.html" . -}}
+</body>
+</html>
