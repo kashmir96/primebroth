@@ -160,12 +160,33 @@
                     
                 </div></div>
             <div class="col-xs-12 col-lg-6">
-                <h1>Chicken Bone Broth 5pk</h1>
-                <h3>Proven source of wellness nutrition</h3>
+                <h1>Chicken Bone Broth</h1>
                 <img class="stars" src="/img/stars/5.webp" alt="review rating for chicken bone broth product">
                 <p>(25)</p>
-                <p>$29.95</p>
+                <div class="radio-group">
+                  <label class="radio-label">
+                    <input type="radio" name="productSize" value="small" checked>
+                    <span class="radio-text">Jar Single - $3.98/serve</span>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="productSize" value="large">
+                    <span class="radio-text">Jar 5pk - $2.99/serve</span>
+                </label>
+              </div>
 
+               
+
+                <div id="productsmall" class="product-info">
+                  <p>$7.95</p>
+                  <p>1 Jar of Frozen Organic Chicken Bone Broth, makes up to 13 servings depending on the size of your pet.</p>
+                  <a href="https://buy.stripe.com/3cs5mz2v2cctbjWbIR" class="btn btn-primary" onclick="return gtag_report_conversion('https://buy.stripe.com/3cs5mz2v2cctbjWbIR');">Buy now</a>
+                </div>
+
+              <div id="productlarge" class="product-info hidden">
+                  <p>$29.95</p>
+                  <p>5 Jars of Frozen Organic Chicken Bone Broth, makes up to 65 servings depending on the size of your pet.</p>
+                  <a href="https://buy.stripe.com/14k2an4Daa4lew8146" class="btn btn-primary" onclick="return gtag_report_conversion('https://buy.stripe.com/14k2an4Daa4lew8146');">Buy now</a>
+                </div>
                 
                 <ul>
                     <li>20g protein</li>
@@ -173,8 +194,9 @@
                     <li>drink cold or hot</li>
                     <li>great for cooking</li>
                 </ul>
+                <p>Store in the freezer.</p>
 
-                <a href="https://buy.stripe.com/14k2an4Daa4lew8146" class="btn btn-primary" onclick="return gtag_report_conversion('https://buy.stripe.com/14k2an4Daa4lew8146');">Buy now</a>
+
 
                 <div>
                     <div class="faq mt-4">
@@ -472,6 +494,39 @@
   </div>
 
 </footer>
+<script>
+
+      document.querySelectorAll('input[name="productSize"]').forEach(function(radio) {
+                  radio.addEventListener('change', function() {
+                      document.getElementById('productsmall').classList.toggle('hidden', this.value !== 'small');
+                      document.getElementById('productlarge').classList.toggle('hidden', this.value !== 'large');
+                  });
+              });
+          
+          document.addEventListener('DOMContentLoaded', function () {
+          const radioLabels = document.querySelectorAll('.radio-label');
+      
+          radioLabels.forEach(label => {
+              const input = label.querySelector('input');
+              const radioText = label.querySelector('.radio-text');
+      
+              
+              if (input.checked) {
+                  label.classList.add('checked');
+              }
+      
+              
+              input.addEventListener('change', function () {
+                  if (input.checked) {
+                      radioLabels.forEach(l => l.classList.remove('checked'));
+                      label.classList.add('checked');
+                  }
+              });
+          });
+      });
+      
+          
+          </script>
 </body>
 </html>
 

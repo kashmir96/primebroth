@@ -2341,7 +2341,7 @@ video {
 /* mobile or smaller */
 @media screen and (max-width: 581px) {
   .mob-hide {
-    display:none;
+    display:none !important;
   }
 }
 
@@ -2379,7 +2379,7 @@ a:not(:hover) {
 
 /* Set font and font size for all headings */
 h1 {
-  font-size: calc(100% + 220%);
+  font-size: calc(100% + 150%);
 }
 
 
@@ -2635,6 +2635,7 @@ input[type="submit"].fcf-btn-block, input[type="reset"].fcf-btn-block, input[typ
 .row {
   margin: 50px 0px;
   padding: 50px 0px;
+
 }
 
 .btn-primary {
@@ -3092,7 +3093,7 @@ h6 {
 }
 
 .sitelogo {
-  width: 140px;
+  width: 100px;
   margin: 0px; 
 }
 
@@ -3247,3 +3248,41 @@ nav {
 .notstocked {
   filter: grayscale(100%);
 }
+
+.radio-group {
+  margin: 20px 0;
+}
+.radio-label {
+  padding: 10px 10px;
+  border: 1px solid #f0f0f0;
+  border-radius: 4px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+.radio-label:hover {
+  background-color: #f0f0f0;
+}
+
+.radio-label input {
+  display: none;
+  color:white;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  position: absolute;
+  opacity: 0;
+}
+
+.radio-label .radio-text {
+  background-color: transparent;
+  color: black;
+  border-color: #007bff;
+}
+
+.radio-label.checked  {
+  background-color: #ccc;
+  color: black;
+  border-color:#c0c0c0;
+}
+

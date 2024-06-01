@@ -44,11 +44,31 @@
                 </div></div>
             <div class="col-xs-12 col-lg-6">
                 <h1>Beef Bone Broth 5pk</h1>
-                <img class="stars" src="/img/stars/5.webp" alt="review rating for chicken bone broth product">
+                <img class="stars" src="/img/stars/5.webp" alt="review rating for beef bone broth product">
                 <p>(21)</p>
-                <p>$29.95</p>
-                <p>5x400ml of Frozen Organic Beef Bone Broth</p>
 
+                <div class="radio-group">
+                  <label class="radio-label">
+                      <input type="radio" name="productSize" value="small" checked>
+                      <span class="radio-text">Jar Single - $3.98/serve</span>
+                  </label>
+                  <label class="radio-label">
+                      <input type="radio" name="productSize" value="large">
+                      <span class="radio-text">Jar 5pk - $2.99/serve</span>
+                  </label>
+              </div>
+
+              <div id="productsmall" class="product-info">
+                <p>$7.95</p>
+                <p>1 Jar of Frozen Organic Beef Bone Broth, 2 servings.</p>
+                <a href="https://buy.stripe.com/cN27uH9Xu6S973GbIT" onclick="return gtag_report_conversion('https://buy.stripe.com/cN27uH9Xu6S973GbIT');" class="btn btn-primary" >Buy now</a>
+              </div>
+
+            <div id="productlarge" class="product-info hidden">
+                <p>$29.95</p>
+                <p>5 Jars of Frozen Organic Beef Bone Broth, 10 servings.</p>
+                <a href="https://buy.stripe.com/cN2aGT4Da7WdbjWcMN" onclick="return gtag_report_conversion('https://buy.stripe.com/cN2aGT4Da7WdbjWcMN');" class="btn btn-primary" >Buy now</a>
+              </div>
                 
                 <ul>
                     <li>20g protein</li>
@@ -59,7 +79,6 @@
                 <p>Store in the freezer.</p>
 
 
-                <a href="https://buy.stripe.com/cN2aGT4Da7WdbjWcMN" onclick="return gtag_report_conversion('https://buy.stripe.com/cN2aGT4Da7WdbjWcMN');" class="btn btn-primary" >Buy now</a>
                 
                 <div>
                     <div class="faq mt-4">
@@ -263,6 +282,39 @@
             </div>
     </div></div>
     <!-- Add html above -->
+    <script>
+
+      document.querySelectorAll('input[name="productSize"]').forEach(function(radio) {
+                  radio.addEventListener('change', function() {
+                      document.getElementById('productsmall').classList.toggle('hidden', this.value !== 'small');
+                      document.getElementById('productlarge').classList.toggle('hidden', this.value !== 'large');
+                  });
+              });
+          
+          document.addEventListener('DOMContentLoaded', function () {
+          const radioLabels = document.querySelectorAll('.radio-label');
+      
+          radioLabels.forEach(label => {
+              const input = label.querySelector('input');
+              const radioText = label.querySelector('.radio-text');
+      
+              // Apply initial state based on checked attribute
+              if (input.checked) {
+                  label.classList.add('checked');
+              }
+      
+              // Add event listener to update state on change
+              input.addEventListener('change', function () {
+                  if (input.checked) {
+                      radioLabels.forEach(l => l.classList.remove('checked'));
+                      label.classList.add('checked');
+                  }
+              });
+          });
+      });
+      
+          
+          </script>
     {{- partial "footer.html" . -}}
 </body>
 </html>
