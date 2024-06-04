@@ -1,6 +1,6 @@
 ---
-title: "Chicken bone broth 3pk - PrimeBroth"
-description: "Been bone broth 3pk PrimeBroth, NZ's animal based wellness drink"
+title: "Chicken bone broth - PrimeBroth"
+description: "Been bone broth PrimeBroth, NZ's animal based wellness drink"
 type: custom
 layout: products/chicken
 ---
