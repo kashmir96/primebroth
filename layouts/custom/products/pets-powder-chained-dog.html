@@ -1,161 +1,34 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
-<title>PrimeBroth | Pets bone broth - PrimeBroth</title>
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<link rel="apple-touch-icon" sizes="180x180" href='/apple-touch-icon.png'>
-<link rel="icon" type="image/png" sizes="32x32" href='favicon-32x32.png'>
-<link rel="icon" type="image/png" sizes="16x16" href='favicon-16x16.png'>
-<link rel="manifest" href='/site.webmanifest'>
-
-
-
-<link rel="stylesheet" href="/css/style.css">
-
-
-<link href='/css/style.min.css' rel="stylesheet" type="text/css">
-
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-16543078874"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'AW-16543078874');
-
- function gtag_report_conversion(url) {
-  var callback = function () {
-    if (typeof(url) != 'undefined') {
-      window.location = url;
-    }
-  };
-  gtag('event', 'conversion', {
-      'send_to': 'AW-16543078874/NfDWCKmi_akZEM-UwvwC',
-      'event_callback': callback
-  });
-  return false;
-}
-
-</script><meta name="description" content="" />
-    <meta property="og:title" content="" />
-    <meta property="og:type" content="" />
-    <meta property="og:url" content="" />
-    <meta property="og:image" content="" />
-    <meta property="og:description" content="" />
-    <meta name="twitter:card" content="" />
-    <meta name="twitter:site" content="" />
-    <meta name="twitter:creator" content="" />
+<head>
+    {{- partial "head.html" . -}}
+    <meta name="description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta property="og:title" content="{{ .Site.Params.homepage_meta_tags.meta_og_title }}" />
+    <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
+    <meta property="og:url" content="{{ .Site.Params.homepage_meta_tags.meta_og_url }}" />
+    <meta property="og:image" content="{{ .Site.Params.homepage_meta_tags.meta_og_image }}" />
+    <meta property="og:description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
+    <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
+    <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 </head>
-<body><div class="announcement full-width black text-center">
+<body>
+    {{- partial "alert.html" . -}}
+    <div class="announcement full-width black text-center">
         <ul>
-              <li>All pet proceeds until July are donated.</li>
-
+            <li>All proceeds from this page in July will be donated to ChCh Bull Rescue.</li>
         </ul>
-      </div><header>
-    
-<script src="https://cdn.usefathom.com/script.js" data-site="SUFMJROW" defer></script>
-
-   
-   
-    
-    
-
-    <div id="overlay">
-        <ul class="text-center list-none text-white text-xl">
-            
-            <li class="p-2">
-                <a href="/pages/about/">
-                    <span>About</span>
-                </a>
-            </li>
-            
-            <li class="p-2">
-                <a href="/posts/">
-                    <span>Blog</span>
-                </a>
-            </li>
-            
-            <li class="p-2">
-                <a href="/charity/">
-                    <span>Charity</span>
-                </a>
-            </li>
-            
-            <li class="p-2">
-                <a href="/shop/">
-                    <span>Shop</span>
-                </a>
-            </li>
-            
-            <div class="socialmobnav">
-            <a class="iglink" href="https://www.facebook.com/profile.php?id=61560358912834"><img src="/img/fbw.png" alt="instagram for primebroth"></a>
-            <a class="iglink" href="https://www.instagram.com/primebroth/"><img src="/img/instw.png" alt="instagram for primebroth"></a>
-        </div>
-        </ul>
-       
-
-    </div>
-    <nav class="flex items-center justify-between flex-wrap bg-opacity-100 p-2">
-        <div class="flex items-center flex-shrink-0 text-xl text-grey-900 mr-6">
-            <a href="http://localhost:1313/"><img alt=""
-                    class="sitelogo mr-3" src="/img/logo/logo.webp"></a>
-        </div>
-        <div class="block lg:hidden">
-            <div id="hamburgerbtn" class="flex cursor-pointer items-center w-14 h-10 py-2 rounded mopen">
-                <span class="top"></span>
-                <span class="middle"></span>
-                <span class="bottom"></span>
-            </div>
-        </div>
-        <div class="hidden w-full block flex-grow lg:flex lg:items-center lg:w-auto" id="mobileMenu">
-            <div class="text-lg lg:flex-grow">
-            </div>
-            <div class="text-lg">
-                
-                <a href="/pages/about/"
-                    class="duration-200 block mt-4 lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
-                    About
-                </a>
-                
-                <a href="/posts/"
-                    class="duration-200 block mt-4 lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
-                    Blog
-                </a>
-                
-                <a href="/charity/"
-                    class="duration-200 block mt-4 lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
-                    Charity
-                </a>
-                
-                <a href="/shop/"
-                    class="duration-200 block mt-4 lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
-                    Shop
-                </a>
-                
-
-            </div>
-            
-            <a class="iglink" href="https://www.facebook.com/profile.php?id=61560358912834"><img src="/img/fb.png" alt="instagram for primebroth"></a>
-            <a class="iglink" href="https://www.instagram.com/primebroth/"><img src="/img/inst.png" alt="instagram for primebroth"></a>
-        </div>
-    </nav>
-    
-</header>
-
-
-<div class="scroll-top rounded-full">
+      </div>
+    {{- partial "header.html" . -}}
+    <div class="scroll-top rounded-full">
         <span class="icon-keyboard_arrow_up text-2xl"></span>
-    </div><div class="swiper-container">
-    <div class="swiper-wrapper">
-        
     </div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-</div>
+    {{- partial "slide.html" . -}}
+    {{- partial "strip.html" . -}}
+    <!-- Add html below -->
 
     <div class="container">
         <div class="row topbanner rel">
@@ -166,10 +39,10 @@
                     <img class="product-image" src="/img/boney3.webp" alt="Thumbnail 3">
                     <img class="product-image" src="/img/pet1.webp" alt="Thumbnail 2">
                     <img class="product-image" src="/img/bonebroth5.webp" alt="Thumbnail 4">
-                    
+                    <!-- Add more thumbnail images as needed -->
                 </div></div>
                 <div class="col-xs-12 col-lg-6">
-                    <h1>Bone Broth Meal Topper for Pets (Powder)</h1>
+                    <h1>Bone Broth Meal Topper for Pets - Chch Bull Rescue Fundraiser</h1>
                     <h5>Pets go from picky to piggy with just a dash in their kibble.</h5>
                     <img class="stars" src="/img/stars/5.webp" alt="review rating for bone broth product">
                     <p>(18)</p>
@@ -188,12 +61,12 @@
                     <div id="productsmall" class="product-info">
                         <p>$9.95</p>
                         <p>12g of Powdered Organic Beef Bone Broth, makes up to 7 servings depending on the size of your pet.</p>
-                        <a href="https://buy.stripe.com/28o02fd9G6S973G7sF" class="btn btn-primary" onclick="return gtag_report_conversion('https://buy.stripe.com/28o02fd9G6S973G7sF');">Buy now</a>
+                        <a href="https://buy.stripe.com/00g5mzd9GfoFgEgeVf" class="btn btn-primary">Buy now</a>
                     </div>
                     <div id="productlarge" class="product-info hidden">
                         <p>$24.95</p>
                         <p>50g of Powdered Organic Beef Bone Broth, makes up to 33 servings depending on the size of your pet.</p>
-                        <a href="https://buy.stripe.com/cN26qD8Tq90hew828k" class="btn btn-primary" onclick="return gtag_report_conversion('https://buy.stripe.com/cN26qD8Tq90hew828k');">Buy now</a>
+                        <a href="https://buy.stripe.com/4gw3er1qY3FX3RucNd" class="btn btn-primary">Buy now</a>
                     </div>
                     <div class="mt-4">
                         <p>Powdered Organic Beef Bone Broth.</p>
@@ -204,10 +77,8 @@
                             <li>It's the real deal. Gelatinous when chilled, liquid warm. </li>
                             <li>100% organic beef bones, roasted & simmered for 32 hours.</li>
                         </ul>
-
-                <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/955088396?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write;" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="The PrimeBroth Difference" loading="lazy"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
-
-
+        
+                        <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/955088396?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write;" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="The PrimeBroth Difference" loading="lazy"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
                     </div>
     
                     <div>
@@ -246,7 +117,8 @@
                                 <h4 class="accordion-heading">Storage</h4>
                                 <div class="accordion-content">
                                     <p>Keep in a cool dry place.</p>
-                                   <p>2 years unopened, 4 months after opening.</p>
+                                    <p>2 years unopened, 4 months after opening.</p>
+
                                 </div>
                             </div>
     
@@ -378,7 +250,7 @@
                 </div>
             </div>
     </div></div>
-    
+    <!-- Add html above -->
     <script>
 
 document.querySelectorAll('input[name="productSize"]').forEach(function(radio) {
@@ -395,12 +267,12 @@ document.querySelectorAll('input[name="productSize"]').forEach(function(radio) {
         const input = label.querySelector('input');
         const radioText = label.querySelector('.radio-text');
 
-        
+        // Apply initial state based on checked attribute
         if (input.checked) {
             label.classList.add('checked');
         }
 
-        
+        // Add event listener to update state on change
         input.addEventListener('change', function () {
             if (input.checked) {
                 radioLabels.forEach(l => l.classList.remove('checked'));
@@ -412,98 +284,7 @@ document.querySelectorAll('input[name="productSize"]').forEach(function(radio) {
 
     
     </script>
-<footer class="bg-tlgray-100">
-  <script src='/js/custom.js'></script>
-
-  
-  <script src='/js/clipboard.min.js'></script>
-  <script src='/js/highlight.min.js'></script>
-  <script src='/js/highlightjs-line-numbers.min.js'></script>
-  <script src='/js/sweetalert2.min.js'></script>
-  <script>
-    hljs.initHighlightingOnLoad();
-    hljs.initLineNumbersOnLoad();
-    new ClipboardJS('.url');
-
-    function OnClickURL() {
-      Swal.fire({
-        icon: 'success',
-        title: 'Copied!',
-        text: 'Copied the URL and title.'
-      })
-    }
-  </script>
-  
-  <script>
-    function toggleNav() {
-      var hamburger = document.getElementById("hamburgerbtn");
-      var overlay = document.getElementById("overlay");
-      var body = document.body;
-
-      hamburger.addEventListener("click", function () {
-        overlay.classList.toggle("open");
-        hamburger.classList.toggle("is-open");
-        body.classList.toggle("scroll-lock");
-      });
-    }
-    toggleNav();
-
-    document.querySelector('.scroll-top').addEventListener('click', () => {
-      document.documentElement.scrollTop = 0;
-    });
-  </script>
-  
-  <link href='/css/webfonts.min.css' rel="stylesheet" />
-  
-  <div class="flex items-center justify-between flex-wrap bg-gray-800 p-8 text-white">
-    <div class="items-center text-xl text-grey-900 mr-6">
-      
-    </div>
-    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto" id="mobileMenu">
-      <div class="text-lg lg:flex-grow">
-      </div>
-      <div class="flex flex-row items-center text-lg d-none d-md-block">
-        
-        <a href="/pages/delivery/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
-          
-          Delivery
-          
-        </a>
-        
-        <a href="/pages/manage-subscription/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
-          
-          Manage Subscriptions
-          
-        </a>
-        
-        <a href="/pages/privacy-policy/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
-          
-          Privacy Policy
-          
-        </a>
-        
-        <a href="/pages/refund-policy/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
-          
-          Refund Policy
-          
-        </a>
-        
-        <a href="/pages/terms-of-use/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
-          
-          Terms of Use
-          
-        </a>
-        
-      </div>
-    </div>
-
-  </div>
-
-  <div class="copy pl-8 py-5 bg-tlgray-700 text-white text-md">
-    &copy; PrimeBroth 2024 All Rights Reserved. <br>Site by <a style="color:white;font-weight:bold;" href="https://www.oso.nz">OSO Marketing NZ</a>
-  </div>
-</footer>
-
+    {{- partial "footer.html" . -}}
 </body>
 </html>
 
