@@ -6,6 +6,17 @@ exports.handler = async (event, context) => {
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
+      shipping_address_collection: {
+        allowed_countries: ['NZ'], // Restrict to New Zealand
+      },
+      shipping_options: [
+        {
+          shipping_rate: 'shr_1PQLi6ABkrUo6tgOVvuhQIwW', // Replace with your actual shipping rate ID
+        },
+        {
+          shipping_rate: 'shr_1POE5UABkrUo6tgOIVXstIV5', // Replace with another shipping rate ID if you have multiple options
+        },
+      ],
       line_items: [
         {
           price: priceId,
@@ -22,6 +33,7 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({ sessionId: session.id }),
     };
   } catch (error) {
+    console.error('Error creating checkout session:', error);
     return {
       statusCode: 400,
       body: JSON.stringify({ error: error.message }),
