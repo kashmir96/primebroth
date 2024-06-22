@@ -2,7 +2,10 @@
 title: "Pets bone broth powder - PrimeBroth"
 description: "Pets bone broth powder PrimeBroth, NZ's animal based wellness drink for pets"
 type: custom
-layout: products/pets-powder-pawsitive-rescue
+layout: products/pets-powder-charity
+charity: Pawsitive Rescue
+pricesmalllink: price_1PSxGYABkrUo6tgOtNxvLmbA
+pricelargelink: price_1PSxJxABkrUo6tgOKfPhcEbT
 ---
 
 
