@@ -1,14 +1,14 @@
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // Use environment variable
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async (event, context) => {
-  const { productId, quantity } = JSON.parse(event.body);
+  const { priceId, quantity } = JSON.parse(event.body);
 
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [
         {
-          price: productId, // Use the actual price ID for the product
+          price: priceId,
           quantity: quantity,
         },
       ],
