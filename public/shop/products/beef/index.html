@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=52930&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <title>PrimeBroth | Beef bone broth - PrimeBroth</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link rel="apple-touch-icon" sizes="180x180" href='/apple-touch-icon.png'>
@@ -96,7 +96,7 @@
     </div>
     <nav class="flex items-center justify-between flex-wrap bg-opacity-100 p-2">
         <div class="flex items-center flex-shrink-0 text-xl text-grey-900 mr-6">
-            <a href="http://localhost:52930/"><img alt=""
+            <a href="http://localhost:1313/"><img alt=""
                     class="sitelogo mr-3" src="/img/logo/logo.webp"></a>
         </div>
         <div class="block lg:hidden">
@@ -164,32 +164,45 @@
                     
                 </div></div>
             <div class="col-xs-12 col-lg-6">
-                <h1>Beef Bone Broth 5pk</h1>
+                <h1>Beef Bone Broth </h1>
                 <img class="stars" src="/img/stars/5.webp" alt="review rating for beef bone broth product">
                 <p>(21)</p>
 
-                <div class="radio-group">
-                  <label class="radio-label">
-                      <input type="radio" name="productSize" value="small" checked>
-                      <span class="radio-text">Jar Single - $3.98/serve</span>
-                  </label>
-                  <label class="radio-label">
-                      <input type="radio" name="productSize" value="large">
-                      <span class="radio-text">Jar 5pk - $2.99/serve</span>
-                  </label>
-              </div>
+            
 
-              <div id="productsmall" class="product-info">
+              <div class="radio-group">
+                <label class="radio-label">
+                    <input type="radio" name="productSize" value="small" data-image="/img/beef.webp" checked>
+                    <span class="radio-text">Jar Single - $3.98/serve</span>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="productSize" value="large" data-image="/img/beef.webp">
+                    <span class="radio-text">Jar 5pk - $2.99/serve</span>
+                </label>
+            </div>
+
+            <div id="productsmall" class="product-info">
                 <p>$7.95</p>
                 <p>1 Jar of Frozen Organic Beef Bone Broth, 2 servings.</p>
-                <a href="https://buy.stripe.com/cN27uH9Xu6S973GbIT" onclick="return gtag_report_conversion('https://buy.stripe.com/cN27uH9Xu6S973GbIT');" class="btn btn-primary" >Buy now</a>
-              </div>
-
+                <div class="quantity-container">
+                    <label for="quantitySmall">Quantity:</label>
+                    <input type="number" id="quantitySmall" name="quantity" min="1" value="1">
+                </div>
+                <button class="btn btn-primary buy-now" data-price-id="price_1PJLgdABkrUo6tgOPEZ7zSld" data-quantity-id="quantitySmall">Buy now</button>
+            </div>
             <div id="productlarge" class="product-info hidden">
                 <p>$29.95</p>
                 <p>5 Jars of Frozen Organic Beef Bone Broth, 10 servings.</p>
-                <a href="https://buy.stripe.com/cN2aGT4Da7WdbjWcMN" onclick="return gtag_report_conversion('https://buy.stripe.com/cN2aGT4Da7WdbjWcMN');" class="btn btn-primary" >Buy now</a>
-              </div>
+                <div class="quantity-container">
+                    <label for="quantityLarge">Quantity:</label>
+                    <input type="number" id="quantityLarge" name="quantity" min="1" value="1">
+                </div>
+                <button class="btn btn-primary buy-now" data-price-id="price_1Oy7RCABkrUo6tgOZsrPyhW5" data-quantity-id="quantityLarge">Buy now</button>
+            </div>
+
+
+
+              
                 
                 <ul>
                     <li>20g protein</li>
@@ -403,40 +416,85 @@
                 </div>
             </div>
     </div></div>
-    
-    <script>
+    <script src="https://js.stripe.com/v3/"></script>
 
-      document.querySelectorAll('input[name="productSize"]').forEach(function(radio) {
-                  radio.addEventListener('change', function() {
-                      document.getElementById('productsmall').classList.toggle('hidden', this.value !== 'small');
-                      document.getElementById('productlarge').classList.toggle('hidden', this.value !== 'large');
-                  });
-              });
-          
-          document.addEventListener('DOMContentLoaded', function () {
-          const radioLabels = document.querySelectorAll('.radio-label');
-      
-          radioLabels.forEach(label => {
-              const input = label.querySelector('input');
-              const radioText = label.querySelector('.radio-text');
-      
-              
-              if (input.checked) {
-                  label.classList.add('checked');
-              }
-      
-              
-              input.addEventListener('change', function () {
-                  if (input.checked) {
-                      radioLabels.forEach(l => l.classList.remove('checked'));
-                      label.classList.add('checked');
-                  }
-              });
-          });
-      });
-      
-          
-          </script>
+<script>
+    document.querySelectorAll('input[name="productSize"]').forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            document.getElementById('productsmall').classList.toggle('hidden', this.value !== 'small');
+            document.getElementById('productlarge').classList.toggle('hidden', this.value !== 'large');
+        });
+    });
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        const radioLabels = document.querySelectorAll('.radio-label');
+        const mainImage = document.querySelector('.main-image');
+    
+        radioLabels.forEach(label => {
+            const input = label.querySelector('input');
+            const radioText = label.querySelector('.radio-text');
+    
+            
+            if (input.checked) {
+                label.classList.add('checked');
+                mainImage.src = input.getAttribute('data-image');
+            }
+    
+            
+            input.addEventListener('change', function () {
+                if (input.checked) {
+                    radioLabels.forEach(l => l.classList.remove('checked'));
+                    label.classList.add('checked');
+                    mainImage.src = input.getAttribute('data-image');
+                }
+            });
+        });
+    
+        const stripe = Stripe('pk_live_51Ot2iTABkrUo6tgOu44jd79tB4Dg2B64I6lucmLcKdxZfcy2Dy3bTnbxQNiwDtRfeWSwWx1WsDpC0h91tTlubPXW000IuWtQTX'); 
+    
+        function createCheckoutSession(priceId, quantity) {
+            return fetch('/.netlify/functions/create-checkout-session', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    priceId: priceId,
+                    quantity: quantity
+                })
+            }).then(function (response) {
+                return response.json();
+            }).catch(function (error) {
+                console.error('Error fetching checkout session:', error);
+                throw error;
+            });
+        }
+    
+        function handleCheckout(priceId, quantity) {
+            createCheckoutSession(priceId, quantity).then(function (data) {
+                if (data.sessionId) {
+                    return stripe.redirectToCheckout({ sessionId: data.sessionId });
+                } else {
+                    console.error('No sessionId returned:', data);
+                    alert('Failed to create checkout session. Please try again.');
+                }
+            }).catch(function (error) {
+                console.error('Error creating checkout session:', error);
+                alert('Failed to create checkout session. Please try again.');
+            });
+        }
+    
+        document.querySelectorAll('.buy-now').forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const priceId = button.getAttribute('data-price-id');
+                const quantityId = button.getAttribute('data-quantity-id');
+                const quantity = document.getElementById(quantityId).value;
+                handleCheckout(priceId, quantity);
+            });
+        });
+    });
+    </script>
 <footer class="bg-tlgray-100">
   <script src='/js/custom.js'></script>
 

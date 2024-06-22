@@ -41,31 +41,40 @@
                 <h1>Chicken Bone Broth</h1>
                 <img class="stars" src="/img/stars/5.webp" alt="review rating for chicken bone broth product">
                 <p>(25)</p>
+                
+                
+
                 <div class="radio-group">
                   <label class="radio-label">
-                    <input type="radio" name="productSize" value="small" checked>
-                    <span class="radio-text">Jar Single - $3.98/serve</span>
-                </label>
-                <label class="radio-label">
-                    <input type="radio" name="productSize" value="large">
-                    <span class="radio-text">Jar 5pk - $2.99/serve</span>
-                </label>
+                      <input type="radio" name="productSize" value="small" data-image="/img/chicken.webp" checked>
+                      <span class="radio-text">Jar Single - $3.98/serve</span>
+                  </label>
+                  <label class="radio-label">
+                      <input type="radio" name="productSize" value="large" data-image="/img/chicken.webp">
+                      <span class="radio-text">Jar 5pk - $2.99/serve</span>
+                  </label>
               </div>
-
-               
-
-                <div id="productsmall" class="product-info">
+  
+              <div id="productsmall" class="product-info">
                   <p>$7.95</p>
-                  <p>1 Jar of Frozen Organic Chicken Bone Broth, makes up to 13 servings depending on the size of your pet.</p>
-                  <a href="https://buy.stripe.com/3cs5mz2v2cctbjWbIR" class="btn btn-primary" onclick="return gtag_report_conversion('https://buy.stripe.com/3cs5mz2v2cctbjWbIR');">Buy now</a>
-                </div>
-
+                  <p>1 Jar of Frozen Organic Beef Bone Broth.</p>
+                  <div class="quantity-container">
+                      <label for="quantitySmall">Quantity:</label>
+                      <input type="number" id="quantitySmall" name="quantity" min="1" value="1">
+                  </div>
+                  <button class="btn btn-primary buy-now" data-price-id="{{ .Params.pricesmalllink }}" data-quantity-id="quantitySmall">Buy now</button>
+              </div>
               <div id="productlarge" class="product-info hidden">
                   <p>$29.95</p>
-                  <p>5 Jars of Frozen Organic Chicken Bone Broth, makes up to 65 servings depending on the size of your pet.</p>
-                  <a href="https://buy.stripe.com/14k2an4Daa4lew8146" class="btn btn-primary" onclick="return gtag_report_conversion('https://buy.stripe.com/14k2an4Daa4lew8146');">Buy now</a>
-                </div>
-                
+                  <p>5 Jars of Frozen Organic Beef Bone Broth.</p>
+                  <div class="quantity-container">
+                      <label for="quantityLarge">Quantity:</label>
+                      <input type="number" id="quantityLarge" name="quantity" min="1" value="1">
+                  </div>
+                  <button class="btn btn-primary buy-now" data-price-id="{{ .Params.pricelargelink }}" data-quantity-id="quantityLarge">Buy now</button>
+              </div>
+
+            
                 <ul>
                     <li>20g protein</li>
                     <li>10g collagen</li>
@@ -283,40 +292,10 @@
             </div>
     </div></div>
     <!-- Add html above -->
-    {{- partial "footer.html" . -}}
-    <script>
+    {{- partial "stripe.html" . -}}    
 
-      document.querySelectorAll('input[name="productSize"]').forEach(function(radio) {
-                  radio.addEventListener('change', function() {
-                      document.getElementById('productsmall').classList.toggle('hidden', this.value !== 'small');
-                      document.getElementById('productlarge').classList.toggle('hidden', this.value !== 'large');
-                  });
-              });
-          
-          document.addEventListener('DOMContentLoaded', function () {
-          const radioLabels = document.querySelectorAll('.radio-label');
-      
-          radioLabels.forEach(label => {
-              const input = label.querySelector('input');
-              const radioText = label.querySelector('.radio-text');
-      
-              // Apply initial state based on checked attribute
-              if (input.checked) {
-                  label.classList.add('checked');
-              }
-      
-              // Add event listener to update state on change
-              input.addEventListener('change', function () {
-                  if (input.checked) {
-                      radioLabels.forEach(l => l.classList.remove('checked'));
-                      label.classList.add('checked');
-                  }
-              });
-          });
-      });
-      
-          
-          </script>
+    {{- partial "footer.html" . -}}
+
 </body>
 </html>
 

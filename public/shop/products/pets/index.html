@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=52930&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <title>PrimeBroth | Pets bone broth - PrimeBroth</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link rel="apple-touch-icon" sizes="180x180" href='/apple-touch-icon.png'>
@@ -100,7 +100,7 @@
     </div>
     <nav class="flex items-center justify-between flex-wrap bg-opacity-100 p-2">
         <div class="flex items-center flex-shrink-0 text-xl text-grey-900 mr-6">
-            <a href="http://localhost:52930/"><img alt=""
+            <a href="http://localhost:1313/"><img alt=""
                     class="sitelogo mr-3" src="/img/logo/logo.webp"></a>
         </div>
         <div class="block lg:hidden">
@@ -161,7 +161,6 @@
             <div class="col-xs-12 col-lg-6 product-photos">
                 <img class="main-image" src="/img/bonebroth12.webp" alt="Main Product Image">            
                 <div class="product-images mob-hide">
-                    <img class="product-image" src="/img/bonebroth11.webp" alt="Thumbnail 1">
                     <img class="product-image" src="/img/bonebroth8.webp" alt="Thumbnail 3">
                     <img class="product-image" src="/img/pet1.webp" alt="Thumbnail 2">
                     <img class="product-image" src="/img/bonebroth5.webp" alt="Thumbnail 4">
@@ -175,22 +174,32 @@
                 <p>(21)</p>
                 <div class="radio-group">
                     <label class="radio-label">
-                        <input type="radio" name="productSize" value="small" checked>
+                        <input type="radio" name="productSize" value="small" data-image="/img/bonebroth12.webp" checked>
                         <span class="radio-text">1 Jar: 61c/serve</span>
                     </label>
                     <label class="radio-label">
-                        <input type="radio" name="productSize" value="large">
+                        <input type="radio" name="productSize" value="large" data-image="/img/bonebroth12.webp">
                         <span class="radio-text">5pk: 46c/serve</span>
                     </label>
                 </div>
 
                 <div id="productsmall" class="product-info">
-                    <p>$7.95</p>
-                    <a href="https://buy.stripe.com/bIYaGT1qY0tLgEg008" class="mt-0 btn btn-primary">Buy now</a>
+                    <p>$9.95</p>
+                    <p>12g of Powdered Organic Beef Bone Broth, makes up to 7 servings depending on the size of your pet.</p>
+                    <div class="quantity-container">
+                        <label for="quantitySmall">Quantity:</label>
+                        <input type="number" id="quantitySmall" name="quantity" min="1" value="1">
+                    </div>
+                    <button class="btn btn-primary buy-now" data-price-id="price_1PJLdGABkrUo6tgOb8SP8Haq" data-quantity-id="quantitySmall">Buy now</button>
                 </div>
                 <div id="productlarge" class="product-info hidden">
-                    <p>$29.95</p>
-                    <a href="https://buy.stripe.com/14k7uH0mUekB87KbIP" class="mt-0 bbtn btn-primary">Buy now</a>
+                    <p>$24.95</p>
+                    <p>50g of Powdered Organic Beef Bone Broth, makes up to 33 servings depending on the size of your pet.</p>
+                    <div class="quantity-container">
+                        <label for="quantityLarge">Quantity:</label>
+                        <input type="number" id="quantityLarge" name="quantity" min="1" value="1">
+                    </div>
+                    <button class="btn btn-primary buy-now" data-price-id="price_1P4rzrABkrUo6tgOmv6kST7n" data-quantity-id="quantityLarge">Buy now</button>
                 </div>
 
                 <p>400ml Frozen Organic Beef Bone Broth.</p>
@@ -271,51 +280,7 @@
             </div>
             <img class="col-lg-6 col" src="/img/pets7.webp">
         </div>
-        <div class="row peach d-none">
-            <h2>Recent Reviews from Pet Parents</h2>
-            <div class="reviews">
-                <div>
-                    <p class="strong">Sarah</p>
-                    <div>
-                        <img class="stars" src="/img/stars/4.webp" alt="review rating for pet bone broth product">
-                        <p>4 stars</p>
-                        <p>Easy to incorporate into my pet's daily routine.</p>
-                    </div>
-                </div>
-                <div>
-                    <p class="strong">John</p>
-                    <div>
-                        <img class="stars" src="/img/stars/5.webp" alt="review rating for pet bone broth product">
-                        <p>5 stars</p>
-                        <p>Love the convenience and the health benefits for my pet!</p>
-                    </div>
-                </div>
-                <div>
-                    <p class="strong">Jessica</p>
-                    <div>
-                        <img class="stars" src="/img/stars/4.webp" alt="review rating for pet bone broth product">
-                        <p>4 stars</p>
-                        <p>Great for my pet's digestion. It's gentle on their stomach and has helped ease occasional digestive discomfort. Plus, it's a convenient way to sneak in extra nutrients throughout the day. Will definitely repurchase!</p>
-                    </div>
-                </div>
-                <div>
-                    <p class="strong">Alex</p>
-                    <div>
-                        <img class="stars" src="/img/stars/5.webp" alt="review rating for pet bone broth product">
-                        <p>5 stars</p>
-                        <p>Highly recommended! Perfect for my pet's overall wellness. I've noticed a positive difference in their energy levels and coat health. I love how easy it is to incorporate into their diet. Definitely a must-have for pet parents!</p>
-                    </div>
-                </div>
-                <div>
-                    <p class="strong">David</p>
-                    <div>
-                        <img class="stars" src="/img/stars/4.webp" alt="review rating for pet bone broth product">
-                        <p>4 stars</p>
-                        <p>Helps my pet feel energized throughout the day. This bone broth is a staple in my pet's diet. I love knowing that I'm nourishing them with every serving. Definitely recommend giving it a try!</p>
-                    </div>
-                </div>
-            </div>
-        </div>        </div>
+        </div>
         <div class="row">
             <div>
                 <h2 class="text-center">Frequently Asked Questions</h2>
@@ -353,38 +318,84 @@
                 </div>
             </div>
     </div></div>
+    <script src="https://js.stripe.com/v3/"></script>
+
+<script>
+    document.querySelectorAll('input[name="productSize"]').forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            document.getElementById('productsmall').classList.toggle('hidden', this.value !== 'small');
+            document.getElementById('productlarge').classList.toggle('hidden', this.value !== 'large');
+        });
+    });
     
-    <script>
-        document.querySelectorAll('input[name="productSize"]').forEach(function(radio) {
-                    radio.addEventListener('change', function() {
-                        document.getElementById('productsmall').classList.toggle('hidden', this.value !== 'small');
-                        document.getElementById('productlarge').classList.toggle('hidden', this.value !== 'large');
-                    });
-                });
+    document.addEventListener('DOMContentLoaded', function () {
+        const radioLabels = document.querySelectorAll('.radio-label');
+        const mainImage = document.querySelector('.main-image');
+    
+        radioLabels.forEach(label => {
+            const input = label.querySelector('input');
+            const radioText = label.querySelector('.radio-text');
+    
             
-            document.addEventListener('DOMContentLoaded', function () {
-            const radioLabels = document.querySelectorAll('.radio-label');
-        
-            radioLabels.forEach(label => {
-                const input = label.querySelector('input');
-                const radioText = label.querySelector('.radio-text');
-        
-                
+            if (input.checked) {
+                label.classList.add('checked');
+                mainImage.src = input.getAttribute('data-image');
+            }
+    
+            
+            input.addEventListener('change', function () {
                 if (input.checked) {
+                    radioLabels.forEach(l => l.classList.remove('checked'));
                     label.classList.add('checked');
+                    mainImage.src = input.getAttribute('data-image');
                 }
-        
-                
-                input.addEventListener('change', function () {
-                    if (input.checked) {
-                        radioLabels.forEach(l => l.classList.remove('checked'));
-                        label.classList.add('checked');
-                    }
-                });
             });
         });
-        
-            
+    
+        const stripe = Stripe('pk_live_51Ot2iTABkrUo6tgOu44jd79tB4Dg2B64I6lucmLcKdxZfcy2Dy3bTnbxQNiwDtRfeWSwWx1WsDpC0h91tTlubPXW000IuWtQTX'); 
+    
+        function createCheckoutSession(priceId, quantity) {
+            return fetch('/.netlify/functions/create-checkout-session', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    priceId: priceId,
+                    quantity: quantity
+                })
+            }).then(function (response) {
+                return response.json();
+            }).catch(function (error) {
+                console.error('Error fetching checkout session:', error);
+                throw error;
+            });
+        }
+    
+        function handleCheckout(priceId, quantity) {
+            createCheckoutSession(priceId, quantity).then(function (data) {
+                if (data.sessionId) {
+                    return stripe.redirectToCheckout({ sessionId: data.sessionId });
+                } else {
+                    console.error('No sessionId returned:', data);
+                    alert('Failed to create checkout session. Please try again.');
+                }
+            }).catch(function (error) {
+                console.error('Error creating checkout session:', error);
+                alert('Failed to create checkout session. Please try again.');
+            });
+        }
+    
+        document.querySelectorAll('.buy-now').forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const priceId = button.getAttribute('data-price-id');
+                const quantityId = button.getAttribute('data-quantity-id');
+                const quantity = document.getElementById(quantityId).value;
+                handleCheckout(priceId, quantity);
+            });
+        });
+    });
     </script>
 <footer class="bg-tlgray-100">
   <script src='/js/custom.js'></script>
