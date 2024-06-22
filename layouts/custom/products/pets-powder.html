@@ -48,11 +48,11 @@
                     <p>(18)</p>
                     <div class="radio-group">
                         <label class="radio-label">
-                            <input type="radio" name="productSize" value="small" checked>
+                            <input type="radio" name="productSize" value="small" data-image="/img/12front.webp" checked>
                             <span class="radio-text">12g: $1.25/serve</span>
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="productSize" value="large">
+                            <input type="radio" name="productSize" value="large" data-image="/img/50front.webp">
                             <span class="radio-text">50g: 75c/serve</span>
                         </label>
                     </div>
@@ -61,13 +61,23 @@
                     <div id="productsmall" class="product-info">
                         <p>$9.95</p>
                         <p>12g of Powdered Organic Beef Bone Broth, makes up to 7 servings depending on the size of your pet.</p>
-                        <a href="https://buy.stripe.com/28o02fd9G6S973G7sF" class="btn btn-primary" onclick="return gtag_report_conversion('https://buy.stripe.com/28o02fd9G6S973G7sF');">Buy now</a>
+                        <div class="quantity-container">
+                            <label for="quantitySmall">Quantity:</label>
+                            <input type="number" id="quantitySmall" name="quantity" min="1" value="1">
+                        </div>
+                        <button class="btn btn-primary" id="buyNowSmall">Buy now</button>
                     </div>
                     <div id="productlarge" class="product-info hidden">
                         <p>$24.95</p>
                         <p>50g of Powdered Organic Beef Bone Broth, makes up to 33 servings depending on the size of your pet.</p>
-                        <a href="https://buy.stripe.com/cN26qD8Tq90hew828k" class="btn btn-primary" onclick="return gtag_report_conversion('https://buy.stripe.com/cN26qD8Tq90hew828k');">Buy now</a>
+                        <div class="quantity-container">
+                            <label for="quantityLarge">Quantity:</label>
+                            <input type="number" id="quantityLarge" name="quantity" min="1" value="1">
+                        </div>
+                        <button class="btn btn-primary" id="buyNowLarge">Buy now</button>
                     </div>
+                    
+                    
                     <div class="mt-4">
                         <p>Powdered Organic Beef Bone Broth.</p>
                         <p>Struggle to get your pet to eat their kibble? Sick of paying ridiculous prices for expensive meat just to get them to eat? We were too, that's why we made PrimeBroth for pets.</p>
@@ -250,39 +260,89 @@
             </div>
     </div></div>
     <!-- Add html above -->
-    <script>
+    <script src="https://js.stripe.com/v3/"></script>
 
-document.querySelectorAll('input[name="productSize"]').forEach(function(radio) {
+    <script>
+        document.querySelectorAll('input[name="productSize"]').forEach(function(radio) {
             radio.addEventListener('change', function() {
                 document.getElementById('productsmall').classList.toggle('hidden', this.value !== 'small');
                 document.getElementById('productlarge').classList.toggle('hidden', this.value !== 'large');
             });
         });
-    
-    document.addEventListener('DOMContentLoaded', function () {
-    const radioLabels = document.querySelectorAll('.radio-label');
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            const radioLabels = document.querySelectorAll('.radio-label');
+            const mainImage = document.querySelector('.main-image');
 
-    radioLabels.forEach(label => {
-        const input = label.querySelector('input');
-        const radioText = label.querySelector('.radio-text');
+        
+            radioLabels.forEach(label => {
+                const input = label.querySelector('input');
+                const radioText = label.querySelector('.radio-text');
+        
+                // Apply initial state based on checked attribute
+                if (input.checked) {
+                    label.classList.add('checked');
+                    mainImage.src = input.getAttribute('data-image');
 
-        // Apply initial state based on checked attribute
-        if (input.checked) {
-            label.classList.add('checked');
-        }
+                }
+        
+                // Add event listener to update state on change
+                input.addEventListener('change', function () {
+                    if (input.checked) {
+                        radioLabels.forEach(l => l.classList.remove('checked'));
+                        label.classList.add('checked');
+                        mainImage.src = input.getAttribute('data-image');
 
-        // Add event listener to update state on change
-        input.addEventListener('change', function () {
-            if (input.checked) {
-                radioLabels.forEach(l => l.classList.remove('checked'));
-                label.classList.add('checked');
+                    }
+                });
+            });
+        
+            const stripe = Stripe('pk_live_51Ot2iTABkrUo6tgOu44jd79tB4Dg2B64I6lucmLcKdxZfcy2Dy3bTnbxQNiwDtRfeWSwWx1WsDpC0h91tTlubPXW000IuWtQTX'); // Replace with your actual publishable key
+        
+            const buyNowSmall = document.getElementById('buyNowSmall');
+            const buyNowLarge = document.getElementById('buyNowLarge');
+            const quantitySmallInput = document.getElementById('quantitySmall');
+            const quantityLargeInput = document.getElementById('quantityLarge');
+        
+            function createCheckoutSession(priceId, quantity) {
+                return fetch('/.netlify/functions/create-checkout-session', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        priceId: priceId,
+                        quantity: quantity
+                    })
+                }).then(function (response) {
+                    return response.json();
+                });
             }
+        
+            function handleCheckout(priceId, quantity) {
+                createCheckoutSession(priceId, quantity).then(function (data) {
+                    return stripe.redirectToCheckout({ sessionId: data.sessionId });
+                }).then(function (result) {
+                    if (result.error) {
+                        alert(result.error.message);
+                    }
+                });
+            }
+        
+            buyNowSmall.addEventListener('click', function (e) {
+                e.preventDefault();
+                const quantity = quantitySmallInput.value;
+                handleCheckout('price_1PMH0hABkrUo6tgOW2Vmsgne', quantity); // Replace with your actual small product price ID
+            });
+        
+            buyNowLarge.addEventListener('click', function (e) {
+                e.preventDefault();
+                const quantity = quantityLargeInput.value;
+                handleCheckout('price_1PMGzSABkrUo6tgORH5WQWOV', quantity); // Replace with your actual large product price ID
+            });
         });
-    });
-});
-
-    
-    </script>
+        </script>
+        
     {{- partial "footer.html" . -}}
 </body>
 </html>
