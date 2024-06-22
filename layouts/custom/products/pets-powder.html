@@ -65,7 +65,7 @@
                             <label for="quantitySmall">Quantity:</label>
                             <input type="number" id="quantitySmall" name="quantity" min="1" value="1">
                         </div>
-                        <button class="btn btn-primary" id="buyNowSmall">Buy now</button>
+                        <button class="btn btn-primary buy-now" data-price-id="price_1PMH0hABkrUo6tgOW2Vmsgne" data-quantity-id="quantitySmall">Buy now</button>
                     </div>
                     <div id="productlarge" class="product-info hidden">
                         <p>$24.95</p>
@@ -74,8 +74,9 @@
                             <label for="quantityLarge">Quantity:</label>
                             <input type="number" id="quantityLarge" name="quantity" min="1" value="1">
                         </div>
-                        <button class="btn btn-primary" id="buyNowLarge">Buy now</button>
+                        <button class="btn btn-primary buy-now" data-price-id="price_1PMGzSABkrUo6tgORH5WQWOV" data-quantity-id="quantityLarge">Buy now</button>
                     </div>
+                    
                     
                     
                     <div class="mt-4">
@@ -296,11 +297,6 @@
         
             const stripe = Stripe('pk_live_51Ot2iTABkrUo6tgOu44jd79tB4Dg2B64I6lucmLcKdxZfcy2Dy3bTnbxQNiwDtRfeWSwWx1WsDpC0h91tTlubPXW000IuWtQTX'); // Replace with your actual publishable key
         
-            const buyNowSmall = document.getElementById('buyNowSmall');
-            const buyNowLarge = document.getElementById('buyNowLarge');
-            const quantitySmallInput = document.getElementById('quantitySmall');
-            const quantityLargeInput = document.getElementById('quantityLarge');
-        
             function createCheckoutSession(priceId, quantity) {
                 return fetch('/.netlify/functions/create-checkout-session', {
                     method: 'POST',
@@ -333,19 +329,18 @@
                 });
             }
         
-            buyNowSmall.addEventListener('click', function (e) {
-                e.preventDefault();
-                const quantity = quantitySmallInput.value;
-                handleCheckout('price_1PMH0hABkrUo6tgOW2Vmsgne', quantity); // Replace with your actual small product price ID
-            });
-        
-            buyNowLarge.addEventListener('click', function (e) {
-                e.preventDefault();
-                const quantity = quantityLargeInput.value;
-                handleCheckout('price_1PMGzSABkrUo6tgORH5WQWOV', quantity); // Replace with your actual large product price ID
+            document.querySelectorAll('.buy-now').forEach(function(button) {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const priceId = button.getAttribute('data-price-id');
+                    const quantityId = button.getAttribute('data-quantity-id');
+                    const quantity = document.getElementById(quantityId).value;
+                    handleCheckout(priceId, quantity);
+                });
             });
         });
         </script>
+        
         
 
 
