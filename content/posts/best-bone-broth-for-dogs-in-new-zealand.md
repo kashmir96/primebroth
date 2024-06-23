@@ -1,7 +1,10 @@
 ---
 title: "Best Bone Broth For Dogs in New Zealand (2024)"
 image: "/img/frosty.webp"
+date: 2024-05-22T13:48:01+13:00
+
 ---
+<img src="/img/frosty.webp" alt="">
 
 Bone broth is excellent not only for humans but also for pets. It can be used as a meal topper or on its own to replace boring and nutrition-less water. Dogs love their kibble when soaked in the bone broth. Generally, New Zealand has only a few bone broth makers who also provide bone broth for our furry friends, we covered them all here.
 

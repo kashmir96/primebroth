@@ -8,6 +8,7 @@ cover:
 date: 2024-03-22T13:48:01+13:00
 
 ---
+<img src="/img/1.webp" alt="Benefits of Bone Broth for Pets image">
 
 
 ## Ingredients:

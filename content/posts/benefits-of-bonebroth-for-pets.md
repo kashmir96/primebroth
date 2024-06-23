@@ -1,10 +1,9 @@
 ---
 title: "Benefits of Bone Broth for Pets"
 image: "/img/bonebroth3.webp"
+date: 2024-06-22T13:48:01+13:00
 ---
-
-# Benefits of Bone Broth for Pets
-
+<img src="/img/bonebroth3.webp" alt="Benefits of Bone Broth for Pets image">
 Bone broth is a stock or broth made by simmering animal bones, such as cattle, chicken, or lamb. The bones are slow-cooked with water for hours to extract nourishing compounds like collagen and essential amino acids that are not found in usual pet food or home-cooked food.
 
 Bone broth is often used as a cooking component; however, many people prefer to drink it on its own. For pets, it can be added to their food or used on its own. Bone broth can be confused with stock, which is a different product. Generally, bone broth is simmered for a more extended period (12 - 48 hours), and it includes bones. Stock is usually cooked for 4 - 6 hours, and it mainly contains meat. Hence, it’s also more nutritious as everything was extracted during the prolonged cooking. 
@@ -27,7 +26,7 @@ Bone broth has many health benefits both for humans and pets; below are some key
 
 - **Improved Appetite:** For pets that are picky eaters or have a reduced appetite due to illness or stress, bone broth can be an appealing addition to their diet. Its rich flavor can stimulate appetite and encourage eating.
 
-Keep in mind that human bone broth isn’t a good solution for pets as it contains high amounts of sodium. It’s always better to purchase a pet’s bone broth from a trusted brand such as <a href="/shop">PrimeBroth</a> or make it yourself. 
+Keep in mind that human bone broth isn’t a good solution for pets as it contains high amounts of sodium. It’s always better to purchase a pet’s bone broth from a trusted brand such as <a class="bluelink" href="/shop">PrimeBroth</a> or make it yourself. 
 
 ## Conclusion
 

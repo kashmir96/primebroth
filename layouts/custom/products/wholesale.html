@@ -51,10 +51,28 @@
             padding: 10px 20px;
             cursor: pointer;
         }
+        .back-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1001; /* Ensure it is above other elements */
+}
+
+.back-button:hover {
+    background-color: #f0f0f0;
+}
+
     </style>
 </head>
 <body>
     <div id="passwordOverlay" class="overlay">
+        <a href="/" class="back-button">Back to Primebroth Website</a>
         <form id="passwordForm">
             <img src="/img/logo/logo.webp" alt="Primebroth Image">
             <h2>Buy wholesale bone broth.</h2>
@@ -81,7 +99,7 @@
 
         <div class="container">
             <div class="row topbanner rel">
-                {{- partial "powderimages.html" . -}}
+                            {{- partial "powderimages.html" . -}}
 
                     <div class="col-xs-12 col-lg-6">
                         <h1>Bone Broth Meal Topper for Pets (Powder)</h1>
