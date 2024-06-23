@@ -400,21 +400,21 @@
             document.getElementById('productlarge').classList.toggle('hidden', this.value !== 'large');
         });
     });
-    
+
     document.addEventListener('DOMContentLoaded', function () {
         const radioLabels = document.querySelectorAll('.radio-label');
         const mainImage = document.querySelector('.main-image');
-    
+
         radioLabels.forEach(label => {
             const input = label.querySelector('input');
             const radioText = label.querySelector('.radio-text');
-    
+
             
             if (input.checked) {
                 label.classList.add('checked');
                 mainImage.src = input.getAttribute('data-image');
             }
-    
+
             
             input.addEventListener('change', function () {
                 if (input.checked) {
@@ -424,9 +424,9 @@
                 }
             });
         });
-    
+
         const stripe = Stripe('pk_live_51Ot2iTABkrUo6tgOu44jd79tB4Dg2B64I6lucmLcKdxZfcy2Dy3bTnbxQNiwDtRfeWSwWx1WsDpC0h91tTlubPXW000IuWtQTX'); 
-    
+
         function createCheckoutSession(priceId, quantity) {
             return fetch('/.netlify/functions/create-checkout-session', {
                 method: 'POST',
@@ -444,7 +444,7 @@
                 throw error;
             });
         }
-    
+
         function handleCheckout(priceId, quantity) {
             createCheckoutSession(priceId, quantity).then(function (data) {
                 if (data.sessionId) {
@@ -458,7 +458,7 @@
                 alert('Failed to create checkout session. Please try again.');
             });
         }
-    
+
         document.querySelectorAll('.buy-now').forEach(function(button) {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -469,7 +469,8 @@
             });
         });
     });
-    </script>
+</script>
+
 <footer class="bg-tlgray-100">
   <script src='/js/custom.js'></script>
 

@@ -11,10 +11,7 @@ exports.handler = async (event, context) => {
       },
       shipping_options: [
         {
-          shipping_rate: 'shr_1PQLi6ABkrUo6tgOVvuhQIwW', // Replace with your actual shipping rate ID
-        },
-        {
-          shipping_rate: 'shr_1POE5UABkrUo6tgOIVXstIV5', // Replace with another shipping rate ID if you have multiple options
+          shipping_rate: 'shr_1PUjSCABkrUo6tgOZWabRm6S', // Replace with your actual shipping rate ID
         },
       ],
       line_items: [
@@ -24,6 +21,7 @@ exports.handler = async (event, context) => {
         },
       ],
       mode: 'payment',
+      allow_promotion_codes: true, // Enable entering promotion codes at checkout
       success_url: 'https://www.primebroth.co.nz/pages/thank-you',
       cancel_url: 'https://www.primebroth.co.nz/shop',
     });
