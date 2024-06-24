@@ -1,18 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-    <title>Redirecting...</title>
-    <!-- Load the Fathom Analytics script synchronously -->
-    <script type="text/javascript" src="https://cdn.usefathom.com/script.js" site="SUFMJROW" defer></script>
-    <script type="text/javascript">
-        // Delay the redirect to ensure the analytics script runs
-        setTimeout(function() {
-            window.location.href = "https://g.page/r/CTwv-rP1l4c6EBM/review";
-        }, 1000); // 2-second delay to ensure the hit is sent
-    </script>
-    <meta http-equiv="refresh" content="2; url=https://g.page/r/CTwv-rP1l4c6EBM/review" />
+    {{- partial "head.html" . -}}
+    <meta name="description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta property="og:title" content="{{ .Site.Params.homepage_meta_tags.meta_og_title }}" />
+    <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
+    <meta property="og:url" content="{{ .Site.Params.homepage_meta_tags.meta_og_url }}" />
+    <meta property="og:image" content="{{ .Site.Params.homepage_meta_tags.meta_og_image }}" />
+    <meta property="og:description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
+    <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
+    <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 </head>
 <body>
-    <p>If you are not redirected automatically, follow this <a href="https://g.page/r/CTwv-rP1l4c6EBM/review">link to the form</a>.</p>
+    {{- partial "alert.html" . -}}
+    
+    {{- partial "header.html" . -}}
+    <div class="scroll-top rounded-full">
+        <span class="icon-keyboard_arrow_up text-2xl"></span>
+    </div>
+    {{- partial "slide.html" . -}}
+    {{- partial "strip.html" . -}}
+    <!-- Add html below -->
+
+    <div class="container" >
+        <div style="margin-bottom: 0px; height:500px;" class="row max-width peach shopsection"> 
+            <h1 class="text-center">Thank you.  Your feedback is very important to us.</h1>
+            <p  class="text-center">If you have a few seconds to spare it would be greatly appreciated if you could share your thoughts with other customers.</p>               
+            <a style="height:50px; margin: 0px auto;" href="https://g.page/r/CTwv-rP1l4c6EBM/review" class="btn btn-primary">Leave a review</a>
+   
+
+        </div>
+    </div>
+    <!-- Add html above -->
+    {{- partial "footer.html" . -}}
 </body>
 </html>
+
