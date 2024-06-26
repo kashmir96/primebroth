@@ -49,6 +49,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=667c998f7bead90019480329&product=inline-share-buttons&source=platform" async="async"></script>
+
 </head>
 <body><div class="announcement full-width black text-center">
         <ul>
@@ -185,7 +187,8 @@
 </div>
 
     <div class="container">
-        <div class="row topbanner rel"><div class="col-xs-12 col-lg-6 product-photos">
+        <div class="row topbanner rel">
+            <div class="col-xs-12 col-lg-6 product-photos">
     <img class="main-image"  src="/img/12front.webp" alt="Main Product Image">            
     <div class="product-images mob-hide">
         <img class="product-image" src="/img/bonebroth7.webp" alt="Thumbnail 1">
@@ -193,7 +196,8 @@
         <img class="product-image" src="/img/50top.webp" alt="Thumbnail 2">
         <img class="product-image" src="/img/bonebroth5.webp" alt="Thumbnail 4">
         
-    </div></div><div class="col-xs-12 col-lg-6">
+    </div></div>
+                <div class="col-xs-12 col-lg-6">
                     <h1>Bone Broth Meal Topper for Pets - SPCA</h1>
                     <h5>Pets go from picky to piggy with just a dash in their kibble.</h5>
                     <img class="stars" src="/img/stars/5.webp" alt="review rating for bone broth product">
@@ -217,7 +221,7 @@
                             <label for="quantitySmall">Quantity:</label>
                             <input type="number" id="quantitySmall" name="quantity" min="1" value="1">
                         </div>
-                        <button class="btn btn-primary buy-now" data-price-id="price_1PTy64ABkrUo6tgOxgLVoSuK" data-quantity-id="quantitySmall">Buy now</button>
+                        <button class="btn btn-primary buy-now" onclick="storePgurlAndRedirect('', 'price_1PTy64ABkrUo6tgOxgLVoSuK', 'quantitySmall')">Buy now</button>
                     </div>
                     <div id="productlarge" class="product-info hidden">
                         <p>$24.95</p>
@@ -226,7 +230,7 @@
                             <label for="quantityLarge">Quantity:</label>
                             <input type="number" id="quantityLarge" name="quantity" min="1" value="1">
                         </div>
-                        <button class="btn btn-primary buy-now" data-price-id="price_1PTy8pABkrUo6tgOjIolXSbv" data-quantity-id="quantityLarge">Buy now</button>
+                        <button class="btn btn-primary buy-now" onclick="storePgurlAndRedirect('', 'price_1PTy8pABkrUo6tgOjIolXSbv', 'quantityLarge')">Buy now</button>
                     </div>
                     <div class="mt-4">
                         <p>Powdered Organic Beef Bone Broth.</p>
@@ -489,6 +493,19 @@
     });
 </script>
 
+    <script>
+        function storePgurlAndRedirect(pgurl, priceId, quantityId) {
+          
+          localStorage.setItem('pgurl', pgurl);
+      
+          
+          const quantity = document.getElementById(quantityId).value;
+      
+          
+          const stripeUrl = `https://checkout.stripe.com/pay/${priceId}?quantity=${quantity}`;
+          window.location.href = stripeUrl;
+        }
+      </script>
 <footer class="bg-tlgray-100">
   <script src='/js/custom.js'></script>
 
