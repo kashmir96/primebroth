@@ -14,12 +14,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
-
+    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=667c998f7bead90019480329&product=inline-share-buttons&source=platform" async="async"></script>
     <script>
         window.addEventListener('load', (event) => {
           fathom.trackEvent('checkout completed');
         });
-        </script>
+    </script>
 </head>
 <body>
     {{- partial "alert.html" . -}}
@@ -42,7 +42,26 @@
                 <p>If you have any questions or queries about your order, get in touch with hello@primebroth.co.nz and we will help you out! </p>
             </div>
         </div>
+        <div id="shareThisContainer"></div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const pgurl = localStorage.getItem('pgurl');
+            if (pgurl) {
+                const shareThisButton = document.createElement('div');
+                shareThisButton.className = 'sharethis-inline-share-buttons';
+                shareThisButton.setAttribute('data-url', `https://www.primebroth.co.nz/${pgurl}`);
+                document.getElementById('shareThisContainer').appendChild(shareThisButton);
+
+                // Initialize ShareThis buttons
+                window.__sharethis__.load('inline-share-buttons', {
+                    alignment: 'center',
+                    id: 'sharethis-inline-share-buttons',
+                    url: `https://www.primebroth.co.nz/${pgurl}`
+                });
+            }
+        });
+    </script>
     <!-- Add html above -->
     {{- partial "footer.html" . -}}
 </body>

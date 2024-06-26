@@ -255,7 +255,13 @@
     </div></div>
     <!-- Add html above -->
     {{- partial "stripe.html" . -}}    
-      
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const pgurl = '{{ .Params.pgurl }}';
+            localStorage.setItem('pgurl', pgurl);
+        });
+    </script>
+    
     {{- partial "footer.html" . -}}
 </body>
 </html>
