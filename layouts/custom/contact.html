@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    {{- partial "head.html" . -}}
+    <meta name="description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta property="og:title" content="{{ .Site.Params.homepage_meta_tags.meta_og_title }}" />
+    <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
+    <meta property="og:url" content="{{ .Site.Params.homepage_meta_tags.meta_og_url }}" />
+    <meta property="og:image" content="{{ .Site.Params.homepage_meta_tags.meta_og_image }}" />
+    <meta property="og:description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
+    <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
+    <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+</head>
+<body>
+    {{- partial "alert.html" . -}}
+    
+    {{- partial "header.html" . -}}
+    <div class="scroll-top rounded-full">
+        <span class="icon-keyboard_arrow_up text-2xl"></span>
+    </div>
+    {{- partial "slide.html" . -}}
+    {{- partial "strip.html" . -}}
+    <!-- Add html below -->
+
+    <div class="container">
+        <div style="margin-bottom: 0px;" class="row max-width peach shopsection"> 
+            <h1 class="text-center">Contact us</h1>
+            <p  class="text-center">Flick us a message and we'll be in touch asap.</p>               
+            
+
+            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" 
+            onload="if(submitted) {alert('Thanks for your submission, we\'ll be in touch soon.');}"></iframe>
+            
+            <div class="custom-form">
+                <form action="https://docs.google.com/forms/d/e/1FAIpQLSfCz2NvYjIjth9rGYWWCvfwpNBWUEP6GFuIsFWJjbhPFOVZnA/formResponse" 
+                        method="post" target="hidden_iframe" onsubmit="return validateForm();">
+                    <label>Name*</label>
+                    <input type="text" placeholder="Your Name" class="form-input" name="entry.1326402305" required>
+                    
+                    <label>Email*</label>
+                    <input type="email" placeholder="your@email.com" class="form-input" name="entry.1203864932" required>
+                    
+                    <label>Message*</label>
+                    <textarea rows="5" placeholder="Enter Message" class="form-input" name="entry.1145877639" required></textarea>
+                
+                    <label>Are you a robot? What's 5+1?*</label>
+                    <input type="text" id="specialField" placeholder="Answer correctly to submit" class="form-input" required>
+                    
+                    <button class="btn btn-primary" type="submit">Send</button>
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- Add html above -->
+    <script type="text/javascript">
+        var submitted = false;
+    
+        function validateForm() {
+            var inputField = document.getElementById('specialField');
+            if (inputField.value == '6') {
+                submitted = true;
+                return true;
+            } else {
+                alert('Please enter the correct number in the robot detection field.');
+                return false;
+            }
+        }
+    </script>
+    {{- partial "footer.html" . -}}
+</body>
+</html>
+
