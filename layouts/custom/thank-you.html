@@ -19,19 +19,7 @@
         window.addEventListener('load', (event) => {
           fathom.trackEvent('checkout completed');
         });
-
-        // On document ready, check for pgurl in local storage and display ShareThis if it exists
-        document.addEventListener('DOMContentLoaded', function() {
-            let pgurl = localStorage.getItem('pgurl');
-            if (pgurl) {
-                document.getElementById('share-container').style.display = 'block';
-                // Clear pgurl from local storage if you don't need it anymore
-                localStorage.removeItem('pgurl');
-            }
-        });
-    </script>
-    <!-- ShareThis script -->
-    <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=YOUR_PROPERTY_KEY&product=inline-share-buttons' async='async'></script>
+        </script>
 </head>
 <body>
     {{- partial "alert.html" . -}}
@@ -52,10 +40,6 @@
                 <p>Thanks for your order of Primebroth!</p>
                 <p>We will process your order and have it shipped within 1-2 business days. Keep an eye on your inbox, we'll let you know when your broth is on the way! </p>
                 <p>If you have any questions or queries about your order, get in touch with hello@primebroth.co.nz and we will help you out! </p>
-                <!-- ShareThis button container -->
-                <div id="share-container" style="display: none;">
-                    <div class="sharethis-inline-share-buttons"></div>
-                </div>
             </div>
         </div>
     </div>

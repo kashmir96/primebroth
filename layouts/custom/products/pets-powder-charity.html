@@ -254,22 +254,7 @@
             </div>
     </div></div>
     <!-- Add html above -->
-    {{- partial "stripe.html" . -}}   
-    
-    <!-- script to populate thank you -->
-    <script>
-        function storePgurlAndRedirect(pgurl, priceId, quantityId) {
-          // Store pgurl in local storage
-          localStorage.setItem('pgurl', pgurl);
-      
-          // Get the quantity value
-          const quantity = document.getElementById(quantityId).value;
-      
-          // Redirect to Stripe checkout URL with the appropriate price and quantity
-          const stripeUrl = `https://checkout.stripe.com/pay/${priceId}?quantity=${quantity}`;
-          window.location.href = stripeUrl;
-        }
-      </script>
+    {{- partial "stripe.html" . -}}    
       
     {{- partial "footer.html" . -}}
 </body>

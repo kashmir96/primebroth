@@ -493,19 +493,6 @@
     });
 </script>
 
-    <script>
-        function storePgurlAndRedirect(pgurl, priceId, quantityId) {
-          
-          localStorage.setItem('pgurl', pgurl);
-      
-          
-          const quantity = document.getElementById(quantityId).value;
-      
-          
-          const stripeUrl = `https://checkout.stripe.com/pay/${priceId}?quantity=${quantity}`;
-          window.location.href = stripeUrl;
-        }
-      </script>
 <footer class="bg-tlgray-100">
   <script src='/js/custom.js'></script>
 
