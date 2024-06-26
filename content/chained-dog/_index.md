@@ -4,6 +4,7 @@ description: "Pets bone broth powder PrimeBroth, NZ's animal based wellness drin
 type: custom
 layout: products/pets-powder-charity
 charity: Chained Dog
+pgurl: chained-dog
 pricesmalllink: price_1PSxFYABkrUo6tgOcSZVm1qo
 pricelargelink: price_1PSxJ3ABkrUo6tgOXuMscIhu
 ---

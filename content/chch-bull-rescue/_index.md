@@ -4,6 +4,7 @@ description: "Pets bone broth powder PrimeBroth, NZ's animal based wellness drin
 type: custom
 layout: products/pets-powder-charity
 charity: Chch Bull Rescue
+pgurl: chch-bull-rescue
 pricesmalllink: price_1PQLg4ABkrUo6tgO80ymqhdb
 pricelargelink: price_1PQLnfABkrUo6tgOdvpvGfvN
 ---

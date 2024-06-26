@@ -4,6 +4,7 @@ description: "Pets bone broth PrimeBroth, NZ's animal based wellness drink for p
 type: custom
 layout: products/pets-powder-charity
 charity: SPCA
+pgurl: spca
 pricesmalllink: price_1PTy64ABkrUo6tgOxgLVoSuK
 pricelargelink: price_1PTy8pABkrUo6tgOjIolXSbv
 ---

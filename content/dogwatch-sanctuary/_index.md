@@ -4,6 +4,7 @@ description: "Pets bone broth powder PrimeBroth, NZ's animal based wellness drin
 type: custom
 layout: products/pets-powder-charity
 charity: Dogwatch Sanctuary
+pgurl: dogwatch-sanctuary
 pricesmalllink: price_1PSxENABkrUo6tgOgHpAFxFW
 pricelargelink: price_1PSxIPABkrUo6tgOYeynNWIh
 ---

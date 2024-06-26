@@ -4,6 +4,7 @@ description: "Pets bone broth powder PrimeBroth, NZ's animal based wellness drin
 type: custom
 layout: products/pets-powder-charity
 charity: Rottie Rescue
+pgurl: rottie-rescue
 pricesmalllink: price_1PU2ReABkrUo6tgOHGa03VrB
 pricelargelink: price_1PU2R8ABkrUo6tgOyoABpnao
 ---

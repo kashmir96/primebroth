@@ -4,6 +4,7 @@ description: "Pets bone broth powder PrimeBroth, NZ's animal based wellness drin
 type: custom
 layout: products/pets-powder-charity
 charity: Cats Protection Christchurch
+pgurl: cats-protection-christchurch
 pricesmalllink: price_1PU2Q5ABkrUo6tgOfcBmfI9C
 pricelargelink: price_1PU2QaABkrUo6tgO7i6ii9by
 charitylogo: /img/cpl.webp
