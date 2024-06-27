@@ -258,9 +258,15 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const pgurl = '{{ .Params.pgurl }}';
+            const charity = '{{ .Params.charity }}';
             localStorage.setItem('pgurl', pgurl);
+            localStorage.setItem('charity', charity);
+            console.log('pgurl stored:', pgurl);  // Debugging line
+            console.log('charity stored:', charity);  // Debugging line
         });
     </script>
+    
+    
     
     {{- partial "footer.html" . -}}
 </body>
