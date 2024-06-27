@@ -2388,12 +2388,7 @@ video {
 
 /* Curtis CSS Main */
 
-/* mobile or smaller */
-@media screen and (max-width: 581px) {
-  .mob-hide {
-    display:none !important;
-  }
-}
+
 
 /* tablet or smaller */
 @media screen and (max-width: 700px) {
@@ -3023,8 +3018,7 @@ nav.p-8 {
 
 .product-card { 
   background-color: rgb(255 255 255 / 0.85);
-  overflow: hidden; /* Ensure the overlay doesn't extend beyond the div */
-height:500px;
+min-height:500px;
 align-content: center;
 border: .5px solid lightgray;
 }
@@ -3482,7 +3476,7 @@ nav {
 
 #shareThisContainer {
   padding: 20px 20px 40px;
-  width:50%;
+  width:80%;
   margin: 50px auto;
   border: 1px solid lightgray;
   border-radius: 5px;
@@ -3501,4 +3495,16 @@ nav {
   display: flex;
   justify-content: center;
   margin-top: 20px;
+}
+
+
+/* mobile or smaller */
+@media screen and (max-width: 581px) {
+  .mob-hide {
+    display:none !important;
+  }
+
+  #shareThisContainer {
+    width:90%;
+  }
 }
