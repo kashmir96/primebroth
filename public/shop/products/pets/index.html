@@ -347,7 +347,14 @@
                 </div>
             </div>
     </div></div>
-    <script src="https://js.stripe.com/v3/"></script>
+    
+      
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            localStorage.removeItem('pgurl');
+            localStorage.removeItem('charity');
+        });
+    </script><script src="https://js.stripe.com/v3/"></script>
 
 <script>
     document.querySelectorAll('input[name="productSize"]').forEach(function(radio) {

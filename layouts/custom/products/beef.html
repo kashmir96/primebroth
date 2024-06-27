@@ -291,6 +291,13 @@
             </div>
     </div></div>
     <!-- Add html above -->
+      <!-- not charity clearing thank you url/charity param -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            localStorage.removeItem('pgurl');
+            localStorage.removeItem('charity');
+        });
+    </script>
     {{- partial "stripe.html" . -}}    
     {{- partial "footer.html" . -}}
 </body>
