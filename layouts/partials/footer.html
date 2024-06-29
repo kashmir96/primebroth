@@ -54,6 +54,19 @@
       document.documentElement.scrollTop = 0;
     });
   </script>
+
+<!-- Fathom -->
+<script>
+  window.addEventListener('load', (event) => {
+    document.querySelectorAll('buy-now').forEach(item => {
+      item.addEventListener('click', event => {
+        fathom.trackEvent('initiate checkout');
+      });
+    });
+  });
+  </script>
+
+
   {{ if .Site.Params.googleFonts }}
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Open+Sans&display=swap" rel="stylesheet" />
   {{ else }}

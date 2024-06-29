@@ -543,6 +543,19 @@
       document.documentElement.scrollTop = 0;
     });
   </script>
+
+
+<script>
+  window.addEventListener('load', (event) => {
+    document.querySelectorAll('buy-now').forEach(item => {
+      item.addEventListener('click', event => {
+        fathom.trackEvent('initiate checkout');
+      });
+    });
+  });
+  </script>
+
+
   
   <link href='/css/webfonts.min.css' rel="stylesheet" />
   
