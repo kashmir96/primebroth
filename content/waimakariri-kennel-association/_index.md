@@ -6,7 +6,8 @@ layout: products/pets-powder-charity
 charity: Waimakiriri Kennel Association
 pgurl: waimakariri-kennel-association
 pricesmalllink: price_1PU2PDABkrUo6tgOkl4wwr0H
-pricelargelink: price_1PU2N8ABkrUo6tgOGlSndcMI
+pricemediumlink: price_1PU2N8ABkrUo6tgOGlSndcMI
+pricelargelink: price_1PWvpxABkrUo6tgOhqjro63e
 ---
 
 

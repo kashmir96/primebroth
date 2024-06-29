@@ -6,7 +6,8 @@ layout: products/pets-powder-charity
 charity: Dogwatch Sanctuary
 pgurl: dogwatch-sanctuary
 pricesmalllink: price_1PSxENABkrUo6tgOgHpAFxFW
-pricelargelink: price_1PSxIPABkrUo6tgOYeynNWIh
+pricemediumlink: price_1PSxIPABkrUo6tgOYeynNWIh
+pricelargelink: price_1PWvsYABkrUo6tgOhygP3Lzk
 ---
 
 

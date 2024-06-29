@@ -6,7 +6,8 @@ layout: products/pets-powder-charity
 charity: Pet Refuge New Zealand
 pgurl: pet-refuge-new-zealand
 pricesmalllink: price_1PSxGwABkrUo6tgO3hjq7KG0
-pricelargelink: price_1PSxKWABkrUo6tgOq9DayI57
+pricemediumlink: price_1PSxKWABkrUo6tgOq9DayI57
+pricelargelink: price_1PWvrGABkrUo6tgOPIU5k7HN
 ---
 
 

@@ -6,7 +6,8 @@ layout: products/pets-powder-charity
 charity: Chihuahua Rescue
 pgurl: chihuahua-rescue
 pricesmalllink: price_1PSxGCABkrUo6tgOryIYfuwE
-pricelargelink: price_1PSxJTABkrUo6tgOqHPK8IHj
+pricemediumlink: price_1PSxJTABkrUo6tgOqHPK8IHj
+pricelargelink: price_1PWvsOABkrUo6tgO9m5EgHf9
 ---
 
 

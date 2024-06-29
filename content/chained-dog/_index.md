@@ -6,7 +6,8 @@ layout: products/pets-powder-charity
 charity: Chained Dog
 pgurl: chained-dog
 pricesmalllink: price_1PSxFYABkrUo6tgOcSZVm1qo
-pricelargelink: price_1PSxJ3ABkrUo6tgOXuMscIhu
+pricemediumlink: price_1PSxJ3ABkrUo6tgOXuMscIhu
+pricelargelink: price_1PWvsSABkrUo6tgOdNHOYAky
 ---
 
 

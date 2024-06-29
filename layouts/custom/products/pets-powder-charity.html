@@ -48,24 +48,37 @@
                             <span class="radio-text">12g Sample</span>
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="productSize" value="large" data-image="/img/50front.webp">
+                            <input type="radio" name="productSize" value="medium" data-image="/img/50front.webp">
                             <span class="radio-text">50g</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="productSize" value="large" data-image="/img/50front.webp">
+                            <span class="radio-text">200g</span>
                         </label>
                     </div>
                     
     
                     <div id="productsmall" class="product-info">
                         <p>$9.95</p>
-                        <p>12g of Powdered Organic Beef Bone Broth, up to 7 servings depending on pet size.</p>
+                        <p>20g of Powdered Organic Beef Bone Broth, up to 12 servings depending on pet size.</p>
                         <div class="quantity-container">
                             <label for="quantitySmall">Quantity:</label>
                             <input type="number" id="quantitySmall" name="quantity" min="1" value="1">
                         </div>
                         <button class="btn btn-primary buy-now" data-price-id="{{ .Params.pricesmalllink }}" data-quantity-id="quantitySmall">Buy now</button>
                     </div>
-                    <div id="productlarge" class="product-info hidden">
+                    <div id="productmedium" class="product-info hidden">
                         <p>$24.95</p>
                         <p>50g of Powdered Organic Beef Bone Broth, up to 33 servings depending on pet size.</p>
+                        <div class="quantity-container">
+                            <label for="quantityMedium">Quantity:</label>
+                            <input type="number" id="quantityMedium" name="quantity" min="1" value="1">
+                        </div>
+                        <button class="btn btn-primary buy-now" data-price-id="{{ .Params.pricemediumlink }}" data-quantity-id="quantityLarge">Buy now</button>
+                    </div>
+                    <div id="productlarge" class="product-info hidden">
+                        <p>$89.95</p>
+                        <p>200g of Powdered Organic Beef Bone Broth, up to 132 servings depending on pet size.</p>
                         <div class="quantity-container">
                             <label for="quantityLarge">Quantity:</label>
                             <input type="number" id="quantityLarge" name="quantity" min="1" value="1">

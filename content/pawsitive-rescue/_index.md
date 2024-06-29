@@ -6,7 +6,8 @@ layout: products/pets-powder-charity
 charity: Pawsitive Rescue
 pgurl: pawsitive-rescue
 pricesmalllink: price_1PSxGYABkrUo6tgOtNxvLmbA
-pricelargelink: price_1PSxJxABkrUo6tgOKfPhcEbT
+pricemediumlink: price_1PSxJxABkrUo6tgOKfPhcEbT
+pricelargelink: price_1PWvruABkrUo6tgOOw66DIEB
 ---
 
 
