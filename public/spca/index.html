@@ -420,6 +420,7 @@
     document.querySelectorAll('input[name="productSize"]').forEach(function(radio) {
         radio.addEventListener('change', function() {
             document.getElementById('productsmall').classList.toggle('hidden', this.value !== 'small');
+            document.getElementById('productmedium').classList.toggle('hidden', this.value !== 'medium');
             document.getElementById('productlarge').classList.toggle('hidden', this.value !== 'large');
         });
     });
