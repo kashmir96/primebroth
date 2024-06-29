@@ -86,7 +86,7 @@
         {{- partial "alert.html" . -}}
         <div class="announcement full-width black text-center">
             <ul>
-                  <li>Exclusive access page for resellers only</li>
+                  <li>Exclusive access page for resellers only. Free shipping.</li>
             </ul>
           </div>
         {{- partial "header.html" . -}}
@@ -114,27 +114,31 @@
                             </label>
                             <label class="radio-label">
                                 <input type="radio" name="productSize" value="small">
-                                <span class="radio-text">12g</span>
+                                <span class="radio-text">20g</span>
                             </label>
                             <label class="radio-label">
                                 <input type="radio" name="productSize" value="large">
                                 <span class="radio-text">50g</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="productSize" value="xl">
+                                <span class="radio-text">200g</span>
                             </label>
                         </div>
                         
                         <div id="productsample" class="product-info">
                             <p>Free</p>
                             <p>Order a free sample, just pay the shipping - limit one sample per customer.</p>
-                            <a href="https://buy.stripe.com/9AQ8yL9Xub8pgEg8wL" class="btn btn-primary">Claim now</a>
+                            <a href="https://buy.stripe.com/9AQ8yL9Xub8pgEg8wL" class="btn buy-now btn-primary">Claim now</a>
                         </div>
                         <div id="productsmall" class="product-info hidden">
                             <p>Dropship (single) $5.95</p>
                             <p>Buy Wholesale (12pk) $53.40 - $4.45/ea</p>
-                            <p>12g of Powdered Organic Beef Bone Broth, up to 7 servings depending on pet size.</p>
+                            <p>20g of Powdered Organic Beef Bone Broth, up to 7 servings depending on pet size.</p>
                             <p style="color:palevioletred;">Set quantity at checkout</a>.</p>
 
-                            <a href="https://buy.stripe.com/eVa7uH4DafoFbjWbJn" class="btn btn-secondary">Drop ship</a>
-                            <a href="https://buy.stripe.com/14kbKX7Pm0tL3Ru7t5" class="btn btn-primary">Buy Wholesale</a>
+                            <a href="https://buy.stripe.com/eVa7uH4DafoFbjWbJn" class="btn buy-now btn-secondary">Drop ship</a>
+                            <a href="https://buy.stripe.com/14kbKX7Pm0tL3Ru7t5" class="btn buy-now btn-primary">Buy Wholesale</a>
 
                         </div>
                         <div id="productlarge" class="product-info hidden">
@@ -143,8 +147,18 @@
                             <p>50g of Powdered Organic Beef Bone Broth, makes up to 33 servings depending on the size of your pet.</p>
                             <p style="color:palevioletred;">Set quantity at checkout</a>.</p>
 
-                            <a href="https://buy.stripe.com/00g16jb1yfoFco014K" class="btn btn-secondary">Drop ship</a>
-                            <a href="https://buy.stripe.com/9AQ02fb1y6S94Vy7t6" class="btn btn-primary">Buy Wholesale</a>
+                            <a href="https://buy.stripe.com/00g16jb1yfoFco014K" class="btn buy-now btn-secondary">Drop ship</a>
+                            <a href="https://buy.stripe.com/9AQ02fb1y6S94Vy7t6" class="btn buy-now btn-primary">Buy Wholesale</a>
+
+                        </div>
+                        <div id="productxl" class="product-info hidden">
+                            <p>Dropship (single) $68.95</p>
+                            <p>Buy Wholesale (12pk) $689.95 - $57.50/ea</p>
+                            <p>200g of Powdered Organic Beef Bone Broth, makes up to 132 servings depending on the size of your pet.</p>
+                            <p style="color:palevioletred;">Set quantity at checkout</a>.</p>
+
+                            <a href="https://buy.stripe.com/5kA4ivglSb8pgEgdRx" class="btn buy-now btn-secondary">Drop ship</a>
+                            <a href="https://buy.stripe.com/7sI5mz9Xu2BT4VyaFm" class="btn buy-now btn-primary">Buy Wholesale</a>
 
                         </div>
 
@@ -270,6 +284,7 @@
                 document.getElementById('productsmall').classList.toggle('hidden', this.value !== 'small');
                 document.getElementById('productlarge').classList.toggle('hidden', this.value !== 'large');
                 document.getElementById('productsample').classList.toggle('hidden', this.value !== 'sample');
+                document.getElementById('productxl').classList.toggle('hidden', this.value !== 'xl');
             });
         });
     

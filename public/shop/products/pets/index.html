@@ -52,8 +52,8 @@
 </head>
 <body><div class="announcement full-width black text-center">
         <ul>
-              <li>Want to donate? purchase from our <a style="color:white;" href="/charity">charity pages</a> instead.</li>
-        </ul>
+            <li>Free Shipping. Want to donate? purchase from our <a style="color:white;" href="/charity">charity pages</a> instead.</li>
+      </ul>
       </div><header>
     
 <script src="https://cdn.usefathom.com/script.js" data-site="SUFMJROW" defer></script>
@@ -63,6 +63,7 @@
     
     
 
+<script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0124/4549.js" async="async"></script>
     
 <script>
     !function(f,b,e,v,n,t,s)
@@ -201,28 +202,17 @@
                 <img class="stars" src="/img/stars/5.webp" alt="review rating for bone broth product">
                 <p>(21)</p>
                 <div class="radio-group">
+                    
                     <label class="radio-label">
-                        <input type="radio" name="productSize" value="small" data-image="/img/bonebroth7.webp" checked>
-                        <span class="radio-text">1 Jar: 61c/serve</span>
-                    </label>
-                    <label class="radio-label">
-                        <input type="radio" name="productSize" value="large" data-image="/img/bonebroth7.webp">
-                        <span class="radio-text">5pk: 46c/serve</span>
+                        <input type="radio" name="productSize" value="large" data-image="/img/bonebroth7.webp" checked>
+                        <span class="radio-text">Jar 5pk</span>
                     </label>
                 </div>
 
-                <div id="productsmall" class="product-info">
-                    <p>$9.95</p>
-                    <p>12g of Powdered Organic Beef Bone Broth, up to 7 servings depending on pet size.</p>
-                    <div class="quantity-container">
-                        <label for="quantitySmall">Quantity:</label>
-                        <input type="number" id="quantitySmall" name="quantity" min="1" value="1">
-                    </div>
-                    <button class="btn btn-primary buy-now" data-price-id="price_1PJLdGABkrUo6tgOb8SP8Haq" data-quantity-id="quantitySmall">Buy now</button>
-                </div>
-                <div id="productlarge" class="product-info hidden">
-                    <p>$24.95</p>
-                    <p>50g of Powdered Organic Beef Bone Broth, makes up to 33 servings depending on the size of your pet.</p>
+               
+                <div id="productlarge" class="product-info">
+                    <p>$29.95</p>
+                    <p>400ml x 5 Frozen Organic Beef Bone Broth.</p>
                     <div class="quantity-container">
                         <label for="quantityLarge">Quantity:</label>
                         <input type="number" id="quantityLarge" name="quantity" min="1" value="1">
@@ -230,7 +220,6 @@
                     <button class="btn btn-primary buy-now" data-price-id="price_1P4rzrABkrUo6tgOmv6kST7n" data-quantity-id="quantityLarge">Buy now</button>
                 </div>
 
-                <p>400ml Frozen Organic Beef Bone Broth.</p>
                 <p>Struggle to get your pet to eat their kibble? Sick of paying ridiculous prices for expensive meat just to get them to eat? We were too, that's why we made PrimeBroth for pets.</p>
                 <p>Simply serve on their regular kibble and transform from bland to gourmet.</p>
                 <p>We're confident they'll lap it up. If they don't, we'll give your money back.</p>
@@ -360,6 +349,7 @@
     document.querySelectorAll('input[name="productSize"]').forEach(function(radio) {
         radio.addEventListener('change', function() {
             document.getElementById('productsmall').classList.toggle('hidden', this.value !== 'small');
+            document.getElementById('productmedium').classList.toggle('hidden', this.value !== 'medium');
             document.getElementById('productlarge').classList.toggle('hidden', this.value !== 'large');
         });
     });
@@ -474,6 +464,19 @@
       document.documentElement.scrollTop = 0;
     });
   </script>
+
+
+<script>
+  window.addEventListener('load', (event) => {
+    document.querySelectorAll('buy-now').forEach(item => {
+      item.addEventListener('click', event => {
+        fathom.trackEvent('initiate checkout');
+      });
+    });
+  });
+  </script>
+
+
   
   <link href='/css/webfonts.min.css' rel="stylesheet" />
   
