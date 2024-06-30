@@ -60,11 +60,19 @@
     <script>
         $(document).ready(function() {
             $('.accordion-heading').click(function() {
-                $(this).parent().toggleClass('active');
-                $(this).next('.accordion-content').slideToggle();
+                var $accordionItem = $(this).parent();
+
+                
+                $('.accordion-item').not($accordionItem).removeClass('active').find('.accordion-content').slideUp();
+
+                
+                $accordionItem.toggleClass('active');
+                $accordionItem.find('.accordion-content').slideToggle();
             });
 
-          
+            
+            $('.accordion-item').first().addClass('active');
+            $('.accordion-item').first().find('.accordion-content').show();
         });
     </script>
 </head>
@@ -239,7 +247,7 @@
                             <h6>Directions:</h6>
                             <p>Sprinkle on your pet’s food once a day as powder or mix it with hot water first (1 tsp per 100ml).</p>
                             <h6>Servings (depends on pet size):</h6>
-                            <p>12g pack - Up to 7 servings; 50g pack - Up to 33 servings; 200g pack - Up to 132 servings</p>
+                            <p>12g pack - Up to 7 servings; 20g pack - Up to 12 servings; 50g pack - Up to 33 servings; 200g pack - Up to 132 servings</p>
                             <h6>Storage:</h6>
                             <p>Keep in a dry place. Use within 4 months of opening or 24 months unopened.</p>
                             <p>For more information on the product please see the <a href="/partner-resources">Partner Resources</a> page or feel free to contact us.</p>
@@ -313,4 +321,148 @@
                     <div class="accordion-item grow">
                         <h4 class="accordion-heading">Creating content</h4>
                         <div class="accordion-content">
-                            <p>While we can supply templates to use below, you are welcome and encouraged to create and share your own content
+                            <p>While we can supply templates to use below, you are welcome and encouraged to create and share your own content to promote your unique link. For logos and other resources, please visit the <a href="/partner-resources">Partner Resources</a> page. Our product can be sent to you to use as a test, click the link below to order.</p>
+                            <p><a href="https://www.primebroth.co.nz/shop/products/free-pets-powder/" target="_blank">Order Primebroth for Pets</a></p>
+                        </div>
+                    </div>
+                </div>                         
+            </div>
+        </div>
+    </div>
+<div class="row peach mb-0 text-center">
+    <h3>Ready to become an affiliate and earn commission selling Primebroth?</h3>
+    <p>Email <a href="mailto:hello@Primebroth.co.nz">hello@primebroth.co.nz</a> to express your interest.</p>
+</div>
+   
+    
+<footer class="bg-tlgray-100">
+  <script src='/js/custom.js'></script>
+
+  
+  <script src='/js/clipboard.min.js'></script>
+  <script src='/js/highlight.min.js'></script>
+  <script src='/js/highlightjs-line-numbers.min.js'></script>
+  <script src='/js/sweetalert2.min.js'></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+    new ClipboardJS('.url');
+
+    function OnClickURL() {
+      Swal.fire({
+        icon: 'success',
+        title: 'Copied!',
+        text: 'Copied the URL and title.'
+      })
+    }
+  </script>
+  
+  <script>
+    function toggleNav() {
+      var hamburger = document.getElementById("hamburgerbtn");
+      var overlay = document.getElementById("overlay");
+      var body = document.body;
+
+      hamburger.addEventListener("click", function () {
+        overlay.classList.toggle("open");
+        hamburger.classList.toggle("is-open");
+        body.classList.toggle("scroll-lock");
+      });
+    }
+    toggleNav();
+
+    document.querySelector('.scroll-top').addEventListener('click', () => {
+      document.documentElement.scrollTop = 0;
+    });
+  </script>
+
+
+<script>
+  window.addEventListener('load', (event) => {
+    document.querySelectorAll('.buy-now').forEach(item => {
+      item.addEventListener('click', event => {
+        fathom.trackEvent('initiate checkout');
+      });
+    });
+  });
+  </script>
+
+
+  
+  <link href='/css/webfonts.min.css' rel="stylesheet" />
+  
+  <div class="flex items-center justify-between flex-wrap bg-gray-800 p-8 text-white">
+    <div class="items-center text-xl text-grey-900 mr-6">
+      
+    </div>
+    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto" id="mobileMenu">
+      <div class="text-lg lg:flex-grow">
+      </div>
+      <div class="flex flex-row items-center text-lg d-none d-md-block">
+        
+        <a href="/faq/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
+          
+          FAQs
+          
+        </a>
+        
+        <a href="/pages/reviews/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
+          
+          Reviews
+          
+        </a>
+        
+        <a href="/affiliates/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
+          
+          Affiliates
+          
+        </a>
+        
+        <a href="/pages/refund-policy/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
+          
+          Refund Policy
+          
+        </a>
+        
+        <a href="/pages/delivery/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
+          
+          Delivery
+          
+        </a>
+        
+        <a href="/pages/terms-of-use/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
+          
+          Terms of Use
+          
+        </a>
+        
+        <a href="/pages/privacy-policy/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
+          
+          Privacy Policy
+          
+        </a>
+        
+        <a href="/posts/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
+          
+          Blog
+          
+        </a>
+        
+        <a href="/sitemap/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
+          
+          Sitemap
+          
+        </a>
+        
+      </div>
+    </div>
+
+  </div>
+
+  <div class="copy pl-8 py-5 bg-tlgray-700 text-white text-md">
+    &copy; PrimeBroth 2024 All Rights Reserved. <br>Site by <a style="color:white;font-weight:bold;" href="https://www.oso.nz">OSO Marketing NZ</a>
+  </div>
+</footer>
+
+</body>
+</html>

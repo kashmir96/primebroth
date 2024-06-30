@@ -25,11 +25,19 @@
     <script>
         $(document).ready(function() {
             $('.accordion-heading').click(function() {
-                $(this).parent().toggleClass('active');
-                $(this).next('.accordion-content').slideToggle();
+                var $accordionItem = $(this).parent();
+
+                // Close all other active accordion items
+                $('.accordion-item').not($accordionItem).removeClass('active').find('.accordion-content').slideUp();
+
+                // Toggle the clicked accordion item
+                $accordionItem.toggleClass('active');
+                $accordionItem.find('.accordion-content').slideToggle();
             });
 
-          
+            // Start with the first accordion item active
+            $('.accordion-item').first().addClass('active');
+            $('.accordion-item').first().find('.accordion-content').show();
         });
     </script>
 </head>
@@ -83,7 +91,7 @@
                             <h6>Directions:</h6>
                             <p>Sprinkle on your pet’s food once a day as powder or mix it with hot water first (1 tsp per 100ml).</p>
                             <h6>Servings (depends on pet size):</h6>
-                            <p>12g pack - Up to 7 servings; 50g pack - Up to 33 servings; 200g pack - Up to 132 servings</p>
+                            <p>12g pack - Up to 7 servings; 20g pack - Up to 12 servings; 50g pack - Up to 33 servings; 200g pack - Up to 132 servings</p>
                             <h6>Storage:</h6>
                             <p>Keep in a dry place. Use within 4 months of opening or 24 months unopened.</p>
                             <p>For more information on the product please see the <a href="/partner-resources">Partner Resources</a> page or feel free to contact us.</p>
@@ -157,4 +165,20 @@
                     <div class="accordion-item grow">
                         <h4 class="accordion-heading">Creating content</h4>
                         <div class="accordion-content">
-                            <p>While we can supply templates to use below, you are welcome and encouraged to create and share your own content
+                            <p>While we can supply templates to use below, you are welcome and encouraged to create and share your own content to promote your unique link. For logos and other resources, please visit the <a href="/partner-resources">Partner Resources</a> page. Our product can be sent to you to use as a test, click the link below to order.</p>
+                            <p><a href="https://www.primebroth.co.nz/shop/products/free-pets-powder/" target="_blank">Order Primebroth for Pets</a></p>
+                        </div>
+                    </div>
+                </div>                         
+            </div>
+        </div>
+    </div>
+<div class="row peach mb-0 text-center">
+    <h3>Ready to become an affiliate and earn commission selling Primebroth?</h3>
+    <p>Email <a href="mailto:hello@Primebroth.co.nz">hello@primebroth.co.nz</a> to express your interest.</p>
+</div>
+   
+    <!-- Add html above -->
+    {{- partial "footer.html" . -}}
+</body>
+</html>
