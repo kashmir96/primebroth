@@ -8,4 +8,6 @@ pgurl: auckland-council
 pricesmalllink: ""
 pricemediumlink: ""
 pricelargelink: ""
+draft: true
+
 ---

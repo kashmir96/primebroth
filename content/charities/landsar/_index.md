@@ -8,4 +8,6 @@ pgurl: landsar
 pricesmalllink: ""
 pricemediumlink: ""
 pricelargelink: ""
+draft: true
+
 ---

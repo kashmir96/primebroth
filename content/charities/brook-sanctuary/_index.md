@@ -8,4 +8,6 @@ pgurl: brook-sanctuary
 pricesmalllink: ""
 pricemediumlink: ""
 pricelargelink: ""
+draft: true
+
 ---

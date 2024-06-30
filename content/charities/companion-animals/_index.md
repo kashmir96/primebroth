@@ -8,4 +8,6 @@ pgurl: companion-animals
 pricesmalllink: ""
 pricemediumlink: ""
 pricelargelink: ""
+draft: true
+
 ---

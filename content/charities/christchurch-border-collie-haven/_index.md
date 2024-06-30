@@ -8,4 +8,6 @@ pgurl: christchurch-border-collie-haven
 pricesmalllink: ""
 pricemediumlink: ""
 pricelargelink: ""
+draft: true
+
 ---

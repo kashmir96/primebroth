@@ -8,4 +8,6 @@ pgurl: cat-rescue-dunedin
 pricesmalllink: ""
 pricemediumlink: ""
 pricelargelink: ""
+draft: true
+
 ---

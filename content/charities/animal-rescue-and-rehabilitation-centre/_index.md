@@ -8,4 +8,6 @@ pgurl: animal-rescue-and-rehabilitation-centre
 pricesmalllink: ""
 pricemediumlink: ""
 pricelargelink: ""
+draft: true
+
 ---

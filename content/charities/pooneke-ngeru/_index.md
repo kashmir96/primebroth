@@ -8,4 +8,6 @@ pgurl: pooneke-ngeru
 pricesmalllink: ""
 pricemediumlink: ""
 pricelargelink: ""
+draft: true
+
 ---

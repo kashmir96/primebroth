@@ -8,4 +8,6 @@ pgurl: wildlife-hospital
 pricesmalllink: ""
 pricemediumlink: ""
 pricelargelink: ""
+draft: true
+
 ---

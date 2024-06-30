@@ -8,4 +8,6 @@ pgurl: blind-low-vision
 pricesmalllink: ""
 pricemediumlink: ""
 pricelargelink: ""
+draft: true
+
 ---

@@ -8,4 +8,6 @@ pgurl: rescued-by-randr
 pricesmalllink: ""
 pricemediumlink: ""
 pricelargelink: ""
+draft: true
+
 ---

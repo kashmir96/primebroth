@@ -8,4 +8,6 @@ pgurl: frenchieadoptions
 pricesmalllink: ""
 pricemediumlink: ""
 pricelargelink: ""
+draft: true
+
 ---
