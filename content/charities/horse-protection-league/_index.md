@@ -8,6 +8,4 @@ pgurl: horse-protection-league
 pricesmalllink: ""
 pricemediumlink: ""
 pricelargelink: ""
-draft: true
-
 ---

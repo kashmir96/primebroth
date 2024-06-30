@@ -8,6 +8,5 @@ pgurl: safe
 pricesmalllink: ""
 pricemediumlink: ""
 pricelargelink: ""
-draft: true
 
 ---

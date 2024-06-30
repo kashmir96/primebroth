@@ -8,6 +8,4 @@ pgurl: pawsitive-rescue
 pricesmalllink: ""
 pricemediumlink: ""
 pricelargelink: ""
-draft: true
-
 ---

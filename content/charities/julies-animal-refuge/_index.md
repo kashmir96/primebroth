@@ -8,6 +8,4 @@ pgurl: julies-animal-refuge
 pricesmalllink: ""
 pricemediumlink: ""
 pricelargelink: ""
-draft: true
-
 ---

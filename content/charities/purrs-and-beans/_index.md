@@ -8,6 +8,4 @@ pgurl: purrs-and-beans
 pricesmalllink: ""
 pricemediumlink: ""
 pricelargelink: ""
-draft: true
-
 ---

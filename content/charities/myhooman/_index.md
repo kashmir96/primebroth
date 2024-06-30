@@ -8,6 +8,4 @@ pgurl: myhooman
 pricesmalllink: ""
 pricemediumlink: ""
 pricelargelink: ""
-draft: true
-
 ---

@@ -8,6 +8,4 @@ pgurl: auckland-council-animal-shelters
 pricesmalllink: ""
 pricemediumlink: ""
 pricelargelink: ""
-draft: true
-
 ---

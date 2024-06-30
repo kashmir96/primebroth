@@ -8,6 +8,4 @@ pgurl: kitten-inn
 pricesmalllink: ""
 pricemediumlink: ""
 pricelargelink: ""
-draft: true
-
 ---

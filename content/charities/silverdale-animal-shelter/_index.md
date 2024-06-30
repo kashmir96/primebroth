@@ -8,6 +8,5 @@ pgurl: silverdale-animal-shelter
 pricesmalllink: ""
 pricemediumlink: ""
 pricelargelink: ""
-draft: true
 
 ---

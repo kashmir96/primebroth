@@ -8,6 +8,5 @@ pgurl: saving-hope
 pricesmalllink: ""
 pricemediumlink: ""
 pricelargelink: ""
-draft: true
 
 ---

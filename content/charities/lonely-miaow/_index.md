@@ -8,6 +8,4 @@ pgurl: lonely-miaow
 pricesmalllink: ""
 pricemediumlink: ""
 pricelargelink: ""
-draft: true
-
 ---

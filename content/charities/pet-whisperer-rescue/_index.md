@@ -8,6 +8,4 @@ pgurl: pet-whisperer-rescue
 pricesmalllink: ""
 pricemediumlink: ""
 pricelargelink: ""
-draft: true
-
 ---
