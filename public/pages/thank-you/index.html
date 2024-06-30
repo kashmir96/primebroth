@@ -207,11 +207,10 @@
             const charity = localStorage.getItem('charity');
             console.log('pgurl retrieved:', pgurl);  
             console.log('charity retrieved:', charity);  
+            const shareThisContainer = document.getElementById('shareThisContainer');
             if (pgurl && charity) {
-                const shareThisContainer = document.getElementById('shareThisContainer');
                 
-                
-                const charityInfo = document.createElement('p');
+                const charityInfo = document.createElement('h5');
                 charityInfo.className = 'charity-message';
                 charityInfo.textContent = `Help us support ${charity} further by sharing the fundraiser with your friends!`;
                 shareThisContainer.appendChild(charityInfo);
@@ -229,9 +228,43 @@
                     id: 'sharethis-inline-share-buttons',
                     url: `https://www.primebroth.co.nz/${pgurl}`
                 });
+            } else {
+                
+                const fallbackMessage = document.createElement('h5');
+                fallbackMessage.className = 'fallback-message';
+    
+                
+                const line1 = document.createElement('span');
+                line1.textContent = 'Who else do you know who might enjoy Primebroth?';
+                fallbackMessage.appendChild(line1);
+    
+                
+                fallbackMessage.appendChild(document.createElement('br'));
+    
+                
+                const line2 = document.createElement('span');
+                line2.textContent = 'Gift a free sample to a friend.';
+                fallbackMessage.appendChild(line2);
+    
+                shareThisContainer.appendChild(fallbackMessage);
+                console.log('Fallback message added:', fallbackMessage.textContent);  
+    
+                const shareThisButton = document.createElement('div');
+                shareThisButton.className = 'sharethis-inline-share-buttons';
+                shareThisButton.setAttribute('data-url', `https://www.primebroth.co.nz/products/free-pets-powder`);
+                shareThisContainer.appendChild(shareThisButton);
+                console.log('ShareThis button created with fallback URL:', `https://www.primebroth.co.nz/products/free-pets-powder`);  
+    
+                
+                window.__sharethis__.load('inline-share-buttons', {
+                    alignment: 'center',
+                    id: 'sharethis-inline-share-buttons',
+                    url: `https://www.primebroth.co.nz/products/free-pets-powder`
+                });
             }
         });
     </script>
+    
     
     
     
