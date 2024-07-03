@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    {{- partial "head.html" . -}}
+    <meta name="description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta property="og:title" content="{{ .Site.Params.homepage_meta_tags.meta_og_title }}" />
+    <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
+    <meta property="og:url" content="{{ .Site.Params.homepage_meta_tags.meta_og_url }}" />
+    <meta property="og:image" content="{{ .Site.Params.homepage_meta_tags.meta_og_image }}" />
+    <meta property="og:description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
+    <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
+    <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+    <style>
+        .card img {
+            width: 100% !important;
+            height: 350px !important; /* Adjust the height as needed */
+            object-fit: cover !important;
+        }
+    </style>
+</head>
+<body>
+    {{- partial "alert.html" . -}}
+    
+    {{- partial "header.html" . -}}
+    <div class="scroll-top rounded-full">
+        <span class="icon-keyboard_arrow_up text-2xl"></span>
+    </div>
+    {{- partial "slide.html" . -}}
+    {{- partial "strip.html" . -}}
+    <!-- Add html below -->
+
+    <div class="container partner">
+        <div style="margin-top: 0px;" class="row max-width peach shopsection"> 
+            <h1 class="text-center">Partner with us</h1>
+            <p class="text-center">Learn about the three ways you could partner with us.</p>
+
+                <div class="row mt-0 mb-0 text-center justify-content-around card-container">
+                <div class="card col-md-4 col-12">
+                  <img src="/img/chichi.webp" alt="Fundraiser" class="mb-4">
+                  <h5>Fundraiser</h5>
+                  <p>Best for charities, associations, clubs, and other nonprofit organisations for pets, or humans particularly in the health and wellness space.</p>
+                  <a class="btn" href="/charity">Learn about fundraising with us</a>
+                </div>
+                
+                <div class="card col-md-4 col-12">
+                  <img src="/img/pets-broth4.webp" alt="Reseller" class="mb-4">
+                  <h5>Reseller</h5>
+                  <p>Best for businesses who have a website or physical store looking to mark up and make a profit selling our bone broth for pets or people. Best for drop shipping or wholesale.</p>
+                  <a class="btn" href="/wholesale">Learn about becoming a reseller</a>
+                </div>
+                
+                <div class="card col-md-4 col-12">
+                  <img src="/img/louie.webp" alt="Affiliate" class="mb-4">
+                  <h5>Affiliate</h5>
+                  <p>Best for influencers or businesses who want to earn income promoting our broth while we take care of fulfillment, payment collection, and customer service.</p>
+                  <a class="btn" href="/affiliate">Learn about our affiliate program</a>
+                </div></div></div>
+
+            <div class="row text-center">
+                <h3>Partner Resources</h3>
+                <p>No matter what type of partner, we are here to support and help you get the best results our products. Visit our partner resources page for helpful information and templates for marketing and fielding customer queries about Primebroth products.</p>
+                <a class="btn" href="/partner-resources">Visit Partner Resources</a>
+                <a class="btn" href="/contact">Questions? Get in touch</a>
+            </div>
+            
+        </div>
+    </div>
+    </div>
+    <!-- Add html above -->
+    {{- partial "footer.html" . -}}
+</body>
+</html>
+
+
+
+
+
+
