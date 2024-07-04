@@ -8,4 +8,5 @@ pgurl: brook-sanctuary
 pricesmalllink: price_1PYJZdABkrUo6tgObexQBmeA
 pricemediumlink: price_1PYJZzABkrUo6tgOKxYYta4E
 pricelargelink: price_1PYJacABkrUo6tgOuifpJsBF
+charitylink: "https://www.brooksanctuary.org.nz/"
 ---
