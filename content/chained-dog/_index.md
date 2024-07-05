@@ -8,7 +8,6 @@ pgurl: chained-dog
 pricesmalllink: price_1PSxFYABkrUo6tgOcSZVm1qo
 pricemediumlink: price_1PSxJ3ABkrUo6tgOXuMscIhu
 pricelargelink: price_1PWvsSABkrUo6tgOdNHOYAky
-draft: true
 ---
 
 
