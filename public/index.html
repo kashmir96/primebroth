@@ -433,11 +433,16 @@
   window.addEventListener('load', (event) => {
     document.querySelectorAll('.buy-now').forEach(item => {
       item.addEventListener('click', event => {
-        fathom.trackEvent('initiate checkout');
+        gtag('event', 'click', {
+          'event_category': 'ecommerce',
+          'event_label': 'buy-now',
+          'value': 1
+        });
       });
     });
   });
-  </script>
+</script>
+
 
 
   

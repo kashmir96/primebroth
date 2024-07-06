@@ -55,7 +55,7 @@
     });
   </script>
 
-<!-- Fathom -->
+<!-- Fathom 
 <script>
   window.addEventListener('load', (event) => {
     document.querySelectorAll('.buy-now').forEach(item => {
@@ -65,6 +65,22 @@
     });
   });
   </script>
+<button id="trackButton" class="your-button-class">Click Me</button>
+-->
+<script>
+  window.addEventListener('load', (event) => {
+    document.querySelectorAll('.buy-now').forEach(item => {
+      item.addEventListener('click', event => {
+        gtag('event', 'click', {
+          'event_category': 'ecommerce',
+          'event_label': 'buy-now',
+          'value': 1
+        });
+      });
+    });
+  });
+</script>
+
 
 
   {{ if .Site.Params.googleFonts }}
