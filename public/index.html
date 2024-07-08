@@ -2,8 +2,7 @@
 <html lang="ja">
 <head>
 	<meta name="generator" content="Hugo 0.124.1"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" defer></script><meta charset="utf-8">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script><meta charset="utf-8">
 <title>PrimeBroth</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link rel="apple-touch-icon" sizes="180x180" href='/apple-touch-icon.png'>
@@ -42,7 +41,6 @@
     <meta name="twitter:card" content="" />
     <meta name="twitter:site" content="" />
     <meta name="twitter:creator" content="" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
 
    
   </head>
@@ -281,9 +279,14 @@
         <img class="col-lg-6 col" src="/img/bonebroth7.webp" >
       </div>
       <div class="row">
-        <div class="col-lg-6 col-12 "  style="padding:56.25% 0 0 0;position:relative;">
-          <iframe src="https://player.vimeo.com/video/955088396?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write;" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="The PrimeBroth Difference" loading="lazy"></iframe>
-        </div><script src="https://player.vimeo.com/api/player.js"></script>
+        <div class="col-lg-6 col-12 ">
+          <div class="image-container">
+            <img src="/img/tedvid.webp" alt="Click to watch video" id="thumbnail" data-video-id="videoContainer1">
+        </div>
+        <div class="video-container" id="videoContainer1">
+            <iframe src="https://player.vimeo.com/video/955088396?badge=0&amp;autopause=0&amp;autoplay=1&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write;" title="The PrimeBroth Difference" loading="lazy"></iframe>
+        </div>
+        </div>
         <div class="col-lg-6 col-12 ">
             <h2>Don't just take our word for it, see what our BonelyFans have to say.</h2>
             <p>"I didnt realise i was dairy intolerant, making the switch to PrimeBroth from whey in the mornings helped my skin, being low carb is a nice bonus."</p>    
@@ -320,21 +323,30 @@
       <p>(18)</p>
     </div>
   </a>
-  </div><div class="col-md-3 grow fade-in-element d-none d-md-block">
-            <a data-fancybox="gallery" data-type="iframe" data-src="https://player.vimeo.com/video/964111619?h=c0d720cdd0" href="javascript:;">
-              <img style="border:8px solid white;transform: scale(.93);;" src="/img/dash.webp" alt="Short 2 Thumbnail">
-            </a>
+  </div><div class="col-md-3 grow d-none d-md-block">
+            <div class="image-container">
+                <img style="border:8px solid white;transform: scale(.93);;" src="/img/dash.webp" alt="Click to watch another video" data-video-id="videoContainer2">
             </div>
-            <div class="col-md-3 grow fade-in-element d-none d-md-block">
-              <a data-fancybox="gallery" data-type="iframe" data-src="https://player.vimeo.com/video/968615765" href="javascript:;">
-                <img style="border:8px solid white;transform: scale(.93);;" src="/img/mol.webp" alt="Short 2 Thumbnail">
-              </a>
-              </div>
-          
-          <div class="col-md-3 grow fade-in-element d-none d-md-block">
-            <a data-fancybox="gallery" data-type="iframe" data-src="https://www.youtube.com/embed/VDlbPPHdIaI?autoplay=1" href="javascript:;">
-              <img src="/img/shorts/3.webp" alt="Short 3 Thumbnail">
-            </a>
+            <div class="video-container" id="videoContainer2">
+                <iframe style="height:530px; position:relative;top:-100px;" src="https://player.vimeo.com/video/964111619?h=c0d720cdd0&amp;autopause=0&amp;autoplay=1&amp;player_id=0&amp;app_id=58479" frameborder="0"  title="Another PrimeBroth Video" loading="lazy"></iframe>
+            </div>
+          </div>
+
+          <div class="col-md-3 grow d-none d-md-block">
+            <div class="image-container">
+                <img style="border:8px solid white;" src="/img/mol.webp" alt="Click to watch another video" data-video-id="videoContainer3">
+            </div>
+            <div class="video-container" id="videoContainer3">
+                <iframe style="height:530px; position:relative;top:-100px;" src="https://player.vimeo.com/video/968615822?&amp;autopause=0&amp;autoplay=1&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write;" title="Another PrimeBroth Video" loading="lazy"></iframe>
+            </div>
+          </div>
+          <div class="col-md-3 grow d-none d-md-block">
+            <div class="image-container">
+                <img src="/img/shorts/3.webp" alt="Click to watch another video" data-video-id="videoContainer4">
+            </div>
+            <div class="video-container" id="videoContainer4">
+                <iframe style="height:530px; position:relative;top:-100px;" src="https://www.youtube.com/embed/VDlbPPHdIaI?autoplay=1&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write;" title="Another PrimeBroth Video" loading="lazy"></iframe>
+            </div>
           </div>
           
         </div>
@@ -405,6 +417,18 @@
 
     </div>
     
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <script>
+       document.querySelectorAll('.image-container img').forEach(function(image) {
+            image.addEventListener('click', function() {
+                
+                this.parentElement.style.display = 'none';
+                
+                var videoId = this.getAttribute('data-video-id');
+                document.getElementById(videoId).style.display = 'block';
+            });
+        });
+  </script>
 <footer class="bg-tlgray-100">
   <script src='/js/custom.js'></script>
 
