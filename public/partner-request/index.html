@@ -185,21 +185,28 @@
                 <form action="https://docs.google.com/forms/d/e/1FAIpQLSfpklvl6ZO_6WVTgW9VoDCYQvDzLozuSIywbGstWCcMjGCo3w/formResponse" 
                         method="post" target="hidden_iframe" onsubmit="return validateForm();">
                     
-                    <label>Name*</label>
+                    
+                    <label>Organisation Name*</label>
+                    <input type="text" placeholder="Your Name" class="form-input" name="entry.1214400499" required>
+                        
+                    <label>Contact Name*</label>
                     <input type="text" placeholder="Your Name" class="form-input" name="entry.138056877" required>
                     
-                    <label>Email*</label>
+                    <label>Contact Email*</label>
                     <input type="email" placeholder="your@email.com" class="form-input" name="entry.2025791843" required>
+
+                    <label>Organisation Website / Social Link*</label>
+                    <input type="text" placeholder="https://www.yourcharity.co.nz, or https://www.facebook.com/your-charity-link" class="form-input" name="entry.483742107" required>
                     
                     <label>Type of Request*</label>
                     <select class="form-input" name="entry.643834296" required>
+                        <option value="wholesale">Charity fundraiser</option>
                         <option value="whitelabel">Whitelabel</option>
                         <option value="wholesale">Wholesale</option>
-                        <option value="wholesale">Charity fundraiser</option>
                         <option value="wholesale">Affiliate</option>
                     </select>
                     
-                    <label>Type of Business*</label>
+                    <label>What type of organisation or business?*</label>
                     <input type="text" placeholder="Type of Business" class="form-input" name="entry.2043512151" required>
                     
                     <label>Additional Info on the Business</label>
@@ -208,7 +215,7 @@
                     <label>Are you a robot? What's 5+1?*</label>
                     <input type="text" id="specialField" placeholder="Answer correctly to submit" class="form-input" required>
                     
-                    <button id="contact-submit" class="btn btn-primary" type="submit">Send</button>
+                    <button id="partner-request" class="btn btn-primary" type="submit">Send</button>
                 </form>
             </div>
         </div>
@@ -216,10 +223,10 @@
     
     <script>
         window.addEventListener('load', (event) => {
-          document.getElementById('contact-submit').addEventListener('click', () => {
-            gtag('event', 'contact_submit', {
+          document.getElementById('partner-request').addEventListener('click', () => {
+            gtag('event', 'partner_request', {
               'event_category': 'form',
-              'event_label': 'contact-submit',
+              'event_label': 'partner_request',
               'value': 1
             });
           });
