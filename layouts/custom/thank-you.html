@@ -94,7 +94,7 @@
                 console.log('Fallback message added:', fallbackMessage.textContent);  // Debugging line
     
                 const shareThisButton = document.createElement('div');
-                shareThisButton.className = 'sharethis-inline-share-buttons';
+                shareThisButton.className = 'sharethis-inline-share-buttons st-btn';
                 shareThisButton.setAttribute('data-url', `https://www.primebroth.co.nz/products/free-pets-powder`);
                 shareThisContainer.appendChild(shareThisButton);
                 console.log('ShareThis button created with fallback URL:', `https://www.primebroth.co.nz/products/free-pets-powder`);  // Debugging line
@@ -106,11 +106,27 @@
                     url: `https://www.primebroth.co.nz/products/free-pets-powder`
                 });
             }
+    
+                // Add click event listener to ShareThis buttons
+                window.addEventListener('load', () => {
+                document.querySelectorAll('.st-btn').forEach(element => {
+                    element.addEventListener('click', () => {
+                        gtag('event', 'sharethis_click', {
+                            'event_category': 'share',
+                            'event_label': 'sharethis',
+                            'value': 1
+                        });
+                    });
+                });
+            });
         });
     </script>
     
     
     
+
+
+
     <!-- Add html above -->
     {{- partial "footer.html" . -}}
 </body>

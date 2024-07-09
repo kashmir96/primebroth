@@ -241,6 +241,21 @@
     </div>
     <!-- Add html above -->
     {{- partial "footer.html" . -}}
+
+    <script>
+        // Add click event listener to ShareThis buttons
+window.addEventListener('load', () => {
+    document.querySelectorAll('.st-btn').forEach(element => {
+        element.addEventListener('click', () => {
+            gtag('event', 'sharethis_click', {
+                'event_category': 'share',
+                'event_label': 'sharethis',
+                'value': 1
+            });
+        });
+    });
+});
+    </script>
     
 </body>
 </html>

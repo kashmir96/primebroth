@@ -29,29 +29,30 @@
     <div class="container">
         <div style="margin-top: 0px;" class="row max-width peach shopsection"> 
             <h1 class="text-center">Frequently Asked Questions</h1>
-            <p  class="text-center">Common questions from primebroth customers.</p>               
+            <p  class="text-center">Common questions from primebroth customers.</p>      
             <div class="row">
-                    <div class="faq">
-                        <div class="accordion-item grow">
+                    <div id="faq-section" class="faq">
+                      <input type="text" id="faqSearch" class="faq-search-input" placeholder="Search for a question...">
+                      <div class="accordion-item grow show">
                           <h4 class="accordion-heading">What makes your bone broth unique?</h4>
                           <div class="accordion-content">
                             <p>Our bone broth is uniquely dense, setting it apart from many other brands in New Zealand that tend to dilute their products. The rich, gelatinous texture of our broth is a clear indicator of its high quality gained from extra simmering time and careful choosing of the bones. Furthermore, we maintain a balanced acidity by avoiding the common practice of adding large amounts of apple cider vinegar, which can overshadow the broth’s robust, meaty flavour.</p>
                           </div>
                         </div>
-                        <div class="accordion-item grow">
+                        <div class="accordion-item grow show">
                           <h4 class="accordion-heading">Where can I purchase your bone broth?</h4>
                           <div class="accordion-content">
                             <p>You can buy straight from our website, our stalls at the Lyttleton and Ohoka markets or from several pet and health food stores around Christchurch New Zealand.</p>
                           </div>
                         </div>
-                        <div class="accordion-item grow">
+                        <div class="accordion-item grow show">
                           <h4 class="accordion-heading">Is your bone broth suitable for special dietary needs?</h4>
                           <div class="accordion-content">
                             <p>Yes, our bone broth is dairy-free, gluten-free, and free from artificial additives or preservatives. It’s a versatile option for individuals following various dietary lifestyles, including paleo, keto, and Whole30. Additionally, our commitment to using high-quality, natural ingredients sourced locally in Christchurch for our bone broth company ensures that our bone broth is both nutritious and the best possible quality.</p>
                           </div>
                         </div>
                         
-                        <div class="accordion-item grow">
+                        <div class="accordion-item grow show">
                           <h4 class="accordion-heading">How to use bone broth for dogs & cats?</h4>
                           <div class="accordion-content">
                             <p>Dogs & cats can enjoy our bone broth in various ways, including:</p>
@@ -64,7 +65,7 @@
                           </div>
                         </div>
                         
-                        <div class="accordion-item grow">
+                        <div class="accordion-item grow show">
                           <h4 class="accordion-heading">What are the benefits of bone broth for pets?</h4>
                           <div class="accordion-content">
                             <p>
@@ -77,14 +78,14 @@
                           </div>
                         </div>
                         
-                        <div class="accordion-item grow">
+                        <div class="accordion-item grow show">
                           <h4 class="accordion-heading">What's better bone broth powder or jars?</h4>
                           <div class="accordion-content">
                             <p>Well, it depends what you prefer, convenience of powder, e.g. shelf-stable, easy to use product? At the same time, jars are great for people with large dogs, as the jar is 400 ml and will last you 3-4 days. Lastly, liquid bone broth is richer due to its freshness.</p>
                           </div>
                         </div>
                         
-                        <div class="accordion-item grow">
+                        <div class="accordion-item grow show">
                           <h4 class="accordion-heading">How much bone broth should I feed to my dog/cat?</h4>
                           <div class="accordion-content">
                             <p>We recommend the following serving sizes for our bone broth powder:</p>
@@ -102,27 +103,27 @@
                           </div>
                         </div>
                         
-                        <div class="accordion-item grow">
+                        <div class="accordion-item grow show">
                           <h4 class="accordion-heading">Can people drink your bone broth for pets?</h4>
                           <div class="accordion-content">
                             <p>While our pets' bone broth was made at the highest standard, we freeze dry it at the pet food site, which is managed by our partners. Therefore, we can't guarantee that their quality/safety is up to human standards. In the meantime, check out our bone broth for people (link).</p>
                           </div>
                         </div>
                         
-                        <div class="accordion-item grow">
+                        <div class="accordion-item grow show">
                           <h4 class="accordion-heading">Do you ship your bone broth?</h4>
                           <div class="accordion-content">
                             <p>Yes, we ship bone broth for pets and humans NZ-wide. You can find shipping rates at the checkout.</p>
                           </div>
                         </div>
                         
-                        <div class="accordion-item grow">
+                        <div class="accordion-item grow show">
                           <h4 class="accordion-heading">How long does shipping take?</h4>
                           <div class="accordion-content">
                             <p>We process orders within 1-2 working days, and shipping takes between 1 and 3 days. So the longest time you may ever wait is 5 working days, but we ensure it doesn't happen.</p>
                           </div>
                         </div>
-                        <div class="accordion-item grow">
+                        <div class="accordion-item grow show">
                             <h4 class="accordion-heading">How is it made?</h4>
                             <div class="accordion-content">
                               <p>At PrimeBroth, crafting our premium bone broth is an art form, meticulously honed over years of dedication to quality and flavor. We begin with the finest selection of locally sourced, organic bones, ensuring that each batch is infused with the essence of pure, wholesome goodness.</p>
@@ -136,14 +137,14 @@
                             </div>
                           </div>
                           
-                            <div class="accordion-item grow">
+                            <div class="accordion-item grow show">
                               <h4 class="accordion-heading">How long will a jar last?</h4>
                               <div class="accordion-content">
                                 <p>Refer to the use-by date on the bottle. Once opened, promptly refrigerate unused product at below 5°C and use within 3 days. Do not heat bottle in microwave.</p>
                               </div>
                             </div>
       
-      <div class="accordion-item grow">
+      <div class="accordion-item grow show">
           <h4 class="accordion-heading">Do you offer bulk or subscription options?</h4>
           <div class="accordion-content">
               <p>Yes, we offer bulk purchasing options and soon will offer subscription plans for those who want to enjoy PrimeBroth regularly. Visit our website or contact customer support for more information on these options.</p>
@@ -155,6 +156,19 @@
         </div>
     </div>
     <!-- Add html above -->
+    <script>
+      $(document).ready(function() {
+          $("#faqSearch").on("keyup", function() {
+              var value = $(this).val().toLowerCase();
+              $("#faq-section .accordion-item").filter(function() {
+                  $(this).toggleClass('show', $(this).text().toLowerCase().indexOf(value) > -1);
+                  $(this).toggleClass('hide', $(this).text().toLowerCase().indexOf(value) === -1);
+              });
+          });
+      });
+  </script>  
+  
+  
     {{- partial "footer.html" . -}}
 </body>
 </html>
