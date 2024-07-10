@@ -1,35 +1,53 @@
 <script src="https://js.stripe.com/v3/"></script>
 
 <script>
-    document.querySelectorAll('input[name="productSize"]').forEach(function(radio) {
-        radio.addEventListener('change', function() {
-            document.getElementById('productsmall').classList.toggle('hidden', this.value !== 'small');
-            document.getElementById('productmedium').classList.toggle('hidden', this.value !== 'medium');
-            document.getElementById('productlarge').classList.toggle('hidden', this.value !== 'large');
-        });
-    });
-
     document.addEventListener('DOMContentLoaded', function () {
-        const radioLabels = document.querySelectorAll('.radio-label');
-        const mainImage = document.querySelector('.main-image');
+        // Store pgurl and charity in localStorage
+        const pgurl = '{{ .Params.pgurl }}';
+        const charity = '{{ .Params.charity }}';
+        localStorage.setItem('pgurl', pgurl);
+        localStorage.setItem('charity', charity);
+        console.log('pgurl stored:', pgurl);  // Debugging line
+        console.log('charity stored:', charity);  // Debugging line
 
-        radioLabels.forEach(label => {
-            const input = label.querySelector('input');
-            const radioText = label.querySelector('.radio-text');
+        // Update flavor text and price IDs based on flavour dropdown selection
+        document.getElementById('productFlavour').addEventListener('change', function() {
+            var flavour = this.value;
+            var selectedOption = this.options[this.selectedIndex];
+            var priceSmall = selectedOption.getAttribute('data-flavour-price-small');
+            var priceMedium = selectedOption.getAttribute('data-flavour-price-medium');
+            var priceLarge = selectedOption.getAttribute('data-flavour-price-large');
+            
+            document.querySelectorAll('.product-flavour').forEach(function(span) {
+                span.textContent = flavour.charAt(0).toUpperCase() + flavour.slice(1);
+            });
 
-            // Apply initial state based on checked attribute
-            if (input.checked) {
-                label.classList.add('checked');
-                mainImage.src = input.getAttribute('data-image');
-            }
+            document.querySelector('#productsmall .buy-now').setAttribute('data-price-id', priceSmall);
+            document.querySelector('#productmedium .buy-now').setAttribute('data-price-id', priceMedium);
+            document.querySelector('#productlarge .buy-now').setAttribute('data-price-id', priceLarge);
+        });
 
-            // Add event listener to update state on change
-            input.addEventListener('change', function () {
-                if (input.checked) {
-                    radioLabels.forEach(l => l.classList.remove('checked'));
-                    label.classList.add('checked');
-                    mainImage.src = input.getAttribute('data-image');
-                }
+        // Toggle visibility of product sections and update image based on size dropdown selection
+        document.getElementById('productSize').addEventListener('change', function() {
+            const selectedSize = this.value;
+            document.getElementById('productsmall').classList.toggle('hidden', selectedSize !== 'small');
+            document.getElementById('productmedium').classList.toggle('hidden', selectedSize !== 'medium');
+            document.getElementById('productlarge').classList.toggle('hidden', selectedSize !== 'large');
+            
+            // Update main image based on selected size
+            const selectedOption = this.options[this.selectedIndex];
+            const imageSrc = selectedOption.getAttribute('data-image');
+            document.querySelector('.main-image').src = imageSrc;
+        });
+
+        // Handle image to video transition on click
+        document.querySelectorAll('.image-container img').forEach(function(image) {
+            image.addEventListener('click', function() {
+                // Hide the image container
+                this.parentElement.style.display = 'none';
+                // Show the corresponding video container
+                var videoId = this.getAttribute('data-video-id');
+                document.getElementById(videoId).style.display = 'block';
             });
         });
 

@@ -44,6 +44,8 @@
                 <h5>Pets go from picky to piggy with just a dash in their kibble.</h5>
                 <img class="stars" src="/img/stars/5.webp" alt="review rating for bone broth product">
                 <p>(18)</p>
+                
+                
                 <div class="dropdown-group">
                     <select id="productFlavour" name="productFlavour">
                         {{ if or .Params.beefpricesmalllink .Params.beefpricemediumlink .Params.beefpricelargelink }}
@@ -67,27 +69,20 @@
                     </select>
                 </div>
                 
-
-                <div class="radio-group">
-                    {{ if or .Params.beefpricesmalllink .Params.chickenpricesmalllink .Params.lambpricesmalllink }}
-                    <label class="radio-label">
-                        <input type="radio" name="productSize" value="small" data-image="/img/post-a-1.webp" checked>
-                        <span class="radio-text">20g</span>
-                    </label>
-                    {{ end }}
-                    {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
-                    <label class="radio-label">
-                        <input type="radio" name="productSize" value="medium" data-image="/img/50front.webp">
-                        <span class="radio-text">50g</span>
-                    </label>
-                    {{ end }}
-                    {{ if or .Params.beefpricelargelink .Params.chickenpricelargelink .Params.lambpricelargelink }}
-                    <label class="radio-label">
-                        <input type="radio" name="productSize" value="large" data-image="/img/50front.webp">
-                        <span class="radio-text">200g (Save 10%)</span>
-                    </label>
-                    {{ end }}
+                <div class="dropdown-group">
+                    <select id="productSize" name="productSize">
+                        {{ if or .Params.beefpricesmalllink .Params.chickenpricesmalllink .Params.lambpricesmalllink }}
+                        <option value="small" data-image="/img/post-a-1.webp">20g</option>
+                        {{ end }}
+                        {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
+                        <option value="medium" data-image="/img/50front.webp">50g</option>
+                        {{ end }}
+                        {{ if or .Params.beefpricelargelink .Params.chickenpricelargelink .Params.lambpricelargelink }}
+                        <option value="large" data-image="/img/50front.webp">200g (Save 10%)</option>
+                        {{ end }}
+                    </select>
                 </div>
+                
                 
                 {{ if or .Params.beefpricesmalllink .Params.chickenpricesmalllink .Params.lambpricesmalllink }}
                 <div id="productsmall" class="product-info">
@@ -297,41 +292,7 @@
 
 {{- partial "stripe.html" . -}}    
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const pgurl = '{{ .Params.pgurl }}';
-        const charity = '{{ .Params.charity }}';
-        localStorage.setItem('pgurl', pgurl);
-        localStorage.setItem('charity', charity);
-        console.log('pgurl stored:', pgurl);  // Debugging line
-        console.log('charity stored:', charity);  // Debugging line
-
-        // Update flavor text and price IDs based on dropdown selection
-        document.getElementById('productFlavour').addEventListener('change', function() {
-            var flavour = this.value;
-            var selectedOption = this.options[this.selectedIndex];
-            var priceSmall = selectedOption.getAttribute('data-flavour-price-small');
-            var priceMedium = selectedOption.getAttribute('data-flavour-price-medium');
-            var priceLarge = selectedOption.getAttribute('data-flavour-price-large');
-            
-            document.querySelectorAll('.product-flavour').forEach(function(span) {
-                span.textContent = flavour.charAt(0).toUpperCase() + flavour.slice(1);
-            });
-
-            document.querySelector('#productsmall .buy-now').setAttribute('data-price-id', priceSmall);
-            document.querySelector('#productmedium .buy-now').setAttribute('data-price-id', priceMedium);
-            document.querySelector('#productlarge .buy-now').setAttribute('data-price-id', priceLarge);
-        });
-    });
-
-    document.querySelectorAll('.image-container img').forEach(function(image) {
-        image.addEventListener('click', function() {
-            // Hide the image container
-            this.parentElement.style.display = 'none';
-            // Show the corresponding video container
-            var videoId = this.getAttribute('data-video-id');
-            document.getElementById(videoId).style.display = 'block';
-        });
-    });
+    
 </script>
 
 {{- partial "footer.html" . -}}
