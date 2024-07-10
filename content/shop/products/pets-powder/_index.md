@@ -4,8 +4,8 @@ description: "Pets bone broth powder. PrimeBroth, NZ's animal based wellness dri
 type: custom
 layout: products/pets-powder
 beefpricesmalllink: price_1PMH0hABkrUo6tgOW2Vmsgne
-beefpricemediumlink: price_1PMGzSABkrUo6tgORH5WQWOV
-beefpricelargelink: price_1PWvPhABkrUo6tgOHSdGChFh
+beefpricemediumlink: price_1Pb88kABkrUo6tgOoJNmHOLJ
+beefpricelargelink: price_1Pb86cABkrUo6tgOyk212Sg6
 chickenpricesmalllink: 
 chickenpricemediumlink: 
 chickenpricelargelink: 
