@@ -17,14 +17,18 @@
     <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=667c998f7bead90019480329&product=inline-share-buttons&source=platform" async="async"></script>
 </head>
 <body>
-    {{- partial "alert.html" . -}}
+    
     {{ if .Params.charity }}
 <div class="announcement full-width black text-center">
     <ul>
         <li>Proceeds from this page are donated to {{ .Params.charity }}.</li>
     </ul>
 </div>
+{{ else }}
+{{- partial "alert.html" . -}}
 {{ end }}
+
+
 
     {{- partial "header.html" . -}}
     <div class="scroll-top rounded-full">
