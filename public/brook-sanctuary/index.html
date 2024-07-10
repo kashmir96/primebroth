@@ -197,8 +197,9 @@
                 <h5>Pets go from picky to piggy with just a dash in their kibble.</h5>
                 <img class="stars" src="/img/stars/5.webp" alt="review rating for bone broth product">
                 <p>(18)</p>
+                
+            <div class="dropdown-container">
                 <div class="dropdown-group">
-                    <label for="productFlavour">Select Flavor:</label>
                     <select id="productFlavour" name="productFlavour">
                         
                         <option value="beef" data-image="/img/post-a-1.webp"
@@ -211,27 +212,21 @@
                     </select>
                 </div>
                 
-
-                <div class="radio-group">
-                    
-                    <label class="radio-label">
-                        <input type="radio" name="productSize" value="small" data-image="/img/post-a-1.webp" checked>
-                        <span class="radio-text">20g</span>
-                    </label>
-                    
-                    
-                    <label class="radio-label">
-                        <input type="radio" name="productSize" value="medium" data-image="/img/50front.webp">
-                        <span class="radio-text">50g</span>
-                    </label>
-                    
-                    
-                    <label class="radio-label">
-                        <input type="radio" name="productSize" value="large" data-image="/img/50front.webp">
-                        <span class="radio-text">200g (Save 10%)</span>
-                    </label>
-                    
+                <div class="dropdown-group">
+                    <select id="productSize" name="productSize">
+                        
+                        <option value="small" data-image="/img/post-a-1.webp">20g</option>
+                        
+                        
+                        <option value="medium" data-image="/img/50front.webp">50g</option>
+                        
+                        
+                        <option value="large" data-image="/img/50front.webp">200g (Save 10%)</option>
+                        
+                    </select>
                 </div>
+            </div>
+                
                 
                 
                 <div id="productsmall" class="product-info">
@@ -440,35 +435,53 @@
 </div><script src="https://js.stripe.com/v3/"></script>
 
 <script>
-    document.querySelectorAll('input[name="productSize"]').forEach(function(radio) {
-        radio.addEventListener('change', function() {
-            document.getElementById('productsmall').classList.toggle('hidden', this.value !== 'small');
-            document.getElementById('productmedium').classList.toggle('hidden', this.value !== 'medium');
-            document.getElementById('productlarge').classList.toggle('hidden', this.value !== 'large');
-        });
-    });
-
     document.addEventListener('DOMContentLoaded', function () {
-        const radioLabels = document.querySelectorAll('.radio-label');
-        const mainImage = document.querySelector('.main-image');
+        
+        const pgurl = 'brook-sanctuary';
+        const charity = 'Brook Sanctuary';
+        localStorage.setItem('pgurl', pgurl);
+        localStorage.setItem('charity', charity);
+        console.log('pgurl stored:', pgurl);  
+        console.log('charity stored:', charity);  
 
-        radioLabels.forEach(label => {
-            const input = label.querySelector('input');
-            const radioText = label.querySelector('.radio-text');
-
+        
+        document.getElementById('productFlavour').addEventListener('change', function() {
+            var flavour = this.value;
+            var selectedOption = this.options[this.selectedIndex];
+            var priceSmall = selectedOption.getAttribute('data-flavour-price-small');
+            var priceMedium = selectedOption.getAttribute('data-flavour-price-medium');
+            var priceLarge = selectedOption.getAttribute('data-flavour-price-large');
             
-            if (input.checked) {
-                label.classList.add('checked');
-                mainImage.src = input.getAttribute('data-image');
-            }
+            document.querySelectorAll('.product-flavour').forEach(function(span) {
+                span.textContent = flavour.charAt(0).toUpperCase() + flavour.slice(1);
+            });
 
+            document.querySelector('#productsmall .buy-now').setAttribute('data-price-id', priceSmall);
+            document.querySelector('#productmedium .buy-now').setAttribute('data-price-id', priceMedium);
+            document.querySelector('#productlarge .buy-now').setAttribute('data-price-id', priceLarge);
+        });
+
+        
+        document.getElementById('productSize').addEventListener('change', function() {
+            const selectedSize = this.value;
+            document.getElementById('productsmall').classList.toggle('hidden', selectedSize !== 'small');
+            document.getElementById('productmedium').classList.toggle('hidden', selectedSize !== 'medium');
+            document.getElementById('productlarge').classList.toggle('hidden', selectedSize !== 'large');
             
-            input.addEventListener('change', function () {
-                if (input.checked) {
-                    radioLabels.forEach(l => l.classList.remove('checked'));
-                    label.classList.add('checked');
-                    mainImage.src = input.getAttribute('data-image');
-                }
+            
+            const selectedOption = this.options[this.selectedIndex];
+            const imageSrc = selectedOption.getAttribute('data-image');
+            document.querySelector('.main-image').src = imageSrc;
+        });
+
+        
+        document.querySelectorAll('.image-container img').forEach(function(image) {
+            image.addEventListener('click', function() {
+                
+                this.parentElement.style.display = 'none';
+                
+                var videoId = this.getAttribute('data-video-id');
+                document.getElementById(videoId).style.display = 'block';
             });
         });
 
@@ -518,41 +531,7 @@
     });
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const pgurl = 'brook-sanctuary';
-        const charity = 'Brook Sanctuary';
-        localStorage.setItem('pgurl', pgurl);
-        localStorage.setItem('charity', charity);
-        console.log('pgurl stored:', pgurl);  
-        console.log('charity stored:', charity);  
-
-        
-        document.getElementById('productFlavour').addEventListener('change', function() {
-            var flavour = this.value;
-            var selectedOption = this.options[this.selectedIndex];
-            var priceSmall = selectedOption.getAttribute('data-flavour-price-small');
-            var priceMedium = selectedOption.getAttribute('data-flavour-price-medium');
-            var priceLarge = selectedOption.getAttribute('data-flavour-price-large');
-            
-            document.querySelectorAll('.product-flavour').forEach(function(span) {
-                span.textContent = flavour.charAt(0).toUpperCase() + flavour.slice(1);
-            });
-
-            document.querySelector('#productsmall .buy-now').setAttribute('data-price-id', priceSmall);
-            document.querySelector('#productmedium .buy-now').setAttribute('data-price-id', priceMedium);
-            document.querySelector('#productlarge .buy-now').setAttribute('data-price-id', priceLarge);
-        });
-    });
-
-    document.querySelectorAll('.image-container img').forEach(function(image) {
-        image.addEventListener('click', function() {
-            
-            this.parentElement.style.display = 'none';
-            
-            var videoId = this.getAttribute('data-video-id');
-            document.getElementById(videoId).style.display = 'block';
-        });
-    });
+    
 </script>
 <footer class="bg-tlgray-100">
   <script src='/js/custom.js'></script>
