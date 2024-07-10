@@ -3629,6 +3629,8 @@ nav {
 .dropdown-group {
   width: 150px;
   height: 50px;
+  flex: 1; /* Make sure the dropdowns are of equal width */
+  max-width: 200px; /* Adjust max-width as needed */
 }
 
 .dropdown-group select {
@@ -3646,4 +3648,10 @@ nav {
 /* For older browsers that don't support appearance: none */
 .dropdown-group select::-ms-expand {
   display: none;
+}
+
+.dropdown-container {
+  display: flex;
+  gap: 10px; /* Space between the dropdowns */
+  margin: 20px 0;
 }

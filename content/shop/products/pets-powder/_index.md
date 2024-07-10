@@ -7,7 +7,7 @@ beefpricesmalllink: price_1PMH0hABkrUo6tgOW2Vmsgne
 beefpricemediumlink: price_1PMGzSABkrUo6tgORH5WQWOV
 beefpricelargelink: price_1PWvPhABkrUo6tgOHSdGChFh
 chickenpricesmalllink: 
-chickenpricemediumlink: price_1PWvPhABkrUo6tgOHSdGChFh
+chickenpricemediumlink: 
 chickenpricelargelink: 
 lambpricesmalllink:
 lambpricemediumlink:
