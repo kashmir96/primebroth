@@ -41,7 +41,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 </head>
-<body><header>
+<body><div class="announcement full-width black text-center">
+  <ul>
+      <li>Free shipping on orders over $80</li>
+  </ul>
+</div><header>
     
 <script src="https://cdn.usefathom.com/script.js" data-site="SUFMJROW" defer></script>
 
@@ -427,35 +431,53 @@
     <script src="https://js.stripe.com/v3/"></script>
 
 <script>
-    document.querySelectorAll('input[name="productSize"]').forEach(function(radio) {
-        radio.addEventListener('change', function() {
-            document.getElementById('productsmall').classList.toggle('hidden', this.value !== 'small');
-            document.getElementById('productmedium').classList.toggle('hidden', this.value !== 'medium');
-            document.getElementById('productlarge').classList.toggle('hidden', this.value !== 'large');
-        });
-    });
-
     document.addEventListener('DOMContentLoaded', function () {
-        const radioLabels = document.querySelectorAll('.radio-label');
-        const mainImage = document.querySelector('.main-image');
+        
+        const pgurl = '';
+        const charity = '';
+        localStorage.setItem('pgurl', pgurl);
+        localStorage.setItem('charity', charity);
+        console.log('pgurl stored:', pgurl);  
+        console.log('charity stored:', charity);  
 
-        radioLabels.forEach(label => {
-            const input = label.querySelector('input');
-            const radioText = label.querySelector('.radio-text');
-
+        
+        document.getElementById('productFlavour').addEventListener('change', function() {
+            var flavour = this.value;
+            var selectedOption = this.options[this.selectedIndex];
+            var priceSmall = selectedOption.getAttribute('data-flavour-price-small');
+            var priceMedium = selectedOption.getAttribute('data-flavour-price-medium');
+            var priceLarge = selectedOption.getAttribute('data-flavour-price-large');
             
-            if (input.checked) {
-                label.classList.add('checked');
-                mainImage.src = input.getAttribute('data-image');
-            }
+            document.querySelectorAll('.product-flavour').forEach(function(span) {
+                span.textContent = flavour.charAt(0).toUpperCase() + flavour.slice(1);
+            });
 
+            document.querySelector('#productsmall .buy-now').setAttribute('data-price-id', priceSmall);
+            document.querySelector('#productmedium .buy-now').setAttribute('data-price-id', priceMedium);
+            document.querySelector('#productlarge .buy-now').setAttribute('data-price-id', priceLarge);
+        });
+
+        
+        document.getElementById('productSize').addEventListener('change', function() {
+            const selectedSize = this.value;
+            document.getElementById('productsmall').classList.toggle('hidden', selectedSize !== 'small');
+            document.getElementById('productmedium').classList.toggle('hidden', selectedSize !== 'medium');
+            document.getElementById('productlarge').classList.toggle('hidden', selectedSize !== 'large');
             
-            input.addEventListener('change', function () {
-                if (input.checked) {
-                    radioLabels.forEach(l => l.classList.remove('checked'));
-                    label.classList.add('checked');
-                    mainImage.src = input.getAttribute('data-image');
-                }
+            
+            const selectedOption = this.options[this.selectedIndex];
+            const imageSrc = selectedOption.getAttribute('data-image');
+            document.querySelector('.main-image').src = imageSrc;
+        });
+
+        
+        document.querySelectorAll('.image-container img').forEach(function(image) {
+            image.addEventListener('click', function() {
+                
+                this.parentElement.style.display = 'none';
+                
+                var videoId = this.getAttribute('data-video-id');
+                document.getElementById(videoId).style.display = 'block';
             });
         });
 
