@@ -187,6 +187,7 @@
                 <p>Thanks for your order of Primebroth!</p>
                 <p>We will process your order and have it shipped within 1-2 business days. Keep an eye on your inbox, we'll let you know when your broth is on the way! </p>
                 <p>If you have any questions or queries about your order, get in touch with hello@primebroth.co.nz and we will help you out! </p>
+                <p>For useful tips and ideas for using your new bone broth, be sure to <a href="/posts/">check out our blog</a></p>
                 <div id="shareThisContainer"></div>
 
             </div>
@@ -241,7 +242,7 @@
                 console.log('Fallback message added:', fallbackMessage.textContent);  
     
                 const shareThisButton = document.createElement('div');
-                shareThisButton.className = 'sharethis-inline-share-buttons';
+                shareThisButton.className = 'sharethis-inline-share-buttons st-btn';
                 shareThisButton.setAttribute('data-url', `https://www.primebroth.co.nz/products/free-pets-powder`);
                 shareThisContainer.appendChild(shareThisButton);
                 console.log('ShareThis button created with fallback URL:', `https://www.primebroth.co.nz/products/free-pets-powder`);  
@@ -253,11 +254,27 @@
                     url: `https://www.primebroth.co.nz/products/free-pets-powder`
                 });
             }
+    
+                
+                window.addEventListener('load', () => {
+                document.querySelectorAll('.st-btn').forEach(element => {
+                    element.addEventListener('click', () => {
+                        gtag('event', 'sharethis_click', {
+                            'event_category': 'share',
+                            'event_label': 'sharethis',
+                            'value': 1
+                        });
+                    });
+                });
+            });
         });
     </script>
     
     
     
+
+
+
     
 <footer class="bg-tlgray-100">
   <script src='/js/custom.js'></script>

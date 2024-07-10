@@ -6,8 +6,8 @@ layout: products/pets-powder-charity
 charity: Rescue Revive Rehome
 pgurl: rescue-revive-rehome
 pricesmalllink: price_1PXzkZABkrUo6tgOtcQROshL
-pricemediumlink: price_1PXzjEABkrUo6tgOTuBwtJLv
-pricelargelink: price_1PXzlaABkrUo6tgOulhH8Vml
+pricemediumlink: price_1PawkTABkrUo6tgOpjpBaisg
+pricelargelink: price_1PawjwABkrUo6tgOLBZDcDwm
 charitylogo: /img/rrr.webp
 ---
 

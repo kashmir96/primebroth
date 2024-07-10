@@ -6,7 +6,7 @@ layout: products/pets-powder-charity
 charity: Brook Sanctuary
 pgurl: brook-sanctuary
 pricesmalllink: price_1PYJZdABkrUo6tgObexQBmeA
-pricemediumlink: price_1PYJZzABkrUo6tgOKxYYta4E
-pricelargelink: price_1PYJacABkrUo6tgOuifpJsBF
+pricemediumlink: price_1PawmwABkrUo6tgOwN4lZ1fG
+pricelargelink: price_1PawnMABkrUo6tgOQg38Ejs8
 charitylink: "https://www.brooksanctuary.org.nz/"
 ---

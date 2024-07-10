@@ -222,22 +222,22 @@
                         <button class="btn btn-primary buy-now" data-price-id="price_1Pa9cvABkrUo6tgOaeXBGsPu" data-quantity-id="quantitySmall">Buy now</button>
                     </div>
                     <div id="productmedium" class="product-info hidden">
-                        <p>$24.95</p>
+                        <p>$18.95</p>
                         <p>50g of Powdered Organic Beef Bone Broth, up to 33 servings depending on pet size.</p>
                         <div class="quantity-container">
                             <label for="quantityMedium">Quantity:</label>
                             <input type="number" id="quantityMedium" name="quantity" min="1" value="1">
                         </div>
-                        <button class="btn btn-primary buy-now" data-price-id="price_1Pa9dLABkrUo6tgOGWaBUygP" data-quantity-id="quantityLarge">Buy now</button>
+                        <button class="btn btn-primary buy-now" data-price-id="price_1Pat14ABkrUo6tgOvWYyDzwZ" data-quantity-id="quantityLarge">Buy now</button>
                     </div>
                     <div id="productlarge" class="product-info hidden">
-                        <p>$89.95 (Save 10%)</p>
+                        <p>$68.95 (Save 10%)</p>
                         <p>200g of Powdered Organic Beef Bone Broth, up to 132 servings depending on pet size.</p>
                         <div class="quantity-container">
                             <label for="quantityLarge">Quantity:</label>
                             <input type="number" id="quantityLarge" name="quantity" min="1" value="1">
                         </div>
-                        <button class="btn btn-primary buy-now" data-price-id="price_1Pa9dhABkrUo6tgOvqfRCafW" data-quantity-id="quantityLarge">Buy now</button>
+                        <button class="btn btn-primary buy-now" data-price-id="price_1PasySABkrUo6tgOKfeLmADx" data-quantity-id="quantityLarge">Buy now</button>
                     </div>
                     <div class="mt-4">
                         <p>Powdered Organic Beef Bone Broth.</p>
@@ -249,8 +249,12 @@
                             <li>100% organic beef bones, roasted & simmered for 32 hours.</li>
                         </ul>
                         
-                        <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/955088396?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write;" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="The PrimeBroth Difference" loading="lazy"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
-                    </div>
+                        <div class="image-container">
+                            <img src="/img/tedvid.webp" alt="Click to watch video" id="thumbnail" data-video-id="videoContainer1">
+                        </div>
+                        <div class="video-container" id="videoContainer1">
+                            <iframe src="https://player.vimeo.com/video/955088396?badge=0&amp;autopause=0&amp;autoplay=1&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write;" title="The PrimeBroth Difference" loading="lazy"></iframe>
+                        </div>                    </div>
     
                     <div>
                         <div class="faq mt-4">
@@ -505,6 +509,18 @@
             console.log('charity stored:', charity);  
         });
     </script>
+     <script src="https://player.vimeo.com/api/player.js"></script>
+     <script>
+        document.querySelectorAll('.image-container img').forEach(function(image) {
+             image.addEventListener('click', function() {
+                 
+                 this.parentElement.style.display = 'none';
+                 
+                 var videoId = this.getAttribute('data-video-id');
+                 document.getElementById(videoId).style.display = 'block';
+             });
+         });
+   </script>
 <footer class="bg-tlgray-100">
   <script src='/js/custom.js'></script>
 

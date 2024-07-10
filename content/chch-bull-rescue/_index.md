@@ -6,8 +6,8 @@ layout: products/pets-powder-charity
 charity: Chch Bull Rescue
 pgurl: chch-bull-rescue
 pricesmalllink: price_1PQLg4ABkrUo6tgO80ymqhdb
-pricemediumlink: price_1PQLnfABkrUo6tgOdvpvGfvN
-pricelargelink: price_1PWvzgABkrUo6tgOSjukQuPt
+pricemediumlink: price_1Pat53ABkrUo6tgOd6GLToEL
+pricelargelink: price_1Pat3GABkrUo6tgOIeM8wsuv
 ---
 
 

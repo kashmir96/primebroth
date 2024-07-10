@@ -11,7 +11,7 @@ exports.handler = async (event, context) => {
       },
       shipping_options: [
         {
-          shipping_rate: 'shr_1PWrY7ABkrUo6tgODvMWsZjD', // Replace with your actual shipping rate ID
+          shipping_rate: 'shr_1PasnCABkrUo6tgOd7bkp2rT', // Replace with your actual shipping rate ID
         },
       ],
       line_items: [

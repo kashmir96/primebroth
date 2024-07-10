@@ -6,6 +6,6 @@ layout: products/pets-powder-charity
 charity: Mainland Staffordshire Bull Terrier Society
 pgurl: mainland-staffordshire-bull-terrier-society
 pricesmalllink: price_1PYxIMABkrUo6tgOyTvOwrPl
-pricemediumlink: price_1PYxIiABkrUo6tgOPrij2rlN
-pricelargelink: price_1PYxJ6ABkrUo6tgOtJcUbQaI
+pricemediumlink: price_1PawoeABkrUo6tgOQicRuvdv
+pricelargelink: price_1Pawp8ABkrUo6tgOp36XAb7y
 ---
