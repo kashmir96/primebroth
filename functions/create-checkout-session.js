@@ -4,6 +4,17 @@ exports.handler = async (event, context) => {
   const { priceId, quantity } = JSON.parse(event.body);
 
   try {
+    // Retrieve the price information from Stripe to calculate the total amount
+    const price = await stripe.prices.retrieve(priceId);
+    const amount = price.unit_amount * quantity;
+
+    // Define the shipping rate IDs
+    const standardShippingRate = 'shr_1PasnCABkrUo6tgOd7bkp2rT'; // Replace with your actual standard shipping rate ID
+    const freeShippingRate = 'shr_1PWrY7ABkrUo6tgODvMWsZjD'; // Free shipping rate ID
+
+    // Determine the shipping rate based on the total amount
+    const shippingRate = amount >= 8000 ? freeShippingRate : standardShippingRate;
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       shipping_address_collection: {
@@ -11,7 +22,7 @@ exports.handler = async (event, context) => {
       },
       shipping_options: [
         {
-          shipping_rate: 'shr_1PasnCABkrUo6tgOd7bkp2rT', // Replace with your actual shipping rate ID
+          shipping_rate: shippingRate,
         },
       ],
       line_items: [
