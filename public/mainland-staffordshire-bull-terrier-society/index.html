@@ -187,8 +187,8 @@
     <img class="main-image"  src="/img/post-a-1.webp" alt="Main Product Image">            
     <div class="product-images mob-hide">
         <img class="product-image" src="/img/bonebroth7.webp" alt="Thumbnail 1">
-        <img class="product-image" src="/img/billie.webp" alt="Thumbnail 3">
         <img class="product-image" src="/img/50top.webp" alt="Thumbnail 2">
+        <img class="product-image" src="/img/boney.webp" alt="Thumbnail 2">
         <img class="product-image" src="/img/bonebroth5.webp" alt="Thumbnail 4">
         
     </div>
@@ -402,102 +402,130 @@
 </div><script src="https://js.stripe.com/v3/"></script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        
+document.addEventListener('DOMContentLoaded', function () {
+    const stripe = Stripe('pk_live_51Ot2iTABkrUo6tgOu44jd79tB4Dg2B64I6lucmLcKdxZfcy2Dy3bTnbxQNiwDtRfeWSwWx1WsDpC0h91tTlubPXW000IuWtQTX'); 
+
+    
+    storePageData();
+
+    
+    document.getElementById('productFlavour').addEventListener('change', updateFlavor);
+    document.getElementById('productSize').addEventListener('change', updateProductSize);
+
+    
+    setupBuyNowButtons();
+
+    function storePageData() {
         const pgurl = 'mainland-staffordshire-bull-terrier-society';
         const charity = 'Mainland Staffordshire Bull Terrier Society';
         localStorage.setItem('pgurl', pgurl);
         localStorage.setItem('charity', charity);
-        console.log('pgurl stored:', pgurl);  
-        console.log('charity stored:', charity);  
+    }
 
-        
-        document.getElementById('productFlavour').addEventListener('change', function() {
-            var flavour = this.value;
-            var selectedOption = this.options[this.selectedIndex];
-            var priceSmall = selectedOption.getAttribute('data-flavour-price-small');
-            var priceMedium = selectedOption.getAttribute('data-flavour-price-medium');
-            var priceLarge = selectedOption.getAttribute('data-flavour-price-large');
-            
-            document.querySelectorAll('.product-flavour').forEach(function(span) {
-                span.textContent = flavour.charAt(0).toUpperCase() + flavour.slice(1);
-            });
+    function updateFlavor() {
+        var flavour = this.value;
+        var selectedOption = this.options[this.selectedIndex];
+        updatePriceIDs(flavour, selectedOption);
+    }
 
-            document.querySelector('#productsmall .buy-now').setAttribute('data-price-id', priceSmall);
-            document.querySelector('#productmedium .buy-now').setAttribute('data-price-id', priceMedium);
-            document.querySelector('#productlarge .buy-now').setAttribute('data-price-id', priceLarge);
+    function updatePriceIDs(flavour, selectedOption) {
+        var priceSmall = selectedOption.getAttribute('data-flavour-price-small');
+        var priceMedium = selectedOption.getAttribute('data-flavour-price-medium');
+        var priceLarge = selectedOption.getAttribute('data-flavour-price-large');
+
+        document.querySelectorAll('.product-flavour').forEach(span => span.textContent = capitalize(flavour));
+        document.querySelector('#productsmall .buy-now').setAttribute('data-price-id', priceSmall);
+        document.querySelector('#productmedium .buy-now').setAttribute('data-price-id', priceMedium);
+        document.querySelector('#productlarge .buy-now').setAttribute('data-price-id', priceLarge);
+    }
+
+    function updateProductSize() {
+        const selectedSize = this.value;
+        ['small', 'medium', 'large'].forEach(size => {
+            const isSelected = selectedSize === size;
+            document.getElementById('product' + size).classList.toggle('hidden', !isSelected);
+            document.getElementById('pricePartial' + capitalize(size)).classList.toggle('hidden', !isSelected);
         });
 
         
-        document.getElementById('productSize').addEventListener('change', function() {
-            const selectedSize = this.value;
-            document.getElementById('productsmall').classList.toggle('hidden', selectedSize !== 'small');
-            document.getElementById('productmedium').classList.toggle('hidden', selectedSize !== 'medium');
-            document.getElementById('productlarge').classList.toggle('hidden', selectedSize !== 'large');
-            
-            
-            const selectedOption = this.options[this.selectedIndex];
-            const imageSrc = selectedOption.getAttribute('data-image');
-            document.querySelector('.main-image').src = imageSrc;
+        setupBuyNowButtons();
+    }
+
+    function setupBuyNowButtons() {
+        document.querySelectorAll('.buy-now').forEach(button => {
+            button.removeEventListener('click', handleBuyNowClick);  
+            button.addEventListener('click', handleBuyNowClick);  
         });
+    }
 
-        
-        document.querySelectorAll('.image-container img').forEach(function(image) {
-            image.addEventListener('click', function() {
-                
-                this.parentElement.style.display = 'none';
-                
-                var videoId = this.getAttribute('data-video-id');
-                document.getElementById(videoId).style.display = 'block';
-            });
-        });
+    function handleBuyNowClick(e) {
+        e.preventDefault();
+        const button = e.target;
+        const priceId = button.getAttribute('data-price-id');
+        const quantityId = button.getAttribute('data-quantity-id');
+        const quantity = document.getElementById(quantityId).value;
+        handleCheckout(priceId, quantity);
+    }
 
-        const stripe = Stripe('pk_live_51Ot2iTABkrUo6tgOu44jd79tB4Dg2B64I6lucmLcKdxZfcy2Dy3bTnbxQNiwDtRfeWSwWx1WsDpC0h91tTlubPXW000IuWtQTX'); 
-
-        function createCheckoutSession(priceId, quantity) {
-            return fetch('/.netlify/functions/create-checkout-session', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    priceId: priceId,
-                    quantity: quantity
-                })
-            }).then(function (response) {
-                return response.json();
-            }).catch(function (error) {
-                console.error('Error fetching checkout session:', error);
-                throw error;
-            });
-        }
-
-        function handleCheckout(priceId, quantity) {
-            createCheckoutSession(priceId, quantity).then(function (data) {
-                if (data.sessionId) {
-                    return stripe.redirectToCheckout({ sessionId: data.sessionId });
-                } else {
-                    console.error('No sessionId returned:', data);
-                    alert('Failed to create checkout session. Please try again.');
-                }
-            }).catch(function (error) {
-                console.error('Error creating checkout session:', error);
+    function handleCheckout(priceId, quantity) {
+        createCheckoutSession(priceId, quantity).then(data => {
+            if (data.sessionId) {
+                stripe.redirectToCheckout({ sessionId: data.sessionId });
+            } else {
+                console.error('No sessionId returned:', data);
                 alert('Failed to create checkout session. Please try again.');
-            });
-        }
+            }
+        }).catch(error => {
+            console.error('Error creating checkout session:', error);
+            alert('Failed to create checkout session. Please try again.');
+        });
+    }
 
-        document.querySelectorAll('.buy-now').forEach(function(button) {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                const priceId = button.getAttribute('data-price-id');
-                const quantityId = button.getAttribute('data-quantity-id');
-                const quantity = document.getElementById(quantityId).value;
-                handleCheckout(priceId, quantity);
+    function createCheckoutSession(priceId, quantity) {
+        return fetch('/.netlify/functions/create-checkout-session', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ priceId, quantity })
+        }).then(response => response.json())
+        .catch(error => {
+            console.error('Error fetching checkout session:', error);
+            throw error;
+        });
+    }
+
+    function capitalize(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+});
+</script>
+
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const accordions = document.querySelectorAll(".accordion-minimal");
+
+    accordions.forEach(accordion => {
+        const header = accordion.querySelector(".accordion-minimal-header");
+
+        header.addEventListener("click", function() {
+            
+            accordions.forEach(acc => {
+                if (acc !== accordion) {
+                    acc.querySelector(".accordion-minimal-content").classList.remove("show");
+                }
             });
+            
+            const content = this.nextElementSibling;
+            content.classList.toggle("show");
         });
     });
-</script>
-<script>
+});
+
+</script><script>
     
 </script>
 <footer class="bg-tlgray-100">
@@ -637,7 +665,10 @@
 
   <div class="copy pl-8 py-5 bg-tlgray-700 text-white text-md">
     &copy; PrimeBroth 2024 All Rights Reserved. <br>Site by <a style="color:white;font-weight:bold;" href="https://www.oso.nz">OSO Marketing NZ</a>
+    <img style="float:right;padding-right:20px;"class="badges" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
+
   </div>
+
 </footer>
 
 </body>
