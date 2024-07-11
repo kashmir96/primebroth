@@ -51,23 +51,17 @@
                 <img class="stars" src="/img/stars/5.webp" alt="review rating for bone broth product">
                 <p>(18)</p>
 
-                {{ if or .Params.beefpricesmalllink .Params.chickenpricesmalllink .Params.lambpricesmalllink }}
-                <div id="productsmall" class="product-info">
+                <div id="pricePartialSmall" class="product-info">
                     <p>{{- partial "price-pet-powder-20g.html" . -}}</p>
                 </div>
-            {{ end }}
-            
-            {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
-                <div id="productmedium" class="product-info hidden">
+                
+                <div id="pricePartialMedium" class="product-info hidden">
                     <p>{{- partial "price-pet-powder-50g.html" . -}}</p>
                 </div>
-            {{ end }}
-            
-            {{ if or .Params.beefpricelargelink .Params.chickenpricelargelink .Params.lambpricelargelink }}
-                <div id="productlarge" class="product-info hidden">
+                
+                <div id="pricePartialLarge" class="product-info hidden">
                     <p>{{- partial "price-pet-powder-200g.html" . -}}</p>
-                </div>
-            {{ end }}
+                </div>                
             
 
                 
