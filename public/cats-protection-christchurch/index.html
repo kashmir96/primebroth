@@ -206,19 +206,20 @@
                 <div id="productsmall" class="product-info">
                     <p>$9.95</p>
                 </div>
-                
-
-                
+            
+            
+            
                 <div id="productmedium" class="product-info hidden">
                     <p>$18.95</p>
                 </div>
-                
-
-                
+            
+            
+            
                 <div id="productlarge" class="product-info hidden">
                     <p>$68.95 (Save 10%)</p>
                 </div>
-                
+            
+            
 
                 
                 
@@ -535,99 +536,99 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        
-        const pgurl = 'cats-protection-christchurch';
-        const charity = 'Cats Protection Christchurch';
-        localStorage.setItem('pgurl', pgurl);
-        localStorage.setItem('charity', charity);
-        console.log('pgurl stored:', pgurl);  
-        console.log('charity stored:', charity);  
+    
+    const pgurl = 'cats-protection-christchurch';
+    const charity = 'Cats Protection Christchurch';
+    localStorage.setItem('pgurl', pgurl);
+    localStorage.setItem('charity', charity);
+    console.log('pgurl stored:', pgurl);  
+    console.log('charity stored:', charity);  
 
-        
-        document.getElementById('productFlavour').addEventListener('change', function() {
-            var flavour = this.value;
-            var selectedOption = this.options[this.selectedIndex];
-            var priceSmall = selectedOption.getAttribute('data-flavour-price-small');
-            var priceMedium = selectedOption.getAttribute('data-flavour-price-medium');
-            var priceLarge = selectedOption.getAttribute('data-flavour-price-large');
-            
-            document.querySelectorAll('.product-flavour').forEach(function(span) {
-                span.textContent = flavour.charAt(0).toUpperCase() + flavour.slice(1);
-            });
+    
+    document.getElementById('productFlavour').addEventListener('change', function() {
+        var flavour = this.value;
+        var selectedOption = this.options[this.selectedIndex];
+        var priceSmall = selectedOption.getAttribute('data-flavour-price-small');
+        var priceMedium = selectedOption.getAttribute('data-flavour-price-medium');
+        var priceLarge = selectedOption.getAttribute('data-flavour-price-large');
 
-            document.querySelector('#productsmall .buy-now').setAttribute('data-price-id', priceSmall);
-            document.querySelector('#productmedium .buy-now').setAttribute('data-price-id', priceMedium);
-            document.querySelector('#productlarge .buy-now').setAttribute('data-price-id', priceLarge);
+        document.querySelectorAll('.product-flavour').forEach(function(span) {
+            span.textContent = flavour.charAt(0).toUpperCase() + flavour.slice(1);
         });
 
-        
-        document.getElementById('productSize').addEventListener('change', function() {
-            const selectedSize = this.value;
-            document.getElementById('productsmall').classList.toggle('hidden', selectedSize !== 'small');
-            document.getElementById('productmedium').classList.toggle('hidden', selectedSize !== 'medium');
-            document.getElementById('productlarge').classList.toggle('hidden', selectedSize !== 'large');
-            
-            
-            const selectedOption = this.options[this.selectedIndex];
-            const imageSrc = selectedOption.getAttribute('data-image');
-            document.querySelector('.main-image').src = imageSrc;
-        });
+        document.querySelector('#productsmall .buy-now').setAttribute('data-price-id', priceSmall);
+        document.querySelector('#productmedium .buy-now').setAttribute('data-price-id', priceMedium);
+        document.querySelector('#productlarge .buy-now').setAttribute('data-price-id', priceLarge);
+    });
+
+    
+    document.getElementById('productSize').addEventListener('change', function() {
+        const selectedSize = this.value;
+        document.getElementById('productsmall').classList.toggle('hidden', selectedSize !== 'small');
+        document.getElementById('productmedium').classList.toggle('hidden', selectedSize !== 'medium');
+        document.getElementById('productlarge').classList.toggle('hidden', selectedSize !== 'large');
 
         
-        document.querySelectorAll('.image-container img').forEach(function(image) {
-            image.addEventListener('click', function() {
-                
-                this.parentElement.style.display = 'none';
-                
-                var videoId = this.getAttribute('data-video-id');
-                document.getElementById(videoId).style.display = 'block';
-            });
-        });
+        const selectedOption = this.options[this.selectedIndex];
+        const imageSrc = selectedOption.getAttribute('data-image');
+        document.querySelector('.main-image').src = imageSrc;
+    });
 
-        const stripe = Stripe('pk_live_51Ot2iTABkrUo6tgOu44jd79tB4Dg2B64I6lucmLcKdxZfcy2Dy3bTnbxQNiwDtRfeWSwWx1WsDpC0h91tTlubPXW000IuWtQTX'); 
-
-        function createCheckoutSession(priceId, quantity) {
-            return fetch('/.netlify/functions/create-checkout-session', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    priceId: priceId,
-                    quantity: quantity
-                })
-            }).then(function (response) {
-                return response.json();
-            }).catch(function (error) {
-                console.error('Error fetching checkout session:', error);
-                throw error;
-            });
-        }
-
-        function handleCheckout(priceId, quantity) {
-            createCheckoutSession(priceId, quantity).then(function (data) {
-                if (data.sessionId) {
-                    return stripe.redirectToCheckout({ sessionId: data.sessionId });
-                } else {
-                    console.error('No sessionId returned:', data);
-                    alert('Failed to create checkout session. Please try again.');
-                }
-            }).catch(function (error) {
-                console.error('Error creating checkout session:', error);
-                alert('Failed to create checkout session. Please try again.');
-            });
-        }
-
-        document.querySelectorAll('.buy-now').forEach(function(button) {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                const priceId = button.getAttribute('data-price-id');
-                const quantityId = button.getAttribute('data-quantity-id');
-                const quantity = document.getElementById(quantityId).value;
-                handleCheckout(priceId, quantity);
-            });
+    
+    document.querySelectorAll('.image-container img').forEach(function(image) {
+        image.addEventListener('click', function() {
+            
+            this.parentElement.style.display = 'none';
+            
+            var videoId = this.getAttribute('data-video-id');
+            document.getElementById(videoId).style.display = 'block';
         });
     });
+
+    const stripe = Stripe('pk_live_51Ot2iTABkrUo6tgOu44jd79tB4Dg2B64I6lucmLcKdxZfcy2Dy3bTnbxQNiwDtRfeWSwWx1WsDpC0h91tTlubPXW000IuWtQTX'); 
+
+    function createCheckoutSession(priceId, quantity) {
+        return fetch('/.netlify/functions/create-checkout-session', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                priceId: priceId,
+                quantity: quantity
+            })
+        }).then(function (response) {
+            return response.json();
+        }).catch(function (error) {
+            console.error('Error fetching checkout session:', error);
+            throw error;
+        });
+    }
+
+    function handleCheckout(priceId, quantity) {
+        createCheckoutSession(priceId, quantity).then(function (data) {
+            if (data.sessionId) {
+                return stripe.redirectToCheckout({ sessionId: data.sessionId });
+            } else {
+                console.error('No sessionId returned:', data);
+                alert('Failed to create checkout session. Please try again.');
+            }
+        }).catch(function (error) {
+            console.error('Error creating checkout session:', error);
+            alert('Failed to create checkout session. Please try again.');
+        });
+    }
+
+    document.querySelectorAll('.buy-now').forEach(function(button) {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const priceId = button.getAttribute('data-price-id');
+            const quantityId = button.getAttribute('data-quantity-id');
+            const quantity = document.getElementById(quantityId).value;
+            handleCheckout(priceId, quantity);
+        });
+    });
+});
 </script>
 
 <script>

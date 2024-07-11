@@ -55,19 +55,20 @@
                 <div id="productsmall" class="product-info">
                     <p>{{- partial "price-pet-powder-20g.html" . -}}</p>
                 </div>
-                {{ end }}
-
-                {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
+            {{ end }}
+            
+            {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
                 <div id="productmedium" class="product-info hidden">
                     <p>{{- partial "price-pet-powder-50g.html" . -}}</p>
                 </div>
-                {{ end }}
-
-                {{ if or .Params.beefpricelargelink .Params.chickenpricelargelink .Params.lambpricelargelink }}
+            {{ end }}
+            
+            {{ if or .Params.beefpricelargelink .Params.chickenpricelargelink .Params.lambpricelargelink }}
                 <div id="productlarge" class="product-info hidden">
                     <p>{{- partial "price-pet-powder-200g.html" . -}}</p>
                 </div>
-                {{ end }}
+            {{ end }}
+            
 
                 
                 
