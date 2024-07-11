@@ -3667,20 +3667,22 @@ nav {
   padding: 5px 20px;
   margin: 0px 0px 10px;
 }
-
 .faq-tab-container {
   margin-top: 20px;
 }
 
 .faq-nav-tabs {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start; /* Aligns items to the start */
   border-bottom: 2px solid #ddd;
   margin-bottom: 20px;
+  overflow-x: auto;
+  white-space: nowrap;
+  scroll-snap-type: x mandatory; /* Enables scroll snapping */
 }
 
 .faq-nav-tab {
-  flex: 1;
+  flex: 0 0 auto;
   text-align: center;
   padding: 10px 15px;
   cursor: pointer;
@@ -3689,6 +3691,8 @@ nav {
   border: 1px solid transparent;
   border-bottom: none;
   background-color: #f8f9fa;
+  white-space: nowrap;
+  scroll-snap-align: start; /* Snaps to the start of each tab */
 }
 
 .faq-nav-tab.active {
@@ -3708,6 +3712,18 @@ nav {
   height: 0;
   overflow-y: hidden;
 }
+
+/* Scrollbar styling for webkit browsers */
+.faq-nav-tabs::-webkit-scrollbar {
+  height: 8px;
+}
+
+.faq-nav-tabs::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+
 .custom-radio {
   display: flex;
   align-items: center;
@@ -3771,6 +3787,16 @@ nav {
 float: none;
 margin: 0px auto;
   }
+
+  .badges {
+    margin-top:10px;
+    width: 200px !important;
+  }
+  
+  
+  .buy-now {
+    width: 300px !important;
+  }
 }
 
 .ninety {
@@ -3780,3 +3806,36 @@ margin: 0px auto;
 .eighty {
   width: 80%;
 }
+.accordion-minimal {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .accordion-minimal-header {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background-color: #f7f7f7;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .accordion-minimal-header:hover {
+            background-color: #e0e0e0;
+        }
+        .accordion-minimal-icon {
+            width: 100px;
+            height: 100px;
+            margin-right: 15px;
+            flex-shrink: 0; /* Prevents the icon from shrinking */
+        }
+        .accordion-minimal-title {
+            margin: 0;
+        }
+        .accordion-minimal-content {
+            padding: 15px;
+            display: none;
+        }
+        .accordion-minimal-content.show {
+            display: block;
+        }

@@ -187,8 +187,8 @@
     <img class="main-image"  src="/img/post-a-1.webp" alt="Main Product Image">            
     <div class="product-images mob-hide">
         <img class="product-image" src="/img/bonebroth7.webp" alt="Thumbnail 1">
-        <img class="product-image" src="/img/billie.webp" alt="Thumbnail 3">
         <img class="product-image" src="/img/50top.webp" alt="Thumbnail 2">
+        <img class="product-image" src="/img/boney.webp" alt="Thumbnail 2">
         <img class="product-image" src="/img/bonebroth5.webp" alt="Thumbnail 4">
         
     </div>
@@ -431,7 +431,43 @@
         </div>
     </div>
 </div>
-
+<div class="row">
+   
+    <div class="col-12 col-md-6">
+        <div class="accordion-minimal">
+            <div class="accordion-minimal-header">
+                <img src="/img/pixs.webp" alt="" class="accordion-minimal-icon">
+                <h3 class="accordion-minimal-title">Flavourful Bone Broth for Picky Eaters</h3>
+            </div>
+            <div class="accordion-minimal-content show">
+                <p>Our bone broth was designed for picky dogs and cats. Its rich, meaty flavour is hard to resist. You can sprinkle a serving of powder on your pet’s food to make it more appetizing. Bone broth powder is an economical way to feed your pet dry kibble without spending too much on the meat and other toppers. If your pet doesn’t like our powder, we will return your money or send another one (different flavour or recipe) for free!</p>
+            </div>
+        </div>
+        
+        <div class="accordion-minimal">
+            <div class="accordion-minimal-header">
+                <img src="/img/12.webp" alt="" class="accordion-minimal-icon">
+                <h3 class="accordion-minimal-title">Jam-packed with Undiluted Nutrition</h3>
+            </div>
+            <div class="accordion-minimal-content">
+                <p>Bone broth isn’t only a great appetite enhancer; it’s also packed with nutrients that benefit the overall health of your pet. Bone broth is a natural support for joint health, digestion, coat, and liver health of dogs & cats. It contains high amounts of protein & collagen but low on fat for these fat-conscious pet parents.</p>
+            </div>
+        </div>
+        
+        <div class="accordion-minimal">
+            <div class="accordion-minimal-header">
+                <img src="/img/pix.webp" alt="" class="accordion-minimal-icon">
+                <h3 class="accordion-minimal-title">True Bone Broth for Pets</h3>
+            </div>
+            <div class="accordion-minimal-content">
+                <p>To make our bone broth, we use only fresh, highest quality (often 100% organic) ingredients. We are against additives, fillers, sugars, colors, and other nastiness. Our bone broth is hand-made with the highest care at our commercial kitchen in Christchurch, New Zealand.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6">
+        <img src="/img/billie.webp" alt="billie photo" id="thumbnail">
+    </div>
+</div>
     
     <div class="row">
         <div class="col-8 middle">
@@ -619,7 +655,26 @@
       });
     </script>
     <script>
-    
+    document.addEventListener("DOMContentLoaded", function() {
+    const accordions = document.querySelectorAll(".accordion-minimal");
+
+    accordions.forEach(accordion => {
+        const header = accordion.querySelector(".accordion-minimal-header");
+
+        header.addEventListener("click", function() {
+            
+            accordions.forEach(acc => {
+                if (acc !== accordion) {
+                    acc.querySelector(".accordion-minimal-content").classList.remove("show");
+                }
+            });
+            
+            const content = this.nextElementSibling;
+            content.classList.toggle("show");
+        });
+    });
+});
+
 </script>
 <footer class="bg-tlgray-100">
   <script src='/js/custom.js'></script>
@@ -758,7 +813,10 @@
 
   <div class="copy pl-8 py-5 bg-tlgray-700 text-white text-md">
     &copy; PrimeBroth 2024 All Rights Reserved. <br>Site by <a style="color:white;font-weight:bold;" href="https://www.oso.nz">OSO Marketing NZ</a>
+    <img style="float:right;padding-right:20px;"class="badges" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
+
   </div>
+
 </footer>
 
 </body>
