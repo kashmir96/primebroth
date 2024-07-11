@@ -60,10 +60,6 @@
                 </div>
                 <button class="btn btn-primary buy-now" data-price-id="{{ .Params.pricelargelink }}" data-quantity-id="quantityLarge">Buy now</button>
             </div>
-
-
-
-              
                 
                 <ul>
                     <li>20g protein</li>
@@ -279,12 +275,7 @@
     </div></div>
     <!-- Add html above -->
       <!-- not charity clearing thank you url/charity param -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            localStorage.removeItem('pgurl');
-            localStorage.removeItem('charity');
-        });
-    </script>
+   
     {{- partial "stripe.html" . -}}    
     {{- partial "footer.html" . -}}
 </body>

@@ -2348,6 +2348,7 @@ video {
   .row > div {
   order: 2;
   }
+
 }
 
 @media screen and (min-width: 701px) {
@@ -3611,4 +3612,117 @@ nav {
 .card-bottom {
   padding: 5px 20px;
   margin: 0px 0px 10px;
+}
+
+.faq-tab-container {
+  margin-top: 20px;
+}
+
+.faq-nav-tabs {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.faq-nav-tab {
+  flex: 1;
+  text-align: center;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #555;
+  border: 1px solid transparent;
+  border-bottom: none;
+  background-color: #f8f9fa;
+}
+
+.faq-nav-tab.active {
+  border-color: #ddd;
+  border-bottom-color: #fff;
+  background-color: #fff;
+}
+
+.faq-tab-content {
+  border: 1px solid #ddd;
+  padding: 20px;
+  background-color: #fff;
+}
+
+.faq-tab-content > .tab-pane:not(.active) {
+  display: block;
+  height: 0;
+  overflow-y: hidden;
+}
+.custom-radio {
+  display: flex;
+  align-items: center;
+  margin-left:10px;
+}
+
+
+.custom-radio-label {
+  position: relative;
+  padding-left: 25px;
+  color: green;
+  font-weight: bold;
+}
+
+.custom-radio-label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+.custom-radio input[type="radio"]:checked + .custom-radio-label::before {
+  background-color: green;
+}
+
+.custom-radio input[type="radio"]:checked + .custom-radio-label::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.trust p {
+  font-weight: bold;
+  text-align: center;
+}
+.trust img {
+  width: 50px;
+  float:left;
+  position: relative;
+  top: 10px;
+  right: 10px;
+}
+.badges {
+  width: 200px !important;
+}
+
+
+.buy-now {
+  width: 300px !important;
+}
+
+@media (max-width: 768px) {
+  .trust img {
+float: none;
+margin: 0px auto;
+  }
+}
+
+.ninety {
+  width: 90%;
+}
+
+.eighty {
+  width: 80%;
 }

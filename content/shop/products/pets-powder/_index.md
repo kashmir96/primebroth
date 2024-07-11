@@ -12,4 +12,5 @@ chickenpricelargelink:
 lambpricesmalllink:
 lambpricemediumlink:
 lambpricelargelink:
+wipe: true
 ---
