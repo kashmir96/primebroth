@@ -363,7 +363,11 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('productSize').addEventListener('change', updateProductSize);
 
     
-    setupBuyNowButtons();
+    document.addEventListener('click', function(event) {
+        if (event.target.classList.contains('buy-now')) {
+            handleBuyNowClick(event);
+        }
+    });
 
     function storePageData() {
         const pgurl = '';
@@ -396,23 +400,13 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('product' + size).classList.toggle('hidden', !isSelected);
             document.getElementById('pricePartial' + capitalize(size)).classList.toggle('hidden', !isSelected);
         });
-
-        
-        setupBuyNowButtons();
-    }
-
-    function setupBuyNowButtons() {
-        document.querySelectorAll('.buy-now').forEach(button => {
-            button.removeEventListener('click', handleBuyNowClick);  
-            button.addEventListener('click', handleBuyNowClick);  
-        });
     }
 
     function handleBuyNowClick(e) {
         e.preventDefault();
         const button = e.target;
         const priceId = button.getAttribute('data-price-id');
-        const quantityId = button.getAttribute('data-quantity-id');
+        const quantityId = 'quantityAll'; 
         const quantity = document.getElementById(quantityId).value;
         handleCheckout(priceId, quantity);
     }
@@ -460,29 +454,6 @@ document.addEventListener('DOMContentLoaded', function () {
     </script>
 
 
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-    const accordions = document.querySelectorAll(".accordion-minimal");
-
-    accordions.forEach(accordion => {
-        const header = accordion.querySelector(".accordion-minimal-header");
-
-        header.addEventListener("click", function() {
-            
-            accordions.forEach(acc => {
-                if (acc !== accordion) {
-                    acc.querySelector(".accordion-minimal-content").classList.remove("show");
-                }
-            });
-            
-            const content = this.nextElementSibling;
-            content.classList.toggle("show");
-        });
-    });
-});
-
-</script>
 <footer class="bg-tlgray-100">
   <script src='/js/custom.js'></script>
 
