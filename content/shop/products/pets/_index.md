@@ -1,10 +1,16 @@
 ---
-title: "Pets bone broth - PrimeBroth"
-description: "Pets bone broth PrimeBroth, NZ's animal based wellness drink for pets"
+title: "Bone Broth Liquid for dogs and cats - PrimeBroth"
+description: "Bone Broth Liquid for dogs and cats. PrimeBroth, NZ's animal based wellness drink and meal topper for pets"
 type: custom
 layout: products/pets
-beefpricelargelink: price_1P4rzrABkrUo6tgOmv6kST7n
+beefpricesmalllink: price_1P4rzrABkrUo6tgOmv6kST7n
+beefpricemediumlink: 
+beefpricelargelink: 
+chickenpricesmalllink: 
+chickenpricemediumlink: 
+chickenpricelargelink: 
+lambpricesmalllink:
+lambpricemediumlink:
+lambpricelargelink:
 wipe: true
 ---
-
-
