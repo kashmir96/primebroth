@@ -3033,22 +3033,26 @@ nav.p-8 {
   font-weight: 600;
 }
 
-.product-card:hover { 
+.product-card:hover, .charity-card:hover { 
   text-decoration: none;
 }
 
-.product-card { 
+.product-card, .charity-card { 
   background-color: rgb(255 255 255 / 0.85);
-min-height:500px;
 align-content: center;
 border: .5px solid lightgray;
+}
+
+.product-card {
+  min-height:500px;
+
 }
 
 .short-banner .product-card {
   margin: 10px;
 }
 
-.product-card a {
+.product-card a, .charity-card a {
 color: black !important;
 }
 
@@ -3379,7 +3383,7 @@ nav {
 .charities>.product-details {
   text-align: center;
 }
-.charities>.product-card{
+.charities>.product-card, .charities>.charity-card {
   text-align:center;
 }
 
@@ -3528,6 +3532,14 @@ nav {
   #shareThisContainer {
     width:90%;
   }
+
+  .partner-fold img { 
+clear: both;
+margin: 0px auto;
+    }
+    .partner-fold p { 
+      text-align: center;
+          }
 }
 
 
@@ -3847,4 +3859,101 @@ margin: 0px auto;
 
 .prettylink { 
   color: palevioletred; text-decoration: underline;
+}
+
+.charity-list {
+  height: 70vh; /* Set the max height to 85% of the viewport height */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.unique-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ccc;
+}
+
+.unique-tab {
+  padding: 10px 20px;
+  margin: 0;
+  cursor: pointer;
+  background-color: #FBE5DB;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+  color: #333;
+}
+
+.unique-tab.active {
+  background-color: #fff;
+  border-bottom: 2px solid #fff;
+  color: #000;
+}
+
+.charity-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.charity-card img {
+  width: 100%;
+  height: auto;
+}
+
+.charity-card h6 {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.taboverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  text-align: center;
+  color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.taboverlay .btn {
+  background-color: #fff;
+  color: #000;
+  padding: 10px 20px;
+  text-decoration: none;
+  margin-bottom: 20px;
+}
+
+.taboverlay p {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.charity-card:hover .taboverlay,
+.charity-card:focus .taboverlay {
+  opacity: 1;
+}
+
+.charity-card.show {
+  display: block;
+}
+
+.charity-card {
+  display: none;
+}
+
+
+.partner-fold img { 
+height: auto;
+width: 100px;
+float: left;
 }
