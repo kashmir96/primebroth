@@ -1,7 +1,7 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const fetch = require('node-fetch');
 
 exports.handler = async (event, context) => {
+  const fetch = (await import('node-fetch')).default; // Dynamically import node-fetch
   const sig = event.headers['stripe-signature'];
 
   let eventObj;
@@ -31,6 +31,7 @@ exports.handler = async (event, context) => {
 
     const formParams = new URLSearchParams(formData);
 
+    // Submit the form
     try {
       const response = await fetch(formUrl, {
         method: 'POST',
