@@ -9,11 +9,16 @@ exports.handler = async (event, context) => {
     const amount = price.unit_amount * quantity;
 
     // Define the shipping rate IDs
-    const standardShippingRate = 'shr_1PasnCABkrUo6tgOd7bkp2rT'; // Replace with your actual standard shipping rate ID
+    const standardShippingRate = 'shr_1PcZ8aABkrUo6tgODQmr9JHk'; // Replace with your actual standard shipping rate ID
     const freeShippingRate = 'shr_1PWrY7ABkrUo6tgODvMWsZjD'; // Free shipping rate ID
 
     // Determine the shipping rate based on the total amount
-    const shippingRate = amount >= 8000 ? freeShippingRate : standardShippingRate;
+    let shippingRate;
+    if (amount >= 8000 || (amount >= 300 && amount <= 1000)) {
+      shippingRate = freeShippingRate;
+    } else {
+      shippingRate = standardShippingRate;
+    }
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
