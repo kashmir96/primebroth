@@ -2,12 +2,22 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async (event, context) => {
   const fetch = (await import('node-fetch')).default; // Dynamically import node-fetch
+
   const sig = event.headers['stripe-signature'];
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+  if (!webhookSecret) {
+    console.error('⚠️  Webhook secret is not defined.');
+    return {
+      statusCode: 500,
+      body: 'Webhook secret is not defined in environment variables.',
+    };
+  }
 
   let eventObj;
 
   try {
-    eventObj = stripe.webhooks.constructEvent(event.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+    eventObj = stripe.webhooks.constructEvent(event.body, sig, webhookSecret);
   } catch (err) {
     console.error('⚠️  Webhook signature verification failed.', err.message);
     return {
