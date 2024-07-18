@@ -106,11 +106,13 @@
                         {{ if or .Params.beefpricesmalllink .Params.chickenpricesmalllink .Params.lambpricesmalllink }}
                         <option value="small" data-image="/img/post-a-1.webp">20g</option>
                         {{ end }}
-                        {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
-                        <option value="medium" data-image="/img/50front.webp">50g</option>
-                        {{ end }}
-                        {{ if or .Params.beefpricelargelink .Params.chickenpricelargelink .Params.lambpricelargelink }}
-                        <option value="large" data-image="/img/50front.webp">200g (Save 10%)</option>
+                        {{ if isset .Params "wipe" }}
+                            {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
+                            <option value="medium" data-image="/img/50front.webp">50g</option>
+                            {{ end }}
+                            {{ if or .Params.beefpricelargelink .Params.chickenpricelargelink .Params.lambpricelargelink }}
+                                <option value="large" data-image="/img/50front.webp">200g (Save 10%)</option>
+                            {{ end }}
                         {{ end }}
                     </select>
                 </div>
