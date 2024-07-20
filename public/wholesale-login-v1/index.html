@@ -62,10 +62,70 @@
         .container.show {
             display: block;
         }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgb(0, 0, 0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .overlay form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 300px;
+        }
+        .overlay form img {
+            max-width: 100%;
+            height: auto;
+        }
+        .overlay form input[type="password"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .overlay form button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .back-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1001;  
+}
+
+.back-button:hover {
+    background-color: #f0f0f0;
+}
+
     </style>
 </head>
 <body>
-    <div id="protectedContent">
+    <div id="passwordOverlay" class="overlay">
+        <a href="/" class="back-button">Back to Primebroth Website</a>
+        <form id="passwordForm">
+            <img src="/img/logo/logo.webp" alt="Primebroth Image">
+            <h2>Buy wholesale bone broth.</h2>
+            <input style="border:1px solid gray;border-radius:5px;" type="password" id="password" name="password" placeholder="Password">
+            <button class="btn btn-primary" style="width:100%;" type="submit">Login</button>
+            <p class="mt-4">Not an approved reseller? <a href="/partner-request">Click here</a> to express your interest.</p>
+        </form>
+    </div>
+    <div id="protectedContent" class="hidden">
         <div class="announcement full-width black text-center">
             <ul>
                 <li>Exclusive access page for resellers only.</li>
@@ -231,6 +291,11 @@
                     <p>(18)</p>
                     <div class="dropdown-container">
                         <div class="dropdown-group">
+                            <select id="productFlavour1" name="productFlavour1">
+                                <option value="beef" data-sample-url="https://buy.stripe.com/9AQ8yL9Xub8pgEg8wL" data-small-url="https://buy.stripe.com/eVa7uH4DafoFbjWbJn" data-small-wholesale-url="https://buy.stripe.com/5kA7uH6Li5O53Ru295" data-large-url="https://buy.stripe.com/00g16jb1yfoFco014K" data-large-wholesale-url="https://buy.stripe.com/3cscP12v24K1ds4294" data-xl-url="https://buy.stripe.com/5kA4ivglSb8pgEgdRx" data-xl-wholesale-url="https://buy.stripe.com/7sI5mz9Xu2BT4VyaFm">Beef</option>
+                            </select>
+                        </div>
+                        <div class="dropdown-group">
                             <select id="productSize1" name="productSize1">
                                 <option value="sample" selected>Sample</option>
                                 <option value="small">20g x12</option>
@@ -241,58 +306,52 @@
                     </div>
                     
                     <div id="productsample1" class="product-info">
-                        <p>Free</p>
-                        <p>Order a free sample, just pay the shipping - limit one sample per customer.</p>
+                        <p>12g of Powdered Organic Beef Bone Broth.</p>
+                        <p>Free, just pay the shipping - limit one sample per customer.</p>
                         <a href="https://buy.stripe.com/9AQ8yL9Xub8pgEg8wL" class="btn buy-now btn-primary">Claim now</a>
                     </div>
                     <div id="productsmall1" class="product-info hidden">
-                        <p>Dropship (single)$5.95<span class="green"> - RRP$9.95</span></p>
-                        <p>Buy Wholesale (12pk)$79.95 - $6.66/ea<span class="green"> - RRP$9.95</span></p>
-                        <p>20g of Powdered Organic Beef Bone Broth, up to 7 servings depending on pet size.</p>
-                        <p style="color:palevioletred;">Set quantity at checkout</p>
-        
-                        <a href="https://buy.stripe.com/eVa7uH4DafoFbjWbJn" class="btn buy-now btn-secondary">Drop ship</a>
-                        <a href="https://buy.stripe.com/14kbKX7Pm0tL3Ru7t5" class="btn buy-now btn-primary">Buy Wholesale</a>
+                        <p>20g of Powdered Organic Beef Bone Broth.</p>
+                        <p>Dropship (single) $8.45 <span class="green"> - RRP $9.95</span></p>
+                        <p>Buy Wholesale (12pk) $84.45 <span class="green"> - RRP $119.40</span></p>
+                        <div class="btn-group">
+                            <a href="https://buy.stripe.com/eVa7uH4DafoFbjWbJn" class="btn buy-now btn-secondary">Drop ship</a>
+                            <a href="https://buy.stripe.com/5kA7uH6Li5O53Ru295" class="btn buy-now btn-primary">Buy Wholesale</a>
+                        </div>
                     </div>
                     <div id="productlarge1" class="product-info hidden">
-                        <p>Dropship (single)$13.45<span class="green"> - RRP$18.95</span></p>
-                        <p>Buy Wholesale (12pk)$149.95 - $12.49/ea<span class="green"> - RRP$18.95</span></p>
-                        <p>50g of Powdered Organic Beef Bone Broth, makes up to 33 servings depending on the size of your pet.</p>
-                        <p style="color:palevioletred;">Set quantity at checkout</p>
-        
-                        <a href="https://buy.stripe.com/00g16jb1yfoFco014K" class="btn buy-now btn-secondary">Drop ship</a>
-                        <a href="https://buy.stripe.com/9AQ02fb1y6S94Vy7t6" class="btn buy-now btn-primary">Buy Wholesale</a>
+                        <p>50g of Powdered Organic Beef Bone Broth.</p>
+                        <p>Dropship (single) $14.45 <span class="green"> - RRP $18.95</span></p>
+                        <p>Buy Wholesale (12pk) $159.45 <span class="green"> - RRP $227.40</span></p>
+                        <div class="btn-group">
+                            <a href="https://buy.stripe.com/00g16jb1yfoFco014K" class="btn buy-now btn-secondary">Drop ship</a>
+                            <a href="https://buy.stripe.com/3cscP12v24K1ds4294" class="btn buy-now btn-primary">Buy Wholesale</a>
+                        </div>
                     </div>
                     <div id="productxl1" class="product-info hidden">
-                        <p>Dropship (single)$48.95<span class="green"> - RRP$68.95 (Save 10%)</span></p>
-                        <p>Buy Wholesale (12pk)$545.95 - $45.50/ea<span class="green"> - RRP$68.95 (Save 10%)</span></p>
-                        <p>200g of Powdered Organic Beef Bone Broth, makes up to 132 servings depending on the size of your pet.</p>
-                        <p style="color:palevioletred;">Set quantity at checkout</p>
-        
-                        <a href="https://buy.stripe.com/5kA4ivglSb8pgEgdRx" class="btn buy-now btn-secondary">Drop ship</a>
-                        <a href="https://buy.stripe.com/7sI5mz9Xu2BT4VyaFm" class="btn buy-now btn-primary">Buy Wholesale</a>
+                        <p>200g of Powdered Organic Beef Bone Broth.</p>
+                        <p>Dropship (single) $52.45 <span class="green"> - RRP $68.95</span></p>
+                        <p>Buy Wholesale (12pk) $579.45 <span class="green"> - RRP $827.40</span></p>
+                        <div class="btn-group">
+                            <a href="https://buy.stripe.com/5kA4ivglSb8pgEgdRx" class="btn buy-now btn-secondary">Drop ship</a>
+                            <a href="https://buy.stripe.com/7sI5mz9Xu2BT4VyaFm" class="btn buy-now btn-primary">Buy Wholesale</a>
+                        </div>
                     </div>  
                 </div>
             </div>
         </div>
 
         
-
-        
         <div class="container" id="container2">
             <div class="row topbanner rel">
                 <div class="col-xs-12 col-lg-6 product-photos">
-    <img class="main-image"  src="/img/post-a-1.webp" alt="Main Product Image">            
-    <div class="product-images mob-hide">
-        <img class="product-image" src="/img/pink-duo-close-sq.webp" alt="Thumbnail 1">
-        <img class="product-image" src="/img/back-sq-single.webp" alt="Thumbnail 1">
-        <img class="product-image" src="/img/50top.webp" alt="Thumbnail 2">
-        <img class="product-image" src="/img/boney.webp" alt="Thumbnail 2">
-        <img class="product-image" src="/img/bonebroth5.webp" alt="Thumbnail 4">
-        
-    </div>
-
-    </div>
+                    <img class="main-image" id="mainImage2" src="/img/bonebroth7.webp" alt="Main Product Image">            
+                    <div class="product-images mob-hide">
+                        <img class="product-image" src="/img/bonebroth10.webp" alt="Thumbnail 3" onclick="changeMainImage('mainImage2', this)">
+                        <img class="product-image" src="/img/louie.webp" alt="Thumbnail 2" onclick="changeMainImage('mainImage2', this)">
+                        <img class="product-image" src="/img/bonebroth5.webp" alt="Thumbnail 4" onclick="changeMainImage('mainImage2', this)">
+                    </div>
+                </div>
                 <div class="col-xs-12 col-lg-6">
                     <h1>Bone Broth Meal Topper for Pets (Liquid)</h1>
                     <h5>Pets go from picky to piggy with just a dash in their kibble.</h5>
@@ -300,47 +359,51 @@
                     <p>(18)</p>
                     <div class="dropdown-container">
                         <div class="dropdown-group">
+                            <select id="productFlavour2" name="productFlavour2">
+                                <option value="beef" data-sample-url="https://buy.stripe.com/bIY6qD8Tq6S90Fi017" data-small-url="https://buy.stripe.com/00gg1d9Xucctds45l7" data-small-wholesale-url="https://buy.stripe.com/aEUdT57PmekB5ZC8xw" data-large-url="https://buy.stripe.com/14kbKX1qYdgx3Ru28W" data-large-wholesale-url="https://buy.stripe.com/9AQ3er0mU7WdafSeVV" data-xl-url="https://buy.stripe.com/9AQ6qDedK0tLds4aFt" data-xl-wholesale-url="https://buy.stripe.com/8wMdT54Da90h4Vy9BC">Beef</option>
+                            </select>
+                        </div>
+                        <div class="dropdown-group">
                             <select id="productSize2" name="productSize2">
                                 <option value="sample" selected>Sample</option>
-                                <option value="small">6pk x12</option>
-                                <option value="large">12pk x12</option>
-                                <option value="xl">24pk x12</option>
+                                <option value="small">2400ml (6pk x12)</option>
+                                <option value="large">4800ml (12pk x12)</option>
+                                <option value="xl">9600ml (24pk x12)</option>
                             </select>
                         </div>
                     </div>
                     
-                    
                     <div id="productsample2" class="product-info">
-                        <p>Free</p>
-                        <p>Order a free sample, just pay the shipping - limit one sample per customer.</p>
-                        <a href="https://buy.stripe.com/9AQ8yL9Xub8pgEg8wL" class="btn buy-now btn-primary">Claim now</a>
+                        <p>200ml of Liquid Organic Beef Bone Broth.</p>
+                        <p>Free, just pay the shipping - limit one sample per customer.</p>
+                        <a href="https://buy.stripe.com/bIY6qD8Tq6S90Fi017" class="btn buy-now btn-primary">Claim now</a>
                     </div>
                     <div id="productsmall2" class="product-info hidden">
-                        <p>Dropship (single)$5.95<span class="green"> - RRP$9.95</span></p>
-                        <p>Buy Wholesale (12pk)$79.95 - $6.66/ea<span class="green"> - RRP$9.95</span></p>
-                        <p>20g of Powdered Organic Beef Bone Broth, up to 7 servings depending on pet size.</p>
-                        <p style="color:palevioletred;">Set quantity at checkout</p>
-
-                        <a href="https://buy.stripe.com/eVa7uH4DafoFbjWbJn" class="btn buy-now btn-secondary">Drop ship</a>
-                        <a href="https://buy.stripe.com/14kbKX7Pm0tL3Ru7t5" class="btn buy-now btn-primary">Buy Wholesale</a>
+                        <p>2400ml of Liquid Organic Beef Bone Broth (6pk x12).</p>
+                        <p>Dropship (single) $34.45 <span class="green"> - RRP $44.95</span></p>
+                        <p>Buy Wholesale (12pk) $378.45 <span class="green"> - RRP $539.40</span></p>
+                        <div class="btn-group">
+                            <a href="https://buy.stripe.com/00gg1d9Xucctds45l7" class="btn buy-now btn-secondary">Drop ship</a>
+                            <a href="https://buy.stripe.com/aEUdT57PmekB5ZC8xw" class="btn buy-now btn-primary">Buy Wholesale</a>
+                        </div>
                     </div>
                     <div id="productlarge2" class="product-info hidden">
-                        <p>Dropship (single)$13.45<span class="green"> - RRP$18.95</span></p>
-                        <p>Buy Wholesale (12pk)$149.95 - $12.49/ea<span class="green"> - RRP$18.95</span></p>
-                        <p>50g of Powdered Organic Beef Bone Broth, makes up to 33 servings depending on the size of your pet.</p>
-                        <p style="color:palevioletred;">Set quantity at checkout</p>
-
-                        <a href="https://buy.stripe.com/00g16jb1yfoFco014K" class="btn buy-now btn-secondary">Drop ship</a>
-                        <a href="https://buy.stripe.com/9AQ02fb1y6S94Vy7t6" class="btn buy-now btn-primary">Buy Wholesale</a>
+                        <p>4800ml of Liquid Organic Beef Bone Broth (12pk x12).</p>
+                        <p>Dropship (single) $68.45 <span class="green"> - RRP $89.95</span></p>
+                        <p>Buy Wholesale (12pk) $756.45 <span class="green"> - RRP $1,079.40</span></p>
+                        <div class="btn-group">
+                            <a href="https://buy.stripe.com/14kbKX1qYdgx3Ru28W" class="btn buy-now btn-secondary">Drop ship</a>
+                            <a href="https://buy.stripe.com/9AQ3er0mU7WdafSeVV" class="btn buy-now btn-primary">Buy Wholesale</a>
+                        </div>
                     </div>
                     <div id="productxl2" class="product-info hidden">
-                        <p>Dropship (single)$48.95<span class="green"> - RRP$68.95 (Save 10%)</span></p>
-                        <p>Buy Wholesale (12pk)$545.95 - $45.50/ea<span class="green"> - RRP$68.95 (Save 10%)</span></p>
-                        <p>200g of Powdered Organic Beef Bone Broth, makes up to 132 servings depending on the size of your pet.</p>
-                        <p style="color:palevioletred;">Set quantity at checkout</p>
-
-                        <a href="https://buy.stripe.com/5kA4ivglSb8pgEgdRx" class="btn buy-now btn-secondary">Drop ship</a>
-                        <a href="https://buy.stripe.com/7sI5mz9Xu2BT4VyaFm" class="btn buy-now btn-primary">Buy Wholesale</a>
+                        <p>9600ml of Liquid Organic Beef Bone Broth (24pk x12).</p>
+                        <p>Dropship (single) $120.45 <span class="green"> - RRP $159.95</span></p>
+                        <p>Buy Wholesale (12pk) $1,344.45 <span class="green"> - RRP $1,919.40</span></p>
+                        <div class="btn-group">
+                            <a href="https://buy.stripe.com/9AQ6qDedK0tLds4aFt" class="btn buy-now btn-secondary">Drop ship</a>
+                            <a href="https://buy.stripe.com/8wMdT54Da90h4Vy9BC" class="btn buy-now btn-primary">Buy Wholesale</a>
+                        </div>
                     </div>  
                 </div>
             </div>
@@ -350,62 +413,63 @@
         <div class="container" id="container3">
             <div class="row topbanner rel">
                 <div class="col-xs-12 col-lg-6 product-photos">
-    <img class="main-image"  src="/img/post-a-1.webp" alt="Main Product Image">            
-    <div class="product-images mob-hide">
-        <img class="product-image" src="/img/pink-duo-close-sq.webp" alt="Thumbnail 1">
-        <img class="product-image" src="/img/back-sq-single.webp" alt="Thumbnail 1">
-        <img class="product-image" src="/img/50top.webp" alt="Thumbnail 2">
-        <img class="product-image" src="/img/boney.webp" alt="Thumbnail 2">
-        <img class="product-image" src="/img/bonebroth5.webp" alt="Thumbnail 4">
-        
-    </div>
-
-    </div>
+                    <img class="main-image" id="mainImage3" src="/img/22.webp" alt="Main Product Image">            
+                    <div class="product-images mob-hide">
+                        <img class="product-image" src="/img/3.webp" alt="Thumbnail 1" onclick="changeMainImage('mainImage3', this)">
+                        <img class="product-image" src="/img/13.webp" alt="Thumbnail 2" onclick="changeMainImage('mainImage3', this)">
+                        <img class="product-image" src="/img/4.webp" alt="Thumbnail 2" onclick="changeMainImage('mainImage3', this)">
+                    </div>
+                </div>
                 <div class="col-xs-12 col-lg-6">
                     <h1>Liquid Gold Bone Broth</h1>
                     <div class="dropdown-container">
                         <div class="dropdown-group">
+                            <select id="productFlavour3" name="productFlavour3">
+                                <option value="beef" data-sample-url="https://buy.stripe.com/4gw6qDd9G1xP1Jm15c" data-small-url="https://buy.stripe.com/fZe4iv2v2b8p87K00Q" data-small-wholesale-url="https://buy.stripe.com/3cscP14Dadgxew84hj" data-large-url="https://buy.stripe.com/3cs02f2v23FX4Vy9Br" data-large-wholesale-url="https://buy.stripe.com/28o8yLglS0tL87KdRU" data-xl-url="https://buy.stripe.com/14k7uH5Heb8p5ZCdRI" data-xl-wholesale-url="https://buy.stripe.com/9AQ2anfhO5O53Ru7tx">Beef</option>
+                                <option value="chicken" data-sample-url="https://buy.stripe.com/bIY8yL9Xu6S9bjWcNW" data-small-url="https://buy.stripe.com/7sI2an6Licct87K9Bt" data-small-wholesale-url="https://buy.stripe.com/6oEdT56LifoF2Nq8xf" data-large-url="https://buy.stripe.com/4gw4iv9XudgxafSbJC" data-large-wholesale-url="https://buy.stripe.com/aEU2an6Lia4lfAc9Bk" data-xl-url="https://buy.stripe.com/9AQ3er1qY90h87K4hb" data-xl-wholesale-url="https://buy.stripe.com/cN2dT54DafoF2Nqg04">Chicken</option>
+                            </select>
+                        </div>
+                        <div class="dropdown-group">
                             <select id="productSize3" name="productSize3">
                                 <option value="sample" selected>Sample</option>
-                                <option value="small">6pk x12</option>
-                                <option value="large">12pk x12</option>
-                                <option value="xl">24pk x12</option>
+                                <option value="small">3000ml (6pk x12)</option>
+                                <option value="large">6000ml (12pk x12)</option>
+                                <option value="xl">12000ml (24pk x12)</option>
                             </select>
                         </div>
                     </div>
                     
-                    
                     <div id="productsample3" class="product-info">
-                        <p>Free</p>
-                        <p>Order a free sample, just pay the shipping - limit one sample per customer.</p>
-                        <a href="https://buy.stripe.com/9AQ8yL9Xub8pgEg8wL" class="btn buy-now btn-primary">Claim now</a>
+                        <p>200ml of Liquid Organic Beef Bone Broth.</p>
+                        <p>Free, just pay the shipping - limit one sample per customer.</p>
+                        <a href="https://buy.stripe.com/4gw6qDd9G1xP1Jm15c" class="btn buy-now btn-primary">Claim now</a>
                     </div>
                     <div id="productsmall3" class="product-info hidden">
-                        <p>Dropship (single)$5.95<span class="green"> - RRP$9.95</span></p>
-                        <p>Buy Wholesale (12pk)$79.95 - $6.66/ea<span class="green"> - RRP$9.95</span></p>
-                        <p>20g of Powdered Organic Beef Bone Broth, up to 7 servings depending on pet size.</p>
-                        <p style="color:palevioletred;">Set quantity at checkout</p>
-
-                        <a href="https://buy.stripe.com/eVa7uH4DafoFbjWbJn" class="btn buy-now btn-secondary">Drop ship</a>
-                        <a href="https://buy.stripe.com/14kbKX7Pm0tL3Ru7t5" class="btn buy-now btn-primary">Buy Wholesale</a>
+                        <p>3000ml of Liquid Organic Beef Bone Broth (6pk x12).</p>
+                        <p>Dropship (single) $53.45 <span class="green"> - RRP $69.95</span></p>
+                        <p>Buy Wholesale (12pk) $588.45 <span class="green"> - RRP $839.40</span></p>
+                        <div class="btn-group">
+                            <a href="https://buy.stripe.com/fZe4iv2v2b8p87K00Q" class="btn buy-now btn-secondary">Drop ship</a>
+                            <a href="https://buy.stripe.com/3cscP14Dadgxew84hj" class="btn buy-now btn-primary">Buy Wholesale</a>
+                        </div>
                     </div>
                     <div id="productlarge3" class="product-info hidden">
-                        <p>Dropship (single)$13.45<span class="green"> - RRP$18.95</span></p>
-                        <p>Buy Wholesale (12pk)$149.95 - $12.49/ea<span class="green"> - RRP$18.95</span></p>
-                        <p>50g of Powdered Organic Beef Bone Broth, makes up to 33 servings depending on the size of your pet.</p>
-                        <p style="color:palevioletred;">Set quantity at checkout</p>
-
-                        <a href="https://buy.stripe.com/00g16jb1yfoFco014K" class="btn buy-now btn-secondary">Drop ship</a>
-                        <a href="https://buy.stripe.com/9AQ02fb1y6S94Vy7t6" class="btn buy-now btn-primary">Buy Wholesale</a>
+                        <p>6000ml of Liquid Organic Beef Bone Broth (12pk x12).</p>
+                        <p>Dropship (single) $94.45 <span class="green"> - RRP $124.95</span></p>
+                        <p>Buy Wholesale (12pk) $1,050.45 <span class="green"> - RRP $1,499.40</span></p>
+                        <div class="btn-group">
+                            <a href="https://buy.stripe.com/3cs02f2v23FX4Vy9Br" class="btn buy-now btn-secondary">Drop ship</a>
+                            <a href="https://buy.stripe.com/28o8yLglS0tL87KdRU" class="btn buy-now btn-primary">Buy Wholesale</a>
+                        </div>
                     </div>
                     <div id="productxl3" class="product-info hidden">
-                        <p>Dropship (single)$48.95<span class="green"> - RRP$68.95 (Save 10%)</span></p>
-                        <p>Buy Wholesale (12pk)$545.95 - $45.50/ea<span class="green"> - RRP$68.95 (Save 10%)</span></p>
-                        <p>200g of Powdered Organic Beef Bone Broth, makes up to 132 servings depending on the size of your pet.</p>
-                        <p style="color:palevioletred;">Set quantity at checkout</p>
-
-                        <a href="https://buy.stripe.com/5kA4ivglSb8pgEgdRx" class="btn buy-now btn-secondary">Drop ship</a>
-                        <a href="https://buy.stripe.com/7sI5mz9Xu2BT4VyaFm" class="btn buy-now btn-primary">Buy Wholesale</a>
+                        <p>12000ml of Liquid Organic Beef Bone Broth (24pk x12).</p>
+                        <p>Dropship (single) $173.45 <span class="green"> - RRP $229.95</span></p>
+                        <p>Buy Wholesale (12pk) $1,932.45 <span class="green"> - RRP $2,759.40</span></p>
+                        <div class="btn-group">
+                            <a href="https://buy.stripe.com/14k7uH5Heb8p5ZCdRI" class="btn buy-now btn-secondary">Drop ship</a>
+                            <a href="https://buy.stripe.com/9AQ2anfhO5O53Ru7tx" class="btn buy-now btn-primary">Buy Wholesale</a>
+                        </div>
                     </div>  
                 </div>
             </div>
@@ -415,22 +479,24 @@
         <div class="container" id="container4">
             <div class="row topbanner rel">
                 <div class="col-xs-12 col-lg-6 product-photos">
-    <img class="main-image"  src="/img/post-a-1.webp" alt="Main Product Image">            
-    <div class="product-images mob-hide">
-        <img class="product-image" src="/img/pink-duo-close-sq.webp" alt="Thumbnail 1">
-        <img class="product-image" src="/img/back-sq-single.webp" alt="Thumbnail 1">
-        <img class="product-image" src="/img/50top.webp" alt="Thumbnail 2">
-        <img class="product-image" src="/img/boney.webp" alt="Thumbnail 2">
-        <img class="product-image" src="/img/bonebroth5.webp" alt="Thumbnail 4">
-        
-    </div>
-
-    </div>
+                    <img class="main-image" id="mainImage4" src="/img/pouch.webp" alt="Main Product Image">            
+                    <div class="product-images mob-hide">
+                        <img class="product-image" src="/img/pouch3.webp" alt="Thumbnail 1" onclick="changeMainImage('mainImage4', this)">
+                        <img class="product-image" src="/img/pplpow.webp" alt="Thumbnail 2" onclick="changeMainImage('mainImage4', this)">
+                        <img class="product-image" src="/img/13.webp" alt="Thumbnail 2" onclick="changeMainImage('mainImage4', this)">
+                        <img class="product-image" src="/img/3.webp" alt="Thumbnail 4" onclick="changeMainImage('mainImage4', this)">
+                    </div>
+                </div>
                 <div class="col-xs-12 col-lg-6">
                     <h1>Bone broth powder</h1>
                     <img class="stars" src="/img/stars/5.webp" alt="review rating for bone broth product">
                     <p>(7)</p>
                     <div class="dropdown-container">
+                        <div class="dropdown-group">
+                            <select id="productFlavour4" name="productFlavour4">
+                                <option value="beef" data-sample-url="https://buy.stripe.com/9AQ2anc5C0tLbjWaFN" data-small-url="https://buy.stripe.com/9AQ9CP3z6foF87KaFp" data-small-wholesale-url="https://buy.stripe.com/9AQeX96Li90h2Nq9By" data-large-url="https://buy.stripe.com/7sI16j4Da4K1afSaFq" data-large-wholesale-url="https://buy.stripe.com/28o9CP8TqekBfAc9Bz">Beef</option>
+                            </select>
+                        </div>
                         <div class="dropdown-group">
                             <select id="productSize4" name="productSize4">
                                 <option value="sample" selected>Sample</option>
@@ -440,40 +506,87 @@
                         </div>
                     </div>
                     
-                    
                     <div id="productsample4" class="product-info">
-                        <p>Free</p>
-                        <p>Order a free sample, just pay the shipping - limit one sample per customer.</p>
-                        <a href="https://buy.stripe.com/9AQ8yL9Xub8pgEg8wL" class="btn buy-now btn-primary">Claim now</a>
+                        <p>12g of Powdered Organic Beef Bone Broth.</p>
+                        <p>Free, just pay the shipping - limit one sample per customer.</p>
+                        <a href="https://buy.stripe.com/9AQ2anc5C0tLbjWaFN" class="btn buy-now btn-primary">Claim now</a>
                     </div>
                     <div id="productsmall4" class="product-info hidden">
-                        <p>Dropship (single)$5.95<span class="green"> - RRP$9.95</span></p>
-                        <p>Buy Wholesale (12pk)$79.95 - $6.66/ea<span class="green"> - RRP$9.95</span></p>
-                        <p>20g of Powdered Organic Beef Bone Broth, up to 7 servings depending on pet size.</p>
-                        <p style="color:palevioletred;">Set quantity at checkout</p>
-
-                        <a href="https://buy.stripe.com/eVa7uH4DafoFbjWbJn" class="btn buy-now btn-secondary">Drop ship</a>
-                        <a href="https://buy.stripe.com/14kbKX7Pm0tL3Ru7t5" class="btn buy-now btn-primary">Buy Wholesale</a>
+                        <p>90g of Powdered Organic Beef Bone Broth.</p>
+                        <p>Dropship (single) $31.45 <span class="green"> - RRP $40.95</span></p>
+                        <p>Buy Wholesale (12pk) $344.45 <span class="green"> - RRP $491.40</span></p>
+                        <div class="btn-group">
+                            <a href="https://buy.stripe.com/9AQ9CP3z6foF87KaFp" class="btn buy-now btn-secondary">Drop ship</a>
+                            <a href="https://buy.stripe.com/9AQeX96Li90h2Nq9By" class="btn buy-now btn-primary">Buy Wholesale</a>
+                        </div>
                     </div>
                     <div id="productlarge4" class="product-info hidden">
-                        <p>Dropship (single)$13.45<span class="green"> - RRP$18.95</span></p>
-                        <p>Buy Wholesale (12pk)$149.95 - $12.49/ea<span class="green"> - RRP$18.95</span></p>
-                        <p>50g of Powdered Organic Beef Bone Broth, makes up to 33 servings depending on the size of your pet.</p>
-                        <p style="color:palevioletred;">Set quantity at checkout</p>
-
-                        <a href="https://buy.stripe.com/00g16jb1yfoFco014K" class="btn buy-now btn-secondary">Drop ship</a>
-                        <a href="https://buy.stripe.com/9AQ02fb1y6S94Vy7t6" class="btn buy-now btn-primary">Buy Wholesale</a>
+                        <p>180g of Powdered Organic Beef Bone Broth.</p>
+                        <p>Dropship (single) $56.45 <span class="green"> - RRP $74.95</span></p>
+                        <p>Buy Wholesale (12pk) $630.45 <span class="green"> - RRP $899.40</span></p>
+                        <div class="btn-group">
+                            <a href="https://buy.stripe.com/7sI16j4Da4K1afSaFq" class="btn buy-now btn-secondary">Drop ship</a>
+                            <a href="https://buy.stripe.com/28o9CP8TqekBfAc9Bz" class="btn buy-now btn-primary">Buy Wholesale</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
+        <div class="row peach text-center mb-0">
+            <div class="col-md-6 col-12 p-4">
+            <h4>Drop shipping</h4>
+                            <p>If you were drop shipping into your customers address but put your own email. No physical receipts will be sent to the Customer and your receipt will come to your email address. </p>
+                        </div><div class="col-md-6 col-12 p-4">
+                            <h4>Wholesale </h4>
+                            <p>If your business uses a large amount of bone broth or you are reselling the product in your store or website buy wholesale and save you money and increase your margins. </p>
+                        </div>    
+        </div>
+
         
         <script>
+
             
             document.addEventListener('DOMContentLoaded', function() {
                 const tabs = document.querySelectorAll('.faq-nav-tab');
                 const containers = document.querySelectorAll('.container');
+                const flavours = [
+                    { 
+                        id: 'productFlavour1', 
+                        sizes: [
+                            { size: 'sample', id: 'productsample1' }, 
+                            { size: 'small', id: 'productsmall1' }, 
+                            { size: 'large', id: 'productlarge1' }, 
+                            { size: 'xl', id: 'productxl1' }
+                        ]
+                    },
+                    { 
+                        id: 'productFlavour2', 
+                        sizes: [
+                            { size: 'sample', id: 'productsample2' }, 
+                            { size: 'small', id: 'productsmall2' }, 
+                            { size: 'large', id: 'productlarge2' }, 
+                            { size: 'xl', id: 'productxl2' }
+                        ]
+                    },
+                    { 
+                        id: 'productFlavour3', 
+                        sizes: [
+                            { size: 'sample', id: 'productsample3' }, 
+                            { size: 'small', id: 'productsmall3' }, 
+                            { size: 'large', id: 'productlarge3' }, 
+                            { size: 'xl', id: 'productxl3' }
+                        ]
+                    },
+                    { 
+                        id: 'productFlavour4', 
+                        sizes: [
+                            { size: 'sample', id: 'productsample4' }, 
+                            { size: 'small', id: 'productsmall4' }, 
+                            { size: 'large', id: 'productlarge4' }
+                        ]
+                    }
+                ];
 
                 tabs.forEach(function(tab) {
                     tab.addEventListener('click', function() {
@@ -496,24 +609,102 @@
                         tab.classList.add('active');
                     });
                 });
+
+                flavours.forEach(function(flavour) {
+                    document.getElementById(flavour.id).addEventListener('change', function() {
+                        const selectedFlavour = this.options[this.selectedIndex];
+                        const selectedSampleUrl = selectedFlavour.getAttribute('data-sample-url');
+                        const selectedSmallUrl = selectedFlavour.getAttribute('data-small-url');
+                        const selectedSmallWholesaleUrl = selectedFlavour.getAttribute('data-small-wholesale-url');
+                        const selectedLargeUrl = selectedFlavour.getAttribute('data-large-url');
+                        const selectedLargeWholesaleUrl = selectedFlavour.getAttribute('data-large-wholesale-url');
+                        const selectedXlUrl = selectedFlavour.getAttribute('data-xl-url');
+                        const selectedXlWholesaleUrl = selectedFlavour.getAttribute('data-xl-wholesale-url');
+                        
+                        flavour.sizes.forEach(function(size) {
+                            const productInfo = document.getElementById(size.id);
+                            if (size.size === 'small') {
+                                productInfo.querySelector('a.btn-secondary').href = selectedSmallUrl;
+                                productInfo.querySelector('a.btn-primary').href = selectedSmallWholesaleUrl;
+                            } else if (size.size === 'large') {
+                                productInfo.querySelector('a.btn-secondary').href = selectedLargeUrl;
+                                productInfo.querySelector('a.btn-primary').href = selectedLargeWholesaleUrl;
+                            } else if (size.size === 'xl') {
+                                productInfo.querySelector('a.btn-secondary').href = selectedXlUrl;
+                                productInfo.querySelector('a.btn-primary').href = selectedXlWholesaleUrl;
+                            } else {
+                                productInfo.querySelector('a.btn-primary').href = selectedSampleUrl;
+                            }
+                        });
+                    });
+                });
+
+                function initializeTabs(containerIndex) {
+                    document.querySelector('#productSize' + containerIndex).addEventListener('change', function() {
+                        const flavour = document.getElementById('productFlavour' + containerIndex).value;
+                        const selectedFlavour = document.getElementById('productFlavour' + containerIndex).options[document.getElementById('productFlavour' + containerIndex).selectedIndex];
+                        const selectedUrl = selectedFlavour.getAttribute('data-' + this.value + '-url');
+                        const productInfo = document.getElementById('product' + this.value + containerIndex);
+                        
+                        if (this.value === 'small') {
+                            const selectedWholesaleUrl = selectedFlavour.getAttribute('data-' + this.value + '-wholesale-url');
+                            productInfo.querySelector('a.btn-secondary').href = selectedUrl;
+                            productInfo.querySelector('a.btn-primary').href = selectedWholesaleUrl;
+                        } else if (this.value === 'large') {
+                            const selectedWholesaleUrl = selectedFlavour.getAttribute('data-' + this.value + '-wholesale-url');
+                            productInfo.querySelector('a.btn-secondary').href = selectedUrl;
+                            productInfo.querySelector('a.btn-primary').href = selectedWholesaleUrl;
+                        } else if (this.value === 'xl') {
+                            const selectedWholesaleUrl = selectedFlavour.getAttribute('data-' + this.value + '-wholesale-url');
+                            productInfo.querySelector('a.btn-secondary').href = selectedUrl;
+                            productInfo.querySelector('a.btn-primary').href = selectedWholesaleUrl;
+                        } else {
+                            productInfo.querySelector('a.btn-primary').href = selectedUrl;
+                        }
+
+                        document.getElementById('productsample' + containerIndex).classList.toggle('hidden', this.value !== 'sample');
+                        document.getElementById('productsmall' + containerIndex).classList.toggle('hidden', this.value !== 'small');
+                        document.getElementById('productlarge' + containerIndex).classList.toggle('hidden', this.value !== 'large');
+                        document.getElementById('productxl' + containerIndex).classList.toggle('hidden', this.value !== 'xl');
+                    });
+                }
+
+                
+                initializeTabs(1);
+                initializeTabs(2);
+                initializeTabs(3);
+                initializeTabs(4);
             });
 
-            function initializeTabs(containerIndex) {
-    document.querySelector('#productSize' + containerIndex).addEventListener('change', function() {
-        document.getElementById('productsmall' + containerIndex).classList.toggle('hidden', this.value !== 'small');
-        document.getElementById('productlarge' + containerIndex).classList.toggle('hidden', this.value !== 'large');
-        document.getElementById('productsample' + containerIndex).classList.toggle('hidden', this.value !== 'sample');
-        document.getElementById('productxl' + containerIndex).classList.toggle('hidden', this.value !== 'xl');
-    });
-}
+            function changeMainImage(mainImageId, thumbnail) {
+                document.getElementById(mainImageId).src = thumbnail.src;
+            }
+        
 
 
-initializeTabs(1);
-initializeTabs(2);
-initializeTabs(3);
-initializeTabs(4);
 
+        document.getElementById('passwordForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const password = document.getElementById('password').value;
+            const correctPassword = 'Bonelyfans'; 
+
+            if (password === correctPassword) {
+                document.getElementById('passwordOverlay').style.display = 'none';
+                document.getElementById('protectedContent').classList.remove('hidden');
+            } else {
+                alert('Incorrect password, please try again.');
+            }
+        });    
+
+        
         </script>
+        
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            localStorage.removeItem('pgurl');
+            localStorage.removeItem('charity');
+        });
+    </script>
 <footer class="bg-tlgray-100">
   <script src='/js/custom.js'></script>
 
