@@ -415,7 +415,7 @@
                     <div class="product-images mob-hide">
                         <img class="product-image" src="/img/3.webp" alt="Thumbnail 1" onclick="changeMainImage('mainImage3', this)">
                         <img class="product-image" src="/img/13.webp" alt="Thumbnail 2" onclick="changeMainImage('mainImage3', this)">
-                        <img class="product-image" src="/img/4.webp" alt="Thumbnail 2" onclick="changeMainImage('mainImage3', this)">
+                        <img class="product-image" src="/img/4.webp" alt="Thumbnail 3" onclick="changeMainImage('mainImage3', this)">
                     </div>
                 </div>
                 <div class="col-xs-12 col-lg-6">
@@ -466,10 +466,21 @@
                             <a href="https://buy.stripe.com/14k7uH5Heb8p5ZCdRI" class="btn buy-now btn-secondary">Drop ship</a>
                             <a href="https://buy.stripe.com/9AQ2anfhO5O53Ru7tx" class="btn buy-now btn-primary">Buy Wholesale</a>
                         </div>
-                    </div>  
+                    </div>
+                    <div id="chickenForm3" class="product-info hidden">
+                        <p>500ml units of Liquid Organic Chicken Bone Broth.</p>
+                        <p>Dropship (1x24pk) $173.45 <span class="green"> - RRP $229.95</span></p>
+                        <p>Buy Wholesale (12x24pk - 288 units) $1,932.45 <span class="green"> - RRP $2,759.40</span></p>
+                        <form id="waitlist-form" action="https://docs.google.com/forms/d/e/1FAIpQLScaHCnkhfVAStnaxej1XT9Advj6OASjflZChXP-YN5bow5GbA/formResponse" onsubmit="submitWaitlistForm(event)">
+                            <input type="email" name="entry.1539663871" placeholder="Enter your email" required>
+                            <input type="hidden" name="entry.432251910" value="Bone broth people - liquid - chicken">
+                            <button type="submit" class="btn btn-secondary">Request info</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
+        
 
         
         <div class="container" id="container4">
@@ -505,25 +516,30 @@
                     <div id="productsample4" class="product-info">
                         <p>12g of Powdered Organic Beef Bone Broth.</p>
                         <p>Free, just pay the shipping - limit one sample per customer.</p>
-                        <a href="https://buy.stripe.com/9AQ2anc5C0tLbjWaFN" class="btn buy-now btn-primary">Claim now</a>
-                    </div>
+                        <form id="waitlist-form" action="https://docs.google.com/forms/d/e/1FAIpQLScaHCnkhfVAStnaxej1XT9Advj6OASjflZChXP-YN5bow5GbA/formResponse" onsubmit="submitWaitlistForm(event)">
+                            <input type="email" name="entry.1539663871" placeholder="Enter your email" required>
+                            <input type="hidden" name="entry.432251910" value="Bone broth people - powder - sample">
+                            <button type="submit" class="btn btn-secondary">Request sample</button>
+                        </form>                    </div>
                     <div id="productsmall4" class="product-info hidden">
                         <p>90g of Powdered Organic Beef Bone Broth.</p>
                         <p>Dropship (single) $31.45 <span class="green"> - RRP $40.95</span></p>
                         <p>Buy Wholesale (12pk) $344.45 <span class="green"> - RRP $491.40</span></p>
-                        <div class="btn-group">
-                            <a href="https://buy.stripe.com/9AQ9CP3z6foF87KaFp" class="btn buy-now btn-secondary">Drop ship</a>
-                            <a href="https://buy.stripe.com/9AQeX96Li90h2Nq9By" class="btn buy-now btn-primary">Buy Wholesale</a>
-                        </div>
+                        <form id="waitlist-form" action="https://docs.google.com/forms/d/e/1FAIpQLScaHCnkhfVAStnaxej1XT9Advj6OASjflZChXP-YN5bow5GbA/formResponse" onsubmit="submitWaitlistForm(event)">
+                            <input type="email" name="entry.1539663871" placeholder="Enter your email" required>
+                            <input type="hidden" name="entry.432251910" value="Bone broth people - powder - 90g">
+                            <button type="submit" class="btn btn-secondary">Request info</button>
+                        </form>  
                     </div>
                     <div id="productlarge4" class="product-info hidden">
                         <p>180g of Powdered Organic Beef Bone Broth.</p>
                         <p>Dropship (single) $56.45 <span class="green"> - RRP $74.95</span></p>
                         <p>Buy Wholesale (12pk) $630.45 <span class="green"> - RRP $899.40</span></p>
-                        <div class="btn-group">
-                            <a href="https://buy.stripe.com/7sI16j4Da4K1afSaFq" class="btn buy-now btn-secondary">Drop ship</a>
-                            <a href="https://buy.stripe.com/28o9CP8TqekBfAc9Bz" class="btn buy-now btn-primary">Buy Wholesale</a>
-                        </div>
+                        <form id="waitlist-form" action="https://docs.google.com/forms/d/e/1FAIpQLScaHCnkhfVAStnaxej1XT9Advj6OASjflZChXP-YN5bow5GbA/formResponse" onsubmit="submitWaitlistForm(event)">
+                            <input type="email" name="entry.1539663871" placeholder="Enter your email" required>
+                            <input type="hidden" name="entry.432251910" value="Bone broth people - powder - 180g">
+                            <button type="submit" class="btn btn-secondary">Request info</button>
+                        </form>  
                     </div>
                 </div>
             </div>
@@ -554,7 +570,8 @@
                             { size: 'small', id: 'productsmall1' }, 
                             { size: 'large', id: 'productlarge1' }, 
                             { size: 'xl', id: 'productxl1' }
-                        ]
+                        ],
+                        chickenFormId: 'chickenForm3' 
                     },
                     { 
                         id: 'productFlavour2', 
@@ -608,60 +625,80 @@
 
                 flavours.forEach(function(flavour) {
                     document.getElementById(flavour.id).addEventListener('change', function() {
-                        const selectedFlavour = this.options[this.selectedIndex];
-                        const selectedSampleUrl = selectedFlavour.getAttribute('data-sample-url');
-                        const selectedSmallUrl = selectedFlavour.getAttribute('data-small-url');
-                        const selectedSmallWholesaleUrl = selectedFlavour.getAttribute('data-small-wholesale-url');
-                        const selectedLargeUrl = selectedFlavour.getAttribute('data-large-url');
-                        const selectedLargeWholesaleUrl = selectedFlavour.getAttribute('data-large-wholesale-url');
-                        const selectedXlUrl = selectedFlavour.getAttribute('data-xl-url');
-                        const selectedXlWholesaleUrl = selectedFlavour.getAttribute('data-xl-wholesale-url');
-                        
-                        flavour.sizes.forEach(function(size) {
-                            const productInfo = document.getElementById(size.id);
-                            if (size.size === 'small') {
-                                productInfo.querySelector('a.btn-secondary').href = selectedSmallUrl;
-                                productInfo.querySelector('a.btn-primary').href = selectedSmallWholesaleUrl;
-                            } else if (size.size === 'large') {
-                                productInfo.querySelector('a.btn-secondary').href = selectedLargeUrl;
-                                productInfo.querySelector('a.btn-primary').href = selectedLargeWholesaleUrl;
-                            } else if (size.size === 'xl') {
-                                productInfo.querySelector('a.btn-secondary').href = selectedXlUrl;
-                                productInfo.querySelector('a.btn-primary').href = selectedXlWholesaleUrl;
-                            } else {
-                                productInfo.querySelector('a.btn-primary').href = selectedSampleUrl;
-                            }
-                        });
+                        const selectedFlavour = this.value;
+
+                        if (selectedFlavour === 'chicken') {
+                            flavour.sizes.forEach(function(size) {
+                                document.getElementById(size.id).classList.add('hidden');
+                            });
+                            document.getElementById(flavour.chickenFormId).classList.remove('hidden');
+                        } else {
+                            document.getElementById(flavour.chickenFormId).classList.add('hidden');
+                            const selectedSize = document.getElementById('productSize3').value;
+                            flavour.sizes.forEach(function(size) {
+                                const productInfo = document.getElementById(size.id);
+                                productInfo.classList.toggle('hidden', size.size !== selectedSize);
+                            });
+                        }
                     });
                 });
 
-                function initializeTabs(containerIndex) {
-                    document.querySelector('#productSize' + containerIndex).addEventListener('change', function() {
-                        const flavour = document.getElementById('productFlavour' + containerIndex).value;
-                        const selectedFlavour = document.getElementById('productFlavour' + containerIndex).options[document.getElementById('productFlavour' + containerIndex).selectedIndex];
-                        const selectedUrl = selectedFlavour.getAttribute('data-' + this.value + '-url');
-                        const productInfo = document.getElementById('product' + this.value + containerIndex);
-                        
-                        if (this.value === 'small') {
-                            const selectedWholesaleUrl = selectedFlavour.getAttribute('data-' + this.value + '-wholesale-url');
-                            productInfo.querySelector('a.btn-secondary').href = selectedUrl;
-                            productInfo.querySelector('a.btn-primary').href = selectedWholesaleUrl;
-                        } else if (this.value === 'large') {
-                            const selectedWholesaleUrl = selectedFlavour.getAttribute('data-' + this.value + '-wholesale-url');
-                            productInfo.querySelector('a.btn-secondary').href = selectedUrl;
-                            productInfo.querySelector('a.btn-primary').href = selectedWholesaleUrl;
-                        } else if (this.value === 'xl') {
-                            const selectedWholesaleUrl = selectedFlavour.getAttribute('data-' + this.value + '-wholesale-url');
-                            productInfo.querySelector('a.btn-secondary').href = selectedUrl;
-                            productInfo.querySelector('a.btn-primary').href = selectedWholesaleUrl;
-                        } else {
-                            productInfo.querySelector('a.btn-primary').href = selectedUrl;
-                        }
 
-                        document.getElementById('productsample' + containerIndex).classList.toggle('hidden', this.value !== 'sample');
-                        document.getElementById('productsmall' + containerIndex).classList.toggle('hidden', this.value !== 'small');
-                        document.getElementById('productlarge' + containerIndex).classList.toggle('hidden', this.value !== 'large');
-                        document.getElementById('productxl' + containerIndex).classList.toggle('hidden', this.value !== 'xl');
+
+                function updateProductInfoVisibility(containerIndex, selectedSize) {
+                    document.getElementById('productsample' + containerIndex).classList.toggle('hidden', selectedSize !== 'sample');
+                    document.getElementById('productsmall' + containerIndex).classList.toggle('hidden', selectedSize !== 'small');
+                    document.getElementById('productlarge' + containerIndex).classList.toggle('hidden', selectedSize !== 'large');
+                    document.getElementById('productxl' + containerIndex).classList.toggle('hidden', selectedSize !== 'xl');
+
+                    const flavourElement = document.getElementById('productFlavour' + containerIndex);
+                    const selectedFlavourOption = flavourElement.options[flavourElement.selectedIndex];
+                    const selectedUrl = selectedFlavourOption.getAttribute('data-' + selectedSize + '-url');
+                    const selectedWholesaleUrl = selectedFlavourOption.getAttribute('data-' + selectedSize + '-wholesale-url');
+                    const productInfo = document.getElementById('product' + selectedSize + containerIndex);
+
+                    if (selectedSize === 'small' || selectedSize === 'large' || selectedSize === 'xl') {
+                        productInfo.querySelector('a.btn-secondary').href = selectedUrl;
+                        productInfo.querySelector('a.btn-primary').href = selectedWholesaleUrl;
+                    } else {
+                        productInfo.querySelector('a.btn-primary').href = selectedUrl;
+                    }
+                }
+
+
+
+
+                function initializeTabs(containerIndex) {
+                    const flavourElement = document.getElementById('productFlavour' + containerIndex);
+                    const sizeElement = document.getElementById('productSize' + containerIndex);
+
+                    
+                    flavourElement.addEventListener('change', function() {
+                        const selectedFlavour = flavourElement.value;
+
+                        if (selectedFlavour === 'chicken') {
+                            
+                            document.getElementById('productsample' + containerIndex).classList.add('hidden');
+                            document.getElementById('productsmall' + containerIndex).classList.add('hidden');
+                            document.getElementById('productlarge' + containerIndex).classList.add('hidden');
+                            document.getElementById('productxl' + containerIndex).classList.add('hidden');
+
+                            
+                            document.getElementById('chickenForm' + containerIndex).classList.remove('hidden');
+                        } else {
+                            
+                            document.getElementById('chickenForm' + containerIndex).classList.add('hidden');
+
+                            
+                            updateProductInfoVisibility(containerIndex, sizeElement.value);
+                        }
+                    });
+
+                    
+                    sizeElement.addEventListener('change', function() {
+                        if (flavourElement.value !== 'chicken') {
+                            updateProductInfoVisibility(containerIndex, this.value);
+                        }
                     });
                 }
 
@@ -692,7 +729,23 @@
             }
         });    
 
-        
+        function submitWaitlistForm(event) {
+          event.preventDefault(); 
+      
+          const form = event.target;
+          const formData = new FormData(form);
+      
+          fetch(form.action, {
+              method: 'POST',
+              body: formData,
+              mode: 'no-cors', 
+          }).then(() => {
+              alert("Request received, we'll be in touch soon.");
+              form.reset(); 
+          }).catch(error => {
+              console.error('Error:', error);
+          });
+      }
         </script>
         
     <script>
@@ -847,3 +900,7 @@
 </div>
 </body>
 </html>
+
+
+
+
