@@ -43,14 +43,9 @@
     <div class="container">
         <div class="row topbanner rel">
             <div class="col-xs-12 col-lg-6 product-photos">
-                <img class="main-image"  src="/img/pouch.webp" alt="Main Product Image">            
-                <div class="product-images mob-hide">
-                    <img class="product-image" src="/img/pouch3.webp" alt="Thumbnail 1">
-                    <img class="product-image" src="/img/pplpow.webp" alt="Thumbnail 2">
-                    <img class="product-image" src="/img/13.webp" alt="Thumbnail 2">
-                    <img class="product-image" src="/img/3.webp" alt="Thumbnail 4">
-                    <!-- Add more thumbnail images as needed -->
-                </div>            </div>
+                {{- partial "pplpowderimages.html" . -}}
+            </div>            
+        </div>
             <div class="col-xs-12 col-lg-6">
                 <h1>Bone broth powder {{ if .Params.charity }} - {{ .Params.charity }}{{ end }}</h1>
            <!--   <h5>------</h5>-->  
