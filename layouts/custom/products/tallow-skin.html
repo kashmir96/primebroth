@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    {{- partial "head.html" . -}}
+    <meta name="description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta property="og:title" content="{{ .Site.Params.homepage_meta_tags.meta_og_title }}" />
+    <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
+    <meta property="og:url" content="{{ .Site.Params.homepage_meta_tags.meta_og_url }}" />
+    <meta property="og:image" content="{{ .Site.Params.homepage_meta_tags.meta_og_image }}" />
+    <meta property="og:description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
+    <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
+    <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=667c998f7bead90019480329&product=inline-share-buttons&source=platform" async="async"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+
+</head>
+<body>
+    
+{{- partial "alert.html" . -}}
+
+
+
+    {{- partial "header.html" . -}}
+    <div class="scroll-top rounded-full">
+        <span class="icon-keyboard_arrow_up text-2xl"></span>
+    </div>
+    {{- partial "slide.html" . -}}
+    {{- partial "strip.html" . -}}
+    <!-- Add html below -->
+
+    <div class="container">
+        <div class="row topbanner rel">
+            <div class="col-xs-12 col-lg-6 product-photos">
+                {{- partial "tallowskinimages.html" . -}}
+
+                        </div>
+            <div class="col-xs-12 col-lg-6">
+                <h1>Beef tallow for skincare</h1>
+               
+                <!-- Price Partials for Small, Medium, and Large -->
+                {{ if or .Params.beefpricesmalllink .Params.chickenpricesmalllink .Params.lambpricesmalllink }}
+                <div id="pricePartialSmall" class="product-info">
+                    <p>{{- partial "price-tallow-skin-50.html" . -}}</p>
+                </div>
+                {{ end }}
+                
+                {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
+                <div id="pricePartialMedium" class="product-info hidden">
+                    <p>{{- partial "price-tallow-skin-100.html" . -}}</p>
+                </div>
+                {{ end }}
+                
+
+
+
+
+            
+
+                
+                
+            <div class="dropdown-container">
+                <div class="dropdown-group">
+                    <select id="productFlavour" name="productFlavour">
+                        {{ if or .Params.beefpricesmalllink .Params.beefpricemediumlink .Params.beefpricelargelink }}
+                        <option value="beef" data-image="/img/post-a-1.webp"
+                                data-flavour-price-small="{{ .Params.beefpricesmalllink }}"
+                                data-flavour-price-medium="{{ .Params.beefpricemediumlink }}"
+                                data-flavour-price-large="{{ .Params.beefpricelargelink }}" selected>Beef</option>
+                        {{ end }}
+                        {{ if or .Params.chickenpricesmalllink .Params.chickenpricemediumlink .Params.chickenpricelargelink }}
+                        <option value="chicken" data-image="/img/post-a-1.webp"
+                                data-flavour-price-small="{{ .Params.chickenpricesmalllink }}"
+                                data-flavour-price-medium="{{ .Params.chickenpricemediumlink }}"
+                                data-flavour-price-large="{{ .Params.chickenpricelargelink }}">Chicken</option>
+                        {{ end }}
+                        {{ if or .Params.lambpricesmalllink .Params.lambpricemediumlink .Params.lambpricelargelink }}
+                        <option value="lamb" data-image="/img/post-a-1.webp"
+                                data-flavour-price-small="{{ .Params.lambpricesmalllink }}"
+                                data-flavour-price-medium="{{ .Params.lambpricemediumlink }}"
+                                data-flavour-price-large="{{ .Params.lambpricelargelink }}">Lamb</option>
+                        {{ end }}
+                    </select>
+                </div>
+                
+                <div class="dropdown-group">
+                    <select id="productSize" name="productSize">
+                        {{ if or .Params.beefpricesmalllink .Params.chickenpricesmalllink .Params.lambpricesmalllink }}
+                        <option value="small" data-image="/img/post-a-1.webp">50ml</option>
+                        {{ end }}
+                        {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
+                        <option value="medium" data-image="/img/50front.webp">100ml</option>
+                        {{ end }}
+                        {{ if or .Params.beefpricelargelink .Params.chickenpricelargelink .Params.lambpricelargelink }}
+                        <option value="large" data-image="/img/50front.webp">24pk (Save 10%)</option>
+                        {{ end }}
+                    </select>
+                </div>
+                <div class="quantity-container">
+                    <label for="quantityAll">Qty </label>
+                    <input type="number" id="quantityAll" name="quantity" min="1" value="1">
+                </div>
+                
+            </div>
+                
+            <div class="custom-radio">
+                <input type="radio" id="inStock" name="stockStatus" checked>
+                <label class="custom-radio-label mb-4" for="inStock">In Stock</label>
+            </div>
+                
+                {{ if or .Params.beefpricesmalllink .Params.chickenpricesmalllink .Params.lambpricesmalllink }}
+                <div id="productsmall" class="product-info">
+                    <button class="btn btn-primary buy-now" data-price-id="{{ .Params.beefpricesmalllink }}" data-quantity-id="quantityAll">Add To Cart</button>
+                </div>
+                {{ end }}
+                
+                {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
+                <div id="productmedium" class="product-info hidden">
+                    <button class="btn btn-primary buy-now" data-price-id="{{ .Params.beefpricemediumlink }}" data-quantity-id="quantityAll">Add To Cart</button>
+                </div>
+                {{ end }}
+                
+                {{ if or .Params.beefpricelargelink .Params.chickenpricelargelink .Params.lambpricelargelink }}
+                <div id="productlarge" class="product-info hidden">
+                    <button class="btn btn-primary buy-now" data-price-id="{{ .Params.beefpricelargelink }}" data-quantity-id="quantityAll">Add To Cart</button>
+                </div>
+                {{ end }}
+
+                <img class="badges" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
+                <!--<div class="row mt-2 mb-0 p-0 middle justify-content-around">
+                    <img class="col-6 col-md-3" src="/img/guts.webp" alt="">
+                    <img class="col-6 col-md-3" src="/img/joints.webp" alt="">
+                    <img class="col-6 col-md-3" src="/img/musclerepair.webp" alt="Muscle and toning">
+                    <img class="col-6 col-md-3" src="/img/skinnails.webp" alt="Skin nails">
+                 </div>-->
+                <div class="row mt-0 trust">
+                    <div class="col-4">
+                        <img src="/img/delivery.webp">
+                        <p>Free delivery over $80</p>
+                    </div>
+                    <div class="col-4">
+                        <img src="/img/exclusive.webp">
+                        <p>Money back guarantee</p>
+                    </div>
+                    <!--<div class="col-4">
+                        <img src="/img/kiwi.webp">
+                        <p>Used by 100s of Kiwis</p>
+                    </div>-->
+                </div>
+                
+                
+            </div>
+
+            
+
+            <div class="row mt-0">
+                <div class="col-12 col-md-6">
+                        <img src="/img/markets/11.webp" alt="Click to watch video" id="thumbnail" data-video-id="videoContainer1">
+                </div>
+                <div class="faq-tab-container col-12 col-md-6">
+                    <!-- Nav tabs -->
+                    <div class="faq-nav-tabs">
+                        <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</div>
+                        <div class="faq-nav-tab" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</div>
+                        <div class="faq-nav-tab" id="directions-tab" data-toggle="tab" href="#directions" role="tab" aria-controls="directions" aria-selected="false">Directions</div>
+                        <div class="faq-nav-tab" id="storage-tab" data-toggle="tab" href="#storage" role="tab" aria-controls="storage" aria-selected="false">Storage</div>
+                        <div class="faq-nav-tab" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</div>
+                    </div>
+            
+                    <!-- Tab panes -->
+                    <div class="tab-content faq-tab-content">
+                        <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                            <h4>Description</h4>
+                            <p>We are CHCH based bone broth business and found ourselves wasting too much beef tallow. So we decided to make skin care products from it!</p>
+                            <p>Beef tallow balm is an amazing, natural moisturiser, works better than any other lotion!</p>
+                            <p>Selling in jars of 50ml and 100ml.</p>
+                            <p>Price starts at  for 50 ml and $35 for 100 ml.</p>
+                            <p>You can come purchase from us at Lyttelton or Ohoka markets every week or order here! Shipping available.</p>
+
+                            
+                            {{ if .Params.charitylink }}
+                            <p><a style="text-decoration: none;" href="{{ .Params.charitylink }}" rel="nofollow">Want to learn more about this charity? see here</a></p>
+                            {{ end }}                       
+                            
+                            
+                            
+                            
+                        </div>
+                        <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
+                            <h4>Ingredients</h4>
+                            <p><span class="product-flavour">Beef</span> bone broth - Filtered water, organic <span class="product-flavour">Beef</span> bones, carrots, onions, celery, organic apple cider vinegar, salt, spices.</p>
+                        </div>
+                        <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
+                            <h4>Directions</h4>
+                            <p>Apply a small amount on the skin daily in the morning as a moisturiser or evening as a night cream.</p>
+
+
+
+                        </div>
+                        <div class="tab-pane fade" id="storage" role="tabpanel" aria-labelledby="storage-tab">
+                            <h4>Storage</h4>
+                            <p>Store in the freezer or fridge (up to 30 days).</p>
+                            <p>PrimeBroth should be refrigerated at temperatures below 5 degrees celsius for up to 5 days. Once opened, it should be refrigerated and consumed within 4 days for optimal freshness. You can refrigerate it for up to 30 days if unopened.</p>
+                        </div>
+                        <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
+                            <h4>Shipping</h4>
+                            <p>Rural customers: We highly recommend our <a style="color:rgb(158, 103, 0);" href="/shop/powder">powdered option</a> instead. Same great bone broth without shipping times effecting quality.</p>
+                            <p><strong>Processing time:</strong> Your order will be shipped within 1-3 business days after payment confirmation.</p>
+                            <p><strong>Shipping rates:</strong> We usually charge between $4.95 and $6.95 for shipping. You can view the shipping costs at the checkout before completing your purchase.</p>
+                            <p><strong>International shipping:</strong> Currently, we only offer shipping within New Zealand. We apologize for any inconvenience this may cause.</p>
+                            <p>If you have any questions or concerns regarding shipping, please don't hesitate to <a href="contact.html">contact us</a>.</p>
+                        </div>
+                    </div>
+                </div>
+            
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        var tabs = document.querySelectorAll('.faq-nav-tab');
+                        tabs.forEach(function(tab) {
+                            tab.addEventListener('click', function() {
+                                document.querySelector('.faq-nav-tab.active').classList.remove('active');
+                                tab.classList.add('active');
+                                var tabContent = document.querySelector('.faq-tab-content .tab-pane.show.active');
+                                tabContent.classList.remove('show', 'active');
+                                var target = tab.getAttribute('href');
+                                document.querySelector(target).classList.add('show', 'active');
+                            });
+                        });
+                    });
+                </script>
+                </div>
+        </div>
+    </div>
+</div>
+<!--
+<div class="row">
+   
+    <div class="col-12 col-md-6">
+        <div class="accordion-minimal">
+            <div class="accordion-minimal-header">
+                <img src="/img/13.webp" alt="" class="accordion-minimal-icon">
+                <h3 class="accordion-minimal-title">Elevate your health while saving time & money.</h3>
+            </div>
+            <div class="accordion-minimal-content show">
+                <p>Our bone broth powder is a versatile product for these health-conscious and busy folks. We know how time-consuming making bone broth or searching for a dairy & gluten-free protein source is. Whether you are looking for a healthy snack or flavorful cooking ingredient, we got you covered. This protein & collagen-rich bone broth is perfect for drinking or cooking with! </p>
+            </div>
+        </div>
+        
+        <div class="accordion-minimal">
+            <div class="accordion-minimal-header">
+                <img src="/img/12.webp" alt="" class="accordion-minimal-icon">
+                <h3 class="accordion-minimal-title">Jam packed with nutrition </h3>
+            </div>
+            <div class="accordion-minimal-content">
+               <p>Bone broth is a health food thanks to the amount of good nutrients - from protein, collagen to glutamine, magnesium, proline, hydroxyproline, and glycine. It contains high amounts of protein & collagen but low on fat. Protein and collagen is a natural support for joint health, digestion, skin and nails. On top of it, our bone broth is made with the highest ingredients and right water-bones ratio. Gelatinous when chillied, and liquid when warm - this is how real bone broth should be!</p>            </div>
+        </div>
+        
+        <div class="accordion-minimal">
+            <div class="accordion-minimal-header">
+                <img src="/img/4.webp" alt="" class="accordion-minimal-icon">
+                <h3 class="accordion-minimal-title">Our bone broth is real deal</h3>
+            </div>
+            <div class="accordion-minimal-content">
+                <p>Our beef and chicken bone broths are made from 100% NZ ingredients, without any additives, sugars, colors, and other nastiness. We make it in small batches at our commercial kitchen in Christchurch, New Zealand.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6">
+        <img src="/img/23.webp" alt="billie photo" id="thumbnail">
+    </div>
+</div>
+
+    
+    <div class="row">
+        <div class="eighty middle">
+            <h2 class="text-center">Frequently Asked Questions</h2>
+            <div class="faq mt-4">
+                
+                <div class="accordion-item grow">
+                    <h4 class="accordion-heading">How is it made?</h4>
+                    <div class="accordion-content">
+                      <p>Our bone broth is made in Christchurch in our commercial kitchen. We simmer beef bones and vegetables for 32 hours to extract all the nutrients, such as precious collagen. 
+                  
+                    </div>
+                  </div>
+                
+                  <div class="accordion-item grow">
+                    <h4 class="accordion-heading">How long will bone broth last?</h4>
+                    <div class="accordion-content">
+                      <p>Refer to the use-by date on the bottle. Once opened, promptly refrigerate unused product at below 5°C and use within 4 days. Do not heat bottle in microwave.</p>
+                    </div>
+                  </div>
+
+                  <div class="accordion-item grow show">
+                    <h4 class="accordion-heading">What makes your bone broth unique?</h4>
+                    <div class="accordion-content">
+                      <p>Our bone broth is uniquely dense, setting it apart from many other brands in New Zealand that tend to dilute their products. The rich, gelatinous texture of our broth is a clear indicator of its high quality gained from extra simmering time and careful choosing of the bones. Furthermore, we maintain a balanced acidity by avoiding the common practice of adding large amounts of apple cider vinegar, which can overshadow the broth’s robust, meaty flavour.</p>
+                    </div>
+                  </div>
+
+                  <div class="accordion-item grow show">
+                    <h4 class="accordion-heading">What's better bone broth powder or liquid?</h4>
+                    <div class="accordion-content">
+                      <p>Well, it depends what you prefer, convenience of powder, e.g. shelf-stable, easy to use product? At the same time, jars are great for people with large dogs, as the jar is 400 ml and will last you 3-4 days. Lastly, liquid bone broth is richer due to its freshness.</p>
+                    </div>
+                  </div>
+
+                  <div class="accordion-item grow show">
+                    <h4 class="accordion-heading">Can pets have your bone broth for people?</h4>
+                    <div class="accordion-content">
+                        <p>If you'd like to give your pets a taste of bone broth goodness, we recommend either our <a class="prettylink" href="/shop/product/pets">bone broth powder for dogs and cats</a> or the <a class="prettylink" href="/shop/product/pets-powder">liquid bone broth for pets</a>. Our bone broth for humans has tasty herbs, spices and salt that is fine for people but might upset your pet's bellies.</p>
+                    </div>
+                  </div>
+
+              </div>                         
+            </div>
+        </div>
+        -->
+   <!-- <div class="peach mb-0">
+        <div class="row mb-0 mx-8 justify-content-center">
+        <div class="col-12 col-md-4 ">
+            <h2>Reviews</h2>
+            <img class="stars" src="/img/stars/5.webp" alt="review rating for bone broth product">
+            <p>(18)</p>        
+            <p>5 out of 5 Stars across 18 reviews</p>
+            <a class="btn btn-primary" href="/feedback-form">Write a review</a>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="col-12 mt-2 mb-2 card">
+                <div class="card-top">
+                <p class="customer-name">Posted by <span style="font-weight: bold;">Kate</span> on <span style="font-weight: bold;">26/06/2024</span></p>
+                </div>
+                <div class="card-bottom">
+
+                <p class="feedback-text">"Billie loves it!! The first day I sprinkled it on her biscuits but she emptied the bowl out scratching to get more of the powder 😂😂 lately I’ve just been wetting a little bit of her chicken and sprinkling it on that."</p>
+            </div> </div>
+            <div class="col-12 mb-2 card">
+                <div class="card-top">
+                <p class="customer-name">Posted by <span style="font-weight: bold;">Anna</span> on <span style="font-weight: bold;">09/07/2024</span></p>
+            </div>
+            <div class="card-bottom"><p class="feedback-text">"They love it...to the point of knocking the wee jar over to try get some more!"</p>
+            </div> </div>
+            <div class="col-12 mb-2 card">
+                <div class="card-top">
+                    <p class="customer-name">Posted by <span style="font-weight: bold;">Liza</span> on <span style="font-weight: bold;">24/06/2024</span></p>
+                </div>
+                <div class="card-bottom">
+            <p class="feedback-text">"a+ very happy with the powder & my dogs love it."</p>
+        </div>
+        </div> 
+        </div>
+    </div>        
+</div>--></div>
+
+{{- partial "stripe.html" . -}}    
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const accordions = document.querySelectorAll(".accordion-minimal");
+
+    accordions.forEach(accordion => {
+        const header = accordion.querySelector(".accordion-minimal-header");
+
+        header.addEventListener("click", function() {
+            // Close all accordions
+            accordions.forEach(acc => {
+                if (acc !== accordion) {
+                    acc.querySelector(".accordion-minimal-content").classList.remove("show");
+                }
+            });
+            // Toggle the clicked accordion
+            const content = this.nextElementSibling;
+            content.classList.toggle("show");
+        });
+    });
+});
+
+</script>
+
+{{- partial "footer.html" . -}}
+</body>
+</html>
