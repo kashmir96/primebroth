@@ -93,7 +93,6 @@
             padding: 10px;
             margin-bottom: 20px;
         }
-        
     </style>
 </head>
 <body><header>
@@ -460,17 +459,33 @@ END:VCALENDAR`;
 
         const marketList = document.getElementById('market-dates');
 
+        let allDates = [];
+
         marketDates.forEach(market => {
             const dates = generateDates(today, market.dayOfWeek, endOfYear);
             dates.forEach(date => {
-                const li = document.createElement('li');
-                li.className = "market-date";
-                li.innerHTML = `
-                    <span class="market-name">${market.name}</span> - <strong>${date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</strong>
-                    ${createCalendarLinks(date, `Visit Primebroth at ${market.name}`, market.location, market.startTime, market.endTime)}
-                `;
-                marketList.appendChild(li);
+                allDates.push({
+                    name: market.name,
+                    date: date,
+                    location: market.location,
+                    startTime: market.startTime,
+                    endTime: market.endTime
+                });
             });
+        });
+
+        
+        allDates.sort((a, b) => a.date - b.date);
+
+        
+        allDates.forEach(market => {
+            const li = document.createElement('li');
+            li.className = "market-date";
+            li.innerHTML = `
+                <span class="market-name">${market.name}</span> - <strong>${market.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</strong>
+                ${createCalendarLinks(market.date, `Visit Primebroth at ${market.name}`, market.location, market.startTime, market.endTime)}
+            `;
+            marketList.appendChild(li);
         });
     </script>
 </body>
