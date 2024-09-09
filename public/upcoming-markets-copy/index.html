@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
-<title>PrimeBroth | About the Broth - Primebroth</title>
+<title>PrimeBroth | Upcoming Markets - Primebroth</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link rel="apple-touch-icon" sizes="180x180" href='/apple-touch-icon.png'>
 <link rel="icon" type="image/png" sizes="32x32" href='favicon-32x32.png'>
@@ -40,54 +40,63 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
-    
-    
     <style>
-        .filter-options {
+         
+        .market-date {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            list-style-type: none;  
+        }
+        .market-name {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .add-to-calendar {
+            margin-top: 5px;
             display: flex;
-            justify-content: center;
-            margin: 10px 0;
+            justify-content: flex-start;
+            gap: 10px;
         }
-
-        .filter-options label {
-            display: inline-block;
-            padding: 8px 16px;
-            margin: 0 5px;
+        .add-to-calendar a {
+            text-decoration: none;
+            padding: 5px 10px;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        .add-to-calendar a:hover {
+            background-color: #0056b3;
+        }
+         
+        @media (max-width: 768px) {
+            .market-box {
+                padding: 5px;
+                margin-bottom: 10px;
+            }
+            .add-to-calendar a {
+                font-size: 0.8em;
+                padding: 4px 8px;
+            }
+        }
+         
+        .market-box ul {
+            padding: 0;
+        }
+         
+        .market-box {
+            max-height: 300px;
+            overflow-y: auto;
             border: 1px solid #ccc;
-            border-radius: 30px;
-            font-size: 14px;
-            cursor: pointer;
-            background-color: #f7f7f7;
-            transition: background-color 0.3s, color 0.3s;
+            padding: 10px;
+            margin-bottom: 20px;
         }
-
-        .filter-options input[type="radio"] {
-            display: none;
-        }
-
-         
-        .filter-options input[type="radio"]:checked + label {
-            background-color: #ff7043;
-            color: white;
-            border-color: #ff7043;
-        }
-
-         
-        .filter-options label:hover {
-            background-color: #e0e0e0;
-        }
-
-         
-        .filter-options .coming-soon {
-            margin-left: auto;
-        }
+        
     </style>
 </head>
-<body><div class="announcement full-width black text-center">
-  <ul>
-      <li>Free shipping on orders over $80</li>
-  </ul>
-</div><header>
+<body><header>
     
 <script src="https://cdn.usefathom.com/script.js" data-site="SUFMJROW" defer></script>
 
@@ -216,198 +225,24 @@
     </div>
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>
-</div>
-
-    <div class="container">
-        
-        
-
-        <div style="margin-bottom: 0px;" class="row max-width peach shopsection"> 
-            <h1 class="text-center">Shop</h1>
-            <div class="filter-options">
-                <input type="radio" id="all" name="product-filter" value="all" checked>
-                <label for="all">All</label>
-    
-                <input type="radio" id="bone-broth" name="product-filter" value="bone-broth">
-                <label for="bone-broth">Bone Broth</label>
-    
-                <input type="radio" id="tallow" name="product-filter" value="tallow">
-                <label for="tallow">Tallow</label>
-    
-                <input type="radio" id="marrow-butter" name="product-filter" value="marrow-butter">
-                <label for="marrow-butter">Marrow Butter</label>
-
-                
-                <input type="radio" id="coming-soon" name="product-filter" value="coming-soon" class="coming-soon">
-                <label for="coming-soon" class="coming-soon">Coming Soon</label>
+</div><div class="container">
+        <div class="row peach max-width text-center">
+            <h1 class="fade-in-element">Come see us at our upcoming markets</h1>
+        </div>
+        <div class="justify-content-around">
+            <div id="faq-section" class="faq">
+                <div class="market-box">
+                    <ul id="market-dates"></ul>
+                </div>
             </div>
-<div class="product-card grow col-lg-3 col-sm-12" data-category="bone-broth"><a href="/shop/products/liquid">
-  <p class="stamp">Trending</p>
-  <img src="/img/mecurve.webp" alt="">
-  <div class="product-details">
-    <p>$59.95</p>
-    <h6>Liquid Gold Bone Broth 6pk</h6>
-  </div>
-</a>
-</div>
-<div class="product-card grow left col-lg-3 col-sm-12" data-category="tallow">
-  <a href="/shop/products/tallow-skin">
-    <img src="/img/tallowskin.webp" alt="Beef Tallow for Skincare">
-    <div class="product-details">
-      
-      <p>$19</p>
-      <h6>Beef Tallow for Skincare</h6>
+        </div>
+
+        
+        <div class="row text-center">
+            <h3>Can't wait or make our next market? Order online!</h3>
+            <a href="/shop" class="btn btn-primary">Shop now</a>
+        </div>
     </div>
-  </a>
-</div>
-
-<div class="product-card grow left col-lg-3 col-sm-12" data-category="tallow">
-  <a href="/shop/products/tallow-skin-kit">
-
-  <img src="/img/tallowskin.webp" alt="">
-  <div class="product-details">
-    <p>$15</p>
-    <h6>Beef Tallow for Skincare - DIY kit</h6>
-  </div>
-</a>
-</div>
-
-
-
-
-
-<div class="product-card grow col-lg-3 col-sm-12" data-category="bone-broth"><a href="/shop/products/pets-powder">
-    <p class="stamp">Trending</p>
-    <img src="/img/pinkcurve.webp" alt="">
-    <div class="product-details">
-      <p>$9.95</p>
-      <h6>Pets Bone Broth Powder</h6>
-      <img class="stars" src="/img/stars/5.webp" alt="review rating for chicken bone broth product">
-      <p>(18)</p>
-    </div>
-  </a>
-  </div>
-
-
-  
-<div class="product-card grow left col-lg-3 col-sm-12" data-category="tallow">
-  <a href="/shop/products/tallow-cooking">
-
-  <img src="/img/tallowcooking.webp" alt="">
-  <div class="product-details">
-    <p>$48</p>
-    <h6>Beef Tallow for Cooking Jars - 6pk</h6>
-  </div>
-</a>
-</div>
-
-
-
-
-
-<div class="product-card grow col-lg-3 col-sm-12" data-category="bone-broth"><a href="/shop/products/pets">
-  <p class="stamp">Trending</p>
-  <img style="height:300px;margin:0px auto;" src="/img/louie.webp" alt="">
-  <div class="product-details">
-    <p>$44.95</p>
-    <h6>Pets Bone Broth Liquid 6pk</h6>
-    <img class="stars" src="/img/stars/5.webp" alt="review rating for chicken bone broth product">
-    <p>(21)</p>
-  </div>
-</a>
-</div>
-<div class="product-card-waitlist product-card grow col-md-3 col-xs-6" data-category="marrow-butter" data-coming-soon="true">
-    <img src="/img/marrow-butter.webp" alt="">
-    <div class="product-details">
-        <p>$15</p>
-        <h6>Marrow butter - 250g<br>Coming soon</h6>
-    </div>
-<div class="waitlist-overlay">
-  <form id="waitlist-form" action="https://docs.google.com/forms/d/e/1FAIpQLScaHCnkhfVAStnaxej1XT9Advj6OASjflZChXP-YN5bow5GbA/formResponse" onsubmit="submitWaitlistForm(event)">          <p>Coming soon - be the first to hear when it's available</p>
-        <input type="email" name="entry.1539663871" placeholder="Enter your email" required>
-        <input type="hidden" name="entry.432251910" value="Marrow butter">
-        <button type="submit" class="btn btn-secondary">Join the waitlist</button>
-    </form>
-</div>
-</div>
-<script>
-function submitWaitlistForm(event) {
-  event.preventDefault(); 
-
-  const form = event.target;
-  const formData = new FormData(form);
-
-  fetch(form.action, {
-      method: 'POST',
-      body: formData,
-      mode: 'no-cors', 
-  }).then(() => {
-      alert("You're added to the waitlist");
-      form.reset(); 
-  }).catch(error => {
-      console.error('Error:', error);
-  });
-}
-
-
-</script>
-<div class="product-card-waitlist product-card grow col-md-3 col-xs-6" data-category="bone-broth" data-coming-soon="true">
-      <img src="/img/powcurve.webp" alt="">
-      <div class="product-details">
-          <p>$40.95</p>
-          <h6>Bone broth powder for people<br>Coming soon</h6>
-      </div>
-  <div class="waitlist-overlay">
-    <form id="waitlist-form" action="https://docs.google.com/forms/d/e/1FAIpQLScaHCnkhfVAStnaxej1XT9Advj6OASjflZChXP-YN5bow5GbA/formResponse" onsubmit="submitWaitlistForm(event)">          <p>Coming soon - be the first to hear when it's available</p>
-          <input type="email" name="entry.1539663871" placeholder="Enter your email" required>
-          <input type="hidden" name="entry.432251910" value="Bone broth powder for people">
-          <button type="submit" class="btn btn-secondary">Join the waitlist</button>
-      </form>
-  </div>
-</div>
-<script>
-  function submitWaitlistForm(event) {
-    event.preventDefault(); 
-
-    const form = event.target;
-    const formData = new FormData(form);
-
-    fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        mode: 'no-cors', 
-    }).then(() => {
-        alert("You're added to the waitlist");
-        form.reset(); 
-    }).catch(error => {
-        console.error('Error:', error);
-    });
-}
-
-
-</script></div>
-    </div>
-
-    
-    <script>
-        $(document).ready(function(){
-            $('input[name="product-filter"]').on('change', function() {
-                var selectedFilter = $(this).val();
-
-                if (selectedFilter === 'all') {
-                    $('.product-card').show();
-                } else if (selectedFilter === 'coming-soon') {
-                    $('.product-card').hide();
-                    $('.product-card[data-coming-soon="true"]').show();
-                } else {
-                    $('.product-card').hide();
-                    $('.product-card[data-category="' + selectedFilter + '"]').show();
-                }
-            });
-        });
-    </script>
-
-    
 <footer class="bg-tlgray-100">
   <script src='/js/custom.js'></script>
 
@@ -551,5 +386,92 @@ function submitWaitlistForm(event) {
 
 </footer>
 
+
+    <script>
+        function generateDates(startDate, dayOfWeek, endDate) {
+            const dates = [];
+            let current = new Date(startDate);
+            current.setDate(current.getDate() + ((dayOfWeek - current.getDay() + 7) % 7));
+            
+            while (current <= endDate) {
+                dates.push(new Date(current));
+                current.setDate(current.getDate() + 7);
+            }
+            return dates;
+        }
+
+        function formatDateForiCal(date) {
+            const year = date.getUTCFullYear();
+            const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+            const day = String(date.getUTCDate()).padStart(2, '0');
+            const hours = String(date.getUTCHours()).padStart(2, '0');
+            const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+            const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+            return `${year}${month}${day}T${hours}${minutes}${seconds}Z`;
+        }
+
+        function formatDateForGoogleCalendar(date) {
+            return date.toISOString().replace(/-|:|\.\d\d\d/g, '');
+        }
+
+        function createCalendarLinks(date, marketName, location, startTime, endTime) {
+            const startDate = new Date(date);
+            const endDate = new Date(date);
+
+            startDate.setHours(startTime.hours, startTime.minutes, 0);
+            endDate.setHours(endTime.hours, endTime.minutes, 0);
+
+            const formattedStartDate = formatDateForiCal(startDate);
+            const formattedEndDate = formatDateForiCal(endDate);
+
+            const icalData = `BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+SUMMARY:${marketName}
+DESCRIPTION:Visit us at the ${marketName}!
+LOCATION:${location}
+DTSTART:${formattedStartDate}
+DTEND:${formattedEndDate}
+END:VEVENT
+END:VCALENDAR`;
+
+            const icalBlob = new Blob([icalData], { type: 'text/calendar' });
+            const icalURL = URL.createObjectURL(icalBlob);
+
+            const gcalStartDate = formatDateForGoogleCalendar(startDate);
+            const gcalEndDate = formatDateForGoogleCalendar(endDate);
+            const gcalLink = `https://www.google.com/calendar/render?action=TEMPLATE&text=${marketName}&dates=${gcalStartDate}/${gcalEndDate}&location=${location}`;
+
+            return `
+                <div class="add-to-calendar">
+                    <a href="${icalURL}" download="${marketName}.ics">Add to iCal</a>
+                    <a href="${gcalLink}" target="_blank">Add to Google Calendar</a>
+                </div>
+            `;
+        }
+
+        const today = new Date();
+        const endOfYear = new Date('2024-12-31');
+
+        const marketDates = [
+            { name: 'Ohoka Farmers Market', location: 'Ohoka Domain', dayOfWeek: 5, startTime: { hours: 9, minutes: 0 }, endTime: { hours: 12, minutes: 30 } },
+            { name: 'Lyttelton Farmers Market', location: 'Lyttelton', dayOfWeek: 6, startTime: { hours: 9, minutes: 0 }, endTime: { hours: 13, minutes: 0 } }
+        ];
+
+        const marketList = document.getElementById('market-dates');
+
+        marketDates.forEach(market => {
+            const dates = generateDates(today, market.dayOfWeek, endOfYear);
+            dates.forEach(date => {
+                const li = document.createElement('li');
+                li.className = "market-date";
+                li.innerHTML = `
+                    <span class="market-name">${market.name}</span> - <strong>${date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</strong>
+                    ${createCalendarLinks(date, `Visit Primebroth at ${market.name}`, market.location, market.startTime, market.endTime)}
+                `;
+                marketList.appendChild(li);
+            });
+        });
+    </script>
 </body>
 </html>

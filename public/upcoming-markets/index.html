@@ -41,11 +41,17 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
     <style>
+         
         .market-date {
             margin-bottom: 10px;
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
+            list-style-type: none;  
+        }
+        .market-name {
+            font-weight: bold;
+            color: #007bff;
         }
         .add-to-calendar {
             margin-top: 5px;
@@ -65,13 +71,29 @@
             background-color: #0056b3;
         }
          
+        @media (max-width: 768px) {
+            .market-box {
+                padding: 5px;
+                margin-bottom: 10px;
+            }
+            .add-to-calendar a {
+                font-size: 0.8em;
+                padding: 4px 8px;
+            }
+        }
+         
+        .market-box ul {
+            padding: 0;
+        }
+         
         .market-box {
-            max-height: 200px;
+            max-height: 300px;
             overflow-y: auto;
             border: 1px solid #ccc;
             padding: 10px;
             margin-bottom: 20px;
         }
+        
     </style>
 </head>
 <body><header>
@@ -203,39 +225,24 @@
     </div>
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>
-</div>
-
-    <div class="container">
+</div><div class="container">
         <div class="row peach max-width text-center">
             <h1 class="fade-in-element">Come see us at our upcoming markets</h1>
         </div>
-        <div class="row justify-content-around">
-            <div class="row">
-                <div id="faq-section" class="faq">
-                    
-                    <div class="accordion-item">
-                        <h4 class="accordion-heading">Ohoka Farmers Market - Ohoka Domain</h4>
-                        <div class="accordion-content">
-                            <div class="market-box">
-                                <ul id="ohoka-dates"></ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    
-                    <div class="accordion-item">
-                        <h4 class="accordion-heading">Lyttelton Farmers Market - Lyttelton</h4>
-                        <div class="accordion-content">
-                            <div class="market-box">
-                                <ul id="lyttelton-dates"></ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>                         
+        <div class="justify-content-around">
+            <div id="faq-section" class="faq">
+                <div class="market-box">
+                    <ul id="market-dates"></ul>
+                </div>
             </div>
         </div>
+
+        
+        <div class="row text-center">
+            <h3>Can't wait or make our next market? Order online!</h3>
+            <a href="/shop" class="middle btn btn-primary">Shop now</a>
+        </div>
     </div>
-    
 <footer class="bg-tlgray-100">
   <script src='/js/custom.js'></script>
 
@@ -394,7 +401,6 @@
         }
 
         function formatDateForiCal(date) {
-            
             const year = date.getUTCFullYear();
             const month = String(date.getUTCMonth() + 1).padStart(2, '0');
             const day = String(date.getUTCDate()).padStart(2, '0');
@@ -405,7 +411,6 @@
         }
 
         function formatDateForGoogleCalendar(date) {
-            
             return date.toISOString().replace(/-|:|\.\d\d\d/g, '');
         }
 
@@ -413,7 +418,6 @@
             const startDate = new Date(date);
             const endDate = new Date(date);
 
-            
             startDate.setHours(startTime.hours, startTime.minutes, 0);
             endDate.setHours(endTime.hours, endTime.minutes, 0);
 
@@ -449,30 +453,24 @@ END:VCALENDAR`;
         const today = new Date();
         const endOfYear = new Date('2024-12-31');
 
-        
-        const ohokaDates = generateDates(today, 5, endOfYear);
-        const ohokaList = document.getElementById('ohoka-dates');
-        ohokaDates.forEach(date => {
-            const li = document.createElement('li');
-            li.className = "market-date";
-            li.innerHTML = `
-                <strong>${date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</strong>
-                ${createCalendarLinks(date, 'Visit Primebroth at Ohoka Farmers Market', 'Ohoka Domain', {hours: 9, minutes: 0}, {hours: 12, minutes: 30})}
-            `;
-            ohokaList.appendChild(li);
-        });
+        const marketDates = [
+            { name: 'Ohoka Farmers Market', location: 'Ohoka Domain', dayOfWeek: 5, startTime: { hours: 9, minutes: 0 }, endTime: { hours: 12, minutes: 30 } },
+            { name: 'Lyttelton Farmers Market', location: 'Lyttelton', dayOfWeek: 6, startTime: { hours: 9, minutes: 0 }, endTime: { hours: 13, minutes: 0 } }
+        ];
 
-        
-        const lytteltonDates = generateDates(today, 6, endOfYear);
-        const lytteltonList = document.getElementById('lyttelton-dates');
-        lytteltonDates.forEach(date => {
-            const li = document.createElement('li');
-            li.className = "market-date";
-            li.innerHTML = `
-                <strong>${date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</strong>
-                ${createCalendarLinks(date, 'Visit Primebroth at Lyttelton Farmers Market', 'Lyttelton', {hours: 9, minutes: 0}, {hours: 13, minutes: 0})}
-            `;
-            lytteltonList.appendChild(li);
+        const marketList = document.getElementById('market-dates');
+
+        marketDates.forEach(market => {
+            const dates = generateDates(today, market.dayOfWeek, endOfYear);
+            dates.forEach(date => {
+                const li = document.createElement('li');
+                li.className = "market-date";
+                li.innerHTML = `
+                    <span class="market-name">${market.name}</span> - <strong>${date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</strong>
+                    ${createCalendarLinks(date, `Visit Primebroth at ${market.name}`, market.location, market.startTime, market.endTime)}
+                `;
+                marketList.appendChild(li);
+            });
         });
     </script>
 </body>
