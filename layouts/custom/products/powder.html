@@ -45,7 +45,7 @@
             <div class="col-xs-12 col-lg-6 product-photos">
                 {{- partial "pplpowderimages.html" . -}}
             </div>            
-        </div>
+        
             <div class="col-xs-12 col-lg-6">
                 <h1>Bone broth powder {{ if .Params.charity }} - {{ .Params.charity }}{{ end }}</h1>
            <!--   <h5>------</h5>-->  
@@ -105,10 +105,10 @@
                 <div class="dropdown-group">
                     <select id="productSize" name="productSize">
                         {{ if or .Params.beefpricesmalllink .Params.chickenpricesmalllink .Params.lambpricesmalllink }}
-                        <option value="small" data-image="/img/post-a-1.webp">20g</option>
+                        <option value="small" data-image="/img/post-a-1.webp">90g</option>
                         {{ end }}
                         {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
-                        <option value="medium" data-image="/img/50front.webp">50g</option>
+                        <option value="medium" data-image="/img/50front.webp">180g</option>
                         {{ end }}
                         {{ if or .Params.beefpricelargelink .Params.chickenpricelargelink .Params.lambpricelargelink }}
                         <option value="large" data-image="/img/50front.webp">200g (Save 10%)</option>

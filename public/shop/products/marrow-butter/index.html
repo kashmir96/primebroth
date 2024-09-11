@@ -40,6 +40,48 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+    
+    
+    <style>
+        .filter-options {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .filter-options label {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 0 5px;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #f7f7f7;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .filter-options input[type="radio"] {
+            display: none;
+        }
+
+         
+        .filter-options input[type="radio"]:checked + label {
+            background-color: #ff7043;
+            color: white;
+            border-color: #ff7043;
+        }
+
+         
+        .filter-options label:hover {
+            background-color: #e0e0e0;
+        }
+
+         
+        .filter-options .coming-soon {
+            margin-left: auto;
+        }
+    </style>
 </head>
 <body><div class="announcement full-width black text-center">
   <ul>
@@ -177,10 +219,29 @@
 </div>
 
     <div class="container">
+        
+        
+
         <div style="margin-bottom: 0px;" class="row max-width peach shopsection"> 
             <h1 class="text-center">Shop</h1>
-            <p  class="text-center">Nutrient-rich bone broth direct to your door.</p>
-<div class="product-card grow col-lg-3 col-sm-12"><a href="/shop/products/liquid">
+            <div class="filter-options">
+                <input type="radio" id="all" name="product-filter" value="all" checked>
+                <label for="all">All</label>
+    
+                <input type="radio" id="bone-broth" name="product-filter" value="bone-broth">
+                <label for="bone-broth">Bone Broth</label>
+    
+                <input type="radio" id="tallow" name="product-filter" value="tallow">
+                <label for="tallow">Tallow</label>
+    
+                <input type="radio" id="marrow-butter" name="product-filter" value="marrow-butter">
+                <label for="marrow-butter">Marrow Butter</label>
+
+                
+                <input type="radio" id="coming-soon" name="product-filter" value="coming-soon" class="coming-soon">
+                <label for="coming-soon" class="coming-soon">Coming Soon</label>
+            </div>
+<div class="product-card grow col-lg-3 col-sm-12" data-category="bone-broth"><a href="/shop/products/liquid">
   <p class="stamp">Trending</p>
   <img src="/img/mecurve.webp" alt="">
   <div class="product-details">
@@ -189,13 +250,24 @@
   </div>
 </a>
 </div>
-<div class="product-card grow left col-lg-3 col-sm-12">
+<div class="product-card grow left col-lg-3 col-sm-12" data-category="tallow">
   <a href="/shop/products/tallow-skin">
+    <img src="/img/tallowskin.webp" alt="Beef Tallow for Skincare">
+    <div class="product-details">
+      
+      <p>$19</p>
+      <h6>Beef Tallow Balm for Skincare</h6>
+    </div>
+  </a>
+</div>
+
+<div class="product-card grow left col-lg-3 col-sm-12" data-category="tallow">
+  <a href="/shop/products/tallow-skin-kit">
 
   <img src="/img/tallowskin.webp" alt="">
   <div class="product-details">
-    <p>$19</p>
-    <h6>Beef Tallow for Skincare</h6>
+    <p>$15</p>
+    <h6>Beef Tallow Balm for Skincare - DIY kit</h6>
   </div>
 </a>
 </div>
@@ -204,7 +276,7 @@
 
 
 
-<div class="product-card grow col-lg-3 col-sm-12"><a href="/shop/products/pets-powder">
+<div class="product-card grow col-lg-3 col-sm-12" data-category="bone-broth"><a href="/shop/products/pets-powder">
     <p class="stamp">Trending</p>
     <img src="/img/pinkcurve.webp" alt="">
     <div class="product-details">
@@ -218,13 +290,13 @@
 
 
   
-<div class="product-card grow left col-lg-3 col-sm-12">
+<div class="product-card grow left col-lg-3 col-sm-12" data-category="tallow">
   <a href="/shop/products/tallow-cooking">
 
   <img src="/img/tallowcooking.webp" alt="">
   <div class="product-details">
     <p>$48</p>
-    <h6>Beef Tallow for Cooking</h6>
+    <h6>Beef Tallow for Cooking Jars - 6pk</h6>
   </div>
 </a>
 </div>
@@ -233,7 +305,7 @@
 
 
 
-<div class="product-card grow col-lg-3 col-sm-12"><a href="/shop/products/pets">
+<div class="product-card grow col-lg-3 col-sm-12" data-category="bone-broth"><a href="/shop/products/pets">
   <p class="stamp">Trending</p>
   <img style="height:300px;margin:0px auto;" src="/img/louie.webp" alt="">
   <div class="product-details">
@@ -244,11 +316,11 @@
   </div>
 </a>
 </div>
-<div class="product-card-waitlist product-card grow col-md-3 col-xs-6">
+<div class="product-card-waitlist product-card grow col-md-3 col-xs-6" data-category="marrow-butter" data-coming-soon="true">
     <img src="/img/marrow-butter.webp" alt="">
     <div class="product-details">
         <p>$15</p>
-        <h6>Marrow butter - 250g<br>Coming soon</h6>
+        <h6>BonelyButter Marrow butter - 250g<br>Coming soon</h6>
     </div>
 <div class="waitlist-overlay">
   <form id="waitlist-form" action="https://docs.google.com/forms/d/e/1FAIpQLScaHCnkhfVAStnaxej1XT9Advj6OASjflZChXP-YN5bow5GbA/formResponse" onsubmit="submitWaitlistForm(event)">          <p>Coming soon - be the first to hear when it's available</p>
@@ -279,42 +351,36 @@ function submitWaitlistForm(event) {
 
 
 </script>
-<div class="product-card-waitlist product-card grow col-md-3 col-xs-6">
-      <img src="/img/powcurve.webp" alt="">
-      <div class="product-details">
-          <p>$40.95</p>
-          <h6>Bone broth powder for people<br>Coming soon</h6>
-      </div>
-  <div class="waitlist-overlay">
-    <form id="waitlist-form" action="https://docs.google.com/forms/d/e/1FAIpQLScaHCnkhfVAStnaxej1XT9Advj6OASjflZChXP-YN5bow5GbA/formResponse" onsubmit="submitWaitlistForm(event)">          <p>Coming soon - be the first to hear when it's available</p>
-          <input type="email" name="entry.1539663871" placeholder="Enter your email" required>
-          <input type="hidden" name="entry.432251910" value="Bone broth powder for people">
-          <button type="submit" class="btn btn-secondary">Join the waitlist</button>
-      </form>
+<div class="product-card grow col-lg-3 col-sm-12" data-category="bone-broth"><a href="/shop/products/powder">
+  <p class="stamp">Trending</p>
+  <img src="/img/powcurve.webp" alt="">
+  <div class="product-details">
+    <p>$40.95</p>
+    <h6>Bone broth powder for people</h6>
   </div>
-</div>
-<script>
-  function submitWaitlistForm(event) {
-    event.preventDefault(); 
-
-    const form = event.target;
-    const formData = new FormData(form);
-
-    fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        mode: 'no-cors', 
-    }).then(() => {
-        alert("You're added to the waitlist");
-        form.reset(); 
-    }).catch(error => {
-        console.error('Error:', error);
-    });
-}
-
-
-</script></div>
+</a>
+</div></div>
     </div>
+
+    
+    <script>
+        $(document).ready(function(){
+            $('input[name="product-filter"]').on('change', function() {
+                var selectedFilter = $(this).val();
+
+                if (selectedFilter === 'all') {
+                    $('.product-card').show();
+                } else if (selectedFilter === 'coming-soon') {
+                    $('.product-card').hide();
+                    $('.product-card[data-coming-soon="true"]').show();
+                } else {
+                    $('.product-card').hide();
+                    $('.product-card[data-category="' + selectedFilter + '"]').show();
+                }
+            });
+        });
+    </script>
+
     
 <footer class="bg-tlgray-100">
   <script src='/js/custom.js'></script>
@@ -461,4 +527,3 @@ function submitWaitlistForm(event) {
 
 </body>
 </html>
-
