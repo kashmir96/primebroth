@@ -16,9 +16,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
     <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=667c998f7bead90019480329&product=inline-share-buttons&source=platform" async="async"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-
 </head>
 <body>
+
+    <style>
+
+.custom-radio input[type="radio"]:checked + .custom-radio-label::before {
+  background-color: orange;
+}
+
+.custom-radio-label {
+    color: orange;
+}
+
+    </style>
     
     {{ if .Params.charity }}
 <div class="announcement full-width black text-center">
@@ -122,9 +133,9 @@
                 
             </div>
                 
-            <div class="custom-radio">
+            <div class="custom-radio" >
                 <input type="radio" id="inStock" name="stockStatus" checked>
-                <label class="custom-radio-label mb-4" for="inStock">In Stock</label>
+                <label class="custom-radio-label mb-4" for="inStock">Temporarily out of stock. Any orders placed will be sent when new stock arrives around 27/9/25</label>
             </div>
                 
                 {{ if or .Params.beefpricesmalllink .Params.chickenpricesmalllink .Params.lambpricesmalllink }}
