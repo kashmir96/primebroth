@@ -1,28 +1,41 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async (event, context) => {
-  const { priceId, quantity } = JSON.parse(event.body);
+  const { cart } = JSON.parse(event.body);
 
   try {
-    // Retrieve the price information from Stripe to calculate the total amount
-    const price = await stripe.prices.retrieve(priceId);
-    const amount = price.unit_amount * quantity;
+    const lineItems = [];
+
+    // Create line items for each product in the cart
+    for (const item of cart) {
+      const price = await stripe.prices.retrieve(item.priceId);
+      lineItems.push({
+        price: item.priceId,
+        quantity: item.quantity,
+      });
+    }
+
+    // Calculate the total amount to determine the appropriate shipping rate
+    const totalAmount = lineItems.reduce((total, item) => {
+      return total + (item.quantity * (await stripe.prices.retrieve(item.price)).unit_amount);
+    }, 0);
 
     // Define the shipping rate IDs
     const standardShippingRate = 'shr_1PasnCABkrUo6tgOd7bkp2rT'; // Shipping rate ID for orders below $10
-    const mediumShippingRate = 'shr_1PcZ8aABkrUo6tgODQmr9JHk'; // Shipping rate ID for orders above $10 and below $80
+    const mediumShippingRate = 'shr_1PcZ8aABkrUo6tgODQmr9JHk'; // Shipping rate ID for orders between $10 and $80
     const freeShippingRate = 'shr_1PWrY7ABkrUo6tgODvMWsZjD'; // Free shipping rate ID for orders above $80
 
     // Determine the shipping rate based on the total amount
     let shippingRate;
-    if (amount >= 8000) {
+    if (totalAmount >= 8000) {
       shippingRate = freeShippingRate;
-    } else if (amount >= 1000) {
+    } else if (totalAmount >= 1000) {
       shippingRate = mediumShippingRate;
     } else {
       shippingRate = standardShippingRate;
     }
 
+    // Create a checkout session with the line items
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       shipping_address_collection: {
@@ -33,12 +46,7 @@ exports.handler = async (event, context) => {
           shipping_rate: shippingRate,
         },
       ],
-      line_items: [
-        {
-          price: priceId,
-          quantity: quantity,
-        },
-      ],
+      line_items: lineItems,
       mode: 'payment',
       allow_promotion_codes: true, // Enable entering promotion codes at checkout
       success_url: 'https://www.primebroth.co.nz/pages/thank-you',

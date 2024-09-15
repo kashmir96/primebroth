@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{- partial "head.html" . }} <!-- Includes site's meta tags, CSS, JS, etc. -->
+    <title>Checkout - PrimeBroth</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    {{- partial "header.html" . }} <!-- Site's header -->
+
+    <div class="container my-5">
+        <h1 class="mb-4">Your Cart</h1>
+
+        <div id="cart-items" class="mb-4">
+            <!-- Cart items will be dynamically injected here -->
+        </div>
+
+        <div id="cart-summary" class="card p-4 shadow">
+            <h3>Cart Summary</h3>
+            <p class="mb-1">Total cost: <strong><span id="total-cost">$0.00</span></strong></p>
+            <p><em>Shipping calculated at checkout</em></p>
+            <button id="proceed-to-checkout" class="btn btn-primary mt-3" disabled>Proceed to Checkout</button>
+        </div>
+    </div>
+
+    {{- partial "footer.html" . }} <!-- Site's footer -->
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItemsContainer = document.getElementById('cart-items');
+            const totalCostElement = document.getElementById('total-cost');
+            const proceedToCheckoutButton = document.getElementById('proceed-to-checkout');
+
+            function updateCart() {
+                cartItemsContainer.innerHTML = '';
+                const table = document.createElement('table');
+                table.className = 'table table-bordered';
+                table.innerHTML = `
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Product</th>
+                            <th scope="col">Flavour</th>
+                            <th scope="col">Size</th>
+                            <th scope="col">Unit Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-table-body"></tbody>
+                `;
+                cartItemsContainer.appendChild(table);
+
+                const cartTableBody = document.getElementById('cart-table-body');
+                let totalCost = 0;
+
+                cart.forEach((item, index) => {
+                    // Use the unit price directly as stored in localStorage
+                    const unitPrice = parseFloat(item.unitPrice).toFixed(2);
+                    const lineItemTotal = (unitPrice * item.quantity).toFixed(2);
+                    totalCost += parseFloat(lineItemTotal);
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.title}</td>
+                        <td>${item.flavour}</td>
+                        <td>${item.size}</td>
+                        <td>$${unitPrice}</td>
+                        <td><input type="number" class="form-control quantity-input" data-index="${index}" value="${item.quantity}" min="1"></td>
+                        <td class="line-total">$${lineItemTotal}</td>
+                        <td><button class="btn btn-danger remove-item" data-index="${index}">X</button></td>
+                    `;
+                    cartTableBody.appendChild(row);
+                });
+
+                totalCostElement.textContent = `$${totalCost.toFixed(2)}`;
+                proceedToCheckoutButton.disabled = cart.length === 0;
+
+                // Event listeners for quantity changes
+                document.querySelectorAll('.quantity-input').forEach(input => {
+                    input.addEventListener('input', function() {
+                        const index = this.getAttribute('data-index');
+                        cart[index].quantity = this.value;
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        updateCart();
+                    });
+                });
+
+                // Event listeners for removing items
+                document.querySelectorAll('.remove-item').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = this.getAttribute('data-index');
+                        cart.splice(index, 1);
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        updateCart();
+                    });
+                });
+            }
+
+            // Initial call to display the cart
+            updateCart();
+
+            proceedToCheckoutButton.addEventListener('click', function() {
+                handleCheckout(cart);
+            });
+
+            function handleCheckout(cart) {
+                fetch('/.netlify/functions/create-checkout-session', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ cart })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.sessionId) {
+                        stripe.redirectToCheckout({ sessionId: data.sessionId });
+                    } else {
+                        console.error('No sessionId returned:', data);
+                        alert('Failed to create checkout session. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error creating checkout session:', error);
+                    alert('Failed to create checkout session. Please try again.');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

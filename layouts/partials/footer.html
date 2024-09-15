@@ -92,14 +92,20 @@
     </div>
     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto" id="mobileMenu">
       <div class="text-lg lg:flex-grow">
+        <div class="socialmobnav">
+          <a class="iglink" href="https://www.facebook.com/profile.php?id=61560358912834"><img src="/img/fbw.png" alt="instagram for primebroth"></a>
+          <a class="iglink" href="https://www.instagram.com/primebroth/"><img src="/img/instw.png" alt="instagram for primebroth"></a>
+      </div>
       </div>
       <div class="flex flex-row items-center text-lg d-none d-md-block">
         {{ range .Site.Menus.footer }}
         <a href="{{ .URL }}" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
+
           {{ if not .Pre }}
           {{ .Name }}
           {{ else }}
           {{ .Pre }}
+          
           {{ end }}
         </a>
         {{ end }}
@@ -107,7 +113,7 @@
     </div>
 
   </div>
-
+  
   <div class="copy pl-8 py-5 bg-tlgray-700 text-white text-md">
     &copy; {{site.Title}} {{ now.Year }} All Rights Reserved. <br>Site by <a style="color:white;font-weight:bold;" href="https://www.oso.nz">OSO Marketing NZ</a>
     <img style="float:right;padding-right:20px;"class="badges" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
@@ -115,4 +121,5 @@
   </div>
 
 </footer>
+
 
