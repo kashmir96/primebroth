@@ -38,11 +38,12 @@
     <meta name="twitter:site" content="" />
     <meta name="twitter:creator" content="" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
     <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=667c998f7bead90019480329&product=inline-share-buttons&source=platform" async="async"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-
+    <script src="https://js.stripe.com/v3/"></script> 
 </head>
 <body><div class="announcement full-width black text-center">
   <ul>
@@ -208,17 +209,7 @@
         }
     });
 </script>
-<div class="scroll-top rounded-full">
-        <span class="icon-keyboard_arrow_up text-2xl"></span>
-    </div><div class="swiper-container">
-    <div class="swiper-wrapper">
-        
-    </div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-</div>
-
-    <div class="container">
+<div class="container">
         <div class="row topbanner rel">
             <div class="col-xs-12 col-lg-6 product-photos"><img class="main-image"  src="/img/tallowskin.webp" alt="Beef tallow balm photo 1">            
     <div class="product-images mob-hide">
@@ -229,316 +220,276 @@
     </div>
 </div>
             <div class="col-xs-12 col-lg-6">
-                <h1>Tallow balm - heavenly smooth</h1>
-               
-                
-                
-                <div id="pricePartialSmall" class="product-info">
-                    <p>$19.00</p>
-                </div>
-                
-                
-                
-                <div id="pricePartialMedium" class="product-info hidden">
-                    <p>$35.00</p>
-                </div>
-                
-                
-
-
-
-
-            
+                <h1 class="my-4">Tallow Balm - Heavenly Smooth</h1>
 
                 
-                
-            <div class="dropdown-container">
-                <div class="dropdown-group">
-                    <select id="productFlavour" name="productFlavour">
-                        
-                        <option value="beef" data-image="/img/post-a-1.webp"
-                                data-flavour-price-small="price_1Pvs6VABkrUo6tgOaLG480lq"
-                                data-flavour-price-medium="price_1Pvs7CABkrUo6tgO9DXxzu5W"
-                                data-flavour-price-large="" selected>Beef</option>
-                        
-                        
-                        
-                    </select>
-                </div>
-                
-                <div class="dropdown-group">
-                    <select id="productSize" name="productSize">
-                        
-                        <option value="small" data-image="/img/post-a-1.webp">50ml</option>
-                        
-                        
-                        <option value="medium" data-image="/img/50front.webp">100ml</option>
-                        
-                        
-                    </select>
-                </div>
-               
-                
-
-                <div class="quantity-container">
-                    <label for="quantityAll">Qty </label>
-                    <input type="number" id="quantityAll" name="quantity" min="1" value="1">
-                </div>
-                
-            </div>
-                
-            <div class="custom-radio">
-                <input type="radio" id="inStock" name="stockStatus" checked>
-                <label class="custom-radio-label mb-4" for="inStock">In Stock</label>
-            </div>
-
-                
-                
-                <div id="productsmall" class="product-info">
-                    <button class="btn btn-primary buy-now" data-price-id="price_1Pvs6VABkrUo6tgOaLG480lq" data-quantity-id="quantityAll">Add To Cart</button>
-                </div>
-                
-                
-                
-                <div id="productmedium" class="product-info hidden">
-                    <button class="btn btn-primary buy-now" data-price-id="price_1Pvs7CABkrUo6tgO9DXxzu5W" data-quantity-id="quantityAll">Add To Cart</button>
-                </div>
-                
-                
-                
-
-                <img class="badges" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
-                
-                <div class="row mt-0 trust">
-                    <div class="col-4">
-                        <img src="/img/delivery.webp">
-                        <p>Free delivery over $80</p>
-                    </div>
-                    <div class="col-4">
-                        <img src="/img/exclusive.webp">
-                        <p>Money back guarantee</p>
-                    </div>
+                <form>
                     
-                </div>
-                
-                
+                    <div class="form-group mb-4">
+                        <label for="productScent" class="font-weight-bold">Select Scent:</label>
+                        <select id="productScent" class="form-control">
+                            <option value="lavendar">Lavender</option>
+                            <option value="rose">Rose</option>
+                            <option value="neutral">Neutral</option>
+                            <option value="vanilla">Vanilla</option>
+                            <option value="francensense">Frankincense</option>
+                            <option value="patchouli">Patchouli</option>
+                            <option value="sweetorange">Sweet Orange</option>
+                        </select>
+                    </div>
+
+                    
+                    <div class="form-group mb-4">
+                        <label for="productSize" class="font-weight-bold">Select Size:</label>
+                        <select id="productSize" class="form-control">
+                            <option value="50ml">50ml</option>
+                            <option value="100ml">100ml</option>
+                        </select>
+                    </div>
+
+                    
+                    <div class="form-group form-check mb-4">
+                        <input type="checkbox" class="form-check-input" id="jojobaCheckbox">
+                        <label class="form-check-label" for="jojobaCheckbox">Use Jojoba Oil</label>
+                    </div>
+
+                    
+                    <div class="form-group mb-4">
+                        <label for="quantityAll" class="font-weight-bold">Quantity:</label>
+                        <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+                    </div>
+
+                    
+                    <div class="text-center mb-4">
+                        <button type="button" class="btn btn-primary btn-lg buy-now" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
+                    </div>
+                </form>
+
+                <img class="badges mb-4" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
             </div>
-
-            
-
-            <div class="row mt-0">
-                <div class="col-12 col-md-6">
-                        <img src="/img/markets/11.webp" alt="Click to watch video" id="thumbnail" data-video-id="videoContainer1">
+        </div>
+        <div class="row mt-0">
+            <div class="col-12 col-md-6">
+                    <img src="/img/markets/11.webp" alt="Click to watch video" id="thumbnail" data-video-id="videoContainer1">
+            </div>
+            <div class="faq-tab-container col-12 col-md-6">
+                
+                <div class="faq-nav-tabs">
+                    <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</div>
+                    <div class="faq-nav-tab" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</div>
+                    <div class="faq-nav-tab" id="directions-tab" data-toggle="tab" href="#directions" role="tab" aria-controls="directions" aria-selected="false">Directions</div>
+                    <div class="faq-nav-tab" id="storage-tab" data-toggle="tab" href="#storage" role="tab" aria-controls="storage" aria-selected="false">Storage</div>
+                    <div class="faq-nav-tab" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</div>
                 </div>
-                <div class="faq-tab-container col-12 col-md-6">
-                    
-                    <div class="faq-nav-tabs">
-                        <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</div>
-                        <div class="faq-nav-tab" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</div>
-                        <div class="faq-nav-tab" id="directions-tab" data-toggle="tab" href="#directions" role="tab" aria-controls="directions" aria-selected="false">Directions</div>
-                        <div class="faq-nav-tab" id="storage-tab" data-toggle="tab" href="#storage" role="tab" aria-controls="storage" aria-selected="false">Storage</div>
-                        <div class="faq-nav-tab" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</div>
+        
+                
+                <div class="tab-content faq-tab-content">
+                    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                        <h4>Description</h4>
+                        <p>We are a CHCH-based bone broth business and found ourselves wasting too much beef tallow. So we decided to make tallow balm skincare products from it! </p>
+                        <p>Beef tallow balm is an amazing, natural moisturiser! It nourishes your skin without clogging pores and also fights skin conditions like eczema. Selling in jars of 50ml and 100ml.</p>
+                        <p>You can come purchase from us at Lyttelton or Ohoka markets every week or order here! Shipping available.</p>
+
+                        <p>By default we provide lavendar with olive oil, however, if you reach out via our contact form or social media before your order is processed we can organise a different combination using the options below:<br>
+                            <br>You can choose main oil: olive, jojoba, avocado.
+                            <br>Choose your essential oil: lavender, francensent, vanilla, rose, sweet orange, patchouli.</p>
+
+                        
+                                               
+                        
+                        
+                        
+                        
                     </div>
-            
-                    
-                    <div class="tab-content faq-tab-content">
-                        <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-                            <h4>Description</h4>
-                            <p>We are a CHCH-based bone broth business and found ourselves wasting too much beef tallow. So we decided to make tallow balm skincare products from it! </p>
-                            <p>Beef tallow balm is an amazing, natural moisturiser! It nourishes your skin without clogging pores and also fights skin conditions like eczema. Selling in jars of 50ml and 100ml.</p>
-                            <p>You can come purchase from us at Lyttelton or Ohoka markets every week or order here! Shipping available.</p>
-
-                            <p>By default we provide lavendar with olive oil, however, if you reach out via our contact form or social media before your order is processed we can organise a different combination using the options below:<br>
-                                <br>You can choose main oil: olive, jojoba, avocado.
-                                <br>Choose your essential oil: lavender, francensent, vanilla, rose, sweet orange, patchouli.</p>
-
-                            
-                                                   
-                            
-                            
-                            
-                            
-                        </div>
-                        <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
-                            <h4>Ingredients</h4>
-                            <p><span class="product-flavour">Grass-fed NZ beef tallow, organic olive oil, essential oil. 
-                                                        </div>
-                        <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
-                            <h4>Directions</h4>
-                            <p>Apply a small amount on the face, neck, hands or feet daily in the morning as a moisturiser or evening as a night cream. Best used on slightly damp skin.</p>
-                            <p>Body and facial moisturizer. Eczema cream, monthly hair conditioner.</p>
+                    <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
+                        <h4>Ingredients</h4>
+                        <p><span class="product-flavour">Grass-fed NZ beef tallow, organic olive oil, essential oil. 
+                                                    </div>
+                    <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
+                        <h4>Directions</h4>
+                        <p>Apply a small amount on the face, neck, hands or feet daily in the morning as a moisturiser or evening as a night cream. Best used on slightly damp skin.</p>
+                        <p>Body and facial moisturizer. Eczema cream, monthly hair conditioner.</p>
 
 
-                        </div>
-                        <div class="tab-pane fade" id="storage" role="tabpanel" aria-labelledby="storage-tab">
-                            <h4>Storage</h4>
-                            <p>Keep in temperatures below 30 degrees and out of direct sunlight to maintain the shelf life of this balm.</p>
-                        </div>
-                        <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
-                            <h4>Shipping</h4>
-                            <p><strong>Processing time:</strong> Your order will be shipped within 1-3 business days after payment confirmation.</p>
-                            <p><strong>Shipping rates:</strong> We usually charge between $4.95 and $6.95 for shipping. You can view the shipping costs at the checkout before completing your purchase.</p>
-                            <p><strong>International shipping:</strong> Currently, we only offer shipping within New Zealand. We apologize for any inconvenience this may cause.</p>
-                            <p>If you have any questions or concerns regarding shipping, please don't hesitate to <a href="contact.html">contact us</a>.</p>
-                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="storage" role="tabpanel" aria-labelledby="storage-tab">
+                        <h4>Storage</h4>
+                        <p>Keep in temperatures below 30 degrees and out of direct sunlight to maintain the shelf life of this balm.</p>
+                    </div>
+                    <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
+                        <h4>Shipping</h4>
+                        <p><strong>Processing time:</strong> Your order will be shipped within 1-3 business days after payment confirmation.</p>
+                        <p><strong>Shipping rates:</strong> We usually charge between $4.95 and $6.95 for shipping. You can view the shipping costs at the checkout before completing your purchase.</p>
+                        <p><strong>International shipping:</strong> Currently, we only offer shipping within New Zealand. We apologize for any inconvenience this may cause.</p>
+                        <p>If you have any questions or concerns regarding shipping, please don't hesitate to <a href="contact.html">contact us</a>.</p>
                     </div>
                 </div>
-            
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        var tabs = document.querySelectorAll('.faq-nav-tab');
-                        tabs.forEach(function(tab) {
-                            tab.addEventListener('click', function() {
-                                document.querySelector('.faq-nav-tab.active').classList.remove('active');
-                                tab.classList.add('active');
-                                var tabContent = document.querySelector('.faq-tab-content .tab-pane.show.active');
-                                tabContent.classList.remove('show', 'active');
-                                var target = tab.getAttribute('href');
-                                document.querySelector(target).classList.add('show', 'active');
-                            });
+            </div>
+        
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var tabs = document.querySelectorAll('.faq-nav-tab');
+                    tabs.forEach(function(tab) {
+                        tab.addEventListener('click', function() {
+                            document.querySelector('.faq-nav-tab.active').classList.remove('active');
+                            tab.classList.add('active');
+                            var tabContent = document.querySelector('.faq-tab-content .tab-pane.show.active');
+                            tabContent.classList.remove('show', 'active');
+                            var target = tab.getAttribute('href');
+                            document.querySelector(target).classList.add('show', 'active');
                         });
                     });
-                </script>
-                </div>
-        </div>
+                });
+            </script>
+            </div>
     </div>
-</div>
-
-   </div><script src="https://js.stripe.com/v3/"></script>
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const stripe = Stripe('pk_live_51Ot2iTABkrUo6tgOu44jd79tB4Dg2B64I6lucmLcKdxZfcy2Dy3bTnbxQNiwDtRfeWSwWx1WsDpC0h91tTlubPXW000IuWtQTX'); 
-
-    
-    storePageData();
-
-    
-    document.getElementById('productFlavour').addEventListener('change', updateFlavor);
-    document.getElementById('productSize').addEventListener('change', updateProductSize);
-
-    
-    document.addEventListener('click', function(event) {
-        if (event.target.classList.contains('buy-now')) {
-            handleAddToCart(event);
-        }
-    });
-
-    function storePageData() {
-        const pgurl = '';
-        const charity = '';
-        localStorage.setItem('pgurl', pgurl);
-        localStorage.setItem('charity', charity);
-    }
-
-    function updateFlavor() {
-        var flavour = this.value;
-        var selectedOption = this.options[this.selectedIndex];
-        updatePriceIDs(flavour, selectedOption);
-    }
-
-    function updatePriceIDs(flavour, selectedOption) {
-        var priceSmall = selectedOption.getAttribute('data-flavour-price-small');
-        var priceMedium = selectedOption.getAttribute('data-flavour-price-medium');
-        var priceLarge = selectedOption.getAttribute('data-flavour-price-large');
-
-        document.querySelectorAll('.product-flavour').forEach(span => span.textContent = capitalize(flavour));
-        document.querySelector('#productsmall .buy-now').setAttribute('data-price-id', priceSmall);
-        document.querySelector('#productmedium .buy-now').setAttribute('data-price-id', priceMedium);
-        document.querySelector('#productlarge .buy-now').setAttribute('data-price-id', priceLarge);
-    }
-
-    function updateProductSize() {
-        const selectedSize = this.value;
-        ['small', 'medium', 'large'].forEach(size => {
-            const isSelected = selectedSize === size;
-            document.getElementById('product' + size).classList.toggle('hidden', !isSelected);
-            document.getElementById('pricePartial' + capitalize(selectedSize)).classList.toggle('hidden', !isSelected);
-        });
-    }
-
-    function handleAddToCart(e) {
-        e.preventDefault();
-        const button = e.target;
-        const priceId = button.getAttribute('data-price-id');
-        const quantity = parseInt(document.getElementById('quantityAll').value, 10); 
-
-        const selectedFlavour = document.getElementById('productFlavour').value;
-        const selectedSize = document.getElementById('productSize').value;
-
-        
-        const productTitle = document.querySelector('h1').innerText; 
-
-        
-        const priceText = document.querySelector(`#pricePartial${capitalize(selectedSize)}`).innerText;
-        const unitPrice = parseFloat(priceText.replace(/[^0-9.]/g, '')).toFixed(2); 
-
-        
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        
-        cart.push({ priceId, quantity, flavour: selectedFlavour, size: selectedSize, unitPrice, title: productTitle });
-
-        
-        localStorage.setItem('cart', JSON.stringify(cart));
-
-        
-        $('#addedToCartModal').modal('show');
-    }
-
-    function capitalize(str) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
-    }
-});
-</script>
-
-
-<div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-             <div class="modal-header">
-                <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Your item has been added to the cart. What would you like to do next?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
-                <a href="/cart" class="btn btn-primary">Go to Cart</a>
-            </div>
-        </div>
     </div>
-</div>
- 
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-    const accordions = document.querySelectorAll(".accordion-minimal");
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const stripe = Stripe('pk_live_51Ot2iTABkrUo6tgOu44jd79tB4Dg2B64I6lucmLcKdxZfcy2Dy3bTnbxQNiwDtRfeWSwWx1WsDpC0h91tTlubPXW000IuWtQTX');
 
-    accordions.forEach(accordion => {
-        const header = accordion.querySelector(".accordion-minimal-header");
-
-        header.addEventListener("click", function() {
             
-            accordions.forEach(acc => {
-                if (acc !== accordion) {
-                    acc.querySelector(".accordion-minimal-content").classList.remove("show");
+            document.getElementById('productScent').addEventListener('change', updatePriceID);
+            document.getElementById('productSize').addEventListener('change', updatePriceID);
+            document.getElementById('jojobaCheckbox').addEventListener('change', updatePriceID);
+
+            
+            document.querySelector('.buy-now').addEventListener('click', handleAddToCart);
+
+            function updatePriceID() {
+                const isJojoba = document.getElementById('jojobaCheckbox').checked ? 'jojoba' : 'olive';
+                const selectedScent = document.getElementById('productScent').value;
+                const selectedSize = document.getElementById('productSize').value;
+
+                const priceID = priceIDs[isJojoba][selectedScent][selectedSize];
+                const unitPrice = getPriceText(priceID);
+
+                
+                document.querySelector('.buy-now').setAttribute('data-price-id', priceID);
+                document.querySelector('.buy-now').setAttribute('data-unit-price', unitPrice);
+            }
+
+            function getPriceText(priceID) {
+    
+    switch (priceID) {
+        case 'price_1Pz7oyABkrUo6tgObYewp2Xf':
+        case 'price_1Pz7vbABkrUo6tgOUoGD9UWo':
+        case 'price_1Pz7pcABkrUo6tgOHcr5bmHw':
+        case 'price_1Pz7w3ABkrUo6tgOATV4z3h0':
+        case 'price_1Pz7r6ABkrUo6tgOLwMfAVlb':
+        case 'price_1Pz7weABkrUo6tgOiEqac38O':
+        case 'price_1Pz7reABkrUo6tgOMbdeYote':
+        case 'price_1Pz7xAABkrUo6tgOuAmDbpWG':
+        case 'price_1Pz7tZABkrUo6tgO285EgEUf':
+        case 'price_1Pz7xgABkrUo6tgO0vvvuUkT':
+        case 'price_1Pz7u6ABkrUo6tgOcrfLiVID':
+        case 'price_1Pz7yCABkrUo6tgOsEtlvSMk':
+        case 'price_1Pz7ucABkrUo6tgOnNVuDc6g':
+        case 'price_1Pz7yiABkrUo6tgOewhFXvAU':
+            return 19.00; 
+
+        case 'price_1Pz7pLABkrUo6tgO64C6LHwX':
+        case 'price_1Pz7vqABkrUo6tgOPDeG8KOK':
+        case 'price_1Pz7puABkrUo6tgOOI5Acwlf':
+        case 'price_1Pz7wPABkrUo6tgOvPY58P8j':
+        case 'price_1Pz7rNABkrUo6tgOB6I2QCQM':
+        case 'price_1Pz7wxABkrUo6tgOwACtqLHw':
+        case 'price_1Pz7tHABkrUo6tgOuepirD6K':
+        case 'price_1Pz7xOABkrUo6tgOQX0bfFqn':
+        case 'price_1Pz7tqABkrUo6tgODVbg9mby':
+        case 'price_1Pz7xwABkrUo6tgOXcplWFcy':
+        case 'price_1Pz7uNABkrUo6tgOdCg5tuVu':
+        case 'price_1Pz7ySABkrUo6tgOpZ6odGOS':
+        case 'price_1Pz7usABkrUo6tgOA5XUfCSI':
+        case 'price_1Pz7yyABkrUo6tgO5gl0ZuTq':
+            return 35.00; 
+
+        default:
+            return 35.00; 
+    }
+}
+
+
+            function handleAddToCart(e) {
+                e.preventDefault();
+                const button = e.target;
+                const priceId = button.getAttribute('data-price-id');
+                const unitPrice = parseFloat(button.getAttribute('data-unit-price')).toFixed(2);
+                const quantity = parseInt(document.getElementById('quantityAll').value, 10);
+                const selectedScent = document.getElementById('productScent').value;
+                const selectedSize = document.getElementById('productSize').value;
+                const isJojoba = document.getElementById('jojobaCheckbox').checked;
+
+                if (!priceId) {
+                    alert('Please select a scent and size.');
+                    return;
                 }
-            });
-            
-            const content = this.nextElementSibling;
-            content.classList.toggle("show");
-        });
-    });
-});
 
-</script>
+                
+                const flavorText = isJojoba ? `${selectedScent} + Jojoba` : selectedScent;
+
+                
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const productTitle = document.querySelector('h1').innerText;
+
+                cart.push({ priceId, quantity, flavour: flavorText, size: selectedSize, unitPrice, title: productTitle });
+                localStorage.setItem('cart', JSON.stringify(cart));
+
+                
+                $('#addedToCartModal').modal('show');
+            }
+
+            const priceIDs = {
+                olive: {
+                    lavendar: { '50ml': 'price_1Pz7oyABkrUo6tgObYewp2Xf', '100ml': 'price_1Pz7pLABkrUo6tgO64C6LHwX' },
+                    rose: { '50ml': 'price_1Pz7pcABkrUo6tgOHcr5bmHw', '100ml': 'price_1Pz7puABkrUo6tgOOI5Acwlf' },
+                    neutral: { '50ml': 'price_1Pz7r6ABkrUo6tgOLwMfAVlb', '100ml': 'price_1Pz7rNABkrUo6tgOB6I2QCQM' },
+                    vanilla: { '50ml': 'price_1Pz7reABkrUo6tgOMbdeYote', '100ml': 'price_1Pz7tHABkrUo6tgOuepirD6K' },
+                    francensense: { '50ml': 'price_1Pz7tZABkrUo6tgO285EgEUf', '100ml': 'price_1Pz7tqABkrUo6tgODVbg9mby' },
+                    patchouli: { '50ml': 'price_1Pz7u6ABkrUo6tgOcrfLiVID', '100ml': 'price_1Pz7uNABkrUo6tgOdCg5tuVu' },
+                    sweetorange: { '50ml': 'price_1Pz7ucABkrUo6tgOnNVuDc6g', '100ml': 'price_1Pz7usABkrUo6tgOA5XUfCSI' }
+                },
+                jojoba: {
+                    lavendar: { '50ml': 'price_1Pz7vbABkrUo6tgOUoGD9UWo', '100ml': 'price_1Pz7vqABkrUo6tgOPDeG8KOK' },
+                    rose: { '50ml': 'price_1Pz7w3ABkrUo6tgOATV4z3h0', '100ml': 'price_1Pz7wPABkrUo6tgOvPY58P8j' },
+                    neutral: { '50ml': 'price_1Pz7weABkrUo6tgOiEqac38O', '100ml': 'price_1Pz7wxABkrUo6tgOwACtqLHw' },
+                    vanilla: { '50ml': 'price_1Pz7xAABkrUo6tgOuAmDbpWG', '100ml': 'price_1Pz7xOABkrUo6tgOQX0bfFqn' },
+                    francensense: { '50ml': 'price_1Pz7xgABkrUo6tgO0vvvuUkT', '100ml': 'price_1Pz7xwABkrUo6tgOXcplWFcy' },
+                    patchouli: { '50ml': 'price_1Pz7yCABkrUo6tgOsEtlvSMk', '100ml': 'price_1Pz7ySABkrUo6tgOpZ6odGOS' },
+                    sweetorange: { '50ml': 'price_1Pz7yiABkrUo6tgOewhFXvAU', '100ml': 'price_1Pz7yyABkrUo6tgO5gl0ZuTq' }
+                }
+            };
+
+            
+            updatePriceID();
+        });
+    </script>
+
+    
+    <div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Your item has been added to the cart. What would you like to do next?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
+                    <a href="/cart" class="btn btn-primary">Go to Cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <footer class="bg-tlgray-100">
   <script src='/js/custom.js'></script>
 
@@ -695,6 +646,7 @@ document.addEventListener('DOMContentLoaded', function () {
   </div>
 
 </footer>
+
 
 
 </body>

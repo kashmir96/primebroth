@@ -12,377 +12,296 @@
     <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
     <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
     <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=667c998f7bead90019480329&product=inline-share-buttons&source=platform" async="async"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-
+    <script src="https://js.stripe.com/v3/"></script> <!-- Stripe script -->
 </head>
 <body>
-    
-{{- partial "alert.html" . -}}
-
-
-
+    {{- partial "alert.html" . -}}
     {{- partial "header.html" . -}}
-    <div class="scroll-top rounded-full">
-        <span class="icon-keyboard_arrow_up text-2xl"></span>
-    </div>
-    {{- partial "slide.html" . -}}
-    {{- partial "strip.html" . -}}
-    <!-- Add html below -->
-
+    
     <div class="container">
         <div class="row topbanner rel">
             <div class="col-xs-12 col-lg-6 product-photos">
                 {{- partial "tallowskinimages.html" . -}}
-
-                        </div>
+            </div>
             <div class="col-xs-12 col-lg-6">
-                <h1>Tallow balm - heavenly smooth</h1>
-               
-                <!-- Price Partials for Small, Medium, and Large -->
-                {{ if or .Params.beefpricesmalllink .Params.chickenpricesmalllink .Params.lambpricesmalllink }}
-                <div id="pricePartialSmall" class="product-info">
-                    <p>{{- partial "price-tallow-skin-50.html" . -}}</p>
-                </div>
-                {{ end }}
-                
-                {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
-                <div id="pricePartialMedium" class="product-info hidden">
-                    <p>{{- partial "price-tallow-skin-100.html" . -}}</p>
-                </div>
-                {{ end }}
-                
+                <h1 class="my-4">Tallow Balm - Heavenly Smooth</h1>
 
+                <!-- Product Form Options with Bootstrap Styling -->
+                <form>
+                    <!-- Dropdown for selecting scent -->
+                    <div class="form-group mb-4">
+                        <label for="productScent" class="font-weight-bold">Select Scent:</label>
+                        <select id="productScent" class="form-control">
+                            <option value="lavendar">Lavender</option>
+                            <option value="rose">Rose</option>
+                            <option value="neutral">Neutral</option>
+                            <option value="vanilla">Vanilla</option>
+                            <option value="francensense">Frankincense</option>
+                            <option value="patchouli">Patchouli</option>
+                            <option value="sweetorange">Sweet Orange</option>
+                        </select>
+                    </div>
 
+                    <!-- Dropdown for selecting size -->
+                    <div class="form-group mb-4">
+                        <label for="productSize" class="font-weight-bold">Select Size:</label>
+                        <select id="productSize" class="form-control">
+                            <option value="50ml">50ml</option>
+                            <option value="100ml">100ml</option>
+                        </select>
+                    </div>
 
+                    <!-- Checkbox for Oil Type -->
+                    <div class="form-group form-check mb-4">
+                        <input type="checkbox" class="form-check-input" id="jojobaCheckbox">
+                        <label class="form-check-label" for="jojobaCheckbox">Use Jojoba Oil</label>
+                    </div>
 
-            
+                    <!-- Quantity Selector -->
+                    <div class="form-group mb-4">
+                        <label for="quantityAll" class="font-weight-bold">Quantity:</label>
+                        <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+                    </div>
 
-                
-                
-            <div class="dropdown-container">
-                <div class="dropdown-group">
-                    <select id="productFlavour" name="productFlavour">
-                        {{ if or .Params.beefpricesmalllink .Params.beefpricemediumlink .Params.beefpricelargelink }}
-                        <option value="beef" data-image="/img/post-a-1.webp"
-                                data-flavour-price-small="{{ .Params.beefpricesmalllink }}"
-                                data-flavour-price-medium="{{ .Params.beefpricemediumlink }}"
-                                data-flavour-price-large="{{ .Params.beefpricelargelink }}" selected>Beef</option>
-                        {{ end }}
-                        {{ if or .Params.chickenpricesmalllink .Params.chickenpricemediumlink .Params.chickenpricelargelink }}
-                        <option value="chicken" data-image="/img/post-a-1.webp"
-                                data-flavour-price-small="{{ .Params.chickenpricesmalllink }}"
-                                data-flavour-price-medium="{{ .Params.chickenpricemediumlink }}"
-                                data-flavour-price-large="{{ .Params.chickenpricelargelink }}">Chicken</option>
-                        {{ end }}
-                        {{ if or .Params.lambpricesmalllink .Params.lambpricemediumlink .Params.lambpricelargelink }}
-                        <option value="lamb" data-image="/img/post-a-1.webp"
-                                data-flavour-price-small="{{ .Params.lambpricesmalllink }}"
-                                data-flavour-price-medium="{{ .Params.lambpricemediumlink }}"
-                                data-flavour-price-large="{{ .Params.lambpricelargelink }}">Lamb</option>
-                        {{ end }}
-                    </select>
-                </div>
-                
-                <div class="dropdown-group">
-                    <select id="productSize" name="productSize">
-                        {{ if or .Params.beefpricesmalllink .Params.chickenpricesmalllink .Params.lambpricesmalllink }}
-                        <option value="small" data-image="/img/post-a-1.webp">50ml</option>
-                        {{ end }}
-                        {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
-                        <option value="medium" data-image="/img/50front.webp">100ml</option>
-                        {{ end }}
-                        {{ if or .Params.beefpricelargelink .Params.chickenpricelargelink .Params.lambpricelargelink }}
-                        <option value="large" data-image="/img/50front.webp">24pk (Save 10%)</option>
-                        {{ end }}
-                    </select>
-                </div>
-               
-                
+                    <!-- Add to Cart Button -->
+                    <div class="text-center mb-4">
+                        <button type="button" class="btn btn-primary btn-lg buy-now" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
+                    </div>
+                </form>
 
-                <div class="quantity-container">
-                    <label for="quantityAll">Qty </label>
-                    <input type="number" id="quantityAll" name="quantity" min="1" value="1">
-                </div>
-                
+                <img class="badges mb-4" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
             </div>
-                
-            <div class="custom-radio">
-                <input type="radio" id="inStock" name="stockStatus" checked>
-                <label class="custom-radio-label mb-4" for="inStock">In Stock</label>
+        </div>
+        <div class="row mt-0">
+            <div class="col-12 col-md-6">
+                    <img src="/img/markets/11.webp" alt="Click to watch video" id="thumbnail" data-video-id="videoContainer1">
             </div>
+            <div class="faq-tab-container col-12 col-md-6">
+                <!-- Nav tabs -->
+                <div class="faq-nav-tabs">
+                    <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</div>
+                    <div class="faq-nav-tab" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</div>
+                    <div class="faq-nav-tab" id="directions-tab" data-toggle="tab" href="#directions" role="tab" aria-controls="directions" aria-selected="false">Directions</div>
+                    <div class="faq-nav-tab" id="storage-tab" data-toggle="tab" href="#storage" role="tab" aria-controls="storage" aria-selected="false">Storage</div>
+                    <div class="faq-nav-tab" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</div>
+                </div>
+        
+                <!-- Tab panes -->
+                <div class="tab-content faq-tab-content">
+                    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                        <h4>Description</h4>
+                        <p>We are a CHCH-based bone broth business and found ourselves wasting too much beef tallow. So we decided to make tallow balm skincare products from it! </p>
+                        <p>Beef tallow balm is an amazing, natural moisturiser! It nourishes your skin without clogging pores and also fights skin conditions like eczema. Selling in jars of 50ml and 100ml.</p>
+                        <p>You can come purchase from us at Lyttelton or Ohoka markets every week or order here! Shipping available.</p>
 
-                
-                {{ if or .Params.beefpricesmalllink .Params.chickenpricesmalllink .Params.lambpricesmalllink }}
-                <div id="productsmall" class="product-info">
-                    <button class="btn btn-primary buy-now" data-price-id="{{ .Params.beefpricesmalllink }}" data-quantity-id="quantityAll">Add To Cart</button>
-                </div>
-                {{ end }}
-                
-                {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
-                <div id="productmedium" class="product-info hidden">
-                    <button class="btn btn-primary buy-now" data-price-id="{{ .Params.beefpricemediumlink }}" data-quantity-id="quantityAll">Add To Cart</button>
-                </div>
-                {{ end }}
-                
-                {{ if or .Params.beefpricelargelink .Params.chickenpricelargelink .Params.lambpricelargelink }}
-                <div id="productlarge" class="product-info hidden">
-                    <button class="btn btn-primary buy-now" data-price-id="{{ .Params.beefpricelargelink }}" data-quantity-id="quantityAll">Add To Cart</button>
-                </div>
-                {{ end }}
+                        <p>By default we provide lavendar with olive oil, however, if you reach out via our contact form or social media before your order is processed we can organise a different combination using the options below:<br>
+                            <br>You can choose main oil: olive, jojoba, avocado.
+                            <br>Choose your essential oil: lavender, francensent, vanilla, rose, sweet orange, patchouli.</p>
 
-                <img class="badges" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
-                <!--<div class="row mt-2 mb-0 p-0 middle justify-content-around">
-                    <img class="col-6 col-md-3" src="/img/guts.webp" alt="">
-                    <img class="col-6 col-md-3" src="/img/joints.webp" alt="">
-                    <img class="col-6 col-md-3" src="/img/musclerepair.webp" alt="Muscle and toning">
-                    <img class="col-6 col-md-3" src="/img/skinnails.webp" alt="Skin nails">
-                 </div>-->
-                <div class="row mt-0 trust">
-                    <div class="col-4">
-                        <img src="/img/delivery.webp">
-                        <p>Free delivery over $80</p>
+                        
+                        {{ if .Params.charitylink }}
+                        <p><a style="text-decoration: none;" href="{{ .Params.charitylink }}" rel="nofollow">Want to learn more about this charity? see here</a></p>
+                        {{ end }}                       
+                        
+                        
+                        
+                        
                     </div>
-                    <div class="col-4">
-                        <img src="/img/exclusive.webp">
-                        <p>Money back guarantee</p>
+                    <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
+                        <h4>Ingredients</h4>
+                        <p><span class="product-flavour">Grass-fed NZ beef tallow, organic olive oil, essential oil. 
+                                                    </div>
+                    <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
+                        <h4>Directions</h4>
+                        <p>Apply a small amount on the face, neck, hands or feet daily in the morning as a moisturiser or evening as a night cream. Best used on slightly damp skin.</p>
+                        <p>Body and facial moisturizer. Eczema cream, monthly hair conditioner.</p>
+
+
                     </div>
-                    <!--<div class="col-4">
-                        <img src="/img/kiwi.webp">
-                        <p>Used by 100s of Kiwis</p>
-                    </div>-->
+                    <div class="tab-pane fade" id="storage" role="tabpanel" aria-labelledby="storage-tab">
+                        <h4>Storage</h4>
+                        <p>Keep in temperatures below 30 degrees and out of direct sunlight to maintain the shelf life of this balm.</p>
+                    </div>
+                    <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
+                        <h4>Shipping</h4>
+                        <p><strong>Processing time:</strong> Your order will be shipped within 1-3 business days after payment confirmation.</p>
+                        <p><strong>Shipping rates:</strong> We usually charge between $4.95 and $6.95 for shipping. You can view the shipping costs at the checkout before completing your purchase.</p>
+                        <p><strong>International shipping:</strong> Currently, we only offer shipping within New Zealand. We apologize for any inconvenience this may cause.</p>
+                        <p>If you have any questions or concerns regarding shipping, please don't hesitate to <a href="contact.html">contact us</a>.</p>
+                    </div>
                 </div>
-                
-                
             </div>
-
-            
-
-            <div class="row mt-0">
-                <div class="col-12 col-md-6">
-                        <img src="/img/markets/11.webp" alt="Click to watch video" id="thumbnail" data-video-id="videoContainer1">
-                </div>
-                <div class="faq-tab-container col-12 col-md-6">
-                    <!-- Nav tabs -->
-                    <div class="faq-nav-tabs">
-                        <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</div>
-                        <div class="faq-nav-tab" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</div>
-                        <div class="faq-nav-tab" id="directions-tab" data-toggle="tab" href="#directions" role="tab" aria-controls="directions" aria-selected="false">Directions</div>
-                        <div class="faq-nav-tab" id="storage-tab" data-toggle="tab" href="#storage" role="tab" aria-controls="storage" aria-selected="false">Storage</div>
-                        <div class="faq-nav-tab" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</div>
-                    </div>
-            
-                    <!-- Tab panes -->
-                    <div class="tab-content faq-tab-content">
-                        <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-                            <h4>Description</h4>
-                            <p>We are a CHCH-based bone broth business and found ourselves wasting too much beef tallow. So we decided to make tallow balm skincare products from it! </p>
-                            <p>Beef tallow balm is an amazing, natural moisturiser! It nourishes your skin without clogging pores and also fights skin conditions like eczema. Selling in jars of 50ml and 100ml.</p>
-                            <p>You can come purchase from us at Lyttelton or Ohoka markets every week or order here! Shipping available.</p>
-
-                            <p>By default we provide lavendar with olive oil, however, if you reach out via our contact form or social media before your order is processed we can organise a different combination using the options below:<br>
-                                <br>You can choose main oil: olive, jojoba, avocado.
-                                <br>Choose your essential oil: lavender, francensent, vanilla, rose, sweet orange, patchouli.</p>
-
-                            
-                            {{ if .Params.charitylink }}
-                            <p><a style="text-decoration: none;" href="{{ .Params.charitylink }}" rel="nofollow">Want to learn more about this charity? see here</a></p>
-                            {{ end }}                       
-                            
-                            
-                            
-                            
-                        </div>
-                        <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
-                            <h4>Ingredients</h4>
-                            <p><span class="product-flavour">Grass-fed NZ beef tallow, organic olive oil, essential oil. 
-                                                        </div>
-                        <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
-                            <h4>Directions</h4>
-                            <p>Apply a small amount on the face, neck, hands or feet daily in the morning as a moisturiser or evening as a night cream. Best used on slightly damp skin.</p>
-                            <p>Body and facial moisturizer. Eczema cream, monthly hair conditioner.</p>
-
-
-                        </div>
-                        <div class="tab-pane fade" id="storage" role="tabpanel" aria-labelledby="storage-tab">
-                            <h4>Storage</h4>
-                            <p>Keep in temperatures below 30 degrees and out of direct sunlight to maintain the shelf life of this balm.</p>
-                        </div>
-                        <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
-                            <h4>Shipping</h4>
-                            <p><strong>Processing time:</strong> Your order will be shipped within 1-3 business days after payment confirmation.</p>
-                            <p><strong>Shipping rates:</strong> We usually charge between $4.95 and $6.95 for shipping. You can view the shipping costs at the checkout before completing your purchase.</p>
-                            <p><strong>International shipping:</strong> Currently, we only offer shipping within New Zealand. We apologize for any inconvenience this may cause.</p>
-                            <p>If you have any questions or concerns regarding shipping, please don't hesitate to <a href="contact.html">contact us</a>.</p>
-                        </div>
-                    </div>
-                </div>
-            
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        var tabs = document.querySelectorAll('.faq-nav-tab');
-                        tabs.forEach(function(tab) {
-                            tab.addEventListener('click', function() {
-                                document.querySelector('.faq-nav-tab.active').classList.remove('active');
-                                tab.classList.add('active');
-                                var tabContent = document.querySelector('.faq-tab-content .tab-pane.show.active');
-                                tabContent.classList.remove('show', 'active');
-                                var target = tab.getAttribute('href');
-                                document.querySelector(target).classList.add('show', 'active');
-                            });
+        
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var tabs = document.querySelectorAll('.faq-nav-tab');
+                    tabs.forEach(function(tab) {
+                        tab.addEventListener('click', function() {
+                            document.querySelector('.faq-nav-tab.active').classList.remove('active');
+                            tab.classList.add('active');
+                            var tabContent = document.querySelector('.faq-tab-content .tab-pane.show.active');
+                            tabContent.classList.remove('show', 'active');
+                            var target = tab.getAttribute('href');
+                            document.querySelector(target).classList.add('show', 'active');
                         });
                     });
-                </script>
-                </div>
-        </div>
+                });
+            </script>
+            </div>
     </div>
-</div>
-<!--
-<div class="row">
-   
-    <div class="col-12 col-md-6">
-        <div class="accordion-minimal">
-            <div class="accordion-minimal-header">
-                <img src="/img/13.webp" alt="" class="accordion-minimal-icon">
-                <h3 class="accordion-minimal-title">Elevate your health while saving time & money.</h3>
-            </div>
-            <div class="accordion-minimal-content show">
-                <p>Our bone broth powder is a versatile product for these health-conscious and busy folks. We know how time-consuming making bone broth or searching for a dairy & gluten-free protein source is. Whether you are looking for a healthy snack or flavorful cooking ingredient, we got you covered. This protein & collagen-rich bone broth is perfect for drinking or cooking with! </p>
-            </div>
-        </div>
-        
-        <div class="accordion-minimal">
-            <div class="accordion-minimal-header">
-                <img src="/img/12.webp" alt="" class="accordion-minimal-icon">
-                <h3 class="accordion-minimal-title">Jam packed with nutrition </h3>
-            </div>
-            <div class="accordion-minimal-content">
-               <p>Bone broth is a health food thanks to the amount of good nutrients - from protein, collagen to glutamine, magnesium, proline, hydroxyproline, and glycine. It contains high amounts of protein & collagen but low on fat. Protein and collagen is a natural support for joint health, digestion, skin and nails. On top of it, our bone broth is made with the highest ingredients and right water-bones ratio. Gelatinous when chillied, and liquid when warm - this is how real bone broth should be!</p>            </div>
-        </div>
-        
-        <div class="accordion-minimal">
-            <div class="accordion-minimal-header">
-                <img src="/img/4.webp" alt="" class="accordion-minimal-icon">
-                <h3 class="accordion-minimal-title">Our bone broth is real deal</h3>
-            </div>
-            <div class="accordion-minimal-content">
-                <p>Our beef and chicken bone broths are made from 100% NZ ingredients, without any additives, sugars, colors, and other nastiness. We make it in small batches at our commercial kitchen in Christchurch, New Zealand.</p>
-            </div>
-        </div>
     </div>
-    <div class="col-12 col-md-6">
-        <img src="/img/23.webp" alt="billie photo" id="thumbnail">
-    </div>
-</div>
 
-    
-    <div class="row">
-        <div class="eighty middle">
-            <h2 class="text-center">Frequently Asked Questions</h2>
-            <div class="faq mt-4">
-                
-                <div class="accordion-item grow">
-                    <h4 class="accordion-heading">How is it made?</h4>
-                    <div class="accordion-content">
-                      <p>Our bone broth is made in Christchurch in our commercial kitchen. We simmer beef bones and vegetables for 32 hours to extract all the nutrients, such as precious collagen. 
-                  
-                    </div>
-                  </div>
-                
-                  <div class="accordion-item grow">
-                    <h4 class="accordion-heading">How long will bone broth last?</h4>
-                    <div class="accordion-content">
-                      <p>Refer to the use-by date on the bottle. Once opened, promptly refrigerate unused product at below 5°C and use within 4 days. Do not heat bottle in microwave.</p>
-                    </div>
-                  </div>
+    <!-- Script for handling the selection, updating the price ID, and Stripe checkout -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const stripe = Stripe('pk_live_51Ot2iTABkrUo6tgOu44jd79tB4Dg2B64I6lucmLcKdxZfcy2Dy3bTnbxQNiwDtRfeWSwWx1WsDpC0h91tTlubPXW000IuWtQTX');
 
-                  <div class="accordion-item grow show">
-                    <h4 class="accordion-heading">What makes your bone broth unique?</h4>
-                    <div class="accordion-content">
-                      <p>Our bone broth is uniquely dense, setting it apart from many other brands in New Zealand that tend to dilute their products. The rich, gelatinous texture of our broth is a clear indicator of its high quality gained from extra simmering time and careful choosing of the bones. Furthermore, we maintain a balanced acidity by avoiding the common practice of adding large amounts of apple cider vinegar, which can overshadow the broth’s robust, meaty flavour.</p>
-                    </div>
-                  </div>
+            // Set up event listeners for dropdowns
+            document.getElementById('productScent').addEventListener('change', updatePriceID);
+            document.getElementById('productSize').addEventListener('change', updatePriceID);
+            document.getElementById('jojobaCheckbox').addEventListener('change', updatePriceID);
 
-                  <div class="accordion-item grow show">
-                    <h4 class="accordion-heading">What's better bone broth powder or liquid?</h4>
-                    <div class="accordion-content">
-                      <p>Well, it depends what you prefer, convenience of powder, e.g. shelf-stable, easy to use product? At the same time, jars are great for people with large dogs, as the jar is 400 ml and will last you 3-4 days. Lastly, liquid bone broth is richer due to its freshness.</p>
-                    </div>
-                  </div>
+            // Handle add to cart button click
+            document.querySelector('.buy-now').addEventListener('click', handleAddToCart);
 
-                  <div class="accordion-item grow show">
-                    <h4 class="accordion-heading">Can pets have your bone broth for people?</h4>
-                    <div class="accordion-content">
-                        <p>If you'd like to give your pets a taste of bone broth goodness, we recommend either our <a class="prettylink" href="/shop/product/pets">bone broth powder for dogs and cats</a> or the <a class="prettylink" href="/shop/product/pets-powder">liquid bone broth for pets</a>. Our bone broth for humans has tasty herbs, spices and salt that is fine for people but might upset your pet's bellies.</p>
-                    </div>
-                  </div>
+            function updatePriceID() {
+                const isJojoba = document.getElementById('jojobaCheckbox').checked ? 'jojoba' : 'olive';
+                const selectedScent = document.getElementById('productScent').value;
+                const selectedSize = document.getElementById('productSize').value;
 
-              </div>                         
-            </div>
-        </div>
-        -->
-   <!-- <div class="peach mb-0">
-        <div class="row mb-0 mx-8 justify-content-center">
-        <div class="col-12 col-md-4 ">
-            <h2>Reviews</h2>
-            <img class="stars" src="/img/stars/5.webp" alt="review rating for bone broth product">
-            <p>(18)</p>        
-            <p>5 out of 5 Stars across 18 reviews</p>
-            <a class="btn btn-primary" href="/feedback-form">Write a review</a>
-        </div>
-        <div class="col-12 col-md-6">
-            <div class="col-12 mt-2 mb-2 card">
-                <div class="card-top">
-                <p class="customer-name">Posted by <span style="font-weight: bold;">Kate</span> on <span style="font-weight: bold;">26/06/2024</span></p>
-                </div>
-                <div class="card-bottom">
+                const priceID = priceIDs[isJojoba][selectedScent][selectedSize];
+                const unitPrice = getPriceText(priceID);
 
-                <p class="feedback-text">"Billie loves it!! The first day I sprinkled it on her biscuits but she emptied the bowl out scratching to get more of the powder 😂😂 lately I’ve just been wetting a little bit of her chicken and sprinkling it on that."</p>
-            </div> </div>
-            <div class="col-12 mb-2 card">
-                <div class="card-top">
-                <p class="customer-name">Posted by <span style="font-weight: bold;">Anna</span> on <span style="font-weight: bold;">09/07/2024</span></p>
-            </div>
-            <div class="card-bottom"><p class="feedback-text">"They love it...to the point of knocking the wee jar over to try get some more!"</p>
-            </div> </div>
-            <div class="col-12 mb-2 card">
-                <div class="card-top">
-                    <p class="customer-name">Posted by <span style="font-weight: bold;">Liza</span> on <span style="font-weight: bold;">24/06/2024</span></p>
-                </div>
-                <div class="card-bottom">
-            <p class="feedback-text">"a+ very happy with the powder & my dogs love it."</p>
-        </div>
-        </div> 
-        </div>
-    </div>        
-</div>--></div>
+                // Update the button's data-price-id and unit price
+                document.querySelector('.buy-now').setAttribute('data-price-id', priceID);
+                document.querySelector('.buy-now').setAttribute('data-unit-price', unitPrice);
+            }
 
-{{- partial "stripe.html" . -}}    
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-    const accordions = document.querySelectorAll(".accordion-minimal");
+            function getPriceText(priceID) {
+    // Fetch the price based on the priceID
+    switch (priceID) {
+        case '{{ index .Params "olive-lavendar-50ml" }}':
+        case '{{ index .Params "jojoba-lavendar-50ml" }}':
+        case '{{ index .Params "olive-rose-50ml" }}':
+        case '{{ index .Params "jojoba-rose-50ml" }}':
+        case '{{ index .Params "olive-neutral-50ml" }}':
+        case '{{ index .Params "jojoba-neutral-50ml" }}':
+        case '{{ index .Params "olive-vanilla-50ml" }}':
+        case '{{ index .Params "jojoba-vanilla-50ml" }}':
+        case '{{ index .Params "olive-francensense-50ml" }}':
+        case '{{ index .Params "jojoba-francensense-50ml" }}':
+        case '{{ index .Params "olive-patchouli-50ml" }}':
+        case '{{ index .Params "jojoba-patchouli-50ml" }}':
+        case '{{ index .Params "olive-sweetorange-50ml" }}':
+        case '{{ index .Params "jojoba-sweetorange-50ml" }}':
+            return 19.00; // Price for 50ml sizes
 
-    accordions.forEach(accordion => {
-        const header = accordion.querySelector(".accordion-minimal-header");
+        case '{{ index .Params "olive-lavendar-100ml" }}':
+        case '{{ index .Params "jojoba-lavendar-100ml" }}':
+        case '{{ index .Params "olive-rose-100ml" }}':
+        case '{{ index .Params "jojoba-rose-100ml" }}':
+        case '{{ index .Params "olive-neutral-100ml" }}':
+        case '{{ index .Params "jojoba-neutral-100ml" }}':
+        case '{{ index .Params "olive-vanilla-100ml" }}':
+        case '{{ index .Params "jojoba-vanilla-100ml" }}':
+        case '{{ index .Params "olive-francensense-100ml" }}':
+        case '{{ index .Params "jojoba-francensense-100ml" }}':
+        case '{{ index .Params "olive-patchouli-100ml" }}':
+        case '{{ index .Params "jojoba-patchouli-100ml" }}':
+        case '{{ index .Params "olive-sweetorange-100ml" }}':
+        case '{{ index .Params "jojoba-sweetorange-100ml" }}':
+            return 35.00; // Price for 100ml sizes
 
-        header.addEventListener("click", function() {
-            // Close all accordions
-            accordions.forEach(acc => {
-                if (acc !== accordion) {
-                    acc.querySelector(".accordion-minimal-content").classList.remove("show");
+        default:
+            return 35.00; // Default price if no matching ID found
+    }
+}
+
+
+            function handleAddToCart(e) {
+                e.preventDefault();
+                const button = e.target;
+                const priceId = button.getAttribute('data-price-id');
+                const unitPrice = parseFloat(button.getAttribute('data-unit-price')).toFixed(2);
+                const quantity = parseInt(document.getElementById('quantityAll').value, 10);
+                const selectedScent = document.getElementById('productScent').value;
+                const selectedSize = document.getElementById('productSize').value;
+                const isJojoba = document.getElementById('jojobaCheckbox').checked;
+
+                if (!priceId) {
+                    alert('Please select a scent and size.');
+                    return;
                 }
-            });
-            // Toggle the clicked accordion
-            const content = this.nextElementSibling;
-            content.classList.toggle("show");
+
+                // Modify the flavor text to include " + Jojoba" if the checkbox is checked
+                const flavorText = isJojoba ? `${selectedScent} + Jojoba` : selectedScent;
+
+                // Add product to cart (localStorage)
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const productTitle = document.querySelector('h1').innerText;
+
+                cart.push({ priceId, quantity, flavour: flavorText, size: selectedSize, unitPrice, title: productTitle });
+                localStorage.setItem('cart', JSON.stringify(cart));
+
+                // Show "Added to Cart" modal
+                $('#addedToCartModal').modal('show');
+            }
+
+            const priceIDs = {
+                olive: {
+                    lavendar: { '50ml': '{{ index .Params "olive-lavendar-50ml" }}', '100ml': '{{ index .Params "olive-lavendar-100ml" }}' },
+                    rose: { '50ml': '{{ index .Params "olive-rose-50ml" }}', '100ml': '{{ index .Params "olive-rose-100ml" }}' },
+                    neutral: { '50ml': '{{ index .Params "olive-neutral-50ml" }}', '100ml': '{{ index .Params "olive-neutral-100ml" }}' },
+                    vanilla: { '50ml': '{{ index .Params "olive-vanilla-50ml" }}', '100ml': '{{ index .Params "olive-vanilla-100ml" }}' },
+                    francensense: { '50ml': '{{ index .Params "olive-francensense-50ml" }}', '100ml': '{{ index .Params "olive-francensense-100ml" }}' },
+                    patchouli: { '50ml': '{{ index .Params "olive-patchouli-50ml" }}', '100ml': '{{ index .Params "olive-patchouli-100ml" }}' },
+                    sweetorange: { '50ml': '{{ index .Params "olive-sweetorange-50ml" }}', '100ml': '{{ index .Params "olive-sweetorange-100ml" }}' }
+                },
+                jojoba: {
+                    lavendar: { '50ml': '{{ index .Params "jojoba-lavendar-50ml" }}', '100ml': '{{ index .Params "jojoba-lavendar-100ml" }}' },
+                    rose: { '50ml': '{{ index .Params "jojoba-rose-50ml" }}', '100ml': '{{ index .Params "jojoba-rose-100ml" }}' },
+                    neutral: { '50ml': '{{ index .Params "jojoba-neutral-50ml" }}', '100ml': '{{ index .Params "jojoba-neutral-100ml" }}' },
+                    vanilla: { '50ml': '{{ index .Params "jojoba-vanilla-50ml" }}', '100ml': '{{ index .Params "jojoba-vanilla-100ml" }}' },
+                    francensense: { '50ml': '{{ index .Params "jojoba-francensense-50ml" }}', '100ml': '{{ index .Params "jojoba-francensense-100ml" }}' },
+                    patchouli: { '50ml': '{{ index .Params "jojoba-patchouli-50ml" }}', '100ml': '{{ index .Params "jojoba-patchouli-100ml" }}' },
+                    sweetorange: { '50ml': '{{ index .Params "jojoba-sweetorange-50ml" }}', '100ml': '{{ index .Params "jojoba-sweetorange-100ml" }}' }
+                }
+            };
+
+            // Initial update on page load
+            updatePriceID();
         });
-    });
-});
+    </script>
 
-</script>
+    <!-- Bootstrap Modal for Added to Cart -->
+    <div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Your item has been added to the cart. What would you like to do next?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
+                    <a href="/cart" class="btn btn-primary">Go to Cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-{{- partial "footer.html" . -}}
+    <!-- Include Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    {{- partial "footer.html" . }}
 </body>
 </html>
