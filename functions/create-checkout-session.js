@@ -9,14 +9,31 @@ exports.handler = async (event, context) => {
 
     // Retrieve prices and create line items
     for (const item of cart) {
-      const price = await stripe.prices.retrieve(item.priceId);
-      lineItems.push({
-        price: item.priceId,
-        quantity: item.quantity,
-      });
-      // Calculate total amount in cents
-      totalAmount += item.quantity * price.unit_amount;
+      try {
+        console.log(`Retrieving price for priceId: ${item.priceId}`);
+        const price = await stripe.prices.retrieve(item.priceId);
+        
+        if (!price || !price.unit_amount) {
+          throw new Error(`Invalid price retrieved for priceId: ${item.priceId}`);
+        }
+
+        console.log(`Price retrieved: ${price.unit_amount}, Quantity: ${item.quantity}`);
+
+        lineItems.push({
+          price: item.priceId,
+          quantity: item.quantity,
+        });
+
+        // Calculate total amount in cents
+        totalAmount += item.quantity * price.unit_amount;
+      } catch (error) {
+        console.error(`Error retrieving price for ${item.priceId}:`, error);
+        throw error; // Re-throw to be caught in the outer catch block
+      }
     }
+
+    // Log the total amount to help debug
+    console.log(`Total amount in cents: ${totalAmount}`);
 
     // Define the shipping rate IDs
     const standardShippingRate = 'shr_1PasnCABkrUo6tgOd7bkp2rT'; // Shipping rate ID for orders below $10
@@ -51,12 +68,14 @@ exports.handler = async (event, context) => {
       cancel_url: 'https://www.primebroth.co.nz/shop',
     });
 
+    console.log(`Checkout session created successfully with ID: ${session.id}`);
+
     return {
       statusCode: 200,
       body: JSON.stringify({ sessionId: session.id }),
     };
   } catch (error) {
-    console.error('Error creating checkout session:', error);
+    console.error('Error creating checkout session:', error.message);
     return {
       statusCode: 400,
       body: JSON.stringify({ error: error.message }),
