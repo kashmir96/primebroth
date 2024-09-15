@@ -410,8 +410,9 @@
 
                 cart.forEach((item, index) => {
                     
+                    const quantity = parseInt(item.quantity, 10);
                     const unitPrice = parseFloat(item.unitPrice).toFixed(2);
-                    const lineItemTotal = (unitPrice * item.quantity).toFixed(2);
+                    const lineItemTotal = (unitPrice * quantity).toFixed(2);
                     totalCost += parseFloat(lineItemTotal);
 
                     const row = document.createElement('tr');
@@ -420,7 +421,7 @@
                         <td>${item.flavour}</td>
                         <td>${item.size}</td>
                         <td>$${unitPrice}</td>
-                        <td><input type="number" class="form-control quantity-input" data-index="${index}" value="${item.quantity}" min="1"></td>
+                        <td><input type="number" class="form-control quantity-input" data-index="${index}" value="${quantity}" min="1"></td>
                         <td class="line-total">$${lineItemTotal}</td>
                         <td><button class="btn btn-danger remove-item" data-index="${index}">X</button></td>
                     `;
@@ -459,6 +460,13 @@
             });
 
             function handleCheckout(cart) {
+                
+                cart = cart.map(item => {
+                    return { ...item, quantity: parseInt(item.quantity, 10) };
+                });
+
+                console.log('Cart data sent to checkout:', cart); 
+
                 fetch('/.netlify/functions/create-checkout-session', {
                     method: 'POST',
                     headers: {
