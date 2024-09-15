@@ -1,54 +1,59 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async (event, context) => {
-  const { cart } = JSON.parse(event.body);
-
   try {
-    if (!cart || cart.length === 0) {
+    const { cart } = JSON.parse(event.body);
+
+    // Check if the cart is valid
+    if (!cart || !Array.isArray(cart) || cart.length === 0) {
       throw new Error('Cart is empty or not provided.');
     }
 
     const lineItems = [];
     let totalAmount = 0;
 
-    // Retrieve prices and create line items
+    // Process each cart item to create line items
     for (const item of cart) {
       try {
-        if (!item.priceId || !item.quantity) {
-          throw new Error(`Invalid cart item: Missing priceId or quantity for item: ${JSON.stringify(item)}`);
+        // Validate each item in the cart
+        if (!item.priceId || typeof item.quantity !== 'number' || item.quantity <= 0) {
+          throw new Error(`Invalid cart item: Missing or incorrect priceId or quantity for item: ${JSON.stringify(item)}`);
         }
 
         console.log(`Retrieving price for priceId: ${item.priceId}`);
+
+        // Retrieve the price from Stripe
         const price = await stripe.prices.retrieve(item.priceId);
-        
+
+        // Validate retrieved price
         if (!price || !price.unit_amount) {
           throw new Error(`Invalid price retrieved for priceId: ${item.priceId}`);
         }
 
-        console.log(`Price retrieved: ${price.unit_amount}, Quantity: ${item.quantity}`);
+        console.log(`Price retrieved: ${price.unit_amount} cents, Quantity: ${item.quantity}`);
 
+        // Create line item for Stripe Checkout
         lineItems.push({
           price: item.priceId,
           quantity: item.quantity,
         });
 
-        // Calculate total amount in cents
+        // Accumulate the total amount
         totalAmount += item.quantity * price.unit_amount;
       } catch (priceError) {
         console.error(`Error processing cart item with priceId: ${item.priceId}`, priceError);
-        throw priceError; // Re-throw to be caught in the outer catch block
+        throw new Error(`Failed to process item in cart: ${priceError.message}`);
       }
     }
 
-    // Log the total amount to help debug
+    // Log the total amount for debugging
     console.log(`Total amount in cents: ${totalAmount}`);
 
-    // Define the shipping rate IDs
-    const standardShippingRate = 'shr_1PasnCABkrUo6tgOd7bkp2rT'; // Shipping rate ID for orders below $10
-    const mediumShippingRate = 'shr_1PcZ8aABkrUo6tgODQmr9JHk'; // Shipping rate ID for orders between $10 and $80
-    const freeShippingRate = 'shr_1PWrY7ABkrUo6tgODvMWsZjD'; // Free shipping rate ID for orders above $80
-
     // Determine the shipping rate based on the total amount
+    const standardShippingRate = 'shr_1PasnCABkrUo6tgOd7bkp2rT';
+    const mediumShippingRate = 'shr_1PcZ8aABkrUo6tgODQmr9JHk';
+    const freeShippingRate = 'shr_1PWrY7ABkrUo6tgODvMWsZjD';
+
     let shippingRate;
     if (totalAmount >= 8000) {
       shippingRate = freeShippingRate;
@@ -58,7 +63,9 @@ exports.handler = async (event, context) => {
       shippingRate = standardShippingRate;
     }
 
-    // Create a checkout session with the line items
+    console.log(`Selected shipping rate ID: ${shippingRate}`);
+
+    // Create a Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       shipping_address_collection: {
@@ -71,13 +78,14 @@ exports.handler = async (event, context) => {
       ],
       line_items: lineItems,
       mode: 'payment',
-      allow_promotion_codes: true, // Enable entering promotion codes at checkout
+      allow_promotion_codes: true, // Enable promotion codes at checkout
       success_url: 'https://www.primebroth.co.nz/pages/thank-you',
       cancel_url: 'https://www.primebroth.co.nz/shop',
     });
 
     console.log(`Checkout session created successfully with ID: ${session.id}`);
 
+    // Return session ID to frontend
     return {
       statusCode: 200,
       body: JSON.stringify({ sessionId: session.id }),
