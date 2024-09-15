@@ -5,20 +5,18 @@ exports.handler = async (event, context) => {
 
   try {
     const lineItems = [];
+    let totalAmount = 0;
 
-    // Create line items for each product in the cart
+    // Retrieve prices and create line items
     for (const item of cart) {
       const price = await stripe.prices.retrieve(item.priceId);
       lineItems.push({
         price: item.priceId,
         quantity: item.quantity,
       });
+      // Calculate total amount in cents
+      totalAmount += item.quantity * price.unit_amount;
     }
-
-    // Calculate the total amount to determine the appropriate shipping rate
-    const totalAmount = lineItems.reduce((total, item) => {
-      return total + (item.quantity * (await stripe.prices.retrieve(item.price)).unit_amount);
-    }, 0);
 
     // Define the shipping rate IDs
     const standardShippingRate = 'shr_1PasnCABkrUo6tgOd7bkp2rT'; // Shipping rate ID for orders below $10
