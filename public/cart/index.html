@@ -374,14 +374,18 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const stripe = Stripe('pk_live_51Ot2iTABkrUo6tgOu44jd79tB4Dg2B64I6lucmLcKdxZfcy2Dy3bTnbxQNiwDtRfeWSwWx1WsDpC0h91tTlubPXW000IuWtQTX'); 
-
+            
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            
+            console.log('Cart data retrieved from localStorage:', cart);
+            
             const cartItemsContainer = document.getElementById('cart-items');
             const totalCostElement = document.getElementById('total-cost');
             const proceedToCheckoutButton = document.getElementById('proceed-to-checkout');
 
             function updateCart() {
+                
                 cartItemsContainer.innerHTML = '';
                 const table = document.createElement('table');
                 table.className = 'table table-bordered';
@@ -405,6 +409,7 @@
                 let totalCost = 0;
 
                 cart.forEach((item, index) => {
+                    
                     const unitPrice = parseFloat(item.unitPrice).toFixed(2);
                     const lineItemTotal = (unitPrice * item.quantity).toFixed(2);
                     totalCost += parseFloat(lineItemTotal);
@@ -429,7 +434,7 @@
                 document.querySelectorAll('.quantity-input').forEach(input => {
                     input.addEventListener('input', function() {
                         const index = this.getAttribute('data-index');
-                        cart[index].quantity = parseInt(this.value, 10); 
+                        cart[index].quantity = parseInt(this.value, 10) || 1; 
                         localStorage.setItem('cart', JSON.stringify(cart));
                         updateCart();
                     });

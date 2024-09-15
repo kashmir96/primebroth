@@ -31,14 +31,18 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const stripe = Stripe('pk_live_51Ot2iTABkrUo6tgOu44jd79tB4Dg2B64I6lucmLcKdxZfcy2Dy3bTnbxQNiwDtRfeWSwWx1WsDpC0h91tTlubPXW000IuWtQTX'); // Initialize Stripe with your publishable key
-
+            // Retrieve cart data from localStorage
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // Log the cart data for debugging
+            console.log('Cart data retrieved from localStorage:', cart);
+            
             const cartItemsContainer = document.getElementById('cart-items');
             const totalCostElement = document.getElementById('total-cost');
             const proceedToCheckoutButton = document.getElementById('proceed-to-checkout');
 
             function updateCart() {
+                // Clear the existing content
                 cartItemsContainer.innerHTML = '';
                 const table = document.createElement('table');
                 table.className = 'table table-bordered';
@@ -62,6 +66,7 @@
                 let totalCost = 0;
 
                 cart.forEach((item, index) => {
+                    // Use the unit price directly as stored in localStorage
                     const unitPrice = parseFloat(item.unitPrice).toFixed(2);
                     const lineItemTotal = (unitPrice * item.quantity).toFixed(2);
                     totalCost += parseFloat(lineItemTotal);
@@ -86,7 +91,7 @@
                 document.querySelectorAll('.quantity-input').forEach(input => {
                     input.addEventListener('input', function() {
                         const index = this.getAttribute('data-index');
-                        cart[index].quantity = parseInt(this.value, 10); // Ensure quantity is a number
+                        cart[index].quantity = parseInt(this.value, 10) || 1; // Ensure the quantity is a valid number
                         localStorage.setItem('cart', JSON.stringify(cart));
                         updateCart();
                     });
