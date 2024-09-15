@@ -4,12 +4,20 @@ exports.handler = async (event, context) => {
   const { cart } = JSON.parse(event.body);
 
   try {
+    if (!cart || cart.length === 0) {
+      throw new Error('Cart is empty or not provided.');
+    }
+
     const lineItems = [];
     let totalAmount = 0;
 
     // Retrieve prices and create line items
     for (const item of cart) {
       try {
+        if (!item.priceId || !item.quantity) {
+          throw new Error(`Invalid cart item: Missing priceId or quantity for item: ${JSON.stringify(item)}`);
+        }
+
         console.log(`Retrieving price for priceId: ${item.priceId}`);
         const price = await stripe.prices.retrieve(item.priceId);
         
@@ -26,9 +34,9 @@ exports.handler = async (event, context) => {
 
         // Calculate total amount in cents
         totalAmount += item.quantity * price.unit_amount;
-      } catch (error) {
-        console.error(`Error retrieving price for ${item.priceId}:`, error);
-        throw error; // Re-throw to be caught in the outer catch block
+      } catch (priceError) {
+        console.error(`Error processing cart item with priceId: ${item.priceId}`, priceError);
+        throw priceError; // Re-throw to be caught in the outer catch block
       }
     }
 
@@ -78,7 +86,7 @@ exports.handler = async (event, context) => {
     console.error('Error creating checkout session:', error.message);
     return {
       statusCode: 400,
-      body: JSON.stringify({ error: error.message }),
+      body: JSON.stringify({ error: `Error creating checkout session: ${error.message}` }),
     };
   }
 };
