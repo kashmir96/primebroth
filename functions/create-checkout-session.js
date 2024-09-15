@@ -15,11 +15,8 @@ exports.handler = async (event, context) => {
     // Process each cart item to create line items
     for (const item of cart) {
       try {
-        // Convert quantity to an integer
-        const quantity = parseInt(item.quantity, 10);
-
         // Validate each item in the cart
-        if (!item.priceId || isNaN(quantity) || quantity <= 0) {
+        if (!item.priceId || typeof item.quantity !== 'number' || item.quantity <= 0) {
           throw new Error(`Invalid cart item: Missing or incorrect priceId or quantity for item: ${JSON.stringify(item)}`);
         }
 
@@ -33,16 +30,16 @@ exports.handler = async (event, context) => {
           throw new Error(`Invalid price retrieved for priceId: ${item.priceId}`);
         }
 
-        console.log(`Price retrieved: ${price.unit_amount} cents, Quantity: ${quantity}`);
+        console.log(`Price retrieved: ${price.unit_amount} cents, Quantity: ${item.quantity}`);
 
         // Create line item for Stripe Checkout
         lineItems.push({
           price: item.priceId,
-          quantity: quantity, // Use the integer quantity
+          quantity: item.quantity,
         });
 
         // Accumulate the total amount
-        totalAmount += quantity * price.unit_amount;
+        totalAmount += item.quantity * price.unit_amount;
       } catch (priceError) {
         console.error(`Error processing cart item with priceId: ${item.priceId}`, priceError);
         throw new Error(`Failed to process item in cart: ${priceError.message}`);

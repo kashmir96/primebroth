@@ -574,7 +574,7 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
         const button = e.target;
         const priceId = button.getAttribute('data-price-id');
-        const quantity = document.getElementById('quantityAll').value;
+        const quantity = parseInt(document.getElementById('quantityAll').value, 10); 
 
         const selectedFlavour = document.getElementById('productFlavour').value;
         const selectedSize = document.getElementById('productSize').value;
