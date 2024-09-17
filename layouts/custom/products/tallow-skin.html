@@ -30,6 +30,7 @@
             </div>
             <div class="col-xs-12 col-lg-6">
                 <h1 class="my-4">Tallow Balm - Heavenly Smooth</h1>
+                <p id="priceDisplay" class="product-price"></p> <!-- Placeholder for the price -->
 
                 <!-- Product Form Options with Bootstrap Styling -->
                 <form>
@@ -298,6 +299,34 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    // Existing event listeners
+    document.getElementById('productScent').addEventListener('change', updatePriceID);
+    document.getElementById('productSize').addEventListener('change', updatePriceID);
+    document.getElementById('jojobaCheckbox').addEventListener('change', updatePriceID);
+
+    function updatePriceID() {
+        const selectedSize = document.getElementById('productSize').value;
+
+        // Get the placeholder for price
+        const priceDisplay = document.getElementById('priceDisplay');
+
+        // Determine the price to display
+        if (selectedSize === '50ml') {
+            priceDisplay.innerHTML = '{{ partial "price-tallow-skin-50.html" . }}';
+        } else if (selectedSize === '100ml') {
+            priceDisplay.innerHTML = '{{ partial "price-tallow-skin-100.html" . }}';
+        }
+    }
+
+    // Initial update on page load
+    updatePriceID();
+});
+
+    </script>
+    
 
     <!-- Include Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>

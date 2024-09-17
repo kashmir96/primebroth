@@ -211,8 +211,9 @@
 </script>
 <div class="container">
         <div class="row topbanner rel">
-            <div class="col-xs-12 col-lg-6 product-photos"><img class="main-image"  src="/img/tallowskin.webp" alt="Beef tallow balm photo 1">            
+            <div class="col-xs-12 col-lg-6 product-photos"><img class="main-image"  src="/img/balmlabel.webp" alt="Beef tallow balm photo 1">            
     <div class="product-images mob-hide">
+        <img class="product-image" src="/img/tallowskin.webp" alt="Beef tallow balm photo 2">
         <img class="product-image" src="/img/tallow-balm.webp" alt="Beef tallow balm photo 2">
         <img class="product-image" src="/img/tallow-balm-hedge.webp" alt="Beef tallow balm photo 3">
         <img class="product-image" src="/img/tallow-balm.webp" alt="Beef tallow balm photo 4">
@@ -221,6 +222,7 @@
 </div>
             <div class="col-xs-12 col-lg-6">
                 <h1 class="my-4">Tallow Balm - Heavenly Smooth</h1>
+                <p id="priceDisplay" class="product-price"></p> 
 
                 
                 <form>
@@ -487,6 +489,34 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    
+    document.getElementById('productScent').addEventListener('change', updatePriceID);
+    document.getElementById('productSize').addEventListener('change', updatePriceID);
+    document.getElementById('jojobaCheckbox').addEventListener('change', updatePriceID);
+
+    function updatePriceID() {
+        const selectedSize = document.getElementById('productSize').value;
+
+        
+        const priceDisplay = document.getElementById('priceDisplay');
+
+        
+        if (selectedSize === '50ml') {
+            priceDisplay.innerHTML = '$19.00';
+        } else if (selectedSize === '100ml') {
+            priceDisplay.innerHTML = '$35.00';
+        }
+    }
+
+    
+    updatePriceID();
+});
+
+    </script>
+    
 
     
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>

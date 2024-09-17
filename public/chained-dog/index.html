@@ -604,13 +604,35 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function updateProductSize() {
-        const selectedSize = this.value;
-        ['small', 'medium', 'large'].forEach(size => {
-            const isSelected = selectedSize === size;
-            document.getElementById('product' + size).classList.toggle('hidden', !isSelected);
-            document.getElementById('pricePartial' + capitalize(selectedSize)).classList.toggle('hidden', !isSelected);
-        });
+    const selectedSize = this.value;
+    const sizeOptions = ['small', 'medium', 'large'];
+
+    
+    sizeOptions.forEach(size => {
+        const productElement = document.getElementById('product' + size);
+        const priceElement = document.getElementById('pricePartial' + capitalize(size));
+
+        if (productElement) {
+            productElement.classList.add('hidden');
+        }
+        if (priceElement) {
+            priceElement.classList.add('hidden');
+        }
+    });
+
+    
+    const selectedProductElement = document.getElementById('product' + selectedSize);
+    const selectedPriceElement = document.getElementById('pricePartial' + capitalize(selectedSize));
+
+    if (selectedProductElement) {
+        selectedProductElement.classList.remove('hidden');
     }
+    if (selectedPriceElement) {
+        selectedPriceElement.classList.remove('hidden');
+    }
+}
+
+
 
     function handleAddToCart(e) {
         e.preventDefault();

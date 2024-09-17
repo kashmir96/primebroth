@@ -58,17 +58,7 @@
                 </div>
                 {{ end }}
                 
-                {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
-                <div id="pricePartialMedium" class="product-info hidden">
-                    <p>{{- partial "price-people-liquid-12pk.html" . -}}</p>
-                </div>
-                {{ end }}
                 
-                {{ if or .Params.beefpricelargelink .Params.chickenpricelargelink .Params.lambpricelargelink }}
-                <div id="pricePartialLarge" class="product-info hidden">
-                    <p>{{- partial "price-people-liquid-24pk.html" . -}}</p>
-                </div>
-                {{ end }}
 
 
 
@@ -82,21 +72,11 @@
                     <select id="productFlavour" name="productFlavour">
                         {{ if or .Params.beefpricesmalllink .Params.beefpricemediumlink .Params.beefpricelargelink }}
                         <option value="beef" data-image="/img/post-a-1.webp"
-                                data-flavour-price-small="{{ .Params.beefpricesmalllink }}"
-                                data-flavour-price-medium="{{ .Params.beefpricemediumlink }}"
-                                data-flavour-price-large="{{ .Params.beefpricelargelink }}" selected>Beef</option>
+                                data-flavour-price-small="{{ .Params.beefpricesmalllink }}" selected>Beef</option>
                         {{ end }}
                         {{ if or .Params.chickenpricesmalllink .Params.chickenpricemediumlink .Params.chickenpricelargelink }}
                         <option value="chicken" data-image="/img/post-a-1.webp"
-                                data-flavour-price-small="{{ .Params.chickenpricesmalllink }}"
-                                data-flavour-price-medium="{{ .Params.chickenpricemediumlink }}"
-                                data-flavour-price-large="{{ .Params.chickenpricelargelink }}">Chicken</option>
-                        {{ end }}
-                        {{ if or .Params.lambpricesmalllink .Params.lambpricemediumlink .Params.lambpricelargelink }}
-                        <option value="lamb" data-image="/img/post-a-1.webp"
-                                data-flavour-price-small="{{ .Params.lambpricesmalllink }}"
-                                data-flavour-price-medium="{{ .Params.lambpricemediumlink }}"
-                                data-flavour-price-large="{{ .Params.lambpricelargelink }}">Lamb</option>
+                                data-flavour-price-small="{{ .Params.chickenpricesmalllink }}">Chicken</option>
                         {{ end }}
                     </select>
                 </div>
@@ -106,14 +86,9 @@
                         {{ if or .Params.beefpricesmalllink .Params.chickenpricesmalllink .Params.lambpricesmalllink }}
                         <option value="small" data-image="/img/post-a-1.webp">6pk</option>
                         {{ end }}
-                        {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
-                        <option value="medium" data-image="/img/50front.webp">12pk</option>
-                        {{ end }}
-                        {{ if or .Params.beefpricelargelink .Params.chickenpricelargelink .Params.lambpricelargelink }}
-                        <option value="large" data-image="/img/50front.webp">24pk (Save 10%)</option>
-                        {{ end }}
                     </select>
                 </div>
+                
                 <div class="quantity-container">
                     <label for="quantityAll">Qty </label>
                     <input type="number" id="quantityAll" name="quantity" min="1" value="1">

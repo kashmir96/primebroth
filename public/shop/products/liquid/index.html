@@ -245,16 +245,6 @@
                 
                 
                 
-                <div id="pricePartialMedium" class="product-info hidden">
-                    <p>$114.95</p>
-                </div>
-                
-                
-                
-                <div id="pricePartialLarge" class="product-info hidden">
-                    <p>$219.95</p>
-                </div>
-                
 
 
 
@@ -268,16 +258,11 @@
                     <select id="productFlavour" name="productFlavour">
                         
                         <option value="beef" data-image="/img/post-a-1.webp"
-                                data-flavour-price-small="price_1PmU60ABkrUo6tgOgBVrVEzq"
-                                data-flavour-price-medium="price_1PmU7iABkrUo6tgOecuit65a"
-                                data-flavour-price-large="price_1PmU7vABkrUo6tgOJv6eTH7K" selected>Beef</option>
+                                data-flavour-price-small="price_1PmU60ABkrUo6tgOgBVrVEzq" selected>Beef</option>
                         
                         
                         <option value="chicken" data-image="/img/post-a-1.webp"
-                                data-flavour-price-small="price_1PmU8WABkrUo6tgO8lYGbxs8"
-                                data-flavour-price-medium="price_1PmU8gABkrUo6tgOpxCi9h0r"
-                                data-flavour-price-large="price_1PmU8sABkrUo6tgOvO8psTnV">Chicken</option>
-                        
+                                data-flavour-price-small="price_1PmU8WABkrUo6tgO8lYGbxs8">Chicken</option>
                         
                     </select>
                 </div>
@@ -287,14 +272,9 @@
                         
                         <option value="small" data-image="/img/post-a-1.webp">6pk</option>
                         
-                        
-                        <option value="medium" data-image="/img/50front.webp">12pk</option>
-                        
-                        
-                        <option value="large" data-image="/img/50front.webp">24pk (Save 10%)</option>
-                        
                     </select>
                 </div>
+                
                 <div class="quantity-container">
                     <label for="quantityAll">Qty </label>
                     <input type="number" id="quantityAll" name="quantity" min="1" value="1">
@@ -562,13 +542,35 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function updateProductSize() {
-        const selectedSize = this.value;
-        ['small', 'medium', 'large'].forEach(size => {
-            const isSelected = selectedSize === size;
-            document.getElementById('product' + size).classList.toggle('hidden', !isSelected);
-            document.getElementById('pricePartial' + capitalize(selectedSize)).classList.toggle('hidden', !isSelected);
-        });
+    const selectedSize = this.value;
+    const sizeOptions = ['small', 'medium', 'large'];
+
+    
+    sizeOptions.forEach(size => {
+        const productElement = document.getElementById('product' + size);
+        const priceElement = document.getElementById('pricePartial' + capitalize(size));
+
+        if (productElement) {
+            productElement.classList.add('hidden');
+        }
+        if (priceElement) {
+            priceElement.classList.add('hidden');
+        }
+    });
+
+    
+    const selectedProductElement = document.getElementById('product' + selectedSize);
+    const selectedPriceElement = document.getElementById('pricePartial' + capitalize(selectedSize));
+
+    if (selectedProductElement) {
+        selectedProductElement.classList.remove('hidden');
     }
+    if (selectedPriceElement) {
+        selectedPriceElement.classList.remove('hidden');
+    }
+}
+
+
 
     function handleAddToCart(e) {
         e.preventDefault();
