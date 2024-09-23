@@ -52,8 +52,8 @@
                     <div class="form-group mb-4">
                         <label for="productSize" class="font-weight-bold">Select Size:</label>
                         <select id="productSize" class="form-control">
-                            <option value="50ml">50ml</option>
                             <option value="100ml">100ml</option>
+                            <option value="200ml">200ml</option>
                         </select>
                     </div>
 
@@ -314,9 +314,9 @@
         const priceDisplay = document.getElementById('priceDisplay');
 
         // Determine the price to display
-        if (selectedSize === '50ml') {
+        if (selectedSize === '100ml') {
             priceDisplay.innerHTML = '{{ partial "price-tallow-skin-50.html" . }}';
-        } else if (selectedSize === '100ml') {
+        } else if (selectedSize === '200ml') {
             priceDisplay.innerHTML = '{{ partial "price-tallow-skin-100.html" . }}';
         }
     }
