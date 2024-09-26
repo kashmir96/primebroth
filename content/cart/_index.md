@@ -1,6 +1,6 @@
 ---
-title: "Checkout - PrimeBroth"
-description: "View your checkout"
+title: "Cart - PrimeBroth"
+description: "View your cart"
 type: custom
 layout: cart
 ---
