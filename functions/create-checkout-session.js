@@ -53,17 +53,35 @@ exports.handler = async (event, context) => {
     const standardShippingRate = 'shr_1PasnCABkrUo6tgOd7bkp2rT';
     const mediumShippingRate = 'shr_1PcZ8aABkrUo6tgODQmr9JHk';
     const freeShippingRate = 'shr_1PWrY7ABkrUo6tgODvMWsZjD';
+    const ruralShippingRate = 'shr_1Q2NQuABkrUo6tgOf1PUHwPh'; // Replace with your actual rural shipping rate ID
 
-    let shippingRate;
+    let shippingOptions = [];
+
     if (totalAmount >= 8000) {
-      shippingRate = freeShippingRate;
+      shippingOptions = [
+        {
+          shipping_rate: freeShippingRate,
+        },
+      ];
     } else if (totalAmount >= 1000) {
-      shippingRate = mediumShippingRate;
+      shippingOptions = [
+        {
+          shipping_rate: mediumShippingRate,
+        },
+      ];
     } else {
-      shippingRate = standardShippingRate;
+      // Show both standard and rural shipping options
+      shippingOptions = [
+        {
+          shipping_rate: standardShippingRate,
+        },
+        {
+          shipping_rate: ruralShippingRate,
+        },
+      ];
     }
 
-    console.log(`Selected shipping rate ID: ${shippingRate}`);
+    console.log(`Shipping options: ${JSON.stringify(shippingOptions)}`);
 
     // Create a Stripe checkout session
     const session = await stripe.checkout.sessions.create({
@@ -71,11 +89,7 @@ exports.handler = async (event, context) => {
       shipping_address_collection: {
         allowed_countries: ['NZ'], // Restrict to New Zealand
       },
-      shipping_options: [
-        {
-          shipping_rate: shippingRate,
-        },
-      ],
+      shipping_options: shippingOptions,
       line_items: lineItems,
       mode: 'payment',
       allow_promotion_codes: true, // Enable promotion codes at checkout
