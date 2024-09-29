@@ -9,6 +9,15 @@ exports.handler = async (event, context) => {
       throw new Error('Cart is empty or not provided.');
     }
 
+    // Retrieve the landing URL from cookies (sent from frontend)
+    const landingURL = event.headers.cookie
+      .split(';')
+      .find(cookie => cookie.trim().startsWith('landingURL='))
+      ?.split('=')[1];
+
+    // Decode URL-encoded string
+    const decodedLandingURL = decodeURIComponent(landingURL || '');
+
     const lineItems = [];
     let totalAmount = 0;
 
@@ -83,6 +92,9 @@ exports.handler = async (event, context) => {
 
     console.log(`Shipping options: ${JSON.stringify(shippingOptions)}`);
 
+    // Create success URL with landingURL as a query parameter
+    const successUrl = `https://www.primebroth.co.nz/pages/thank-you?landing_url=${encodeURIComponent(decodedLandingURL)}`;
+
     // Create a Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -93,7 +105,7 @@ exports.handler = async (event, context) => {
       line_items: lineItems,
       mode: 'payment',
       allow_promotion_codes: true, // Enable promotion codes at checkout
-      success_url: 'https://www.primebroth.co.nz/pages/thank-you',
+      success_url: successUrl, // Updated success URL
       cancel_url: 'https://www.primebroth.co.nz/shop',
     });
 
