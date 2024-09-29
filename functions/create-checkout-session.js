@@ -77,6 +77,9 @@ exports.handler = async (event, context) => {
         {
           shipping_rate: mediumShippingRate,
         },
+        {
+          shipping_rate: ruralShippingRate,
+        }, // Include rural shipping as an option
       ];
     } else {
       // Show both standard and rural shipping options
