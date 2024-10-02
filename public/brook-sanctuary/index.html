@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=57353&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <title>PrimeBroth | Pets bone broth powder - PrimeBroth Brook Sanctuary Fundraiser</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link rel="apple-touch-icon" sizes="180x180" href='/apple-touch-icon.png'>
@@ -136,7 +136,7 @@
 
     <nav class="flex items-center justify-between flex-wrap bg-opacity-100 p-2">
         <div class="flex items-center flex-shrink-0 text-xl text-grey-900 mr-6">
-            <a href="http://localhost:57353/">
+            <a href="http://localhost:1313/">
                 <img alt="" class="sitelogo mr-3" src="/img/logo/logo.webp">
             </a>
         </div>
@@ -241,6 +241,10 @@
                 <h5>Pets go from picky to piggy with just a dash in their kibble.</h5>
                 <img class="stars" src="/img/stars/5.webp" alt="review rating for bone broth product">
                 <p>(18)</p>
+                <div class="custom-radio" >
+                    <input type="radio" id="inStock" name="stockStatus" checked>
+                    <label class="custom-radio-label mb-4" for="inStock">Temporarily out of stock. Any orders placed will be sent when new stock arrives around 11/10/24</label>
+                </div>
 
                 
                 
@@ -745,6 +749,38 @@ document.addEventListener('DOMContentLoaded', function () {
         text: 'Copied the URL and title.'
       })
     }
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    
+    function setCookie(name, value, days) {
+        const d = new Date();
+        d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+        const expires = "expires=" + d.toUTCString();
+        document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/";
+    }
+
+    
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+        }
+        return null;
+    }
+
+    
+    if (!getCookie('landingURL')) {
+        setCookie('landingURL', window.location.href, 30); 
+        console.log('Landing URL stored:', window.location.href);
+    } else {
+        console.log('Landing URL already exists:', getCookie('landingURL'));
+    }
+});
   </script>
   
   <script>

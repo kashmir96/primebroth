@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=57353&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <title>PrimeBroth | Posts</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link rel="apple-touch-icon" sizes="180x180" href='/apple-touch-icon.png'>
@@ -34,13 +34,13 @@
 <meta property="og:site_name" content="PrimeBroth" />
 <meta property="og:title" content="Posts | PrimeBroth" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="http://localhost:57353/posts/" />
+<meta property="og:url" content="http://localhost:1313/posts/" />
 <meta property="og:locale" content="en_us" />
 <meta name="twitter:card" content="summary_large_image">
 <meta property="twitter:title" content="Posts">
 
 
-<meta property="og:image" content="http://localhost:57353/img/market1.webp">
+<meta property="og:image" content="http://localhost:1313/img/market1.webp">
 
 <meta name="description" content="The bone broth company making the most rich and nutritious bone broth in Christchurch. The best bone broth for making picky pets piggy." />
 <meta property="og:description" content="The bone broth company making the most rich and nutritious bone broth in Christchurch. The best bone broth for making picky pets piggy." />
@@ -134,7 +134,7 @@
 
     <nav class="flex items-center justify-between flex-wrap bg-opacity-100 p-2">
         <div class="flex items-center flex-shrink-0 text-xl text-grey-900 mr-6">
-            <a href="http://localhost:57353/">
+            <a href="http://localhost:1313/">
                 <img alt="" class="sitelogo mr-3" src="/img/logo/logo.webp">
             </a>
         </div>
@@ -220,7 +220,7 @@
     <div class="content py-1"></div>
     
     
-    <a href="http://localhost:57353/posts/how-to-use-bone-broth-for-pets/">
+    <a href="http://localhost:1313/posts/how-to-use-bone-broth-for-pets/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
@@ -239,7 +239,7 @@ Serve as-is Use as an appetite...</p>
 </div></div>
     </a>
     
-    <a href="http://localhost:57353/posts/benefits-of-bonebroth-for-pets/">
+    <a href="http://localhost:1313/posts/benefits-of-bonebroth-for-pets/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
@@ -257,7 +257,7 @@ Serve as-is Use as an appetite...</p>
 </div></div>
     </a>
     
-    <a href="http://localhost:57353/posts/best-bone-broth-for-dogs-in-new-zealand/">
+    <a href="http://localhost:1313/posts/best-bone-broth-for-dogs-in-new-zealand/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
@@ -275,7 +275,7 @@ Serve as-is Use as an appetite...</p>
 </div></div>
     </a>
     
-    <a href="http://localhost:57353/posts/chicken-vegetable-soup-with-bone-broth/">
+    <a href="http://localhost:1313/posts/chicken-vegetable-soup-with-bone-broth/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
@@ -318,6 +318,38 @@ Serve as-is Use as an appetite...</p>
         text: 'Copied the URL and title.'
       })
     }
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    
+    function setCookie(name, value, days) {
+        const d = new Date();
+        d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+        const expires = "expires=" + d.toUTCString();
+        document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/";
+    }
+
+    
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+        }
+        return null;
+    }
+
+    
+    if (!getCookie('landingURL')) {
+        setCookie('landingURL', window.location.href, 30); 
+        console.log('Landing URL stored:', window.location.href);
+    } else {
+        console.log('Landing URL already exists:', getCookie('landingURL'));
+    }
+});
   </script>
   
   <script>
