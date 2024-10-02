@@ -57,10 +57,10 @@ exports.handler = async (event, context) => {
 
     // Log the total amount for debugging
     console.log(`Total amount in cents: ${totalAmount}`);
-
+    
     // Determine the shipping rate based on the total amount
-    const standardShippingRate = 'shr_1Q2NRCABkrUo6tgO68LMjEqC';
-    const mediumShippingRate = 'shr_1PcZ8aABkrUo6tgODQmr9JHk';
+    const standardShippingRate = 'shr_1PasnCABkrUo6tgOd7bkp2rT';
+    const mediumShippingRate = 'shr_1Q2NRCABkrUo6tgO68LMjEqC';
     const freeShippingRate = 'shr_1PWrY7ABkrUo6tgODvMWsZjD';
     const ruralShippingRate = 'shr_1Q2NQuABkrUo6tgOf1PUHwPh'; // Replace with your actual rural shipping rate ID
 
