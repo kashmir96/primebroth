@@ -136,11 +136,9 @@
                 
            
                 
-                {{ if or .Params.beefpricesmalllink .Params.chickenpricesmalllink .Params.lambpricesmalllink }}
                 <div id="productsmall" class="product-info">
-                    <button class="btn btn-primary buy-now" data-price-id="{{ .Params.beefpricesmalllink }}" data-quantity-id="quantityAll">Add To Cart</button>
+                    <button class="btn btn-primary buy-now" data-price-id="{{ .Params.beefpricemediumlink }}" data-quantity-id="quantityAll">Add To Cart</button>
                 </div>
-                {{ end }}
                 
                 {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
                 <div id="productmedium" class="product-info hidden">
