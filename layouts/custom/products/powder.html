@@ -22,11 +22,11 @@
     <style>
 
 .custom-radio input[type="radio"]:checked + .custom-radio-label::before {
-  background-color: orange;
+  background-color: green;
 }
 
 .custom-radio-label {
-    color: orange;
+    color: green;
 }
     </style>
     
@@ -65,19 +65,19 @@
                 <!-- Price Partials for Small, Medium, and Large -->
                 {{ if or .Params.beefpricesmalllink .Params.chickenpricesmalllink .Params.lambpricesmalllink }}
                 <div id="pricePartialSmall" class="product-info">
-                    <p>{{- partial "price-ppl-powder-90g.html" . -}}</p>
+                    <p>{{- partial "price-ppl-powder-50g.html" . -}}</p>
                 </div>
                 {{ end }}
                 
                 {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
                 <div id="pricePartialMedium" class="product-info hidden">
-                    <p>{{- partial "price-ppl-powder-180g.html" . -}}</p>
+                    <p>{{- partial "price-ppl-powder-100g.html" . -}}</p>
                 </div>
                 {{ end }}
                 
                 {{ if or .Params.beefpricelargelink .Params.chickenpricelargelink .Params.lambpricelargelink }}
                 <div id="pricePartialLarge" class="product-info hidden">
-                    <p>{{- partial "price-ppl-powder-180g.html" . -}}</p>
+                    <p>{{- partial "price-ppl-powder-100g.html" . -}}</p>
                 </div>
                 {{ end }}
 
@@ -115,10 +115,10 @@
                 <div class="dropdown-group">
                     <select id="productSize" name="productSize">
                         {{ if or .Params.beefpricesmalllink .Params.chickenpricesmalllink .Params.lambpricesmalllink }}
-                        <option value="small" data-image="/img/post-a-1.webp">90g</option>
+                        <option value="small" data-image="/img/post-a-1.webp">50g</option>
                         {{ end }}
                         {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
-                        <option value="medium" data-image="/img/50front.webp">180g</option>
+                        <option value="medium" data-image="/img/50front.webp">100g</option>
                         {{ end }}
                         
                     </select>
@@ -132,7 +132,7 @@
                 
             <div class="custom-radio" >
                 <input type="radio" id="inStock" name="stockStatus" checked>
-                <label class="custom-radio-label mb-4" for="inStock">Temporarily out of stock. Any orders placed will be sent when new stock arrives around 18/10/24</label>
+                <label class="custom-radio-label mb-4" for="inStock">In stock</label>
             </div>
                 
                 {{ if or .Params.beefpricesmalllink .Params.chickenpricesmalllink .Params.lambpricesmalllink }}
@@ -196,15 +196,15 @@
                     <div class="tab-content faq-tab-content">
                         <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                             <h4>Description</h4>
-                            <p>Powdered Organic <span class="product-flavour">Beef</span> Bone Broth - up to 30 servings for the 90g, and 60 servings for 180g.</p>
-                            <p>Our bone broth powder is a versatile product for these health-conscious and busy folks. This protein & collagen-rich bone broth is perfect for drinking or cooking with! For health benefits and mild meaty flavor mix in with hot water and consume with a bit of salt added. For culinary masterpieces and smoothies, add one serving into your favorite recipe and enjoy.</p>
+                            <p>Powdered Organic <span class="product-flavour">Beef</span> Bone Broth - 7 servings for the 50g, and 14 servings for 100g.</p>
+                            <p>Our bone broth powder is a versatile product for these health-conscious and busy folks. This h bone broth is perfect for drinking or cooking with! For health benefits and mild meaty flavor mix in with hot water and consume with a bit of salt added. For culinary masterpieces and smoothies, add one serving into your favorite recipe and enjoy.</p>
                             <ul>
                                 <li>Rich animal-based nutrition for less per day than your cup of coffee.</li>
                                 <li>Simply mix in with hot water, sprinkle on your food, add to smoothies or meals. It is often a good and healthier substitute for stock.</li>
-                                <li>Protein & collagen. Healthy skin, gut & joints.</li>
+                                <li>Protein & collagen.</li>
                                 <li>100% NZ beef bones, roasted & simmered for 32 hours.</li>
-                                <li>NATURAL | GLUTEN FREE | DAIRY FREE | SUGAR FREE | LOW FAT | KETO & LOW CARB</li>
-                                <li>Made in NZ with 100% NZ ingredients</li>
+                                <li>NATURAL | DAIRY FREE | SUGAR FREE | LOW FAT | KETO & LOW CARB</li>
+                                <li>Made in NZ with 100% NZ Beef</li>
                             </ul>
                             
                             {{ if .Params.charitylink }}
@@ -221,11 +221,11 @@
                         </div>
                         <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
                             <h4>Directions</h4>
-                            <p>Serving size: A single serving is 1 tsp - 3 gr. Serving per pack: 16. You can consume our bone broth powder several times a day, as it’s 100% additives free we don’t limit the amount of serving per day.</p>
+                            <p>Serving size: A single serving is 2 tsp. You can consume our bone broth powder several times a day.</p>
                             <p>How to prepare it:</p>
                             <ul>
-                                <li>To drink as is - Add a tsp or two to a cup of hot water, stir and enjoy. </li>
-<li>To cook with - Add to your favorite dish or shake for health benefits and taste. </li>
+                                <li>To drink as is - Add two tsp to a cup of hot water, stir and enjoy.</li>
+                                <li>To cook with - Use in place of stock or water in your favorite recipe. Either add 2tsp to 250ml of water or add directly as powder.</li>
                             </ul>
 
 
