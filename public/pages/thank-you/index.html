@@ -337,11 +337,11 @@
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                action: "Purchase",      
-                value: "totalCost",        
+                action: "Purchase",        
+                value: totalCost,          
                 currency: currency,
                 userData: {
-                    em: userEmail       
+                    em: userEmail         
                 }
             })
         })
@@ -350,6 +350,7 @@
         .catch(error => console.error("Error sending conversion event:", error));
     });
 </script>
+
 
 
 

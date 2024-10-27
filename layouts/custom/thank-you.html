@@ -150,11 +150,11 @@
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                action: "Purchase",      // Facebook event name
-                value: "totalCost",        // Ensure we’re sending totalCost as "value"
+                action: "Purchase",        // Facebook event name
+                value: totalCost,          // Use the actual variable, not a string
                 currency: currency,
                 userData: {
-                    em: userEmail       // Replace with hashed email if available
+                    em: userEmail         // Replace with hashed email if available
                 }
             })
         })
@@ -163,6 +163,7 @@
         .catch(error => console.error("Error sending conversion event:", error));
     });
 </script>
+
 
 
 
