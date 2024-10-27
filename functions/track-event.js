@@ -8,15 +8,17 @@ exports.handler = async (event) => {
       throw new Error('No data received in the request body');
     }
 
+    // Parse data from the request body
     const { action, value, currency, userData } = JSON.parse(event.body);
     console.log("Parsed request data:", { action, value, currency, userData });
 
-    const accessToken = 'EAALoG9CF1ZCYBOyvZAbhR9ygXqcy7SUZB43l5t9oQ9rClWQVpYe2Wfi1RcAgheI49dvjiR6kRDI4pXFlt62uFcZAQFdjRuOSc8uukd6aPMFBMOuWNYFaxMHTot8xw8ZALcwSrWsnuuCRokJSyMKLaIBimmnrAG2IZBRivEK4wfbxl2iVOfdbNlXW9BbJ3qZBJAH8gZDZD';
+    const accessToken = 'EAALoG9CF1ZCYBO3Xx2ZAVAK6Cs2h4XgY55ZA17KQZCGPIXaYlG5NZCP8cXzXZBocH95qb0IGiI22wwZBFRu77fgyDXDHIHi7OhcNjDtXfBnyGNU93mTJDbWD8YMiSZBEk4xgw851GBI1mEMvvMbE7zBHhxOk43akaPmsryIae3XMqQXa44OmPi5gLStAqgTfuKYYvQZDZD';
     const pixelId = '809100344281173';
-    const eventId = Date.now() + "_" + Math.random();
-    const testEventCode = "TEST94572"; // Add your test code here
 
-    // Parameter validation checks
+    const eventId = Date.now() + "_" + Math.random();
+    const testEventCode = "TEST59478"; // Optional for testing in Facebook's Test Events tool
+
+    // Parameter validation
     if (!action || typeof action !== 'string') {
       console.warn("Invalid or missing action:", action);
       throw new Error("Invalid or missing 'action' parameter");
@@ -46,16 +48,16 @@ exports.handler = async (event) => {
       body: JSON.stringify({
         data: [
           {
-            event_name: action,
-            event_time: Math.floor(Date.now() / 1000),
-            user_data: userData,
+            event_name: action,           // Name of the event, e.g., "Purchase"
+            event_time: Math.floor(Date.now() / 1000),  // Unix timestamp in seconds
+            user_data: userData,           // Hashed user data like email (e.g., { em: <hashed_email> })
             custom_data: {
-              currency: currency.toUpperCase(),
-              value: parseFloat(value),
+              currency: currency.toUpperCase(), // Ensure currency is uppercase
+              value: parseFloat(value),         // Ensure value is a number
             },
             action_source: 'website',
             event_id: eventId,
-            test_event_code: testEventCode // Add the test_event_code here
+            test_event_code: testEventCode // Add this if testing via Facebook's Test Events tool
           },
         ],
       }),
