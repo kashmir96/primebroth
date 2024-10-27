@@ -134,13 +134,16 @@
         // Retrieve total cost from localStorage
         let totalCost = localStorage.getItem("totalCost");
 
+        // Log the raw value retrieved from localStorage
+        console.log("Raw totalCost from localStorage:", totalCost);
+
         // Convert totalCost to a number and validate
         totalCost = parseFloat(totalCost);
         if (isNaN(totalCost) || totalCost <= 0) {
             console.error("Invalid total cost:", totalCost);
             totalCost = 0; // Set a fallback or handle error as needed
         } else {
-            console.log("Total cost retrieved:", totalCost);
+            console.log("Valid total cost retrieved:", totalCost);
         }
 
         const currency = "NZD"; // Set your currency
@@ -151,7 +154,7 @@
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                action: "Purchase", // Event name
+                action: "Purchase",
                 cartTotal: totalCost, // Send totalCost as cartTotal
                 currency: currency,
                 userData: {
@@ -164,6 +167,7 @@
         .catch(error => console.error("Error sending conversion event:", error));
     });
 </script>
+
 
 
 
