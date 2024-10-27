@@ -322,9 +322,6 @@
         let totalCost = localStorage.getItem("totalCost");
 
         
-        console.log("Raw totalCost from localStorage:", totalCost);
-
-        
         totalCost = parseFloat(totalCost);
         if (isNaN(totalCost) || totalCost <= 0) {
             console.error("Invalid total cost:", totalCost);
@@ -342,7 +339,7 @@
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 action: "Purchase",
-                cartTotal: totalCost, 
+                value: totalCost, 
                 currency: currency,
                 userData: {
                     em: userEmail 
@@ -354,6 +351,7 @@
         .catch(error => console.error("Error sending conversion event:", error));
     });
 </script>
+
 
 
 
