@@ -319,25 +319,27 @@
    <script>
     window.addEventListener('load', function() {
         
-        const urlParams = new URLSearchParams(window.location.search);
-        const cartTotal = localStorage.getItem("cartTotal") || urlParams.get("total") || 0;
+        let totalCost = localStorage.getItem("totalCost");
 
         
-        if (!cartTotal || isNaN(parseFloat(cartTotal))) {
-            console.error("Invalid cart total:", cartTotal);
+        totalCost = parseFloat(totalCost);
+        if (isNaN(totalCost) || totalCost <= 0) {
+            console.error("Invalid total cost:", totalCost);
+            totalCost = 0; 
         } else {
-            console.log("Cart total retrieved:", cartTotal);
+            console.log("Total cost retrieved:", totalCost);
         }
 
         const currency = "NZD"; 
         const userEmail = "hashed_email_here"; 
 
+        
         fetch("/.netlify/functions/track-event", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 action: "Purchase", 
-                cartTotal: parseFloat(cartTotal), 
+                cartTotal: totalCost, 
                 currency: currency,
                 userData: {
                     em: userEmail 
@@ -349,6 +351,7 @@
         .catch(error => console.error("Error sending conversion event:", error));
     });
 </script>
+
 
 
   

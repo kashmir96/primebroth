@@ -4,6 +4,7 @@ exports.handler = async (event) => {
   try {
     console.log("Starting track-event function...");
 
+    // Ensure the request body exists
     if (!event.body) {
       throw new Error('No data received in the request body');
     }
@@ -14,6 +15,7 @@ exports.handler = async (event) => {
 
     const accessToken = 'EAALoG9CF1ZCYBO3Xx2ZAVAK6Cs2h4XgY55ZA17KQZCGPIXaYlG5NZCP8cXzXZBocH95qb0IGiI22wwZBFRu77fgyDXDHIHi7OhcNjDtXfBnyGNU93mTJDbWD8YMiSZBEk4xgw851GBI1mEMvvMbE7zBHhxOk43akaPmsryIae3XMqQXa44OmPi5gLStAqgTfuKYYvQZDZD';
     const pixelId = '809100344281173';
+
     const eventId = Date.now() + "_" + Math.random();
 
     // Parameter checks

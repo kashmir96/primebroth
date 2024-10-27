@@ -467,6 +467,8 @@
                     cartTableBody.appendChild(row);
                 });
 
+                localStorage.setItem("totalCost", totalCost.toFixed(2));
+
                 totalCostElement.textContent = `$${totalCost.toFixed(2)}`;
                 proceedToCheckoutButton.disabled = cart.length === 0;
 
