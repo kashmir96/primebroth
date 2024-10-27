@@ -151,7 +151,7 @@
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 action: "Purchase",      // Facebook event name
-                value: "80.95",        // Ensure we’re sending totalCost as "value"
+                value: "totalCost",        // Ensure we’re sending totalCost as "value"
                 currency: currency,
                 userData: {
                     em: userEmail       // Replace with hashed email if available
