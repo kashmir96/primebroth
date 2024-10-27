@@ -2,7 +2,12 @@ const fetch = require('node-fetch');
 
 exports.handler = async (event) => {
   try {
-    // Parse the data sent from the "Thank You" page
+    // Check if event body is present
+    if (!event.body) {
+      throw new Error('No data received in the request body');
+    }
+
+    // Parse data from the request body
     const { action, cartTotal, currency, userData } = JSON.parse(event.body);
 
     const accessToken = 'EAALoG9CF1ZCYBO3Xx2ZAVAK6Cs2h4XgY55ZA17KQZCGPIXaYlG5NZCP8cXzXZBocH95qb0IGiI22wwZBFRu77fgyDXDHIHi7OhcNjDtXfBnyGNU93mTJDbWD8YMiSZBEk4xgw851GBI1mEMvvMbE7zBHhxOk43akaPmsryIae3XMqQXa44OmPi5gLStAqgTfuKYYvQZDZD'; // Replace with your Facebook Conversions API Access Token
@@ -32,19 +37,23 @@ exports.handler = async (event) => {
       }),
     });
 
-    // Return success or error
+    // Check if the API request was successful
     if (!response.ok) throw new Error('Failed to send conversion data');
+
     const responseBody = await response.json();
 
     return {
       statusCode: 200,
       body: JSON.stringify({ message: 'Conversion data sent successfully', response: responseBody }),
     };
+
   } catch (error) {
-    console.error('Error sending conversion data:', error);
+    // Log the error to the console for debugging
+    console.error('Error in track-event function:', error);
+    
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Error sending conversion data' }),
+      body: JSON.stringify({ error: 'Server error in track-event function' }),
     };
   }
 };
