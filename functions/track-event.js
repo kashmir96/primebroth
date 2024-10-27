@@ -14,7 +14,7 @@ exports.handler = async (event) => {
     const accessToken = 'EAALoG9CF1ZCYBOyvZAbhR9ygXqcy7SUZB43l5t9oQ9rClWQVpYe2Wfi1RcAgheI49dvjiR6kRDI4pXFlt62uFcZAQFdjRuOSc8uukd6aPMFBMOuWNYFaxMHTot8xw8ZALcwSrWsnuuCRokJSyMKLaIBimmnrAG2IZBRivEK4wfbxl2iVOfdbNlXW9BbJ3qZBJAH8gZDZD';
     const pixelId = '809100344281173';
     const eventId = Date.now() + "_" + Math.random();
-    const testEventCode = "TEST59478"; // Add your test code here
+    const testEventCode = "TEST94572"; // Add your test code here
 
     // Parameter validation checks
     if (!action || typeof action !== 'string') {
