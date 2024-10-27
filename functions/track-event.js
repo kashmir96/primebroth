@@ -9,14 +9,13 @@ exports.handler = async (event) => {
     }
 
     // Parse data from the request body
-    const { action, value, currency, userData } = JSON.parse(event.body);
-    console.log("Parsed request data:", { action, value, currency, userData });
+    const { action, currency, userData } = JSON.parse(event.body);
+    console.log("Parsed request data:", { action, currency, userData });
 
     const accessToken = 'EAALoG9CF1ZCYBO3Xx2ZAVAK6Cs2h4XgY55ZA17KQZCGPIXaYlG5NZCP8cXzXZBocH95qb0IGiI22wwZBFRu77fgyDXDHIHi7OhcNjDtXfBnyGNU93mTJDbWD8YMiSZBEk4xgw851GBI1mEMvvMbE7zBHhxOk43akaPmsryIae3XMqQXa44OmPi5gLStAqgTfuKYYvQZDZD';
     const pixelId = '809100344281173';
 
     const eventId = Date.now() + "_" + Math.random();
-    const testEventCode = "TEST59478"; // Optional for testing in Facebook's Test Events tool
 
     // Parameter validation
     if (!action || typeof action !== 'string') {
@@ -27,11 +26,6 @@ exports.handler = async (event) => {
     if (!currency || typeof currency !== 'string' || currency.length !== 3) {
       console.warn("Invalid or missing currency:", currency);
       throw new Error("Invalid or missing 'currency' parameter - should be a 3-letter ISO code");
-    }
-
-    if (value === undefined || isNaN(parseFloat(value))) {
-      console.warn("Invalid or missing value (total cost):", value);
-      throw new Error("Invalid or missing 'value' parameter");
     }
 
     if (!userData || typeof userData !== 'object' || !userData.em) {
@@ -52,13 +46,10 @@ exports.handler = async (event) => {
             event_time: Math.floor(Date.now() / 1000),
             user_data: userData,
             custom_data: {
-              currency: currency.toUpperCase(),
-              value: parseFloat(value), // Ensure value is included as a float
-              
+              currency: currency.toUpperCase()
             },
             action_source: 'website',
-            event_id: eventId,
-            test_event_code: testEventCode // Add this if testing via Facebook's Test Events tool
+            event_id: eventId
           },
         ],
       }),

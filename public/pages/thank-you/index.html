@@ -338,7 +338,6 @@
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 action: "Purchase",        
-                value: totalCost,          
                 currency: currency,
                 userData: {
                     em: userEmail         
@@ -350,6 +349,7 @@
         .catch(error => console.error("Error sending conversion event:", error));
     });
 </script>
+
 
 
 
