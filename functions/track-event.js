@@ -4,19 +4,17 @@ exports.handler = async (event) => {
   try {
     console.log("Starting track-event function...");
 
-    // Ensure the request body exists
     if (!event.body) {
       throw new Error('No data received in the request body');
     }
 
-    // Parse data from the request body, renaming cartTotal to value for Facebook API compatibility
     const { action, value, currency, userData } = JSON.parse(event.body);
     console.log("Parsed request data:", { action, value, currency, userData });
 
     const accessToken = 'EAALoG9CF1ZCYBO3Xx2ZAVAK6Cs2h4XgY55ZA17KQZCGPIXaYlG5NZCP8cXzXZBocH95qb0IGiI22wwZBFRu77fgyDXDHIHi7OhcNjDtXfBnyGNU93mTJDbWD8YMiSZBEk4xgw851GBI1mEMvvMbE7zBHhxOk43akaPmsryIae3XMqQXa44OmPi5gLStAqgTfuKYYvQZDZD';
     const pixelId = '809100344281173';
-
     const eventId = Date.now() + "_" + Math.random();
+    const testEventCode = "TEST59478"; // Add your test code here
 
     // Parameter validation checks
     if (!action || typeof action !== 'string') {
@@ -52,11 +50,12 @@ exports.handler = async (event) => {
             event_time: Math.floor(Date.now() / 1000),
             user_data: userData,
             custom_data: {
-              currency: currency.toUpperCase(), // Ensure currency is uppercase
-              value: parseFloat(value),         // Convert value to a float
+              currency: currency.toUpperCase(),
+              value: parseFloat(value),
             },
             action_source: 'website',
             event_id: eventId,
+            test_event_code: testEventCode // Add the test_event_code here
           },
         ],
       }),
