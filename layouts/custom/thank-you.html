@@ -131,29 +131,33 @@
    
    <script>
     window.addEventListener('load', function() {
-      // Get cart total from query parameter or localStorage if applicable
-      const urlParams = new URLSearchParams(window.location.search);
-      const cartTotal = localStorage.getItem("cartTotal") || urlParams.get("total") || 0;
-      const userEmail = "hashed_email_here"; // Replace with the hashed email if available
-      const currency = "NZD"; // Set the appropriate currency if it's different
-  
-      fetch("/.netlify/functions/track-conversion", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: "Purchase", // The event action, e.g., 'Purchase'
-          cartTotal: parseFloat(cartTotal), // Ensure this is a valid number
-          currency: currency,
-          userData: {
-            em: userEmail, // Replace with hashed email
-          },
-        }),
-      })
-      .then(response => response.json())
-      .then(data => console.log("Conversion event sent:", data))
-      .catch(error => console.error("Error sending conversion event:", error));
+        // Retrieve cart total from localStorage or URL query parameter (if applicable)
+        const urlParams = new URLSearchParams(window.location.search);
+        const cartTotal = localStorage.getItem("cartTotal") || urlParams.get("total") || 0;
+        const currency = "NZD"; // Adjust as needed
+
+        // Optional: Hashed user email if available
+        const userEmail = "hashed_email_here"; // Replace with actual hashed email, if available
+
+        // Send request to Netlify function for Facebook Conversions API
+        fetch("/.netlify/functions/track-event", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                action: "Purchase", // Event name
+                cartTotal: parseFloat(cartTotal), // Ensure this is a valid number
+                currency: currency,
+                userData: {
+                    em: userEmail // Replace with hashed email
+                }
+            })
+        })
+        .then(response => response.json())
+        .then(data => console.log("Conversion event sent:", data))
+        .catch(error => console.error("Error sending conversion event:", error));
     });
-  </script>
+</script>
+
   
       
     

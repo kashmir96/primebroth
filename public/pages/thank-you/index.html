@@ -318,29 +318,33 @@
    
    <script>
     window.addEventListener('load', function() {
-      
-      const urlParams = new URLSearchParams(window.location.search);
-      const cartTotal = localStorage.getItem("cartTotal") || urlParams.get("total") || 0;
-      const userEmail = "hashed_email_here"; 
-      const currency = "NZD"; 
-  
-      fetch("/.netlify/functions/track-conversion", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: "Purchase", 
-          cartTotal: parseFloat(cartTotal), 
-          currency: currency,
-          userData: {
-            em: userEmail, 
-          },
-        }),
-      })
-      .then(response => response.json())
-      .then(data => console.log("Conversion event sent:", data))
-      .catch(error => console.error("Error sending conversion event:", error));
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const cartTotal = localStorage.getItem("cartTotal") || urlParams.get("total") || 0;
+        const currency = "NZD"; 
+
+        
+        const userEmail = "hashed_email_here"; 
+
+        
+        fetch("/.netlify/functions/track-event", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                action: "Purchase", 
+                cartTotal: parseFloat(cartTotal), 
+                currency: currency,
+                userData: {
+                    em: userEmail 
+                }
+            })
+        })
+        .then(response => response.json())
+        .then(data => console.log("Conversion event sent:", data))
+        .catch(error => console.error("Error sending conversion event:", error));
     });
-  </script>
+</script>
+
   
       
     
