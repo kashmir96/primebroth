@@ -9,32 +9,32 @@ exports.handler = async (event) => {
       throw new Error('No data received in the request body');
     }
 
-    // Parse data from the request body
-    const { action, cartTotal, currency, userData } = JSON.parse(event.body);
-    console.log("Parsed request data:", { action, cartTotal, currency, userData });
+    // Parse data from the request body, renaming cartTotal to value for Facebook API compatibility
+    const { action, value, currency, userData } = JSON.parse(event.body);
+    console.log("Parsed request data:", { action, value, currency, userData });
 
     const accessToken = 'EAALoG9CF1ZCYBO3Xx2ZAVAK6Cs2h4XgY55ZA17KQZCGPIXaYlG5NZCP8cXzXZBocH95qb0IGiI22wwZBFRu77fgyDXDHIHi7OhcNjDtXfBnyGNU93mTJDbWD8YMiSZBEk4xgw851GBI1mEMvvMbE7zBHhxOk43akaPmsryIae3XMqQXa44OmPi5gLStAqgTfuKYYvQZDZD';
     const pixelId = '809100344281173';
 
     const eventId = Date.now() + "_" + Math.random();
 
-    // Parameter checks
+    // Parameter validation checks
     if (!action || typeof action !== 'string') {
       console.warn("Invalid or missing action:", action);
       throw new Error("Invalid or missing 'action' parameter");
     }
 
-    if (!currency || typeof currency !== 'string') {
+    if (!currency || typeof currency !== 'string' || currency.length !== 3) {
       console.warn("Invalid or missing currency:", currency);
-      throw new Error("Invalid or missing 'currency' parameter");
+      throw new Error("Invalid or missing 'currency' parameter - should be a 3-letter ISO code");
     }
 
-    if (!cartTotal || isNaN(parseFloat(cartTotal))) {
-      console.warn("Invalid or missing cartTotal:", cartTotal);
-      throw new Error("Invalid or missing 'cartTotal' parameter");
+    if (value === undefined || isNaN(parseFloat(value))) {
+      console.warn("Invalid or missing value (total cost):", value);
+      throw new Error("Invalid or missing 'value' parameter");
     }
 
-    if (!userData || typeof userData !== 'object') {
+    if (!userData || typeof userData !== 'object' || !userData.em) {
       console.warn("Invalid or missing userData:", userData);
       throw new Error("Invalid or missing 'userData' parameter");
     }
@@ -52,8 +52,8 @@ exports.handler = async (event) => {
             event_time: Math.floor(Date.now() / 1000),
             user_data: userData,
             custom_data: {
-              currency: currency,
-              value: parseFloat(cartTotal),
+              currency: currency.toUpperCase(), // Ensure currency is uppercase
+              value: parseFloat(value),         // Convert value to a float
             },
             action_source: 'website',
             event_id: eventId,
