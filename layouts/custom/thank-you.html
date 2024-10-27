@@ -131,20 +131,25 @@
    
    <script>
     window.addEventListener('load', function() {
-        // Retrieve cart total from localStorage or URL query parameter (if applicable)
+        // Attempt to retrieve cart total from localStorage or URL query parameter (if applicable)
         const urlParams = new URLSearchParams(window.location.search);
         const cartTotal = localStorage.getItem("cartTotal") || urlParams.get("total") || 0;
-        const currency = "NZD"; // Adjust as needed
 
-        // Optional: Hashed user email if available
+        // Check if cartTotal is a valid number
+        if (!cartTotal || isNaN(parseFloat(cartTotal))) {
+            console.error("Invalid cart total:", cartTotal);
+        } else {
+            console.log("Cart total retrieved:", cartTotal);
+        }
+
+        const currency = "NZD"; // Adjust as needed
         const userEmail = "hashed_email_here"; // Replace with actual hashed email, if available
 
-        // Send request to Netlify function for Facebook Conversions API
         fetch("/.netlify/functions/track-event", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                action: "Purchase", // Event name
+                action: "Purchase", // The event name
                 cartTotal: parseFloat(cartTotal), // Ensure this is a valid number
                 currency: currency,
                 userData: {
@@ -157,6 +162,7 @@
         .catch(error => console.error("Error sending conversion event:", error));
     });
 </script>
+
 
   
       

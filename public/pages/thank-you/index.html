@@ -321,12 +321,17 @@
         
         const urlParams = new URLSearchParams(window.location.search);
         const cartTotal = localStorage.getItem("cartTotal") || urlParams.get("total") || 0;
-        const currency = "NZD"; 
 
         
+        if (!cartTotal || isNaN(parseFloat(cartTotal))) {
+            console.error("Invalid cart total:", cartTotal);
+        } else {
+            console.log("Cart total retrieved:", cartTotal);
+        }
+
+        const currency = "NZD"; 
         const userEmail = "hashed_email_here"; 
 
-        
         fetch("/.netlify/functions/track-event", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -344,6 +349,7 @@
         .catch(error => console.error("Error sending conversion event:", error));
     });
 </script>
+
 
   
       
