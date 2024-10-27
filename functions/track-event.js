@@ -48,12 +48,12 @@ exports.handler = async (event) => {
       body: JSON.stringify({
         data: [
           {
-            event_name: action,           // Name of the event, e.g., "Purchase"
-            event_time: Math.floor(Date.now() / 1000),  // Unix timestamp in seconds
-            user_data: userData,           // Hashed user data like email (e.g., { em: <hashed_email> })
+            event_name: action,
+            event_time: Math.floor(Date.now() / 1000),
+            user_data: userData,
             custom_data: {
-              currency: currency.toUpperCase(), // Ensure currency is uppercase
-              value: parseFloat(value),         // Ensure value is a number
+              currency: currency.toUpperCase(),
+              value: parseFloat(value), // Ensure value is included as a float
             },
             action_source: 'website',
             event_id: eventId,

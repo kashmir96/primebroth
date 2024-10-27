@@ -146,16 +146,15 @@
         const currency = "NZD"; // Set your currency
         const userEmail = "hashed_email_here"; // Replace with actual hashed email if available
 
-        // Send data to the Netlify function for the Facebook Conversions API
         fetch("/.netlify/functions/track-event", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                action: "Purchase",
-                value: totalCost, // Send totalCost as value
+                action: "Purchase",      // Facebook event name
+                value: totalCost,        // Ensure we’re sending totalCost as "value"
                 currency: currency,
                 userData: {
-                    em: userEmail // Replace with hashed email if available
+                    em: userEmail       // Replace with hashed email if available
                 }
             })
         })
@@ -164,6 +163,7 @@
         .catch(error => console.error("Error sending conversion event:", error));
     });
 </script>
+
 
 
 
