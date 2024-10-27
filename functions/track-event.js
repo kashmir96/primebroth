@@ -11,7 +11,7 @@ exports.handler = async (event) => {
     const { action, value, currency, userData } = JSON.parse(event.body);
     console.log("Parsed request data:", { action, value, currency, userData });
 
-    const accessToken = 'EAALoG9CF1ZCYBO3Xx2ZAVAK6Cs2h4XgY55ZA17KQZCGPIXaYlG5NZCP8cXzXZBocH95qb0IGiI22wwZBFRu77fgyDXDHIHi7OhcNjDtXfBnyGNU93mTJDbWD8YMiSZBEk4xgw851GBI1mEMvvMbE7zBHhxOk43akaPmsryIae3XMqQXa44OmPi5gLStAqgTfuKYYvQZDZD';
+    const accessToken = 'EAALoG9CF1ZCYBOyvZAbhR9ygXqcy7SUZB43l5t9oQ9rClWQVpYe2Wfi1RcAgheI49dvjiR6kRDI4pXFlt62uFcZAQFdjRuOSc8uukd6aPMFBMOuWNYFaxMHTot8xw8ZALcwSrWsnuuCRokJSyMKLaIBimmnrAG2IZBRivEK4wfbxl2iVOfdbNlXW9BbJ3qZBJAH8gZDZD';
     const pixelId = '809100344281173';
     const eventId = Date.now() + "_" + Math.random();
     const testEventCode = "TEST59478"; // Add your test code here
