@@ -14,9 +14,6 @@ exports.handler = async () => {
             event_name: "Purchase",
             event_time: Math.floor(Date.now() / 1000),
             action_source: "website",
-            custom_data: {
-              test_event_code: "TEST1716" // Test event code embedded directly
-            }
           }
         ],
       }),
