@@ -16,11 +16,29 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
     <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=667c998f7bead90019480329&product=inline-share-buttons&source=platform" async="async"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-
 </head>
 <body>
+
+    <style>
+
+.custom-radio input[type="radio"]:checked + .custom-radio-label::before {
+  background-color: green;
+}
+
+.custom-radio-label {
+    color: green;
+}
+    </style>
     
+    {{ if .Params.charity }}
+<div class="announcement full-width black text-center">
+    <ul>
+        <li>Proceeds from this page are donated to {{ .Params.charity }}.</li>
+    </ul>
+</div>
+{{ else }}
 {{- partial "alert.html" . -}}
+{{ end }}
 
 
 
@@ -35,25 +53,33 @@
     <div class="container">
         <div class="row topbanner rel">
             <div class="col-xs-12 col-lg-6 product-photos">
-                {{- partial "tallowskinkitimages.html" . -}}
-
-                        </div>
+                {{- partial "pplpowderimages.html" . -}}
+            </div>            
+        
             <div class="col-xs-12 col-lg-6">
-                <h1>Tallow balm - DIY @ Home kit</h1>
-               
+                <h1>Bone broth powder {{ if .Params.charity }} - {{ .Params.charity }}{{ end }}</h1>
+           <!--   <h5>------</h5>-->  
+                <img class="stars" src="/img/stars/5.webp" alt="review rating for bone broth product">
+                <p>(7)</p>
+
                 <!-- Price Partials for Small, Medium, and Large -->
                 {{ if or .Params.beefpricesmalllink .Params.chickenpricesmalllink .Params.lambpricesmalllink }}
                 <div id="pricePartialSmall" class="product-info">
-                    <p>{{- partial "price-tallow-skin-kit-50.html" . -}}</p>
+                    <p>{{- partial "price-ppl-powder-50g.html" . -}}</p>
                 </div>
                 {{ end }}
                 
                 {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
                 <div id="pricePartialMedium" class="product-info hidden">
-                    <p>{{- partial "price-tallow-skin-kit-100.html" . -}}</p>
+                    <p>{{- partial "price-ppl-powder-100g.html" . -}}</p>
                 </div>
                 {{ end }}
                 
+                {{ if or .Params.beefpricelargelink .Params.chickenpricelargelink .Params.lambpricelargelink }}
+                <div id="pricePartialLarge" class="product-info hidden">
+                    <p>{{- partial "price-ppl-powder-100g.html" . -}}</p>
+                </div>
+                {{ end }}
 
 
 
@@ -89,14 +115,12 @@
                 <div class="dropdown-group">
                     <select id="productSize" name="productSize">
                         {{ if or .Params.beefpricesmalllink .Params.chickenpricesmalllink .Params.lambpricesmalllink }}
-                        <option value="small" data-image="/img/post-a-1.webp">50ml</option>
+                        <option value="small" data-image="/img/post-a-1.webp">50g</option>
                         {{ end }}
                         {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
-                        <option value="medium" data-image="/img/50front.webp">100ml</option>
+                        <option value="medium" data-image="/img/50front.webp">100g</option>
                         {{ end }}
-                        {{ if or .Params.beefpricelargelink .Params.chickenpricelargelink .Params.lambpricelargelink }}
-                        <option value="large" data-image="/img/50front.webp">24pk (Save 10%)</option>
-                        {{ end }}
+                        
                     </select>
                 </div>
                 <div class="quantity-container">
@@ -104,11 +128,11 @@
                     <input type="number" id="quantityAll" name="quantity" min="1" value="1">
                 </div>
                 
-            </div>
+            </div> 
                 
-            <div class="custom-radio">
+            <div class="custom-radio" >
                 <input type="radio" id="inStock" name="stockStatus" checked>
-                <label class="custom-radio-label mb-4" for="inStock">In Stock</label>
+                <label class="custom-radio-label mb-4" for="inStock">In stock</label>
             </div>
                 
                 {{ if or .Params.beefpricesmalllink .Params.chickenpricesmalllink .Params.lambpricesmalllink }}
@@ -130,13 +154,13 @@
                 {{ end }}
 
                 <img class="badges" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
-                <!--<div class="row mt-2 mb-0 p-0 middle justify-content-around">
+               <!-- <div class="row mt-2 mb-0 p-0 middle justify-content-around">
                     <img class="col-6 col-md-3" src="/img/guts.webp" alt="">
                     <img class="col-6 col-md-3" src="/img/joints.webp" alt="">
                     <img class="col-6 col-md-3" src="/img/musclerepair.webp" alt="Muscle and toning">
                     <img class="col-6 col-md-3" src="/img/skinnails.webp" alt="Skin nails">
-                 </div>-->
-                <div class="row mt-0 trust">
+                </div>-->
+             <div class="row mt-0 trust" style="margin-top:-50px;margin-bottom:-50px; font-size:90%;">
                     <div class="col-4">
                         <img src="/img/delivery.webp">
                         <p>Free delivery over $80</p>
@@ -145,26 +169,24 @@
                         <img src="/img/exclusive.webp">
                         <p>Money back guarantee</p>
                     </div>
-                    <!--<div class="col-4">
+                    <div class="col-4">
                         <img src="/img/kiwi.webp">
                         <p>Used by 100s of Kiwis</p>
-                    </div>-->
+                    </div>
                 </div>
                 
                 
             </div>
 
-            
-
             <div class="row mt-0">
                 <div class="col-12 col-md-6">
-                        <img src="/img/markets/11.webp" alt="Click to watch video" id="thumbnail" data-video-id="videoContainer1">
-                </div>
+                    <img src="/img/markets/11.webp" alt="Click to watch video" id="thumbnail" data-video-id="videoContainer1">
+            </div>
                 <div class="faq-tab-container col-12 col-md-6">
                     <!-- Nav tabs -->
                     <div class="faq-nav-tabs">
                         <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</div>
-                        <div class="faq-nav-tab" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Each kit includes</div>
+                        <div class="faq-nav-tab" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</div>
                         <div class="faq-nav-tab" id="directions-tab" data-toggle="tab" href="#directions" role="tab" aria-controls="directions" aria-selected="false">Directions</div>
                         <div class="faq-nav-tab" id="storage-tab" data-toggle="tab" href="#storage" role="tab" aria-controls="storage" aria-selected="false">Storage</div>
                         <div class="faq-nav-tab" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</div>
@@ -174,9 +196,16 @@
                     <div class="tab-content faq-tab-content">
                         <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                             <h4>Description</h4>
-                            <p>Make your own beef tallow balm at home with our DIY beef tallow skincare toolkit, with everything you need to create your very own tallow skincare balm to the unique needs of your skin.</p>
-                            <p>Finding other options are too oily, strong smelling or take too long to sink into the skin? Solve the problem yourself with our DIY tallow balm skincare kits.</p>
-
+                            <p>Powdered <span class="product-flavour">Beef</span> Bone Broth - 7 servings for the 50g, and 14 servings for 100g.</p>
+                            <p>Our bone broth powder is a versatile product for these health-conscious and busy folks. This h bone broth is perfect for drinking or cooking with! For health benefits and mild meaty flavor mix in with hot water and consume with a bit of salt added. For culinary masterpieces and smoothies, add one serving into your favorite recipe and enjoy.</p>
+                            <ul>
+                                <li>Rich animal-based nutrition for less per day than your cup of coffee.</li>
+                                <li>Simply mix in with hot water, sprinkle on your food, add to smoothies or meals. It is often a good and healthier substitute for stock.</li>
+                                <li>Protein & collagen.</li>
+                                <li>100% NZ beef bones, roasted & simmered for 32 hours.</li>
+                                <li>NATURAL | DAIRY FREE | SUGAR FREE | LOW FAT | KETO & LOW CARB</li>
+                                <li>Made in NZ with 100% NZ Beef</li>
+                            </ul>
                             
                             {{ if .Params.charitylink }}
                             <p><a style="text-decoration: none;" href="{{ .Params.charitylink }}" rel="nofollow">Want to learn more about this charity? see here</a></p>
@@ -186,44 +215,34 @@
                             
                             
                         </div>
-                        <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">  
-                            <h4>Each kit includes:</h4>
-                            <ul>
-                                <li>1x Jar of 100% pure grass fed skin-grade beef tallow (pre-prepped and odourless).</li>
-                                <li>1x skincare cream storage jar</li>
-                                <li>1x detailed guide for making your own.</li>
-                                <li>1x blank skincare jar label for you to apply</li>
-                            </ul>
-                            
-                            <ul>
-                                <li>Everything you need to make your own tallow skincare (except fragrance and olive oil, which we help you choose yourself based on our instructions).</li>
-                                <li>Includes a simple step-by-step process for sure-fire success of your skincare.</li>
-                                <li>Helpful YouTube videos and tool tips we’ve learned in making our own.</li>
-                                <li>Trusted brands and suppliers for essential oils (with exclusive discount codes to use to save you $$$).</li>
-                                <li>Guides explaining how to tailor the recipe to your skin.</li>
-                            </ul>
-                            
-                            <p>Note: In addition to this kit, you will need to purchase olive oil and essential oils if you need them.</p>   
-                            <p>Quantities provided are enough for 1x jar of your selected size.</p>
+                        <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
+                            <h4>Ingredients</h4>
+                            <p><span class="product-flavour">Beef</span> bones (92%), onions, carrots, celery, apple cider vinegar, salt, spices.</p>
                         </div>
                         <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
                             <h4>Directions</h4>
-                            <p>Apply a small amount on the skin daily in the morning as a moisturiser or evening as a night cream.</p>
+                            <p>Serving size: A single serving is 2 tsp.</p>
+                            <p>How to prepare it:</p>
+                            <ul>
+                                <li>To drink as is - Add two tsp to a cup of hot water, stir and enjoy.</li>
+                                <li>To cook with - Use in place of stock or water in your favorite recipe. Either add 2tsp to 250ml of water or add directly as powder.</li>
+                            </ul>
 
 
 
                         </div>
                         <div class="tab-pane fade" id="storage" role="tabpanel" aria-labelledby="storage-tab">
                             <h4>Storage</h4>
-                            <p>Keep in temperatures below 30 degrees and out of direct sunlight to maintain the shelf life of this balm.</p>
+                            <p>Keep in a cool dry place - 2 years unopened, 4 months after opening.</p>
                         </div>
                         <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
                             <h4>Shipping</h4>
-                            <p><strong>Processing time:</strong> Your order will be shipped within 1-3 business days after payment confirmation.</p>
+                            <p><strong>Processing time:</strong> Your order will be confirmed within 1-3 business days after payment confirmation. After processing, your order will be shipped the next day and you can expect usual courier times to your area (generally 3-5 business days) </p>
                             <p><strong>Shipping rates:</strong> We usually charge between $4.95 and $6.95 for shipping. You can view the shipping costs at the checkout before completing your purchase.</p>
                             <p><strong>International shipping:</strong> Currently, we only offer shipping within New Zealand. We apologize for any inconvenience this may cause.</p>
                             <p>If you have any questions or concerns regarding shipping, please don't hesitate to <a href="contact.html">contact us</a>.</p>
                         </div>
+                        
                     </div>
                 </div>
             
@@ -246,7 +265,6 @@
         </div>
     </div>
 </div>
-<!--
 <div class="row">
    
     <div class="col-12 col-md-6">
@@ -266,7 +284,7 @@
                 <h3 class="accordion-minimal-title">Jam packed with nutrition </h3>
             </div>
             <div class="accordion-minimal-content">
-               <p>Bone broth is a health food thanks to the amount of good nutrients - from protein, collagen to glutamine, magnesium, proline, hydroxyproline, and glycine. It contains high amounts of protein & collagen but low on fat. Protein and collagen is a natural support for joint health, digestion, skin and nails. On top of it, our bone broth is made with the highest ingredients and right water-bones ratio. Gelatinous when chillied, and liquid when warm - this is how real bone broth should be!</p>            </div>
+                <p>Bone broth is a health food thanks to the amount of good nutrients - from protein, collagen to glutamine, magnesium, proline, hydroxyproline, and glycine. It contains high amounts of protein & collagen but low on fat. Protein and collagen is a natural support for joint health, digestion, skin and nails. On top of it, our bone broth is made with the highest ingredients and right water-bones ratio. Gelatinous when chillied, and liquid when warm - this is how real bone broth should be!</p>            </div>
         </div>
         
         <div class="accordion-minimal">
@@ -280,10 +298,9 @@
         </div>
     </div>
     <div class="col-12 col-md-6">
-        <img src="/img/23.webp" alt="billie photo" id="thumbnail">
+        <img src="/img/pplpow.webp" alt="billie photo" id="thumbnail">
     </div>
 </div>
-
     
     <div class="row">
         <div class="eighty middle">
@@ -299,9 +316,10 @@
                   </div>
                 
                   <div class="accordion-item grow">
-                    <h4 class="accordion-heading">How long will bone broth last?</h4>
+                    <h4 class="accordion-heading">How long will bone broth powder last?</h4>
                     <div class="accordion-content">
-                      <p>Refer to the use-by date on the bottle. Once opened, promptly refrigerate unused product at below 5°C and use within 4 days. Do not heat bottle in microwave.</p>
+                      <p>Refer to the use-by date on the packet.</p>
+                      <p>~2 years unopened, 4 months after opening.</p>
                     </div>
                   </div>
 
@@ -322,15 +340,14 @@
                   <div class="accordion-item grow show">
                     <h4 class="accordion-heading">Can pets have your bone broth for people?</h4>
                     <div class="accordion-content">
-                        <p>If you'd like to give your pets a taste of bone broth goodness, we recommend either our <a class="prettylink" href="/shop/product/pets">bone broth powder for dogs and cats</a> or the <a class="prettylink" href="/shop/product/pets-powder">liquid bone broth for pets</a>. Our bone broth for humans has tasty herbs, spices and salt that is fine for people but might upset your pet's bellies.</p>
+                        <p>If you'd like to give your pets a taste of bone broth goodness, we recommend either our <a class="prettylink" href="/shop/product/pets">bone broth powder for dogs and cats</a> or the <a class="prettylink" href="/shop/product/pets">liquid bone broth for pets</a>. Our bone broth for humans has tasty herbs, spices and salt that is fine for people but might upset your pet's bellies.</p>
                     </div>
                   </div>
 
               </div>                         
             </div>
         </div>
-        -->
-   <!-- <div class="peach mb-0">
+  <!--  <div class="peach mb-0">
         <div class="row mb-0 mx-8 justify-content-center">
         <div class="col-12 col-md-4 ">
             <h2>Reviews</h2>
