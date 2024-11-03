@@ -20,6 +20,16 @@
     <script src="https://js.stripe.com/v3/"></script> <!-- Stripe script -->
 </head>
 <body>
+    <style>
+
+        .custom-radio input[type="radio"]:checked + .custom-radio-label::before {
+          background-color: orange;
+        }
+        
+        .custom-radio-label {
+            color: orange;
+        }
+            </style>
     {{- partial "alert.html" . -}}
     {{- partial "header.html" . -}}
     
@@ -30,6 +40,10 @@
             </div>
             <div class="col-xs-12 col-lg-6">
                 <h1 class="my-4">Tallow Balm & Broth Powder - Inside & out wellness bundle</h1>
+                <div class="custom-radio" >
+                    <input type="radio" id="inStock" name="stockStatus" checked>
+                    <label class="custom-radio-label mb-4" for="inStock">Backorder - stock arrives week of the 18th Nov. Orders placed until then will be shipped when availability allows.</label>
+                </div>
                 <p id="priceDisplay" class="product-price"></p> <!-- Placeholder for the price -->
 
                 <!-- Product Form Options with Bootstrap Styling -->
