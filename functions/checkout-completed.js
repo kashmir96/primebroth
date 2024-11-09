@@ -23,6 +23,7 @@ exports.handler = async (event, context) => {
   
   try {
     stripeEvent = stripe.webhooks.constructEvent(event.body, sig, webhookSecret);
+    console.log('Stripe event verified:', stripeEvent.type);  // Log successful verification
   } catch (err) {
     console.error('⚠️  Webhook signature verification failed:', err.message);
     return { statusCode: 400, body: `Webhook Error: ${err.message}` };
@@ -38,20 +39,21 @@ exports.handler = async (event, context) => {
       email: customerEmail,
       amount_total: session.amount_total,
       currency: session.currency,
-      productId: session.metadata ? session.metadata.product_id : null,  // Check for metadata
+      productId: session.metadata ? session.metadata.product_id : 'N/A',  // Use a default if metadata is missing
     };
+
+    console.log(`Attempting to track purchase for ${customerEmail} with data:`, purchaseData);
 
     // Call your function to track the purchase
     await trackPurchase(purchaseData.email);
 
-    // Optionally, log or process further if needed
-    console.log(`Purchase completed for ${customerEmail}`, purchaseData);
+    console.log(`Purchase event successfully processed for ${customerEmail}`);
   }
 
   return { statusCode: 200, body: 'Webhook received successfully' };
 };
 
-// Example function to track purchase via Facebook Conversions API
+// Function to track purchase via Facebook Conversions API
 async function trackPurchase(email) {
   const hashedEmail = crypto.createHash('sha256').update(email.toLowerCase()).digest('hex');  // Hash email for privacy
   const TEST_EVENT_CODE = 'TEST68588';  // Replace with your test event code from Facebook
@@ -66,6 +68,8 @@ async function trackPurchase(email) {
     ],
     test_event_code: TEST_EVENT_CODE  // Add the test event code at the root level
   };
+
+  console.log('Sending event to Facebook:', requestBody);
 
   try {
     const response = await fetch(`https://graph.facebook.com/v21.0/${FACEBOOK_PIXEL_ID}/events?access_token=${ACCESS_TOKEN}`, {
@@ -84,5 +88,3 @@ async function trackPurchase(email) {
     console.error('Error in Facebook Conversions API:', error);
   }
 }
-
-
