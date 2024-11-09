@@ -1,4 +1,4 @@
-// netlify/functions/facebook-conversion.js
+// netlify/functions/track-event.js
 const fetch = require('node-fetch');  // Import fetch for making HTTP requests
 const crypto = require('crypto');    // Node.js built-in module for hashing
 
@@ -54,11 +54,11 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({ error: 'Internal Server Error' }),
     };
   }
-}; (edited) 
-8:53
+}; 
+
 // Assuming the email is collected when the user submits a form or makes a purchase
 function trackPurchase(email) {
-  fetch('/.netlify/functions/facebook-conversion', {
+  fetch('/.netlify/functions/track-event', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
