@@ -62,9 +62,9 @@ async function trackPurchase(email) {
         event_name: 'Purchase',
         event_time: Math.floor(Date.now() / 1000),
         user_data: { em: hashedEmail },
-        test_event_code: TEST_EVENT_CODE  // Add the test event code
       },
     ],
+    test_event_code: TEST_EVENT_CODE  // Add the test event code at the root level
   };
 
   try {
@@ -74,11 +74,11 @@ async function trackPurchase(email) {
       body: JSON.stringify(requestBody),
     });
 
+    const responseData = await response.json();
     if (!response.ok) {
-      const errorData = await response.json();
-      console.error('Error sending event to Facebook:', errorData);
+      console.error('Error sending event to Facebook:', responseData);
     } else {
-      console.log('Event successfully sent to Facebook.');
+      console.log('Event successfully sent to Facebook:', responseData);
     }
   } catch (error) {
     console.error('Error in Facebook Conversions API:', error);
