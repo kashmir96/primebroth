@@ -1,8 +1,8 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const crypto = require('crypto');  // Import crypto for hashing email
 
-const FACEBOOK_PIXEL_ID = '782322663734369';  // Replace with your Pixel ID
-const ACCESS_TOKEN = 'EAALoG9CF1ZCYBOxMiHto5fd7QV1Ug8iDmdJS6AJDLlwFUFaEHZBCwcNBDt3MZA5VH3V3v7uyUn0XDlU1npQzZCDUZAubr9TDWudxGZAEwZB4OImVpufP8WCmZA2ZAWCZBQxcFaXGtekmZAq5NtbZCvuDe7nUXW7hlLnFm2PZAJ4Y0IBpZAsXTuznQB7cJn0AQubeLzwq18bQZDZD';  // Replace with your Access Token
+const FACEBOOK_PIXEL_ID = '809100344281173';  // Replace with your Pixel ID
+const ACCESS_TOKEN = 'EAALoG9CF1ZCYBO6KZCXIFjXtCFTInHi3ugWECh2HNKooaRlUoUZBqSHBiN3uoREhZC3FHASfBMWX7A31c5Nv2LKZBKBH2UnCA2OMJZBH9cpEY7O6BOtW5QXCiFi1SnBJzSi3cejTWXBoR4Xc0jkmg6GkrG12VmbWm7jC3MvKQAyplivKBQckzzqYeXaq0yNmi19AZDZD';  // Replace with your Access Token
 const webhookSecret = process.env.CHECKOUT_COMPLETED_SECRET;
 
 exports.handler = async (event, context) => {
@@ -54,7 +54,7 @@ exports.handler = async (event, context) => {
 // Example function to track purchase via Facebook Conversions API
 async function trackPurchase(email) {
   const hashedEmail = crypto.createHash('sha256').update(email.toLowerCase()).digest('hex');  // Hash email for privacy
-  const TEST_EVENT_CODE = 'TEST1107';  // Replace with your test event code from Facebook
+  const TEST_EVENT_CODE = 'TEST68588';  // Replace with your test event code from Facebook
 
   const requestBody = {
     data: [
@@ -84,3 +84,5 @@ async function trackPurchase(email) {
     console.error('Error in Facebook Conversions API:', error);
   }
 }
+
+
