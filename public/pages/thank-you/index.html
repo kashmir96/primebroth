@@ -316,40 +316,6 @@
         });
     </script>
    
-   <script>
-    window.addEventListener('load', function() {
-        
-        let totalCost = localStorage.getItem("totalCost");
-
-        
-        totalCost = parseFloat(totalCost);
-        if (isNaN(totalCost) || totalCost <= 0) {
-            console.error("Invalid total cost:", totalCost);
-            totalCost = 0; 
-        } else {
-            console.log("Valid total cost retrieved:", totalCost);
-        }
-
-        const currency = "NZD"; 
-        const userEmail = "hashed_email_here"; 
-
-        fetch("/.netlify/functions/track-event", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                action: "Purchase",        
-                currency: currency,
-                userData: {
-                    em: userEmail         
-                }
-            })
-        })
-        .then(response => response.json())
-        .then(data => console.log("Conversion event sent:", data))
-        .catch(error => console.error("Error sending conversion event:", error));
-    });
-</script>
-
 
 
 

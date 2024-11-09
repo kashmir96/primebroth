@@ -128,40 +128,6 @@
             });
         });
     </script>
-   
-   <script>
-    window.addEventListener('load', function() {
-        // Retrieve total cost from localStorage
-        let totalCost = localStorage.getItem("totalCost");
-
-        // Convert totalCost to a number and validate
-        totalCost = parseFloat(totalCost);
-        if (isNaN(totalCost) || totalCost <= 0) {
-            console.error("Invalid total cost:", totalCost);
-            totalCost = 0; // Set a fallback or handle error as needed
-        } else {
-            console.log("Valid total cost retrieved:", totalCost);
-        }
-
-        const currency = "NZD"; // Set your currency
-        const userEmail = "hashed_email_here"; // Replace with actual hashed email if available
-
-        fetch("/.netlify/functions/track-event", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                action: "Purchase",        // Facebook event name
-                currency: currency,
-                userData: {
-                    em: userEmail         // Replace with hashed email if available
-                }
-            })
-        })
-        .then(response => response.json())
-        .then(data => console.log("Conversion event sent:", data))
-        .catch(error => console.error("Error sending conversion event:", error));
-    });
-</script>
 
 
 
