@@ -60,6 +60,7 @@ async function trackPurchase(email) {
         event_name: 'Purchase',
         event_time: Math.floor(Date.now() / 1000),
         user_data: { em: hashedEmail },
+        test_event_code: TEST1107  // Add the test event code
       },
     ],
   };
