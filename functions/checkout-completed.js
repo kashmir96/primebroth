@@ -2,7 +2,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const crypto = require('crypto');  // Import crypto for hashing email
 
 const FACEBOOK_PIXEL_ID = '809100344281173';  // Replace with your Pixel ID
-const ACCESS_TOKEN = 'EAAU9shr9R4gBO0liRd17Q4qSuPWsaq4O2AT8nbc4SLOwILbfdeGlIIDZArDIfmyCER94PiVToweFgqLca9AYzuVOl4IUfSWZBxcZAcuWnPxzyvnaszTXBvfkGxQBy1N1kQ4Ymb96L7SZCvfJCnRoZAuFIok52rur0B3HOJegQZAMz7ZCiRUyxEQ7ZBxmPS4911Y1cni8PzcZC78ZCkjNFZCOQZDZD';  // Replace with your Access Token
+const ACCESS_TOKEN = 'EAAU9shr9R4gBO2r17GFpgNP9LpZAvq8EUkpetaJG75ZAxOXnLZBZCtUfjcs0BnTu17leRfZATGUYmGppK1BrfIBP94BZBdCzb5yCTrj2tw2AeDiHPERBZBXZCuQJAln3JPCqviVlxPVbDXZBq0F8n45cPbjBZAYioouT8kDR7xSAjqwP3UoOwRIP8CWYRFTcoWZBWjvsfMyqOw1sARtudxqcLwrtY2XckSmyc4uwQZDZD';  // Replace with your Access Token
 const webhookSecret = process.env.CHECKOUT_COMPLETED_SECRET;
 
 exports.handler = async (event, context) => {
