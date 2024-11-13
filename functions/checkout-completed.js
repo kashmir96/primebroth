@@ -56,7 +56,6 @@ exports.handler = async (event, context) => {
 // Function to track purchase via Facebook Conversions API
 async function trackPurchase(email) {
   const hashedEmail = crypto.createHash('sha256').update(email.toLowerCase()).digest('hex');  // Hash email for privacy
-  const TEST_EVENT_CODE = 'TEST68588';  // Replace with your test event code from Facebook
 
   const requestBody = {
     data: [

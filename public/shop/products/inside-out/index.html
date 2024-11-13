@@ -250,7 +250,9 @@
                     <div class="form-group mb-4">
                         <label for="productSize" class="font-weight-bold">Select Size:</label>
                         <select id="productSize" class="form-control">
+                            <option value="60ml">60ml</option>
                             <option value="100ml">100ml</option>
+                            <option value="175ml">175ml</option>
                             <option value="200ml">200ml</option>
                         </select>
                     </div>
@@ -313,13 +315,10 @@
                         <p>We are a CHCH-based bone broth business and found ourselves wasting too much beef tallow. So we decided to make tallow balm skincare products from it! </p>
                         <p>Beef tallow balm is an amazing, natural moisturiser! It nourishes your skin without clogging pores and also fights skin conditions like eczema. </p>
                             <p>Selling in jars of 100ml and 200ml at a price others can't match due to it being a byproduct of our other products!</p>
-                        <p>You can come purchase from us at Ohoka or Lyttelton markets every week or order here! Shipping available NZ wide.</p>
-
-                        <p>Pick your essential oil: lavender, francensent, light vanilla, rose.</p>
-
+                        <p>You can come purchase from us at Ohoka markets every week or order here! Shipping available NZ wide.</p>
+                    
                         
-                        
-                                               
+                                             
                         
                         
                         
@@ -414,36 +413,46 @@
             function getPriceText(priceID) {
     
     switch (priceID) {
-        case 'price_1Pz7oyABkrUo6tgObYewp2Xf':
-        case 'price_1Pz7vbABkrUo6tgOUoGD9UWo':
-        case 'price_1Pz7pcABkrUo6tgOHcr5bmHw':
-        case 'price_1Pz7w3ABkrUo6tgOATV4z3h0':
-        case 'price_1Pz7r6ABkrUo6tgOLwMfAVlb':
-        case 'price_1Pz7weABkrUo6tgOiEqac38O':
-        case 'price_1Pz7reABkrUo6tgOMbdeYote':
-        case 'price_1Pz7xAABkrUo6tgOuAmDbpWG':
-        case 'price_1Pz7tZABkrUo6tgO285EgEUf':
-        case 'price_1Pz7xgABkrUo6tgO0vvvuUkT':
-        case 'price_1Pz7u6ABkrUo6tgOcrfLiVID':
-        case 'price_1Pz7yCABkrUo6tgOsEtlvSMk':
-        case 'price_1Pz7ucABkrUo6tgOnNVuDc6g':
-        case 'price_1Pz7yiABkrUo6tgOewhFXvAU':
-            return 19.00; 
+        case '':
+        case '':
+        case '':
+        case '':
+        case '':
+        case '':
+        case '':
+        case '':
+            return 12.95; 
 
-        case 'price_1Pz7pLABkrUo6tgO64C6LHwX':
-        case 'price_1Pz7vqABkrUo6tgOPDeG8KOK':
-        case 'price_1Pz7puABkrUo6tgOOI5Acwlf':
-        case 'price_1Pz7wPABkrUo6tgOvPY58P8j':
-        case 'price_1Pz7rNABkrUo6tgOB6I2QCQM':
-        case 'price_1Pz7wxABkrUo6tgOwACtqLHw':
-        case 'price_1Pz7tHABkrUo6tgOuepirD6K':
-        case 'price_1Pz7xOABkrUo6tgOQX0bfFqn':
-        case 'price_1Pz7tqABkrUo6tgODVbg9mby':
-        case 'price_1Pz7xwABkrUo6tgOXcplWFcy':
-        case 'price_1Pz7uNABkrUo6tgOdCg5tuVu':
-        case 'price_1Pz7ySABkrUo6tgOpZ6odGOS':
-        case 'price_1Pz7usABkrUo6tgOA5XUfCSI':
-        case 'price_1Pz7yyABkrUo6tgO5gl0ZuTq':
+        case '':
+        case '':
+        case '':
+        case '':
+        case '':
+        case '':
+        case '':
+        case '':
+
+            return 18.95; 
+
+        case '':
+        case '':
+        case '':
+        case '':
+        case '':
+        case '':
+        case '':
+        case '':
+
+            return 30.95; 
+
+        case '':
+        case '':
+        case '':
+        case '':
+        case '':
+        case '':
+        case '':
+        case '':
             return 35.00; 
 
         default:
@@ -483,22 +492,25 @@
 
             const priceIDs = {
                 olive: {
-                    lavendar: { '100ml': 'price_1Pz7oyABkrUo6tgObYewp2Xf', '200ml': 'price_1Pz7pLABkrUo6tgO64C6LHwX' },
-                    rose: { '100ml': 'price_1Pz7pcABkrUo6tgOHcr5bmHw', '200ml': 'price_1Pz7puABkrUo6tgOOI5Acwlf' },
-                    neutral: { '100ml': 'price_1Pz7r6ABkrUo6tgOLwMfAVlb', '200ml': 'price_1Pz7rNABkrUo6tgOB6I2QCQM' },
-                    vanilla: { '100ml': 'price_1Pz7reABkrUo6tgOMbdeYote', '200ml': 'price_1Pz7tHABkrUo6tgOuepirD6K' },
-                    francensense: { '100ml': 'price_1Pz7tZABkrUo6tgO285EgEUf', '200ml': 'price_1Pz7tqABkrUo6tgODVbg9mby' },
-                    patchouli: { '100ml': 'price_1Pz7u6ABkrUo6tgOcrfLiVID', '200ml': 'price_1Pz7uNABkrUo6tgOdCg5tuVu' },
-                    sweetorange: { '100ml': 'price_1Pz7ucABkrUo6tgOnNVuDc6g', '200ml': 'price_1Pz7usABkrUo6tgOA5XUfCSI' }
+                    lavendar: { '60ml': '', '100ml': '', '175ml': '', '200ml': '' },
+                    rose: { '60ml': '', '100ml': '', '175ml': '', '200ml': '' },
+                    neutral: { '60ml': '', '100ml': '', '175ml': '', '200ml': '' },
+                    vanilla: { '60ml': '', '100ml': '', '175ml': '', '200ml': '' },
+                    patchouli: { '60ml': '', '100ml': '', '175ml': '', '200ml': '' },
+                    sweetorange: { '60ml': '', '100ml': '', '175ml': '', '200ml': '' },
+                    cedar: { '60ml': '', '100ml': '', '175ml': '', '200ml': '' },
+                    frankincense: { '60ml': '', '100ml': '', '175ml': '', '200ml': '' }
+
                 },
                 jojoba: {
-                    lavendar: { '100ml': 'price_1Pz7vbABkrUo6tgOUoGD9UWo', '200ml': 'price_1Pz7vqABkrUo6tgOPDeG8KOK' },
-                    rose: { '100ml': 'price_1Pz7w3ABkrUo6tgOATV4z3h0', '200ml': 'price_1Pz7wPABkrUo6tgOvPY58P8j' },
-                    neutral: { '100ml': 'price_1Pz7weABkrUo6tgOiEqac38O', '200ml': 'price_1Pz7wxABkrUo6tgOwACtqLHw' },
-                    vanilla: { '100ml': 'price_1Pz7xAABkrUo6tgOuAmDbpWG', '200ml': 'price_1Pz7xOABkrUo6tgOQX0bfFqn' },
-                    francensense: { '100ml': 'price_1Pz7xgABkrUo6tgO0vvvuUkT', '200ml': 'price_1Pz7xwABkrUo6tgOXcplWFcy' },
-                    patchouli: { '100ml': 'price_1Pz7yCABkrUo6tgOsEtlvSMk', '200ml': 'price_1Pz7ySABkrUo6tgOpZ6odGOS' },
-                    sweetorange: { '100ml': 'price_1Pz7yiABkrUo6tgOewhFXvAU', '200ml': 'price_1Pz7yyABkrUo6tgO5gl0ZuTq' }
+                    lavendar: { '60ml': '', '100ml': '', '175ml': '', '200ml': '' },
+                    rose: { '60ml': '', '100ml': '', '175ml': '', '200ml': '' },
+                    neutral: { '60ml': '', '100ml': '', '175ml': '', '200ml': '' },
+                    vanilla: { '60ml': '', '100ml': '', '175ml': '', '200ml': '' },
+                    patchouli: { '60ml': '', '100ml': '', '175ml': '', '200ml': '' },
+                    sweetorange: { '60ml': '', '100ml': '', '175ml': '', '200ml': '' },
+                    cedar: { '60ml': '', '100ml': '', '175ml': '', '200ml': '' },
+                    frankincense: { '60ml': '', '100ml': '', '175ml': '', '200ml': '' }
                 }
             };
 
@@ -541,12 +553,16 @@
         
         const priceDisplay = document.getElementById('priceDisplay');
 
-        
-        if (selectedSize === '100ml') {
-            priceDisplay.innerHTML = '$19.00';
+       
+        if (selectedSize === '60ml') {
+            priceDisplay.innerHTML = '$12.95';
+        } else if (selectedSize === '100ml') {
+            priceDisplay.innerHTML = '$18.95';
+        } else if (selectedSize === '175ml') {
+            priceDisplay.innerHTML = '$30.95';
         } else if (selectedSize === '200ml') {
             priceDisplay.innerHTML = '$35.00';
-        }
+        } 
     }
 
     

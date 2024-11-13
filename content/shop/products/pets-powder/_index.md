@@ -4,8 +4,8 @@ description: "Bone Broth Powder for dogs and cats. PrimeBroth, NZ's animal based
 type: custom
 layout: products/pets-powder
 beefpricesmalllink: 
-beefpricemediumlink: price_1QBShgABkrUo6tgOCS0H7c5C
-beefpricelargelink: price_1QBSfxABkrUo6tgOPQRd6f9k
+beefpricemediumlink: price_1QKTaRFZRwx5tlYm3028Y3oc
+beefpricelargelink: price_1QKTaRFZRwx5tlYmXvodZMD2
 chickenpricesmalllink: 
 chickenpricemediumlink: 
 chickenpricelargelink: 
