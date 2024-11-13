@@ -7,7 +7,7 @@ exports.handler = async (event, context) => {
     // Check if the cart is valid
     if (!cart || !Array.isArray(cart) || cart.length === 0) {
       throw new Error('Cart is empty or not provided.');
-    } 
+    }
 
     // Retrieve the landing URL from cookies (sent from frontend)
     const landingURL = event.headers.cookie
