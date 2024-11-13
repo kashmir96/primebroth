@@ -11,7 +11,7 @@ balm-or-patch-60ml: price_1QKSRZFZRwx5tlYmsF1znI5b
 balm-or-orang-60ml: price_1QKSRhFZRwx5tlYmTsbpXBiz
 balm-or-cedar-60ml: price_1QKSRpFZRwx5tlYmuB7ZpvMC
 balm-or-frank-60ml: price_1QKlwqFZRwx5tlYmBXKLp3kq
-balm-or-lav-100ml: price_1QKST7FZRwx5tlYmxZ1xMFpw
+balm-or-lav-100ml: price_1QKTaPFZRwx5tlYmKZBLej84
 balm-or-ros-100ml: price_1QKSTGFZRwx5tlYmhEX3Z8e8
 balm-or-neu-100ml: price_1QKSTOFZRwx5tlYmue2Umffj
 balm-or-van-100ml: price_1QKSTXFZRwx5tlYmz4B6v2KY
