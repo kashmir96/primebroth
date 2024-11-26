@@ -14,8 +14,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
-        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
 </head>
 <body>
     
@@ -30,23 +28,23 @@
     <div class="container">
         <div style="margin-bottom: 0px;" class="row max-width peach shopsection"> 
             <h1 class="text-center">Contact us</h1>
-            <p  class="text-center">Flick us a message and we'll be in touch asap.</p>               
-            
+            <p class="text-center">Flick us a message and we'll be in touch asap.</p>               
 
-            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" 
-            onload="if(submitted) {alert('Thanks for your submission, we\'ll be in touch soon.');}"></iframe>
-            
             <div class="custom-form">
-                <form action="https://docs.google.com/forms/d/e/1FAIpQLSfCz2NvYjIjth9rGYWWCvfwpNBWUEP6GFuIsFWJjbhPFOVZnA/formResponse" 
-                        method="post" target="hidden_iframe" onsubmit="return validateForm();">
+                <form id="contact-form" method="POST" data-netlify="true" name="contact">
+                    <input type="hidden" name="form-name" value="contact">
+                    
                     <label>Name*</label>
-                    <input type="text" placeholder="Your Name" class="form-input" name="entry.1326402305" required>
+                    <input type="text" placeholder="Your Name" class="form-input" name="name" required>
                     
                     <label>Email*</label>
-                    <input type="email" placeholder="your@email.com" class="form-input" name="entry.1203864932" required>
+                    <input type="email" placeholder="your@email.com" class="form-input" name="email" required>
+                    
+                    <label>Subject*</label>
+                    <input type="text" placeholder="Enter Subject" class="form-input" name="subject" required>
                     
                     <label>Message*</label>
-                    <textarea rows="5" placeholder="Enter Message" class="form-input" name="entry.1145877639" required></textarea>
+                    <textarea rows="5" placeholder="Enter Message" class="form-input" name="message" required></textarea>
                 
                     <label>Are you a robot? What's 5+1?*</label>
                     <input type="text" id="specialField" placeholder="Answer correctly to submit" class="form-input" required>
@@ -54,37 +52,24 @@
                     <button id="contact-submit" class="btn btn-primary" type="submit">Send</button>
                 </form>
             </div>
-
-
         </div>
     </div>
-    <!-- Add html above 
+
+    <!-- Add html above -->
     <script>
-        window.addEventListener('load', (event) => {
-          document.getElementById('contact-submit').addEventListener('click', () => {
-            fathom.trackEvent('Contact submit');
-          });
-        });
-        </script>-->
-        <script>
-            window.addEventListener('load', (event) => {
-              document.getElementById('contact-submit').addEventListener('click', () => {
+        window.addEventListener('load', () => {
+            document.getElementById('contact-submit').addEventListener('click', () => {
                 gtag('event', 'contact_submit', {
-                  'event_category': 'form',
-                  'event_label': 'contact-submit',
-                  'value': 1
+                    'event_category': 'form',
+                    'event_label': 'contact-submit',
+                    'value': 1
                 });
-              });
             });
-          </script>
-          
-    <script type="text/javascript">
-        var submitted = false;
-    
+        });
+
         function validateForm() {
-            var inputField = document.getElementById('specialField');
-            if (inputField.value == '6') {
-                submitted = true;
+            const inputField = document.getElementById('specialField');
+            if (inputField.value === '6') {
                 return true;
             } else {
                 alert('Please enter the correct number in the robot detection field.');
@@ -95,4 +80,3 @@
     {{- partial "footer.html" . -}}
 </body>
 </html>
-

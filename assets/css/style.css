@@ -2633,6 +2633,27 @@ input[type="submit"].fcf-btn-block, input[type="reset"].fcf-btn-block, input[typ
   background-position: fixed; /* Adjust this property as per your preference */
 }
 
+.hero {
+  background-image: url('/img/home/hero.webp');
+  background-size: cover; /* Adjust this property as per your preference */
+  background-position: fixed; /* Adjust this property as per your preference */
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .hero {
+    background-image: url('/img/home/heromob.webp');
+    min-height: 100vh !important;
+  }
+
+}
+
+.starter {
+  background-image: url('/img/home/starter.webp');
+  background-size: cover; /* Adjust this property as per your preference */
+  background-position: fixed; /* Adjust this property as per your preference */
+}
+
 .short-banner {
   background-image: url('/img/making.webp');
   background-size: cover; /* Adjust this property as per your preference */
@@ -2944,7 +2965,7 @@ input[type="submit"].fcf-btn-block, input[type="reset"].fcf-btn-block, input[typ
   }
   
   .logo {
-    width: 50px;
+    width: 100px;
   }
 
   body h1, h2, h3 {
@@ -2983,15 +3004,15 @@ nav.p-8 {
 }
 
 
-.scrollbanner, .topbanner, .announcement {
+.scrollbanner, .topbanner, .announcement, .hero, .starter {
   position: relative;
 }
 
-.topbanner, .announcement {
+.topbanner, .announcement, .hero, .starter {
   padding: 0px;
 }
 
-.announcement, .middle {
+.announcement, .middle, .hero, .starter {
   margin: 0px auto;
 }
 
@@ -2999,10 +3020,11 @@ nav.p-8 {
   margin: 0px;
 }
 
-.topbanner {
+.topbanner, .hero, .starter {
   min-height: 68vh;
   margin:0px;
 }
+
 
 .bannertext {
   justify-content: center;
@@ -3178,7 +3200,7 @@ h6 {
 }
 
 .sitelogo {
-  width: 100px;
+  width: 200px;
   margin: 0px; 
 }
 
@@ -4075,4 +4097,132 @@ float: left;
   font-size: 12px;
 }
 
+.hero p, .hero h1,.hero h2,.hero h3,.hero h4,.hero h5,.hero h6 {
+  color: white !important;
+}
 
+.hero .btn { 
+  color: black !important;
+  background-color: white !important;
+  border: 0px solid white !important;
+}
+
+.starter { 
+  align-items: center;
+  text-align: center;
+}
+
+.icons img { 
+  width: 100px;
+  margin: 0px auto;
+}
+
+.lime { 
+  background-color: #EDFCEE;
+}
+
+.faq-nav-tabs a, .faq-nav-tabs a:hover  { 
+  color: black;
+}
+
+.nav-tabs .nav-item {
+  list-style-type: none; /* Removes default list styling */
+  background: none; /* Ensures no background shape appears */
+}
+
+.nav-tabs .nav-link {
+  text-decoration: none; /* Optional: Ensures clean text style */
+}
+
+ .nav-tabs {
+  display: flex; /* Enable flexbox for horizontal layout */
+  overflow-x: auto; /* Allow horizontal scrolling */
+  overflow-y: hidden; /* Hide vertical scroll (optional) */
+  white-space: nowrap; /* Prevent text wrapping */
+  scroll-behavior: smooth; /* Smooth scrolling (optional) */
+  -webkit-overflow-scrolling: touch; /* Enhance scrolling for touch devices */
+
+ }
+
+ /* Milk and Honey Font */
+@font-face {
+  font-family: 'Milk and Honey';
+  src: url('/assets/fonts/milk-and-honey.woff') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Open Sans Font */
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/opensans-variable.woff') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Vintage Brush Font */
+@font-face {
+  font-family: 'Vintage Brush';
+  src: url('/assets/fonts/vintage-brush.woff') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Roboto - Regular (400) */
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/roboto-regular.woff') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Roboto - Medium (500) */
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/roboto-medium.woff') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* Roboto - Bold (700) */
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/roboto-bold.woff') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* General Font Styling */
+
+/* Milk and Honey for H1 and H2 */
+h1, h2 {
+  font-family: 'Vintage Brush', cursive;
+}
+
+.hero h1 { 
+  font-size: 400%; /* 150% of the inherited or base font size */
+}
+
+.hero p { 
+  font-size: 150%; /* 150% of the inherited or base font size */
+}
+
+/* Roboto for all other text */
+body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400; /* Default weight (Regular) */
+  font-style: normal;
+  line-height: 1.6;
+}
+
+/* Roboto Medium for specific elements */
+.medium-text {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500; /* Medium weight */
+}
+
+/* Roboto Bold for strong emphasis */
+strong, b {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700; /* Bold weight */
+}

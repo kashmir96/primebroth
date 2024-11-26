@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    {{- partial "head.html" . -}}
+    <meta name="description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta property="og:title" content="{{ .Site.Params.homepage_meta_tags.meta_og_title }}" />
+    <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
+    <meta property="og:url" content="{{ .Site.Params.homepage_meta_tags.meta_og_url }}" />
+    <meta property="og:image" content="{{ .Site.Params.homepage_meta_tags.meta_og_image }}" />
+    <meta property="og:description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
+    <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
+    <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=667c998f7bead90019480329&product=inline-share-buttons&source=platform" async="async"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+</head>
+<body>
+
+    <style>
+
+.custom-radio input[type="radio"]:checked + .custom-radio-label::before {
+  background-color: green;
+}
+
+.custom-radio-label {
+    color: green;
+}
+    </style>
+    
+    {{ if .Params.charity }}
+<div class="announcement full-width black text-center">
+    <ul>
+        <li>Proceeds from this page are donated to {{ .Params.charity }}.</li>
+    </ul>
+</div>
+{{ else }}
+{{- partial "alert.html" . -}}
+{{ end }}
+
+
+
+    {{- partial "header.html" . -}}
+    <div class="scroll-top rounded-full">
+        <span class="icon-keyboard_arrow_up text-2xl"></span>
+    </div>
+    {{- partial "slide.html" . -}}
+    {{- partial "strip.html" . -}}
+    <!-- Add html below -->
+
+    <div class="container">
+        <div class="row topbanner rel">
+            <div class="col-xs-12 col-lg-6 product-photos">
+                {{- partial "tallowcookingimages.html" . -}}
+            </div>            
+        
+            <div class="col-xs-12 col-lg-6">
+                <h1>Vitallow Organic Beef Tallow (Cooking only)</h1>
+
+                <!-- Hardcoded price display -->
+                <div id="pricePartialSmall" class="product-info">
+                    <p>$18.95</p>
+                </div>       
+                
+            <div class="dropdown-container">
+                <div class="dropdown-group">
+                    <select id="productFlavour" name="productFlavour">
+                        <option value="beef" data-image="/img/post-a-1.webp"
+                                data-flavour-price-small="{{ .Params.beefpricesmalllink }}"
+                                data-flavour-price-medium="{{ .Params.beefpricemediumlink }}"
+                                data-flavour-price-large="{{ .Params.beefpricelargelink }}" selected>Beef</option>
+                       
+                    </select>
+                </div>
+                
+                <div class="dropdown-group">
+                    <select id="productSize" name="productSize">
+                        <option value="small" data-image="/img/vit1.webp">440g</option>
+                    </select>
+                </div>
+                <div class="quantity-container">
+                    <label for="quantityAll">Qty </label>
+                    <input type="number" id="quantityAll" name="quantity" min="1" value="1">
+                </div>
+                
+            </div> 
+                
+            <div class="custom-radio" >
+                <input type="radio" id="inStock" name="stockStatus" checked>
+                <label class="custom-radio-label mb-4" for="inStock">In stock</label>
+            </div>
+                
+                <div id="productsmall" class="product-info">
+                    <button class="btn btn-primary buy-now" data-price-id="price_1QKTaEFZRwx5tlYm0E1ZhKrn" data-quantity-id="quantityAll">Add To Cart</button>
+                </div>
+                
+                
+
+                <img class="badges" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
+               
+             <div class="row mt-0 trust" style="margin-top:-50px;margin-bottom:-50px; font-size:90%;">
+                    <div class="col-4">
+                        <img src="/img/delivery.webp">
+                        <p>Free delivery over $80</p>
+                    </div>
+                    <div class="col-4">
+                        <img src="/img/exclusive.webp">
+                        <p>Money back guarantee</p>
+                    </div>
+                    <div class="col-4">
+                        <img src="/img/kiwi.webp">
+                        <p>Used by 100s of Kiwis</p>
+                    </div>
+                </div>
+                
+                
+            </div>
+
+            <div class="row mt-0">
+                <div class="col-12 col-md-6">
+                    <img src="/img/markets/11.webp" alt="Click to watch video" id="thumbnail" data-video-id="videoContainer1">
+            </div>
+                <div class="faq-tab-container col-12 col-md-6">
+                    <!-- Nav tabs -->
+                    <div class="faq-nav-tabs">
+                        <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</div>
+                        <div class="faq-nav-tab" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</div>
+                        <div class="faq-nav-tab" id="directions-tab" data-toggle="tab" href="#directions" role="tab" aria-controls="directions" aria-selected="false">Directions</div>
+                        <div class="faq-nav-tab" id="storage-tab" data-toggle="tab" href="#storage" role="tab" aria-controls="storage" aria-selected="false">Storage</div>
+                        <div class="faq-nav-tab" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</div>
+                    </div>
+            
+                    <!-- Tab panes -->
+                    <div class="tab-content faq-tab-content">
+                        <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                            <h4>Description</h4>
+                            <p>Vitallow Organic Beef Tallow is made from organic fat supplied by The Organic Farm Butchery.</p>
+                            <p>This nutrient-rich tallow is loaded with essential fat-soluble vitamins, such as A, D, E, and K2.</p>
+                            <p>Ideal for high-temperature cooking, tallow’s high smoke point ensures stability.</p>
+                            <p>Though not certified organic due to the abattoir’s status, all animals are sourced from certified organic farms in Hawkes Bay.</p>            
+                                                  
+                        </div>
+                        <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
+                            <h4>Ingredients</h4>
+                            <p>100% Beef fat sourced from organic farms</p>
+                        </div>
+                        <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
+                            <h4>Directions</h4>
+                            <p>Using a knife or spoon, scrape off the required amount of tallow for your steak, sauce or other food item.</p>
+
+
+
+                        </div>
+                        <div class="tab-pane fade" id="storage" role="tabpanel" aria-labelledby="storage-tab">
+                            <h4>Storage</h4>
+                            <p>Keep refridgerated once opened, see sticker on jar for best before date.</p>
+                        </div>
+                        <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
+                            <h4>Shipping</h4>
+                            <p><strong>Processing time:</strong> Your order will be confirmed within 1-3 business days after payment confirmation. After processing, your order will be shipped the next day and you can expect usual courier times to your area (generally 3-5 business days) </p>
+                            <p><strong>Shipping rates:</strong> We usually charge between $4.95 and $6.95 for shipping. You can view the shipping costs at the checkout before completing your purchase.</p>
+                            <p><strong>International shipping:</strong> Currently, we only offer shipping within New Zealand. We apologize for any inconvenience this may cause.</p>
+                            <p>If you have any questions or concerns regarding shipping, please don't hesitate to <a href="contact.html">contact us</a>.</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        var tabs = document.querySelectorAll('.faq-nav-tab');
+                        tabs.forEach(function(tab) {
+                            tab.addEventListener('click', function() {
+                                document.querySelector('.faq-nav-tab.active').classList.remove('active');
+                                tab.classList.add('active');
+                                var tabContent = document.querySelector('.faq-tab-content .tab-pane.show.active');
+                                tabContent.classList.remove('show', 'active');
+                                var target = tab.getAttribute('href');
+                                document.querySelector(target).classList.add('show', 'active');
+                            });
+                        });
+                    });
+                </script>
+                </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+
+{{- partial "stripe.html" . -}}    
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const accordions = document.querySelectorAll(".accordion-minimal");
+
+    accordions.forEach(accordion => {
+        const header = accordion.querySelector(".accordion-minimal-header");
+
+        header.addEventListener("click", function() {
+            // Close all accordions
+            accordions.forEach(acc => {
+                if (acc !== accordion) {
+                    acc.querySelector(".accordion-minimal-content").classList.remove("show");
+                }
+            });
+            // Toggle the clicked accordion
+            const content = this.nextElementSibling;
+            content.classList.toggle("show");
+        });
+    });
+});
+
+</script>
+
+{{- partial "footer.html" . -}}
+</body>
+</html>

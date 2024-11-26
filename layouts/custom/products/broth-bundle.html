@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    {{- partial "head.html" . -}}
+    <meta name="description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta property="og:title" content="{{ .Site.Params.homepage_meta_tags.meta_og_title }}" />
+    <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
+    <meta property="og:url" content="{{ .Site.Params.homepage_meta_tags.meta_og_url }}" />
+    <meta property="og:image" content="{{ .Site.Params.homepage_meta_tags.meta_og_image }}" />
+    <meta property="og:description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
+    <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
+    <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=667c998f7bead90019480329&product=inline-share-buttons&source=platform" async="async"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://js.stripe.com/v3/"></script> <!-- Stripe script -->
+</head>
+<body>
+    <style>
+
+        .custom-radio input[type="radio"]:checked + .custom-radio-label::before {
+          background-color: green;
+        }
+        
+        .custom-radio-label {
+            color: green;
+        }
+            </style>
+    {{- partial "alert.html" . -}}
+    {{- partial "header.html" . -}}
+    
+    <div class="container">
+        <div class="row topbanner rel">
+            <div class="col-xs-12 col-lg-6 product-photos">
+                {{- partial "brothsimages.html" . -}}
+            </div>
+            <div class="col-xs-12 col-lg-6">
+
+                <h1 class="my-4">Tallow trio bundle - Mixed scents</h1>
+                <div class="custom-radio" >
+                    <input type="radio" id="inStock" name="stockStatus" checked>
+                    <label class="custom-radio-label mb-4" for="inStock">In stock.</label>
+                </div>
+                <p id="priceDisplay" class="product-price"></p> <!-- Placeholder for the price -->
+
+                <!-- Product Form Options with Bootstrap Styling -->
+
+                <h3>Set combo: </h3>
+                <form>
+                    <!-- Dropdown for selecting scent -->
+                    <div class="form-group mb-4">
+                        <label for="productScent" class="font-weight-bold">Select Balm Scent:</label>
+                        <select id="productScent" class="form-control">
+                            <option value="broths">1x Beef Broth (People), 1x Beef Broth (Pets) </option>
+                        </select>
+                    </div>
+                
+                    <!-- Dropdown for selecting balm size (locked to 100ml) -->
+                    <div class="form-group mb-4">
+                        <label for="productSize" class="font-weight-bold">Broth sizes:</label>
+                        <select id="productSize" class="form-control">
+                            <option value="50g">50g each</option> <!-- Only the 100ml option -->
+                        </select>
+                    </div>
+                
+                
+                    <!-- Quantity Selector -->
+                    <div class="form-group mb-4">
+                        <label for="quantityAll" class="font-weight-bold">Quantity (of bundles):</label>
+                        <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+                    </div>
+                
+                    <!-- Add to Cart Button -->
+                    <div class="text-center mb-4">
+                        <button type="button" class="btn btn-primary btn-lg buy-now" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
+                    </div>
+                </form>
+
+                <p>Shipping & promotions applied at checkout</p>
+
+                <img class="badges mb-4" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
+                <div style="margin-top:-50px;margin-bottom:-50px; font-size:90%;" class="row mt-0 trust">
+                    <div class="col-4">
+                        <img class="middle" src="/img/delivery.webp">
+                        <p>Free shipping over $80</p>
+                    </div>
+                    <div class="col-4">
+                        <img class="middle" src="/img/exclusive.webp">
+                        <p>Money back guarantee</p>
+                    </div>
+                    <div class="col-4">
+                        <img class="middle" src="/img/kiwi.webp">
+                        <p>Used by 1200+ Kiwis</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-0">
+            <div class="col-12 col-md-6">
+                    <img src="/img/markets/11.webp" alt="Click to watch video" id="thumbnail" data-video-id="videoContainer1" loading="lazy">
+            </div>
+            <div class="faq-tab-container col-12 col-md-6">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs faq-nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="directions-tab" data-toggle="tab" href="#directions" role="tab" aria-controls="directions" aria-selected="false">Directions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="storage-tab" data-toggle="tab" href="#storage" role="tab" aria-controls="storage" aria-selected="false">Storage</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</a>
+                    </li>
+                </ul>
+        
+                <!-- Tab panes -->
+                <div class="tab-content mt-3">
+                    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                        <h4>Humans Broth Description</h4>
+                        <p>Powdered <span class="product-flavour">Beef</span> Bone Broth - 7 servings for the 50g, and 14 servings for 100g.</p>
+                        <p>Our bone broth powder is a versatile product for these health-conscious and busy folks. This h bone broth is perfect for drinking or cooking with! For health benefits and mild meaty flavor mix in with hot water and consume with a bit of salt added. For culinary masterpieces and smoothies, add one serving into your favorite recipe and enjoy.</p>
+                        <ul>
+                            <li>Rich animal-based nutrition for less per day than your cup of coffee.</li>
+                            <li>Simply mix in with hot water, sprinkle on your food, add to smoothies or meals. It is often a good and healthier substitute for stock.</li>
+                            <li>Protein & collagen.</li>
+                            <li>100% NZ beef bones, roasted & simmered for 32 hours.</li>
+                            <li>NATURAL | DAIRY FREE | SUGAR FREE | LOW FAT | KETO & LOW CARB</li>
+                            <li>Made in NZ with 100% NZ Beef</li>
+                        </ul>
+
+                        <h4>Pets broth description</h4>
+                        <p>Powdered <span class="product-flavour">Beef</span> Bone Broth.</p>
+                        <p>Struggle to get your pet to eat their kibble? Sick of paying ridiculous prices for expensive meat just to get them to eat? We were too, that's why we made PrimeBroth for pets.</p>
+                        <p>Simply serve on their regular kibble and transform from bland to gourmet.</p>
+                        <p>We're confident they'll lap it up. If they don't, we'll give your money back.</p>
+                        <p>Not for human consumption - <a href="/shop/products/powder/">check our people broth</a> options.</p>
+                                     </div>
+                    <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
+                        <h4>Ingredients</h4>
+                        <p><span class="product-flavour">Beef</span> bones (92%), onions, carrots, celery, apple cider vinegar, salt, spices.</p>
+                        <p>The pets version is sans onions, salt and spices.</p>                    </div>
+                    <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
+                        <h4>Directions</h4>
+                        <h6>People's broth directions</h6>
+                        <p>Serving size: A single serving is 2 tsp.</p>
+                        <p>How to prepare it:</p>
+                        <ul>
+                            <li>To drink as is - Add two tsp to a cup of hot water, stir and enjoy.</li>
+                            <li>To cook with - Use in place of stock or water in your favorite recipe. Either add 2tsp to 250ml of water or add directly as powder.</li>
+                        </ul> 
+                    
+
+                        <h6>Pet's broth directions</h6>
+                        <p><strong>Best served as a meal topper</strong></p>
+                        <p>Serving as a liquid</p>
+                        <ol>
+                            <li>Mix a serving of powder with 100 ml of hot water and add to their biscuits.</li>
+                        </ol>
+                        <p>Serving as a powder</p>
+                        <ol>
+                            <li>Sprinkle a serving of powder onto your pet's biscuits or dinner meal.</li>
+                        </ol>
+                        <table>
+                            <tr>
+                                <th>Dog Size</th>
+                                <th>Dosage</th>
+                            </tr>
+                            <tr>
+                                <td>Small dogs (&lt;10 kg)</td>
+                                <td>½ tsp daily</td>
+                            </tr>
+                            <tr>
+                                <td>Medium dogs (10-35 kg)</td>
+                                <td>1 tsp daily</td>
+                            </tr>
+                            <tr>
+                                <td>Big dogs (35 kg +)</td>
+                                <td>1½ - 2 tsp daily</td>
+                            </tr>
+                        </table>
+                </div>
+                    <div class="tab-pane fade" id="storage" role="tabpanel" aria-labelledby="storage-tab">
+                        <h4>Storage</h4>
+                        <p>Keep in a cool dry place - 2 years unopened, 4 months after opening.</p>
+                    </div>
+                    <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
+                        <h4>Shipping</h4>
+                        <p><strong>Processing time:</strong> Your order will be confirmed within 1-3 business days after payment confirmation. After processing, your order will be shipped the next day and you can expect usual courier times to your area (generally 3-5 business days) </p>
+                        <p><strong>Shipping rates:</strong> We usually charge between $4.95 and $6.95 for shipping. You can view the shipping costs at the checkout before completing your purchase.</p>
+                        <p><strong>International shipping:</strong> Currently, we only offer shipping within New Zealand. We apologize for any inconvenience this may cause.</p>
+                        <p>If you have any questions or concerns regarding shipping, please don't hesitate to <a href="contact">contact us</a>.</p>                    </div>
+                </div>
+            </div>
+           
+               
+
+
+
+            
+                    
+
+
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var tabs = document.querySelectorAll('.faq-nav-tab');
+                    tabs.forEach(function(tab) {
+                        tab.addEventListener('click', function() {
+                            document.querySelector('.faq-nav-tab.active').classList.remove('active');
+                            tab.classList.add('active');
+                            var tabContent = document.querySelector('.faq-tab-content .tab-pane.show.active');
+                            tabContent.classList.remove('show', 'active');
+                            var target = tab.getAttribute('href');
+                            document.querySelector(target).classList.add('show', 'active');
+                        });
+                    });
+                });
+            </script>
+            </div>
+        
+        <!-- Script for handling the selection, updating the price ID, and Stripe checkout -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const stripe = Stripe('pk_live_51QKEaJFZRwx5tlYmhyIEFR3mGroCdpqIHHVT68y9jGnizGDZXypuSfjilbCSkMarU39KeV4kUulC6HfpReRSJwb000fyIehR3I');
+        
+                // Set up event listeners for form inputs
+                document.getElementById('productScent').addEventListener('change', updatePriceID);
+                document.getElementById('quantityAll').addEventListener('input', updatePriceDisplay);
+        
+                // Price ID for the bundle
+                const bundlePriceID = "price_1QPCW2FZRwx5tlYm3fRrvHdS";
+        
+                function updatePriceID() {
+                    const unitPrice = 44.95; // Fixed price for the bundle
+        
+                    // Update the Add to Cart button's data-price-id and unit price
+                    const buyNowButton = document.querySelector('.buy-now');
+                    buyNowButton.setAttribute('data-price-id', bundlePriceID);
+                    buyNowButton.setAttribute('data-unit-price', unitPrice.toFixed(2));
+        
+                    // Update the price display
+                    updatePriceDisplay();
+                }
+        
+                function updatePriceDisplay() {
+                    const quantity = parseInt(document.getElementById('quantityAll').value, 10) || 1;
+                    const unitPrice = parseFloat(document.querySelector('.buy-now').getAttribute('data-unit-price'));
+                    const totalPrice = (quantity * unitPrice).toFixed(2);
+        
+                    document.getElementById('priceDisplay').innerHTML = `Total Price: $${totalPrice} (Usual Price: $49.90)`;
+                }
+        
+                function handleAddToCart(e) {
+                    e.preventDefault();
+        
+                    const button = e.target;
+                    const priceId = button.getAttribute('data-price-id');
+                    const unitPrice = parseFloat(button.getAttribute('data-unit-price')).toFixed(2);
+                    const quantity = parseInt(document.getElementById('quantityAll').value, 10);
+                    const selectedScent = document.getElementById('productScent').value;
+        
+                    if (!priceId) {
+                        alert('Please ensure all fields are properly selected.');
+                        return;
+                    }
+        
+                    // Add product to cart (localStorage)
+                    const productTitle = document.querySelector('h1').innerText;
+                    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+                    cart.push({ priceId, quantity, scent: selectedScent, unitPrice, title: productTitle });
+                    localStorage.setItem('cart', JSON.stringify(cart));
+        
+                    // Show confirmation modal
+                    $('#addedToCartModal').modal('show');
+                }
+        
+                // Attach click listener for Add to Cart button
+                document.querySelector('.buy-now').addEventListener('click', handleAddToCart);
+        
+                // Initial setup
+                updatePriceID();
+            });
+        </script>
+        
+
+        <!-- Bootstrap Modal for Added to Cart -->
+        <div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Your item has been added to the cart. What would you like to do next?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
+                        <a href="/cart" class="btn btn-primary">Go to Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Include Bootstrap JS -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    </div>
+
+    {{- partial "footer.html" . }}
+</body>
+</html>

@@ -11,6 +11,7 @@ balm-or-patch-60ml: price_1QKTaPFZRwx5tlYmDHGwepLz
 balm-or-orang-60ml: price_1QKTaPFZRwx5tlYmfBkYKLf5
 balm-or-cedar-60ml: price_1QKTaPFZRwx5tlYmAwrOu4TS
 balm-or-frank-60ml: price_1QKlwqFZRwx5tlYmBXKLp3kq
+balm-or-vanrose-60ml: price_1QOcCmFZRwx5tlYmwqeC4IM0
 balm-or-lav-100ml: price_1QKTaPFZRwx5tlYmKZBLej84
 balm-or-ros-100ml: price_1QKTaPFZRwx5tlYmCFqvlEpy
 balm-or-neu-100ml: price_1QKTaPFZRwx5tlYmBQhmwwo0
@@ -19,6 +20,7 @@ balm-or-patch-100ml: price_1QKTaPFZRwx5tlYme67YDIWQ
 balm-or-orang-100ml: price_1QKTaPFZRwx5tlYmSk3yR1VR
 balm-or-cedar-100ml: price_1QKTaPFZRwx5tlYm4PbhYr3i
 balm-or-frank-100ml: price_1QKlxAFZRwx5tlYmdUxdEk1K
+balm-or-vanrose-100ml: price_1QOcD0FZRwx5tlYmSIZIQax7
 balm-or-lav-175ml: price_1QKTaPFZRwx5tlYmmjolYXJw
 balm-or-ros-175ml: price_1QKTaOFZRwx5tlYmYmwQS19W
 balm-or-neu-175ml: price_1QKTaOFZRwx5tlYmJczAEf5i
@@ -27,6 +29,7 @@ balm-or-patch-175ml: price_1QKTaOFZRwx5tlYmiBVIpdAI
 balm-or-orang-175ml: price_1QKTaOFZRwx5tlYmzY7OSyRN
 balm-or-cedar-175ml: price_1QKTaOFZRwx5tlYmwFBJyYxW
 balm-or-frank-175ml: price_1QKlxUFZRwx5tlYmdfMj85Ws
+balm-or-vanrose-175ml: price_1QOcDOFZRwx5tlYmN21dnwQL
 balm-or-lav-200ml: price_1QKTaOFZRwx5tlYmxTDKdi7P
 balm-or-ros-200ml: price_1QKTaOFZRwx5tlYmqAqobRPz
 balm-or-neu-200ml: price_1QKTaOFZRwx5tlYmgC5OP4jn
@@ -35,5 +38,6 @@ balm-or-patch-200ml: price_1QKTaOFZRwx5tlYmVxjsbq8x
 balm-or-orang-200ml: price_1QKTaOFZRwx5tlYmg2BMW4LR
 balm-or-cedar-200ml: price_1QKTaOFZRwx5tlYmhF12AHkv
 balm-or-frank-200ml: price_1QKlyCFZRwx5tlYmAYJxQcJc
+balm-or-vanrose-200ml: price_1QOcDcFZRwx5tlYmcOwNZTbN
 wipe: true
 ---

@@ -72,7 +72,7 @@
         <!-- Filter buttons -->
         
 
-        <div style="margin-bottom: 0px; " class="row max-width peach shopsection"> 
+        <div style="margin-bottom: 0px; " class="row max-width lime shopsection"> 
             <div style="margin-top:-50px;" class="filter-options mob-hide">
                 <input type="radio" id="all" name="product-filter" value="all" checked>
                 <label for="all">All</label>
@@ -82,9 +82,9 @@
     
                 <input type="radio" id="tallow" name="product-filter" value="tallow">
                 <label for="tallow">Tallow</label>
-    
-                <input type="radio" id="marrow-butter" name="product-filter" value="marrow-butter">
-                <label for="marrow-butter">Marrow Butter</label>
+
+                <input type="radio" id="bundles" name="product-filter" value="bundles">
+                <label for="bundles">Bundles</label>
 
                 <!-- Coming Soon Filter, aligned to the right -->
                 <input type="radio" id="coming-soon" name="product-filter" value="coming-soon" class="coming-soon">
@@ -94,6 +94,10 @@
             {{- partial "prodcardpplpowder.html" . -}} 
             {{- partial "prodcardpetpowder.html" . -}}
             {{- partial "prodcardinsideout.html" . -}}
+            {{- partial "prodcardbrothbundle.html" . -}}
+            {{- partial "prodcardtallowbundle.html" . -}}
+            {{- partial "prodcardmarrow.html" . -}}
+
 
           <!--{{- partial "prodcardmarrow.html" . -}} -->  
         </div>
@@ -101,21 +105,25 @@
 
     <!-- Filtering script -->
     <script>
-        $(document).ready(function(){
-            $('input[name="product-filter"]').on('change', function() {
-                var selectedFilter = $(this).val();
+        $(document).ready(function() {
+    $('input[name="product-filter"]').on('change', function() {
+        var selectedFilter = $(this).val();
 
-                if (selectedFilter === 'all') {
-                    $('.product-card').show();
-                } else if (selectedFilter === 'coming-soon') {
-                    $('.product-card').hide();
-                    $('.product-card[data-coming-soon="true"]').show();
-                } else {
-                    $('.product-card').hide();
-                    $('.product-card[data-category="' + selectedFilter + '"]').show();
-                }
-            });
-        });
+        if (selectedFilter === 'all') {
+            $('.product-card').show();
+        } else if (selectedFilter === 'coming-soon') {
+            $('.product-card').hide();
+            $('.product-card[data-coming-soon="true"]').show();
+        } else {
+            $('.product-card').hide();
+            $('.product-card').filter(function() {
+                var categories = $(this).data('category').split(' ');
+                return categories.includes(selectedFilter);
+            }).show();
+        }
+    });
+});
+
     </script>
 
     <!-- Add html above -->

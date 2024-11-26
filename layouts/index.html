@@ -12,8 +12,6 @@
     <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
     <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
     <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
-
-    
   </head>
 <body>
     {{- partial "alert.html" . -}}
@@ -22,224 +20,102 @@
     <div class="scroll-top rounded-full">
         <span class="icon-keyboard_arrow_up text-2xl"></span>
     </div>
-    {{- partial "slide.html" . -}}
-    {{- partial "strip.html" . -}}
     <!-- Add html for homepage here -->
     <div class="container">
-      <div class="full-width topbanner row peach ">
-        <div class="col-lg-6 col-12 top-banner mob-reverse"></div>
-        <div class="col-lg-6 col-12 bannertext mob-reverse d-flex align-items-center">
-          <div class="p-4">
-            <h1>Animal based wellness for the inside and out with bone broth and tallow balm</h1>
-            <p class="d-none d-md-block">Try PrimeBroth, NZ’s favourite bone broth and tallow balm company.</p>
-            <a class="btn btn-primary" href="/shop">Shop Now</a>
+      <div class="full-width row hero">
+        <div class="col-lg-6 col-12 bannertext d-flex align-items-center">
+          <div>
+          <h1>Experience wellness from the inside out</h1>
+            <p>Simple, ancient products taken straight from kiwi pastures to your pantry</p>
+            <a class="btn btn-primary" href="/shop/">Shop now</a>
           </div>
-        </div>        
+          </div>
+        </div>
+        <div class="col-lg-6 col-12">
+
+        </div>
       </div>
-      <div class="scrollbanner full-width">
-        <ul class="text-center" id="bannerList">
-          <li><span class="strong">Rich meaty flavour</span></li>
-          <li><span class="strong">Collagen & Protein</span></li>
-          <li><span class="strong">Keto & Dairy Free</span></li>
-          <li><span class="strong">100% NZ Bones</span></li>
-        </ul>
+      <div class="row mt-4 mb-0 full-height align-items-center justify-content-around">
+        <div class="text-center middle row justify-content-center">
+          <h3>Best sellers</h3>
+            {{- partial "prodcardinsideout.html" . -}}
+            {{- partial "prodcardbrothbundle.html" . -}}
+            {{- partial "prodcardtallowbundle.html" . -}}
+        </div>
+      </div>
+      <div class="row eighty icons justify-content-center text-center center">
+            <div class="left col-lg-3 col-sm-12">
+              <img src="/img/home/omnivore.webp">
+              <h4>Natural products</h4>
+              <p>All ingredients sourced are natural, pure and simple. As they should be!</p>
+            </div>
+            <div class="left col-lg-3 col-sm-12">
+              <img src="/img/home/nochem.webp">
+              <h4>No harmful ingredients</h4>
+              <p>We leave out bad chemicals big companies use to cut corners and strip natural benefits.</p>
+            </div>
+            <div class="left col-lg-3 col-sm-12">
+              <img src="/img/home/env.webp">
+              <h4>Sustainably sourced</h4>
+              <p>We use only grass fed ingredients in all our products, organic whenever possible.</p>
+            </div>
       </div>
 
-      <div class="row text-center justify-content-around">
-        <h3>Helping raise thousands for kiwi’s favorite charities</h3>
-        <div class="col-lg-1 col-4 col-xs-4 element">
-         <img src="/img/blkspca.webp" alt="">
-          <p>Spca</p>
+      <div class="row starter">
+        <div class="twenty">
+          <h4>New to Primal Pantry?</h4>
+          <h2>Starter bundles</h2>
+          <p>We’ve got you, tried and true bundles for beginners</p>
+          <a class="btn btn-primary" href="/shop/">Shop now</a>
         </div>
-        <div class="col-lg-1 col-4 col-xs-4 element">
-          <img src="/img/blkdogwatch.webp" alt="">
-          <p>Dogwatch sanctuary</p>
-        </div>
-        <div class="col-lg-1 col-4 col-xs-4 element">
-          <img style="filter: grayscale(100%);" src="/img/rott.webp" alt="">
-          <p>Rottweiler rescue</p>
-        </div>
-        <div class="col-lg-1 col-4 col-xs-4 element">
-          <img src="/img/cpl.webp" alt="" style="filter: grayscale(100%);">
-          <p>Cats Protection League</p>
-        </div>
-        <div class="col-lg-1 col-4 col-xs-4 element">
-          <img src="/img/rrr.webp" alt="" style="filter: grayscale(100%);">
-          <p>Rescue Revive Rehome</p>
-        </div>
-        <div class="col-lg-1 col-4 col-xs-4 element">
-          <img src="/img/blkchihuahua.webp" alt="">
-          <p>Chihuahua Rescue</p>
-        </div>
-        <div class="col-lg-1 col-4 col-xs-4 element">
-          <img src="/img/blkbully.webp" alt="">
-          <p>Chch bull rescue</p>
-        </div>
-      
-      <div class="row mt-4 full-height short-banner align-items-center justify-content-around">
-        <div class="darker text-center">
-          <h3>Sip or sprinkle towards a healthier lifestyle</h3>
-        </div>
-        {{- partial "prodcardtallowskin.html" . -}} 
-        {{- partial "prodcardpplpowder.html" . -}}
-        {{- partial "prodcardpetpowder.html" . -}}
       </div>
-  
-      </div>
+
       <div class="row">
-        <div class="col-lg-6 col">
-            <h2>Every serve packed with nutrients</h2>
-            <p>Simmered for 32 hours, our bone broth stands out for its exceptional density. Unlike other popular bone broth brands 
-              in New Zealand, we don’t water down our broth. Its thick gelatinous consistency reflects the higher quality due to not being diluted. </p>
-            <p>Simply scrape off the fat, warm in the microwave and add to your recipe or drink on its own. </p>              
-            <a class="btn btn-primary fade-in-element" href="/shop">Shop Broth</a>
+        <div class="col-lg-3 col-12"><img src="/img/talbaby.webp"></div>
+        <div class="col-lg-3 col-12">
+          <p>I recently purchased some tallow balms and beef broth powder. I just wanted to say how impressed I am with the quality, packaging and price of your products.</p>
+          <p>It’s great to find an NZ based business selling quality product within a price range that is affordable for the average person. </p>
+          <h4>David C</h4>
         </div>
-        <img class="col-lg-6 col" src="/img/bonebroth7.webp" loading="lazy" >
-      </div>
-      <div class="row">
-        <div class="col-lg-6 col-12 ">
-          <div class="image-container">
-            <img style="max-height:600px; margin: 0px auto;" src="/img/markets/21.webp" alt="Click to watch video" id="thumbnail" data-video-id="videoContainer1" loading="lazy">
-        </div>
-      <div class="video-container" id="videoContainer1">
-        <iframe style="height:530px; position:relative;top:-100px;" src="https://player.vimeo.com/video/997537030?&amp;autopause=0&amp;autoplay=1&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write;" title="Another PrimeBroth Video" loading="lazy"></iframe>
-      </div>
-
-
-        </div>
-        <div class="col-lg-6 col-12 ">
-            <h2>Don't just take our word for it, see what our BonelyFans have to say.</h2>
-            <p>"I didnt realise i was dairy intolerant, making the switch to PrimeBroth from whey in the mornings helped my skin, being low carb is a nice bonus."</p>    
-            <h6>Kristy, 28 - Christchurch</h6>
-
-            <p class="mt-4">“Our dog Kujo has always been a picky eater, we’ve added pets bone broth to his biscuits for years as a way to encourage him to eat them. He definitely likes PrimeBroth, it seems more concentrated than our previous brand and I’ve found their service always super fast."</p>    
-            <h6>Rebecca, 35 - Rangiora</h6>
-
-            <p class="mt-4">"As a mother of two busy teen girls I’ve often struggled to take time from my day to focus on my own needs. I frequently forget meals, but having PrimeBroth in the fridge has made for a great nutrition hit I can grab on the way out the door."</p>    
-            <h6>Lisa, 48 - Rolleston</h6>
-            <a href="/pages/reviews" class="btn btn-secondary">Read reviews</a>
+        <div class="col-lg-3 col-12"><img src="/img/home/carvid.webp"></div>
+        <div class="col-lg-3 col-12">
+          <p>I’m halfway through my first jar and I love it! I have very sensitive skin and I’ve had no redness issues.</p>
+          <p>I’ll be back for more.</p>
+          <h4>Sandra L</h4>
         </div>
       </div>
-        <div class="row">
-          <div class="col-lg-6 col ">
-              <h2>Does your organisation support wellness of kiwis or their pets? Partner with us!</h2>
-<p>At Primebroth our mission is to support the wellness of all kiwis and their pets.</p>
-  <p>To achieve this hefty goal we’re partnering up.</p>
-  <p>If you operate a business, charity, group or have an online following related to health, wellness or community for people or pets. We want to hear from you so we can help do our part!</p>
-              <a href="/partner" class="btn btn-secondary">Learn about partnerships</a>
+
+      <div class="row justify-content-center text-center">
+        <h2>Subscribe and save - Coming soon</h2>
+        <div class="eighty row icons middle">
+            <div class="left col-lg-4 col-12">
+              <img src="/img/home/subscribe.webp">
+              <h4>Ships every 3 months</h4>
+              <p>Customise your packs and scents, edit or pause anytime you want. You are in control.</p>
             </div>
-          <img class="col-lg-6 col " src="/img/us.webp" loading="lazy">
+            <div class="left col-lg-4 col-12">
+              <img src="/img/home/free-delivery.webp">
+              <h4>Free delivery</h4>
+              <p>Subscribe once and relax, we’ll take care of the shipping from here.</p>
+            </div>
+            <div class="left col-lg-4 col-12">
+              <img src="/img/home/special.webp">
+              <h4>Exclusive benefits</h4>
+              <p>Gain subscriber only benefits, early access and limited edition products.</p>
+            </div>
 
         </div>
-        
-        <div class="row full-height shorts peach align-items-center">
-            <h2>See how it's taking the internet by storm</h2>
-          <!-- shorts -->
-<!-- Pet multi product card -->
-<div class="product-card grow col-lg-3 col-sm-12">
-  <img src="/img/pouch.webp" alt="" loading="lazy">
-  <div class="product-details text-center">
-    <h6>Get your hands on some of the liquid gold today</h6>
-    <a href="/shop/" class="btn btn-primary middle mt-4" style="color: white !important;">Shop collection</a>
-  </div>
-</div>
-
-
-          <div class="col-md-3 grow d-none d-md-block">
-            <div class="image-container">
-                <img style="border:8px solid white;transform: scale(.93);;" src="/img/dash.webp" alt="Click to watch another video" data-video-id="videoContainer2" loading="lazy">
-            </div>
-            <div class="video-container" id="videoContainer2">
-                <iframe style="height:530px; position:relative;top:-100px;" src="https://player.vimeo.com/video/964111619?h=c0d720cdd0&amp;autopause=0&amp;autoplay=1&amp;player_id=0&amp;app_id=58479" frameborder="0"  title="Another PrimeBroth Video" loading="lazy"></iframe>
-            </div>
-          </div>
-          <div class="col-md-3 grow d-none d-md-block">
-            <div class="image-container">
-                <img src="/img/markets/22.webp" alt="Click to watch another video" data-video-id="videoContainer4" loading="lazy">
-            </div>
-            <div class="video-container" id="videoContainer4">
-              <iframe style="height:530px; position:relative;top:-100px;" src="https://player.vimeo.com/video/997536997?h=c0d720cdd0&amp;autopause=0&amp;autoplay=1&amp;player_id=0&amp;app_id=58479" frameborder="0"  title="Another PrimeBroth Video" loading="lazy"></iframe>
-            </div>
-          </div>
-          <div class="col-md-3 grow d-none d-md-block">
-            <div class="image-container">
-                <img style="border:8px solid white;" src="/img/mol.webp" alt="Click to watch another video" data-video-id="videoContainer3" loading="lazy">
-            </div>
-            <div class="video-container" id="videoContainer3">
-                <iframe style="height:530px; position:relative;top:-100px;" src="https://player.vimeo.com/video/968615822?&amp;autopause=0&amp;autoplay=1&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write;" title="Another PrimeBroth Video" loading="lazy"></iframe>
-            </div>
-          </div>
-          
-          
-        </div>
+      </div>
       
-        <div class="row">
-            <div>
-                <h2 class="text-center">Frequently Asked Questions</h2>
-                <div class="faq mt-4">
-                    <div class="accordion-item grow">
-                      <h4 class="accordion-heading">What makes this bone broth unique?</h4>
-                      <div class="accordion-content">
-                        <p>Our bone broth is uniquely dense, setting it apart from many other brands in New Zealand that tend to dilute their products. The rich, gelatinous texture of our broth is a clear indicator of its high quality gained from extra simmering time and careful choosing of the bones. Furthermore, we maintain a balanced acidity by avoiding the common practice of adding large amounts of apple cider vinegar, which can overshadow the broth’s robust, meaty flavour.</p>
-                      </div>
-                    </div>
-                    <div class="accordion-item grow">
-                      <h4 class="accordion-heading">Where can I purchase Primebroth?</h4>
-                      <div class="accordion-content">
-                        <p>You can buy straight from our website, our stalls at the Lyttleton and Ohoka markets or from several pet and health food stores around Christchurch New Zealand.</p>
-                      </div>
-                    </div>
-                    <div class="accordion-item grow">
-                      <h4 class="accordion-heading">What is the shelf life of Primebroth? </h4>
-                      <div class="accordion-content">
-                       <p>Our liquid bone broth can be stored in the freezer or fridge (up to 30 days) but below 5 degrees celsius. Once opened it should be consumed within 4 days for optimal freshness. You can refrigerate it for up to 30 days if unopened. </p>
-                      <p>Our bone broth powder should be stored in a cool, dry place for up to 4 months (opened) and 2 years (unopened). </p>
-                      </div>
-                    </div>
-                    
-                    <div class="accordion-item grow">
-                      <h4 class="accordion-heading">What are the benefits of bone broth?</h4>
-                      <div class="accordion-content">
-                        <h6>For people</h6>
-                        <p>Bone broth is one of the oldest foods in the world. It's packed with nutrients such as protein and collagen. Protein and collagen is natural support for muscles, bones and joint strength.</p>
-                        
-                        <h6 class="mt-4">For pets</h6>
-                        <p>
-                          <strong>Health support:</strong> Bone broth is a natural support for joint health, digestion, coat, and liver health of your pet.<br>
-                          <strong>Appetite enhancer:</strong> It's also a great meal topper thanks to its rich and meaty flavor - even the most picky dogs/cats will eat their food if you sprinkle bone broth on it!<br>
-                          <strong>Hydration:</strong> Bone broth is an excellent way to keep pets hydrated, especially for those who may not drink enough water. So, it's great for a hot day!<br>
-                          <strong>Skin and coat:</strong> The collagen in the bone broth contributes to healthy skin and a shiny coat of your pet by supporting the structure and elasticity of the skin.<br>
-                          <strong>Nutrient-rich:</strong> If you are concerned your dog/cat lacking nutrients, bone broth can help. Rich on protein, bone broth is excellent meal topper for any occasion.
-                        </p>
-                      </div>
-                    </div>
-                    
-                    <div class="accordion-item grow">
-                      <h4 class="accordion-heading">How much bone broth should I use at a time?</h4>
-                      <div class="accordion-content">
-                        <h6>What are serving sizes for people?</h6>
-                        <p>Powder: 1 teaspoon (3g) per 100ml of liquid</p>
-                        <p>Liquid: 1 cup (250ml)</p>
-
-                        <h6 class="mt-4">How much bone broth should I feed to my dog/cat?</h6>
-                        <p>We recommend the following serving sizes for our bone broth powder:</p>
-                        <ul>
-                          <li>Small dogs (less than 10 kg) - ½ tsp</li>
-                          <li>Medium dogs (10-35 kg) - 1 tsp</li>
-                          <li>Big dogs (35 kg +) - 1½ - 2 tsp</li>
-                        </ul>
-                        <p>For our liquid broth for pets, see these serving sizes:</p>
-                        <ul>
-                          <li>Small dogs (less than 10 kg) - 30 ml</li>
-                          <li>Medium dogs (10-35 kg) - 60 ml</li>
-                          <li>Big dogs (35 kg +) - 1½ - 120 ml</li>
-                        </ul>
-                      </div>
-                    </div>
-                    
-                  </div>                         
-                </div>
-            </div>
+      <div class="row lime mb-0">
+        <img src="/img/home/difference.webp" class="col-lg-6 col-12"/>
+        <div class="col-lg-6 col-12">
+          <h2>The PrimalPantry Difference</h2>
+          <p>See behind the scenes of our broth and balms</p>
+          <a class="btn btn-primary" href="/pages/about/">Learn about PrimalPantry</a>
+        </div>      
+      </div>
+      
 
     </div>
     <!-- Add html for homepage above -->
@@ -255,6 +131,40 @@
             });
         });
   </script>
+  <!-- Filtering script -->
+
+  <script>
+    $(document).ready(function() {
+        function updateVisibility() {
+            // Get the selected filter value
+            var selectedFilter = $('input[name="product-filter"]:checked').val();
+
+            // Hide all sections
+            $('#bundles, #broth, #tallow').hide();
+
+            // Show the appropriate section
+            if (selectedFilter === 'bundles') {
+                $('#bundles').show();
+            } else if (selectedFilter === 'broth') {
+                $('#broth').show();
+            } else if (selectedFilter === 'tallow') {
+                $('#tallow').show();
+            }
+        }
+
+        // Listen for changes on the radio buttons
+        $('input[name="product-filter"]').on('change', function() {
+            updateVisibility();
+        });
+
+        // Initialize visibility on page load
+        updateVisibility();
+    });
+</script>
+
+
+
+
     {{- partial "footer.html" . -}}
 
 

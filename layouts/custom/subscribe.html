@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    {{- partial "head.html" . -}}
+    <meta name="description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta property="og:title" content="{{ .Site.Params.homepage_meta_tags.meta_og_title }}" />
+    <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
+    <meta property="og:url" content="{{ .Site.Params.homepage_meta_tags.meta_og_url }}" />
+    <meta property="og:image" content="{{ .Site.Params.homepage_meta_tags.meta_og_image }}" />
+    <meta property="og:description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
+    <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
+    <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+    
+    <!-- Add the styling for the pill-shaped radio buttons -->
+    <style>
+        .filter-options {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .filter-options label {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 0 5px;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #f7f7f7;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .filter-options input[type="radio"] {
+            display: none;
+        }
+
+        /* Active state for the selected radio button */
+        .filter-options input[type="radio"]:checked + label {
+            background-color: #ff7043;
+            color: white;
+            border-color: #ff7043;
+        }
+
+        /* Hover effect */
+        .filter-options label:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* Align "Coming Soon" option to the right */
+        .filter-options .coming-soon {
+            margin-left: auto;
+        }
+    </style>
+</head>
+<body>
+    {{- partial "alert.html" . -}}
+    
+    {{- partial "header.html" . -}}
+    <div class="scroll-top rounded-full">
+        <span class="icon-keyboard_arrow_up text-2xl"></span>
+    </div>
+    {{- partial "slide.html" . -}}
+    {{- partial "strip.html" . -}}
+    <!-- Add html below -->
+
+    <div class="container">
+        <!-- Filter buttons -->
+        
+
+        <div style="margin-bottom: 0px; " class="row max-width lime shopsection"> 
+            <div style="margin-top:-50px;" class="filter-options mob-hide">
+                <input type="radio" id="all" name="product-filter" value="all" checked>
+                <label for="all">All</label>
+    
+                <input type="radio" id="bone-broth" name="product-filter" value="bone-broth">
+                <label for="bone-broth">Bone Broth</label>
+    
+                <input type="radio" id="tallow" name="product-filter" value="tallow">
+                <label for="tallow">Tallow</label>
+    
+                <input type="radio" id="marrow-butter" name="product-filter" value="marrow-butter">
+                <label for="marrow-butter">Marrow Butter</label>
+
+                <!-- Coming Soon Filter, aligned to the right -->
+                <input type="radio" id="coming-soon" name="product-filter" value="coming-soon" class="coming-soon">
+                <label for="coming-soon" class="coming-soon">Coming Soon</label>
+            </div>
+            {{- partial "prodcardtallowskin-sub.html" . -}} 
+            {{- partial "prodcardpplpowder-sub.html" . -}} 
+            {{- partial "prodcardpetpowder-sub.html" . -}}
+            {{- partial "prodcardinsideout-sub.html" . -}}
+
+          <!--{{- partial "prodcardmarrow.html" . -}} -->  
+        </div>
+    </div>
+
+    <!-- Filtering script -->
+    <script>
+        $(document).ready(function(){
+            $('input[name="product-filter"]').on('change', function() {
+                var selectedFilter = $(this).val();
+
+                if (selectedFilter === 'all') {
+                    $('.product-card').show();
+                } else if (selectedFilter === 'coming-soon') {
+                    $('.product-card').hide();
+                    $('.product-card[data-coming-soon="true"]').show();
+                } else {
+                    $('.product-card').hide();
+                    $('.product-card[data-category="' + selectedFilter + '"]').show();
+                }
+            });
+        });
+    </script>
+
+    <!-- Add html above -->
+    {{- partial "footer.html" . -}}
+</body>
+</html>
