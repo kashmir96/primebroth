@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    {{- partial "head.html" . -}}
+    <meta name="description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta property="og:title" content="{{ .Site.Params.homepage_meta_tags.meta_og_title }}" />
+    <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
+    <meta property="og:url" content="{{ .Site.Params.homepage_meta_tags.meta_og_url }}" />
+    <meta property="og:image" content="{{ .Site.Params.homepage_meta_tags.meta_og_image }}" />
+    <meta property="og:description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
+    <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
+    <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+</head>
+<body>
+    {{- partial "header.html" . -}}
+    <div class="scroll-top rounded-full">
+        <span class="icon-keyboard_arrow_up text-2xl"></span>
+    </div>
+    {{- partial "slide.html" . -}}
+    {{- partial "strip.html" . -}}
+    <!-- Add html below -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                <h3>Meet our founder</h3>
+                <h1 class="brush xl">G’day, I’m Curtis!</h1>
+                <p>Christchurch local and software marketer turned broth and balm baron.</p>
+                <p>PrimalPantry began as a bone broth company focused on giving kiwis affordable access to protein and collagen through other means than typical highly processed supplements.</p>
+                <p>We’ve been in business for about a year now, attending markets every week and learning from our customers–and we’ve learned a lot! Hundreds of hours talking to home cooks, health and wellness enthusiasts, people into natural remedies and other niche topics have shaped the business into what it is today.</p>
+                <p>With these learns we’ve continually developed our product and added additional lines based on our customer’s needs. We broadened our mission to focus on helping kiwi’s wellness on the inside and out using our refined take on recipes lost from past generations. </p>
+            </div>
+            <div class="col-lg-6 col-12">
+            <img src="/img/mecar.webp" alt="" ></div>
+        </div>
+        <div class="row lime">
+            <div class="col-lg-6 col-12">
+            <img src="/img/lineup.webp" alt=""></div>
+            <div class="col-lg-6 col-12">
+                <h2>Meet the PrimalPantry line up!</h2>
+                <p>Since the original days of our frozen broth, the product line has expanded to include other natural products derived from ancient recipes. 
+                <p>We separated these into two sub-brands: Primebroth with beef and chicken bone broth powder and Primalcare for our tallow balms.
+                <p>All 100% made by hand by us in Christchurch.</p>
+                <div class="row  text-center">
+                    <div class="col-4">
+                        <img src="" alt="">
+                        <p>Made by hand in Christchurch</p>
+                    </div>
+                    <div class="col-4">
+                        <img src="" alt="">
+                        <p>1200+ monthly customers</p>
+                    </div>
+                    <div class="col-4">
+                        <img src="" alt="">
+                        <p>100% natural products</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <h3 class="text-center">Quality broth & balms without bad feels</h3>
+            <h2 class="text-center">Our ingredients are sustainably and responsibly sourced</h1>
+                <div class="row eighty m-0 mt-4 p-0">
+                   <div class="col-lg-2 col-2">
+                    <img src="/img/cow.webp" ></div>
+                    <p class="col-lg-10 col-10">All of our products are focused on leveraging parts of animals often overlooked and going to waste. If an animal is being processed for eating, it’s our responsibility as a society to ensure as much of the animal is being utilised well.</p> 
+                </div>
+                <div class="row eighty m-0 p-0">
+                    <div cqlass="col-lg-2 col-2"><img src="/img/farm.webp"></div>
+                    <p class="col-lg-10 col-10">That being said, we also ensure our products are the best quality on the market, and as such we source only the best quality ingredients like suet and bones from 100% grass fed and nz grown beef, or organic chicken frames. </p>
+                </div>
+        </div>
+        <div class="row lime">
+            <div class="col-lg-6 col-12">
+                <h2>Where can I buy PrimalPantry Products?</h2>
+                <p>Right now you can buy our products here via our website, or at markets around Christchurch. </p> 
+                <p>To see which one’s we’ve got scheduled coming up, check our upcoming markets page.</p>
+            </div>
+            <img src="/img/market1.webp" alt="" class="col-lg-6 col-12">
+        </div>
+        <div class="row brush text-center justify-content-center">
+            <h4>Get nourished to the bone!</h4>
+            <h2>Shop the PrimalPantry line of balms and broth</h2>
+            <a href="/shop/" class="btn btn-primary">Shop now</a>
+        </div>
+    </div>
+    <!-- Add html above -->
+    {{- partial "footer.html" . -}}
+</body>
+</html>
