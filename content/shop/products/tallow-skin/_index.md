@@ -5,7 +5,7 @@ type: custom
 layout: products/tallow-skin
 balm-or-lav-60ml: price_1QKTaPFZRwx5tlYm5Eja3cDN
 balm-or-ros-60ml: price_1QKTaPFZRwx5tlYmKaucrO1T
-balm-or-neu-60ml: price_1QKTaPFZRwx5tlYmDjsn3YlY
+balm-or-neu-60ml: price_1QQFC1FZRwx5tlYmO05jTBP3
 balm-or-van-60ml: price_1QKTaPFZRwx5tlYmkY0ItNsh
 balm-or-patch-60ml: price_1QKTaPFZRwx5tlYmDHGwepLz
 balm-or-orang-60ml: price_1QKTaPFZRwx5tlYmfBkYKLf5
