@@ -47,7 +47,7 @@
 </head>
 <body><div class="announcement full-width black text-center">
   <ul>
-      <li>We are experiencing volume higher than usual, processing may take longer than usual. <span class="d-none">Free shipping on orders over $80</span></li>
+      <li>We are experiencing exceptionally high volume, orders may take longer than usual to arrive. Our apologies<span class="d-none">Free shipping on orders over $80</span></li>
   </ul>
 </div><header>
     
@@ -231,7 +231,7 @@
             <div class="col-xs-12 col-lg-6">
                 <h1 class="my-4">Tallow Balm - Heavenly Smooth</h1>
                 <p id="priceDisplay" class="product-price"></p> 
-
+ 
                 
                 <form>
                     
@@ -241,6 +241,7 @@
                             <option value="neutral">Neutral</option>
                             <option value="vanillarose">Vanilla & Rose</option>
                             <option value="francensense">Frankincense</option>
+                            <option value="lavendar">Lavender</option>
                         </select>
                     </div>
 
@@ -249,9 +250,9 @@
                         <label for="productSize" class="font-weight-bold">Select Size:</label>
                         <select id="productSize" class="form-control">
                             
-                            <option value="100ml">100ml</option>
                             
-                            <option value="200ml">200ml</option>
+                            <option value="175ml">175ml</option>
+                            
                         </select>
                     </div>
 
@@ -419,7 +420,7 @@
         case '':
         case '':
         case '':
-            return 12.95; 
+            return 22.95; 
 
         case '':
         case '':
@@ -430,7 +431,7 @@
         case '':
         case '':
 
-            return 18.95; 
+            return 24.95; 
 
         case '':
         case '':
@@ -551,9 +552,9 @@
 
        
         if (selectedSize === '60ml') {
-            priceDisplay.innerHTML = '$12.95';
+            priceDisplay.innerHTML = '$22.95';
         } else if (selectedSize === '100ml') {
-            priceDisplay.innerHTML = '$18.95';
+            priceDisplay.innerHTML = '$24.95';
         } else if (selectedSize === '175ml') {
             priceDisplay.innerHTML = '$30.95';
         } else if (selectedSize === '200ml') {
