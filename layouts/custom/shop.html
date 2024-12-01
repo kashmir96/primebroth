@@ -105,24 +105,48 @@
 
     <!-- Filtering script -->
     <script>
-        $(document).ready(function() {
-    $('input[name="product-filter"]').on('change', function() {
-        var selectedFilter = $(this).val();
-
-        if (selectedFilter === 'all') {
-            $('.product-card').show();
-        } else if (selectedFilter === 'coming-soon') {
-            $('.product-card').hide();
-            $('.product-card[data-coming-soon="true"]').show();
-        } else {
-            $('.product-card').hide();
-            $('.product-card').filter(function() {
-                var categories = $(this).data('category').split(' ');
-                return categories.includes(selectedFilter);
-            }).show();
-        }
-    });
-});
+        $(document).ready(function () {
+            // Function to get URL parameter by name
+            function getUrlParameter(name) {
+                name = name.replace(/[\[\]]/g, '\\$&');
+                var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+                var results = regex.exec(window.location.href);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, ' '));
+            }
+    
+            // Get the 'filter' parameter from the URL
+            var selectedFilter = getUrlParameter('filter');
+    
+            // Set the filter based on the URL parameter
+            if (selectedFilter) {
+                $('input[name="product-filter"][value="' + selectedFilter + '"]').prop('checked', true).change();
+            }
+    
+            // Apply the filter logic when the filter changes
+            $('input[name="product-filter"]').on('change', function () {
+                var selectedFilter = $(this).val();
+    
+                if (selectedFilter === 'all') {
+                    $('.product-card').show();
+                } else if (selectedFilter === 'coming-soon') {
+                    $('.product-card').hide();
+                    $('.product-card[data-coming-soon="true"]').show();
+                } else {
+                    $('.product-card').hide();
+                    $('.product-card').filter(function () {
+                        var categories = $(this).data('category').split(' ');
+                        return categories.includes(selectedFilter);
+                    }).show();
+                }
+            });
+    
+            // Trigger the change event to apply the initial filter
+            $('input[name="product-filter"]:checked').change();
+        });
+    </script>
+    
 
     </script>
 

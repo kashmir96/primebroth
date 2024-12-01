@@ -391,24 +391,48 @@ function submitWaitlistForm(event) {
 
     
     <script>
-        $(document).ready(function() {
-    $('input[name="product-filter"]').on('change', function() {
-        var selectedFilter = $(this).val();
-
-        if (selectedFilter === 'all') {
-            $('.product-card').show();
-        } else if (selectedFilter === 'coming-soon') {
-            $('.product-card').hide();
-            $('.product-card[data-coming-soon="true"]').show();
-        } else {
-            $('.product-card').hide();
-            $('.product-card').filter(function() {
-                var categories = $(this).data('category').split(' ');
-                return categories.includes(selectedFilter);
-            }).show();
-        }
-    });
-});
+        $(document).ready(function () {
+            
+            function getUrlParameter(name) {
+                name = name.replace(/[\[\]]/g, '\\$&');
+                var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+                var results = regex.exec(window.location.href);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, ' '));
+            }
+    
+            
+            var selectedFilter = getUrlParameter('filter');
+    
+            
+            if (selectedFilter) {
+                $('input[name="product-filter"][value="' + selectedFilter + '"]').prop('checked', true).change();
+            }
+    
+            
+            $('input[name="product-filter"]').on('change', function () {
+                var selectedFilter = $(this).val();
+    
+                if (selectedFilter === 'all') {
+                    $('.product-card').show();
+                } else if (selectedFilter === 'coming-soon') {
+                    $('.product-card').hide();
+                    $('.product-card[data-coming-soon="true"]').show();
+                } else {
+                    $('.product-card').hide();
+                    $('.product-card').filter(function () {
+                        var categories = $(this).data('category').split(' ');
+                        return categories.includes(selectedFilter);
+                    }).show();
+                }
+            });
+    
+            
+            $('input[name="product-filter"]:checked').change();
+        });
+    </script>
+    
 
     </script>
 
