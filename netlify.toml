@@ -1,2 +1,30 @@
 [build]
   functions = "functions"
+
+[[redirects]]
+  # Redirect all HTTP traffic (non-www) to HTTPS on the old domain
+  from = "http://primebroth.co.nz/*"
+  to = "https://www.primalpantry.co.nz/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  # Redirect all HTTP traffic (www) to HTTPS on the new domain
+  from = "http://www.primebroth.co.nz/*"
+  to = "https://www.primalpantry.co.nz/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  # Redirect all HTTPS traffic (non-www) to the new domain
+  from = "https://primebroth.co.nz/*"
+  to = "https://www.primalpantry.co.nz/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  # Redirect all HTTPS traffic (www) to the new domain
+  from = "https://www.primebroth.co.nz/*"
+  to = "https://www.primalpantry.co.nz/:splat"
+  status = 301
+  force = true
