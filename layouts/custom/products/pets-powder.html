@@ -64,93 +64,63 @@
                     <label class="custom-radio-label mb-4" for="inStock">In Stock</label>
                 </div>
 
-                <!-- Price Partials for Small, Medium, and Large -->
-                <div id="pricePartialSmall" class="product-info">
-                    <p>{{- partial "price-pet-powder-50g.html" . -}}</p>
+                   <!-- YAML FORM STARTS -->
+
+                   <div class="price-display">
+                    <p><span id="price">-</span></p>                
                 </div>
-                
-                {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
-                <div id="pricePartialMedium" class="product-info hidden">
-                    <p>{{- partial "price-pet-powder-50g.html" . -}}</p>
-                </div>
-                {{ end }}
-                
-                {{ if or .Params.beefpricelargelink .Params.chickenpricelargelink .Params.lambpricelargelink }}
-                <div id="pricePartialLarge" class="product-info hidden">
-                    <p>{{- partial "price-pet-powder-100g.html" . -}}</p>
-                </div>
-                {{ end }}
+
+
+                <form id="productForm" class="form-group mb-4">
+                    <div class="text-left mb-4">
+                        <label class="font-weight-bold" for="size">Select Size:</label>
+                        <select class="form-control" id="size" name="size">
+                            <option value="50g">50g</option>
+                            <option value="90g">90g</option>
+                            <option value="180g">180g</option>
+                        </select>
+                    </div>
+                    <div class="text-left mb-4">
+                        <label class="font-weight-bold" for="flavor">Select Flavor:</label>
+                        <select class="form-control" id="flavor" name="flavor">
+                            <option value="beef">Beef</option>
+                            <option value="chicken">Chicken</option>
+                            <option value="duck">Duck</option>
+                            <option value="fish">Fish</option>
+                            <option value="lamb">Lamb</option>
+                            <option value="venison">Venison</option>
+                            <option value="pork">Pork</option>
+                        </select>
+                    </div>
+                    <div class="text-left mb-4">
+                        <label class="font-weight-bold"  for="orderType">Select Order Type:</label>
+                        <select class="form-control" id="orderType" name="orderType">
+                            <option value="single_purchase">Single unit</option>
+                            <option value="three_pack">3 pack (save 20%)</option>
+                            <option value="recurring_monthly">Subscribe Monthly (save 20%)</option>
+                            <option value="recurring_quarterly">Subscribe Quarterly (save 12.5%)</option>
+                        </select>
+                    </div>
+
+ <!-- Quantity Selector -->
+ <div class="form-group mb-4">
+    <label for="quantityAll" class="font-weight-bold">Quantity:</label>
+    <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+</div>
+
+                    
 
 
 
+                <!-- Add to Cart Button -->
+                <div class="text-center mb-4">
+                    <button type="button" class="btn btn-primary btn-lg buy-now" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
+                </div>
 
-            
+                </form>
 
                 
-                
-            <div class="dropdown-container">
-                <div class="dropdown-group">
-                    <select id="productFlavour" name="productFlavour">
-                        {{ if or .Params.beefpricesmalllink .Params.beefpricemediumlink .Params.beefpricelargelink }}
-                        <option value="beef" data-image="/img/post-a-1.webp"
-                                data-flavour-price-small="{{ .Params.beefpricesmalllink }}"
-                                data-flavour-price-medium="{{ .Params.beefpricemediumlink }}"
-                                data-flavour-price-large="{{ .Params.beefpricelargelink }}" selected>Beef</option>
-                        {{ end }}
-                        {{ if or .Params.chickenpricesmalllink .Params.chickenpricemediumlink .Params.chickenpricelargelink }}
-                        <option value="chicken" data-image="/img/post-a-1.webp"
-                                data-flavour-price-small="{{ .Params.chickenpricesmalllink }}"
-                                data-flavour-price-medium="{{ .Params.chickenpricemediumlink }}"
-                                data-flavour-price-large="{{ .Params.chickenpricelargelink }}">Chicken</option>
-                        {{ end }}
-                        {{ if or .Params.lambpricesmalllink .Params.lambpricemediumlink .Params.lambpricelargelink }}
-                        <option value="lamb" data-image="/img/post-a-1.webp"
-                                data-flavour-price-small="{{ .Params.lambpricesmalllink }}"
-                                data-flavour-price-medium="{{ .Params.lambpricemediumlink }}"
-                                data-flavour-price-large="{{ .Params.lambpricelargelink }}">Lamb</option>
-                        {{ end }}
-                    </select>
-                </div>
-                
-                <div class="dropdown-group">
-                    <select id="productSize" name="productSize">
-                        {{ if or .Params.beefpricesmalllink .Params.chickenpricesmalllink .Params.lambpricesmalllink }}
-                        <option value="small" data-image="/img/post-a-1.webp">20g</option>
-                        {{ end }}
-                        {{ if isset .Params "wipe" }}
-                            {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
-                            <option value="medium" data-image="/img/50front.webp">50g</option>
-                            {{ end }}
-                            {{ if or .Params.beefpricelargelink .Params.chickenpricelargelink .Params.lambpricelargelink }}
-                                <option value="large" data-image="/img/50front.webp">100g</option>
-                            {{ end }}
-                        {{ end }}
-                    </select>
-                </div>
-                <div class="quantity-container">
-                    <label for="quantityAll">Qty </label>
-                    <input type="number" id="quantityAll" name="quantity" min="1" value="1">
-                </div>
-                
-            </div>
-                
-           
-                
-                <div id="productsmall" class="product-info">
-                    <button class="btn btn-primary buy-now" data-price-id="{{ .Params.beefpricemediumlink }}" data-quantity-id="quantityAll">Add To Cart</button>
-                </div>
-                
-                {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
-                <div id="productmedium" class="product-info hidden">
-                    <button class="btn btn-primary buy-now" data-price-id="{{ .Params.beefpricemediumlink }}" data-quantity-id="quantityAll">Add To Cart</button>
-                </div>
-                {{ end }}
-                
-                {{ if or .Params.beefpricelargelink .Params.chickenpricelargelink .Params.lambpricelargelink }}
-                <div id="productlarge" class="product-info hidden">
-                    <button class="btn btn-primary buy-now" data-price-id="{{ .Params.beefpricelargelink }}" data-quantity-id="quantityAll">Add To Cart</button>
-                </div>
-                {{ end }}
+                    <!-- YAML FORM ENDS -->
 
                 <img class="badges" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
                 <div class="row mt-2 ninety mb-0 p-0">
@@ -446,6 +416,301 @@
 });
 
 </script>
+
+<!-- THIS IS WHERE ADD TO CART STARTS -->
+<script>
+    const productPricingRaw = {{ site.Data.pricing.broth.pricing | jsonify | safeJS }};
+    console.log("Raw product Pricing from Hugo:", productPricingRaw);
+
+    const productPricing = Array.isArray(productPricingRaw) ? productPricingRaw : [];
+    if (!Array.isArray(productPricing)) {
+        console.error("productPricing is not an array. Ensure your YAML structure and Hugo data access.");
+    } else {
+        console.log("Parsed product Pricing:", productPricing);
+    }
+
+    function updatePrice() {
+        const size = document.getElementById("size").value.trim().toLowerCase();
+        const orderType = document.getElementById("orderType").value.trim().toLowerCase();
+
+        console.log("Selected size:", size);
+        console.log("Selected order type:", orderType);
+
+        const pricingEntry = productPricing.find(entry => entry.size.toLowerCase() === size);
+        if (pricingEntry && pricingEntry.prices[orderType]) {
+            const price = pricingEntry.prices[orderType];
+            document.getElementById("price").textContent = `$${price.toFixed(2)}`;
+        } else {
+            document.getElementById("price").textContent = "N/A";
+        }
+    }
+
+    // Attach event listener for changes
+    document.getElementById("productForm").addEventListener("change", updatePrice);
+
+    // Initialize the price on page load
+    document.addEventListener("DOMContentLoaded", updatePrice);
+</script>
+
+
+<script>
+    // Function to update the price ID display
+    function updatePriceID() {
+    const size = document.getElementById("size").value.trim().toLowerCase();
+    const flavor = document.getElementById("flavor").value.trim().toLowerCase();
+    const orderType = document.getElementById("orderType").value.trim().toLowerCase();
+    
+
+
+    // Default value for price ID
+    let priceID = "N/A";
+
+    // Debug: Check the loaded data and selected values
+    console.log("Loaded Data:", productPricingRaw);
+    console.log("Selected - Size:", size, "Flavor:", flavor, "Order Type:", orderType);
+
+    // Traverse the pricing structure for the selected combination
+    if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.pets) {
+        const petsData = productPricingRaw.ids.pets;
+        console.log("pets Data:", petsData);
+
+        const orderTypeData = petsData[orderType];
+        console.log("Order Type Data:", orderTypeData);
+
+        if (orderTypeData && orderTypeData[flavor]) {
+            const flavorData = orderTypeData[flavor];
+            console.log("Flavor Data:", flavorData);
+
+            const sizeData = flavorData[size];
+            console.log("Size Data:", sizeData);
+
+            if (sizeData) {
+                priceID = sizeData; // Assign the resolved price ID
+            }
+        }
+    }
+
+    // Update the DOM element with the resolved price ID
+    document.getElementById("price-id").textContent = priceID !== "N/A" ? priceID : "Price ID Not Available";
+
+    // Log final result
+    console.log("Resolved Price ID:", priceID);
+
+};
+</script>
+<script>
+    // Parse the JSON string into an object
+    const rawData = "{{ .Site.Data.pricing | jsonify }}"; // Embedded JSON string from Hugo
+    const pricingData = JSON.parse(rawData); // Parse into a JavaScript object
+    console.log('Parsed Pricing Data:', pricingData); // Debugging output
+
+    function updatePriceId() {
+    // Get the selected values
+    const size = document.getElementById('size').value.trim().toLowerCase();
+    const flavor = document.getElementById('flavor').value.trim().toLowerCase();
+    const orderType = document.getElementById('orderType').value.trim().toLowerCase();
+
+    try {
+        let priceId;
+
+        // Access the correct price ID based on the order type
+        if (orderType === 'single_purchase') {
+            priceId = pricingData.broth.ids.pets.single[flavor][size];
+        } else if (orderType === 'recurring_monthly') {
+            priceId = pricingData.broth.ids.pets.monthly[flavor][size];
+        } else if (orderType === 'recurring_quarterly') {
+            priceId = pricingData.broth.ids.pets.quarterly[flavor][size];
+        } else if (orderType === 'three_pack') {
+            priceId = pricingData.broth.ids.pets.pack[flavor][size];
+        }
+
+        console.log('Price ID:', priceId);
+
+        // Update the DOM element with the resolved price ID, if it exists
+        const priceIdElement = document.getElementById('price-id');
+        if (priceIdElement) {
+            priceIdElement.textContent = priceId || 'Price ID not found';
+        }
+
+        // Update the button's data-price-id attribute
+        const buyNowButton = document.querySelector(".buy-now");
+        if (buyNowButton) {
+            buyNowButton.setAttribute("data-price-id", priceId || "");
+            console.log('Button updated with Price ID:', priceId);
+        }
+    } catch (error) {
+        console.error('Error fetching Price ID:', error);
+
+        // Clear the button's data-price-id attribute on error
+        const buyNowButton = document.querySelector(".buy-now");
+        if (buyNowButton) {
+            buyNowButton.setAttribute("data-price-id", "");
+        }
+    }
+}
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Add event listener for form changes
+        document.getElementById('productForm').addEventListener('change', updatePriceId);
+
+        // Trigger the update function on page load
+        updatePriceId();
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    // Convert the ids structure to a simplified format
+    function preprocessproductData(rawData) {
+        const simplified = {};
+
+        // Iterate over pets (or pets, if needed)
+        if (rawData.ids && rawData.ids.pets) {
+            const categories = rawData.ids.pets;
+
+            for (const [orderType, flavors] of Object.entries(categories)) {
+                for (const [flavor, sizes] of Object.entries(flavors)) {
+                    for (const [size, priceId] of Object.entries(sizes)) {
+                        if (!simplified[size]) {
+                            simplified[size] = {};
+                        }
+                        if (!simplified[size][flavor]) {
+                            simplified[size][flavor] = {};
+                        }
+                        simplified[size][flavor][orderType] = priceId;
+                    }
+                }
+            }
+        }
+        return simplified;
+    }
+
+    // Example: Assume productPricingRaw is available globally or passed here
+    const normalizedproductData = preprocessproductData(productPricingRaw);
+    console.log('Normalized product Data:', normalizedproductData);
+
+    // Use normalizedproductData for price ID lookups
+    function getPriceID(size, flavor, orderType) {
+        return (
+            normalizedproductData[size]?.[flavor]?.[orderType] ||
+            "Price ID not found"
+        );
+    }
+
+});
+
+</script>
+
+
+<script>
+    // Add to Cart Handler Function
+    function handleAddToCart(event) {
+    event.preventDefault();
+
+    console.log('Add to Cart button clicked!'); // Debugging
+
+    const button = event.target;
+
+
+    // Retrieve values from the dropdowns
+    const size = document.getElementById('size')?.value || 'Default Size';
+// Use the text content of the selected option
+const flavorSelect = document.getElementById('flavor');
+const flavor = flavorSelect.options[flavorSelect.selectedIndex].textContent.trim();
+// Use the text content of the selected option
+const orderTypeSelect = document.getElementById('orderType');
+const orderType = orderTypeSelect.options[orderTypeSelect.selectedIndex].textContent.trim();
+    const unitPriceElement = document.getElementById('price');
+    const unitPrice = unitPriceElement 
+        ? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00
+        : 0.00;
+
+    // Retrieve the price ID
+    const priceId = button.getAttribute('data-price-id') || 'N/A';
+    const title = document.querySelector('h1').innerText;
+
+    // Retrieve quantity
+    const quantityField = document.getElementById('quantityAll');
+    const quantity = quantityField ? parseInt(quantityField.value, 10) || 1 : 1;
+
+    // Debugging
+    console.log('Size:', size);
+    console.log('Flavor:', flavor);
+    console.log('Order Type:', orderType);
+    console.log('Quantity:', quantity);
+    console.log('Price ID:', priceId);
+
+    // Check if price ID is valid
+    if (!priceId || priceId === 'N/A') {
+        alert('Please select valid options before adding to cart.');
+        return;
+    }
+
+    // Add to cart
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push({
+        priceId,
+        title,
+        size,
+        flavor,
+        orderType,
+        quantity,
+        unitPrice
+    });
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    console.log('Cart updated:', cart); // Debugging
+
+    // Trigger success modal or alert
+    const modal = document.getElementById('addedToCartModal');
+    if (modal) {
+        $('#addedToCartModal').modal('show');
+    } else {
+        alert('Item added to cart successfully!');
+    }
+}
+
+// Attach the event listener to the Add to Cart button
+document.addEventListener('DOMContentLoaded', function () {
+    const addToCartButton = document.querySelector('.buy-now');
+    if (addToCartButton) {
+        addToCartButton.addEventListener('click', handleAddToCart);
+        console.log('Add to Cart button is ready.');
+    } else {
+        console.error('Add to Cart button not found!');
+    }
+});
+
+</script>
+
+
+
+
+
+
+<!-- Modal for Add to Cart Confirmation -->
+<div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Your item has been successfully added to the cart. What would you like to do next?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
+                <a href="/cart" class="btn btn-primary">Go to Cart</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- THIS IS WHERE ADD TO CART ENDS -->
 
 {{- partial "footer.html" . -}}
 </body>

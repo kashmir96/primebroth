@@ -60,30 +60,44 @@
                 <img class="thirty" src="/img/stars/5.webp" alt="">
                 <h1>Bone broth powder {{ if .Params.charity }} - {{ .Params.charity }}{{ end }}</h1>
                 <h2>Primebroth</h2>
-                <div class="custom-radio" >
-                    <input type="radio" id="inStock" name="stockStatus" checked>
-                    <label class="custom-radio-label mb-4" for="inStock">Backorder - stock arrives mid Dec. Orders placed until then will be shipped when availability allows.</label>
+
+
+
+                <!-- Price Partials for Small, Medium, and Large -->
+                {{ if or .Params.beefpricesmalllink .Params.chickenpricesmalllink .Params.lambpricesmalllink }}
+                <div id="pricePartialSmall" class="product-info">
+                    <p>{{- partial "price-ppl-powder-50g.html" . -}}</p>
                 </div>
-
-    <!-- YAML FORM STARTS -->
-
-                <div class="price-display">
-                    <p><span id="price">-</span></p>                
+                {{ end }}
+                
+                {{ if or .Params.beefpricemediumlink .Params.chickenpricemediumlink .Params.lambpricemediumlink }}
+                <div id="pricePartialMedium" class="product-info hidden">
+                    <p>{{- partial "price-ppl-powder-100g.html" . -}}</p>
                 </div>
+                {{ end }}
+                
+                {{ if or .Params.beefpricelargelink .Params.chickenpricelargelink .Params.lambpricelargelink }}
+                <div id="pricePartialLarge" class="product-info hidden">
+                    <p>{{- partial "price-ppl-powder-100g.html" . -}}</p>
+                </div>
+                {{ end }}
 
 
-                <form id="productForm" class="form-group mb-4">
-                    <div class="text-left mb-4">
-                        <label class="font-weight-bold" for="size">Select Size:</label>
-                        <select class="form-control" id="size" name="size">
+                <form id="brothForm" class="mb-4">
+                    <!-- Dropdown for selecting size -->
+                    <div class="form-group mb-4">
+                        <label for="size" class="font-weight-bold">Select Size:</label>
+                        <select id="size" name="size" class="form-control">
                             <option value="50g">50g</option>
                             <option value="90g">90g</option>
                             <option value="180g">180g</option>
                         </select>
                     </div>
-                    <div class="text-left mb-4">
-                        <label class="font-weight-bold" for="flavor">Select Flavor:</label>
-                        <select class="form-control" id="flavor" name="flavor">
+                
+                    <!-- Dropdown for selecting flavor -->
+                    <div class="form-group mb-4">
+                        <label for="flavor" class="font-weight-bold">Select Flavor:</label>
+                        <select id="flavor" name="flavor" class="form-control">
                             <option value="beef">Beef</option>
                             <option value="chicken">Chicken</option>
                             <option value="duck">Duck</option>
@@ -93,36 +107,39 @@
                             <option value="pork">Pork</option>
                         </select>
                     </div>
-                    <div class="text-left mb-4">
-                        <label class="font-weight-bold"  for="orderType">Select Order Type:</label>
-                        <select class="form-control" id="orderType" name="orderType">
-                            <option value="single_purchase">Single unit</option>
-                            <option value="three_pack">3 pack (save 20%)</option>
-                            <option value="recurring_monthly">Subscribe Monthly (save 20%)</option>
-                            <option value="recurring_quarterly">Subscribe Quarterly (save 12.5%)</option>
+                
+                    <!-- Dropdown for selecting order type -->
+                    <div class="form-group mb-4">
+                        <label for="orderType" class="font-weight-bold">Select Order Type:</label>
+                        <select id="orderType" name="orderType" class="form-control">
+                            <option value="single_purchase">Single Purchase</option>
+                            <option value="recurring_monthly">Recurring Monthly</option>
+                            <option value="recurring_quarterly">Recurring Quarterly</option>
+                            <option value="three_pack">Three-Pack</option>
                         </select>
                     </div>
-
- <!-- Quantity Selector -->
- <div class="form-group mb-4">
-    <label for="quantityAll" class="font-weight-bold">Quantity:</label>
-    <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
-</div>
-
-                    
-
-
-
-                <!-- Add to Cart Button -->
-                <div class="text-center mb-4">
-                    <button type="button" class="btn btn-primary btn-lg buy-now" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
-                </div>
-
+                
+                    <!-- Quantity Selector -->
+                    <div class="form-group mb-4">
+                        <label for="quantityAll" class="font-weight-bold">Quantity:</label>
+                        <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+                    </div>
+                
+                    <!-- Price Display -->
+                    <div class="form-group mb-4">
+                        <p class="font-weight-bold">Price: <span id="price">-</span></p>
+                        <p class="font-weight-bold">Price ID: <span id="price-id">-</span></p>
+                    </div>
+                
+                    <!-- Add to Cart Button -->
+                    <div class="text-center mb-4">
+                        <button type="button" class="btn btn-primary btn-lg buy-now" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
+                    </div>
                 </form>
+                
 
                 
-                    <!-- YAML FORM ENDS -->
-
+                
             </div>
 
             <div class="row mt-0">
@@ -381,16 +398,15 @@
 </script>
 
 
-<!-- THIS IS WHERE ADD TO CART STARTS -->
 <script>
-    const productPricingRaw = {{ site.Data.pricing.broth.pricing | jsonify | safeJS }};
-    console.log("Raw product Pricing from Hugo:", productPricingRaw);
+    const brothPricingRaw = {{ site.Data.pricing.broth.broth_pricing | jsonify | safeJS }};
+    console.log("Raw Broth Pricing from Hugo:", brothPricingRaw);
 
-    const productPricing = Array.isArray(productPricingRaw) ? productPricingRaw : [];
-    if (!Array.isArray(productPricing)) {
-        console.error("productPricing is not an array. Ensure your YAML structure and Hugo data access.");
+    const brothPricing = Array.isArray(brothPricingRaw) ? brothPricingRaw : [];
+    if (!Array.isArray(brothPricing)) {
+        console.error("brothPricing is not an array. Ensure your YAML structure and Hugo data access.");
     } else {
-        console.log("Parsed product Pricing:", productPricing);
+        console.log("Parsed Broth Pricing:", brothPricing);
     }
 
     function updatePrice() {
@@ -400,7 +416,7 @@
         console.log("Selected size:", size);
         console.log("Selected order type:", orderType);
 
-        const pricingEntry = productPricing.find(entry => entry.size.toLowerCase() === size);
+        const pricingEntry = brothPricing.find(entry => entry.size.toLowerCase() === size);
         if (pricingEntry && pricingEntry.prices[orderType]) {
             const price = pricingEntry.prices[orderType];
             document.getElementById("price").textContent = `$${price.toFixed(2)}`;
@@ -410,7 +426,7 @@
     }
 
     // Attach event listener for changes
-    document.getElementById("productForm").addEventListener("change", updatePrice);
+    document.getElementById("brothForm").addEventListener("change", updatePrice);
 
     // Initialize the price on page load
     document.addEventListener("DOMContentLoaded", updatePrice);
@@ -423,19 +439,17 @@
     const size = document.getElementById("size").value.trim().toLowerCase();
     const flavor = document.getElementById("flavor").value.trim().toLowerCase();
     const orderType = document.getElementById("orderType").value.trim().toLowerCase();
-    
-
 
     // Default value for price ID
     let priceID = "N/A";
 
     // Debug: Check the loaded data and selected values
-    console.log("Loaded Data:", productPricingRaw);
+    console.log("Loaded Data:", brothPricingRaw);
     console.log("Selected - Size:", size, "Flavor:", flavor, "Order Type:", orderType);
 
     // Traverse the pricing structure for the selected combination
-    if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.people) {
-        const peopleData = productPricingRaw.ids.people;
+    if (brothPricingRaw && brothPricingRaw.broth_ids && brothPricingRaw.broth_ids.people) {
+        const peopleData = brothPricingRaw.broth_ids.people;
         console.log("People Data:", peopleData);
 
         const orderTypeData = peopleData[orderType];
@@ -469,212 +483,89 @@
     console.log('Parsed Pricing Data:', pricingData); // Debugging output
 
     function updatePriceId() {
-    // Get the selected values
-    const size = document.getElementById('size').value.trim().toLowerCase();
-    const flavor = document.getElementById('flavor').value.trim().toLowerCase();
-    const orderType = document.getElementById('orderType').value.trim().toLowerCase();
+        // Get the selected values
+        const size = document.getElementById('size').value;
+        const flavor = document.getElementById('flavor').value;
+        const orderType = document.getElementById('orderType').value;
 
-    try {
-        let priceId;
+        console.log('Size:', size); // Debug
+        console.log('Flavor:', flavor); // Debug
+        console.log('Order Type:', orderType); // Debug
 
-        // Access the correct price ID based on the order type
-        if (orderType === 'single_purchase') {
-            priceId = pricingData.broth.ids.people.single[flavor][size];
-        } else if (orderType === 'recurring_monthly') {
-            priceId = pricingData.broth.ids.people.monthly[flavor][size];
-        } else if (orderType === 'recurring_quarterly') {
-            priceId = pricingData.broth.ids.people.quarterly[flavor][size];
-        } else if (orderType === 'three_pack') {
-            priceId = pricingData.broth.ids.people.pack[flavor][size];
-        }
+        try {
+            let priceId;
 
-        console.log('Price ID:', priceId);
+            // Access the correct price ID based on the order type
+            if (orderType === 'single_purchase') {
+                priceId = pricingData.broth.broth_ids.people.single[flavor][size];
+            } else if (orderType === 'recurring_monthly') {
+                priceId = pricingData.broth.broth_ids.people.monthly[flavor][size];
+            } else if (orderType === 'recurring_quarterly') {
+                priceId = pricingData.broth.broth_ids.people.quarterly[flavor][size];
+            } else if (orderType === 'three_pack') {
+                priceId = pricingData.broth.broth_ids.people.pack[flavor][`${size}-3pk`];
+            }
 
-        // Update the DOM element with the resolved price ID, if it exists
-        const priceIdElement = document.getElementById('price-id');
-        if (priceIdElement) {
-            priceIdElement.textContent = priceId || 'Price ID not found';
-        }
+            console.log('Price ID:', priceId); // Debug
+            document.getElementById('price-id').textContent = priceId || 'Price ID not found';
 
-        // Update the button's data-price-id attribute
-        const buyNowButton = document.querySelector(".buy-now");
-        if (buyNowButton) {
-            buyNowButton.setAttribute("data-price-id", priceId || "");
-            console.log('Button updated with Price ID:', priceId);
-        }
-    } catch (error) {
-        console.error('Error fetching Price ID:', error);
+            // Update the button's data-price-id attribute
+            const buyNowButton = document.querySelector(".buy-now");
+            if (buyNowButton) {
+                buyNowButton.setAttribute("data-price-id", priceId || "");
+                console.log('Button updated with Price ID:', priceId); // Debug
+            }
+        } catch (error) {
+            console.error('Error fetching Price ID:', error);
+            document.getElementById('price-id').textContent = 'Error fetching Price ID';
 
-        // Clear the button's data-price-id attribute on error
-        const buyNowButton = document.querySelector(".buy-now");
-        if (buyNowButton) {
-            buyNowButton.setAttribute("data-price-id", "");
+            // Clear the button's data-price-id attribute on error
+            const buyNowButton = document.querySelector(".buy-now");
+            if (buyNowButton) {
+                buyNowButton.setAttribute("data-price-id", "");
+            }
         }
     }
-}
 
     document.addEventListener('DOMContentLoaded', function () {
         // Add event listener for form changes
-        document.getElementById('productForm').addEventListener('change', updatePriceId);
+        document.getElementById('brothForm').addEventListener('change', updatePriceId);
 
         // Trigger the update function on page load
         updatePriceId();
     });
 </script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-    // Convert the ids structure to a simplified format
-    function preprocessproductData(rawData) {
-        const simplified = {};
-
-        // Iterate over people (or pets, if needed)
-        if (rawData.ids && rawData.ids.people) {
-            const categories = rawData.ids.people;
-
-            for (const [orderType, flavors] of Object.entries(categories)) {
-                for (const [flavor, sizes] of Object.entries(flavors)) {
-                    for (const [size, priceId] of Object.entries(sizes)) {
-                        if (!simplified[size]) {
-                            simplified[size] = {};
-                        }
-                        if (!simplified[size][flavor]) {
-                            simplified[size][flavor] = {};
-                        }
-                        simplified[size][flavor][orderType] = priceId;
-                    }
-                }
-            }
-        }
-        return simplified;
-    }
-
-    // Example: Assume productPricingRaw is available globally or passed here
-    const normalizedproductData = preprocessproductData(productPricingRaw);
-    console.log('Normalized product Data:', normalizedproductData);
-
-    // Use normalizedproductData for price ID lookups
-    function getPriceID(size, flavor, orderType) {
-        return (
-            normalizedproductData[size]?.[flavor]?.[orderType] ||
-            "Price ID not found"
-        );
-    }
-
-});
-
-</script>
-
 
 <script>
-    // Add to Cart Handler Function
     function handleAddToCart(event) {
     event.preventDefault();
 
-    console.log('Add to Cart button clicked!'); // Debugging
-
     const button = event.target;
+    const priceId = button.getAttribute('data-price-id');
+    const quantity = parseInt(document.getElementById('quantityAll').value, 10);
 
-
-    // Retrieve values from the dropdowns
-    const size = document.getElementById('size')?.value || 'Default Size';
-// Use the text content of the selected option
-const flavorSelect = document.getElementById('flavor');
-const flavor = flavorSelect.options[flavorSelect.selectedIndex].textContent.trim();
-// Use the text content of the selected option
-const orderTypeSelect = document.getElementById('orderType');
-const orderType = orderTypeSelect.options[orderTypeSelect.selectedIndex].textContent.trim();
-    const unitPriceElement = document.getElementById('price');
-    const unitPrice = unitPriceElement 
-        ? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00
-        : 0.00;
-
-    // Retrieve the price ID
-    const priceId = button.getAttribute('data-price-id') || 'N/A';
-    const title = document.querySelector('h1').innerText;
-
-    // Retrieve quantity
-    const quantityField = document.getElementById('quantityAll');
-    const quantity = quantityField ? parseInt(quantityField.value, 10) || 1 : 1;
-
-    // Debugging
-    console.log('Size:', size);
-    console.log('Flavor:', flavor);
-    console.log('Order Type:', orderType);
-    console.log('Quantity:', quantity);
-    console.log('Price ID:', priceId);
-
-    // Check if price ID is valid
-    if (!priceId || priceId === 'N/A') {
-        alert('Please select valid options before adding to cart.');
+    if (!priceId || priceId === "N/A") {
+        alert("Please select valid options before adding to cart.");
         return;
     }
 
-    // Add to cart
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart.push({
-        priceId,
-        title,
-        size,
-        flavor,
-        orderType,
-        quantity,
-        unitPrice
-    });
+    // Add to cart (localStorage example)
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push({ priceId, quantity });
     localStorage.setItem('cart', JSON.stringify(cart));
 
-    console.log('Cart updated:', cart); // Debugging
-
-    // Trigger success modal or alert
-    const modal = document.getElementById('addedToCartModal');
-    if (modal) {
-        $('#addedToCartModal').modal('show');
-    } else {
-        alert('Item added to cart successfully!');
-    }
+    // Show confirmation modal or redirect
+    alert("Item added to cart!");
 }
 
-// Attach the event listener to the Add to Cart button
-document.addEventListener('DOMContentLoaded', function () {
-    const addToCartButton = document.querySelector('.buy-now');
-    if (addToCartButton) {
-        addToCartButton.addEventListener('click', handleAddToCart);
-        console.log('Add to Cart button is ready.');
-    } else {
-        console.error('Add to Cart button not found!');
-    }
-});
+// Attach event listener
+document.querySelector('.buy-now').addEventListener('click', handleAddToCart);
 
 </script>
 
 
 
-
-
-
-<!-- Modal for Add to Cart Confirmation -->
-<div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Your item has been successfully added to the cart. What would you like to do next?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
-                <a href="/cart" class="btn btn-primary">Go to Cart</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- THIS IS WHERE ADD TO CART ENDS -->
 
 {{- partial "footer.html" . -}}
 </body>

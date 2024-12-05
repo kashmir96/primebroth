@@ -30,53 +30,69 @@
             </div>
             <div class="col-xs-12 col-lg-6">
                 <h1 class="my-4">Tallow Balm - Heavenly Smooth</h1>
-                <p id="priceDisplay" class="product-price"></p> <!-- Placeholder for the price -->
  
-                <!-- Product Form Options with Bootstrap Styling -->
-                <form>
-                    <!-- Dropdown for selecting scent -->
-                    <div class="form-group mb-4">
-                        <label for="productScent" class="font-weight-bold">Select Scent:</label>
-                        <select id="productScent" class="form-control">
-                            <option value="neutral">Neutral</option>
-                            <option value="vanillarose">Vanilla & Rose</option>
-                            <option value="francensense">Frankincense</option>
-                            <option value="lavendar">Lavender</option><!-- 
-                            <option value="patchouli">Patchouli</option>
-                            <option value="sweetorange">Sweet Orange</option>
-                            <option value="cedarwood">Cedarwood</option>
-                            -->
-                        </select>
-                    </div>
+                
 
-                    <!-- Dropdown for selecting size -->
-                    <div class="form-group mb-4">
-                        <label for="productSize" class="font-weight-bold">Select Size:</label>
-                        <select id="productSize" class="form-control">
-                            <!--<option value="60ml">60ml</option>-->
-                            <!--<option value="100ml">100ml</option>-->
+              
+                
+    <!-- YAML FORM STARTS -->
+
+<!-- Product Form Options with Bootstrap Styling -->
+                <div class="price-display">
+                    <p><span id="price">-</span></p>                
+                </div>
+                <form id="productForm" class="form-group mb-4">
+                    <div class="text-left mb-4">
+                        <label class="font-weight-bold" for="size">Select Size:</label>
+                        <select class="form-control" id="size" name="size">
+                         <!--<option value="60ml">60ml</option> -->
+                         <!--<option value="100ml">100ml</option>-->
                             <option value="175ml">175ml</option>
-                            <!--<option value="200ml">200ml</option>-->
+                           <!-- <option value="200ml">200ml</option>-->
+                        </select>
+                    </div>
+                    <div class="text-left mb-4">
+                        <label class="font-weight-bold" for="flavor">Select Flavor:</label>
+                        <select class="form-control" id="flavor" name="flavor">
+                            <option value="lavender">Lavender</option>
+                        <!--    <option value="rose">Rose</option>-->
+                            <option value="neutral">Neutral</option>
+                        <!--    <option value="vanilla">Vanilla</option>-->
+                        <!--    <option value="patchouli">Patchouli</option>-->
+                        <!--    <option value="orange">Orange</option>-->
+                        <!--    <option value="cedar">Cedar</option>-->
+                            <option value="frankincense">Frankincense</option>
+                            <option value="vanilla-rose">Vanilla Rose</option>
+                        </select>
+                    </div>
+                    <div class="text-left mb-4">
+                        <label class="font-weight-bold"  for="orderType">Select Order Type:</label>
+                        <select class="form-control" id="orderType" name="orderType">
+                            <option value="single_purchase">Single unit</option>
+                            <option value="three_pack">3 pack (save 20%)</option>
+                            <option value="recurring_monthly">Subscribe Monthly (save 20%)</option>
+                            <option value="recurring_quarterly">Subscribe Quarterly (save 12.5%)</option>
                         </select>
                     </div>
 
-                    <!-- Checkbox for Oil Type -->
-                    <div class="form-group form-check mb-4" style="display: none;">
-                        <input type="checkbox" class="form-check-input" id="jojobaCheckbox" checked>
-                        <label class="form-check-label" for="jojobaCheckbox">Use Jojoba Oil</label>
-                    </div>
+ <!-- Quantity Selector -->
+ <div class="form-group mb-4">
+    <label for="quantityAll" class="font-weight-bold">Quantity:</label>
+    <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+</div>
 
-                    <!-- Quantity Selector -->
-                    <div class="form-group mb-4">
-                        <label for="quantityAll" class="font-weight-bold">Quantity:</label>
-                        <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
-                    </div>
+                    
 
-                    <!-- Add to Cart Button -->
-                    <div class="text-center mb-4">
-                        <button type="button" class="btn btn-primary btn-lg buy-now" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
-                    </div>
+
+
+                <!-- Add to Cart Button -->
+                <div class="text-center mb-4">
+                    <button type="button" class="btn btn-primary btn-lg buy-now" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
+                </div>
+
                 </form>
+
+    <!-- YAML FORM ENDS -->
 
                 <p>Shipping & promotions applied at checkout</p>
 
@@ -152,57 +168,7 @@
                 </div>
                 
             </div>
-           <!-- <div class="row mt-0">
-                <div class="col-12 col-md-6">
-                    <h2>See what our customers are saying!</h2>
-                    <div>
-                    <div class="col-12 mt-2 mb-2 card">
-                        <div class="card-top">
-                        <p class="customer-name">Posted by <span style="font-weight: bold;">Giulana</span> on <span style="font-weight: bold;">26/09/2024</span></p>
-                        </div>
-                        <div class="card-bottom">
         
-                        <p class="feedback-text">"I received my order, it’s lovely. You’ve done an awesome job.. Great product, will recommend"</p>
-                    </div> </div>
-                    <div class="col-12 mb-2 card">
-                        <div class="card-top">
-                        <p class="customer-name">Posted by <span style="font-weight: bold;">Angelo</span> on <span style="font-weight: bold;">09/09/2024</span></p>
-                    </div>
-                    <div class="card-bottom"><p class="feedback-text">"My balms arrived last night and man they are absolutely incredible. Could I purchase another 2 tonight? Can transfer you $ at 6pm"</p>
-                    </div> </div>
-                    <div class="col-12 mb-2 card">
-                        <div class="card-top">
-                            <p class="customer-name">Posted by <span style="font-weight: bold;">Tina</span> on <span style="font-weight: bold;">24/09/2024</span></p>
-                        </div>
-                        <div class="card-bottom">
-                    <p class="feedback-text">"I looooove it. I’m doing a review. I’ll never be without it now. Plus awesome birthday presents. Thank you"</p>
-                </div>
-                </div> 
-                <div class="col-12 mb-2 card">
-                    <div class="card-top">
-                        <p class="customer-name">Posted by <span style="font-weight: bold;">Kaatje</span> on <span style="font-weight: bold;">24/09/2024</span></p>
-                    </div>
-                    <div class="card-bottom">
-                <p class="feedback-text">"Hey Curtis, Love love love your guys tallow balm. It’s magic! I work in a hair salon, so I’m always getting harsh chemicals on my hands and it drys the heck out of them. This stuff has made reverse effects and soothes my skin. Appreciate the craft!"</p>
-            </div></div>
-            </div> 
-
-
-                </div>
-                <div class="col-12 col-md-6 mt-4">
-                        <div class="image-container mt-4">
-                          <img style="max-height:700px; margin: 0px auto;" src="/img/carnivid.webp" alt="Click to watch video" id="thumbnail" data-video-id="videoContainer1" loading="lazy">
-                      </div>
-                    <div class="video-container mt-4" id="videoContainer1">
-                      <iframe style="height:700px; position:relative;top:-100px;" src="https://player.vimeo.com/video/1020036280?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write;" title="Primebroth Tallow Balm" loading="lazy"></iframe>
-                    </div>
-
-                </div>
-                </div>
--->
-               
-
-
 
             
                     
@@ -232,193 +198,7 @@
     </div>
 
     </div>
-    </div>
-
-    <!-- Script for handling the selection, updating the price ID, and Stripe checkout -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const stripe = Stripe('pk_live_51Ot2iTABkrUo6tgOu44jd79tB4Dg2B64I6lucmLcKdxZfcy2Dy3bTnbxQNiwDtRfeWSwWx1WsDpC0h91tTlubPXW000IuWtQTX');
-
-            // Set up event listeners for dropdowns
-            document.getElementById('productScent').addEventListener('change', updatePriceID);
-            document.getElementById('productSize').addEventListener('change', updatePriceID);
-            document.getElementById('jojobaCheckbox').addEventListener('change', updatePriceID);
-
-            // Handle add to cart button click
-            document.querySelector('.buy-now').addEventListener('click', handleAddToCart);
-
-            function updatePriceID() {
-                const isJojoba = document.getElementById('jojobaCheckbox').checked ? 'jojoba' : 'olive';
-                const selectedScent = document.getElementById('productScent').value;
-                const selectedSize = document.getElementById('productSize').value;
-
-                const priceID = priceIDs[isJojoba][selectedScent][selectedSize];
-                const unitPrice = getPriceText(priceID);
-
-                // Update the button's data-price-id and unit price
-                document.querySelector('.buy-now').setAttribute('data-price-id', priceID);
-                document.querySelector('.buy-now').setAttribute('data-unit-price', unitPrice);
-            }
-
-            function getPriceText(priceID) {
-    // Fetch the price based on the priceID
-    switch (priceID) {
-        case '{{ index .Params "balm-or-lav-60ml" }}':
-        case '{{ index .Params "balm-or-ros-60ml" }}':
-        case '{{ index .Params "balm-or-neu-60ml" }}':
-        case '{{ index .Params "balm-or-vanrose-60ml" }}':
-        case '{{ index .Params "balm-or-patch-60ml" }}':
-        case '{{ index .Params "balm-or-orang-60ml" }}':
-        case '{{ index .Params "balm-or-cedar-60ml" }}':
-        case '{{ index .Params "balm-or-frank-60ml" }}':
-            return 22.95; // Price for 60ml sizes
-
-        case '{{ index .Params "balm-or-lav-100ml" }}':
-        case '{{ index .Params "balm-or-ros-100ml" }}':
-        case '{{ index .Params "balm-or-neu-100ml" }}':
-        case '{{ index .Params "balm-or-vanrose-100ml" }}':
-        case '{{ index .Params "balm-or-patch-100ml" }}':
-        case '{{ index .Params "balm-or-orang-100ml" }}':
-        case '{{ index .Params "balm-or-cedar-100ml" }}':
-        case '{{ index .Params "balm-or-frank-100ml" }}':
-
-            return 24.95; // Price for 100ml sizes
-
-        case '{{ index .Params "balm-or-lav-175ml" }}':
-        case '{{ index .Params "balm-or-ros-175ml" }}':
-        case '{{ index .Params "balm-or-neu-175ml" }}':
-        case '{{ index .Params "balm-or-vanrose-175ml" }}':
-        case '{{ index .Params "balm-or-patch-175ml" }}':
-        case '{{ index .Params "balm-or-orang-175ml" }}':
-        case '{{ index .Params "balm-or-cedar-175ml" }}':
-        case '{{ index .Params "balm-or-frank-175ml" }}':
-
-            return 30.95; // Price for 175ml sizes
-
-        case '{{ index .Params "balm-or-lav-200ml" }}':
-        case '{{ index .Params "balm-or-ros-200ml" }}':
-        case '{{ index .Params "balm-or-neu-200ml" }}':
-        case '{{ index .Params "balm-or-vanrose-200ml" }}':
-        case '{{ index .Params "balm-or-patch-200ml" }}':
-        case '{{ index .Params "balm-or-orang-200ml" }}':
-        case '{{ index .Params "balm-or-cedar-200ml" }}':
-        case '{{ index .Params "balm-or-frank-200ml" }}':
-            return 35.00; // Price for 200ml sizes
-
-        default:
-            return 35.00; // Default price if no matching ID found
-    }
-}
-
-
-            function handleAddToCart(e) {
-                e.preventDefault();
-                const button = e.target;
-                const priceId = button.getAttribute('data-price-id');
-                const unitPrice = parseFloat(button.getAttribute('data-unit-price')).toFixed(2);
-                const quantity = parseInt(document.getElementById('quantityAll').value, 10);
-                const selectedScent = document.getElementById('productScent').value;
-                const selectedSize = document.getElementById('productSize').value;
-                const isJojoba = document.getElementById('jojobaCheckbox').checked;
-
-                if (!priceId) {
-                    alert('Please select a scent and size.');
-                    return;
-                }
-
-                // Modify the flavor text to include " + Jojoba" if the checkbox is checked
-                const flavorText = isJojoba ? `${selectedScent} + Jojoba` : selectedScent;
-
-                // Add product to cart (localStorage)
-                let cart = JSON.parse(localStorage.getItem('cart')) || [];
-                const productTitle = document.querySelector('h1').innerText;
-
-                cart.push({ priceId, quantity, flavour: flavorText, size: selectedSize, unitPrice, title: productTitle });
-                localStorage.setItem('cart', JSON.stringify(cart));
-
-                // Show "Added to Cart" modal
-                $('#addedToCartModal').modal('show');
-            }
-
-            const priceIDs = {
-                olive: {
-                    lavendar: { '60ml': '{{ index .Params "balm-or-lav-60ml" }}', '100ml': '{{ index .Params "balm-or-lav-100ml" }}', '175ml': '{{ index .Params "balm-or-lav-175ml" }}', '200ml': '{{ index .Params "balm-or-lav-200ml" }}' },
-                    neutral: { '60ml': '{{ index .Params "balm-or-neu-60ml" }}', '100ml': '{{ index .Params "balm-or-neu-100ml" }}', '175ml': '{{ index .Params "balm-or-neu-175ml" }}', '200ml': '{{ index .Params "balm-or-neu-200ml" }}' },
-                    vanillarose: { '60ml': '{{ index .Params "balm-or-vanrose-60ml" }}', '100ml': '{{ index .Params "balm-or-vanrose-100ml" }}', '175ml': '{{ index .Params "balm-or-vanrose-175ml" }}', '200ml': '{{ index .Params "balm-or-vanrose-200ml" }}' },
-                    patchouli: { '60ml': '{{ index .Params "balm-or-patch-60ml" }}', '100ml': '{{ index .Params "balm-or-patch-100ml" }}', '175ml': '{{ index .Params "balm-or-patch-175ml" }}', '200ml': '{{ index .Params "balm-or-patch-200ml" }}' },
-                    sweetorange: { '60ml': '{{ index .Params "balm-or-orang-60ml" }}', '100ml': '{{ index .Params "balm-or-orang-100ml" }}', '175ml': '{{ index .Params "balm-or-orang-175ml" }}', '200ml': '{{ index .Params "balm-or-orang-200ml" }}' },
-                    cedar: { '60ml': '{{ index .Params "balm-or-cedar-60ml" }}', '100ml': '{{ index .Params "balm-or-cedar-100ml" }}', '175ml': '{{ index .Params "balm-or-cedar-175ml" }}', '200ml': '{{ index .Params "balm-or-cedar-200ml" }}' },
-                    frankincense: { '60ml': '{{ index .Params "balm-or-frank-60ml" }}', '100ml': '{{ index .Params "balm-or-frank-100ml" }}', '175ml': '{{ index .Params "balm-or-frank-175ml" }}', '200ml': '{{ index .Params "balm-or-frank-200ml" }}' }
-
-                },
-                jojoba: {
-                    lavendar: { '60ml': '{{ index .Params "balm-or-lav-60ml" }}', '100ml': '{{ index .Params "balm-or-lav-100ml" }}', '175ml': '{{ index .Params "balm-or-lav-175ml" }}', '200ml': '{{ index .Params "balm-or-lav-200ml" }}' },
-                    neutral: { '60ml': '{{ index .Params "balm-or-neu-60ml" }}', '100ml': '{{ index .Params "balm-or-neu-100ml" }}', '175ml': '{{ index .Params "balm-or-neu-175ml" }}', '200ml': '{{ index .Params "balm-or-neu-200ml" }}' },
-                    vanillarose: { '60ml': '{{ index .Params "balm-or-vanrose-60ml" }}', '100ml': '{{ index .Params "balm-or-vanrose-100ml" }}', '175ml': '{{ index .Params "balm-or-vanrose-175ml" }}', '200ml': '{{ index .Params "balm-or-vanrose-200ml" }}' },
-                    patchouli: { '60ml': '{{ index .Params "balm-or-patch-60ml" }}', '100ml': '{{ index .Params "balm-or-patch-100ml" }}', '175ml': '{{ index .Params "balm-or-patch-175ml" }}', '200ml': '{{ index .Params "balm-or-patch-200ml" }}' },
-                    sweetorange: { '60ml': '{{ index .Params "balm-or-orang-60ml" }}', '100ml': '{{ index .Params "balm-or-orang-100ml" }}', '175ml': '{{ index .Params "balm-or-orang-175ml" }}', '200ml': '{{ index .Params "balm-or-orang-200ml" }}' },
-                    cedar: { '60ml': '{{ index .Params "balm-or-cedar-60ml" }}', '100ml': '{{ index .Params "balm-or-cedar-100ml" }}', '175ml': '{{ index .Params "balm-or-cedar-175ml" }}', '200ml': '{{ index .Params "balm-or-cedar-200ml" }}' },
-                    frankincense: { '60ml': '{{ index .Params "balm-or-frank-60ml" }}', '100ml': '{{ index .Params "balm-or-frank-100ml" }}', '175ml': '{{ index .Params "balm-or-frank-175ml" }}', '200ml': '{{ index .Params "balm-or-frank-200ml" }}' }
-                }
-            };
-
-            // Initial update on page load
-            updatePriceID();
-        });
-    </script>
-
-    <!-- Bootstrap Modal for Added to Cart -->
-    <div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Your item has been added to the cart. What would you like to do next?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
-                    <a href="/cart" class="btn btn-primary">Go to Cart</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-    // Existing event listeners
-    document.getElementById('productScent').addEventListener('change', updatePriceID);
-    document.getElementById('productSize').addEventListener('change', updatePriceID);
-    document.getElementById('jojobaCheckbox').addEventListener('change', updatePriceID);
-
-    function updatePriceID() {
-        const selectedSize = document.getElementById('productSize').value;
-
-        // Get the placeholder for price
-        const priceDisplay = document.getElementById('priceDisplay');
-
-       // Determine the price to display
-        if (selectedSize === '60ml') {
-            priceDisplay.innerHTML = '{{ partial "price-tallow-skin-60.html" . }}';
-        } else if (selectedSize === '100ml') {
-            priceDisplay.innerHTML = '{{ partial "price-tallow-skin-100.html" . }}';
-        } else if (selectedSize === '175ml') {
-            priceDisplay.innerHTML = '{{ partial "price-tallow-skin-175.html" . }}';
-        } else if (selectedSize === '200ml') {
-            priceDisplay.innerHTML = '{{ partial "price-tallow-skin-200.html" . }}';
-        } 
-    }
-
-    // Initial update on page load
-    updatePriceID();
-});
-
-    </script>
-    
+    </div>    
 
     <!-- Include Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
@@ -434,6 +214,305 @@
             });
         });
   </script>
+
+    <!-- YAML SCRIPT STARTS -->
+
+
+
+<script>
+    const productPricingRaw = {{ site.Data.pricing.tallow.pricing.balm | jsonify | safeJS }};
+    console.log("Raw product Pricing from Hugo:", productPricingRaw);
+
+    const productPricing = Array.isArray(productPricingRaw) ? productPricingRaw : [];
+    if (!Array.isArray(productPricing)) {
+        console.error("productPricing is not an array. Ensure your YAML structure and Hugo data access.");
+    } else {
+        console.log("Parsed product Pricing:", productPricing);
+    }
+
+    function updatePrice() {
+        const size = document.getElementById("size").value.trim().toLowerCase();
+        const orderType = document.getElementById("orderType").value.trim().toLowerCase();
+
+        console.log("Selected size:", size);
+        console.log("Selected order type:", orderType);
+
+        const pricingEntry = productPricing.find(entry => entry.size.toLowerCase() === size);
+        if (pricingEntry && pricingEntry.prices[orderType]) {
+            const price = pricingEntry.prices[orderType];
+            document.getElementById("price").textContent = `$${price.toFixed(2)}`;
+        } else {
+            document.getElementById("price").textContent = "N/A";
+        }
+    }
+
+    // Attach event listener for changes
+    document.getElementById("productForm").addEventListener("change", updatePrice);
+
+    // Initialize the price on page load
+    document.addEventListener("DOMContentLoaded", updatePrice);
+</script>
+
+
+<script>
+    // Function to update the price ID display
+    function updatePriceID() {
+    const size = document.getElementById("size").value.trim().toLowerCase();
+    const flavor = document.getElementById("flavor").value.trim().toLowerCase();
+    const orderType = document.getElementById("orderType").value.trim().toLowerCase();
+    
+
+
+    // Default value for price ID
+    let priceID = "N/A";
+
+    // Debug: Check the loaded data and selected values
+    console.log("Loaded Data:", productPricingRaw);
+    console.log("Selected - Size:", size, "Flavor:", flavor, "Order Type:", orderType);
+
+    // Traverse the pricing structure for the selected combination
+    if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.balm) {
+        const balmData = productPricingRaw.ids.balm;
+        console.log("balm Data:", balmData);
+
+        const orderTypeData = balmData[orderType];
+        console.log("Order Type Data:", orderTypeData);
+
+        if (orderTypeData && orderTypeData[flavor]) {
+            const flavorData = orderTypeData[flavor];
+            console.log("Flavor Data:", flavorData);
+
+            const sizeData = flavorData[size];
+            console.log("Size Data:", sizeData);
+
+            if (sizeData) {
+                priceID = sizeData; // Assign the resolved price ID
+            }
+        }
+    }
+
+    // Update the DOM element with the resolved price ID
+    document.getElementById("price-id").textContent = priceID !== "N/A" ? priceID : "Price ID Not Available";
+
+    // Log final result
+    console.log("Resolved Price ID:", priceID);
+
+};
+</script>
+<script>
+    // Parse the JSON string into an object
+    const rawData = "{{ .Site.Data.pricing | jsonify }}"; // Embedded JSON string from Hugo
+    const pricingData = JSON.parse(rawData); // Parse into a JavaScript object
+    console.log('Parsed Pricing Data:', pricingData); // Debugging output
+
+    function updatePriceId() {
+    // Get the selected values
+    const size = document.getElementById('size').value.trim().toLowerCase();
+    const flavor = document.getElementById('flavor').value.trim().toLowerCase();
+    const orderType = document.getElementById('orderType').value.trim().toLowerCase();
+
+    try {
+        let priceId;
+
+        // Access the correct price ID based on the order type
+        if (orderType === 'single_purchase') {
+            priceId = pricingData.tallow.ids.balm.single[flavor][size];
+        } else if (orderType === 'recurring_monthly') {
+            priceId = pricingData.tallow.ids.balm.monthly[flavor][size];
+        } else if (orderType === 'recurring_quarterly') {
+            priceId = pricingData.tallow.ids.balm.quarterly[flavor][size];
+        } else if (orderType === 'three_pack') {
+            priceId = pricingData.tallow.ids.balm.pack[flavor][size];
+        }
+
+        console.log('Price ID:', priceId);
+
+        // Update the DOM element with the resolved price ID, if it exists
+        const priceIdElement = document.getElementById('price-id');
+        if (priceIdElement) {
+            priceIdElement.textContent = priceId || 'Price ID not found';
+        }
+
+        // Update the button's data-price-id attribute
+        const buyNowButton = document.querySelector(".buy-now");
+        if (buyNowButton) {
+            buyNowButton.setAttribute("data-price-id", priceId || "");
+            console.log('Button updated with Price ID:', priceId);
+        }
+    } catch (error) {
+        console.error('Error fetching Price ID:', error);
+
+        // Clear the button's data-price-id attribute on error
+        const buyNowButton = document.querySelector(".buy-now");
+        if (buyNowButton) {
+            buyNowButton.setAttribute("data-price-id", "");
+        }
+    }
+}
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Add event listener for form changes
+        document.getElementById('productForm').addEventListener('change', updatePriceId);
+
+        // Trigger the update function on page load
+        updatePriceId();
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    // Convert the ids structure to a simplified format
+    function preprocessproductData(rawData) {
+        const simplified = {};
+
+        // Iterate over balm (or pets, if needed)
+        if (rawData.ids && rawData.ids.balm) {
+            const categories = rawData.ids.balm;
+
+            for (const [orderType, flavors] of Object.entries(categories)) {
+                for (const [flavor, sizes] of Object.entries(flavors)) {
+                    for (const [size, priceId] of Object.entries(sizes)) {
+                        if (!simplified[size]) {
+                            simplified[size] = {};
+                        }
+                        if (!simplified[size][flavor]) {
+                            simplified[size][flavor] = {};
+                        }
+                        simplified[size][flavor][orderType] = priceId;
+                    }
+                }
+            }
+        }
+        return simplified;
+    }
+
+    // Example: Assume productPricingRaw is available globally or passed here
+    const normalizedproductData = preprocessproductData(productPricingRaw);
+    console.log('Normalized product Data:', normalizedproductData);
+
+    // Use normalizedproductData for price ID lookups
+    function getPriceID(size, flavor, orderType) {
+        return (
+            normalizedproductData[size]?.[flavor]?.[orderType] ||
+            "Price ID not found"
+        );
+    }
+
+});
+
+</script>
+
+
+<script>
+    // Add to Cart Handler Function
+    function handleAddToCart(event) {
+    event.preventDefault();
+
+    console.log('Add to Cart button clicked!'); // Debugging
+
+    const button = event.target;
+
+
+    // Retrieve values from the dropdowns
+    const size = document.getElementById('size')?.value || 'Default Size';
+// Use the text content of the selected option
+const flavorSelect = document.getElementById('flavor');
+const flavor = flavorSelect.options[flavorSelect.selectedIndex].textContent.trim();
+// Use the text content of the selected option
+const orderTypeSelect = document.getElementById('orderType');
+const orderType = orderTypeSelect.options[orderTypeSelect.selectedIndex].textContent.trim();
+    const unitPriceElement = document.getElementById('price');
+    const unitPrice = unitPriceElement 
+        ? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00
+        : 0.00;
+
+    // Retrieve the price ID
+    const priceId = button.getAttribute('data-price-id') || 'N/A';
+    const title = document.querySelector('h1').innerText;
+
+    // Retrieve quantity
+    const quantityField = document.getElementById('quantityAll');
+    const quantity = quantityField ? parseInt(quantityField.value, 10) || 1 : 1;
+
+    // Debugging
+    console.log('Size:', size);
+    console.log('Flavor:', flavor);
+    console.log('Order Type:', orderType);
+    console.log('Quantity:', quantity);
+    console.log('Price ID:', priceId);
+
+    // Check if price ID is valid
+    if (!priceId || priceId === 'N/A') {
+        alert('Please select valid options before adding to cart.');
+        return;
+    }
+
+    // Add to cart
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push({
+        priceId,
+        title,
+        size,
+        flavor,
+        orderType,
+        quantity,
+        unitPrice
+    });
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    console.log('Cart updated:', cart); // Debugging
+
+    // Trigger success modal or alert
+    const modal = document.getElementById('addedToCartModal');
+    if (modal) {
+        $('#addedToCartModal').modal('show');
+    } else {
+        alert('Item added to cart successfully!');
+    }
+}
+
+// Attach the event listener to the Add to Cart button
+document.addEventListener('DOMContentLoaded', function () {
+    const addToCartButton = document.querySelector('.buy-now');
+    if (addToCartButton) {
+        addToCartButton.addEventListener('click', handleAddToCart);
+        console.log('Add to Cart button is ready.');
+    } else {
+        console.error('Add to Cart button not found!');
+    }
+});
+
+</script>
+
+
+
+
+
+
+<!-- Modal for Add to Cart Confirmation -->
+<div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Your item has been successfully added to the cart. What would you like to do next?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
+                <a href="/cart" class="btn btn-primary">Go to Cart</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- YAML SCRIPT ENDS -->
+
+
     {{- partial "footer.html" . }}
 
 </body>

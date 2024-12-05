@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
-<title>PrimeBroth | About the Broth - Primebroth</title>
+<title>PrimalPantry - broth and balm | About the Broth - Primebroth</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link rel="apple-touch-icon" sizes="180x180" href='/apple-touch-icon.png'>
 <link rel="icon" type="image/png" sizes="32x32" href='favicon-32x32.png'>
@@ -284,7 +284,7 @@
     <img src="/img/original.webp" alt="Beef Tallow for Skincare">
     <div class="product-details">
       
-      <p>$22.95</p>
+      <p>$30.95</p>
       <h6>Tallow Balm - Whipped</h6>
       <a href="/shop/products/tallow-skin" class="btn btn-green">Choose scent</a>
 
@@ -391,24 +391,48 @@ function submitWaitlistForm(event) {
 
     
     <script>
-        $(document).ready(function() {
-    $('input[name="product-filter"]').on('change', function() {
-        var selectedFilter = $(this).val();
-
-        if (selectedFilter === 'all') {
-            $('.product-card').show();
-        } else if (selectedFilter === 'coming-soon') {
-            $('.product-card').hide();
-            $('.product-card[data-coming-soon="true"]').show();
-        } else {
-            $('.product-card').hide();
-            $('.product-card').filter(function() {
-                var categories = $(this).data('category').split(' ');
-                return categories.includes(selectedFilter);
-            }).show();
-        }
-    });
-});
+        $(document).ready(function () {
+            
+            function getUrlParameter(name) {
+                name = name.replace(/[\[\]]/g, '\\$&');
+                var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+                var results = regex.exec(window.location.href);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, ' '));
+            }
+    
+            
+            var selectedFilter = getUrlParameter('filter');
+    
+            
+            if (selectedFilter) {
+                $('input[name="product-filter"][value="' + selectedFilter + '"]').prop('checked', true).change();
+            }
+    
+            
+            $('input[name="product-filter"]').on('change', function () {
+                var selectedFilter = $(this).val();
+    
+                if (selectedFilter === 'all') {
+                    $('.product-card').show();
+                } else if (selectedFilter === 'coming-soon') {
+                    $('.product-card').hide();
+                    $('.product-card[data-coming-soon="true"]').show();
+                } else {
+                    $('.product-card').hide();
+                    $('.product-card').filter(function () {
+                        var categories = $(this).data('category').split(' ');
+                        return categories.includes(selectedFilter);
+                    }).show();
+                }
+            });
+    
+            
+            $('input[name="product-filter"]:checked').change();
+        });
+    </script>
+    
 
     </script>
 
@@ -595,7 +619,7 @@ function submitWaitlistForm(event) {
   </div>
   
   <div class="copy pl-8 py-5 bg-tlgray-700 text-white text-md">
-    &copy; PrimeBroth 2024 All Rights Reserved. <br>Site by <a style="color:white;font-weight:bold;" href="https://www.oso.nz">OSO Marketing NZ</a>
+    &copy; PrimalPantry - broth and balm 2024 All Rights Reserved. <br>Site by <a style="color:white;font-weight:bold;" href="https://www.oso.nz">OSO Marketing NZ</a>
     <img style="float:right;padding-right:20px;"class="badges" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
 
   </div>
