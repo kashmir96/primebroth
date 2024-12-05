@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    {{- partial "head.html" . -}}
+    <meta name="description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta property="og:title" content="{{ .Site.Params.homepage_meta_tags.meta_og_title }}" />
+    <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
+    <meta property="og:url" content="{{ .Site.Params.homepage_meta_tags.meta_og_url }}" />
+    <meta property="og:image" content="{{ .Site.Params.homepage_meta_tags.meta_og_image }}" />
+    <meta property="og:description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
+    <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
+    <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=667c998f7bead90019480329&product=inline-share-buttons&source=platform" async="async"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://js.stripe.com/v3/"></script> <!-- Stripe script -->
+</head>
+<body>
+    {{- partial "alert.html" . -}}
+    {{- partial "header.html" . -}}
+    
+    <div class="container">
+        <div class="row topbanner rel">
+            <div class="col-xs-12 col-lg-6 product-photos">
+                {{- partial "tallowskinimages.html" . -}}
+            </div>
+            <div class="col-xs-12 col-lg-6">
+                <img class="thirty" src="/img/stars/5.webp" alt="">
+                <h1 class="my-4">Tallow Balm - Heavenly Smooth</h1>
+                <h3 class="my-4">Primalcare - original range</h3>
+
+                <p id="priceDisplay" class="product-price"></p> <!-- Placeholder for the price -->
+
+                <!-- Product Form Options with Bootstrap Styling -->
+                <form>
+                    <!-- Dropdown for selecting scent -->
+                    <div class="form-group mb-4">
+                        <label for="productScent" class="font-weight-bold">Select Scent:</label>
+                        <select id="productScent" class="form-control">
+                            <option value="neutral">Neutral</option>
+                            <option value="vanillarose">Vanilla & Rose</option>
+                            <option value="francensense">Frankincense</option>
+                            <option value="lavendar">Lavender</option><!-- 
+                            <option value="patchouli">Patchouli</option>
+                            <option value="sweetorange">Sweet Orange</option>
+                            <option value="cedarwood">Cedarwood</option>
+                            -->
+                        </select>
+                    </div>
+
+                    <!-- Dropdown for selecting size -->
+                    <div class="form-group mb-4">
+                        <label for="productSize" class="font-weight-bold">Select Size:</label>
+                        <select id="productSize" class="form-control">
+                            <!--<option value="60ml">60ml</option>-->
+                            <!--<option value="100ml">100ml</option>-->
+                            <option value="175ml">175ml</option>
+                            <!--<option value="200ml">200ml</option>-->
+                        </select>
+                    </div>
+
+                    <!-- Checkbox for Oil Type -->
+                    <div class="form-group form-check mb-4" style="display: none;">
+                        <input type="checkbox" class="form-check-input" id="jojobaCheckbox" checked>
+                        <label class="form-check-label" for="jojobaCheckbox">Use Jojoba Oil</label>
+                    </div>
+
+                    <!-- Quantity Selector -->
+                    <div class="form-group mb-4">
+                        <label for="quantityAll" class="font-weight-bold">Quantity:</label>
+                        <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+                    </div>
+
+                    <!-- Add to Cart Button -->
+                    <div class="text-center mb-4">
+                        <button type="button" class="btn btn-primary btn-lg buy-now" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
+                    </div>
+                </form>
+
+                <p>Shipping & promotions applied at checkout</p>
+
+                <img class="badges mb-4" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
+                <div style="margin-top:-50px;margin-bottom:-50px; font-size:90%;" class="row mt-0 trust">
+                    <div class="col-4">
+                        <img class="middle" src="/img/delivery.webp">
+                        <p>Free shipping over $80</p>
+                    </div>
+                    <div class="col-4">
+                        <img class="middle" src="/img/exclusive.webp">
+                        <p>Money back guarantee</p>
+                    </div>
+                    <div class="col-4">
+                        <img class="middle" src="/img/kiwi.webp">
+                        <p>Used by 600+ Kiwis</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-0">
+            <div class="col-12 col-md-6">
+                    <img src="/img/markets/11.webp" alt="Click to watch video" id="thumbnail" data-video-id="videoContainer1" loading="lazy">
+            </div>
+            <div class="faq-tab-container col-12 col-md-6">
+                <!-- Nav tabs -->
+                <div class="faq-nav-tabs">
+                    <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</div>
+                    <div class="faq-nav-tab" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</div>
+                    <div class="faq-nav-tab" id="directions-tab" data-toggle="tab" href="#directions" role="tab" aria-controls="directions" aria-selected="false">Directions</div>
+                    <div class="faq-nav-tab" id="storage-tab" data-toggle="tab" href="#storage" role="tab" aria-controls="storage" aria-selected="false">Storage</div>
+                    <div class="faq-nav-tab" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</div>
+                </div>
+        
+                <!-- Tab panes -->
+                <div class="tab-content faq-tab-content">
+                    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                        <h4>Description</h4>
+                        
+                        <p>A light and whipped tallow balm with a fluffy consistency, soaks into the skin rapidly for deep moisturising and relief from tight, dry and irritated skin. </p>
+
+                        <h6>What makes our tallow balm different? </h6>
+                        <ul>
+                            <li>It’s a whipped tallow balm, most others aren’t. Meaning it soaks in much better.</li>
+                            <li>All natural ingredients, no nasties added. </li>
+                            <li>We render and filter every batch 6 times for better smell, consistency an colour (12 days of work)</li>
+                            <li>We offer the best value tallow on the NZ market, get more, at better quality for less.</li>
+                        </ul>
+
+
+                        <h6>Key benefits of the PrimalCare range</h6>
+                        <ul>
+                            <li>Moisturises dry and irritated skin</li>
+                            <li>Soothes eczema, psoriasis, burns and other angry skin</li>                       
+                        </ul>
+                        
+                    <div class="row text-center justify-content-around mt-0 mb-0">
+                        <div class="col-3">
+                            <img src="/img/prod/balm/omnivore.webp" alt="">
+                            <h6>Natural products</h6>
+                        </div>
+                        <div class="col-3">
+                            <img src="/img/prod/balm/free.webp" alt="">
+                            <h6>No harmful ingredients</h6>
+                        </div>
+                        <div class="col-3">
+                            <img src="/img/prod/balm/save-the-world.webp" alt="">
+                            <h6>Sustainably sourced</h6>
+                        </div>
+                    </div>
+                        
+                    </div>
+                    <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
+                        <h4>Ingredients</h4>
+                        <p><span class="product-flavour">Grass-fed purified NZ beef tallow, organic olive oil, organic jojoba oil, essential oil. 
+                                                    </div>
+                    <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
+                        <h4>Directions</h4>
+                        <p>Apply a small amount on the face, neck, hands or feet daily in the morning as a moisturiser or evening as a night cream. Best used on slightly damp skin.</p>
+                        <p>Body and facial moisturizer. Eczema cream, monthly hair conditioner.</p>
+
+
+                    </div>
+                    <div class="tab-pane fade" id="storage" role="tabpanel" aria-labelledby="storage-tab">
+                        <h4>Storage</h4>
+                        <p>Keep in temperatures below 30 degrees and out of direct sunlight to maintain the shelf life of this balm.</p>
+                    </div>
+                    <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
+                        <h4>Shipping</h4>
+                        <p><strong>Processing time:</strong> Your order will be confirmed within 1-3 business days after payment confirmation. After processing, your order will be shipped the next day and you can expect usual courier times to your area (generally 3-5 business days) </p>
+                        <p><strong>Shipping rates:</strong> We usually charge between $4.95 and $6.95 for shipping. You can view the shipping costs at the checkout before completing your purchase.</p>
+                        <p><strong>International shipping:</strong> Currently, we only offer shipping within New Zealand. We apologize for any inconvenience this may cause.</p>
+                        <p>If you have any questions or concerns regarding shipping, please don't hesitate to <a href="contact.html">contact us</a>.</p>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="text-center">
+                <h2>Delivering life changing results time and time again</h2>
+                <p>With oils closely mimicking those produced by our bodies, our tallow soothes dry and irritated skin</p>
+                <div class="row">
+                    <div class="col-4">
+                        <img src="/img/prod/balm/balmreviews.webp" alt="">
+                    </div>
+                    <div class="col-4">
+                        <img src="/img/prod/balm/eczema.webp" alt="">
+                    </div>
+                    <div class="col-4">
+                        <img src="/img/prod/balm/baby-eczema.webp" alt="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="ingredients text-center">
+                <h2>4 Nourishing Ingredients</h2>
+                <p>A harmonic combination that soaks in for immediate hydration</p>
+                <div id="ingredientsCarousel" class="carousel slide eighty middle" data-ride="carousel" data-pause="hover">
+                    <div class="carousel-inner ">
+                        <!-- Slide 1 -->
+                        <div class="carousel-item active eighty">
+                            <div class="row lighttan align-items-center justify-content-center">
+                                <h5>Grass-fed beef tallow (98%)</h5>
+                                <img src="/img/prod/balm/tallowwhite.webp" alt="Grass-fed beef tallow">
+                                <p>We use high grade grass-fed suet, which we wet render and filter 6 times (that’s a week of hot, backbreaking work per batch) to improve quality, smell and consistency.</p>
+                            </div>
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="carousel-item">
+                            <div class="row lighttan align-items-center justify-content-center">
+                                <h5>Organic cold pressed olive oil</h5>
+                                <img src="/img/prod/balm/oliveoil.webp" alt="Organic cold pressed olive oil">
+                                <p>Important for providing a light and whipped texture to our unique whipped balm.</p>
+                            </div>
+                        </div>
+                        <!-- Slide 3 -->
+                        <div class="carousel-item">
+                            <div class="row lighttan align-items-center justify-content-center">
+                                <h5>Organic cold pressed jojoba oil</h5>
+                                <img src="/img/prod/balm/jojobaoil.webp" alt="Organic cold pressed jojoba oil">
+                                <p>Adding extra lift to the whip while providing smoothing and benefits to your skin.</p>
+                            </div>
+                        </div>
+                        <!-- Slide 4 -->
+                        <div class="carousel-item">
+                            <div class="row lighttan align-items-center justify-content-center">
+                                <h5>Natural essential oils (to scent)</h5>
+                                <img src="/img/prod/balm/essentialoil.webp" alt="Natural essential oils">
+                                <p>These add the aroma and additional health benefits to your balms. This changes by the balm chosen, so we won't go into the specifics here.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Navigation Buttons -->
+                    <div class="carousel-controls mt-3">
+                        <button class="carousel-control-prev" type="button" data-target="#ingredientsCarousel" data-slide="prev">
+                            Previous
+                        </button>
+                        <button class="carousel-control-next" type="button" data-target="#ingredientsCarousel" data-slide="next">
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="eighty middle">
+                <h2 class="text-center">How to use tallow balm</h2>
+                <p class="text-center">*Use in the evening before bed as a moisturiser or night cream (morning too if intensive care required)</p>
+                    <div class="big-txt text-center">
+                        <div class="row lightlime">
+                            <div class="col-2"><p><strong>1</strong></p></div>
+                            <div class="col-10"><p>Rinse skin with water, towel pat dry</p></div>
+                        </div>
+                        <div class="row lime">
+                            <div class="col-10"><p>Apply sparingly and smooth into skin, focus on dry or irritated areas. use body heat to dissolve any naturally occurring hydrating grains</p></div>
+                            <div class="col-2"><p><strong>2</strong></p></div>
+                        </div>
+                        <div class="row lightlime">
+                            <div class="col-2"><p><strong>3</strong></p></div>
+                            <div class="col-10"><p>Let the tallow soak in and do it’s job!</p></div>
+                        </div>
+            </div></div>
+            <div class="text-center">
+                <h2>You might also like</h2>
+                <div class="row justify-content-around">
+                {{- partial "prodcardtallowbundle.html" . -}}
+                {{- partial "prodcardinsideout.html" . -}}
+                {{- partial "prodcardpplpowder.html" . -}} 
+                </div>
+            </div>
+               
+
+
+
+            
+                    
+
+
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var tabs = document.querySelectorAll('.faq-nav-tab');
+                    tabs.forEach(function(tab) {
+                        tab.addEventListener('click', function() {
+                            document.querySelector('.faq-nav-tab.active').classList.remove('active');
+                            tab.classList.add('active');
+                            var tabContent = document.querySelector('.faq-tab-content .tab-pane.show.active');
+                            tabContent.classList.remove('show', 'active');
+                            var target = tab.getAttribute('href');
+                            document.querySelector(target).classList.add('show', 'active');
+                        });
+                    });
+                });
+            </script>
+            </div>
+
+          
+
+
+    </div>
+
+    </div>
+    </div>
+
+    <!-- Script for handling the selection, updating the price ID, and Stripe checkout -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const stripe = Stripe('pk_live_51Ot2iTABkrUo6tgOu44jd79tB4Dg2B64I6lucmLcKdxZfcy2Dy3bTnbxQNiwDtRfeWSwWx1WsDpC0h91tTlubPXW000IuWtQTX');
+
+            // Set up event listeners for dropdowns
+            document.getElementById('productScent').addEventListener('change', updatePriceID);
+            document.getElementById('productSize').addEventListener('change', updatePriceID);
+            document.getElementById('jojobaCheckbox').addEventListener('change', updatePriceID);
+
+            // Handle add to cart button click
+            document.querySelector('.buy-now').addEventListener('click', handleAddToCart);
+
+            function updatePriceID() {
+                const isJojoba = document.getElementById('jojobaCheckbox').checked ? 'jojoba' : 'olive';
+                const selectedScent = document.getElementById('productScent').value;
+                const selectedSize = document.getElementById('productSize').value;
+
+                const priceID = priceIDs[isJojoba][selectedScent][selectedSize];
+                const unitPrice = getPriceText(priceID);
+
+                // Update the button's data-price-id and unit price
+                document.querySelector('.buy-now').setAttribute('data-price-id', priceID);
+                document.querySelector('.buy-now').setAttribute('data-unit-price', unitPrice);
+            }
+
+            function getPriceText(priceID) {
+    // Fetch the price based on the priceID
+    switch (priceID) {
+        case '{{ index .Params "balm-or-lav-60ml" }}':
+        case '{{ index .Params "balm-or-ros-60ml" }}':
+        case '{{ index .Params "balm-or-neu-60ml" }}':
+        case '{{ index .Params "balm-or-van-60ml" }}':
+        case '{{ index .Params "balm-or-patch-60ml" }}':
+        case '{{ index .Params "balm-or-orang-60ml" }}':
+        case '{{ index .Params "balm-or-cedar-60ml" }}':
+        case '{{ index .Params "balm-or-frank-60ml" }}':
+            return 22.95; // Price for 60ml sizes
+
+        case '{{ index .Params "balm-or-lav-100ml" }}':
+        case '{{ index .Params "balm-or-ros-100ml" }}':
+        case '{{ index .Params "balm-or-neu-100ml" }}':
+        case '{{ index .Params "balm-or-van-100ml" }}':
+        case '{{ index .Params "balm-or-patch-100ml" }}':
+        case '{{ index .Params "balm-or-orang-100ml" }}':
+        case '{{ index .Params "balm-or-cedar-100ml" }}':
+        case '{{ index .Params "balm-or-frank-100ml" }}':
+
+            return 24.95; // Price for 100ml sizes
+
+        case '{{ index .Params "balm-or-lav-175ml" }}':
+        case '{{ index .Params "balm-or-ros-175ml" }}':
+        case '{{ index .Params "balm-or-neu-175ml" }}':
+        case '{{ index .Params "balm-or-van-175ml" }}':
+        case '{{ index .Params "balm-or-patch-175ml" }}':
+        case '{{ index .Params "balm-or-orang-175ml" }}':
+        case '{{ index .Params "balm-or-cedar-175ml" }}':
+        case '{{ index .Params "balm-or-frank-175ml" }}':
+
+            return 30.95; // Price for 175ml sizes
+
+        case '{{ index .Params "balm-or-lav-200ml" }}':
+        case '{{ index .Params "balm-or-ros-200ml" }}':
+        case '{{ index .Params "balm-or-neu-200ml" }}':
+        case '{{ index .Params "balm-or-van-200ml" }}':
+        case '{{ index .Params "balm-or-patch-200ml" }}':
+        case '{{ index .Params "balm-or-orang-200ml" }}':
+        case '{{ index .Params "balm-or-cedar-200ml" }}':
+        case '{{ index .Params "balm-or-frank-200ml" }}':
+            return 35.00; // Price for 200ml sizes
+
+        default:
+            return 35.00; // Default price if no matching ID found
+    }
+}
+
+
+            function handleAddToCart(e) {
+                e.preventDefault();
+                const button = e.target;
+                const priceId = button.getAttribute('data-price-id');
+                const unitPrice = parseFloat(button.getAttribute('data-unit-price')).toFixed(2);
+                const quantity = parseInt(document.getElementById('quantityAll').value, 10);
+                const selectedScent = document.getElementById('productScent').value;
+                const selectedSize = document.getElementById('productSize').value;
+                const isJojoba = document.getElementById('jojobaCheckbox').checked;
+
+                if (!priceId) {
+                    alert('Please select a scent and size.');
+                    return;
+                }
+
+                // Modify the flavor text to include " + Jojoba" if the checkbox is checked
+                const flavorText = isJojoba ? `${selectedScent} + Jojoba` : selectedScent;
+
+                // Add product to cart (localStorage)
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const productTitle = document.querySelector('h1').innerText;
+
+                cart.push({ priceId, quantity, flavour: flavorText, size: selectedSize, unitPrice, title: productTitle });
+                localStorage.setItem('cart', JSON.stringify(cart));
+
+                // Show "Added to Cart" modal
+                $('#addedToCartModal').modal('show');
+            }
+
+            const priceIDs = {
+                olive: {
+                    lavendar: { '60ml': '{{ index .Params "balm-or-lav-60ml" }}', '100ml': '{{ index .Params "balm-or-lav-100ml" }}', '175ml': '{{ index .Params "balm-or-lav-175ml" }}', '200ml': '{{ index .Params "balm-or-lav-200ml" }}' },
+                    rose: { '60ml': '{{ index .Params "balm-or-ros-60ml" }}', '100ml': '{{ index .Params "balm-or-ros-100ml" }}', '175ml': '{{ index .Params "balm-or-ros-175ml" }}', '200ml': '{{ index .Params "balm-or-ros-200ml" }}' },
+                    neutral: { '60ml': '{{ index .Params "balm-or-neu-60ml" }}', '100ml': '{{ index .Params "balm-or-neu-100ml" }}', '175ml': '{{ index .Params "balm-or-neu-175ml" }}', '200ml': '{{ index .Params "balm-or-neu-200ml" }}' },
+                    vanilla: { '60ml': '{{ index .Params "balm-or-van-60ml" }}', '100ml': '{{ index .Params "balm-or-van-100ml" }}', '175ml': '{{ index .Params "balm-or-van-175ml" }}', '200ml': '{{ index .Params "balm-or-van-200ml" }}' },
+                    patchouli: { '60ml': '{{ index .Params "balm-or-patch-60ml" }}', '100ml': '{{ index .Params "balm-or-patch-100ml" }}', '175ml': '{{ index .Params "balm-or-patch-175ml" }}', '200ml': '{{ index .Params "balm-or-patch-200ml" }}' },
+                    sweetorange: { '60ml': '{{ index .Params "balm-or-orang-60ml" }}', '100ml': '{{ index .Params "balm-or-orang-100ml" }}', '175ml': '{{ index .Params "balm-or-orang-175ml" }}', '200ml': '{{ index .Params "balm-or-orang-200ml" }}' },
+                    cedar: { '60ml': '{{ index .Params "balm-or-cedar-60ml" }}', '100ml': '{{ index .Params "balm-or-cedar-100ml" }}', '175ml': '{{ index .Params "balm-or-cedar-175ml" }}', '200ml': '{{ index .Params "balm-or-cedar-200ml" }}' },
+                    frankincense: { '60ml': '{{ index .Params "balm-or-frank-60ml" }}', '100ml': '{{ index .Params "balm-or-frank-100ml" }}', '175ml': '{{ index .Params "balm-or-frank-175ml" }}', '200ml': '{{ index .Params "balm-or-frank-200ml" }}' }
+
+                },
+                jojoba: {
+                    lavendar: { '60ml': '{{ index .Params "balm-or-lav-60ml" }}', '100ml': '{{ index .Params "balm-or-lav-100ml" }}', '175ml': '{{ index .Params "balm-or-lav-175ml" }}', '200ml': '{{ index .Params "balm-or-lav-200ml" }}' },
+                    rose: { '60ml': '{{ index .Params "balm-or-ros-60ml" }}', '100ml': '{{ index .Params "balm-or-ros-100ml" }}', '175ml': '{{ index .Params "balm-or-ros-175ml" }}', '200ml': '{{ index .Params "balm-or-ros-200ml" }}' },
+                    neutral: { '60ml': '{{ index .Params "balm-or-neu-60ml" }}', '100ml': '{{ index .Params "balm-or-neu-100ml" }}', '175ml': '{{ index .Params "balm-or-neu-175ml" }}', '200ml': '{{ index .Params "balm-or-neu-200ml" }}' },
+                    vanilla: { '60ml': '{{ index .Params "balm-or-van-60ml" }}', '100ml': '{{ index .Params "balm-or-van-100ml" }}', '175ml': '{{ index .Params "balm-or-van-175ml" }}', '200ml': '{{ index .Params "balm-or-van-200ml" }}' },
+                    patchouli: { '60ml': '{{ index .Params "balm-or-patch-60ml" }}', '100ml': '{{ index .Params "balm-or-patch-100ml" }}', '175ml': '{{ index .Params "balm-or-patch-175ml" }}', '200ml': '{{ index .Params "balm-or-patch-200ml" }}' },
+                    sweetorange: { '60ml': '{{ index .Params "balm-or-orang-60ml" }}', '100ml': '{{ index .Params "balm-or-orang-100ml" }}', '175ml': '{{ index .Params "balm-or-orang-175ml" }}', '200ml': '{{ index .Params "balm-or-orang-200ml" }}' },
+                    cedar: { '60ml': '{{ index .Params "balm-or-cedar-60ml" }}', '100ml': '{{ index .Params "balm-or-cedar-100ml" }}', '175ml': '{{ index .Params "balm-or-cedar-175ml" }}', '200ml': '{{ index .Params "balm-or-cedar-200ml" }}' },
+                    frankincense: { '60ml': '{{ index .Params "balm-or-frank-60ml" }}', '100ml': '{{ index .Params "balm-or-frank-100ml" }}', '175ml': '{{ index .Params "balm-or-frank-175ml" }}', '200ml': '{{ index .Params "balm-or-frank-200ml" }}' }
+                }
+            };
+
+            // Initial update on page load
+            updatePriceID();
+        });
+    </script>
+
+    <!-- Bootstrap Modal for Added to Cart -->
+    <div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Your item has been added to the cart. What would you like to do next?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
+                    <a href="/cart" class="btn btn-primary">Go to Cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    // Existing event listeners
+    document.getElementById('productScent').addEventListener('change', updatePriceID);
+    document.getElementById('productSize').addEventListener('change', updatePriceID);
+    document.getElementById('jojobaCheckbox').addEventListener('change', updatePriceID);
+
+    function updatePriceID() {
+        const selectedSize = document.getElementById('productSize').value;
+
+        // Get the placeholder for price
+        const priceDisplay = document.getElementById('priceDisplay');
+
+       // Determine the price to display
+        if (selectedSize === '60ml') {
+            priceDisplay.innerHTML = '{{ partial "price-tallow-skin-60.html" . }}';
+        } else if (selectedSize === '100ml') {
+            priceDisplay.innerHTML = '{{ partial "price-tallow-skin-100.html" . }}';
+        } else if (selectedSize === '175ml') {
+            priceDisplay.innerHTML = '{{ partial "price-tallow-skin-175.html" . }}';
+        } else if (selectedSize === '200ml') {
+            priceDisplay.innerHTML = '{{ partial "price-tallow-skin-200.html" . }}';
+        } 
+    }
+
+    // Initial update on page load
+    updatePriceID();
+});
+
+    </script>
+    
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <script>
+       document.querySelectorAll('.image-container img').forEach(function(image) {
+            image.addEventListener('click', function() {
+                // Hide the image container
+                this.parentElement.style.display = 'none';
+                // Show the corresponding video container
+                var videoId = this.getAttribute('data-video-id');
+                document.getElementById(videoId).style.display = 'block';
+            });
+        });
+  </script>
+    {{- partial "footer.html" . }}
+
+</body>
+</html>
