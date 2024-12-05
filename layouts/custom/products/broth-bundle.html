@@ -23,11 +23,11 @@
     <style>
 
         .custom-radio input[type="radio"]:checked + .custom-radio-label::before {
-          background-color: orange;
+          background-color: green;
         }
         
         .custom-radio-label {
-            color: orange;
+            color: green;
         }
             </style>
     {{- partial "alert.html" . -}}
@@ -43,42 +43,63 @@
                 <h1 class="my-4">Broths bundle - People and pets 50g</h1>
                 <div class="custom-radio" >
                     <input type="radio" id="inStock" name="stockStatus" checked>
-                    <label class="custom-radio-label mb-4" for="inStock">Backorder - stock arrives mid Dec. Orders placed until then will be shipped when availability allows.</label>
+                    <label class="custom-radio-label mb-4" for="inStock">In Stock</label>
                 </div>
                 <p id="priceDisplay" class="product-price"></p> <!-- Placeholder for the price -->
 
                 <!-- Product Form Options with Bootstrap Styling -->
 
                 <h3>Set combo: </h3>
-                <form>
-                    <!-- Dropdown for selecting scent -->
-                    <div class="form-group mb-4">
-                        <label for="productScent" class="font-weight-bold">Broth included:</label>
-                        <select id="productScent" class="form-control">
-                            <option value="broths">1x Beef Broth (People), 1x Beef Broth (Pets) </option>
+
+                <!-- YAML FORM STARTS -->
+
+                <div class="price-display">
+                    <p><span id="price">-</span></p>                
+                </div>
+
+
+                <form id="productForm" class="form-group mb-4">
+                    <div class="text-left mb-4">
+                        <label class="font-weight-bold" for="size">Select Size:</label>
+                        <select class="form-control" id="size" name="size">
+                            <option value="50g-50g">50g each</option>
                         </select>
                     </div>
-                
-                    <!-- Dropdown for selecting balm size (locked to 100ml) -->
-                    <div class="form-group mb-4">
-                        <label for="productSize" class="font-weight-bold">Broth sizes:</label>
-                        <select id="productSize" class="form-control">
-                            <option value="50g">50g each</option> <!-- Only the 100ml option -->
+                    <div class="text-left mb-4">
+                        <label class="font-weight-bold" for="flavor">Select Flavor:</label>
+                        <select class="form-control" id="flavor" name="flavor">
+                            <option value="beef">Beef for both</option>
                         </select>
                     </div>
-                
-                
-                    <!-- Quantity Selector -->
-                    <div class="form-group mb-4">
-                        <label for="quantityAll" class="font-weight-bold">Quantity (of bundles):</label>
-                        <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+                    <div class="text-left mb-4">
+                        <label class="font-weight-bold"  for="orderType">Select Order Type:</label>
+                        <select class="form-control" id="orderType" name="orderType">
+                            <option value="single_purchase">Single bundle</option>
+                            <option value="three_pack">3 pack of bundles (save 20%)</option>
+                          <!--  <option value="recurring_monthly">Subscribe for Monthly bundles (save 20%)</option> 
+                          <option value="recurring_quarterly">Subscribe for Quarterly bundles (save 12.5%)</option>-->
+                        </select>
                     </div>
-                
-                    <!-- Add to Cart Button -->
-                    <div class="text-center mb-4">
-                        <button type="button" class="btn btn-primary btn-lg buy-now" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
-                    </div>
+
+ <!-- Quantity Selector -->
+ <div class="form-group mb-4">
+    <label for="quantityAll" class="font-weight-bold">Quantity:</label>
+    <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+</div>
+
+                    
+
+
+
+                <!-- Add to Cart Button -->
+                <div class="text-center mb-4">
+                    <button type="button" class="btn btn-primary btn-lg buy-now" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
+                </div>
+
                 </form>
+
+                
+                    <!-- YAML FORM ENDS -->
 
                 <p>Shipping & promotions applied at checkout</p>
 
@@ -228,96 +249,303 @@
             </script>
             </div>
         
-        <!-- Script for handling the selection, updating the price ID, and Stripe checkout -->
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const stripe = Stripe('pk_live_51QKEaJFZRwx5tlYmhyIEFR3mGroCdpqIHHVT68y9jGnizGDZXypuSfjilbCSkMarU39KeV4kUulC6HfpReRSJwb000fyIehR3I');
-        
-                // Set up event listeners for form inputs
-                document.getElementById('productScent').addEventListener('change', updatePriceID);
-                document.getElementById('quantityAll').addEventListener('input', updatePriceDisplay);
-        
-                // Price ID for the bundle
-                const bundlePriceID = "price_1QPCW2FZRwx5tlYm3fRrvHdS";
-        
-                function updatePriceID() {
-                    const unitPrice = 44.95; // Fixed price for the bundle
-        
-                    // Update the Add to Cart button's data-price-id and unit price
-                    const buyNowButton = document.querySelector('.buy-now');
-                    buyNowButton.setAttribute('data-price-id', bundlePriceID);
-                    buyNowButton.setAttribute('data-unit-price', unitPrice.toFixed(2));
-        
-                    // Update the price display
-                    updatePriceDisplay();
-                }
-        
-                function updatePriceDisplay() {
-                    const quantity = parseInt(document.getElementById('quantityAll').value, 10) || 1;
-                    const unitPrice = parseFloat(document.querySelector('.buy-now').getAttribute('data-unit-price'));
-                    const totalPrice = (quantity * unitPrice).toFixed(2);
-        
-                    document.getElementById('priceDisplay').innerHTML = `Total Price: $${totalPrice} (Usual Price: $49.90)`;
-                }
-        
-                function handleAddToCart(e) {
-                    e.preventDefault();
-        
-                    const button = e.target;
-                    const priceId = button.getAttribute('data-price-id');
-                    const unitPrice = parseFloat(button.getAttribute('data-unit-price')).toFixed(2);
-                    const quantity = parseInt(document.getElementById('quantityAll').value, 10);
-                    const selectedScent = document.getElementById('productScent').value;
-        
-                    if (!priceId) {
-                        alert('Please ensure all fields are properly selected.');
-                        return;
-                    }
-        
-                    // Add product to cart (localStorage)
-                    const productTitle = document.querySelector('h1').innerText;
-                    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        
-                    cart.push({ priceId, quantity, scent: selectedScent, unitPrice, title: productTitle });
-                    localStorage.setItem('cart', JSON.stringify(cart));
-        
-                    // Show confirmation modal
-                    $('#addedToCartModal').modal('show');
-                }
-        
-                // Attach click listener for Add to Cart button
-                document.querySelector('.buy-now').addEventListener('click', handleAddToCart);
-        
-                // Initial setup
-                updatePriceID();
-            });
-        </script>
-        
+       <!-- YAML SCRIPT STARTS -->
 
-        <!-- Bootstrap Modal for Added to Cart -->
-        <div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Your item has been added to the cart. What would you like to do next?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
-                        <a href="/cart" class="btn btn-primary">Go to Cart</a>
-                    </div>
-                </div>
+
+
+<script>
+    const productPricingRaw = {{ site.Data.pricing.bundles.pricing.broth_bundle | jsonify | safeJS }};
+    console.log("Raw product Pricing from Hugo:", productPricingRaw);
+
+    const productPricing = Array.isArray(productPricingRaw) ? productPricingRaw : [];
+    if (!Array.isArray(productPricing)) {
+        console.error("productPricing is not an array. Ensure your YAML structure and Hugo data access.");
+    } else {
+        console.log("Parsed product Pricing:", productPricing);
+    }
+
+    function updatePrice() {
+        const size = document.getElementById("size").value.trim().toLowerCase();
+        const orderType = document.getElementById("orderType").value.trim().toLowerCase();
+
+        console.log("Selected size:", size);
+        console.log("Selected order type:", orderType);
+
+        const pricingEntry = productPricing.find(entry => entry.size.toLowerCase() === size);
+        if (pricingEntry && pricingEntry.prices[orderType]) {
+            const price = pricingEntry.prices[orderType];
+            document.getElementById("price").textContent = `$${price.toFixed(2)}`;
+        } else {
+            document.getElementById("price").textContent = "N/A";
+        }
+    }
+
+    // Attach event listener for changes
+    document.getElementById("productForm").addEventListener("change", updatePrice);
+
+    // Initialize the price on page load
+    document.addEventListener("DOMContentLoaded", updatePrice);
+</script>
+
+
+<script>
+    // Function to update the price ID display
+    function updatePriceID() {
+    const size = document.getElementById("size").value.trim().toLowerCase();
+    const flavor = document.getElementById("flavor").value.trim().toLowerCase();
+    const orderType = document.getElementById("orderType").value.trim().toLowerCase();
+    
+
+
+    // Default value for price ID
+    let priceID = "N/A";
+
+    // Debug: Check the loaded data and selected values
+    console.log("Loaded Data:", productPricingRaw);
+    console.log("Selected - Size:", size, "Flavor:", flavor, "Order Type:", orderType);
+
+    // Traverse the pricing structure for the selected combination
+    if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.balm) {
+        const balmData = productPricingRaw.ids.balm;
+        console.log("balm Data:", balmData);
+
+        const orderTypeData = balmData[orderType];
+        console.log("Order Type Data:", orderTypeData);
+
+        if (orderTypeData && orderTypeData[flavor]) {
+            const flavorData = orderTypeData[flavor];
+            console.log("Flavor Data:", flavorData);
+
+            const sizeData = flavorData[size];
+            console.log("Size Data:", sizeData);
+
+            if (sizeData) {
+                priceID = sizeData; // Assign the resolved price ID
+            }
+        }
+    }
+
+    // Update the DOM element with the resolved price ID
+    document.getElementById("price-id").textContent = priceID !== "N/A" ? priceID : "Price ID Not Available";
+
+    // Log final result
+    console.log("Resolved Price ID:", priceID);
+
+};
+</script>
+<script>
+    // Parse the JSON string into an object
+    const rawData = "{{ .Site.Data.pricing | jsonify }}"; // Embedded JSON string from Hugo
+    const pricingData = JSON.parse(rawData); // Parse into a JavaScript object
+    console.log('Parsed Pricing Data:', pricingData); // Debugging output
+
+    function updatePriceId() {
+    // Get the selected values
+    const size = document.getElementById('size').value.trim().toLowerCase();
+    const flavor = document.getElementById('flavor').value.trim().toLowerCase();
+    const orderType = document.getElementById('orderType').value.trim().toLowerCase();
+
+    try {
+        let priceId;
+
+        // Access the correct price ID based on the order type
+        if (orderType === 'single_purchase') {
+            priceId = pricingData.bundles.ids.broth_bundle.single[flavor][size];
+        } else if (orderType === 'recurring_monthly') {
+            priceId = pricingData.bundles.ids.broth_bundle.monthly[flavor][size];
+        } else if (orderType === 'recurring_quarterly') {
+            priceId = pricingData.bundles.ids.broth_bundle.quarterly[flavor][size];
+        } else if (orderType === 'three_pack') {
+            priceId = pricingData.bundles.ids.broth_bundle.pack[flavor][size];
+        }
+
+        console.log('Price ID:', priceId);
+
+        // Update the DOM element with the resolved price ID, if it exists
+        const priceIdElement = document.getElementById('price-id');
+        if (priceIdElement) {
+            priceIdElement.textContent = priceId || 'Price ID not found';
+        }
+
+        // Update the button's data-price-id attribute
+        const buyNowButton = document.querySelector(".buy-now");
+        if (buyNowButton) {
+            buyNowButton.setAttribute("data-price-id", priceId || "");
+            console.log('Button updated with Price ID:', priceId);
+        }
+    } catch (error) {
+        console.error('Error fetching Price ID:', error);
+
+        // Clear the button's data-price-id attribute on error
+        const buyNowButton = document.querySelector(".buy-now");
+        if (buyNowButton) {
+            buyNowButton.setAttribute("data-price-id", "");
+        }
+    }
+}
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Add event listener for form changes
+        document.getElementById('productForm').addEventListener('change', updatePriceId);
+
+        // Trigger the update function on page load
+        updatePriceId();
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    // Convert the ids structure to a simplified format
+    function preprocessproductData(rawData) {
+        const simplified = {};
+
+        // Iterate over balm (or pets, if needed)
+        if (rawData.ids && rawData.ids.balm) {
+            const categories = rawData.ids.balm;
+
+            for (const [orderType, flavors] of Object.entries(categories)) {
+                for (const [flavor, sizes] of Object.entries(flavors)) {
+                    for (const [size, priceId] of Object.entries(sizes)) {
+                        if (!simplified[size]) {
+                            simplified[size] = {};
+                        }
+                        if (!simplified[size][flavor]) {
+                            simplified[size][flavor] = {};
+                        }
+                        simplified[size][flavor][orderType] = priceId;
+                    }
+                }
+            }
+        }
+        return simplified;
+    }
+
+    // Example: Assume productPricingRaw is available globally or passed here
+    const normalizedproductData = preprocessproductData(productPricingRaw);
+    console.log('Normalized product Data:', normalizedproductData);
+
+    // Use normalizedproductData for price ID lookups
+    function getPriceID(size, flavor, orderType) {
+        return (
+            normalizedproductData[size]?.[flavor]?.[orderType] ||
+            "Price ID not found"
+        );
+    }
+
+});
+
+</script>
+
+
+<script>
+    // Add to Cart Handler Function
+    function handleAddToCart(event) {
+    event.preventDefault();
+
+    console.log('Add to Cart button clicked!'); // Debugging
+
+    const button = event.target;
+
+
+    // Retrieve values from the dropdowns
+    const size = document.getElementById('size')?.value || 'Default Size';
+// Use the text content of the selected option
+const flavorSelect = document.getElementById('flavor');
+const flavor = flavorSelect.options[flavorSelect.selectedIndex].textContent.trim();
+// Use the text content of the selected option
+const orderTypeSelect = document.getElementById('orderType');
+const orderType = orderTypeSelect.options[orderTypeSelect.selectedIndex].textContent.trim();
+    const unitPriceElement = document.getElementById('price');
+    const unitPrice = unitPriceElement 
+        ? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00
+        : 0.00;
+
+    // Retrieve the price ID
+    const priceId = button.getAttribute('data-price-id') || 'N/A';
+    const title = document.querySelector('h1').innerText;
+
+    // Retrieve quantity
+    const quantityField = document.getElementById('quantityAll');
+    const quantity = quantityField ? parseInt(quantityField.value, 10) || 1 : 1;
+
+    // Debugging
+    console.log('Size:', size);
+    console.log('Flavor:', flavor);
+    console.log('Order Type:', orderType);
+    console.log('Quantity:', quantity);
+    console.log('Price ID:', priceId);
+
+    // Check if price ID is valid
+    if (!priceId || priceId === 'N/A') {
+        alert('Please select valid options before adding to cart.');
+        return;
+    }
+
+    // Add to cart
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push({
+        priceId,
+        title,
+        size,
+        flavor,
+        orderType,
+        quantity,
+        unitPrice
+    });
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    console.log('Cart updated:', cart); // Debugging
+
+    // Trigger success modal or alert
+    const modal = document.getElementById('addedToCartModal');
+    if (modal) {
+        $('#addedToCartModal').modal('show');
+    } else {
+        alert('Item added to cart successfully!');
+    }
+}
+
+// Attach the event listener to the Add to Cart button
+document.addEventListener('DOMContentLoaded', function () {
+    const addToCartButton = document.querySelector('.buy-now');
+    if (addToCartButton) {
+        addToCartButton.addEventListener('click', handleAddToCart);
+        console.log('Add to Cart button is ready.');
+    } else {
+        console.error('Add to Cart button not found!');
+    }
+});
+
+</script>
+
+
+
+
+
+
+<!-- Modal for Add to Cart Confirmation -->
+<div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Your item has been successfully added to the cart. What would you like to do next?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
+                <a href="/cart" class="btn btn-primary">Go to Cart</a>
             </div>
         </div>
-
-        <!-- Include Bootstrap JS -->
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     </div>
+</div>
+{{- partial "stripe.html" . -}}    
+
+    <!-- YAML SCRIPT ENDS -->
 
     {{- partial "footer.html" . }}
 </body>
