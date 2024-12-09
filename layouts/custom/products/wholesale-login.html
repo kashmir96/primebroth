@@ -15,30 +15,13 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
     <style>
-        .hidden {
+       .container {
+        padding:10px;
+       }
+       .hidden {
             display: none;
         }
-        .hide {
-            display: none;
-
-        }
-    
-        .faq-nav-tab.active {
-            font-weight: bold;
-            text-decoration: underline;
-        }
-
-        .faq-nav-tab {
-            cursor: pointer;
-            margin: 10px;
-            display: inline-block;
-        }
-
-        .container {
-            display: none;
-        }
-
-        .container.show {
+        .show {
             display: block;
         }
         .overlay {
@@ -47,7 +30,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgb(0, 0, 0);
+            background: rgba(0, 0, 0, 0.8);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -60,444 +43,150 @@
             text-align: center;
             max-width: 300px;
         }
-        .overlay form img {
-            max-width: 100%;
-            height: auto;
-        }
         .overlay form input[type="password"] {
             padding: 10px;
             margin: 10px 0;
             width: 100%;
             box-sizing: border-box;
+            border: 1px solid black;
+            border-radius: 5px;
         }
         .overlay form button {
             padding: 10px 20px;
+            background: #ff7043;
+            color: white;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
         }
-        .back-button {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: #fff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            color: #000;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            z-index: 1001;
+        .overlay form button:hover {
+            background: #ff5722;
         }
-
-        .back-button:hover {
-            background-color: #f0f0f0;
+        .filter-options label {
+            padding: 8px 16px;
+            margin: 0 5px;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+            cursor: pointer;
+            background: #f7f7f7;
+            transition: background 0.3s, color 0.3s;
+        }
+        .filter-options input[type="radio"]:checked + label {
+            background: #ff7043;
+            color: white;
+        }
+        .filter-options label:hover {
+            background: #e0e0e0;
         }
     </style>
 </head>
 <body>
     <div id="passwordOverlay" class="overlay">
-        <a href="/" class="back-button">Back to Primebroth Website</a>
         <form id="passwordForm">
-            <img src="/img/logo/logo.webp" alt="Primebroth Image">
+            <img src="/img/logo/logo.webp" alt="Primebroth Logo">
             <h2>Buy wholesale bone broth.</h2>
-            <input style="border:1px solid gray;border-radius:5px;" type="password" id="password" name="password" placeholder="Password">
-            <button class="btn btn-primary" style="width:100%;" type="submit">Login</button>
-            <p class="mt-4">Not an approved reseller? <a href="/partner-request">Click here</a> to express your interest.</p>
+            <input type="password" id="password" name="password" placeholder="Enter Password">
+            <button type="submit">Login</button>
+            <p>Not an approved reseller? <a href="/partner-request">Click here</a> to express your interest.</p>
         </form>
-    <div id="protectedContent" class="hidden">
+    </div>
+    <div id="protectedContent" class="hdden">
         <div class="announcement full-width black text-center">
-            <ul>
-                <li>Exclusive access page for resellers only.</li>
-            </ul>
+            <p>Exclusive access page for resellers only.</p>
         </div>
         {{- partial "header.html" . -}}
-        <div class="scroll-top rounded-full">
-            <span class="icon-keyboard_arrow_up text-2xl"></span>
-        </div>
-        {{- partial "slide.html" . -}}
-        {{- partial "strip.html" . -}}
-        <!-- Add html below -->
-
-        <!-- Tab navigation -->
-        <div class="faq-nav-tabs">
-            <div class="faq-nav-tab active" data-target="container1">Pets powder</div>
-            <div class="faq-nav-tab" data-target="container2">Pets liquid</div>
-            <div class="faq-nav-tab" data-target="container4">People powder</div>
-            <div class="faq-nav-tab" data-target="container3">People liquid</div>
-            <div class="faq-nav-tab" data-target="container5">Tallow Balm</div>
-        </div>
-
-        <!-- Container 1 -->
-        <div class="container show" id="container1">
-            <div class="row topbanner rel">
-                <div class="col-xs-12 col-lg-6 product-photos">
-                    {{- partial "powderimages.html" . -}}
-                </div>
-                <div class="col-xs-12 col-lg-6">
-                    <h1>Bone Broth Meal Topper for Pets (Powder)</h1>
-                    <h5>Pets go from picky to piggy with just a dash in their kibble.</h5>
-                    <img class="stars" src="/img/stars/5.webp" alt="review rating for bone broth product">
-                    <p>(18)</p>
-                    <div class="dropdown-container">
-                        <div class="dropdown-group">
-                            <select id="productFlavour1" name="productFlavour1">
-                                <option value="beef" data-sample-url="https://buy.stripe.com/9AQ8yL9Xub8pgEg8wL" data-small-url="https://buy.stripe.com/eVa7uH4DafoFbjWbJn" data-large-url="https://buy.stripe.com/00g16jb1yfoFco014K" data-xl-url="https://buy.stripe.com/5kA4ivglSb8pgEgdRx">Beef</option>
-                            </select>
-                        </div>
-                        <div class="dropdown-group">
-                            <select id="productSize1" name="productSize1">
-                                <option value="sample" selected>Sample</option>
-                                <option value="small">90g Carton (6 units)</option>
-                                <option value="large">180g Carton (6 units)</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div id="productsample1" class="product-info">
-                        <p>12g of Powdered Organic Beef Bone Broth.</p>
-                        <p>Free, just pay the shipping - limit one sample per customer.</p>
-                        <a href="https://buy.stripe.com/9AQ8yL9Xub8pgEg8wL" class="btn buy-now btn-primary">Claim now</a>
-                    </div>
-                    <div id="productsmall1" class="product-info hidden">
-                        <p>90g of Powdered Beef Bone Broth.</p>
-                        <p>Wholesale (1x Carton - 6 units) $21/unit <span class="green"> - RRP $30/unit</span></p>
-                        <div class="btn-group">
-                            <a href="https://buy.stripe.com/00gdT50mUb8p3RueW9" class="btn buy-now btn-primary">Begin order</a>
-                        </div>
-                    </div>
-                    <div id="productlarge1" class="product-info hidden">
-                        <p>180g of Powdered Beef Bone Broth.</p>
-                        <p>Wholesale (1x Carton - 6 units) $42/unit <span class="green"> - RRP $60/unit</span></p>
-                        <div class="btn-group">
-                            <a href="https://buy.stripe.com/14k2an0mUekB1Jm3dq" class="btn buy-now btn-primary">Begin order</a>
-                        </div>
-                    </div>
-                </div>
+        <div class="container">
+            <div class="filter-options">
+                <input type="radio" id="all" name="product-filter" value="all" checked>
+                <label for="all">All</label>
+                <input type="radio" id="bone-broth" name="product-filter" value="bone-broth">
+                <label for="bone-broth">Bone Broth</label>
+                <input type="radio" id="tallow" name="product-filter" value="tallow">
+                <label for="tallow">Tallow</label>
+                <input type="radio" id="bundles" name="product-filter" value="bundles">
+                <label for="bundles">Bundles</label>
+                <input type="radio" id="coming-soon" name="product-filter" value="coming-soon">
+                <label for="coming-soon">Coming Soon</label>
+            </div>
+            <div class="row max-width  shopsection">
+                {{- partial "prodcardtallowskin.html" . -}}
+                {{- partial "prodcardpplpowder.html" . -}}
+                {{- partial "prodcardpetpowder.html" . -}}
+                {{- partial "prodcardinsideout.html" . -}}
+                {{- partial "prodcardbrothbundle.html" . -}}
+                {{- partial "prodcardtallowbundle.html" . -}}
+                {{- partial "prodcardmarrow.html" . -}}
             </div>
         </div>
-
-        <!-- Container 2 -->
-        <div class="container" id="container2">
-            <div class="row topbanner rel">
-                <div class="col-xs-12 col-lg-6 product-photos">
-                    {{- partial "liquidimages.html" . -}}
-                </div>
-                <div class="col-xs-12 col-lg-6">
-                    <h1>Bone Broth Meal Topper for Pets (Liquid)</h1>
-                    <h5>Pets go from picky to piggy with just a dash in their kibble.</h5>
-                    <img class="stars" src="/img/stars/5.webp" alt="review rating for bone broth product">
-                    <p>(18)</p>
-                    <div class="dropdown-container">
-                        <div class="dropdown-group">
-                            <select id="productFlavour2" name="productFlavour2">
-                                <option value="beef" data-sample-url="https://buy.stripe.com/bIY6qD8Tq6S90Fi017" data-small-url="https://buy.stripe.com/00gaGT9Xu3FX1Jm01k" data-large-url="https://buy.stripe.com/eVacP10mU0tL1Jm6pH" data-xl-url="https://buy.stripe.com/9AQ6qDedK0tLds4aFt">Beef</option>
-                            </select>
-                        </div>
-                        <div class="dropdown-group">
-                            <select id="productSize2" name="productSize2">
-                                <option value="sample" selected>Sample</option>
-                                <option value="small">1x Jar Carton (6 units)</option>
-                                <option value="large">1x Pouch Carton (6 units)</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div id="productsample2" class="product-info">
-                        <p>Sample of Liquid Beef Bone Broth.</p>
-                        <p>Free, just pay the shipping - limit one sample per customer.</p>
-                        <a href="https://buy.stripe.com/bIY6qD8Tq6S90Fi017" class="btn buy-now btn-primary">Claim now</a>
-                    </div>
-                    <div id="productsmall2" class="product-info hidden">
-                        <p>500ml Jar units of Liquid Beef Bone Broth.</p>
-                        <p>Wholesale (1x Carton - 6 units) $7/unit <span class="green"> - RRP $10/unit</span></p>
-                        <div class="btn-group">
-                            <a href="https://buy.stripe.com/00gaGT9Xu3FX1Jm01k" class="btn buy-now btn-primary">Begin order</a>
-                        </div>
-                    </div>
-                    <div id="productlarge2" class="product-info hidden">
-                        <p>500ml Pouch units of Liquid Organic Beef Bone Broth.</p>
-                        <p>Wholesale (1x Carton - 6 units) $5.60/unit <span class="green"> - RRP $8/unit</span></p>
-                        <div class="btn-group">
-                            <a href="https://buy.stripe.com/eVacP10mU0tL1Jm6pH" class="btn buy-now btn-primary">Begin order</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Container 3 -->
-        <div class="container" id="container3">
-            <div class="row topbanner rel">
-                <div class="col-xs-12 col-lg-6 product-photos">
-                    {{- partial "pplliquidimages.html" . -}}
-                </div>
-                <div class="col-xs-12 col-lg-6">
-                    <h1>Liquid Gold Bone Broth</h1>
-                    <div class="dropdown-container">
-                        <div class="dropdown-group">
-                            <select id="productFlavour3" name="productFlavour3">
-                                <option value="beef" data-sample-url="https://buy.stripe.com/4gw6qDd9G1xP1Jm15c" data-small-url="https://buy.stripe.com/00g9CP2v2gsJfAccO3" data-large-url="https://buy.stripe.com/dR69CP4Dacctew84hB">Beef</option>
-                                <option value="chicken" data-sample-url="https://buy.stripe.com/bIY8yL9Xu6S9bjWcNW" data-small-url="https://buy.stripe.com/aEU9CP8TqfoFbjW3ds" data-large-url="https://buy.stripe.com/6oEg1d5He90h0FibK0">Chicken</option>
-                            </select>
-                        </div>
-                        <div class="dropdown-group">
-                            <select id="productSize3" name="productSize3">
-                                <option value="sample" selected>Sample</option>
-                                <option value="small">1x Jar Carton (6 units)</option>
-                                <option value="large">1x Pouch Carton (6 units)</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div id="productsample3" class="product-info">
-                        <p>Sample of Liquid Organic Bone Broth.</p>
-                        <p>Free, just pay the shipping - limit one sample per customer.</p>
-                        <a href="https://buy.stripe.com/4gw6qDd9G1xP1Jm15c" class="btn buy-now btn-primary">Claim now</a>
-                    </div>
-                    <div id="productsmall3" class="product-info hidden">
-                        <p>500ml Jar units of Liquid Bone Broth.</p>
-                        <p>Wholesale (1x Carton - 6 units) $7/unit <span class="green"> - RRP $10/unit</span></p>
-                        <div class="btn-group">
-                            <a href="https://buy.stripe.com/00g9CP2v2gsJfAccO3" class="btn buy-now btn-primary">Begin order</a>
-                        </div>
-                    </div>
-                    <div id="productlarge3" class="product-info hidden">
-                        <p>500ml Pouch units of Liquid Bone Broth.</p>
-                        <p>Wholesale (1x Carton - 6 units) $5.60/unit <span class="green"> - RRP $8/unit</span></p>
-                        <div class="btn-group">
-                            <a href="https://buy.stripe.com/dR69CP4Dacctew84hB" class="btn buy-now btn-primary">Begin order</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Container 4 -->
-        <div class="container" id="container4">
-            <div class="row topbanner rel">
-                <div class="col-xs-12 col-lg-6 product-photos">
-                    {{- partial "pplpowderimages.html" . -}}
-                </div>
-                <div class="col-xs-12 col-lg-6">
-                    <h1>Bone broth powder</h1>
-                    <img class="stars" src="/img/stars/5.webp" alt="review rating for bone broth product">
-                    <p>(7)</p>
-                    <div class="dropdown-container">
-                        <div class="dropdown-group">
-                            <select id="productFlavour4" name="productFlavour4">
-                                <option value="beef" data-sample-url="https://buy.stripe.com/9AQ2anc5C0tLbjWaFN" data-small-url="https://buy.stripe.com/dR63er1qY0tL0Fi7tE" data-large-url="https://buy.stripe.com/dR6aGT9Xu3FX1Jmg0b">Beef</option>
-                            </select>
-                        </div>
-                        <div class="dropdown-group">
-                            <select id="productSize4" name="productSize4">
-                                <option value="sample" selected>Sample</option>
-                                <option value="small">90g Carton (6 units)</option>
-                                <option value="large">180g Carton (6 units)</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div id="productsample4" class="product-info">
-                        <p>12g of Powdered Organic Beef Bone Broth.</p>
-                        <p>Free, just pay the shipping - limit one sample per customer.</p>
-                        <div class="hide"><a href="https://buy.stripe.com/9AQ2anc5C0tLbjWaFN" class="btn buy-now btn-primary">Claim now</a></div>
-                        <form id="waitlist-form" action="https://docs.google.com/forms/d/e/1FAIpQLScaHCnkhfVAStnaxej1XT9Advj6OASjflZChXP-YN5bow5GbA/formResponse" onsubmit="submitWaitlistForm(event)">
-                            <input type="email" name="entry.1539663871" placeholder="Enter your email" required>
-                            <input type="hidden" name="entry.432251910" value="Bone broth people - powder - sample">
-                            <button type="submit" class="btn btn-secondary">Request info</button>
-                        </form>  
-                    </div>
-                    <div id="productsmall4" class="product-info hidden">
-                        <p>90g of Powdered Organic Beef Bone Broth.</p>
-                        <p>Wholesale (1x Carton - 6 units) $28.50/unit <span class="green"> - RRP $42.50/unit</span></p>
-                        <div class="btn-group hide">
-                            <a href="https://buy.stripe.com/dR63er1qY0tL0Fi7tE" class="btn buy-now btn-primary hide">Begin order</a>
-                        </div>
-                        <form id="waitlist-form" action="https://docs.google.com/forms/d/e/1FAIpQLScaHCnkhfVAStnaxej1XT9Advj6OASjflZChXP-YN5bow5GbA/formResponse" onsubmit="submitWaitlistForm(event)">
-                            <input type="email" name="entry.1539663871" placeholder="Enter your email" required>
-                            <input type="hidden" name="entry.432251910" value="Bone broth people - powder - 90g">
-                            <button type="submit" class="btn btn-secondary">Request info</button>
-                        </form>  
-                    </div>
-                    <div id="productlarge4" class="product-info hidden">
-                        <p>180g of Powdered Organic Beef Bone Broth.</p>
-                        <p>Wholesale (1x Carton - 6 units) $57.10/unit <span class="green"> - RRP $81.60/unit</span></p>
-                        <div class="btn-group hide">
-                            <a href="https://buy.stripe.com/dR6aGT9Xu3FX1Jmg0b" class="btn buy-now btn-primary">Begin order</a>
-                        </div>
-                        <form id="waitlist-form" action="https://docs.google.com/forms/d/e/1FAIpQLScaHCnkhfVAStnaxej1XT9Advj6OASjflZChXP-YN5bow5GbA/formResponse" onsubmit="submitWaitlistForm(event)">
-                            <input type="email" name="entry.1539663871" placeholder="Enter your email" required>
-                            <input type="hidden" name="entry.432251910" value="Bone broth people - powder - 180g">
-                            <button type="submit" class="btn btn-secondary">Request info</button>
-                        </form>  
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-
+    </div>
+    <script>
+        // Function to set a discount cookie
+        function setDiscountCookie(discountCode) {
+            document.cookie = `discount=${discountCode}; path=/; max-age=3600`; // Valid for 1 hour
+        }
     
-
-
-        <div class="row peach text-center mb-0">
-            <div class="col-md-6 col-12 p-4">
-                <h4>Drop shipping</h4>
-                <p>If you were drop shipping into your customers address but put your own email. No physical receipts will be sent to the Customer and your receipt will come to your email address.</p>
-            </div>
-            <div class="col-md-6 col-12 p-4">
-                <h4>Wholesale</h4>
-                <p>If your business uses a large amount of bone broth or you are reselling the product in your store or website buy wholesale and save you money and increase your margins.</p>
-            </div>    
-        </div>
-
-        <!-- Add html above -->
-        <script>
-
-            // JavaScript for handling the tab functionality
-            document.addEventListener('DOMContentLoaded', function() {
-                const tabs = document.querySelectorAll('.faq-nav-tab');
-                const containers = document.querySelectorAll('.container');
-                const flavours = [
-                    { 
-                        id: 'productFlavour1', 
-                        sizes: [
-                            { size: 'sample', id: 'productsample1' }, 
-                            { size: 'small', id: 'productsmall1' }, 
-                            { size: 'large', id: 'productlarge1' }
-                        ]
-                    },
-                    { 
-                        id: 'productFlavour2', 
-                        sizes: [
-                            { size: 'sample', id: 'productsample2' }, 
-                            { size: 'small', id: 'productsmall2' }, 
-                            { size: 'large', id: 'productlarge2' }
-                        ]
-                    },
-                    { 
-                        id: 'productFlavour3', 
-                        sizes: [
-                            { size: 'sample', id: 'productsample3' }, 
-                            { size: 'small', id: 'productsmall3' }, 
-                            { size: 'large', id: 'productlarge3' }
-                        ]
-                    },
-                    { 
-                        id: 'productFlavour4', 
-                        sizes: [
-                            { size: 'sample', id: 'productsample4' }, 
-                            { size: 'small', id: 'productsmall4' }, 
-                            { size: 'large', id: 'productlarge4' }
-                        ]
-                    }
-                ];
-
-                tabs.forEach(function(tab) {
-                    tab.addEventListener('click', function() {
-                        const target = tab.getAttribute('data-target');
-
-                        // Hide all containers
-                        containers.forEach(function(container) {
-                            container.classList.remove('show');
-                        });
-
-                        // Remove active class from all tabs
-                        tabs.forEach(function(t) {
-                            t.classList.remove('active');
-                        });
-
-                        // Show the target container
-                        document.getElementById(target).classList.add('show');
-
-                        // Set the clicked tab as active
-                        tab.classList.add('active');
-                    });
-                });
-
-                flavours.forEach(function(flavour) {
-                    document.getElementById(flavour.id).addEventListener('change', function() {
-                        const selectedFlavour = this.options[this.selectedIndex];
-                        const selectedSampleUrl = selectedFlavour.getAttribute('data-sample-url');
-                        const selectedSmallUrl = selectedFlavour.getAttribute('data-small-url');
-                        const selectedLargeUrl = selectedFlavour.getAttribute('data-large-url');
-                        
-                        flavour.sizes.forEach(function(size) {
-                            const productInfo = document.getElementById(size.id);
-                            if (size.size === 'small') {
-                                productInfo.querySelector('a.btn-primary').href = selectedSmallUrl;
-                            } else if (size.size === 'large') {
-                                productInfo.querySelector('a.btn-primary').href = selectedLargeUrl;
-                            } else {
-                                productInfo.querySelector('a.btn-primary').href = selectedSampleUrl;
-                            }
-                        });
-                    });
-                });
-
-                function initializeTabs(containerIndex) {
-                    document.querySelector('#productSize' + containerIndex).addEventListener('change', function() {
-                        const flavour = document.getElementById('productFlavour' + containerIndex).value;
-                        const selectedFlavour = document.getElementById('productFlavour' + containerIndex).options[document.getElementById('productFlavour' + containerIndex).selectedIndex];
-                        const selectedUrl = selectedFlavour.getAttribute('data-' + this.value + '-url');
-                        const productInfo = document.getElementById('product' + this.value + containerIndex);
-                        
-                        productInfo.querySelector('a.btn-primary').href = selectedUrl;
-
-                        document.getElementById('productsample' + containerIndex).classList.toggle('hidden', this.value !== 'sample');
-                        document.getElementById('productsmall' + containerIndex).classList.toggle('hidden', this.value !== 'small');
-                        document.getElementById('productlarge' + containerIndex).classList.toggle('hidden', this.value !== 'large');
-                    });
-                }
-
-                // Initialize tabs for each container
-                initializeTabs(1);
-                initializeTabs(2);
-                initializeTabs(3);
-                initializeTabs(4);
-            });
-
-            function changeMainImage(mainImageId, thumbnail) {
-                document.getElementById(mainImageId).src = thumbnail.src;
-            }
-
-            function submitWaitlistForm(event) {
-                event.preventDefault(); // Prevent the default form submission
-            
-                const form = event.target;
-                const formData = new FormData(form);
-            
-                fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    mode: 'no-cors', // Ensure no CORS errors occur
-                }).then(() => {
-                    alert("Request received, we'll be in touch soon.");
-                    form.reset(); // Reset the form fields
-                }).catch(error => {
-                    console.error('Error:', error);
-                });
-            }
-        
+        // Function to get a cookie value
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+    
+        // Handle password form submission
         document.getElementById('passwordForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const password = document.getElementById('password').value;
-            const correctPassword = 'Bonelyfans'; // Replace with your desired password
-
+            const correctPassword = 'Bonelyfans'; // The correct password
             if (password === correctPassword) {
+                setDiscountCookie('wholesale'); // Set the discount cookie with the coupon ID
                 document.getElementById('passwordOverlay').style.display = 'none';
+                document.getElementById('protectedContent').classList.add('show');
                 document.getElementById('protectedContent').classList.remove('hidden');
             } else {
                 alert('Incorrect password, please try again.');
             }
-        });    
-        
-        </script>
-        <!-- not charity clearing thank you url/charity param -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            localStorage.removeItem('pgurl');
-            localStorage.removeItem('charity');
+        });
+    
+        // Filter product cards based on selected category
+        $(document).ready(function () {
+            $('input[name="product-filter"]').on('change', function () {
+                const selectedFilter = $(this).val();
+                if (selectedFilter === 'all') {
+                    $('.product-card').show();
+                } else if (selectedFilter === 'coming-soon') {
+                    $('.product-card').hide();
+                    $('.product-card[data-coming-soon="true"]').show();
+                } else {
+                    $('.product-card').hide();
+                    $('.product-card').filter(function () {
+                        return $(this).data('category') === selectedFilter;
+                    }).show();
+                }
+            });
+    
+            // Trigger the filter change event on page load
+            $('input[name="product-filter"]:checked').trigger('change');
+    
+            // Example usage: pass the discount to Stripe Checkout
+            $('#checkoutButton').on('click', function () {
+            const discountCode = getCookie('discount'); // Retrieve the discount code from the cookie
+
+            fetch('/create-checkout-session', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ discountCode }), // Pass discount code to backend
+            })
+            .then(response => response.json())
+            .then(session => {
+                return stripe.redirectToCheckout({ sessionId: session.id });
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
         });
     </script>
-        {{- partial "footer.html" . -}}
-    </div>
+    
 </body>
 </html>
