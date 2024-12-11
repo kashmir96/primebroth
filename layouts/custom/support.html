@@ -31,7 +31,7 @@
             <p class="text-center">Need to query your order? submit this form and we'll be in touch asap.</p>               
 
             <div class="custom-form">
-                <form id="contact-form" method="POST" data-netlify="support" name="contact">
+                <form id="contact-form" method="POST" data-netlify="true" enctype="multipart/form-data" name="contact">
                     <input type="hidden" name="form-name" value="support">
                     
                     <label>Name*</label>
@@ -39,13 +39,13 @@
                     
                     <label>Email*</label>
                     <input type="email" placeholder="your@email.com" class="form-input" name="email" required>
-
+                
                     <label>Date of transaction</label>
                     <input type="text" placeholder="e.g. 25/09/2024" class="form-input" name="transaction_date">
-
+                
                     <label>Receipt number (for faster processing of your query)</label>
                     <input type="text" placeholder="e.g. 8039-1092" class="form-input" name="receipt">
-
+                
                     <label>Product purchased</label>
                     <select class="form-input" name="product_purchased" required>
                         <option value="" disabled selected>Select a product type</option>
@@ -56,7 +56,7 @@
                         <option value="bundle-inside-out">Inside out wellness bundle</option>
                         <option value="bundle-people-pets">People and pets broth powder bundle</option>
                     </select>
-
+                
                     <label>Support query type</label>
                     <select class="form-input" name="support_query_type" required>
                         <option value="" disabled selected>Select a query type</option>
@@ -67,21 +67,21 @@
                         <option value="shipping_issue">Shipping Issue</option>
                         <option value="refund_request">Refund or Exchange Request</option>
                     </select>
-
+                
                     <label>Message*</label>
                     <textarea rows="5" placeholder="Please provide details of your support query" class="form-input" name="message" required></textarea>
                 
                     <label>Upload Supporting Images or Documents (Required for refunds or exchanges of received items)</label>
                     <input type="file" class="form-input" name="attachments" accept="image/*,.pdf,.doc,.docx" multiple>
-
+                
                     <label>Affected product batch number (Required for refunds or exchanges of received items)</label>
                     <input type="text" placeholder="e.g. 039" class="form-input" name="batch" >
-
+                
                     <label>Are you a robot? What's 5+1?*</label>
                     <input type="text" id="specialField" placeholder="Answer correctly to submit" class="form-input" required>
                     
-                    <button id="contact-submit" class="btn btn-primary" type="submit">Send</button>
-                </form>
+                    <button id="contact-submit" class="btn btn-primary" type="submit" onclick="return validateForm()">Send</button>
+                </form>                
             </div>
         </div>
     </div>
