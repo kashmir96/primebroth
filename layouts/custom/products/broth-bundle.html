@@ -40,7 +40,7 @@
             </div>
             <div class="col-xs-12 col-lg-6">
 
-                <h1 class="my-4">Broths bundle - People and pets 50g</h1>
+                <h1 class="my-4">Broths bundle - People and pets</h1>
                 <div class="custom-radio" >
                     <input type="radio" id="inStock" name="stockStatus" checked>
                     <label class="custom-radio-label mb-4" for="inStock">In Stock</label>
@@ -62,7 +62,9 @@
                     <div class="text-left mb-4">
                         <label class="font-weight-bold" for="size">Select Size:</label>
                         <select class="form-control" id="size" name="size">
-                            <option value="50g-50g">50g each</option>
+                          <!--  <option value="50g-50g">50g each</option>-->
+                            <option value="90g-50g">90g people 50g pets</option>
+
                         </select>
                     </div>
                     <div class="text-left mb-4">
@@ -305,8 +307,8 @@
     console.log("Selected - Size:", size, "Flavor:", flavor, "Order Type:", orderType);
 
     // Traverse the pricing structure for the selected combination
-    if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.balm) {
-        const balmData = productPricingRaw.ids.balm;
+    if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.broth_bundle) {
+        const balmData = productPricingRaw.ids.broth_bundle;
         console.log("balm Data:", balmData);
 
         const orderTypeData = balmData[orderType];
@@ -400,8 +402,8 @@
         const simplified = {};
 
         // Iterate over balm (or pets, if needed)
-        if (rawData.ids && rawData.ids.balm) {
-            const categories = rawData.ids.balm;
+        if (rawData.ids && rawData.ids.broth_bundle) {
+            const categories = rawData.ids.broth_bundle;
 
             for (const [orderType, flavors] of Object.entries(categories)) {
                 for (const [flavor, sizes] of Object.entries(flavors)) {
