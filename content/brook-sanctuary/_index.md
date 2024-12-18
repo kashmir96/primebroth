@@ -1,6 +1,6 @@
 ---
-title: "Pets bone broth powder - PrimeBroth Brook Sanctuary Fundraiser"
-description: "Pets bone broth powder PrimeBroth, NZ's animal based wellness drink for pets"
+title: "Pets bone broth powder - Primalpantry Brook Sanctuary Fundraiser"
+description: "Pets bone broth powder Primalpantry, NZ's animal based wellness drink for pets"
 type: custom
 layout: products/pets-powder
 charity: Brook Sanctuary

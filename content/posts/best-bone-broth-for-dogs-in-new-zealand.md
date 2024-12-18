@@ -12,11 +12,11 @@ The best bone broth for dogs in New Zealand is beef bone broth from PrimaBroth, 
 
 Bone broth is known to be good for digestion, joints, coat, and sleep. Bone broth also makes a great addition to dry dog kibble. It adds nutrition and flavor. For example, if your dog or cat has a sensitive stomach, joint or digestive issues, or is a picky eater, bone broth can be a great addition to their diet.
 
-1. **Primebroth**
+1. **PrimalPantry**
 
     ![Prime Broth Logo](/img/logo/logo.webp)
     
-    Primebroth is a Christchurch-based small bone broth producer. They make bone broth for both pets and humans. Compared to other companies, their beef bone broth is very rich and made out of organic beef bones.
+    PrimalPantry is a Christchurch-based small bone broth producer. They make bone broth for both pets and humans. Compared to other companies, their beef bone broth is very rich and made out of organic beef bones.
     
     ![Prime Broth Product](/img/frosty.webp)
 
@@ -30,7 +30,7 @@ Bone broth is known to be good for digestion, joints, coat, and sleep. Bone brot
     A 400ml jar of liquid gold (beef bone broth) starts at $7. However, you can purchase a pack of 5 for $30, which is a great saving! Prime Broth offers delivery, or alternatively, you can pick up your order from their location close to the Christchurch CBD.
     
     **Where to buy:**
-    - Buy online on the [Prime Broth website](https://www.primebroth.co.nz/)
+    - Buy online on the [Prime Broth website](https://www.PrimalPantry.co.nz/)
     - Buy on [Trademe](https://www.trademe.co.nz/a/marketplace/pets-animals/dogs/food/listing/4709672946 "nofollow")
     - Buy on [FB marketplace](https://www.facebook.com/marketplace/item/773498248221228 "nofollow")
     

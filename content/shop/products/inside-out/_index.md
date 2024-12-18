@@ -1,6 +1,6 @@
 ---
-title: "Beef tallow balm for skin - PrimeBroth"
-description: "Achieve a natural glow without the chemical nasties using beef tallow balm for skin from Primebroth"
+title: "Beef tallow balm for skin - PrimalPantry"
+description: "Achieve a natural glow without the chemical nasties using beef tallow balm for skin from PrimalPantry"
 type: custom
 layout: products/tallow-skin
 bundle-50g-200ml-lav: price_1QKSVEFZRwx5tlYm6ygjJqcz

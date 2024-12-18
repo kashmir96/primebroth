@@ -1,6 +1,6 @@
 ---
-title: "Stockists - Primebroth"
-description: "Pick up some Primebroth from one of our stockists"
+title: "Stockists - PrimalPantry"
+description: "Pick up some PrimalPantry from one of our stockists"
 type: custom
 layout: stockists
 ---

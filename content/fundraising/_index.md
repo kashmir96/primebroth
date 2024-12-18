@@ -1,6 +1,6 @@
 ---
-title: "Pets bone broth - PrimeBroth SPCA Fundraiser"
-description: "Pets bone broth PrimeBroth, NZ's animal based wellness drink for pets"
+title: "Pets bone broth - PrimalPantry SPCA Fundraiser"
+description: "Pets bone broth PrimalPantry, NZ's animal based wellness drink for pets"
 type: custom
 layout: products/pets-powder
 charity: SPCA

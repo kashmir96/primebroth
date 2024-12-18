@@ -1,5 +1,5 @@
 ---
-title: "Pages - PrimeBroth"
-description: "Pages on PrimeBroth"
+title: "Pages - PrimalPantry"
+description: "Pages on PrimalPantry"
 excludeFromSitemap: true
 ---

@@ -1,6 +1,6 @@
 ---
 title: "Chicken and Vegetable Soup with Bone Broth"
-description: "A yummy chicken and vegetable soup using PrimeBroth chicken bone broth as a base."
+description: "A yummy chicken and vegetable soup using PrimalPantry chicken bone broth as a base."
 draft: false
 image: "/img/1.webp"
 cover: 

@@ -1,6 +1,6 @@
 ---
-title: "Reviews - PrimeBroth"
-description: "Hear from real customers using Primebroth"
+title: "Reviews - PrimalPantry"
+description: "Hear from real customers using PrimalPantry"
 type: custom
 layout: reviews
 ---

@@ -1,6 +1,6 @@
 ---
-title: "Bone Broth Powder for dogs and cats - PrimeBroth"
-description: "Bone Broth Powder for dogs and cats. PrimeBroth, NZ's animal based wellness drink and meal topper for pets"
+title: "Bone Broth Powder for dogs and cats - PrimalPantry"
+description: "Bone Broth Powder for dogs and cats. PrimalPantry, NZ's animal based wellness drink and meal topper for pets"
 type: custom
 layout: products/pets-powder
 beefpricesmalllink: 

@@ -1,5 +1,5 @@
 ---
-title: "Wholesale bone broth - PrimeBroth"
+title: "Wholesale bone broth - PrimalPantry"
 description: "order bulk wholesale bone broth powder for your business to use or resell"
 type: custom
 layout: wholesale

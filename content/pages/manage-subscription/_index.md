@@ -1,6 +1,6 @@
 ---
-title: "Manage your subscription - PrimeBroth"
-description: "Manage your subscription with PrimeBroth, NZ's animal based wellness drink"
+title: "Manage your subscription - PrimalPantry"
+description: "Manage your subscription with PrimalPantry, NZ's animal based wellness drink"
 type: custom
 layout: manage-subscription
 draft: true

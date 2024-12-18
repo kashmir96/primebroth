@@ -1,6 +1,6 @@
 ---
-title: "Order confirmation - PrimeBroth"
-description: "Thank you for your order of PrimeBroth"
+title: "Order confirmation - PrimalPantry"
+description: "Thank you for your order of PrimalPantry"
 type: custom
 layout: thank-you
 excludeFromSitemap: true

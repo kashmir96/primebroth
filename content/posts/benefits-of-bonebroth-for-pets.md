@@ -26,7 +26,7 @@ Bone broth has many health benefits both for humans and pets; below are some key
 
 - **Improved Appetite:** For pets that are picky eaters or have a reduced appetite due to illness or stress, bone broth can be an appealing addition to their diet. Its rich flavor can stimulate appetite and encourage eating.
 
-Keep in mind that human bone broth isn’t a good solution for pets as it contains high amounts of sodium. It’s always better to purchase a pet’s bone broth from a trusted brand such as <a class="bluelink" href="/shop">PrimeBroth</a> or make it yourself. 
+Keep in mind that human bone broth isn’t a good solution for pets as it contains high amounts of sodium. It’s always better to purchase a pet’s bone broth from a trusted brand such as <a class="bluelink" href="/shop">PrimalPantry</a> or make it yourself. 
 
 ## Conclusion
 

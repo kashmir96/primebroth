@@ -1,6 +1,6 @@
 ---
-title: "Shop - PrimeBroth"
-description: "Shop Beef and Chicken Bone Broth from PrimeBroth NZ"
+title: "Shop - PrimalPantry"
+description: "Shop Beef and Chicken Bone Broth from PrimalPantry NZ"
 type: custom
 layout: shop
 ---

@@ -1,6 +1,6 @@
 ---
-title: "Pets bone broth powder - PrimeBroth Paws 4 Life Fundraiser"
-description: "Pets bone broth powder PrimeBroth, NZ's animal based meal topper for pets"
+title: "Pets bone broth powder - PrimalPantry Paws 4 Life Fundraiser"
+description: "Pets bone broth powder PrimalPantry, NZ's animal based meal topper for pets"
 type: custom
 layout: products/pets-powder
 charity: Paws 4 Life

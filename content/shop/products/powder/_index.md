@@ -1,6 +1,6 @@
 ---
-title: "Bone broth powder - PrimeBroth"
-description: "PrimeBroth bone broth powder, NZ's animal based wellness drink"
+title: "Bone broth powder - PrimalPantry"
+description: "PrimalPantry bone broth powder, NZ's animal based wellness drink"
 type: custom
 layout: products/powder
 broth-beef-people-50g: price_1QKTaQFZRwx5tlYmDcPu83GM

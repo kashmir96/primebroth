@@ -1,6 +1,6 @@
 ---
-title: "Pets bone broth powder - PrimeBroth Chained Dog Fundraiser"
-description: "Pets bone broth powder PrimeBroth, NZ's animal based wellness drink for pets"
+title: "Pets bone broth powder - Primalpantry Chained Dog Fundraiser"
+description: "Pets bone broth powder Primalpantry, NZ's animal based wellness drink for pets"
 type: custom
 layout: products/pets-powder
 charity: Chained Dog

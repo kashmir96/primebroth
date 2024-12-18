@@ -1,6 +1,6 @@
 ---
-title: "Pets bone broth powder - PrimeBroth Waimakiriri Kennel Association Fundraiser"
-description: "Pets bone broth powder PrimeBroth, NZ's animal based wellness drink for pets"
+title: "Pets bone broth powder - PrimalPantry Waimakiriri Kennel Association Fundraiser"
+description: "Pets bone broth powder PrimalPantry, NZ's animal based wellness drink for pets"
 type: custom
 layout: products/pets-powder
 charity: Waimakiriri Kennel Association
