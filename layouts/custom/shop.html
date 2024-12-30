@@ -68,7 +68,7 @@
     {{- partial "strip.html" . -}}
     <!-- Add html below -->
 
-    <div class="container">
+    <div class="container shopcontainer">
         <!-- Filter buttons -->
         
 
@@ -90,14 +90,17 @@
                 <input type="radio" id="coming-soon" name="product-filter" value="coming-soon" class="coming-soon">
                 <label for="coming-soon" class="coming-soon">Coming Soon</label>
             </div>
+            <div class="d-flex flex-wrap gap-2">
             {{- partial "prodcardtallowskin.html" . -}} 
             {{- partial "prodcardpplpowder.html" . -}} 
             {{- partial "prodcardpetpowder.html" . -}}
             {{- partial "prodcardinsideout.html" . -}}
             {{- partial "prodcardbrothbundle.html" . -}}
             {{- partial "prodcardtallowbundle.html" . -}}
-           {{- partial "prodcardtallowsunscreenbalm.html" . -}}
+            {{- partial "prodcardtallowsunscreenbalm.html" . -}}
             {{- partial "prodcardmarrow.html" . -}}
+        </div>
+
 
           <!--{{- partial "prodcardmarrow.html" . -}} -->  
         </div>
