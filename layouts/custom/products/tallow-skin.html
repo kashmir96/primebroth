@@ -20,6 +20,16 @@
     <script src="https://js.stripe.com/v3/"></script> <!-- Stripe script -->
 </head>
 <body>
+    <style>
+
+        .custom-radio input[type="radio"]:checked + .custom-radio-label::before {
+          background-color: green;
+        }
+        
+        .custom-radio-label {
+            color: green;
+        }
+            </style>
     {{- partial "alert.html" . -}}
     {{- partial "header.html" . -}}
     
@@ -29,10 +39,9 @@
                 {{- partial "tallowskinimages.html" . -}}
             </div>
             <div class="col-xs-12 col-lg-6 mt-0">
-                <img class="stars float-left mr-2 mt-0" src="/img/stars/5.webp" alt=""><p class="thic">Loved by 1600+ kiwis</p>
+                <img class="stars float-left mr-2" src="/img/stars/5.webp" alt=""><p class="thic">Loved by 1600+ kiwis</p>
                 <h1 class="thic mt-2">Whipped Tallow Balm <br><span class="thin">Naturally Perfect Skin</span></h1>
                 <p class="graytxt">From PrimalCare</p>
-
  
                 
     <!-- YAML FORM STARTS -->
@@ -77,9 +86,14 @@
 
  <!-- Quantity Selector -->
  <div class="form-group mb-4">
-    <label for="quantityAll">Quantity:</label>
+    <label for="quantityAll">Quantity:</label><div class="custom-radio float-right" >
+        <input type="radio" id="inStock" name="stockStatus" checked>
+        <label class="custom-radio-label mb-0" for="inStock">In Stock</label>
+    </div>
     <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
 </div>
+
+
 
                     
 
@@ -102,9 +116,7 @@
 </div>
 <div class="row mt-0">
 <div class="col-12 col-md-6 text-center">
-    <div class="mt-4">
-    </div>
-    <div class="row mt-0 mb-0">
+    <div class="row mt-4 mb-0">
         <h2>Delivering life changing results time and time again</h2>
         <div class="col-6">
             <img src="/img/prod/balm/eczema.webp" alt="">
@@ -113,7 +125,6 @@
             <img src="/img/prod/balm/baby-eczema.webp" alt="">
         </div>
         <p>With oils closely mimicking those produced by our bodies, our tallow <span class="attention-primalcare">soothes dry and irritated skin</span></p>
-
     </div>
 
 </div>
