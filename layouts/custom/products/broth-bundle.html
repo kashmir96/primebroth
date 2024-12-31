@@ -42,11 +42,12 @@
             </div>
             <div class="col-xs-12 col-lg-6">
 
-                <h1 class="my-4">Broths bundle - People and pets</h1>
-                <div class="custom-radio" >
-                    <input type="radio" id="inStock" name="stockStatus" checked>
-                    <label class="custom-radio-label mb-4" for="inStock">In Stock</label>
-                </div>
+                <img class="stars float-left mr-2" src="/img/stars/5.webp" alt=""><p class="thic">Loved by 500+ kiwis</p>
+                <h1 class="thic mt-2">People & pets broth bundle <br><span class="thin">Naturally better families</span></h1>
+                <p class="graytxt">From Primebroth</p>
+                <p class="thin">Have the whole family <span class="attention-primebroth">glow up together!</span></p>
+ 
+
                 <p id="priceDisplay" class="product-price"></p> <!-- Placeholder for the price -->
 
                 <!-- Product Form Options with Bootstrap Styling -->
@@ -62,7 +63,7 @@
 
                 <form id="productForm" class="form-group mb-4">
                     <div class="text-left mb-4">
-                        <label class="font-weight-bold" for="size">Select Size:</label>
+                        <label for="size">Select Size:</label>
                         <select class="form-control" id="size" name="size">
                           <!--  <option value="50g-50g">50g each</option>-->
                             <option value="90g-50g">90g people 50g pets</option>
@@ -70,13 +71,13 @@
                         </select>
                     </div>
                     <div class="text-left mb-4">
-                        <label class="font-weight-bold" for="flavor">Select Flavor:</label>
+                        <label for="flavor">Select Flavor:</label>
                         <select class="form-control" id="flavor" name="flavor">
                             <option value="beef">Beef for both</option>
                         </select>
                     </div>
                     <div class="text-left mb-4">
-                        <label class="font-weight-bold"  for="orderType">Select Order Type:</label>
+                        <label  for="orderType">Select Order Type:</label>
                         <select class="form-control" id="orderType" name="orderType">
                             <option value="single_purchase">Single bundle</option>
                             <option value="three_pack">3 pack of bundles (save 20%)</option>
@@ -87,7 +88,7 @@
 
  <!-- Quantity Selector -->
  <div class="form-group mb-4">
-    <label for="quantityAll" class="font-weight-bold">Quantity:</label>
+    <label for="quantityAll">Quantity:</label>
     <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
 </div>
 
@@ -95,33 +96,20 @@
 
 
 
-                <!-- Add to Cart Button -->
-                <div class="text-center mb-4">
-                    <button type="button" class="btn btn-primary btn-lg buy-now" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
-                </div>
+               <!-- Add to Cart Button -->
+               <div class="add-to-cart text-center mb-4">
+                <button type="button" class="btn btn-primary btn-lg buy-now mb-1" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
+                <p>Speedy Shipping NZ Wide | Money back guarantee</p>
+                <img class="badges middle" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
+
+            </div>
 
                 </form>
 
                 
                     <!-- YAML FORM ENDS -->
 
-                <p>Shipping & promotions applied at checkout</p>
-
-                <img class="badges mb-4" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
-                <div style="margin-top:-50px;margin-bottom:-50px; font-size:90%;" class="row mt-0 trust">
-                    <div class="col-4">
-                        <img class="middle" src="/img/delivery.webp">
-                        <p>Free shipping over $80</p>
-                    </div>
-                    <div class="col-4">
-                        <img class="middle" src="/img/exclusive.webp">
-                        <p>Money back guarantee</p>
-                    </div>
-                    <div class="col-4">
-                        <img class="middle" src="/img/kiwi.webp">
-                        <p>Used by 1200+ Kiwis</p>
-                    </div>
-                </div>
+                
             </div>
         </div>
         <div class="row mt-0">
@@ -130,27 +118,43 @@
             </div>
             <div class="faq-tab-container col-12 col-md-6">
                 <!-- Nav tabs -->
-                <ul class="nav nav-tabs faq-nav-tabs" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="directions-tab" data-toggle="tab" href="#directions" role="tab" aria-controls="directions" aria-selected="false">Directions</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="storage-tab" data-toggle="tab" href="#storage" role="tab" aria-controls="storage" aria-selected="false">Storage</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</a>
-                    </li>
-                </ul>
+                <div class="faq-nav-tabs">
+                    <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Fast facts</div>
+                    <div class="faq-nav-tab" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="true">Details</div>
+                    <div class="faq-nav-tab" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</div>
+                    <div class="faq-nav-tab" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</div>
+                    <div class="faq-nav-tab" id="directions-tab" data-toggle="tab" href="#directions" role="tab" aria-controls="directions" aria-selected="false">Directions</div>
+                    <div class="faq-nav-tab" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</div>
+                </div>
         
                 <!-- Tab panes -->
-                <div class="tab-content mt-3">
-                    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                <div class="tab-content faq-tab-content">
+                    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">        
+                        <p>A rich and savoury powdered broth ready to scoop and serve at home or on the go.</p>
+
+                        <h6>What makes our broth powder different?</h6>
+                        <ul>
+                            <li>We drink it ourselves every day and attend markets every week, working closely with customers to produce a product they like. We’ve made a recipe that tastes good out of the bag!</li>
+                            <li>All natural ingredients, no nasties added. </li>
+                        </ul>
+
+
+            <h6>Key benefits of the Primebroth range</h6>
+            <ul>
+                <li>Contains collagen, protein and other nutritional goodies that support joints, gut, muscle, skin and nail health.</li>
+            </ul>
+
+                        
+                        <div class="row text-center justify-content-around mt-0 mb-0">
+                            <h4>Join the bonelyfans using Primebroth</h4>
+                           <h6>See why <span class="attention-primebroth">1000+ kiwis just like you</span> switched to Primebroth</h6>
+                                        <img class="seventy" src="/img/powder-difference.svg" alt="">
+                            </div>
+                        
+                    
+                        
+                    </div>
+                    <div class="tab-pane fade" id="details" role="details" aria-labelledby="details-tab">
                         <h4>Humans Broth Description</h4>
                         <p>Powdered <span class="product-flavour">Beef</span> Bone Broth - 7 servings for the 50g, and 14 servings for 100g.</p>
                         <p>Our bone broth powder is a versatile product for these health-conscious and busy folks. This h bone broth is perfect for drinking or cooking with! For health benefits and mild meaty flavor mix in with hot water and consume with a bit of salt added. For culinary masterpieces and smoothies, add one serving into your favorite recipe and enjoy.</p>
@@ -168,13 +172,45 @@
                         <p>Struggle to get your pet to eat their kibble? Sick of paying ridiculous prices for expensive meat just to get them to eat? We were too, that's why we made PrimalPantry for pets.</p>
                         <p>Simply serve on their regular kibble and transform from bland to gourmet.</p>
                         <p>We're confident they'll lap it up. If they don't, we'll give your money back.</p>
-                        <p>Not for human consumption - <a href="/shop/products/powder/">check our people broth</a> options.</p>
-                                     </div>
+                    </div>
+                    <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                        <h4>See what our customers say online</h4>
+                        <div class="col-12">
+                            <div class="col-12 mt-2 mb-2 card">
+                                <div class="card-top">
+                                <p class="customer-name">Posted by <span style="font-weight: bold;">Kate</span> on <span style="font-weight: bold;">26/06/2024</span></p>
+                                </div>
+                                <div class="card-bottom">
+                
+                                <p class="feedback-text">"Billie loves it!! The first day I sprinkled it on her biscuits but she emptied the bowl out scratching to get more of the powder 😂😂 lately I’ve just been wetting a little bit of her chicken and sprinkling it on that."</p>
+                            </div> </div>
+                            <div class="col-12 mb-2 card">
+                                <div class="card-top">
+                                <p class="customer-name">Posted by <span style="font-weight: bold;">Anna</span> on <span style="font-weight: bold;">09/07/2024</span></p>
+                            </div>
+                            <div class="card-bottom"><p class="feedback-text">"They love it...to the point of knocking the wee jar over to try get some more!"</p>
+                            </div> </div>
+                            <div class="col-12 mb-2 card">
+                                <div class="card-top">
+                                    <p class="customer-name">Posted by <span style="font-weight: bold;">Liza</span> on <span style="font-weight: bold;">24/06/2024</span></p>
+                                </div>
+                                <div class="card-bottom">
+                            <p class="feedback-text">"a+ very happy with the powder & my dogs love it."</p>
+                        </div>
+                        </div> 
+                        </div>  
+                    </div>
                     <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
                         <h4>Ingredients</h4>
                         <p><span class="product-flavour">Beef</span> bones (92%), onions, carrots, celery, apple cider vinegar, salt, spices.</p>
                         <p>May contain Cashew Nuts, Wheat, Gluten.</p>
-                        <p>The pets version is sans onions, salt and spices.</p>                    </div>
+                        <p>The pets version is sans onions, salt and spices.</p>     
+                            </div>
+                            
+                            
+                                              
+                    
+                            
                     <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
                         <h4>Directions</h4>
                         <h6>People's broth directions</h6>
@@ -187,7 +223,7 @@
                     
 
                         <h6>Pet's broth directions</h6>
-                        <p><strong>Best served as a meal topper</strong></p>
+                        <p>Best served as a meal topper</p>
                         <p>Serving as a liquid</p>
                         <ol>
                             <li>Mix a serving of powder with 100 ml of hot water and add to their biscuits.</li>
@@ -214,17 +250,15 @@
                                 <td>1½ - 2 tsp daily</td>
                             </tr>
                         </table>
-                </div>
-                    <div class="tab-pane fade" id="storage" role="tabpanel" aria-labelledby="storage-tab">
-                        <h4>Storage</h4>
-                        <p>Keep in a cool dry place - 2 years unopened, 4 months after opening.</p>
                     </div>
+                
                     <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
                         <h4>Shipping</h4>
                         <p><strong>Processing time:</strong> Your order will be confirmed within 1-3 business days after payment confirmation. After processing, your order will be shipped the next day and you can expect usual courier times to your area (generally 3-5 business days) </p>
                         <p><strong>Shipping rates:</strong> We usually charge between $4.95 and $6.95 for shipping. You can view the shipping costs at the checkout before completing your purchase.</p>
                         <p><strong>International shipping:</strong> Currently, we only offer shipping within New Zealand. We apologize for any inconvenience this may cause.</p>
-                        <p>If you have any questions or concerns regarding shipping, please don't hesitate to <a href="contact">contact us</a>.</p>                    </div>
+                        <p>If you have any questions or concerns regarding shipping, please don't hesitate to <a href="contact.html">contact us</a>.</p>
+                    </div>
                 </div>
             </div>
            
@@ -238,21 +272,21 @@
         </div>
 </div>
 
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    var tabs = document.querySelectorAll('.faq-nav-tab');
-                    tabs.forEach(function(tab) {
-                        tab.addEventListener('click', function() {
-                            document.querySelector('.faq-nav-tab.active').classList.remove('active');
-                            tab.classList.add('active');
-                            var tabContent = document.querySelector('.faq-tab-content .tab-pane.show.active');
-                            tabContent.classList.remove('show', 'active');
-                            var target = tab.getAttribute('href');
-                            document.querySelector(target).classList.add('show', 'active');
-                        });
-                    });
-                });
-            </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var tabs = document.querySelectorAll('.faq-nav-tab');
+        tabs.forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                document.querySelector('.faq-nav-tab.active').classList.remove('active');
+                tab.classList.add('active');
+                var tabContent = document.querySelector('.faq-tab-content .tab-pane.show.active');
+                tabContent.classList.remove('show', 'active');
+                var target = tab.getAttribute('href');
+                document.querySelector(target).classList.add('show', 'active');
+            });
+        });
+    });
+</script>
         
        <!-- YAML SCRIPT STARTS -->
 

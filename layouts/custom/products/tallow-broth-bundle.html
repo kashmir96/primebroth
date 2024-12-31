@@ -28,7 +28,7 @@
         
         .custom-radio-label {
             color: green;
-        }
+        } 
             </style>
     {{- partial "alert.html" . -}}
     {{- partial "header.html" . -}}
@@ -41,11 +41,11 @@
                 {{- partial "insideoutimages.html" . -}}
             </div>
             <div class="col-xs-12 col-lg-6">
-                <h1 class="my-4">Tallow Balm & Broth Powder - Inside & out wellness bundle</h1>
-                <div class="custom-radio" >
-                    <input type="radio" id="inStock" name="stockStatus" checked>
-                    <label class="custom-radio-label mb-4" for="inStock">In Stock</label>
-                </div>
+                <img class="stars float-left mr-2" src="/img/stars/5.webp" alt=""><p class="thic">Loved by 500+ kiwis</p>
+                <h1 class="thic mt-2">Inside out wellness bundle <br><span class="thin">Broth & Balm to a Better Body</span></h1>
+                <p class="graytxt">A Primebroth & Primalcare collaboration</p>
+                <p class="thin">Your friends will ask what’s the secret to your <span class="attention-primalcare">glow up!</span></p>
+ 
 
 
 
@@ -55,7 +55,7 @@
 </div>
 <form id="productForm" class="form-group mb-4">
     <div class="text-left mb-4">
-        <label class="font-weight-bold" for="size">Select Size:</label>
+        <label  for="size">Select Size:</label>
         <select class="form-control" id="size" name="size">
            <!--<option value="50g-175ml">175ml Balm & 50g Broth</option>-->
             <option value="90g-175ml">175ml Balm & 90g Broth</option>
@@ -63,7 +63,7 @@
         </select>
     </div>
     <div class="text-left mb-4">
-        <label class="font-weight-bold" for="flavor">Select Combo:</label>
+        <label  for="flavor">Select Combo:</label>
         <select class="form-control" id="flavor" name="flavor">
            <option value="lavender">Lavender Balm & Beef Broth</option>
            <!-- <option value="rose">Rose Balm & Beef Broth</option> -->
@@ -77,7 +77,7 @@
         </select>
     </div>
     <div class="text-left mb-4">
-        <label class="font-weight-bold"  for="orderType">Select Order Type:</label>
+        <label   for="orderType">Select Order Type:</label>
         <select class="form-control" id="orderType" name="orderType">
             <option value="single_purchase">Single bundle</option>
             <option value="three_pack">3 pack of bundles (save 20%)</option>
@@ -88,8 +88,11 @@
 
 <!-- Quantity Selector -->
 <div class="form-group mb-4">
-<label for="quantityAll" class="font-weight-bold">Quantity (of bundles):</label>
-<input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+    <label for="quantityAll">Quantity of bundles:</label><div class="custom-radio float-right" >
+        <input type="radio" id="inStock" name="stockStatus" checked>
+        <label class="custom-radio-label mb-0" for="inStock">In Stock</label>
+    </div>
+    <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
 </div>
 
     
@@ -97,8 +100,11 @@
 
 
 <!-- Add to Cart Button -->
-<div class="text-center mb-4">
-    <button type="button" class="btn btn-primary btn-lg buy-now" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
+<div class="add-to-cart text-center mb-4">
+    <button type="button" class="btn btn-primary btn-lg buy-now mb-1" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
+    <p>Speedy Shipping NZ Wide | Money back guarantee</p>
+    <img class="badges middle" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
+
 </div>
 
 </form>
@@ -106,34 +112,7 @@
 <!-- YAML FORM ENDS -->
 
 
-
-
-
-
-
                 
-                
-             
-                  
-                
-                  
-                <p>Shipping & promotions applied at checkout</p>
-
-                <img class="badges mb-4" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
-                <div style="margin-top:-50px;margin-bottom:-50px; font-size:90%;" class="row mt-0 trust">
-                    <div class="col-4">
-                        <img class="middle" src="/img/delivery.webp">
-                        <p>Free shipping over $80</p>
-                    </div>
-                    <div class="col-4">
-                        <img class="middle" src="/img/exclusive.webp">
-                        <p>Money back guarantee</p>
-                    </div>
-                    <div class="col-4">
-                        <img class="middle" src="/img/kiwi.webp">
-                        <p>Used by 1200+ Kiwis</p>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="row mt-0">
@@ -143,21 +122,38 @@
             <div class="faq-tab-container col-12 col-md-6">
                 <!-- Nav tabs -->
                 <div class="faq-nav-tabs">
-                    <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</div>
+                    <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Fast facts</div>
+                    <div class="faq-nav-tab" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</div>
+                    <div class="faq-nav-tab" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="true">Broth & Balm Details</div>
                     <div class="faq-nav-tab" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</div>
                     <div class="faq-nav-tab" id="directions-tab" data-toggle="tab" href="#directions" role="tab" aria-controls="directions" aria-selected="false">Directions</div>
-                    <div class="faq-nav-tab" id="storage-tab" data-toggle="tab" href="#storage" role="tab" aria-controls="storage" aria-selected="false">Storage</div>
                     <div class="faq-nav-tab" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</div>
                 </div>
         
                 <!-- Tab panes -->
                 <div class="tab-content faq-tab-content">
-                    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-                        <h4>Tallow Balm</h4>
+                    <div class="tab-pane text-center fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                            <h6>Why get the inside out wellness bundle?</h6>                   
+                            <p>Wellness isn’t just what we put inside our body, it’s also what we put on it! skin is the largest organ we have, making up 1/7th of our bodyweight. So don’t leave it behind in your wellness routine! </p>
+                            <p>The inside out bundle is the one-two punch to animal based wellness, with the combined goodness of New Zealand bone broth powder and whipped tallow balm covers a massive range of bodily functions. </p>
+                            <p>From rejuvenating skin, to supporting joints, gut health and more.</p>
+                            <div class="row text-center justify-content-around mt-0 mb-0">
+                                <h4>Meet your moisturiser match</h4>
+                               <h6>See why <span class="attention-primalcare">1600+ kiwis just like you</span> switched to Primalcare</h6>
+                                            <img class="seventy" src="/img/comparison-card-primalcare-balm.svg" alt="">
+                                </div>
+                        
+                    </div>
+                    <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                        <h4>See what our customers say online</h4>
+                        <img class="eighty middle" src="/img/prod/balm/balmreviews.webp" alt="">
+                    </div>
+                    <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
+                        <h4>Tallow Balm Details</h4>
                         <p>We are a CHCH-based bone broth business and found ourselves wasting too much beef tallow. So we decided to make tallow balm skincare products from it! </p>
                         <p>Beef tallow balm is an amazing, natural moisturiser! It nourishes your skin without clogging pores and also fights skin conditions like eczema. </p>
 
-                        <h4>Bone broth powder</h4>
+                        <h4>Bone broth powder Details</h4>
                         <p>Powdered <span class="product-flavour">Beef</span> Bone Broth - 7 servings for the 50g, and 14 servings for 100g.</p>
                         <p>Our bone broth powder is a versatile product for these health-conscious and busy folks. This h bone broth is perfect for drinking or cooking with! For health benefits and mild meaty flavor mix in with hot water and consume with a bit of salt added. For culinary masterpieces and smoothies, add one serving into your favorite recipe and enjoy.</p>
                         <ul>
@@ -171,11 +167,8 @@
                         
                         {{ if .Params.charitylink }}
                         <p><a style="text-decoration: none;" href="{{ .Params.charitylink }}" rel="nofollow">Want to learn more about this charity? see here</a></p>
-                        {{ end }}                       
-                        
-                        
-                        
-                        
+                        {{ end }}
+
                     </div>
                     <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
                         <h4>Tallow Ingredients</h4>
@@ -199,13 +192,11 @@
                                 <li>To cook with - Use in place of stock or water in your favorite recipe. Either add 2tsp to 250ml of water or add directly as powder.</li>
                             </ul>
 
-
-                    </div>
-                    <div class="tab-pane fade" id="storage" role="tabpanel" aria-labelledby="storage-tab">
-                        <h4>Tallow Storage</h4>
+                            <h4>Tallow Storage</h4>
                         <p>Keep in temperatures below 30 degrees and out of direct sunlight to maintain the shelf life of this balm.</p>
                         <h4>Broth Storage</h4>
                         <p>Keep in a cool dry place - 2 years unopened, 4 months after opening.</p>
+
 
                     </div>
                     <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
@@ -224,6 +215,17 @@
 
 
         </div>
+        <div class="text-center">
+            <h2>You might also like</h2>
+            <div class="row justify-content-around mob-hide">
+            {{- partial "prodcardtallowbundle.html" . -}}
+            {{- partial "prodcardinsideout.html" . -}}
+            {{- partial "prodcardpplpowder.html" . -}} 
+            </div>
+            <div class="mob-show">
+                {{- partial "prodcardtallowbundle.html" . -}}
+            </div>
+            </div>
     </div>
 
                     
