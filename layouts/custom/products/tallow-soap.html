@@ -22,6 +22,16 @@
 
 
 <body>
+    <style>
+
+        .custom-radio input[type="radio"]:checked + .custom-radio-label::before {
+          background-color: orange;
+        }
+        
+        .custom-radio-label {
+            color: orange;
+        }
+            </style>
     {{- partial "alert.html" . -}}
     {{- partial "header.html" . -}}
     
@@ -33,33 +43,36 @@
                 {{- partial "images-soap.html" . -}}
             </div>
             <div class="col-xs-12 col-lg-6">
-                <h1 class="my-4">Tallow soap</h1>
-              
+                <img class="stars float-left mr-2" src="/img/stars/5.webp" alt=""><p class="thic">Loved by kiwis</p>
+                <h1 class="thic mt-2">Silky Tallow Soap <br><span class="thin">Naturally Clean & Nourished</span></h1>
+                <p class="graytxt">From Naturalcare</p>
+                <p class="thin">Your friends will ask what’s the secret to your <span class="attention-primalcare">silky smooth skin!</span></p>
+               
                 
     <!-- YAML FORM STARTS -->
 
 <!-- Product Form Options with Bootstrap Styling -->
-                <div class="price-display">
+                <div class="price-display thic">
                     <p><span id="price">-</span></p>                
                 </div>
                 <form id="productForm" class="form-group mb-4">
                     <div class="text-left mb-4">
-                        <label class="font-weight-bold" for="size">Select Size:</label>
+                        <label  for="size">Select Size:</label>
                         <select class="form-control" id="size" name="size">
                          <option value="120g">120g</option> 
 
                         </select>
                     </div>
                     <div class="text-left mb-4">
-                        <label class="font-weight-bold" for="flavor">Select Flavor:</label>
+                        <label  for="flavor">Select Scent:</label>
                         <select class="form-control" id="flavor" name="flavor">
                             <option value="unscented">Neutral</option>
                             <option value="lavender">Lavender</option>
 
                         </select>
                     </div>
-                    <div class="text-left mb-4">
-                        <label class="font-weight-bold"  for="orderType">Select Order Type:</label>
+                    <div class="text-left d-none mb-4">
+                        <label   for="orderType">Select Order Type:</label>
                         <select class="form-control" id="orderType" name="orderType">
                             <option value="single_purchase">Single unit</option>
                         </select>
@@ -67,7 +80,10 @@
 
  <!-- Quantity Selector -->
  <div class="form-group mb-4">
-    <label for="quantityAll" class="font-weight-bold">Quantity:</label>
+    <label for="quantityAll">Quantity:</label><div class="custom-radio float-right" >
+        <input type="radio" id="inStock" name="stockStatus" checked>
+        <label class="custom-radio-label mb-0" for="inStock">Backorder - Orders with this item ship 10/1/25</label>
+    </div>
     <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
 </div>
 
@@ -75,9 +91,12 @@
 
 
 
-                <!-- Add to Cart Button -->
-                <div class="text-center mb-4">
-                    <button type="button" class="btn btn-primary btn-lg buy-now" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
+                 <!-- Add to Cart Button -->
+                 <div class="add-to-cart text-center mb-4">
+                    <button type="button" class="btn btn-primary btn-lg buy-now mb-1" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
+                    <p>Speedy Shipping NZ Wide | Money back guarantee</p>
+                    <img class="badges middle" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
+
                 </div>
 
                 </form>
@@ -85,29 +104,22 @@
     <!-- YAML FORM ENDS -->
 
                 
-<p>Shipping & promotions applied at checkout</p>
-
-<img class="badges mb-4" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
-<div style="margin-top:-50px;margin-bottom:-50px; font-size:90%;" class="row mt-0 trust">
-    <div class="col-4">
-        <img class="middle" src="/img/delivery.webp">
-        <p>Free shipping over $80</p>
-    </div>
-    <div class="col-4">
-        <img class="middle" src="/img/exclusive.webp">
-        <p>Money back guarantee</p>
-    </div>
-    <div class="col-4">
-        <img class="middle" src="/img/kiwi.webp">
-        <p>Used by 1500+ Kiwis</p>
-    </div>
-</div>
 </div>
 </div>
 <div class="row mt-0">
-<div class="col-12 col-md-6">
-    <img src="/img/markets/11.webp" alt="Click to watch video" id="thumbnail" data-video-id="videoContainer1" loading="lazy">
-</div>
+    <div class="col-12 col-md-6 text-center">
+        <div class="row mt-4 mb-0 py-0">
+            <h2>Delivering life changing results time and time again</h2>
+            <div class="col-6">
+                <img src="/img/prod/balm/eczema.webp" alt="">
+            </div>
+            <div class="col-6">
+                <img src="/img/prod/balm/baby-eczema.webp" alt="">
+            </div>
+            <p>With oils closely mimicking those produced by our bodies, our tallow <span class="attention-primalcare">soothes dry and irritated skin</span></p>
+        </div>
+    
+    </div>
 <div class="faq-tab-container col-12 col-md-6">
 <!-- Nav tabs -->
 <div class="faq-nav-tabs">
@@ -120,11 +132,7 @@
 
 <!-- Tab panes -->
 <div class="tab-content faq-tab-content">
-    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-        <h4>Description</h4>
-        
-        <p>Tallow Soap - unscented, Tallow soap is out and available for pre-sale. The shipments are made in 4 weeks (10.01.2025) due to the natural cure process of the soap.</p>
-
+    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">        
         <p>Tallow soap is very moisturising, sudsy, and nourishing. It's perfect for people with sensitive skin and skin conditions like eczema, psoriasis and others. Comes in a 120g pack.</p>
 
         <h6>Key benefits of Tallow Soap</h6>
@@ -182,13 +190,16 @@
 
 
 <div class="text-center">
-<h2>You might also like</h2>
-<div class="row justify-content-around">
-{{- partial "prodcardtallowbundle.html" . -}}
-{{- partial "prodcardinsideout.html" . -}}
-{{- partial "prodcardpplpowder.html" . -}} 
-</div>
-</div>
+    <h2>You might also like</h2>
+    <div class="row justify-content-around mob-hide">
+    {{- partial "prodcardtallowbundle.html" . -}}
+    {{- partial "prodcardinsideout.html" . -}}
+    {{- partial "prodcardpplpowder.html" . -}} 
+    </div>
+    <div class="mob-show">
+        {{- partial "prodcardtallowbundle.html" . -}}
+    </div>
+    </div>
         
 
             
