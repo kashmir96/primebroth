@@ -45,7 +45,17 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://js.stripe.com/v3/"></script> 
 </head>
-<body><div class="announcement full-width black text-center">
+<body>
+    <style>
+
+        .custom-radio input[type="radio"]:checked + .custom-radio-label::before {
+          background-color: green;
+        }
+         
+        .custom-radio-label {
+            color: green;
+        } 
+            </style><div class="announcement full-width black text-center">
   <ul>
       <li>Free shipping on orders over $80</li>
   </ul>
@@ -119,15 +129,7 @@
                 </a>
             </li>
             
-            <div class="socialmobnav">
-                <a class="iglink" href="/cart">
-                    <div class="cart-icon-container" style="position: relative; display: inline-block;">
-                        <img src="/img/cart.webp" alt="Cart for PrimalPantry">
-                        
-                        <span class="cart-badge" style="display: none; position: absolute; top: 0; right: 0; background-color: red; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px;">1</span>
-                    </div>
-                </a>
-            </div>
+            
         </ul>
     </div>
 
@@ -219,35 +221,37 @@
         }
     });
 </script>
-<div class="container">
+<div class="container product-page">
         <div class="row topbanner rel">
-            <div class="col-xs-12 col-lg-6 product-photos"><img class="main-image"  src="/img/dec24/product-balmbig.webp" alt="Beef tallow balm photo 1">            
-    <div class="product-images mob-hide">
-        <img class="product-image" src="/img/sq2.webp" alt="Beef tallow balm photo 3">
+            <p class="graytxt ninety position-absolute mt-1"><a href="/shop" class="darkgraytxt front pl-2 text-decoration-underline">Shop</a> > Tallow balm</p>
+            <div class="col-xs-12 col-lg-6 product-photos mt-3 mb-0"><img class="main-image"  src="/img/35.webp" alt="Beef tallow balm photo 1">            
+    <div class="product-images">
+        <img class="product-image" src="/img/whipped.webp" alt="Beef tallow balm photo 3">
+        <img class="product-image" src="/img/anyage.webp" alt="Beef tallow balm photo 4">
         <img class="product-image" src="/img/dec24/balmtriotable.webp" alt="Beef tallow balm photo 2">
-        <img class="product-image" src="/img/tallow-balm-hedge.webp" alt="Beef tallow balm photo 3">
         <img class="product-image" src="/img/dec24/balmsizes.webp" alt="Beef tallow balm photo 2">
-        <img class="product-image" src="/img/dec24/triotable.webp" alt="Beef tallow balm photo 4">
         
+
+
     </div>
 
 </div>
             <div class="col-xs-12 col-lg-6">
-                <h1 class="my-4">Tallow Balm - Heavenly Smooth</h1>
+                <img class="stars float-left mr-2" src="/img/stars/5.webp" alt=""><p class="thic">Loved by 1600+ kiwis</p>
+                <h1 class="thic mt-2">Whipped Tallow Balm <br><span class="thin">Naturally Perfect Skin</span></h1>
+                <p class="graytxt">From PrimalCare</p>
+                <p class="thin">Your friends will ask what’s the secret to your <span class="attention-primalcare">glow up!</span></p>
  
-                
-
-              
                 
     
 
 
-                <div class="price-display">
-                    <p><span id="price">-</span></p>                
+                <div class="price-display thic">
+                    <p><span id="price">-</span> <span class="special">Get 35% off - code PantryLaunch at checkout</span></p>                
                 </div>
                 <form id="productForm" class="form-group mb-4">
                     <div class="text-left mb-4">
-                        <label class="font-weight-bold" for="size">Select Size:</label>
+                        <label for="size">Select Size:</label>
                         <select class="form-control" id="size" name="size">
                          <option value="60ml">60ml</option> 
                          
@@ -256,7 +260,7 @@
                         </select>
                     </div>
                     <div class="text-left mb-4">
-                        <label class="font-weight-bold" for="flavor">Select Flavor:</label>
+                        <label  for="flavor">Select Flavor:</label>
                         <select class="form-control" id="flavor" name="flavor">
                             <option value="lavender">Lavender</option>
                         
@@ -270,7 +274,7 @@
                         </select>
                     </div>
                     <div class="text-left mb-4">
-                        <label class="font-weight-bold"  for="orderType">Select Order Type:</label>
+                        <label  for="orderType">Select Order Type:</label>
                         <select class="form-control" id="orderType" name="orderType">
                             <option value="single_purchase">Single unit</option>
                             <option value="three_pack">3 pack (save 20%)</option>
@@ -280,110 +284,119 @@
 
  
  <div class="form-group mb-4">
-    <label for="quantityAll" class="font-weight-bold">Quantity:</label>
+    <label for="quantityAll">Quantity:</label><div class="custom-radio float-right" >
+        <input type="radio" id="inStock" name="stockStatus" checked>
+        <label class="custom-radio-label mb-0" for="inStock">In Stock</label>
+    </div>
     <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
 </div>
+
+
 
                     
 
 
 
                 
-                <div class="text-center mb-4">
-                    <button type="button" class="btn btn-primary btn-lg buy-now" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
+                <div class="add-to-cart text-center mb-4">
+                    <button type="button" class="btn btn-primary btn-lg buy-now mb-1" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
+                    <p>Speedy Shipping NZ Wide | Money back guarantee</p>
+                    <img class="badges middle" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
+
                 </div>
 
                 </form>
 
     
 
-                
-<p>Shipping & promotions applied at checkout</p>
 
-<img class="badges mb-4" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
-<div style="margin-top:-50px;margin-bottom:-50px; font-size:90%;" class="row mt-0 trust">
-    <div class="col-4">
-        <img class="middle" src="/img/delivery.webp">
-        <p>Free shipping over $80</p>
-    </div>
-    <div class="col-4">
-        <img class="middle" src="/img/exclusive.webp">
-        <p>Money back guarantee</p>
-    </div>
-    <div class="col-4">
-        <img class="middle" src="/img/kiwi.webp">
-        <p>Used by 1500+ Kiwis</p>
-    </div>
 </div>
 </div>
-</div>
-<div class="row mt-0">
-<div class="col-12 col-md-6">
-    <img src="/img/markets/11.webp" alt="Click to watch video" id="thumbnail" data-video-id="videoContainer1" loading="lazy">
+<div class="row mt-0 py-0  d-flex align-items-center justify-content-center">
+<div class="col-12 col-md-6 text-center">
+    <div class="row mt-4 mb-0 py-0">
+        <h2>Delivering life changing results time and time again</h2>
+        <div class="col-6">
+            <img src="/img/prod/balm/eczema.webp" alt="">
+        </div>
+        <div class="col-6">
+            <img src="/img/prod/balm/baby-eczema.webp" alt="">
+        </div>
+        <p>With oils closely mimicking those produced by our bodies, our tallow <span class="attention-primalcare">soothes dry and irritated skin</span></p>
+    </div>
+
 </div>
 <div class="faq-tab-container col-12 col-md-6">
 
 <div class="faq-nav-tabs">
-    <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</div>
+    <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Fast facts</div>
+    <div class="faq-nav-tab" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</div>
     <div class="faq-nav-tab" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</div>
     <div class="faq-nav-tab" id="directions-tab" data-toggle="tab" href="#directions" role="tab" aria-controls="directions" aria-selected="false">Directions</div>
-    <div class="faq-nav-tab" id="storage-tab" data-toggle="tab" href="#storage" role="tab" aria-controls="storage" aria-selected="false">Storage</div>
     <div class="faq-nav-tab" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</div>
 </div>
 
 
 <div class="tab-content faq-tab-content">
-    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-        <h4>Description</h4>
-        
-        <p>A light and whipped tallow balm with a fluffy consistency, soaks into the skin rapidly for deep moisturising and relief from tight, dry and irritated skin. </p>
-
-        <h6>What makes our tallow balm different? </h6>
+    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">        
+        <p>Don’t waste another dollar on expensive moisturisers and steroid creams that <span class="attention-primalcare">don’t work</span> and are filled with <span class="attention-primalcare">chemical nasties!</span></p>
+        <p>Watch as light and fluffy balm soaks deeply into your skin, going to work giving rapid <span class="attention-primalcare">hydrating and rejuvenating relief</span> to dry, cracked and itchy skin.</p>
+        <h6 class="mt-4">What makes Primalcare tallow balm different? </h6>
         <ul>
             <li>It’s a whipped tallow balm, most others aren’t. Meaning it soaks in much better.</li>
-            <li>All natural ingredients, no nasties added. </li>
-            <li>We render and filter every batch 6 times for better smell, consistency an colour (12 days of work)</li>
-            <li>We offer the best value tallow on the NZ market, get more, at better quality for less.</li>
-        </ul>
-
-
-        <h6>Key benefits of the PrimalCare range</h6>
-        <ul>
-            <li>Moisturises dry and irritated skin</li>
-            <li>Soothes eczema, psoriasis, burns and other angry skin</li>                       
+            <li>We offer the best value tallow on the NZ market–get more, at better quality, for less.</li>
         </ul>
         
     <div class="row text-center justify-content-around mt-0 mb-0">
-        <div class="col-3">
-            <img src="/img/prod/balm/omnivore.webp" alt="">
-            <h6>Natural products</h6>
+        <h4>Meet your moisturiser match</h4>
+       <h6>See why <span class="attention-primalcare">1600+ kiwis just like you</span> switched to Primalcare</h6>
+                    <img class="seventy" src="/img/comparison-card-primalcare-balm.svg" alt="">
         </div>
-        <div class="col-3">
-            <img src="/img/prod/balm/free.webp" alt="">
-            <h6>No harmful ingredients</h6>
-        </div>
-        <div class="col-3">
-            <img src="/img/prod/balm/save-the-world.webp" alt="">
-            <h6>Sustainably sourced</h6>
-        </div>
-    </div>
+        
+    
         
     </div>
+    <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+        <h4>See what our customers say online</h4>
+        <img class="eighty middle" src="/img/prod/balm/balmreviews.webp" alt="">
+    </div>
     <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
-        <h4>Ingredients</h4>
-        <p><span class="product-flavour">Grass-fed purified NZ beef tallow, organic olive oil, organic jojoba oil, essential oil. 
-                                    </div>
+            <h4>4 Nourishing Ingredients</h4>
+            <p>A harmonic combination that soaks in for immediate hydration</p>
+            <p>Grass-fed purified NZ beef tallow (98%), organic olive oil, organic jojoba oil, essential oil. </p>
+    
+                <div class="row text-center">
+                    <div class="col-6">
+                        <img src="/img/prod/balm/tallowwhite.webp" class="fifty middle" alt="Grass-fed beef tallow">
+                        <p>We use high grade grass-fed suet, which we wet render and filter 6 times.</p>
+                    </div>
+                    <div class="col-6">
+                        <img src="/img/prod/balm/oliveoil.webp" class="fifty middle" alt="Organic cold pressed olive oil">
+                        <p>Important for providing a light and whipped texture to our unique whipped balm.</p>
+                    </div>
+                    <div class="col-6">
+                        <img src="/img/prod/balm/jojobaoil.webp" class="fifty middle" alt="Organic cold pressed jojoba oil">
+                        <p>Adding extra lift to the whip while providing smoothing and benefits to your skin.</p>    
+                    </div>
+                    <div class="col-6">
+                        <img src="/img/prod/balm/essentialoil.webp" class="fifty middle"s alt="Natural essential oils">
+                        <p>These add the aroma and additional health benefits to your balms.</p>
+                    </div>
+                </div>
+            </div>
+            
+            
+                              
+    
+            
     <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
         <h4>Directions</h4>
         <p>Apply a small amount on the face, neck, hands or feet daily in the morning as a moisturiser or evening as a night cream. Best used on slightly damp skin.</p>
         <p>Body and facial moisturizer. Eczema cream, monthly hair conditioner.</p>
 
-
-    </div>
-    <div class="tab-pane fade" id="storage" role="tabpanel" aria-labelledby="storage-tab">
-        <h4>Storage</h4>
         <p>Keep in temperatures below 30 degrees and out of direct sunlight to maintain the shelf life of this balm.</p>
     </div>
+
     <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
         <h4>Shipping</h4>
         <p><strong>Processing time:</strong> Your order will be confirmed within 1-3 business days after payment confirmation. After processing, your order will be shipped the next day and you can expect usual courier times to your area (generally 3-5 business days) </p>
@@ -395,100 +408,18 @@
 
 </div>
 
-<div class="text-center">
-<h2>Delivering life changing results time and time again</h2>
-<p>With oils closely mimicking those produced by our bodies, our tallow soothes dry and irritated skin</p>
-<div class="row">
-    <div class="col-12 col-md-4">
-        <img src="/img/prod/balm/balmreviews.webp" alt="">
-    </div>
-    <div class="col-12 col-md-4">
-        <img src="/img/prod/balm/eczema.webp" alt="">
-    </div>
-    <div class="col-12 col-md-4">
-        <img src="/img/prod/balm/baby-eczema.webp" alt="">
-    </div>
-</div>
-</div>
-
-<div class="ingredients text-center">
-<h2>4 Nourishing Ingredients</h2>
-<p>A harmonic combination that soaks in for immediate hydration</p>
-<div id="ingredientsCarousel" class="carousel slide eighty middle" data-ride="carousel" data-pause="hover">
-    <div class="carousel-inner ">
-        
-        <div class="carousel-item active eighty">
-            <div class="row lighttan align-items-center justify-content-center">
-                <h5>Grass-fed beef tallow (98%)</h5>
-                <img src="/img/prod/balm/tallowwhite.webp" alt="Grass-fed beef tallow">
-                <p>We use high grade grass-fed suet, which we wet render and filter 6 times (that’s a week of hot, backbreaking work per batch) to improve quality, smell and consistency.</p>
-            </div>
-        </div>
-        
-        <div class="carousel-item">
-            <div class="row lighttan align-items-center justify-content-center">
-                <h5>Organic cold pressed olive oil</h5>
-                <img src="/img/prod/balm/oliveoil.webp" alt="Organic cold pressed olive oil">
-                <p>Important for providing a light and whipped texture to our unique whipped balm.</p>
-            </div>
-        </div>
-        
-        <div class="carousel-item">
-            <div class="row lighttan align-items-center justify-content-center">
-                <h5>Organic cold pressed jojoba oil</h5>
-                <img src="/img/prod/balm/jojobaoil.webp" alt="Organic cold pressed jojoba oil">
-                <p>Adding extra lift to the whip while providing smoothing and benefits to your skin.</p>
-            </div>
-        </div>
-        
-        <div class="carousel-item">
-            <div class="row lighttan align-items-center justify-content-center">
-                <h5>Natural essential oils (to scent)</h5>
-                <img src="/img/prod/balm/essentialoil.webp" alt="Natural essential oils">
-                <p>These add the aroma and additional health benefits to your balms. This changes by the balm chosen, so we won't go into the specifics here.</p>
-            </div>
-        </div>
-    </div>
-    
-    <div class="carousel-controls mt-3">
-        <button class="carousel-control-prev" type="button" data-target="#ingredientsCarousel" data-slide="prev">
-            Previous
-        </button>
-        <button class="carousel-control-next" type="button" data-target="#ingredientsCarousel" data-slide="next">
-            Next
-        </button>
-    </div>
-</div>
-</div>
 
 
-<div class=" middle">
-<h2 class="text-center">How to use tallow balm</h2>
-<p class="text-center">*Use in the evening before bed as a moisturiser or night cream (morning too if intensive care required)</p>
-    <div class="big-txt text-center">
-        <div class="row lightlime">
-            <div class="col-2"><p><strong>1</strong></p></div>
-            <div class="col-10"><p>Rinse skin with water, towel pat dry</p></div>
-        </div>
-        <div class="row lime">
-            <div class="col-10"><p>Apply sparingly and smooth into skin, focus on dry or irritated areas. use body heat to dissolve any naturally occurring hydrating grains</p></div>
-            <div class="col-2"><p><strong>2</strong></p></div>
-        </div>
-        <div class="row lightlime">
-            <div class="col-2"><p><strong>3</strong></p></div>
-            <div class="col-10"><p>Let the tallow soak in and do it’s job!</p></div>
-        </div>
-</div></div>
 <div class="text-center">
 <h2>You might also like</h2>
-<div class="row justify-content-around">
+<div class="row justify-content-around mob-hide">
 <div class="product-card grow col-lg-3 col-sm-6" data-category="tallow bundles"><a href="/shop/products/tallow-trio">
   <p class="stamp">Hot</p>
   <img src="/img/dec24/product-trio.webp" alt="">
   <div class="product-details">
     <p>$59.95</p>
     <h6>Tallow Balm Mixed Trio Bundle</h6>
-    <img class="float-left fifty-lg mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>1600+ kiwis</p>
+    <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>500+ kiwis</p>
 
   </div>
 </a>
@@ -503,7 +434,7 @@
   <div class="product-details">
     <p>$64.95</p>
     <h6>Inside out bundle</h6>
-    <img class="float-left fifty-lg mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>1600+ kiwis</p>
+    <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>500+ kiwis</p>
   </div>
 </a>
 </div>
@@ -513,12 +444,30 @@
   <div class="product-details">
     <p>$34.95</p>
     <h6>Bone broth powder</h6>
-    <img class="float-left fifty-lg mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>1600+ kiwis</p>
+    <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>1000+ kiwis</p>
 
   </div>
 </a>
 </div></div>
+<div class="mob-show">
+<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow bundles"><a href="/shop/products/tallow-trio">
+  <p class="stamp">Hot</p>
+  <img src="/img/dec24/product-trio.webp" alt="">
+  <div class="product-details">
+    <p>$59.95</p>
+    <h6>Tallow Balm Mixed Trio Bundle</h6>
+    <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>500+ kiwis</p>
+
+  </div>
+</a>
 </div>
+
+
+
+</div>
+</div>
+
+
         
 
             
@@ -1051,7 +1000,7 @@ document.addEventListener('DOMContentLoaded', function () {
   </div>
   
   <div class="copy pl-8 py-5 bg-tlgray-700 text-white text-md">
-    &copy; PrimalPantry - broth and balm 2024 All Rights Reserved. <br>Site by <a style="color:white;font-weight:bold;" href="https://www.oso.nz">OSO Marketing NZ</a>
+    &copy; PrimalPantry - broth and balm 2025 All Rights Reserved. <br>Site by <a style="color:white;font-weight:bold;" href="https://www.oso.nz">OSO Marketing NZ</a>
     <img style="float:right;padding-right:20px;"class="badges" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
 
   </div>
