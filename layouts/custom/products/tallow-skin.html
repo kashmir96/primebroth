@@ -54,37 +54,94 @@
                 </div>
                 <form id="productForm" class="form-group mb-4">
                     <div class="text-left mb-4">
-                        <label for="size">Select Size:</label>
-                        <select class="form-control" id="size" name="size">
-                         <option value="60ml">60ml</option> 
-                         <!--<option value="100ml">100ml</option>-->
-                            <option value="175ml">175ml</option>
-                           <!-- <option value="200ml">200ml</option>-->
-                        </select>
+                        <label class="mob-ninety">Select Scent:</label>
+                    
+                        <input type="radio" id="frankincense" name="flavor" value="frankincense" checked>
+                        <label for="frankincense" class="product-form-radio">Frankincense</label>
+
+                        <input type="radio" id="lavender" name="flavor" value="lavender" >
+                        <label for="lavender" class="product-form-radio">Lavender</label>
+                    
+                        <input type="radio" id="vanilla-rose" name="flavor" value="vanilla-rose">
+                        <label for="vanilla-rose" class="product-form-radio">Vanilla rose</label>
+                    
+                        <input type="radio" id="neutral" name="flavor" value="neutral">
+                        <label for="neutral" class="product-form-radio">None</label>
+
+                         <!-- Uncomment to enable Rose -->
+                        <!--
+                        <input type="radio" id="rose" name="flavor" value="rose">
+                        <label for="rose" class="product-form-radio">Rose</label>
+                        -->
+                    
+                        <!-- Uncomment to enable Vanilla -->
+                        <!--
+                        <input type="radio" id="vanilla" name="flavor" value="vanilla">
+                        <label for="vanilla" class="product-form-radio">Vanilla</label>
+                        -->
+                    
+                        <!-- Uncomment to enable Patchouli -->
+                        <!--
+                        <input type="radio" id="patchouli" name="flavor" value="patchouli">
+                        <label for="patchouli" class="product-form-radio">Patchouli</label>
+                        -->
+                    
+                        <!-- Uncomment to enable Orange -->
+                        <!--
+                        <input type="radio" id="orange" name="flavor" value="orange">
+                        <label for="orange" class="product-form-radio">Orange</label>
+                        -->
+                    
+                        <!-- Uncomment to enable Cedar -->
+                        <!--
+                        <input type="radio" id="cedar" name="flavor" value="cedar">
+                        <label for="cedar" class="product-form-radio">Cedar</label>
+                        -->
                     </div>
                     <div class="text-left mb-4">
-                        <label  for="flavor">Select Flavor:</label>
-                        <select class="form-control" id="flavor" name="flavor">
-                            <option value="lavender">Lavender</option>
-                        <!--    <option value="rose">Rose</option>-->
-                            <option value="neutral">Neutral</option>
-                        <!--    <option value="vanilla">Vanilla</option>-->
-                        <!--    <option value="patchouli">Patchouli</option>-->
-                        <!--    <option value="orange">Orange</option>-->
-                        <!--    <option value="cedar">Cedar</option>-->
-                            <option value="frankincense">Frankincense</option>
-                            <option value="vanilla-rose">Vanilla Rose</option>
-                        </select>
+                        <label class="float-left mob-ninety mr-2 mt-2">Select Size:</label>
+                        <div class="product-form-radio">
+                            <input type="radio" id="size60ml" name="size" value="60ml" checked>
+                            <label for="size60ml" class="product-form-radio float-left"><img class="prod-radio-img" src="/img/radio/balm/1.webp">60ml <span></span></label></p>
+                        </div>
+                        <!-- Uncomment to enable 100ml option -->
+                        <!-- 
+                        <div class="product-form-radio">
+                            <input type="radio" id="size100ml" name="size" value="100ml">
+                            <label for="size100ml" class="product-form-radio">100ml</label>
+                        </div>
+                        -->
+                        <div class="product-form-radio">
+                            <input type="radio" id="size175ml" name="size" value="175ml">
+                            <label for="size175ml" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/balm/175.webp">175ml<span class="small attention-primalcare"> (cheaper /ml)</span></label>
+                        </div>
+                        <!-- Uncomment to enable 200ml option -->
+                        <!-- 
+                        <div class="product-form-radio">
+                            <input type="radio" id="size200ml" name="size" value="200ml">
+                            <label for="size200ml" class="product-form-radio">200ml</label>
+                        </div>
+                        -->
                     </div>
                     <div class="text-left mb-4">
-                        <label  for="orderType">Select Order Type:</label>
-                        <select class="form-control" id="orderType" name="orderType">
-                            <option value="single_purchase">Single unit</option>
-                            <option value="three_pack">3 pack (save 20%)</option>
-                           <!-- <option value="recurring_monthly">Subscribe Monthly (save 20%)</option>
-                            <option value="recurring_quarterly">Subscribe Quarterly (save 12.5%)</option> -->
-                        </select>
+                        <label class="mob-ninety">Select Order Type:</label>
+                    
+                        <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
+                        <label for="single_purchase" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/balm/1.webp">Single unit</label>
+                    
+                        <input type="radio" id="three_pack" name="orderType" value="three_pack">
+                        <label for="three_pack" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/balm/3.webp">3 pack <span class="attention-primalcare small">(save 20%)</span></label>
+                    
+                        <!-- Uncomment to enable subscription options -->
+                        <!-- 
+                        <input type="radio" id="recurring_monthly" name="orderType" value="recurring_monthly">
+                        <label for="recurring_monthly" class="product-form-radio">Subscribe Monthly (save 20%)</label>
+                    
+                        <input type="radio" id="recurring_quarterly" name="orderType" value="recurring_quarterly">
+                        <label for="recurring_quarterly" class="product-form-radio">Subscribe Quarterly (save 12.5%)</label>
+                        -->
                     </div>
+                    
 
  <!-- Quantity Selector -->
  <div class="form-group mb-4">
@@ -222,7 +279,7 @@
 {{- partial "prodcardpplpowder.html" . -}} 
 </div>
 <div class="mob-show">
-{{- partial "prodcardinsideout.html" . -}}
+    {{- partial "prodcardtallowbundle.html" . -}}
 </div>
 </div>
 
@@ -290,8 +347,8 @@
     }
 
     function updatePrice() {
-        const size = document.getElementById("size").value.trim().toLowerCase();
-        const orderType = document.getElementById("orderType").value.trim().toLowerCase();
+        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
+        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
 
         console.log("Selected size:", size);
         console.log("Selected order type:", orderType);
@@ -316,9 +373,9 @@
 <script>
     // Function to update the price ID display
     function updatePriceID() {
-    const size = document.getElementById("size").value.trim().toLowerCase();
-    const flavor = document.getElementById("flavor").value.trim().toLowerCase();
-    const orderType = document.getElementById("orderType").value.trim().toLowerCase();
+    const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
+    const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+    const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
     
 
 
@@ -366,9 +423,9 @@
 
     function updatePriceId() {
     // Get the selected values
-    const size = document.getElementById('size').value.trim().toLowerCase();
-    const flavor = document.getElementById('flavor').value.trim().toLowerCase();
-    const orderType = document.getElementById('orderType').value.trim().toLowerCase();
+    const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
+    const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+    const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
 
     try {
         let priceId;
@@ -471,15 +528,20 @@
 
     const button = event.target;
 
+    
 
     // Retrieve values from the dropdowns
-    const size = document.getElementById('size')?.value || 'Default Size';
+    const selectedSize = document.querySelector('input[name="size"]:checked');
+    const size = document.querySelector(`label[for="${selectedSize.id}"]`).textContent.trim(); // Updated to get label text
+
 // Use the text content of the selected option
-const flavorSelect = document.getElementById('flavor');
-const flavor = flavorSelect.options[flavorSelect.selectedIndex].textContent.trim();
+const selectedFlavor = document.querySelector('input[name="flavor"]:checked');
+const flavor = document.querySelector(`label[for="${selectedFlavor.id}"]`).textContent.trim();
+
 // Use the text content of the selected option
-const orderTypeSelect = document.getElementById('orderType');
-const orderType = orderTypeSelect.options[orderTypeSelect.selectedIndex].textContent.trim();
+    const selectedOrderType = document.querySelector('input[name="orderType"]:checked');
+    const orderTypeSelect = document.querySelector(`label[for="${selectedOrderType.id}"]`).textContent.trim();
+   
     const unitPriceElement = document.getElementById('price');
     const unitPrice = unitPriceElement 
         ? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00
@@ -494,9 +556,9 @@ const orderType = orderTypeSelect.options[orderTypeSelect.selectedIndex].textCon
     const quantity = quantityField ? parseInt(quantityField.value, 10) || 1 : 1;
 
     // Debugging
-    console.log('Size:', size);
+    console.log('Size:', size); // Updated to show label
     console.log('Flavor:', flavor);
-    console.log('Order Type:', orderType);
+    console.log('Order Type:', orderTypeSelect); // Updated to show label
     console.log('Quantity:', quantity);
     console.log('Price ID:', priceId);
 
@@ -513,7 +575,7 @@ const orderType = orderTypeSelect.options[orderTypeSelect.selectedIndex].textCon
         title,
         size,
         flavor,
-        orderType,
+        orderType: orderTypeSelect,
         quantity,
         unitPrice
     });
