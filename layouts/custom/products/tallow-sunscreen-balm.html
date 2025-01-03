@@ -21,6 +21,16 @@
 </head>
 
 <body>
+    <style>
+
+        .custom-radio input[type="radio"]:checked + .custom-radio-label::before {
+          background-color: green;
+        }
+         
+        .custom-radio-label {
+            color: green;
+        } 
+            </style>
     {{- partial "alert.html" . -}}
     {{- partial "header.html" . -}}
     
@@ -46,30 +56,47 @@
                 </div>
                 
                 <form id="productForm" class="form-group mb-4">
+
                     <div class="text-left mb-4">
-                        <label  for="size">Select Size:</label>
-                        <select class="form-control" id="size" name="size">
-                         <option value="50ml">50ml</option> 
-                            <option value="100ml">100ml</option>
-                        </select>
+                        <label class="mob-ninety">Select scent:</label>
+                    
+                        <input type="radio" id="unscented" name="flavor" value="unscented" checked>
+                        <label for="unscented" class="product-form-radio">Tinted Unscented</label>
                     </div>
+
                     <div class="text-left mb-4">
-                        <label for="flavor">Select Scent:</label>
-                        <select class="form-control" id="flavor" name="flavor">
-                            <option value="unscented">Tinted Unscented</option>
-                        </select>
+                        <label class="float-left mob-ninety mr-2 mt-2">Select size:</label>
+                        <div class="product-form-radio">
+                            <input type="radio" id="size50ml" name="size" value="50ml" checked>
+                            <label for="size50ml" class="product-form-radio float-left"><img class="prod-radio-img" src="/img/radio/nc/sun.webp">50ml <span></span></label></p>
+                        </div>
+                        <div class="product-form-radio">
+                            <input type="radio" id="size100ml" name="size" value="100ml" checked>
+                            <label for="size100ml" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/nc/sun.webp">100ml <span class="small attention-primalcare"> (cheaper /ml)</span></label></p>
+                        </div>
                     </div>
-                    <div class="text-left mb-4">
-                        <label class="d-none "  for="orderType">Select Order Type:</label>
-                        <select class="form-control" id="orderType" name="orderType">
-                            <option value="single_purchase">Single unit</option>
-                        </select>
+
+
+
+                    <div class="text-left mb-4 d-none">
+                        <label class="mob-ninety">Select unit type:</label>
+                    
+                        <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
+                        <label for="single_purchase" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/nc/1.webp">Single jar</label>
                     </div>
 
  <!-- Quantity Selector -->
  <div class="form-group mb-4">
-    <label for="quantityAll" >Quantity:</label>
-    <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+    <div class="mt-4 custom-radio float-right">
+        <input type="radio" id="inStock" name="stockStatus" checked>
+        <label class="custom-radio-label mb-0" for="inStock">In Stock</label>
+    </div>
+    <label for="quantityAll">Quantity of units:</label>
+    <div class="quantity-container">
+        <button type="button" class="btn-decrease">-</button>
+        <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+        <button type="button" class="btn-increase">+</button>
+      </div>
 </div>
 
                     
@@ -252,8 +279,8 @@
     }
 
     function updatePrice() {
-        const size = document.getElementById("size").value.trim().toLowerCase();
-        const orderType = document.getElementById("orderType").value.trim().toLowerCase();
+        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
+        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
 
         console.log("Selected size:", size);
         console.log("Selected order type:", orderType);
@@ -278,9 +305,9 @@
 <script>
     // Function to update the price ID display
     function updatePriceID() {
-    const size = document.getElementById("size").value.trim().toLowerCase();
-    const flavor = document.getElementById("flavor").value.trim().toLowerCase();
-    const orderType = document.getElementById("orderType").value.trim().toLowerCase();
+    const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
+    const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+    const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
     
 
 
@@ -328,10 +355,10 @@
 
     function updatePriceId() {
     // Get the selected values
-    const size = document.getElementById('size').value.trim().toLowerCase();
-    const flavor = document.getElementById('flavor').value.trim().toLowerCase();
-    const orderType = document.getElementById('orderType').value.trim().toLowerCase();
-
+    const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
+    const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+    const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
+    
     try {
         let priceId;
 
@@ -434,14 +461,18 @@
     const button = event.target;
 
 
-    // Retrieve values from the dropdowns
-    const size = document.getElementById('size')?.value || 'Default Size';
+   // Retrieve values from the dropdowns
+   const selectedSize = document.querySelector('input[name="size"]:checked');
+    const size = document.querySelector(`label[for="${selectedSize.id}"]`).textContent.trim(); // Updated to get label text
+
 // Use the text content of the selected option
-const flavorSelect = document.getElementById('flavor');
-const flavor = flavorSelect.options[flavorSelect.selectedIndex].textContent.trim();
+const selectedFlavor = document.querySelector('input[name="flavor"]:checked');
+const flavor = document.querySelector(`label[for="${selectedFlavor.id}"]`).textContent.trim();
+
 // Use the text content of the selected option
-const orderTypeSelect = document.getElementById('orderType');
-const orderType = orderTypeSelect.options[orderTypeSelect.selectedIndex].textContent.trim();
+    const selectedOrderType = document.querySelector('input[name="orderType"]:checked');
+    const orderTypeSelect = document.querySelector(`label[for="${selectedOrderType.id}"]`).textContent.trim();
+ 
     const unitPriceElement = document.getElementById('price');
     const unitPrice = unitPriceElement 
         ? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00
@@ -458,7 +489,7 @@ const orderType = orderTypeSelect.options[orderTypeSelect.selectedIndex].textCon
     // Debugging
     console.log('Size:', size);
     console.log('Flavor:', flavor);
-    console.log('Order Type:', orderType);
+    console.log('Order Type:', orderTypeSelect); // Updated to show label
     console.log('Quantity:', quantity);
     console.log('Price ID:', priceId);
 
@@ -475,7 +506,7 @@ const orderType = orderTypeSelect.options[orderTypeSelect.selectedIndex].textCon
         title,
         size,
         flavor,
-        orderType,
+        orderType: orderTypeSelect,
         quantity,
         unitPrice
     });
@@ -532,6 +563,28 @@ document.addEventListener('DOMContentLoaded', function () {
 </div>
 
     <!-- YAML SCRIPT ENDS -->
+
+
+    <script>
+        const quantityInput = document.getElementById('quantityAll');
+        const btnIncrease = document.querySelector('.btn-increase');
+        const btnDecrease = document.querySelector('.btn-decrease');
+        
+        // Increase quantity
+        btnIncrease.addEventListener('click', () => {
+          quantityInput.value = parseInt(quantityInput.value) + 1;
+        });
+        
+        // Decrease quantity (minimum value = 1)
+        btnDecrease.addEventListener('click', () => {
+          const currentValue = parseInt(quantityInput.value);
+          if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+          }
+        });
+        
+            </script>
+
 
 
     {{- partial "footer.html" . }}

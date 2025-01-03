@@ -248,41 +248,47 @@
 <div class="price-display">
     <p><span id="price">-</span></p>                
 </div>
-                <h3>Set combo: </h3>
                  
-                  
                  <form id="productForm" class="form-group mb-4">
-                    <div class="text-left mb-4">
-                        <label  for="size">Select Balm Size:</label>
-                        <select class="form-control" id="size" name="size">
-                            <option value="60ml">60ml</option>
-                        </select>
+
+                 <div class="text-left mb-4">
+                    <label class="mob-ninety">Fixed scent combo:</label>
+                    <input type="radio" id="lav-vanro-fran" name="flavor" value="lav-vanro-fran" checked>
+                    <label for="lav-vanro-fran" class="product-form-radio">1x Lavender, 1x Vanilla Rose, 1x Frankincense</label>
+                </div>  
+                
+                <div class="text-left mb-4">
+                    <label class="float-left mob-ninety mr-2 mt-2">Fixed size:</label>
+                    <div class="product-form-radio">
+                        <input type="radio" id="size60ml" name="size" value="60ml" checked>
+                        <label for="size60ml" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/trio/1.webp">60ml <span></span></label></p>
                     </div>
-                    <div class="text-left mb-4">
-                        <label  for="flavor">Fixed scent combo:</label>
-                        <select class="form-control" id="flavor" name="flavor">
-                            <option value="lav-vanro-fran">1x Lavender, 1x Vanilla Rose, 1x Frankincense</option>
-                        </select>
-                    </div>
-                    <div class="text-left mb-4">
-                        <label   for="orderType">Select Order Type:</label>
-                        <select class="form-control" id="orderType" name="orderType">
-                            <option value="single_purchase">Single bundle</option>
-                            <option value="three_pack">3 pack of bundles (save 20%)</option>
-                            <option value="recurring_monthly">Subscribe for Monthly Bundles (save 20%)</option>
-                            <option value="recurring_quarterly">Subscribe for Quarterly Bundles (save 12.5%)</option>-->
-                        </select>
-                    </div>
+                </div>
+
+                <div class="text-left mb-4">
+                    <label class="mob-ninety">Select unit type:</label>
+                
+                    <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
+                    <label for="single_purchase" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/trio/1.webp">Single bundle</label>
+                
+                    <input type="radio" id="three_pack" name="orderType" value="three_pack">
+                    <label for="three_pack" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/trio/3.webp">3 pack <span class="attention-primalcare small">(save 20%)</span></label>
+                </div>
+                    
 
  
  <div class="form-group mb-4">
-    <label for="quantityAll">Quantity:</label><div class="custom-radio float-right" >
+    <div class="mt-4 custom-radio float-right">
         <input type="radio" id="inStock" name="stockStatus" checked>
         <label class="custom-radio-label mb-0" for="inStock">In Stock</label>
     </div>
-    <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+    <label for="quantityAll">Quantity of units:</label>
+    <div class="quantity-container">
+        <button type="button" class="btn-decrease">-</button>
+        <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+        <button type="button" class="btn-increase">+</button>
+      </div>
 </div>
-
 
                     
 
@@ -304,13 +310,24 @@
             </div>
         </div>
         <div class="row mt-0">
-            <div class="col-12 col-md-6">
-                    <img src="/img/markets/11.webp" alt="Click to watch video" id="thumbnail" data-video-id="videoContainer1" loading="lazy">
+            <div class="col-12 col-md-6 text-center">
+                <div class="row mt-4 mb-0 py-0">
+                    <h2>Delivering life changing results time and time again</h2>
+                    <div class="col-6">
+                        <img src="/img/prod/balm/eczema.webp" alt="">
+                    </div>
+                    <div class="col-6">
+                        <img src="/img/prod/balm/baby-eczema.webp" alt="">
+                    </div>
+                    <p>With oils closely mimicking those produced by our bodies, our tallow <span class="attention-primalcare">soothes dry and irritated skin</span></p>
+                </div>
+            
             </div>
             <div class="faq-tab-container col-12 col-md-6">
                 
                 <div class="faq-nav-tabs">
                     <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</div>
+                    <div class="faq-nav-tab" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</div>
                     <div class="faq-nav-tab" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</div>
                     <div class="faq-nav-tab" id="directions-tab" data-toggle="tab" href="#directions" role="tab" aria-controls="directions" aria-selected="false">Directions</div>
                     <div class="faq-nav-tab" id="storage-tab" data-toggle="tab" href="#storage" role="tab" aria-controls="storage" aria-selected="false">Storage</div>
@@ -324,6 +341,10 @@
                         <p>We are a CHCH-based bone broth business and found ourselves wasting too much beef tallow. So we decided to make tallow balm skincare products from it! </p>
                         <p>Beef tallow balm is an amazing, natural moisturiser! It nourishes your skin without clogging pores and also fights skin conditions like eczema. </p>
                         
+                    </div>
+                    <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                        <h4>See what our customers say online</h4>
+                        <img class="eighty middle" src="/img/prod/balm/balmreviews.webp" alt="">
                     </div>
                     <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
                         <h4>Tallow Ingredients</h4>
@@ -390,8 +411,8 @@
     }
 
     function updatePrice() {
-        const size = document.getElementById("size").value.trim().toLowerCase();
-        const orderType = document.getElementById("orderType").value.trim().toLowerCase();
+        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); 
+        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
 
         console.log("Selected size:", size);
         console.log("Selected order type:", orderType);
@@ -416,9 +437,10 @@
 <script>
     
     function updatePriceID() {
-    const size = document.getElementById("size").value.trim().toLowerCase();
-    const flavor = document.getElementById("flavor").value.trim().toLowerCase();
-    const orderType = document.getElementById("orderType").value.trim().toLowerCase();
+    const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); 
+    const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+    const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
+    
     
 
 
@@ -466,9 +488,10 @@
 
     function updatePriceId() {
     
-    const size = document.getElementById('size').value.trim().toLowerCase();
-    const flavor = document.getElementById('flavor').value.trim().toLowerCase();
-    const orderType = document.getElementById('orderType').value.trim().toLowerCase();
+    const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); 
+    const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+    const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
+    
 
     try {
         let priceId;
@@ -573,13 +596,18 @@
 
 
     
-    const size = document.getElementById('size')?.value || 'Default Size';
+    const selectedSize = document.querySelector('input[name="size"]:checked');
+    const size = document.querySelector(`label[for="${selectedSize.id}"]`).textContent.trim(); 
 
-const flavorSelect = document.getElementById('flavor');
-const flavor = flavorSelect.options[flavorSelect.selectedIndex].textContent.trim();
 
-const orderTypeSelect = document.getElementById('orderType');
-const orderType = orderTypeSelect.options[orderTypeSelect.selectedIndex].textContent.trim();
+const selectedFlavor = document.querySelector('input[name="flavor"]:checked');
+const flavor = document.querySelector(`label[for="${selectedFlavor.id}"]`).textContent.trim();
+
+
+    const selectedOrderType = document.querySelector('input[name="orderType"]:checked');
+    const orderTypeSelect = document.querySelector(`label[for="${selectedOrderType.id}"]`).textContent.trim();
+  
+
     const unitPriceElement = document.getElementById('price');
     const unitPrice = unitPriceElement 
         ? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00
@@ -596,7 +624,7 @@ const orderType = orderTypeSelect.options[orderTypeSelect.selectedIndex].textCon
     
     console.log('Size:', size);
     console.log('Flavor:', flavor);
-    console.log('Order Type:', orderType);
+    console.log('Order Type:', orderTypeSelect); 
     console.log('Quantity:', quantity);
     console.log('Price ID:', priceId);
 
@@ -613,7 +641,7 @@ const orderType = orderTypeSelect.options[orderTypeSelect.selectedIndex].textCon
         title,
         size,
         flavor,
-        orderType,
+        orderType: orderTypeSelect,
         quantity,
         unitPrice
     });
@@ -803,6 +831,25 @@ document.addEventListener('DOMContentLoaded', function () {
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
+    <script>
+        const quantityInput = document.getElementById('quantityAll');
+        const btnIncrease = document.querySelector('.btn-increase');
+        const btnDecrease = document.querySelector('.btn-decrease');
+        
+        
+        btnIncrease.addEventListener('click', () => {
+          quantityInput.value = parseInt(quantityInput.value) + 1;
+        });
+        
+        
+        btnDecrease.addEventListener('click', () => {
+          const currentValue = parseInt(quantityInput.value);
+          if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+          }
+        });
+        
+            </script>
 <footer class="bg-tlgray-100">
   <script src='/js/custom.js'></script>
 
