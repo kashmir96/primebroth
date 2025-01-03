@@ -558,6 +558,27 @@ document.addEventListener('DOMContentLoaded', function () {
     <!-- YAML SCRIPT ENDS -->
 
 
+    <script>
+        const quantityInput = document.getElementById('quantityAll');
+        const btnIncrease = document.querySelector('.btn-increase');
+        const btnDecrease = document.querySelector('.btn-decrease');
+        
+        // Increase quantity
+        btnIncrease.addEventListener('click', () => {
+          quantityInput.value = parseInt(quantityInput.value) + 1;
+        });
+        
+        // Decrease quantity (minimum value = 1)
+        btnDecrease.addEventListener('click', () => {
+          const currentValue = parseInt(quantityInput.value);
+          if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+          }
+        });
+        
+            </script>
+
+
     {{- partial "footer.html" . }}
 
 </body>
