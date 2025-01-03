@@ -296,7 +296,7 @@
                         
                     </div>
                     <div class="text-left mb-4">
-                        <label class="mob-ninety">Select Order Type:</label>
+                        <label class="mob-ninety">Select Unit Type:</label>
                     
                         <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
                         <label for="single_purchase" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/balm/1.webp">Single unit</label>
@@ -311,12 +311,18 @@
 
  
  <div class="form-group mb-4">
-    <label for="quantityAll">Quantity:</label><div class="custom-radio float-right" >
+    <div class="mt-4 custom-radio float-right">
         <input type="radio" id="inStock" name="stockStatus" checked>
         <label class="custom-radio-label mb-0" for="inStock">In Stock</label>
     </div>
-    <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+    <label for="quantityAll">Quantity:</label>
+    <div class="quantity-container">
+        <button type="button" class="btn-decrease">-</button>
+        <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+        <button type="button" class="btn-increase">+</button>
+      </div>
 </div>
+
 
 
 
@@ -843,6 +849,27 @@ document.addEventListener('DOMContentLoaded', function () {
 </div>
 
     
+
+
+    <script>
+const quantityInput = document.getElementById('quantityAll');
+const btnIncrease = document.querySelector('.btn-increase');
+const btnDecrease = document.querySelector('.btn-decrease');
+
+
+btnIncrease.addEventListener('click', () => {
+  quantityInput.value = parseInt(quantityInput.value) + 1;
+});
+
+
+btnDecrease.addEventListener('click', () => {
+  const currentValue = parseInt(quantityInput.value);
+  if (currentValue > 1) {
+    quantityInput.value = currentValue - 1;
+  }
+});
+
+    </script>
 <footer class="bg-tlgray-100">
   <script src='/js/custom.js'></script>
 
