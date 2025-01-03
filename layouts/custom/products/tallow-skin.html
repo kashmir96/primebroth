@@ -54,7 +54,7 @@
                 </div>
                 <form id="productForm" class="form-group mb-4">
                     <div class="text-left mb-4">
-                        <label class="mob-ninety">Select Scent:</label>
+                        <label class="mob-ninety">Select scent:</label>
                     
                         <input type="radio" id="frankincense" name="flavor" value="frankincense" checked>
                         <label for="frankincense" class="product-form-radio">Frankincense</label>
@@ -99,7 +99,7 @@
                         -->
                     </div>
                     <div class="text-left mb-4">
-                        <label class="float-left mob-ninety mr-2 mt-2">Select Size:</label>
+                        <label class="float-left mob-ninety mr-2 mt-2">Select size:</label>
                         <div class="product-form-radio">
                             <input type="radio" id="size60ml" name="size" value="60ml" checked>
                             <label for="size60ml" class="product-form-radio float-left"><img class="prod-radio-img" src="/img/radio/balm/1.webp">60ml <span></span></label></p>
@@ -124,7 +124,7 @@
                         -->
                     </div>
                     <div class="text-left mb-4">
-                        <label class="mob-ninety">Select Order Type:</label>
+                        <label class="mob-ninety">Select unit type:</label>
                     
                         <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
                         <label for="single_purchase" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/balm/1.webp">Single unit</label>
@@ -145,12 +145,18 @@
 
  <!-- Quantity Selector -->
  <div class="form-group mb-4">
-    <label for="quantityAll">Quantity:</label><div class="custom-radio float-right" >
+    <div class="mt-4 custom-radio float-right">
         <input type="radio" id="inStock" name="stockStatus" checked>
         <label class="custom-radio-label mb-0" for="inStock">In Stock</label>
     </div>
-    <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+    <label for="quantityAll">Quantity of units:</label>
+    <div class="quantity-container">
+        <button type="button" class="btn-decrease">-</button>
+        <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+        <button type="button" class="btn-increase">+</button>
+      </div>
 </div>
+
 
 
 
@@ -279,7 +285,8 @@
 {{- partial "prodcardpplpowder.html" . -}} 
 </div>
 <div class="mob-show">
-    {{- partial "prodcardtallowbundle.html" . -}}
+    {{- partial "prodcardinsideout.html" . -}}
+
 </div>
 </div>
 
@@ -632,6 +639,27 @@ document.addEventListener('DOMContentLoaded', function () {
 </div>
 
     <!-- YAML SCRIPT ENDS -->
+
+
+    <script>
+const quantityInput = document.getElementById('quantityAll');
+const btnIncrease = document.querySelector('.btn-increase');
+const btnDecrease = document.querySelector('.btn-decrease');
+
+// Increase quantity
+btnIncrease.addEventListener('click', () => {
+  quantityInput.value = parseInt(quantityInput.value) + 1;
+});
+
+// Decrease quantity (minimum value = 1)
+btnDecrease.addEventListener('click', () => {
+  const currentValue = parseInt(quantityInput.value);
+  if (currentValue > 1) {
+    quantityInput.value = currentValue - 1;
+  }
+});
+
+    </script>
 
 
     {{- partial "footer.html" . }}
