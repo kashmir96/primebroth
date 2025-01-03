@@ -2,7 +2,7 @@
 title: "Beef tallow balm for skin - PrimalPantry"
 description: "Achieve a natural glow without the chemical nasties using beef tallow balm for skin from PrimalPantry"
 type: custom
-layout: products/tallow-broth-bundle-v1
+layout: /wip
 balm-or-lav-60ml: price_1QKTaPFZRwx5tlYm5Eja3cDN
 balm-or-ros-60ml: price_1QKTaPFZRwx5tlYmKaucrO1T
 balm-or-neu-60ml: price_1QQFC1FZRwx5tlYmO05jTBP3
