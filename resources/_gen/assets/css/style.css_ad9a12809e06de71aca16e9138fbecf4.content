@@ -2920,6 +2920,9 @@ input[type="submit"].fcf-btn-block, input[type="reset"].fcf-btn-block, input[typ
     left: -20px;
     padding: 50px !important;
   }
+  .mob-ninety { 
+    width: 90%;
+  }
   .shorts { 
     width: 100vw;
     position: relative;
@@ -4353,6 +4356,7 @@ strong, b {
 
 
 @media (max-width: 600px) {
+
   .nutr-table {
       width: 100%;
   }
@@ -4520,4 +4524,44 @@ strong, b {
 
 .attention-primebroth-pet { 
   color: #EC7842;
+}
+
+/* Simplified CSS for radio buttons styled as buttons */
+
+input[type="radio"] {
+  display: none; /* Hide default radio */
+}
+
+label.product-form-radio {
+  display: inline-block;
+  margin: 2px;
+  padding: 3px 7px;
+  border: 1px solid #ccc; /* Default border */
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s ease; /* Smooth transition */
+  background-color: white; /* Default background */
+}
+
+label.product-form-radio:hover {
+  border-color: #4CAF50; /* Green border on hover */
+  background-color: #f9f9f9; /* Light background on hover */
+}
+
+input[type="radio"]:checked + label.product-form-radio {
+  background-color: #e8f5e9; /* Light green background for active */
+  border: 1px solid #4CAF50; /* Green border for active */
+  color: #4CAF50; /* Green text for active */
+}
+
+.clear { 
+  clear: both;
+}
+
+.prod-radio-img {
+  width: inherit; 
+  height: 25px;
+  float: left;
+  margin-right: 5px;
 }
