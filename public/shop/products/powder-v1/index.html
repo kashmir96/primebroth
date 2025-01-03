@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
-<title>PrimalPantry - broth and balm | Bone broth powder - PrimalPantry</title>
+<title>PrimalPantry - broth and balm | Beef tallow balm for skin - PrimalPantry</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link rel="apple-touch-icon" sizes="180x180" href='/apple-touch-icon.png'>
 <link rel="icon" type="image/png" sizes="32x32" href='favicon-32x32.png'>
@@ -265,41 +265,75 @@
 
                 <form id="productForm" class="form-group mb-4">
                     <div class="text-left mb-4">
-                        <label class="font-weight-bold" for="size">Select Size:</label>
-                        <select class="form-control" id="size" name="size">
+                        <label >Select size:</label>
+                    
                         
-                            <option value="90g">90g</option>
-                            <option value="180g">180g</option>
-                        </select>
+                        
+
+                        <div class="product-form-radio">
+                            <input type="radio" id="size60g" name="size" value="90g" checked>
+                            <label for="size60g" class="product-form-radio float-left"><img class="prod-radio-img" src="/img/radio/broth/sml.webp">90g</label></p>
+                        </div>
+
+                        <div class="product-form-radio">
+                            <input type="radio" id="size180g" name="size" value="180g" checked>
+                            <label for="size180g" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/broth/1.webp">180g<span class="attention-primalcare small"> (cheapest per g)</span></label></p>
+                        </div>
                     </div>
+                    
                     <div class="text-left mb-4">
-                        <label class="font-weight-bold" for="flavor">Select Flavor:</label>
-                        <select class="form-control" id="flavor" name="flavor">
-                            <option value="beef">Beef</option>
-                     
-                         
-                       
-                       
-                       
-                      
-                        </select>
-                    </div>
+                        <label >Select flavor:</label>
+                        
+                        <div class="product-form-radio">
+                            <input type="radio" id="beef" name="flavor" value="beef" checked>
+                            <label for="beef" class="product-form-radio">Beef</label>
+                        </div>
+                    
+                        
+                        
+                    
+                        
+                        
+                    
+                        
+                        
+                    
+                        
+                        
+                    
+                        
+                        
+                    
+                        
+                        
+                    </div>                    
+
+                
                     <div class="text-left mb-4">
-                        <label class="font-weight-bold"  for="orderType">Select Order Type:</label>
-                        <select class="form-control" id="orderType" name="orderType">
-                            <option value="single_purchase">Single unit</option>
-                            <option value="three_pack">3 pack (save 20%)</option>
-                          
-                        </select>
+                        <label class="mob-ninety">Select unit type:</label>
+                    
+                        <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
+                        <label for="single_purchase" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/broth/1.webp">Single unit</label>
+                    
+                        <input type="radio" id="three_pack" name="orderType" value="three_pack">
+                        <label for="three_pack" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/broth/3.webp">3 pack <span class="attention-primalcare small">(save 20%)</span></label>
+                    
+                        
+                        
                     </div>
 
  
  <div class="form-group mb-4">
-    <label for="quantityAll" class="font-weight-bold">Quantity:</label><div class="custom-radio float-right" >
+    <div class="mt-4 custom-radio float-right">
         <input type="radio" id="inStock" name="stockStatus" checked>
         <label class="custom-radio-label mb-0" for="inStock">In Stock</label>
     </div>
-    <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+    <label for="quantityAll">Quantity of units:</label>
+    <div class="quantity-container">
+        <button type="button" class="btn-decrease">-</button>
+        <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+        <button type="button" class="btn-increase">+</button>
+      </div>
 </div>
 
                     
@@ -527,21 +561,16 @@
 </a>
 </div></div>
     <div class="mob-show">
-<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow bundles"><a href="/shop/products/tallow-trio">
-  <p class="stamp">Hot</p>
-  <img src="/img/dec24/product-trio.webp" alt="">
+<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth bundles tallow"><a href="/shop/products/tallow-broth-bundle">
+  <p class="stamp">Trending</p>
+  <img src="/img/dec24/product-insideoutsmall.webp" alt="">
   <div class="product-details">
-    <p>$59.95</p>
-    <h6>Tallow Balm Mixed Trio Bundle</h6>
+    <p>$64.95</p>
+    <h6>Inside out bundle</h6>
     <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>500+ kiwis</p>
-
   </div>
 </a>
-</div>
-
-
-
-</div>
+</div></div>
     </div><script src="https://js.stripe.com/v3/"></script>
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
@@ -730,8 +759,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function updatePrice() {
-        const size = document.getElementById("size").value.trim().toLowerCase();
-        const orderType = document.getElementById("orderType").value.trim().toLowerCase();
+        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); 
+        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
 
         console.log("Selected size:", size);
         console.log("Selected order type:", orderType);
@@ -756,9 +785,9 @@ document.addEventListener('DOMContentLoaded', function () {
 <script>
     
     function updatePriceID() {
-    const size = document.getElementById("size").value.trim().toLowerCase();
-    const flavor = document.getElementById("flavor").value.trim().toLowerCase();
-    const orderType = document.getElementById("orderType").value.trim().toLowerCase();
+        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); 
+        const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
     
 
 
@@ -806,9 +835,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function updatePriceId() {
     
-    const size = document.getElementById('size').value.trim().toLowerCase();
-    const flavor = document.getElementById('flavor').value.trim().toLowerCase();
-    const orderType = document.getElementById('orderType').value.trim().toLowerCase();
+    const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); 
+    const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+    const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
 
     try {
         let priceId;
@@ -913,13 +942,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     
-    const size = document.getElementById('size')?.value || 'Default Size';
+    const selectedSize = document.querySelector('input[name="size"]:checked');
+    const size = document.querySelector(`label[for="${selectedSize.id}"]`).textContent.trim(); 
 
-const flavorSelect = document.getElementById('flavor');
-const flavor = flavorSelect.options[flavorSelect.selectedIndex].textContent.trim();
+const selectedFlavor = document.querySelector('input[name="flavor"]:checked');
+const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
 
-const orderTypeSelect = document.getElementById('orderType');
-const orderType = orderTypeSelect.options[orderTypeSelect.selectedIndex].textContent.trim();
+    const selectedOrderType = document.querySelector('input[name="orderType"]:checked');
+    const orderTypeSelect = document.querySelector(`label[for="${selectedOrderType.id}"]`).textContent.trim();
+
+
     const unitPriceElement = document.getElementById('price');
     const unitPrice = unitPriceElement 
         ? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00
@@ -936,7 +968,7 @@ const orderType = orderTypeSelect.options[orderTypeSelect.selectedIndex].textCon
     
     console.log('Size:', size);
     console.log('Flavor:', flavor);
-    console.log('Order Type:', orderType);
+    console.log('Order Type:', orderTypeSelect);
     console.log('Quantity:', quantity);
     console.log('Price ID:', priceId);
 
@@ -953,7 +985,7 @@ const orderType = orderTypeSelect.options[orderTypeSelect.selectedIndex].textCon
         title,
         size,
         flavor,
-        orderType,
+        orderType: orderTypeSelect,
         quantity,
         unitPrice
     });
@@ -1008,6 +1040,26 @@ document.addEventListener('DOMContentLoaded', function () {
         </div>
     </div>
 </div>
+
+<script>
+    const quantityInput = document.getElementById('quantityAll');
+    const btnIncrease = document.querySelector('.btn-increase');
+    const btnDecrease = document.querySelector('.btn-decrease');
+    
+    
+    btnIncrease.addEventListener('click', () => {
+      quantityInput.value = parseInt(quantityInput.value) + 1;
+    });
+    
+    
+    btnDecrease.addEventListener('click', () => {
+      const currentValue = parseInt(quantityInput.value);
+      if (currentValue > 1) {
+        quantityInput.value = currentValue - 1;
+      }
+    });
+    
+        </script>
 
 
 
