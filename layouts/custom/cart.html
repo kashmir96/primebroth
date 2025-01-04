@@ -12,7 +12,14 @@
 <body>
     {{- partial "header.html" . }} <!-- Site's header -->
 
-    <div class="container my-2">
+    <div class="container  my-2">
+        <div id="cartempty" class="d-none text-center vh-55 align-items-center">
+            <div class="middle">
+            <h1>Your cart is empty</h1>
+            <a href="/shop" class="btn btn-primary">Continue shopping</a>
+        </div>
+        </div>
+        <div class="cartcontainerall">
 <div class="black my-2 align-items-center">
     <img class="float-left ml-2 mr-2 mb-1 mt-1" style="height: 30px;" src="/img/scarcity.svg">
     <p class="p-2">The items in your cart are hot! Get them while you still can.</p>
@@ -33,7 +40,7 @@
 
 
         </div>
-    </div>
+    </div> </div>
 
     {{- partial "footer.html" . }} <!-- Site's footer -->
 
@@ -105,6 +112,27 @@
                 }
                 totalCostElement.innerHTML = `$${totalCost.toFixed(2)}${totalPriceSuffix}`;
                 proceedToCheckoutButton.disabled = cart.length === 0;
+
+                // Remove the hot message if the cart is empty
+const hotMessage = document.querySelector('.cartcontainerall');
+if (cart.length === 0 && hotMessage) {
+    hotMessage.remove(); // Removes the element from the DOM
+}
+
+// Toggle visibility of #cartempty based on cart length
+const cartEmptyDiv = document.querySelector('#cartempty'); // Select the #cartempty div
+if (cartEmptyDiv) {
+    if (cart.length === 0) {
+        cartEmptyDiv.classList.remove('d-none'); // Show the div by removing 'd-none'
+        cartEmptyDiv.classList.add('d-flex'); // Show the div by removing 'd-none'
+    } else {
+        cartEmptyDiv.classList.add('d-none');  // Hide the div by adding 'd-none'
+    }
+}
+
+
+
+            
 
                 // Add event listeners for quantity changes
                 document.querySelectorAll('.quantity-input').forEach(input => {
