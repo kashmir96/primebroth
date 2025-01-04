@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{- partial "head.html" . }} <!-- Includes site's meta tags, CSS, JS, etc. -->
+    <title>Checkout - PrimalPantry</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        const stripe = Stripe('pk_live_51QKEaJFZRwx5tlYmhyIEFR3mGroCdpqIHHVT68y9jGnizGDZXypuSfjilbCSkMarU39KeV4kUulC6HfpReRSJwb000fyIehR3I'); // Replace with your actual publishable key
+    </script>
+</head>
+<body>
+    {{- partial "header.html" . }} <!-- Site's header -->
+
+    <div class="container my-2">
+<h1 class="alert">My cart</h1>
+<div class="black my-2 align-items-center">
+    <img class="float-left ml-2 mr-2 mb-1 mt-1" style="height: 30px;" src="/img/scarcity.svg">
+    <p class="p-2">The items in your cart are hot! Get them while you still can.</p>
+</div>
+        <div id="cart-items" class="mb-4">
+            <!-- Cart items will be dynamically injected here -->
+        </div>
+
+        <div id="cart-summary" class="card p-4 shadow">
+            <h3>Cart Summary</h3>
+            <p class="mb-1">Total cost: <strong><span id="total-cost">$0.00</span></strong></p>
+            <p><em>Shipping calculated & promo codes applied at checkout</em></p>
+            <div class="add-to-cart">
+                <button id="proceed-to-checkout" class="btn btn-primary btn-lg buy-now mb-1 mt-3" disabled>Proceed to Checkout</button>
+                <p>Speedy Shipping NZ Wide | Money back guarantee</p>
+                <img class="badges" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
+            </div>
+
+
+        </div>
+    </div>
+
+    {{- partial "footer.html" . }} <!-- Site's footer -->
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Retrieve cart data from localStorage
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            const cartItemsContainer = document.getElementById('cart-items');
+            const totalCostElement = document.getElementById('total-cost');
+            const proceedToCheckoutButton = document.getElementById('proceed-to-checkout');
+
+            function updateCart() {
+                // Clear the existing content
+                cartItemsContainer.innerHTML = '';
+                const table = document.createElement('table');
+                table.className = 'table table-bordered';
+                table.innerHTML = `
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Product</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Flavour</th>
+                            <th scope="col">Size</th>
+                            <th scope="col">Unit Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-table-body"></tbody>
+                `;
+                cartItemsContainer.appendChild(table);
+
+                const cartTableBody = document.getElementById('cart-table-body');
+                let totalCost = 0;
+
+                cart.forEach((item, index) => {
+                    const quantity = parseInt(item.quantity, 10);
+                    const unitPrice = parseFloat(item.unitPrice).toFixed(2);
+
+                    // Add /3mo or /mo based on order type (only for display purposes)
+                    let priceSuffix = '';
+                    if (item.orderType && item.orderType.includes('Quarterly')) {
+                        priceSuffix = '<span class="price-suffix">/3mo</span>';
+                    } else if (item.orderType && item.orderType.includes('Monthly')) {
+                        priceSuffix = '<span class="price-suffix">/mo</span>';
+                    }
+
+                    const lineItemTotal = (unitPrice * quantity).toFixed(2);
+                    totalCost += parseFloat(lineItemTotal);
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.title || 'Unknown Product'}</td>
+                        <td>${item.orderType || 'N/A'}</td>
+                        <td>${item.flavor || 'N/A'}</td>
+                        <td>${item.size || 'N/A'}</td>
+                        <td>$${unitPrice}${priceSuffix}</td>
+                        <td><input type="number" class="form-control quantity-input" data-index="${index}" value="${quantity}" min="1"></td>
+                        <td class="line-total">$${lineItemTotal}${priceSuffix}</td>
+                        <td><button class="btn btn-danger remove-item" data-index="${index}">X</button></td>
+                    `;
+                    cartTableBody.appendChild(row);
+                });
+
+                // Update total cost
+                let totalPriceSuffix = '';
+                if (cart.some(item => item.orderType && item.orderType.includes('Quarterly'))) {
+                    totalPriceSuffix = '<span class="price-suffix">/3mo</span>';
+                } else if (cart.some(item => item.orderType && item.orderType.includes('Monthly'))) {
+                    totalPriceSuffix = '<span class="price-suffix">/mo</span>';
+                }
+                totalCostElement.innerHTML = `$${totalCost.toFixed(2)}${totalPriceSuffix}`;
+                proceedToCheckoutButton.disabled = cart.length === 0;
+
+                // Add event listeners for quantity changes
+                document.querySelectorAll('.quantity-input').forEach(input => {
+                    input.addEventListener('input', function () {
+                        const index = this.getAttribute('data-index');
+                        cart[index].quantity = parseInt(this.value, 10) || 1;
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        updateCart();
+                    });
+                });
+
+                // Add event listeners for removing items
+                document.querySelectorAll('.remove-item').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const index = this.getAttribute('data-index');
+                        cart.splice(index, 1);
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        updateCart();
+                    });
+                });
+            }
+
+            // Listen for storage changes
+            window.addEventListener('storage', function () {
+                cart = JSON.parse(localStorage.getItem('cart')) || [];
+                updateCart();
+            });
+
+            // Initial call to display the cart
+            updateCart();
+
+            proceedToCheckoutButton.addEventListener('click', function () {
+                handleCheckout(cart);
+            });
+
+            function handleCheckout(cart) {
+                cart = cart.map(item => {
+                    return { ...item, quantity: parseInt(item.quantity, 10) };
+                });
+
+                fetch('/.netlify/functions/create-checkout-session', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ cart }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.sessionId) {
+                            stripe.redirectToCheckout({ sessionId: data.sessionId });
+                        } else {
+                            alert('Failed to create checkout session. Please try again.');
+                        }
+                    })
+                    .catch(() => {
+                        alert('Failed to create checkout session. Please try again.');
+                    });
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
