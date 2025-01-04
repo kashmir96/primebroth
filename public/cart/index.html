@@ -211,8 +211,8 @@
 
         <div id="cart-summary" class="card p-4 shadow">
             <h3>Cart Summary</h3>
-            <p class="mb-1">Subtotal: <strong><span id="total-cost">$0.00</span></strong></p>
-            <p><em>Shipping & Promo codes applied at checkout</em></p>
+            <p class="mb-1">Total cost: <strong><span id="total-cost">$0.00</span></strong></p>
+            <p><em>Shipping calculated & promo codes applied at checkout</em></p>
             <div class="add-to-cart">
                 <button id="proceed-to-checkout" class="btn btn-primary btn-lg buy-now mb-1 mt-3" disabled>Proceed to Checkout</button>
                 <p>Speedy Shipping NZ Wide | Money back guarantee</p>
@@ -442,14 +442,10 @@
                 table.innerHTML = `
                     <thead class="thead-light">
                         <tr>
-                            <th scope="col">Product</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Flavour</th>
-                            <th scope="col">Size</th>
+                            <th class="max-200" scope="col">Product</th>
                             <th scope="col">Unit $</th>
                             <th scope="col">Quantity</th>
                             <th scope="col">Total</th>
-                            <th scope="col">Remove</th>
                         </tr>
                     </thead>
                     <tbody id="cart-table-body"></tbody>
@@ -476,14 +472,10 @@
 
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${item.title || 'Unknown Product'}</td>
-                        <td>${item.orderType || 'N/A'}</td>
-                        <td>${item.flavor || 'N/A'}</td>
-                        <td>${item.size || 'N/A'}</td>
+                        <td class="max-200"><div style="max-width: 250px;" class="float-left">${item.title || 'Unknown Product'} - ${item.flavor || 'N/A'}  ${item.size || 'N/A'} (${item.orderType || 'N/A'})</div><button class="remove-item bin-sml float-right" data-index="${index}"><img src="/img/bin.svg"></button></td>
                         <td>$${unitPrice}${priceSuffix}</td>
-                        <td><input type="number" class="form-control quantity-input" data-index="${index}" value="${quantity}" min="1"></td>
+                        <td><input type="number" style="width: 50px;" class="form-control quantity-input" data-index="${index}" value="${quantity}" min="1"></td>
                         <td class="line-total">$${lineItemTotal}${priceSuffix}</td>
-                        <td><button class="btn btn-danger remove-item" data-index="${index}">X</button></td>
                     `;
                     cartTableBody.appendChild(row);
                 });
