@@ -109,7 +109,7 @@ exports.handler = async (event, context) => {
       mode: 'payment',
       allow_promotion_codes: true, // Enable promotion codes at checkout
       success_url: successUrl, // Updated success URL
-      cancel_url: 'https://www.primalpantry.co.nz/shop',
+      cancel_url: 'https://www.primalpantry.co.nz/cart/',
     });
 
     console.log(`Checkout session created successfully with ID: ${session.id}`);
