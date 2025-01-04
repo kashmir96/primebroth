@@ -13,7 +13,6 @@
     {{- partial "header.html" . }} <!-- Site's header -->
 
     <div class="container my-2">
-<h1 class="alert">My cart</h1>
 <div class="black my-2 align-items-center">
     <img class="float-left ml-2 mr-2 mb-1 mt-1" style="height: 30px;" src="/img/scarcity.svg">
     <p class="p-2">The items in your cart are hot! Get them while you still can.</p>
@@ -60,13 +59,9 @@
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">Product</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Flavour</th>
-                            <th scope="col">Size</th>
                             <th scope="col">Unit $</th>
                             <th scope="col">Quantity</th>
                             <th scope="col">Total</th>
-                            <th scope="col">Remove</th>
                         </tr>
                     </thead>
                     <tbody id="cart-table-body"></tbody>
@@ -93,14 +88,10 @@
 
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${item.title || 'Unknown Product'}</td>
-                        <td>${item.orderType || 'N/A'}</td>
-                        <td>${item.flavor || 'N/A'}</td>
-                        <td>${item.size || 'N/A'}</td>
+                        <td>${item.title || 'Unknown Product'}<br>${item.flavor || 'N/A'}  ${item.size || 'N/A'} (${item.orderType || 'N/A'})<button class="btn btn-danger remove-item float-right" data-index="${index}">X</button></td>
                         <td>$${unitPrice}${priceSuffix}</td>
-                        <td><input type="number" class="form-control quantity-input" data-index="${index}" value="${quantity}" min="1"></td>
+                        <td><input type="number" style="width: 50px;" class="form-control quantity-input" data-index="${index}" value="${quantity}" min="1"></td>
                         <td class="line-total">$${lineItemTotal}${priceSuffix}</td>
-                        <td><button class="btn btn-danger remove-item" data-index="${index}">X</button></td>
                     `;
                     cartTableBody.appendChild(row);
                 });
