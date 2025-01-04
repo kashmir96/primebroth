@@ -472,7 +472,7 @@
 
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td class="max-200"><div class="seventy float-left">${item.title || 'Unknown Product'} - ${item.flavor || 'N/A'}  ${item.size || 'N/A'} (${item.orderType || 'N/A'})</div><button class="btn btn-danger remove-item float-right" data-index="${index}">X</button></td>
+                        <td class="max-200"><div style="max-width: 250px;" class="float-left">${item.title || 'Unknown Product'} - ${item.flavor || 'N/A'}  ${item.size || 'N/A'} (${item.orderType || 'N/A'})</div><button class="remove-item bin-sml float-right" data-index="${index}"><img src="/img/bin.svg"></button></td>
                         <td>$${unitPrice}${priceSuffix}</td>
                         <td><input type="number" style="width: 50px;" class="form-control quantity-input" data-index="${index}" value="${quantity}" min="1"></td>
                         <td class="line-total">$${lineItemTotal}${priceSuffix}</td>
