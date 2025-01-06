@@ -107,11 +107,17 @@ exports.handler = async (event, context) => {
       shipping_options: shippingOptions,
       line_items: lineItems,
       mode: 'payment',
-      discounts: [
-        {
-          promotion_code: 'promo_1QbZRXFZRwx5tlYmV6Zc83ot', // Replace this with your Stripe Promotion Code ID
-        },
-      ],
+      
+
+      // Dynamically apply the discount if any item is eligible
+  discounts: cart.some(item => item.eligibleForDiscount) // Check eligibility flag
+  ? [{ promotion_code: 'promo_1QbZRXFZRwx5tlYmV6Zc83ot' }] // Replace with your Promotion Code ID
+  : [], // No discount for ineligible products
+
+
+      
+
+
       success_url: successUrl, // Updated success URL
       cancel_url: 'https://www.primalpantry.co.nz/cart/',
     });
