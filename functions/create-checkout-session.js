@@ -108,7 +108,7 @@ exports.handler = async (event, context) => {
       line_items: lineItems,
       mode: 'payment',
       allow_promotion_codes: true, // Enable promotion codes at checkout
-      success_url: successUrl, // Updated success URL
+      success_url: `${successUrl}?discount_code=pantrylaunch`, // Pre-fill code in URL
       cancel_url: 'https://www.primalpantry.co.nz/cart/',
     });
 
