@@ -100,14 +100,18 @@ exports.handler = async (event, context) => {
 
     // Create a Stripe checkout session
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
+      payment_method_types: ['csard'],
       shipping_address_collection: {
         allowed_countries: ['NZ'], // Restrict to New Zealand
       },
       shipping_options: shippingOptions,
       line_items: lineItems,
       mode: 'payment',
-      allow_promotion_codes: true, // Enable promotion codes at checkout
+      discounts: [
+        {
+          promotion_code: 'promo_1QbZRXFZRwx5tlYmV6Zc83ot', // Replace this with your Stripe Promotion Code ID
+        },
+      ],
       success_url: successUrl, // Updated success URL
       cancel_url: 'https://www.primalpantry.co.nz/cart/',
     });
