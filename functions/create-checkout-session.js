@@ -108,11 +108,6 @@ exports.handler = async (event, context) => {
       line_items: lineItems,
       mode: 'payment',
       allow_promotion_codes: true, // Enable promotion codes at checkout
-      discounts: [
-        {
-          promotion_code: 'promo_1QbZRXFZRwx5tlYmV6Zc83ot', // Replace this with your Stripe Promotion Code ID
-        },
-      ],
       success_url: successUrl, // Updated success URL
       cancel_url: 'https://www.primalpantry.co.nz/cart/',
     });
