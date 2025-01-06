@@ -100,7 +100,7 @@ exports.handler = async (event, context) => {
 
     // Create a Stripe checkout session
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['csard'],
+      payment_method_types: ['card'],
       shipping_address_collection: {
         allowed_countries: ['NZ'], // Restrict to New Zealand
       },
