@@ -248,7 +248,7 @@
 
 
                 <div class="price-display thic">
-                    <p><span id="price">-</span> <span id="from"></span> <span class="special">35% off!</span></p>                
+                    <p><span id="price">-</span> <span class="special">This price is 35% off!</span></p>                
                 </div>
                 <form id="productForm" class="form-group mb-4">
                     <div class="text-left mb-4">
@@ -562,7 +562,6 @@
     function updatePrice() {
         const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); 
         const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
-        const discountFromData = {"balm":[{"prices":{"single_purchase":22.95,"three_pack":55.08},"size":"60ml"},{"prices":{"single_purchase":30.95,"three_pack":74.28},"size":"175ml"}]};
 
         console.log("Selected size:", size);
         console.log("Selected order type:", orderType);
@@ -574,21 +573,9 @@
         } else {
             document.getElementById("price").textContent = "N/A";
         }
-
-        const discountEntry = discountFromData.find(entry => entry.size.toLowerCase() === size);
-        let fromPrice = "";
-
-        if (discountEntry) {
-            if (orderType === 'single_purchase' && discountEntry.prices.single_purchase) {
-                fromPrice = `$${discountEntry.prices.single_purchase.toFixed(2)}`;
-            } else if (orderType === 'three_pack' && discountEntry.prices.three_pack) {
-                fromPrice = `$${discountEntry.prices.three_pack.toFixed(2)}`;
-            }
-        }
-
-        
-        document.getElementById("from").textContent = fromPrice ? `(from ${fromPrice})` : "";
     }
+
+
 
     
     document.getElementById("productForm").addEventListener("change", updatePrice);
