@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
-<title>PrimalPantry | Contact us - PrimalPantry</title>
+<title>PrimalPantry | Get listed - PrimalPantry</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link rel="apple-touch-icon" sizes="180x180" href='/apple-touch-icon.png'>
 <link rel="icon" type="image/png" sizes="32x32" href='favicon-32x32.png'>
@@ -215,12 +215,12 @@
 
     <div class="container">
         <div style="margin-bottom: 0px;" class="row max-width lime shopsection"> 
-            <h1 class="text-center">Contact us</h1>
-            <p class="text-center">Flick us a message and we'll be in touch asap. <br>Already a customer and wanting to query a transaction? <a href="/support">Fill in this form instead</a></p>               
+            <h1 class="text-center">Get listed on PrimalPantry!</h1>
+            <p class="text-center">Submit your enquiry and we'll be in touch asap.</p>               
 
             <div class="custom-form">
-                <form id="contact-form" method="POST" data-netlify="true" name="contact">
-                    <input type="hidden" name="form-name" value="contact">
+                <form id="listing-form" method="POST" data-netlify="true" name="listing">
+                    <input type="hidden" name="form-name" value="listing">
                     
                     <label>Name*</label>
                     <input type="text" placeholder="Your Name" class="form-input" name="name" required>
@@ -228,16 +228,22 @@
                     <label>Email*</label>
                     <input type="email" placeholder="your@email.com" class="form-input" name="email" required>
                     
-                    <label>Subject*</label>
-                    <input type="text" placeholder="Enter Subject" class="form-input" name="subject" required>
+                    <label>Business name*</label>
+                    <input type="text" placeholder="Enter Business name" class="form-input" name="business name" required>
+
+                    <label>Website URL*</label>
+                    <input type="text" placeholder="Enter Business website" class="form-input" name="Website" required>
+
+                    <label>Social media*</label>
+                    <input type="text" placeholder="Enter Business social media" class="form-input" name="business social media" required>
                     
-                    <label>Message*</label>
-                    <textarea rows="5" placeholder="Enter Message" class="form-input" name="message" required></textarea>
+                    <label>What do you sell?*</label>
+                    <textarea rows="5" placeholder="Please give a brief description of the products you sell" class="form-input" name="message" required></textarea>
                 
                     <label>Are you a robot? What's 5+1?*</label>
                     <input type="text" id="specialField" placeholder="Answer correctly to submit" class="form-input" required>
                     
-                    <button id="contact-submit" class="btn btn-primary" type="submit">Send</button>
+                    <button id="listing-submit" class="btn btn-primary" type="submit">Send</button>
                 </form>
             </div>
         </div>
@@ -246,10 +252,10 @@
     
     <script>
         window.addEventListener('load', () => {
-            document.getElementById('contact-submit').addEventListener('click', () => {
-                gtag('event', 'contact_submit', {
+            document.getElementById('listing-submit').addEventListener('click', () => {
+                gtag('event', 'listing', {
                     'event_category': 'form',
-                    'event_label': 'contact-submit',
+                    'event_label': 'listing-submit',
                     'value': 1
                 });
             });

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    {{- partial "head.html" . -}}
+    <meta name="description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta property="og:title" content="{{ .Site.Params.homepage_meta_tags.meta_og_title }}" />
+    <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
+    <meta property="og:url" content="{{ .Site.Params.homepage_meta_tags.meta_og_url }}" />
+    <meta property="og:image" content="{{ .Site.Params.homepage_meta_tags.meta_og_image }}" />
+    <meta property="og:description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
+    <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
+    <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+</head>
+<body>
+    
+    {{- partial "header.html" . -}}
+    <div class="scroll-top rounded-full">
+        <span class="icon-keyboard_arrow_up text-2xl"></span>
+    </div>
+    {{- partial "slide.html" . -}}
+    {{- partial "strip.html" . -}}
+    <!-- Add html below -->
+
+    <div class="container">
+        <div style="margin-bottom: 0px;" class="row max-width lime shopsection"> 
+            <h1 class="text-center">Get listed on PrimalPantry!</h1>
+            <p class="text-center">Submit your enquiry and we'll be in touch asap.</p>               
+
+            <div class="custom-form">
+                <form id="listing-form" method="POST" data-netlify="true" name="listing">
+                    <input type="hidden" name="form-name" value="listing">
+                    
+                    <label>Name*</label>
+                    <input type="text" placeholder="Your Name" class="form-input" name="name" required>
+                    
+                    <label>Email*</label>
+                    <input type="email" placeholder="your@email.com" class="form-input" name="email" required>
+                    
+                    <label>Business name*</label>
+                    <input type="text" placeholder="Enter Business name" class="form-input" name="business name" required>
+
+                    <label>Website URL*</label>
+                    <input type="text" placeholder="Enter Business website" class="form-input" name="Website" required>
+
+                    <label>Social media*</label>
+                    <input type="text" placeholder="Enter Business social media" class="form-input" name="business social media" required>
+                    
+                    <label>What do you sell?*</label>
+                    <textarea rows="5" placeholder="Please give a brief description of the products you sell" class="form-input" name="message" required></textarea>
+                
+                    <label>Are you a robot? What's 5+1?*</label>
+                    <input type="text" id="specialField" placeholder="Answer correctly to submit" class="form-input" required>
+                    
+                    <button id="listing-submit" class="btn btn-primary" type="submit">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add html above -->
+    <script>
+        window.addEventListener('load', () => {
+            document.getElementById('listing-submit').addEventListener('click', () => {
+                gtag('event', 'listing', {
+                    'event_category': 'form',
+                    'event_label': 'listing-submit',
+                    'value': 1
+                });
+            });
+        });
+
+        function validateForm() {
+            const inputField = document.getElementById('specialField');
+            if (inputField.value === '6') {
+                return true;
+            } else {
+                alert('Please enter the correct number in the robot detection field.');
+                return false;
+            }
+        }
+    </script>
+    {{- partial "footer.html" . -}}
+</body>
+</html>
