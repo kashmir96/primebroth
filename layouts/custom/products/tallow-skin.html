@@ -51,7 +51,7 @@
 
 <!-- Product Form Options with Bootstrap Styling -->
                 <div class="price-display thic">
-                    <p><span id="price">-</span> <span class="special">Get 35% off - code PantryLaunch at checkout</span></p>                
+                    <p><span id="price">-</span> <span class="special">35% off!</span></p>                
                 </div>
                 <form id="productForm" class="form-group mb-4">
                     <div class="text-left mb-4">
@@ -585,8 +585,8 @@ const flavor = document.querySelector(`label[for="${selectedFlavor.id}"]`).textC
         flavor,
         orderType: orderTypeSelect,
         quantity,
-        unitPrice
-        eligibleForDiscount // Include eligibility flag
+        unitPrice,
+        eligibleForDiscount: true // Set this directly to true or false
     });
     localStorage.setItem('cart', JSON.stringify(cart));
 
