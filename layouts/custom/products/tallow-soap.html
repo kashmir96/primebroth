@@ -41,7 +41,7 @@
 .custom-radio.in-stock .custom-radio-label {
     color: green;
 }
-s
+
             </style>
     {{- partial "alert.html" . -}}
     {{- partial "header.html" . -}}
@@ -602,7 +602,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const selectedLabel = document.querySelector(`label[for="${selectedFlavor.id}"]`).textContent;
 
         if (selectedLabel.includes('Backorder')) {
-            stockLabel.textContent = "Backorder - Orders with this will be shipped 27/1/25";
+            stockLabel.textContent = "Backorder - Orders to be shipped 27/1/25";
             customRadio.classList.remove('in-stock'); // Remove green styles
         } else {
             stockLabel.textContent = "In Stock";
@@ -626,8 +626,3 @@ document.addEventListener('DOMContentLoaded', function () {
 
 </body>
 </html>
-
-
-
-
-
