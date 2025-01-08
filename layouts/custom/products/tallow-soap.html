@@ -24,13 +24,24 @@
 <body>
     <style>
 
-        .custom-radio input[type="radio"]:checked + .custom-radio-label::before {
-          background-color: orangegreen;
-        }
-        
-        .custom-radio-label {
-            color: orange;
-        }
+       /* Default styles for Backorder */
+.custom-radio input[type="radio"]:checked + .custom-radio-label::before {
+    background-color: orange;
+}
+
+.custom-radio-label {
+    color: orange;
+}
+
+/* Styles for In Stock */
+.custom-radio.in-stock input[type="radio"]:checked + .custom-radio-label::before {
+    background-color: green;
+}
+
+.custom-radio.in-stock .custom-radio-label {
+    color: green;
+}
+s
             </style>
     {{- partial "alert.html" . -}}
     {{- partial "header.html" . -}}
@@ -65,13 +76,17 @@
                     <div class="text-left mb-4">
                         <label class="mob-ninety">Select scent:</label>
 
-                        <input type="radio" id="unscented" name="flavor" value="unscented" checked>
-                        <label for="unscented" class="product-form-radio">Unscented</label>
+                        <input type="radio" id="lemongrass" name="flavor" value="lemongrass" checked>
+                        <label for="lemongrass" class="product-form-radio">Lemongrass</label>
+
+                        <input type="radio" id="coco-olive" name="flavor" value="coco-olive" >
+                        <label for="coco-olive" class="product-form-radio">Coconut & Olive</label>
+
+                        <input type="radio" id="unscented" name="flavor" value="unscented">
+                        <label for="unscented" class="product-form-radio">Unscented (Backorder)</label>
 
                         <input type="radio" id="lavender" name="flavor" value="lavender" >
-                        <label for="lavender" class="product-form-radio">Lavender</label>
-                    
-                        
+                        <label for="lavender" class="product-form-radio">Lavender (Backorder)</label>
 
                     </div> 
                     <div class="text-left mb-4">
@@ -85,7 +100,7 @@
 <div class="form-group mb-4">
     <div class="mt-4 custom-radio float-right">
         <input type="radio" id="inStock" name="stockStatus" checked>
-        <label class="custom-radio-label mb-0" for="inStock">Backorder - Orders with this item will be shipped 27/1/25</label>
+        <label class="custom-radio-label mb-0" for="inStock">Backorder - Orders with this will be shipped 27/1/25</label>
     </div>
     <label for="quantityAll">Quantity of units:</label>
     <div class="quantity-container">
@@ -576,6 +591,35 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         
             </script>
+ <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const flavorOptions = document.querySelectorAll('input[name="flavor"]');
+    const stockLabel = document.querySelector('label[for="inStock"]');
+    const customRadio = document.querySelector('.custom-radio');
+
+    function updateStockLabel() {
+        const selectedFlavor = document.querySelector('input[name="flavor"]:checked');
+        const selectedLabel = document.querySelector(`label[for="${selectedFlavor.id}"]`).textContent;
+
+        if (selectedLabel.includes('Backorder')) {
+            stockLabel.textContent = "Backorder - Orders with this will be shipped 27/1/25";
+            customRadio.classList.remove('in-stock'); // Remove green styles
+        } else {
+            stockLabel.textContent = "In Stock";
+            customRadio.classList.add('in-stock'); // Apply green styles
+        }
+    }
+
+    flavorOptions.forEach(option => {
+        option.addEventListener('change', updateStockLabel);
+    });
+
+    // Initialize on page load
+    updateStockLabel();
+});
+
+</script>
+
 
 
     {{- partial "footer.html" . }}
