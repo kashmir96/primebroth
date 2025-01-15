@@ -77,10 +77,10 @@
                         <label class="mob-ninety">Select scent:</label>
 
                         <input type="radio" id="lemongrass" name="flavor" value="lemongrass" checked>
-                        <label for="lemongrass" class="product-form-radio">Lemongrass</label>
+                        <label for="lemongrass" class="product-form-radio">Lemongrass (Backorder)</label>
 
                         <input type="radio" id="coco-olive" name="flavor" value="coco-olive" >
-                        <label for="coco-olive" class="product-form-radio">Coconut & Olive</label>
+                        <label for="coco-olive" class="product-form-radio">Coconut & Olive (Backorder)</label>
 
                         <input type="radio" id="unscented" name="flavor" value="unscented">
                         <label for="unscented" class="product-form-radio">Unscented (Backorder)</label>
@@ -602,7 +602,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const selectedLabel = document.querySelector(`label[for="${selectedFlavor.id}"]`).textContent;
 
         if (selectedLabel.includes('Backorder')) {
-            stockLabel.textContent = "Backorder - Orders to be shipped 27/1/25";
+            stockLabel.textContent = "Backorder - Orders to be shipped 5/2/25";
             customRadio.classList.remove('in-stock'); // Remove green styles
         } else {
             stockLabel.textContent = "In Stock";
