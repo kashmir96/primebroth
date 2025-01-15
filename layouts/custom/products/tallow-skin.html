@@ -21,14 +21,18 @@
 </head>
 <body>
     <style>
+.custom-radio.out-of-stock input[type="radio"]:checked + .custom-radio-label::before {
+    background-color: red;
+}
 
-        .custom-radio input[type="radio"]:checked + .custom-radio-label::before {
-          background-color: green;
-        }
-         
-        .custom-radio-label {
-            color: green;
-        } 
+.custom-radio.in-stock input[type="radio"]:checked + .custom-radio-label::before {
+    background-color: green;
+}
+
+.custom-radio-label {
+    color: inherit; /* Uses parent color for easy updates */
+}
+
             </style>
     {{- partial "alert.html" . -}}
     {{- partial "header.html" . -}}
@@ -57,17 +61,18 @@
                     <div class="text-left mb-4">
                         <label class="mob-ninety">Select scent:</label>
                     
-                        <input type="radio" id="frankincense" name="flavor" value="frankincense" checked>
-                        <label for="frankincense" class="product-form-radio">Frankincense</label>
-
+                        <input type="radio" id="vanilla-rose" name="flavor" value="vanilla-rose" checked>
+                        <label for="vanilla-rose" class="product-form-radio">Vanilla rose</label>
+                        
                         <input type="radio" id="lavender" name="flavor" value="lavender" >
                         <label for="lavender" class="product-form-radio">Lavender</label>
                     
-                        <input type="radio" id="vanilla-rose" name="flavor" value="vanilla-rose">
-                        <label for="vanilla-rose" class="product-form-radio">Vanilla rose</label>
-                    
                         <input type="radio" id="neutral" name="flavor" value="neutral">
                         <label for="neutral" class="product-form-radio">None</label>
+
+                        <input type="radio" id="frankincense" name="flavor" value="frankincense" >
+                        <label for="frankincense" class="product-form-radio">Frankincense</label>
+
 
                          <!-- Uncomment to enable Rose -->
                         <!--
@@ -664,6 +669,78 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         
             </script>
+            
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const flavorOptions = document.querySelectorAll('input[name="flavor"]');
+                    const sizeOptions = document.querySelectorAll('input[name="size"]');
+                    const stockLabel = document.querySelector('label[for="inStock"]');
+                    const customRadio = document.querySelector('.custom-radio');
+                    const addToCartButton = document.querySelector('.buy-now');
+            
+                    // Define out-of-stock combinations
+                    const outOfStockCombinations = [
+                        { flavor: 'frankincense', size: '175ml' },
+                    ];
+            
+                    function updateStockLabel() {
+                        const selectedFlavor = document.querySelector('input[name="flavor"]:checked').value;
+                        const selectedSize = document.querySelector('input[name="size"]:checked').value;
+            
+                        // Check if the selected combination is out of stock
+                        const isOutOfStock = outOfStockCombinations.some(combo =>
+                            combo.flavor === selectedFlavor && combo.size === selectedSize
+                        );
+            
+                        document.querySelectorAll('.custom-radio').forEach(radio => {
+                            radio.classList.remove('out-of-stock', 'in-stock'); // Clear existing classes
+                        });
+            
+                        if (isOutOfStock) {
+                            stockLabel.textContent = "Temporarily of Stock";
+                            stockLabel.style.color = "red"; // Apply red color for out of stock
+            
+                            // Disable the Add to Cart button
+                            addToCartButton.disabled = true;
+                            addToCartButton.style.backgroundColor = "gray"; // Gray out the button
+                            addToCartButton.style.cursor = "not-allowed"; // Change cursor style
+            
+                            // Apply out-of-stock class to all relevant elements
+                            document.querySelectorAll('.custom-radio').forEach(radio => {
+                                radio.classList.add('out-of-stock');
+                            });
+                        } else {
+                            stockLabel.textContent = "In Stock";
+                            stockLabel.style.color = "green"; // Apply green color for in stock
+            
+                            // Enable the Add to Cart button
+                            addToCartButton.disabled = false;
+                            addToCartButton.style.backgroundColor = ""; // Reset to default color
+                            addToCartButton.style.cursor = "pointer"; // Reset cursor style
+            
+                            // Apply in-stock class to all relevant elements
+                            document.querySelectorAll('.custom-radio').forEach(radio => {
+                                radio.classList.add('in-stock');
+                            });
+                        }
+                    }
+            
+                    flavorOptions.forEach(option => {
+                        option.addEventListener('change', updateStockLabel);
+                    });
+            
+                    sizeOptions.forEach(option => {
+                        option.addEventListener('change', updateStockLabel);
+                    });
+            
+                    // Initialize on page load
+                    updateStockLabel();
+                });
+            </script>
+            
+            
+            
+
 
 
     {{- partial "footer.html" . }}

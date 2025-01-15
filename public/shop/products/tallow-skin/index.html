@@ -49,14 +49,18 @@
 </head>
 <body>
     <style>
+.custom-radio.out-of-stock input[type="radio"]:checked + .custom-radio-label::before {
+    background-color: red;
+}
 
-        .custom-radio input[type="radio"]:checked + .custom-radio-label::before {
-          background-color: green;
-        }
-         
-        .custom-radio-label {
-            color: green;
-        } 
+.custom-radio.in-stock input[type="radio"]:checked + .custom-radio-label::before {
+    background-color: green;
+}
+
+.custom-radio-label {
+    color: inherit;  
+}
+
             </style><div class="announcement full-width black text-center">
   <ul>
       <li>Launch sale now on - 35% off <a style="color: white;" class="text-decoration-underline" href="/shop/products/tallow-skin">Tallow Balms!</a> - Free shipping over $80</li>
@@ -254,17 +258,18 @@
                     <div class="text-left mb-4">
                         <label class="mob-ninety">Select scent:</label>
                     
-                        <input type="radio" id="frankincense" name="flavor" value="frankincense" checked>
-                        <label for="frankincense" class="product-form-radio">Frankincense</label>
-
+                        <input type="radio" id="vanilla-rose" name="flavor" value="vanilla-rose" checked>
+                        <label for="vanilla-rose" class="product-form-radio">Vanilla rose</label>
+                        
                         <input type="radio" id="lavender" name="flavor" value="lavender" >
                         <label for="lavender" class="product-form-radio">Lavender</label>
                     
-                        <input type="radio" id="vanilla-rose" name="flavor" value="vanilla-rose">
-                        <label for="vanilla-rose" class="product-form-radio">Vanilla rose</label>
-                    
                         <input type="radio" id="neutral" name="flavor" value="neutral">
                         <label for="neutral" class="product-form-radio">None</label>
+
+                        <input type="radio" id="frankincense" name="flavor" value="frankincense" >
+                        <label for="frankincense" class="product-form-radio">Frankincense</label>
+
 
                          
                         
@@ -868,6 +873,74 @@ document.addEventListener('DOMContentLoaded', function () {
           }
         });
         
+            </script>
+            
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const flavorOptions = document.querySelectorAll('input[name="flavor"]');
+                    const sizeOptions = document.querySelectorAll('input[name="size"]');
+                    const stockLabel = document.querySelector('label[for="inStock"]');
+                    const customRadio = document.querySelector('.custom-radio');
+                    const addToCartButton = document.querySelector('.buy-now');
+            
+                    
+                    const outOfStockCombinations = [
+                        { flavor: 'frankincense', size: '175ml' },
+                    ];
+            
+                    function updateStockLabel() {
+                        const selectedFlavor = document.querySelector('input[name="flavor"]:checked').value;
+                        const selectedSize = document.querySelector('input[name="size"]:checked').value;
+            
+                        
+                        const isOutOfStock = outOfStockCombinations.some(combo =>
+                            combo.flavor === selectedFlavor && combo.size === selectedSize
+                        );
+            
+                        document.querySelectorAll('.custom-radio').forEach(radio => {
+                            radio.classList.remove('out-of-stock', 'in-stock'); 
+                        });
+            
+                        if (isOutOfStock) {
+                            stockLabel.textContent = "Temporarily of Stock";
+                            stockLabel.style.color = "red"; 
+            
+                            
+                            addToCartButton.disabled = true;
+                            addToCartButton.style.backgroundColor = "gray"; 
+                            addToCartButton.style.cursor = "not-allowed"; 
+            
+                            
+                            document.querySelectorAll('.custom-radio').forEach(radio => {
+                                radio.classList.add('out-of-stock');
+                            });
+                        } else {
+                            stockLabel.textContent = "In Stock";
+                            stockLabel.style.color = "green"; 
+            
+                            
+                            addToCartButton.disabled = false;
+                            addToCartButton.style.backgroundColor = ""; 
+                            addToCartButton.style.cursor = "pointer"; 
+            
+                            
+                            document.querySelectorAll('.custom-radio').forEach(radio => {
+                                radio.classList.add('in-stock');
+                            });
+                        }
+                    }
+            
+                    flavorOptions.forEach(option => {
+                        option.addEventListener('change', updateStockLabel);
+                    });
+            
+                    sizeOptions.forEach(option => {
+                        option.addEventListener('change', updateStockLabel);
+                    });
+            
+                    
+                    updateStockLabel();
+                });
             </script>
 <footer class="bg-tlgray-100">
   <script src='/js/custom.js'></script>
