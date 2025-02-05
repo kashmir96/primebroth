@@ -1,7 +1,7 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const crypto = require('crypto');  // Import crypto for hashing email
 
-const FACEBOOK_PIXEL_ID = '809100344281173';  // Replace with your Pixel ID
+const FACEBOOK_PIXEL_ID = '809100344281173';  // Replace with your Pixel ID 
 const ACCESS_TOKEN = 'EAAU9shr9R4gBO2r17GFpgNP9LpZAvq8EUkpetaJG75ZAxOXnLZBZCtUfjcs0BnTu17leRfZATGUYmGppK1BrfIBP94BZBdCzb5yCTrj2tw2AeDiHPERBZBXZCuQJAln3JPCqviVlxPVbDXZBq0F8n45cPbjBZAYioouT8kDR7xSAjqwP3UoOwRIP8CWYRFTcoWZBWjvsfMyqOw1sARtudxqcLwrtY2XckSmyc4uwQZDZD';  // Replace with your Access Token
 const webhookSecret = process.env.CHECKOUT_COMPLETED_SECRET;
 
@@ -65,7 +65,7 @@ async function trackPurchase(email) {
         user_data: { em: hashedEmail },
       },
     ],
-    test_event_code: TEST_EVENT_CODE  // Add the test event code at the root level
+    // test_event_code: TEST_EVENT_CODE  // Add the test event code at the root level
   };
 
   console.log('Sending event to Facebook:', requestBody);
