@@ -87,4 +87,4 @@ Whether you choose to **make tallow balm** at home or **buy a ready-made version
 
 While DIY can be **customizable**, it requires **time**, **sterility**, and **precision** to get the **right consistency**. On the other hand, **PrimalCare’s whipped tallow balm** offers a **luxurious, ready-made solution** that’s designed for **modern skincare needs**.  
 
-Explore our range of **PrimalCare Tallow Balms** in **neutral** and **scented formulas**, perfect for **hydration**, **healing**, and **anti-aging**. Order yours today from our **[online shop](/shop)** and enjoy the **benefits of ancestral skincare**—without the hassle of making it yourself!  
+Explore our range of **PrimalCare Tallow Balms** in **neutral** and **scented formulas**, perfect for **hydration**, **healing**, and **anti-aging**. Order yours today from our **[Tallow Balm NZ](https://primalpantry.co.nz/shop/products/tallow-skin/).** and enjoy the **benefits of ancestral skincare**—without the hassle of making it yourself!  

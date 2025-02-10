@@ -116,4 +116,4 @@ Before selecting a balm, it’s important to identify your **skin type** and its
 ## **6. Final Thoughts—Find the Perfect Tallow Balm for You**  
 Tallow balm is a **game-changer** for **natural skincare**, offering **deep hydration** and **restorative benefits**. Whether you’re targeting **sensitive skin**, **aging concerns**, or simply want a **luxurious moisturizer**, **PrimalCare Tallow Balm** has an option for you.  
 
-Explore our **whipped formulas** and find the **perfect match** for your skin. Order your **PrimalCare Tallow Balm** today from our **[online shop](/shop)** and experience the **difference natural skincare can make**!  
+Explore our **whipped formulas** and find the **perfect match** for your skin. Order your **PrimalCare Tallow Balm** today from our **[Tallow Balm NZ](https://primalpantry.co.nz/shop/products/tallow-skin/).** and experience the **difference natural skincare can make**!  

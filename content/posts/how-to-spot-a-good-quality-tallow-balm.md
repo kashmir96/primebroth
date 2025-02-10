@@ -121,4 +121,4 @@ Finding a **high-quality tallow balm** involves more than just looking at the **
 
 With its **whipped texture**, **premium ingredients**, and **sterile production**, **PrimalCare Tallow Balm** stands out as a **top choice** for those seeking **natural skincare**.  
 
-Order your jar of **PrimalCare Tallow Balm** today from our **[online shop](/shop)** and experience the **quality difference** of **ancestral skincare** made for **modern living**!  
+Order your jar of **PrimalCare Tallow Balm** today from our **[Tallow Balm NZ shop](https://primalpantry.co.nz/shop/products/tallow-skin/).** and experience the **quality difference** of **ancestral skincare** made for **modern living**!  

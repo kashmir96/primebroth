@@ -39,7 +39,7 @@ Many modern diets lack **vitamins**, **minerals**, and **amino acids** due to **
 **Ancestral foods** focus on **nutrient-dense options** such as:  
 - **Organ Meats**: High in **iron**, **vitamin A**, and **B vitamins**.  
 - **Bone Broth**: Rich in **minerals** and **collagen** for **bone strength** and **joint support**.  
-- **Tallow Balm**: Provides **vitamins A, D, E, and K** for **skin repair** and **hydration**.  
+- **[Tallow Balm NZ](https://primalpantry.co.nz/shop/products/tallow-skin/).**: Provides **vitamins A, D, E, and K** for **skin repair** and **hydration**.  
 
 ---
 

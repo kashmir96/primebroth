@@ -105,4 +105,4 @@ Tallow balm’s **natural fats** and **oil-based formula** make it **resistant t
 
 With **PrimalCare’s whipped tallow balm**, you get the **best of both worlds**—the **ancestral benefits** of tallow with the **convenience** of modern production standards.  
 
-Order your jar of **PrimalCare Tallow Balm** today from our **[online shop](/shop)** and experience the **stability and simplicity** of **natural skincare** that lasts!  
+Order your jar of **PrimalCare Tallow Balm** today from our **[Tallow Balm NZ](https://primalpantry.co.nz/shop/products/tallow-skin/).** and experience the **stability and simplicity** of **natural skincare** that lasts!  
