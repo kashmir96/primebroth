@@ -38,7 +38,7 @@ exports.handler = async (event, context) => {
         if (!price || !price.unit_amount) {
           throw new Error(`Invalid price retrieved for priceId: ${item.priceId}`);
         }
-
+        
         console.log(`Price retrieved: ${price.unit_amount} cents, Quantity: ${item.quantity}`);
 
         // Create line item for Stripe Checkout
