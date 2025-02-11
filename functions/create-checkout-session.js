@@ -108,7 +108,7 @@ exports.handler = async (event, context) => {
       },
       shipping_options: shippingOptions,
       line_items: lineItems,
-      mode: 'payment',
+      mode: 'payment', 
 
       // Dynamically apply the discount if any item is eligible
       discounts: cart.some(item => item.eligibleForDiscount)
