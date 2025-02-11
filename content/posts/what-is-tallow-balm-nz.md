@@ -3,7 +3,7 @@ slug: "what-is-tallow-balm"
 title: "What Is Tallow Balm? Ingredients, Uses, and Benefits"
 description: "Learn what tallow balm is, how it's made, and why it’s the best natural moisturizer for dry skin, eczema, and sensitive skin."
 tags: ["tallow balm", "what is tallow balm", "natural skincare", "beef tallow for skin NZ"]
-date: 2024-02-17T13:00:00+13:00
+date: 2025-02-17T13:00:00+13:00
 draft: false
 ---
 

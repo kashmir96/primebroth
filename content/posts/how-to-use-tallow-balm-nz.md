@@ -3,7 +3,7 @@ slug: "how-to-use-tallow-balm"
 title: "How to Use Tallow Balm for Face, Body, and Skin Conditions"
 description: "Learn how to use tallow balm for the face, body, babies, eczema, and psoriasis. Discover the benefits of beef tallow for skin in NZ."
 tags: ["tallow balm", "how to use tallow balm", "beef tallow for skin NZ"]
-date: 2024-02-13T13:15:00+13:00
+date: 2025-02-13T13:15:00+13:00
 draft: false
 ---
 

@@ -3,7 +3,7 @@ slug: "how-to-use-tallow-balm-as-a-cleanser"
 title: "How to Use Tallow Balm as a Cleanser: A Natural Oil Cleansing Method"
 description: "Learn how to use tallow balm as a cleanser to remove dirt, excess oil, and makeup while keeping your skin hydrated and healthy."
 tags: ["tallow balm", "how to use tallow balm as a cleanser", "beef tallow for skin NZ"]
-date: 2024-02-23T14:40:00+13:00
+date: 2025-02-23T14:40:00+13:00
 draft: false
 ---
 

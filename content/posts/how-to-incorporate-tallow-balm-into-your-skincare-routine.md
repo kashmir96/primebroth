@@ -3,7 +3,7 @@ slug: "how-to-incorporate-tallow-balm-into-your-skincare-routine"
 title: "How to Incorporate Tallow Balm Into Your Skincare Routine"
 description: "Learn how to use tallow balm in your daily skincare routine for hydration, healing, and anti-aging benefits. Perfect for morning and night use."
 tags: ["tallow balm", "how to incorporate tallow balm into your skincare routine", "beef tallow for skin NZ"]
-date: 2024-02-22T14:30:00+13:00
+date: 2025-02-22T14:30:00+13:00
 draft: false
 ---
 

@@ -3,7 +3,7 @@ slug: "the-ingredients-in-a-tallow-balm"
 title: "The Ingredients in a Tallow Balm: What Makes It So Effective?"
 description: "Learn about the key ingredients in tallow balm NZ and why they work so well for hydration, healing, and skin protection."
 tags: ["tallow balm", "the ingredients in a tallow balm", "beef tallow for skin NZ"]
-date: 2024-02-28T14:45:00+13:00
+date: 2025-02-28T14:45:00+13:00
 draft: false
 ---
 
