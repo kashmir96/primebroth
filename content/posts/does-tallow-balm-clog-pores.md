@@ -3,7 +3,7 @@ slug: "does-tallow-balm-clog-pores"
 title: "Does Tallow Balm Clog Pores? The Truth About Natural Skincare"
 description: "Find out if tallow balm clogs pores, how it compares to other moisturisers, and why it’s a great option for acne-prone skin."
 tags: ["tallow balm", "does tallow balm clog pores", "beef tallow for skin NZ"]
-date: 2025-02-12T15:05:00+13:00
+date: 2025-02-12
 draft: false
 ---
 

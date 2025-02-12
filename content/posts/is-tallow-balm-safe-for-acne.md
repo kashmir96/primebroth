@@ -3,7 +3,7 @@ slug: "is-tallow-balm-safe-for-acne"
 title: "Is Tallow Balm Safe for Acne? Everything You Need to Know"
 description: "Find out if tallow balm is safe for acne-prone skin, how it works with breakouts, and whether it helps or harms acne-prone complexions."
 tags: ["tallow balm", "is tallow balm safe for acne", "beef tallow for skin NZ"]
-date: 2025-02-12T15:00:00+13:00
+date: 2025-02-12
 draft: false
 ---
 

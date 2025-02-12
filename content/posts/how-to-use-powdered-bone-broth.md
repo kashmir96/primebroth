@@ -3,7 +3,7 @@ slug: "how-to-use-powdered-bone-broth"
 title: "How to Use Powdered Bone Broth—Simple and Versatile Options"
 description: "Discover how powdered bone broth compares to liquid and concentrates, and learn how to mix, cook, and sip Primebroth Bone Broth Powder for maximum convenience and nutrition."
 tags: ["bone broth", "powdered", "concentrate", "Primebroth"]
-date: 2025-01-10T13:48:01+13:00
+date: 2025-01-10
 draft: false
 ---
 

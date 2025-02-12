@@ -3,7 +3,7 @@ slug: "who-should-use-bone-broth"
 title: "Who Should Use Bone Broth?—The Health Benefits for Every Lifestyle"
 description: "Discover who can benefit most from bone broth, from athletes to those with gut issues and aging joints. Learn how Primebroth Bone Broth Powder fits into any routine."
 tags: ["bone broth", "health benefits", "who should use bone broth", "Primebroth"]
-date: 2025-01-27T13:48:01+13:00
+date: 2025-02-01
 draft: false
 ---
 

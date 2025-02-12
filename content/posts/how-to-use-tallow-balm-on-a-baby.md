@@ -3,7 +3,7 @@ slug: "how-to-use-tallow-balm-on-a-baby"
 title: "How to Use Tallow Balm on a Baby: A Natural Skincare Routine"
 description: "Learn how to safely use tallow balm NZ on your baby’s skin, from nappy rash to dry patches and cradle cap."
 tags: ["tallow balm", "how to use tallow balm on a baby", "beef tallow for skin NZ"]
-date: 2025-02-23T13:00:00+13:00
+date: 2025-02-18
 draft: false
 ---
 

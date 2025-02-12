@@ -3,7 +3,7 @@ slug: "common-ways-to-consume-bone-broth"
 title: "Common Ways to Consume Bone Broth—Tips for Every Lifestyle"
 description: "Explore the most popular ways to enjoy bone broth, from sipping it warm to using it in soups, gravies, and smoothies. Find out how Primebroth makes it easy to include bone broth in your routine."
 tags: ["bone broth", "drinking", "cooking", "recipes", "Primebroth"]
-date: 2025-01-02T13:48:01+13:00
+date: 2025-01-02
 draft: false
 ---
 

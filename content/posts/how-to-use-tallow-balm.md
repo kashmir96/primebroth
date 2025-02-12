@@ -3,7 +3,7 @@ slug: "how-to-use-tallow-balm"
 title: "How to Use Tallow Balm—A Complete Guide for Healthy Skin"
 description: "Learn how to use tallow balm effectively for face, body, and problem areas. Discover the benefits of PrimalCare Tallow Balm for natural, nourishing skincare."
 tags: ["tallow balm", "how to use tallow balm", "natural skincare", "PrimalCare"]
-date: 2025-01-11T13:48:01+13:00
+date: 2025-01-11
 draft: false
 ---
 

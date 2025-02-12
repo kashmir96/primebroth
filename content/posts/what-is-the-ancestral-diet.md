@@ -3,7 +3,7 @@ slug: "what-is-the-ancestral-diet"
 title: "What is the Ancestral Diet?—A Return to Natural Eating"
 description: "Learn about the ancestral diet, its focus on whole, unprocessed foods, and how it supports modern health. Discover how PrimalPantry aligns with ancestral principles through bone broth and tallow balm."
 tags: ["ancestral diet", "nutrition", "PrimalPantry", "natural eating"]
-date: 2025-01-22T13:48:01+13:00
+date: 2025-02-08
 draft: false
 ---
 

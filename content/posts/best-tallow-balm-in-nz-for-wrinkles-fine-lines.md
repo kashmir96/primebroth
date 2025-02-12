@@ -3,7 +3,7 @@ slug: "best-tallow-balm-in-nz-for-wrinkles-fine-lines"
 title: "Best Tallow Balm in NZ for Wrinkles & Fine Lines"
 description: "Looking for the best tallow balm in NZ for wrinkles and fine lines? Discover what makes a great anti-aging tallow balm and where to buy it."
 tags: ["tallow balm", "best tallow balm in NZ for wrinkles", "beef tallow for skin NZ"]
-date: 2025-02-21T13:00:00+13:00
+date: 2025-02-21
 draft: false
 ---
 

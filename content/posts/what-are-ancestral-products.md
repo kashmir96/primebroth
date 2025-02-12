@@ -3,7 +3,7 @@ slug: "what-are-ancestral-products"
 title: "What Are Ancestral Products?—Natural Solutions for Modern Living"
 description: "Explore the meaning of ancestral products and their role in natural health and skincare. Learn how PrimalPantry delivers nutrient-dense, animal-based products like bone broth and tallow balm."
 tags: ["ancestral products", "natural skincare", "PrimalPantry"]
-date: 2025-01-19T13:48:01+13:00
+date: 2025-02-26
 draft: false
 ---
 

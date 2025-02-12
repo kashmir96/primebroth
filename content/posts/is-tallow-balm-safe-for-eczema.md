@@ -3,7 +3,7 @@ slug: "is-tallow-balm-safe-for-eczema"
 title: "Is Tallow Balm Safe for Eczema? Natural Relief for Sensitive Skin"
 description: "Wondering if tallow balm is safe for eczema? Learn how tallow balm NZ can help soothe dry, irritated skin and support the skin barrier."
 tags: ["tallow balm", "is tallow balm safe for eczema", "beef tallow for skin NZ"]
-date: 2025-02-16T15:40:00+13:00
+date: 2025-02-16
 draft: false
 ---
 

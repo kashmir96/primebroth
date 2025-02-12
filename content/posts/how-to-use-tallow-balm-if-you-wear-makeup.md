@@ -3,7 +3,7 @@ slug: "how-to-use-tallow-balm-if-you-wear-makeup"
 title: "How to Use Tallow Balm If You Wear Makeup"
 description: "Tallow balm works well under makeup! Learn how to use tallow balm NZ as a primer, a makeup remover, and a natural skin prep for a glowing base."
 tags: ["tallow balm", "how to use tallow balm if you wear makeup", "beef tallow for skin NZ"]
-date: 2025-02-24T14:35:00+13:00
+date: 2025-02-24
 draft: false
 ---
 

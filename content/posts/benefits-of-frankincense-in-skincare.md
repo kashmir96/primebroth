@@ -3,7 +3,7 @@ slug: "benefits-of-frankincense-in-skincare"
 title: "Benefits of Frankincense in Skincare: A Natural Anti-Aging Ingredient"
 description: "Discover why frankincense is a powerful anti-aging and healing ingredient in skincare, and how it enhances tallow balm NZ."
 tags: ["tallow balm", "benefits of frankincense in skincare", "beef tallow for skin NZ"]
-date: 2024-02-20T14:50:00+13:00
+date: 2025-02-11
 draft: false
 ---
 

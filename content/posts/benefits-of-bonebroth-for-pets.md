@@ -1,7 +1,7 @@
 ---
 title: "Benefits of Bone Broth for Pets"
 image: "/img/bonebroth3.webp"
-date: 2024-06-22T13:48:01+13:00
+date: 2025-12-10
 ---
 <img src="/img/bonebroth3.webp" alt="Benefits of Bone Broth for Pets image">
 Bone broth is a stock or broth made by simmering animal bones, such as cattle, chicken, or lamb. The bones are slow-cooked with water for hours to extract nourishing compounds like collagen and essential amino acids that are not found in usual pet food or home-cooked food.

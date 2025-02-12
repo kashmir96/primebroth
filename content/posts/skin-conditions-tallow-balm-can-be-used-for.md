@@ -3,7 +3,7 @@ slug: "skin-conditions-tallow-balm-can-be-used-for"
 title: "Skin Conditions That Tallow Balm Can Be Used For"
 description: "Discover how tallow balm NZ can help with eczema, psoriasis, dry skin, and other skin conditions. Learn why beef tallow for skin NZ is a powerful natural remedy."
 tags: ["tallow balm", "skin conditions tallow balm can be used for", "beef tallow for skin NZ"]
-date: 2025-02-26T14:15:00+13:00
+date: 2025-02-11
 draft: false
 ---
 

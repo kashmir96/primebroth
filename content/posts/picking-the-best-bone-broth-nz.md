@@ -3,7 +3,7 @@ slug: "picking-the-best-bone-broth-nz"
 title: "Picking the Best Bone Broth in NZ—A Buyer’s Guide"
 description: "Discover what to look for in high-quality bone broth and why Primebroth Bone Broth Powder is New Zealand’s top choice for nutrition and convenience."
 tags: ["bone broth", "best bone broth NZ", "Primebroth", "buying guide"]
-date: 2025-01-15T13:48:01+13:00
+date: 2025-01-15
 draft: false
 ---
 

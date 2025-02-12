@@ -3,7 +3,7 @@ slug: "how-to-store-tallow-balm"
 title: "How to Store Tallow Balm: Best Practices for Longevity"
 description: "Wondering how to store tallow balm NZ properly? Learn the best way to keep your tallow balm fresh and effective for as long as possible."
 tags: ["tallow balm", "how to store tallow balm", "beef tallow for skin NZ"]
-date: 2025-02-27T13:00:00+13:00
+date: 2025-02-13
 draft: false
 ---
 

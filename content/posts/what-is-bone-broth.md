@@ -3,7 +3,7 @@ slug: "what-is-bone-broth"
 title: "What is Bone Broth?—Everything You Need to Know"
 description: "Learn what bone broth is, how it’s made, and why it’s considered a nutrient powerhouse for gut health, skin, joints, and more. Discover Primebroth Bone Broth Powder for easy daily use."
 tags: ["bone broth", "what is bone broth", "nutrition", "Primebroth"]
-date: 2025-01-20T13:48:01+13:00
+date: 2025-02-25
 draft: false
 ---
 

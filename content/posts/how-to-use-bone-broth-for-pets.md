@@ -1,7 +1,7 @@
 ---
 title: "How to use bone broth for pets?"
 image: "img/bonebroth2.webp"
-date: 2024-07-01
+date: 2024-07-10
 ---
 
 Are you looking into adding bone broth to your pet’s diet but don’t know how? Here are a few ideas!

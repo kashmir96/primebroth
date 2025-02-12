@@ -3,7 +3,7 @@ slug: "choosing-the-right-tallow-balm"
 title: "Choosing the Right Tallow Balm for Your Skin—A Buyer’s Guide"
 description: "Discover how to choose the best tallow balm for your skin type, from sensitive to dry or mature skin. Learn about PrimalCare’s whipped tallow balm options."
 tags: ["tallow balm", "choosing tallow balm", "skin care", "PrimalCare"]
-date: 2025-01-03T13:48:01+13:00
+date: 2025-01-03
 draft: false
 ---
 

@@ -3,7 +3,7 @@ slug: "is-tallow-balm-safe-for-babies"
 title: "Is Tallow Balm Safe for Babies?—Gentle Skincare for Delicate Skin"
 description: "Find out why tallow balm is a safe, natural option for baby skincare. Learn how PrimalCare’s neutral formula soothes diaper rash, eczema, and dryness."
 tags: ["tallow balm", "baby skincare", "natural baby products", "PrimalCare"]
-date: 2025-01-13T13:48:01+13:00
+date: 2025-01-13
 draft: false
 ---
 

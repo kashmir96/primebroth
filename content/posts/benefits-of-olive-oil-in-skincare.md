@@ -3,7 +3,7 @@ slug: "benefits-of-olive-oil-in-skincare"
 title: "Benefits of Olive Oil in Skincare: Why It’s a Must-Have Ingredient"
 description: "Discover the benefits of olive oil in skincare and why it’s used in tallow balm NZ to enhance hydration, repair, and skin protection."
 tags: ["tallow balm", "benefits of olive oil in skincare", "beef tallow for skin NZ"]
-date: 2025-02-12T14:55:00+13:00
+date: 2025-02-12
 draft: false
 ---
 

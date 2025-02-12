@@ -3,7 +3,7 @@ slug: "results-to-expect-from-using-tallow-balm-on-eczema"
 title: "Results to Expect from Using Tallow Balm on Eczema"
 description: "Find out what to expect when using tallow balm NZ for eczema, from short-term hydration to long-term healing."
 tags: ["tallow balm", "results to expect from using tallow balm on eczema", "beef tallow for skin NZ"]
-date: 2025-02-16T16:20:00+13:00
+date: 2025-02-16
 draft: false
 ---
 

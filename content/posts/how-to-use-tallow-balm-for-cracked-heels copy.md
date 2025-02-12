@@ -3,7 +3,7 @@ slug: "tallow-balm-for-cracked-heels"
 title: "Tallow Balm for Cracked Heels: How to Use It for Soft, Healthy Feet"
 description: "Learn how to use tallow balm for cracked heels, why beef tallow is the best natural moisturizer for dry feet, and how it compares to commercial foot creams."
 tags: ["tallow balm", "tallow balm for cracked heels", "beef tallow for skin NZ"]
-date: 2025-02-12T13:20:00+13:00
+date: 2025-02-12
 draft: false
 ---
 

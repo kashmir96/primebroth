@@ -3,7 +3,7 @@ slug: "how-long-does-tallow-balm-last"
 title: "How Long Does Tallow Balm Last? Shelf Life & Storage Tips"
 description: "How long does tallow balm NZ last? Learn about its natural shelf life and how to keep it fresh for as long as possible."
 tags: ["tallow balm", "how long does tallow balm last", "beef tallow for skin NZ"]
-date: 2025-02-28T13:00:00+13:00
+date: 2025-02-28
 draft: false
 ---
 

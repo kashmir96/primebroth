@@ -2,7 +2,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async (event, context) => {
   try {
-    const { cart, country } = JSON.parse(event.body); // Accept country from frontend
+    const { cart } = JSON.parse(event.body); // No need to pass country initially
 
     // Check if the cart is valid
     if (!cart || !Array.isArray(cart) || cart.length === 0) {
@@ -67,35 +67,12 @@ exports.handler = async (event, context) => {
         rural: 'shr_1QKTajFZRwx5tlYmayPCyClE',
       },
       AU: {
-        standard: 'shr_1QrGJiFZRwx5tlYmTxZEcVkE', // New AU shipping rate
+        standard: 'shr_1QrGJiFZRwx5tlYmTxZEcVkE',
+        free: 'shr_1QKTagFZRwx5tlYmswF6jANR', // Use same free shipping as NZ
       },
     };
 
-    // Determine shipping country (default to NZ)
-    const selectedCountry = country && shippingRates[country] ? country : 'NZ';
-    console.log(`Shipping country detected: ${selectedCountry}`);
-
-    let shippingOptions = [];
-
-    if (selectedCountry === 'NZ') {
-      if (totalAmount >= 8000) {
-        shippingOptions = [{ shipping_rate: shippingRates.NZ.free }];
-      } else if (totalAmount >= 1000) {
-        shippingOptions = [
-          { shipping_rate: shippingRates.NZ.medium },
-          { shipping_rate: shippingRates.NZ.rural },
-        ];
-      } else {
-        shippingOptions = [
-          { shipping_rate: shippingRates.NZ.standard },
-          { shipping_rate: shippingRates.NZ.rural },
-        ];
-      }
-    } else if (selectedCountry === 'AU') {
-      shippingOptions = [{ shipping_rate: shippingRates.AU.standard }];
-    }
-
-    console.log(`Shipping options: ${JSON.stringify(shippingOptions)}`);
+    console.log("Shipping rates loaded for NZ & AU.");
 
     // Create success URL with landingURL as a query parameter
     const successUrl = `https://www.primalpantry.co.nz/pages/thank-you?landing_url=${encodeURIComponent(decodedLandingURL)}`;
@@ -104,9 +81,9 @@ exports.handler = async (event, context) => {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       shipping_address_collection: {
-        allowed_countries: ['NZ', 'AU'], // Now allows both New Zealand & Australia
+        allowed_countries: ['NZ', 'AU'], // Allow NZ & AU
       },
-      shipping_options: shippingOptions,
+      shipping_options: [], // Shipping rates will be dynamically applied based on the address entered
       line_items: lineItems,
       mode: 'payment',
 

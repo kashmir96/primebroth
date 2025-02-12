@@ -3,7 +3,7 @@ slug: "buying-vs-making-bone-broth"
 title: "Buying vs Making Bone Broth—Which is Better for Your Health?"
 description: "Weigh the pros and cons of buying vs making bone broth. Learn why Primebroth Bone Broth Powder offers the best combination of quality, convenience, and nutrition."
 tags: ["bone broth", "buying vs making", "Primebroth", "convenience"]
-date: 2025-01-02T13:48:01+13:00
+date: 2025-01-02
 draft: false
 ---
 

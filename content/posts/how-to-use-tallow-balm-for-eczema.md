@@ -3,7 +3,7 @@ slug: "how-to-use-tallow-balm-for-eczema"
 title: "How to Use Tallow Balm for Eczema: Step-by-Step Guide"
 description: "Learn the best way to apply tallow balm NZ for eczema, when to use it, and how to get the best results."
 tags: ["tallow balm", "how to use tallow balm for eczema", "beef tallow for skin NZ"]
-date: 2025-02-18T16:15:00+13:00
+date: 2025-02-18
 draft: false
 ---
 

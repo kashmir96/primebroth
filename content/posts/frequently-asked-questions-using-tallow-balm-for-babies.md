@@ -3,7 +3,7 @@ slug: "frequently-asked-questions-using-tallow-balm-for-babies"
 title: "Frequently Asked Questions – Using Tallow Balm for Babies"
 description: "Got questions about using tallow balm for babies? Here are the most common FAQs, from safety to application and best practices."
 tags: ["tallow balm", "frequently asked questions using tallow balm for babies", "beef tallow for skin NZ"]
-date: 2025-02-26T13:00:00+13:00
+date: 2025-02-26
 draft: false
 ---
 

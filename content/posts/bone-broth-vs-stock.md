@@ -3,7 +3,7 @@ slug: "bone-broth-vs-stock"
 title: "Bone Broth vs Stock—Key Differences and Which One is Better?"
 description: "Learn the differences between bone broth and stock, from ingredients to nutritional benefits. Discover why Primebroth Bone Broth Powder is the better choice for health and convenience."
 tags: ["bone broth", "stock vs bone broth", "nutrition", "Primebroth"]
-date: 2025-01-01T13:48:01+13:00
+date: 2025-01-01
 draft: false
 ---
 

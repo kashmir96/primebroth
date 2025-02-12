@@ -3,7 +3,7 @@ slug: "why-does-tallow-balm-help-eczema"
 title: "Why Does Tallow Balm Help Eczema? The Science Behind It"
 description: "Discover why tallow balm NZ is so effective for eczema, from its skin-identical fats to its rich vitamin content."
 tags: ["tallow balm", "why does tallow balm help eczema", "beef tallow for skin NZ"]
-date: 2025-02-12T16:10:00+13:00
+date: 2025-02-26
 draft: false
 ---
 

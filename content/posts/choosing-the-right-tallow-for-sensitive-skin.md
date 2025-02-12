@@ -3,7 +3,7 @@ slug: "choosing-the-right-tallow-for-sensitive-skin"
 title: "Choosing the Right Tallow for Sensitive Skin: What to Look For"
 description: "Not all tallow is created equal! Learn how to choose the best tallow balm for sensitive skin and avoid common irritants."
 tags: ["tallow balm", "choosing the right tallow for sensitive skin", "beef tallow for skin NZ"]
-date: 2025-02-21T14:10:00+13:00
+date: 2025-02-21
 draft: false
 ---
 

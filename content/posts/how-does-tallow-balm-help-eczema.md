@@ -3,7 +3,7 @@ slug: "ancestral-lifestyle-benefits"
 title: "What Problems Are People Solving by Living Ancestrally?—A Healthier Approach to Modern Life"
 description: "Explore the health benefits of living ancestrally, including reduced inflammation, improved digestion, and better skin health. See how PrimalPantry products like bone broth and tallow balm fit into an ancestral lifestyle."
 tags: ["ancestral lifestyle", "benefits", "natural health", "PrimalPantry"]
-date: 2025-02-21T13:48:01+13:00
+date: 2025-02-21
 draft: false
 image: "/img/13.webp"
 

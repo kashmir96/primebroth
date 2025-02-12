@@ -3,7 +3,7 @@ slug: "using-tallow-balm-as-a-moisturiser"
 title: "Using Tallow Balm as a Moisturiser: A Natural Alternative to Lotions"
 description: "Learn how to use tallow balm as a daily moisturiser for deep hydration, smoother skin, and long-lasting nourishment. Perfect for face and body."
 tags: ["tallow balm", "using tallow balm as a moisturiser", "beef tallow for skin NZ"]
-date: 2025-02-29T14:05:00+13:00
+date: 2025-02-23
 draft: false
 ---
 

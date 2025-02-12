@@ -3,7 +3,7 @@ slug: "benefits-of-bone-broth"
 title: "Benefits of Bone Broth—Why You Should Add It to Your Diet"
 description: "Discover the many benefits of bone broth, including gut health, joint support, and skin nourishment. Learn why Primebroth Bone Broth Powder is the perfect option for busy lifestyles."
 tags: ["bone broth", "benefits", "nutrition", "Primebroth"]
-date: 2024-12-29T13:48:01+13:00
+date: 2025-12-09
 draft: false
 
 ---

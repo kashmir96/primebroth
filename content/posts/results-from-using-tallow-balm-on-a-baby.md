@@ -3,7 +3,7 @@ slug: "results-from-using-tallow-balm-on-a-baby"
 title: "The Results from Using Tallow Balm on a Baby: What to Expect"
 description: "Discover the results parents have seen when using tallow balm NZ on their baby’s dry skin, eczema, nappy rash, and more."
 tags: ["tallow balm", "results from using tallow balm on a baby", "beef tallow for skin NZ"]
-date: 2025-02-24T13:00:00+13:00
+date: 2025-02-15
 draft: false
 ---
 

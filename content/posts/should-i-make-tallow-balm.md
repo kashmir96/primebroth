@@ -3,7 +3,7 @@ slug: "should-i-make-tallow-balm"
 title: "Should I Make Tallow Balm? Pros and Cons of DIY vs Buying"
 description: "Thinking about making tallow balm at home? Learn the pros and cons of DIY tallow balm vs buying a professionally made version."
 tags: ["tallow balm", "should I make tallow balm", "beef tallow for skin NZ"]
-date: 2025-02-15T13:00:00+13:00
+date: 2025-02-15
 draft: false
 ---
 

@@ -3,7 +3,7 @@ slug: "how-does-tallow-balm-support-skin-barrier"
 title: "How Does Tallow Balm Support the Skin Barrier?"
 description: "Learn how tallow balm helps strengthen the skin barrier, lock in moisture, and protect against irritation and dryness."
 tags: ["tallow balm", "how does tallow balm support skin barrier", "beef tallow for skin NZ"]
-date: 2025-02-14T15:15:00+13:00
+date: 2025-02-14
 draft: false
 ---
 

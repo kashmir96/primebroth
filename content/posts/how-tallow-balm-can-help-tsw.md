@@ -3,7 +3,7 @@ slug: "how-tallow-balm-can-help-tsw"
 title: "How Tallow Balm Can Help TSW (Topical Steroid Withdrawal)"
 description: "Struggling with Topical Steroid Withdrawal (TSW)? Learn how tallow balm NZ can provide deep hydration and barrier support for irritated skin."
 tags: ["tallow balm", "how tallow balm can help TSW", "beef tallow for skin NZ"]
-date: 2025-02-19T15:45:00+13:00
+date: 2025-02-19
 draft: false
 ---
 

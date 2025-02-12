@@ -3,7 +3,7 @@ slug: "tallow-balm-for-eczema-faq"
 title: "Tallow Balm for Eczema – Frequently Asked Questions"
 description: "Got questions about using tallow balm for eczema? Here are the most common FAQs, from how to apply it to how long it takes to see results."
 tags: ["tallow balm", "tallow balm for eczema FAQ", "beef tallow for skin NZ"]
-date: 2025-02-14T13:00:00+13:00
+date: 2025-02-14
 draft: false
 ---
 

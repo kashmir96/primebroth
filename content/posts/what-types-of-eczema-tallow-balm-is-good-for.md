@@ -3,7 +3,7 @@ slug: "how-does-tallow-balm-help-eczema"
 title: "How Does Tallow Balm Help Eczema? Natural Relief for Dry, Irritated Skin"
 description: "Learn how tallow balm NZ helps eczema by deeply hydrating, soothing inflammation, and supporting skin barrier repair."
 tags: ["tallow balm", "how does tallow balm help eczema", "beef tallow for skin NZ"]
-date: 2025-02-16T16:05:00+13:00
+date: 2025-02-05
 draft: false
 ---
 

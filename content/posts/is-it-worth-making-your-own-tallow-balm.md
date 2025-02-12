@@ -3,7 +3,7 @@ slug: "is-it-worth-making-your-own-tallow-balm"
 title: "Is It Worth Making Your Own Tallow Balm?—DIY vs Store-Bought Options"
 description: "Find out whether making your own tallow balm is worth it compared to buying PrimalCare’s whipped tallow balm. Explore the pros, cons, and costs of DIY versus commercial products."
 tags: ["tallow balm", "DIY tallow balm", "store-bought skincare", "PrimalCare"]
-date: 2025-01-12T13:48:01+13:00
+date: 2025-01-12
 draft: false
 ---
 

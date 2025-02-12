@@ -3,7 +3,7 @@ slug: "how-to-use-tallow-balm-for-tsw"
 title: "How to Use Tallow Balm for TSW (Topical Steroid Withdrawal)"
 description: "Struggling with Topical Steroid Withdrawal? Learn how to use tallow balm NZ to soothe, hydrate, and support skin healing during the TSW process."
 tags: ["tallow balm", "how to use tallow balm for TSW", "beef tallow for skin NZ"]
-date: 2025-02-18T15:50:00+13:00
+date: 2025-02-18
 draft: false
 ---
 

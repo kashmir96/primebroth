@@ -3,7 +3,7 @@ slug: "why-choose-nz-made-tallow-balm"
 title: "Why Choose NZ-Made Tallow Balm? Supporting Local, Sustainable Skincare"
 description: "Find out why NZ-made tallow balm is the best choice for quality, sustainability, and supporting local businesses."
 tags: ["tallow balm", "why choose NZ made tallow balm", "beef tallow for skin NZ"]
-date: 2025-02-14T15:30:00+13:00
+date: 2025-02-20
 draft: false
 ---
 

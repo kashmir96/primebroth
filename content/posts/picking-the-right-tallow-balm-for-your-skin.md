@@ -3,7 +3,7 @@ slug: "picking-the-right-tallow-balm-for-your-skin"
 title: "Picking the Right Tallow Balm for Your Skin: What to Consider"
 description: "Not all tallow balms are the same! Learn how to choose the best tallow balm NZ for your skin type, from sensitive to oily to aging skin."
 tags: ["tallow balm", "picking the right tallow balm for your skin", "beef tallow for skin NZ"]
-date: 2025-02-19T13:00:00+13:00
+date: 2025-02-19
 draft: false
 ---
 

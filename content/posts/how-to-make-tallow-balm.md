@@ -3,7 +3,7 @@ slug: "how-to-make-tallow-balm"
 title: "How to Make Tallow Balm—DIY Guide vs Buying It Ready-Made"
 description: "Learn how to make tallow balm at home, step-by-step. Discover the pros and cons of DIY tallow balm versus buying PrimalCare’s ready-made whipped tallow balm."
 tags: ["tallow balm", "how to make tallow balm", "DIY skincare", "PrimalCare"]
-date: 2025-01-07T13:48:01+13:00
+date: 2025-01-07
 draft: false
 ---
 

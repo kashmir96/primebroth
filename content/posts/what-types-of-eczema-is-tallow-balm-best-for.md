@@ -3,7 +3,7 @@ slug: "what-types-of-eczema-is-tallow-balm-best-for"
 title: "What Types of Eczema is Tallow Balm Best For?"
 description: "Learn which types of eczema tallow balm NZ is most effective for, from atopic dermatitis to contact eczema and dry skin conditions."
 tags: ["tallow balm", "what types of eczema is tallow balm best for", "beef tallow for skin NZ"]
-date: 2025-02-13T13:00:00+13:00
+date: 2025-02-06
 draft: false
 ---
 

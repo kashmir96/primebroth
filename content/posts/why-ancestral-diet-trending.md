@@ -3,7 +3,7 @@ slug: "why-ancestral-diet-trending"
 title: "Why is the Ancestral Diet Trending?—A Return to Healthier Eating Habits"
 description: "Discover why the ancestral diet is growing in popularity and how it helps address modern health issues caused by processed foods. Learn about PrimalPantry’s role in ancestral nutrition with bone broth and tallow balm."
 tags: ["ancestral diet", "trends", "nutrition", "PrimalPantry"]
-date: 2025-01-29T13:48:01+13:00
+date: 2025-02-15
 draft: false
 ---
 

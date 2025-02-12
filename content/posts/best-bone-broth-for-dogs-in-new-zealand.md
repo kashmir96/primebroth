@@ -1,7 +1,7 @@
 ---
 title: "Best Bone Broth For Dogs in New Zealand (2024)"
 image: "/img/frosty.webp"
-date: 2024-05-22T13:48:01+13:00
+date: 2024-05-22
 ---
 
 <img src="/img/frosty.webp" alt="">

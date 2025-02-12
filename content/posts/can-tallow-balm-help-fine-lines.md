@@ -3,7 +3,7 @@ slug: "can-tallow-balm-help-fine-lines"
 title: "Can Tallow Balm Help Fine Lines? A Natural Anti-Aging Option"
 description: "Learn how tallow balm NZ can reduce fine lines by deeply hydrating, improving skin elasticity, and supporting collagen production."
 tags: ["tallow balm", "can tallow balm help fine lines", "beef tallow for skin NZ"]
-date: 2025-02-17T13:00:00+13:00
+date: 2025-02-17
 draft: false
 ---
 

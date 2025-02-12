@@ -3,7 +3,7 @@ slug: "how-to-use-bone-broth"
 title: "How to Use Bone Broth—A Practical Guide"
 description: "Learn how to incorporate bone broth into your daily routine for gut health, joint support, and delicious recipes. Discover tips for sipping, cooking, and blending with Primebroth Bone Broth Powder."
 tags: ["bone broth", "usage", "recipes", "Primebroth"]
-date: 2025-01-09T13:48:01+13:00
+date: 2025-01-09
 draft: false
 ---
 

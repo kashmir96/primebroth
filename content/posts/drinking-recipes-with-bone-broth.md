@@ -3,7 +3,7 @@ slug: "drinking-recipes-with-bone-broth"
 title: "Drinking Recipes with Bone Broth—Creative and Nourishing Ideas"
 description: "Discover unique bone broth drinks, including spiced lattes, matcha blends, and detox drinks. Primebroth Bone Broth Powder makes it quick and easy to create nourishing beverages."
 tags: ["bone broth", "drinks", "smoothies", "Primebroth"]
-date: 2025-01-05T13:48:01+13:00
+date: 2025-01-05
 draft: false
 ---
 

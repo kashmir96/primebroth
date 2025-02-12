@@ -3,7 +3,7 @@ slug: "can-tallow-balm-help-wrinkles"
 title: "Can Tallow Balm Help Wrinkles? Natural Anti-Aging Benefits"
 description: "Discover how tallow balm NZ can help reduce wrinkles, support skin elasticity, and provide deep hydration for aging skin."
 tags: ["tallow balm", "can tallow balm help wrinkles", "beef tallow for skin NZ"]
-date: 2025-02-16T13:00:00+13:00
+date: 2025-02-16
 draft: false
 ---
 

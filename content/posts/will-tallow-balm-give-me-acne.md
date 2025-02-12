@@ -3,7 +3,7 @@ slug: "will-tallow-balm-give-me-acne"
 title: "Will Tallow Balm Give Me Acne? What You Need to Know"
 description: "Wondering if tallow balm will cause breakouts? Learn how it affects acne-prone skin and whether it’s a safe moisturiser for your face."
 tags: ["tallow balm", "will tallow balm give me acne", "beef tallow for skin NZ"]
-date: 2025-02-13T15:10:00+13:00
+date: 2025-02-02
 draft: false
 ---
 

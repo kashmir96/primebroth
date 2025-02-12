@@ -3,7 +3,7 @@ slug: "where-to-buy-tallow-balm-in-nz"
 title: "Where to Buy Tallow Balm in NZ: Your Guide to Finding Quality Skincare"
 description: "Looking for high-quality tallow balm in NZ? Learn where to buy authentic, grass-fed tallow balm and what to look for in a quality product."
 tags: ["tallow balm", "where to buy tallow balm in NZ", "beef tallow for skin NZ"]
-date: 2025-02-18T13:00:00+13:00
+date: 2025-02-03
 draft: false
 ---
 
