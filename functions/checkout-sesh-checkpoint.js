@@ -2,7 +2,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async (event, context) => {
   try {
-    const { cart } = JSON.parse(event.body); // No need to pass country initially
+    const { cart } = JSON.parse(event.body);
 
     // Check if the cart is valid
     if (!cart || !Array.isArray(cart) || cart.length === 0) {
@@ -57,22 +57,43 @@ exports.handler = async (event, context) => {
 
     // Log the total amount for debugging
     console.log(`Total amount in cents: ${totalAmount}`);
+    
+    // Determine the shipping rate based on the total amount
+    const standardShippingRate = 'shr_1QKTanFZRwx5tlYmmr0UUDQw';
+    const mediumShippingRate = 'shr_1QKTanFZRwx5tlYmmr0UUDQw';
+    const freeShippingRate = 'shr_1QKTagFZRwx5tlYmswF6jANR';
+    const ruralShippingRate = 'shr_1QKTajFZRwx5tlYmayPCyClE'; // Replace with your actual rural shipping rate ID
 
-    // Define shipping rates for NZ & AU
-    const shippingRates = {
-      NZ: {
-        standard: 'shr_1QKTanFZRwx5tlYmmr0UUDQw',
-        medium: 'shr_1QKTanFZRwx5tlYmmr0UUDQw',
-        free: 'shr_1QKTagFZRwx5tlYmswF6jANR',
-        rural: 'shr_1QKTajFZRwx5tlYmayPCyClE',
-      },
-      AU: {
-        standard: 'shr_1QrGJiFZRwx5tlYmTxZEcVkE',
-        free: 'shr_1QKTagFZRwx5tlYmswF6jANR', // Use same free shipping as NZ
-      },
-    };
+    let shippingOptions = [];
 
-    console.log("Shipping rates loaded for NZ & AU.");
+    if (totalAmount >= 8000) {
+      shippingOptions = [
+        {
+          shipping_rate: freeShippingRate,
+        },
+      ];
+    } else if (totalAmount >= 1000) {
+      shippingOptions = [
+        {
+          shipping_rate: mediumShippingRate,
+        },
+        {
+          shipping_rate: ruralShippingRate,
+        }, // Include rural shipping as an option
+      ];
+    } else {
+      // Show both standard and rural shipping options
+      shippingOptions = [
+        {
+          shipping_rate: standardShippingRate,
+        },
+        {
+          shipping_rate: ruralShippingRate,
+        },
+      ];
+    }
+
+    console.log(`Shipping options: ${JSON.stringify(shippingOptions)}`);
 
     // Create success URL with landingURL as a query parameter
     const successUrl = `https://www.primalpantry.co.nz/pages/thank-you?landing_url=${encodeURIComponent(decodedLandingURL)}`;
@@ -81,18 +102,18 @@ exports.handler = async (event, context) => {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       shipping_address_collection: {
-        allowed_countries: ['NZ', 'AU'], // Allow NZ & AU
+        allowed_countries: ['NZ'], // Restrict to New Zealand
       },
-      shipping_options: [], // Shipping rates will be dynamically applied based on the address entered
+      shipping_options: shippingOptions,
       line_items: lineItems,
       mode: 'payment',
 
       // Dynamically apply the discount if any item is eligible
-      discounts: cart.some(item => item.eligibleForDiscount)
-        ? [{ promotion_code: 'promo_1QbZRXFZRwx5tlYmV6Zc83ot' }]
-        : [],
+  discounts: cart.some(item => item.eligibleForDiscount) // Check eligibility flag
+  ? [{ promotion_code: 'promo_1QbZRXFZRwx5tlYmV6Zc83ot' }] // Replace with your Promotion Code ID
+  : [], // No discount for ineligible products
 
-      success_url: successUrl,
+      success_url: successUrl, // Updated success URL
       cancel_url: 'https://www.primalpantry.co.nz/cart/',
     });
 
