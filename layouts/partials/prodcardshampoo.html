@@ -1,9 +1,21 @@
 <!-- Pet single product card -->
-<div class="product-card grow col-lg-3 col-sm-6" data-category="mushrooms food"><a href="/shop/products/tallow-shampoo-bar">
+<div class="product-card grow col-lg-3 col-sm-6" data-category="mushrooms food" id="prodcardshampoo"><a href="/shop/products/tallow-shampoo-bar">
   <p class="stamp">New</p>
   <img src="/img/prod/shampoo/1.webp" alt="">
   <div class="product-details">
-    <p>$17.95</p>
+    <p><span class="nz-content" style="display:inline;">{{ with index site.Data.pricing.tallow.pricing.shampoo 0 }}
+      {{ with .prices.NZ }}
+          ${{ .single_purchase }}
+      {{ end }}
+  {{ end }}
+  </span>
+  <span class="au-content" style="display:none;">
+      {{ with index site.Data.pricing.tallow.pricing.shampoo 0 }}
+      {{ with .prices.AU }}
+         ${{ .single_purchase }}
+      {{ end }}
+  {{ end }}
+  </span></p>
     <h6>Tallow Shampoo Bar</h6>
     <p>NEW</p>
 

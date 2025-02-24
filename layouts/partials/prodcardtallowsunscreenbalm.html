@@ -1,9 +1,21 @@
 <!-- Soap single product card -->
-<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow"><a href="/shop/products/tallow-sunscreen-balm">
+<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow" id="prodcardtallowsunscreenbalm"><a href="/shop/products/tallow-sunscreen-balm">
   <p class="stamp">New</p>
   <img src="/img/sunscreen/main.webp" alt="">
   <div class="product-details">
-    <p>$18.95</p>
+    <p><span class="nz-content" style="display:inline;">{{ with index site.Data.pricing.tallow.pricing.sunscreen 0 }}
+      {{ with .prices.NZ }}
+          ${{ .single_purchase }}
+      {{ end }}
+  {{ end }}
+  </span>
+  <span class="au-content" style="display:none;">
+      {{ with index site.Data.pricing.tallow.pricing.sunscreen 0 }}
+      {{ with .prices.AU }}
+         ${{ .single_purchase }}
+      {{ end }}
+  {{ end }}
+  </span></p>
     <h6>Tallow Sunbalm</h6>
     <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>10+ kiwis</p>
 

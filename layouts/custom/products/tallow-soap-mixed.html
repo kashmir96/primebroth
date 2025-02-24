@@ -267,6 +267,7 @@
 <script>
     const productPricingRaw = {{ site.Data.pricing.tallow.pricing.soap | jsonify | safeJS }};
     console.log("Raw product Pricing from Hugo:", productPricingRaw);
+    const country_code = localStorage.getItem('country_code');
 
     const productPricing = Array.isArray(productPricingRaw) ? productPricingRaw : [];
     if (!Array.isArray(productPricing)) {
@@ -283,8 +284,8 @@
         console.log("Selected order type:", orderType);
 
         const pricingEntry = productPricing.find(entry => entry.size.toLowerCase() === size);
-        if (pricingEntry && pricingEntry.prices[orderType]) {
-            const price = pricingEntry.prices[orderType];
+        if (pricingEntry && pricingEntry.prices[country_code][orderType]) {
+            const price = pricingEntry.prices[country_code][orderType];
             document.getElementById("price").textContent = `$${price.toFixed(2)}`;
         } else {
             document.getElementById("price").textContent = "N/A";
@@ -331,7 +332,7 @@
             console.log("Size Data:", sizeData);
 
             if (sizeData) {
-                priceID = sizeData; // Assign the resolved price ID
+                priceID = sizeData[country_code]; // Assign the resolved price ID
             }
         }
     }
@@ -361,13 +362,13 @@
 
         // Access the correct price ID based on the order type
         if (orderType === 'single_purchase') {
-            priceId = pricingData.tallow.ids.soap.single[flavor][size];
+            priceId = pricingData.tallow.ids.soap.single[flavor][size][country_code];
         } else if (orderType === 'recurring_monthly') {
-            priceId = pricingData.tallow.ids.soap.monthly[flavor][size];
+            priceId = pricingData.tallow.ids.soap.monthly[flavor][size][country_code];
         } else if (orderType === 'recurring_quarterly') {
-            priceId = pricingData.tallow.ids.soap.quarterly[flavor][size];
+            priceId = pricingData.tallow.ids.soap.quarterly[flavor][size][country_code];
         } else if (orderType === 'three_pack') {
-            priceId = pricingData.tallow.ids.soap.pack[flavor][size];
+            priceId = pricingData.tallow.ids.soap.pack[flavor][size][country_code];
         }
 
         console.log('Price ID:', priceId);

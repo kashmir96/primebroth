@@ -244,6 +244,7 @@
     <script>
     const productPricingRaw = {{ site.Data.pricing.resell.pricing.motta | jsonify | safeJS }};
     console.log("Raw product Pricing from Hugo:", productPricingRaw);
+    const country_code = localStorage.getItem('country_code');
     
     const productPricing = Array.isArray(productPricingRaw) ? productPricingRaw : [];
     if (!Array.isArray(productPricing)) {
@@ -260,8 +261,8 @@
     console.log("Selected order type:", orderType);
     
     const pricingEntry = productPricing.find(entry => entry.size.toLowerCase() === size);
-    if (pricingEntry && pricingEntry.prices[orderType]) {
-        const price = pricingEntry.prices[orderType];
+    if (pricingEntry && pricingEntry.prices[country_code][orderType]) {
+        const price = pricingEntry.prices[country_code][orderType];
         document.getElementById("price").textContent = `$${price.toFixed(2)}`;
     } else {
         document.getElementById("price").textContent = "N/A";
@@ -310,7 +311,7 @@
         console.log("Size Data:", sizeData);
     
         if (sizeData) {
-            priceID = sizeData; // Assign the resolved price ID
+            priceID = sizeData[country_code]; // Assign the resolved price ID
         }
     }
     }
@@ -340,13 +341,13 @@
     
     // Access the correct price ID based on the order type
     if (orderType === 'single_purchase') {
-        priceId = pricingData.resell.ids.motta.single[flavor][size];
+        priceId = pricingData.resell.ids.motta.single[flavor][size][country_code];
     } else if (orderType === 'recurring_monthly') {
-        priceId = pricingData.resell.ids.motta.monthly[flavor][size];
+        priceId = pricingData.resell.ids.motta.monthly[flavor][size][country_code];
     } else if (orderType === 'recurring_quarterly') {
-        priceId = pricingData.resell.ids.motta.quarterly[flavor][size];
+        priceId = pricingData.resell.ids.motta.quarterly[flavor][size][country_code];
     } else if (orderType === 'three_pack') {
-        priceId = pricingData.resell.ids.motta.pack[flavor][size];
+        priceId = pricingData.resell.ids.motta.pack[flavor][size][country_code];
     }
     
     console.log('Price ID:', priceId);

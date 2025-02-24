@@ -72,8 +72,8 @@
         <!-- Filter buttons -->
         
 
-        <div style="margin-bottom: 0px; " class="row max-width shopsection"> 
-            <div style="margin-top:-50px;" class="filter-options mob-hide">
+        <div style="margin-bottom: 0px; " class="row  shopsection"> 
+            <div  class="filter-options mob-hide">
                 <input type="radio" id="all" name="product-filter" value="all" checked>
                 <label for="all">All</label>
     
@@ -161,6 +161,16 @@
                         var categories = $(this).data('category').split(' ');
                         return categories.includes(selectedFilter);
                     }).show();
+                }
+                var countryCode = localStorage.getItem('country_code');
+                // If the country is NZ, show NZ-specific partials
+                if (countryCode === 'AU') {
+                    document.getElementById('bone-broth').style.display = 'none';
+                    $('label[for="bone-broth"]').hide();
+                    $('.product-card').filter(function () {
+                        var categories = $(this).data('category').split(' ');
+                        return categories.includes("bone-broth");
+                    }).hide();
                 }
             });
     

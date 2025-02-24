@@ -1,9 +1,21 @@
 <!-- Pet single product card -->
-<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth"><a href="/shop/products/powder">
+<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth" id="prodcardpplpowder"><a href="/shop/products/powder">
   <p class="stamp">Trending</p>
   <img src="/img/dec24/product-broth.webp" alt="">
   <div class="product-details">
-    <p>$34.95</p>
+    <p><span class="nz-content" style="display:inline;">{{ with index site.Data.pricing.broth.pricing 1 }}
+      {{ with .prices.NZ }}
+          ${{ .single_purchase }}
+      {{ end }}
+  {{ end }}
+  </span>
+  <span class="au-content" style="display:none;">
+      {{ with index site.Data.pricing.broth.pricing 1 }}
+      {{ with .prices.AU }}
+         ${{ .single_purchase }}
+      {{ end }}
+  {{ end }}
+  </span></p>
     <h6>Bone broth powder</h6>
     <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>1000+ kiwis</p>
 
