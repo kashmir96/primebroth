@@ -2,7 +2,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async (event, context) => {
   try {
-    const { cart } = JSON.parse(event.body);
+    const { cart, countryCode } = JSON.parse(event.body);
 
     // Check if the cart is valid
     if (!cart || !Array.isArray(cart) || cart.length === 0) {
@@ -63,34 +63,55 @@ exports.handler = async (event, context) => {
     const mediumShippingRate = 'shr_1QKTanFZRwx5tlYmmr0UUDQw';
     const freeShippingRate = 'shr_1QKTagFZRwx5tlYmswF6jANR';
     const ruralShippingRate = 'shr_1QKTajFZRwx5tlYmayPCyClE'; // Replace with your actual rural shipping rate ID
+    const standardShippingRateAU = 'shr_1QreQWFZRwx5tlYmSp5RW0qz';
 
     let shippingOptions = [];
 
-    if (totalAmount >= 8000) {
-      shippingOptions = [
-        {
-          shipping_rate: freeShippingRate,
-        },
-      ];
-    } else if (totalAmount >= 1000) {
-      shippingOptions = [
-        {
-          shipping_rate: mediumShippingRate,
-        },
-        {
-          shipping_rate: ruralShippingRate,
-        }, // Include rural shipping as an option
-      ];
-    } else {
-      // Show both standard and rural shipping options
-      shippingOptions = [
-        {
-          shipping_rate: standardShippingRate,
-        },
-        {
-          shipping_rate: ruralShippingRate,
-        },
-      ];
+    if(countryCode == 'NZ')
+    {
+
+      if (totalAmount >= 8000) {
+        shippingOptions = [
+          {
+            shipping_rate: freeShippingRate,
+          },
+        ];
+      } else if (totalAmount >= 1000) {
+        shippingOptions = [
+          {
+            shipping_rate: mediumShippingRate,
+          },
+          {
+            shipping_rate: ruralShippingRate,
+          }, // Include rural shipping as an option
+        ];
+      } else {
+        // Show both standard and rural shipping options
+        shippingOptions = [
+          {
+            shipping_rate: standardShippingRate,
+          },
+          {
+            shipping_rate: ruralShippingRate,
+          },
+        ];
+      }
+    }
+    else {
+      if (totalAmount >= 10000) {
+        shippingOptions = [
+          {
+            shipping_rate: freeShippingRate,
+          },
+        ];
+      }
+      else {
+        shippingOptions = [
+          {
+            shipping_rate: standardShippingRateAU,
+          },
+        ];
+      }
     }
 
     console.log(`Shipping options: ${JSON.stringify(shippingOptions)}`);
@@ -102,7 +123,7 @@ exports.handler = async (event, context) => {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card', 'afterpay_clearpay'],
       shipping_address_collection: {
-        allowed_countries: ['NZ'], // Restrict to New Zealand
+        allowed_countries: ['NZ','AU'], // Restrict to New Zealand
       },
       shipping_options: shippingOptions,
       line_items: lineItems,

@@ -141,10 +141,15 @@
    window.onload = function() {
     var countryCode = localStorage.getItem('country_code');
     console.log(countryCode);
+    var shipping_rate = document.getElementById('shipping_rate');
     
     // If the country is NZ, show NZ-specific partials
     if(countryCode == 'AU') {
         var bone_broth =  document.getElementById('bone-broth');
+        
+        if(shipping_rate){
+            shipping_rate.textContent='$100';
+        }
         if(bone_broth)
         {
             document.getElementById('bone-broth').style.display = 'none';
@@ -162,6 +167,9 @@
             });
     }
     else{
+        if(shipping_rate){
+            shipping_rate.textContent='$80';
+        }
         document.querySelectorAll('.au-content').forEach(function(item) {
         item.style.display = 'none';
         document.querySelectorAll('.nz-content').forEach(function(item) {

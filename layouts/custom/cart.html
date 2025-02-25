@@ -52,6 +52,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Retrieve cart data from localStorage
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            var countryCode = localStorage.getItem('country_code');
 
             const cartItemsContainer = document.getElementById('cart-items');
             const totalCostElement = document.getElementById('total-cost');
@@ -178,7 +179,7 @@ if (cartEmptyDiv) {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ cart }),
+                    body: JSON.stringify({ cart, countryCode }),
                 })
                     .then(response => response.json())
                     .then(data => {
