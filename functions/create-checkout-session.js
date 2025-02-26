@@ -66,9 +66,11 @@ exports.handler = async (event, context) => {
     const standardShippingRateAU = 'shr_1QreQWFZRwx5tlYmSp5RW0qz';
 
     let shippingOptions = [];
+    let payment_method_types = [];
 
     if(countryCode == 'NZ')
     {
+      payment_method_types = ['card',  'afterpay_clearpay'];
 
       if (totalAmount >= 8000) {
         shippingOptions = [
@@ -112,6 +114,7 @@ exports.handler = async (event, context) => {
           },
         ];
       }
+      payment_method_types = ['card'];
     }
 
     console.log(`Shipping options: ${JSON.stringify(shippingOptions)}`);
@@ -121,7 +124,7 @@ exports.handler = async (event, context) => {
 
     // Create a Stripe checkout session
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card', 'afterpay_clearpay'],
+      payment_method_types: payment_method_types,
       shipping_address_collection: {
         allowed_countries: ['NZ','AU'], // Restrict to New Zealand
       },
