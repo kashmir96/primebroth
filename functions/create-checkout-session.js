@@ -64,6 +64,7 @@ exports.handler = async (event, context) => {
     const freeShippingRate = 'shr_1QKTagFZRwx5tlYmswF6jANR';
     const ruralShippingRate = 'shr_1QKTajFZRwx5tlYmayPCyClE'; // Replace with your actual rural shipping rate ID
     const standardShippingRateAU = 'shr_1QreQWFZRwx5tlYmSp5RW0qz';
+    const freeShippingRateAU = 'shr_1QxGdxFZRwx5tlYmATptVQyM';
 
     let shippingOptions = [];
     let payment_method_types = [];
@@ -103,7 +104,7 @@ exports.handler = async (event, context) => {
       if (totalAmount >= 10000) {
         shippingOptions = [
           {
-            shipping_rate: freeShippingRate,
+            shipping_rate: freeShippingRateAU,
           },
         ];
       }
