@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<meta charset="utf-8">
 <title>PrimalPantry | Sitemap</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link rel="apple-touch-icon" sizes="180x180" href='/apple-touch-icon.png'>
@@ -125,7 +126,7 @@
         </div>
         
         <div class="flex items-center flex-shrink-0 text-xl text-grey-900">
-            <a href="http://localhost:1313/">
+            <a href="http://localhost:1313/" aria-label="PrimalPantry">
                 <img alt="" class="sitelogo mr-3" src="/img/logo/logo.webp">
             </a>
         </div>
@@ -205,7 +206,66 @@
     });
 </script>
 
-<div class="scroll-top rounded-full">
+<script type="application/javascript">
+    function geoip(json){
+        if(json.country_code){
+            localStorage.setItem('country_code', json.country_code);
+        }
+        else{
+            localStorage.setItem('country_code', "NZ");
+        }
+           
+    }
+    if(localStorage.getItem('country_code')=='');
+    {    
+        localStorage.setItem('country_code', "NZ");
+    }
+  </script>
+<script src="https://get.geojs.io/v1/ip/geo.js"></script>
+  
+<script>
+   window.onload = function() {
+    var countryCode = localStorage.getItem('country_code');
+    console.log(countryCode);
+    var shipping_rate = document.getElementById('shipping_rate');
+    
+    
+    if(countryCode == 'AU') {
+        var bone_broth =  document.getElementById('bone-broth');
+        
+        if(shipping_rate){
+            shipping_rate.textContent='$100';
+        }
+        if(bone_broth)
+        {
+            document.getElementById('bone-broth').style.display = 'none';
+        }
+      $('label[for="bone-broth"]').hide();
+      $('.product-card').filter(function () {
+                        var categories = $(this).data('category').split(' ');
+                        return categories.includes("bone-broth");
+                    }).hide();
+        document.querySelectorAll('.nz-content').forEach(function(item) {
+                item.style.display = 'none';
+            });
+            document.querySelectorAll('.au-content').forEach(function(item) {
+                item.style.display = 'inline';
+            });
+    }
+    else{
+        if(shipping_rate){
+            shipping_rate.textContent='$80';
+        }
+        document.querySelectorAll('.au-content').forEach(function(item) {
+        item.style.display = 'none';
+        document.querySelectorAll('.nz-content').forEach(function(item) {
+                item.style.display = 'inline';
+            });
+    });
+
+    }
+  };
+ </script><div class="scroll-top rounded-full">
         <span class="icon-keyboard_arrow_up text-2xl"></span>
     </div><div class="swiper-container">
     <div class="swiper-wrapper">
@@ -214,6 +274,7 @@
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>
 </div>
+
 
     <div class="container">
         <div class="row peach max-width text-center sitemap-page">
@@ -231,11 +292,303 @@
             
         
             
+                <li><a href="http://localhost:1313/tags/ancestral-products/">Ancestral Products</a></li>
+            
+        
+            
                 <li><a href="http://localhost:1313/tags/beef-tallow-for-skin-nz/">Beef Tallow for Skin NZ</a></li>
             
         
             
+                <li><a href="http://localhost:1313/posts/frequently-asked-questions-using-tallow-balm-for-babies/">Frequently Asked Questions – Using Tallow Balm for Babies</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/frequently-asked-questions-using-tallow-balm-for-babies/">Frequently Asked Questions Using Tallow Balm for Babies</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/natural-skincare/">Natural Skincare</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/primalpantry/">PrimalPantry</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/">Tags</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/tallow-balm/">Tallow Balm</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/what-are-ancestral-products/">What Are Ancestral Products?—Natural Solutions for Modern Living</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/why-does-tallow-balm-help-eczema/">Why Does Tallow Balm Help Eczema</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/why-does-tallow-balm-help-eczema/">Why Does Tallow Balm Help Eczema? The Science Behind It</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/bone-broth/">Bone Broth</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/gritty-texture/">Gritty Texture</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/nutrition/">Nutrition</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/primalcare/">PrimalCare</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/primebroth/">Primebroth</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/what-is-bone-broth/">What Is Bone Broth</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/what-is-bone-broth/">What is Bone Broth?—Everything You Need to Know</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/whipped-tallow-balm/">Whipped Tallow Balm</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/why-does-tallow-balm-have-a-grit/">Why Does Tallow Balm Have a Grit to It?—What Causes It and How to Fix It</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/how-to-use-tallow-balm/">How to Use Tallow Balm</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/how-to-use-tallow-balm-if-you-wear-makeup/">How to Use Tallow Balm if You Wear Makeup</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/how-to-use-tallow-balm-if-you-wear-makeup/">How to Use Tallow Balm If You Wear Makeup</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/skin-care/">Skin Care</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/using-tallow-balm-on-skin/">Using Tallow Balm on Skin—A Complete Application Guide</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/why-does-tallow-balm-go-grainy/">Why Does Tallow Balm Go Grainy</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/why-does-tallow-balm-go-grainy/">Why Does Tallow Balm Go Grainy? (And Why Ours Doesn’t)</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/how-to-use-tallow-balm-as-a-cleanser/">How to Use Tallow Balm as a Cleanser</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/how-to-use-tallow-balm-as-a-cleanser/">How to Use Tallow Balm as a Cleanser: A Natural Oil Cleansing Method</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/how-to-use-tallow-balm-on-your-face/">How to Use Tallow Balm on Your Face</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/how-to-use-tallow-balm-on-your-face/">How to Use Tallow Balm on Your Face for Clear, Hydrated Skin</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/using-tallow-balm-as-a-moisturiser/">Using Tallow Balm as a Moisturiser</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/using-tallow-balm-as-a-moisturiser/">Using Tallow Balm as a Moisturiser: A Natural Alternative to Lotions</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/benefits/">Benefits</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/how-to-incorporate-tallow-balm-into-your-skincare-routine/">How to Incorporate Tallow Balm Into Your Skincare Routine</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/how-to-incorporate-tallow-balm-into-your-skincare-routine/">How to Incorporate Tallow Balm Into Your Skincare Routine</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/types-of-bone-broth/">Types of Bone Broth</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/types-of-bone-broth-benefits/">Types of Bone Broth and Their Benefits—A Guide to Choosing the Best Option</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/ancestral-lifestyle/">Ancestral Lifestyle</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/best-tallow-balm-in-nz-for-wrinkles/">Best Tallow Balm in NZ for Wrinkles</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/best-tallow-balm-in-nz-for-wrinkles-fine-lines/">Best Tallow Balm in NZ for Wrinkles &amp; Fine Lines</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/choosing-the-right-tallow-for-sensitive-skin/">Choosing the Right Tallow for Sensitive Skin</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/choosing-the-right-tallow-for-sensitive-skin/">Choosing the Right Tallow for Sensitive Skin: What to Look For</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/natural-health/">Natural Health</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/ancestral-lifestyle-benefits/">What Problems Are People Solving by Living Ancestrally?—A Healthier Approach to Modern Life</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/why-choose-tallow-balm-made-from-nz-beef-tallow/">Why Choose Tallow Balm Made From NZ Beef Tallow</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/why-choose-tallow-balm-made-from-nz-beef-tallow/">Why Choose Tallow Balm Made from NZ Beef Tallow?</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/frequently-asked-questions-using-tallow-balm-for-anti-aging-benefits/">Frequently Asked Questions – Using Tallow Balm for Anti-Aging Benefits</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/frequently-asked-questions-using-tallow-balm-for-anti-aging-benefits/">Frequently Asked Questions Using Tallow Balm for Anti-Aging Benefits</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/how-tallow-balm-can-help-eczema/">How Tallow Balm Can Help Eczema</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/how-tallow-balm-can-help-eczema/">How Tallow Balm Can Help Eczema: A Natural Moisturiser for Dry, Irritated Skin</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/the-ingredients-in-a-tallow-balm/">The Ingredients in a Tallow Balm</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/the-ingredients-in-a-tallow-balm/">The Ingredients in a Tallow Balm: What Makes It So Effective?</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/why-choose-nz-made-tallow-balm/">Why Choose NZ Made Tallow Balm</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/why-choose-nz-made-tallow-balm/">Why Choose NZ-Made Tallow Balm? Supporting Local, Sustainable Skincare</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/how-tallow-balm-can-help-tsw/">How Tallow Balm Can Help TSW</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/how-tallow-balm-can-help-tsw/">How Tallow Balm Can Help TSW (Topical Steroid Withdrawal)</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/picking-the-right-tallow-balm-for-your-skin/">Picking the Right Tallow Balm for Your Skin</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/picking-the-right-tallow-balm-for-your-skin/">Picking the Right Tallow Balm for Your Skin: What to Consider</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/why-choose-grass-fed-tallow-balm/">Why Choose Grass-Fed Tallow Balm</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/why-choose-grass-fed-tallow-balm/">Why Choose Grass-Fed Tallow Balm? The Difference in Quality &amp; Benefits</a></li>
+            
+        
+            
                 <li><a href="http://localhost:1313/tags/buy-tallow-balm/">Buy Tallow Balm</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/how-to-use-tallow-balm-for-eczema/">How to Use Tallow Balm for Eczema</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/how-to-use-tallow-balm-for-eczema/">How to Use Tallow Balm for Eczema: Step-by-Step Guide</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/how-to-use-tallow-balm-for-tsw/">How to Use Tallow Balm for TSW</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/how-to-use-tallow-balm-for-tsw/">How to Use Tallow Balm for TSW (Topical Steroid Withdrawal)</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/how-to-use-tallow-balm-on-a-baby/">How to Use Tallow Balm on a Baby</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/how-to-use-tallow-balm-on-a-baby/">How to Use Tallow Balm on a Baby: A Natural Skincare Routine</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/tallow-balm-vs-most-popular-moisturisers/">Tallow Balm vs Most Popular Moisturisers</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/tallow-balm-vs-most-popular-moisturisers/">Tallow Balm vs Most Popular Moisturisers: Which One Works Best?</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/why-buy-tallow-balm/">Why Buy Tallow Balm?—Top Reasons to Choose It for Skincare</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/can-tallow-balm-help-fine-lines/">Can Tallow Balm Help Fine Lines</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/can-tallow-balm-help-fine-lines/">Can Tallow Balm Help Fine Lines? A Natural Anti-Aging Option</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/tags/essential-oils/">Essential Oils</a></li>
+            
+        
+            
+                <li><a href="http://localhost:1313/posts/tallow-balm-essential-oils-benefits/">Tallow Balm Essential Oils—Benefits and Uses for Skincare</a></li>
             
         
             
@@ -255,10 +608,6 @@
             
         
             
-                <li><a href="http://localhost:1313/tags/primalcare/">PrimalCare</a></li>
-            
-        
-            
                 <li><a href="http://localhost:1313/posts/results-to-expect-from-using-tallow-balm-on-eczema/">Results to Expect from Using Tallow Balm on Eczema</a></li>
             
         
@@ -271,27 +620,11 @@
             
         
             
-                <li><a href="http://localhost:1313/tags/">Tags</a></li>
-            
-        
-            
-                <li><a href="http://localhost:1313/tags/tallow-balm/">Tallow Balm</a></li>
-            
-        
-            
                 <li><a href="http://localhost:1313/posts/why-buy-instead-of-making-tallow-balm/">Why Buy Instead of Making Tallow Balm?—The Benefits of Ready-Made Options</a></li>
             
         
             
                 <li><a href="http://localhost:1313/tags/ancestral-diet/">Ancestral Diet</a></li>
-            
-        
-            
-                <li><a href="http://localhost:1313/tags/nutrition/">Nutrition</a></li>
-            
-        
-            
-                <li><a href="http://localhost:1313/tags/primalpantry/">PrimalPantry</a></li>
             
         
             
@@ -319,14 +652,6 @@
             
         
             
-                <li><a href="http://localhost:1313/tags/benefits/">Benefits</a></li>
-            
-        
-            
-                <li><a href="http://localhost:1313/tags/bone-broth/">Bone Broth</a></li>
-            
-        
-            
                 <li><a href="http://localhost:1313/tags/buying-guide/">Buying Guide</a></li>
             
         
@@ -347,14 +672,6 @@
             
         
             
-                <li><a href="http://localhost:1313/tags/natural-skincare/">Natural Skincare</a></li>
-            
-        
-            
-                <li><a href="http://localhost:1313/tags/primebroth/">Primebroth</a></li>
-            
-        
-            
                 <li><a href="http://localhost:1313/posts/tallow-balm-for-eczema-faq/">Tallow Balm for Eczema – Frequently Asked Questions</a></li>
             
         
@@ -372,10 +689,6 @@
         
             
                 <li><a href="http://localhost:1313/posts/how-to-store-tallow-balm/">How to Store Tallow Balm: Best Practices for Longevity</a></li>
-            
-        
-            
-                <li><a href="http://localhost:1313/tags/how-to-use-tallow-balm/">How to Use Tallow Balm</a></li>
             
         
             
@@ -419,10 +732,6 @@
             
         
             
-                <li><a href="http://localhost:1313/tags/tallow-balm-vs-most-popular-moisturisers/">Tallow Balm vs Most Popular Moisturisers</a></li>
-            
-        
-            
                 <li><a href="http://localhost:1313/tags/benefits-of-frankincense-in-skincare/">Benefits of Frankincense in Skincare</a></li>
             
         
@@ -460,14 +769,6 @@
         
             
                 <li><a href="http://localhost:1313/posts/what-is-tallow-balm-made-of/">What Is Tallow Balm Made Of? Ingredients &amp; Benefits</a></li>
-            
-        
-            
-                <li><a href="http://localhost:1313/tags/ancestral-lifestyle/">Ancestral Lifestyle</a></li>
-            
-        
-            
-                <li><a href="http://localhost:1313/tags/natural-health/">Natural Health</a></li>
             
         
             
@@ -560,10 +861,6 @@
         
             
                 <li><a href="http://localhost:1313/tags/solid-vs-whipped-balm/">Solid vs Whipped Balm</a></li>
-            
-        
-            
-                <li><a href="http://localhost:1313/tags/whipped-tallow-balm/">Whipped Tallow Balm</a></li>
             
         
             
@@ -712,10 +1009,6 @@
         
             
                 <li><a href="http://localhost:1313/posts/choosing-the-right-tallow-balm/">Choosing the Right Tallow Balm for Your Skin—A Buyer’s Guide</a></li>
-            
-        
-            
-                <li><a href="http://localhost:1313/tags/skin-care/">Skin Care</a></li>
             
         
             

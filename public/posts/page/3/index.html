@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<meta charset="utf-8">
 <title>PrimalPantry | Posts</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link rel="apple-touch-icon" sizes="180x180" href='/apple-touch-icon.png'>
@@ -134,7 +135,7 @@
         </div>
         
         <div class="flex items-center flex-shrink-0 text-xl text-grey-900">
-            <a href="http://localhost:1313/">
+            <a href="http://localhost:1313/" aria-label="PrimalPantry">
                 <img alt="" class="sitelogo mr-3" src="/img/logo/logo.webp">
             </a>
         </div>
@@ -214,7 +215,66 @@
     });
 </script>
 
-<div class="scroll-top rounded-full">
+<script type="application/javascript">
+    function geoip(json){
+        if(json.country_code){
+            localStorage.setItem('country_code', json.country_code);
+        }
+        else{
+            localStorage.setItem('country_code', "NZ");
+        }
+           
+    }
+    if(localStorage.getItem('country_code')=='');
+    {    
+        localStorage.setItem('country_code', "NZ");
+    }
+  </script>
+<script src="https://get.geojs.io/v1/ip/geo.js"></script>
+  
+<script>
+   window.onload = function() {
+    var countryCode = localStorage.getItem('country_code');
+    console.log(countryCode);
+    var shipping_rate = document.getElementById('shipping_rate');
+    
+    
+    if(countryCode == 'AU') {
+        var bone_broth =  document.getElementById('bone-broth');
+        
+        if(shipping_rate){
+            shipping_rate.textContent='$100';
+        }
+        if(bone_broth)
+        {
+            document.getElementById('bone-broth').style.display = 'none';
+        }
+      $('label[for="bone-broth"]').hide();
+      $('.product-card').filter(function () {
+                        var categories = $(this).data('category').split(' ');
+                        return categories.includes("bone-broth");
+                    }).hide();
+        document.querySelectorAll('.nz-content').forEach(function(item) {
+                item.style.display = 'none';
+            });
+            document.querySelectorAll('.au-content').forEach(function(item) {
+                item.style.display = 'inline';
+            });
+    }
+    else{
+        if(shipping_rate){
+            shipping_rate.textContent='$80';
+        }
+        document.querySelectorAll('.au-content').forEach(function(item) {
+        item.style.display = 'none';
+        document.querySelectorAll('.nz-content').forEach(function(item) {
+                item.style.display = 'inline';
+            });
+    });
+
+    }
+  };
+ </script><div class="scroll-top rounded-full">
       <span class="icon-keyboard_arrow_up text-2xl"></span>
     </div>
   <div class="row peach max-width text-center list">
@@ -224,109 +284,109 @@
     <div class="content py-1"></div>
     
     
-    <a href="http://localhost:1313/posts/how-to-use-tallow-balm/">
+    <a href="http://localhost:1313/posts/types-of-bone-broth-benefits/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="How to Use Tallow Balm for Face, Body, and Skin Conditions" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="Types of Bone Broth and Their Benefits—A Guide to Choosing the Best Option" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">How to Use Tallow Balm for Face, Body, and Skin Conditions</div>
-    <p class="text-gray-700 text-base pb-5">How to Use Tallow Balm Tallow balm is a natural, multi-purpose moisturizer that works for face, body, babies, and skin conditions ...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">Types of Bone Broth and Their Benefits—A Guide to Choosing the Best Option</div>
+    <p class="text-gray-700 text-base pb-5">Types of Bone Broth and Their Benefits—A Guide to Choosing the Best Option Bone broth is a nutritional powerhouse, but did you kno...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/02/13</time>
+      <time>2025/02/22</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/benefits-of-olive-oil-in-skincare/">
+    <a href="http://localhost:1313/posts/best-tallow-balm-in-nz-for-wrinkles-fine-lines/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="Benefits of Olive Oil in Skincare: Why It’s a Must-Have Ingredient" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="Best Tallow Balm in NZ for Wrinkles &amp; Fine Lines" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">Benefits of Olive Oil in Skincare: Why It’s a Must-Have Ingredient</div>
-    <p class="text-gray-700 text-base pb-5">Benefits of Olive Oil in Skincare: Why It’s a Must-Have Ingredient Olive oil has been used for centuries as a natural skin remedy,...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">Best Tallow Balm in NZ for Wrinkles &amp; Fine Lines</div>
+    <p class="text-gray-700 text-base pb-5">Best Tallow Balm in NZ for Wrinkles &amp; Fine Lines If you’re looking for the best tallow balm NZ to help with wrinkles, fi...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/02/12</time>
+      <time>2025/02/21</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/comparison-of-tallow-balm-vs-most-popular-moisturisers/">
+    <a href="http://localhost:1313/posts/choosing-the-right-tallow-for-sensitive-skin/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="Comparison of Tallow Balm vs Most Popular Moisturisers" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="Choosing the Right Tallow for Sensitive Skin: What to Look For" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">Comparison of Tallow Balm vs Most Popular Moisturisers</div>
-    <p class="text-gray-700 text-base pb-5">Comparison of Tallow Balm vs Most Popular Moisturisers Many people assume moisturisers are all the same, but there’s a big differe...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">Choosing the Right Tallow for Sensitive Skin: What to Look For</div>
+    <p class="text-gray-700 text-base pb-5">Choosing the Right Tallow for Sensitive Skin Not all tallow balms are the same. If you have sensitive skin, eczema, or allergies, ...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/02/12</time>
+      <time>2025/02/21</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/does-tallow-balm-clog-pores/">
+    <a href="http://localhost:1313/posts/ancestral-lifestyle-benefits/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="Does Tallow Balm Clog Pores? The Truth About Natural Skincare" class="aspect-video object-cover w-auto lg:h-44"
-    src='/img/default.jpg'>
+  <img id="thumb" alt="What Problems Are People Solving by Living Ancestrally?—A Healthier Approach to Modern Life" class="aspect-video object-cover w-auto lg:h-44"
+    src="/img/13.webp" />
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">Does Tallow Balm Clog Pores? The Truth About Natural Skincare</div>
-    <p class="text-gray-700 text-base pb-5">Does Tallow Balm Clog Pores? Many people assume that animal-based moisturisers like tallow balm NZ will clog pores. But in reality...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">What Problems Are People Solving by Living Ancestrally?—A Healthier Approach to Modern Life</div>
+    <p class="text-gray-700 text-base pb-5">What Problems Are People Solving by Living Ancestrally? Modern life is fast-paced, and with it comes a host of health issues cause...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/02/12</time>
+      <time>2025/02/21</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/is-tallow-balm-safe-for-acne/">
+    <a href="http://localhost:1313/posts/why-choose-tallow-balm-made-from-nz-beef-tallow/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="Is Tallow Balm Safe for Acne? Everything You Need to Know" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="Why Choose Tallow Balm Made from NZ Beef Tallow?" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">Is Tallow Balm Safe for Acne? Everything You Need to Know</div>
-    <p class="text-gray-700 text-base pb-5">Is Tallow Balm Safe for Acne? Many people worry that using an animal-based balm like tallow balm NZ could clog pores and trigger b...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">Why Choose Tallow Balm Made from NZ Beef Tallow?</div>
+    <p class="text-gray-700 text-base pb-5">Why Choose Tallow Balm Made from NZ Beef Tallow? New Zealand is known for some of the best beef in the world, and that quality ext...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/02/12</time>
+      <time>2025/02/21</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/tallow-balm-for-cracked-heels/">
+    <a href="http://localhost:1313/posts/frequently-asked-questions-using-tallow-balm-for-anti-aging-benefits/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="Tallow Balm for Cracked Heels: How to Use It for Soft, Healthy Feet" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="Frequently Asked Questions – Using Tallow Balm for Anti-Aging Benefits" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">Tallow Balm for Cracked Heels: How to Use It for Soft, Healthy Feet</div>
-    <p class="text-gray-700 text-base pb-5">Tallow Balm for Cracked Heels: How to Use It Cracked heels are a common problem, especially in New Zealand’s dry or cold weather. ...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">Frequently Asked Questions – Using Tallow Balm for Anti-Aging Benefits</div>
+    <p class="text-gray-700 text-base pb-5">Frequently Asked Questions – Using Tallow Balm for Anti-Aging Benefits If you’re wondering how tallow balm NZ can help with ...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/02/12</time>
+      <time>2025/02/20</time>
     </p>
   </div>
 </div></div>
@@ -401,6 +461,16 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     
     <li><a href="/posts/page/4/" rel="next"
@@ -410,7 +480,7 @@
 
     
     
-    <li class="page-item"><a href="/posts/page/10/" rel="last"
+    <li class="page-item"><a href="/posts/page/15/" rel="last"
         class="shadow-md mx-2 py-3 px-5 rounded-full relative block border-white border-0 duration-100 bg-white text-blue-600 hover:shadow-sm dark:bg-warmgray-900 dark:border-gray-600 dark:hover:bg-warmgray-700">Last</a>
     </li>
     

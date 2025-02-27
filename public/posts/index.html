@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<meta charset="utf-8">
 <title>PrimalPantry | Posts</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link rel="apple-touch-icon" sizes="180x180" href='/apple-touch-icon.png'>
@@ -134,7 +135,7 @@
         </div>
         
         <div class="flex items-center flex-shrink-0 text-xl text-grey-900">
-            <a href="http://localhost:1313/">
+            <a href="http://localhost:1313/" aria-label="PrimalPantry">
                 <img alt="" class="sitelogo mr-3" src="/img/logo/logo.webp">
             </a>
         </div>
@@ -214,7 +215,66 @@
     });
 </script>
 
-<div class="scroll-top rounded-full">
+<script type="application/javascript">
+    function geoip(json){
+        if(json.country_code){
+            localStorage.setItem('country_code', json.country_code);
+        }
+        else{
+            localStorage.setItem('country_code', "NZ");
+        }
+           
+    }
+    if(localStorage.getItem('country_code')=='');
+    {    
+        localStorage.setItem('country_code', "NZ");
+    }
+  </script>
+<script src="https://get.geojs.io/v1/ip/geo.js"></script>
+  
+<script>
+   window.onload = function() {
+    var countryCode = localStorage.getItem('country_code');
+    console.log(countryCode);
+    var shipping_rate = document.getElementById('shipping_rate');
+    
+    
+    if(countryCode == 'AU') {
+        var bone_broth =  document.getElementById('bone-broth');
+        
+        if(shipping_rate){
+            shipping_rate.textContent='$100';
+        }
+        if(bone_broth)
+        {
+            document.getElementById('bone-broth').style.display = 'none';
+        }
+      $('label[for="bone-broth"]').hide();
+      $('.product-card').filter(function () {
+                        var categories = $(this).data('category').split(' ');
+                        return categories.includes("bone-broth");
+                    }).hide();
+        document.querySelectorAll('.nz-content').forEach(function(item) {
+                item.style.display = 'none';
+            });
+            document.querySelectorAll('.au-content').forEach(function(item) {
+                item.style.display = 'inline';
+            });
+    }
+    else{
+        if(shipping_rate){
+            shipping_rate.textContent='$80';
+        }
+        document.querySelectorAll('.au-content').forEach(function(item) {
+        item.style.display = 'none';
+        document.querySelectorAll('.nz-content').forEach(function(item) {
+                item.style.display = 'inline';
+            });
+    });
+
+    }
+  };
+ </script><div class="scroll-top rounded-full">
       <span class="icon-keyboard_arrow_up text-2xl"></span>
     </div>
   <div class="row peach max-width text-center list">
@@ -224,109 +284,109 @@
     <div class="content py-1"></div>
     
     
-    <a href="http://localhost:1313/posts/can-tallow-balm-help-wrinkles/">
+    <a href="http://localhost:1313/posts/frequently-asked-questions-using-tallow-balm-for-babies/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="Can Tallow Balm Help Wrinkles? Natural Anti-Aging Benefits" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="Frequently Asked Questions – Using Tallow Balm for Babies" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">Can Tallow Balm Help Wrinkles? Natural Anti-Aging Benefits</div>
-    <p class="text-gray-700 text-base pb-5">Can Tallow Balm Help Wrinkles? As we age, our skin loses collagen, elasticity, and moisture, leading to fine lines and wrinkles. T...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">Frequently Asked Questions – Using Tallow Balm for Babies</div>
+    <p class="text-gray-700 text-base pb-5">Frequently Asked Questions – Using Tallow Balm for Babies If you’re considering tallow balm NZ for your baby, you probably have qu...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/02/16</time>
+      <time>2025/02/26</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/is-tallow-balm-safe-for-eczema/">
+    <a href="http://localhost:1313/posts/what-are-ancestral-products/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="Is Tallow Balm Safe for Eczema? Natural Relief for Sensitive Skin" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="What Are Ancestral Products?—Natural Solutions for Modern Living" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">Is Tallow Balm Safe for Eczema? Natural Relief for Sensitive Skin</div>
-    <p class="text-gray-700 text-base pb-5">Is Tallow Balm Safe for Eczema? If you struggle with eczema, you’ve probably tried countless creams—many of which burn, dry out, o...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">What Are Ancestral Products?—Natural Solutions for Modern Living</div>
+    <p class="text-gray-700 text-base pb-5">What Are Ancestral Products? Ancestral products are inspired by the traditional practices of our ancestors, focusing on natural in...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/02/16</time>
+      <time>2025/02/26</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/results-to-expect-from-using-tallow-balm-on-eczema/">
+    <a href="http://localhost:1313/posts/why-does-tallow-balm-help-eczema/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="Results to Expect from Using Tallow Balm on Eczema" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="Why Does Tallow Balm Help Eczema? The Science Behind It" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">Results to Expect from Using Tallow Balm on Eczema</div>
-    <p class="text-gray-700 text-base pb-5">Results to Expect from Using Tallow Balm on Eczema When switching to tallow balm NZ for eczema, what results should you expect? He...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">Why Does Tallow Balm Help Eczema? The Science Behind It</div>
+    <p class="text-gray-700 text-base pb-5">Why Does Tallow Balm Help Eczema? If you’re wondering why tallow balm works so well for eczema, the answer is simple: it’s packed ...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/02/16</time>
+      <time>2025/02/26</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/why-buy-instead-of-making-tallow-balm/">
+    <a href="http://localhost:1313/posts/what-is-bone-broth/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="Why Buy Instead of Making Tallow Balm?—The Benefits of Ready-Made Options" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="What is Bone Broth?—Everything You Need to Know" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">Why Buy Instead of Making Tallow Balm?—The Benefits of Ready-Made Options</div>
-    <p class="text-gray-700 text-base pb-5">Why Buy Instead of Making Tallow Balm?—The Benefits of Ready-Made Options Tallow balm has become a popular skincare product thanks...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">What is Bone Broth?—Everything You Need to Know</div>
+    <p class="text-gray-700 text-base pb-5">What is Bone Broth?—Everything You Need to Know Bone broth has been consumed for centuries as a nourishing staple in traditional d...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/02/16</time>
+      <time>2025/02/25</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/should-i-make-tallow-balm/">
+    <a href="http://localhost:1313/posts/why-does-tallow-balm-have-a-grit/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="Should I Make Tallow Balm? Pros and Cons of DIY vs Buying" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="Why Does Tallow Balm Have a Grit to It?—What Causes It and How to Fix It" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">Should I Make Tallow Balm? Pros and Cons of DIY vs Buying</div>
-    <p class="text-gray-700 text-base pb-5">Should I Make Tallow Balm? Tallow balm NZ is a simple, natural skincare product that many people consider making themselves. While...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">Why Does Tallow Balm Have a Grit to It?—What Causes It and How to Fix It</div>
+    <p class="text-gray-700 text-base pb-5">Why Does Tallow Balm Have a Grit to It?—What Causes It and How to Fix It If you’ve ever tried tallow balm and noticed a gritty tex...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/02/15</time>
+      <time>2025/02/25</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/results-from-using-tallow-balm-on-a-baby/">
+    <a href="http://localhost:1313/posts/how-to-use-tallow-balm-if-you-wear-makeup/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="The Results from Using Tallow Balm on a Baby: What to Expect" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="How to Use Tallow Balm If You Wear Makeup" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">The Results from Using Tallow Balm on a Baby: What to Expect</div>
-    <p class="text-gray-700 text-base pb-5">The Results from Using Tallow Balm on a Baby Many parents switch to tallow balm NZ after struggling with dry skin, nappy rash, and...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">How to Use Tallow Balm If You Wear Makeup</div>
+    <p class="text-gray-700 text-base pb-5">How to Use Tallow Balm If You Wear Makeup Tallow balm NZ isn’t just for bare skin—it works perfectly with makeup, helping create a...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/02/15</time>
+      <time>2025/02/24</time>
     </p>
   </div>
 </div></div>
@@ -383,6 +443,16 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     
     <li><a href="/posts/page/2/" rel="next"
@@ -392,7 +462,7 @@
 
     
     
-    <li class="page-item"><a href="/posts/page/10/" rel="last"
+    <li class="page-item"><a href="/posts/page/15/" rel="last"
         class="shadow-md mx-2 py-3 px-5 rounded-full relative block border-white border-0 duration-100 bg-white text-blue-600 hover:shadow-sm dark:bg-warmgray-900 dark:border-gray-600 dark:hover:bg-warmgray-700">Last</a>
     </li>
     

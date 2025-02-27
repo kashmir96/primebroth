@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<meta charset="utf-8">
 <title>PrimalPantry | Tallow Balm</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link rel="apple-touch-icon" sizes="180x180" href='/apple-touch-icon.png'>
@@ -134,7 +135,7 @@
         </div>
         
         <div class="flex items-center flex-shrink-0 text-xl text-grey-900">
-            <a href="http://localhost:1313/">
+            <a href="http://localhost:1313/" aria-label="PrimalPantry">
                 <img alt="" class="sitelogo mr-3" src="/img/logo/logo.webp">
             </a>
         </div>
@@ -214,7 +215,66 @@
     });
 </script>
 
-<div class="scroll-top rounded-full">
+<script type="application/javascript">
+    function geoip(json){
+        if(json.country_code){
+            localStorage.setItem('country_code', json.country_code);
+        }
+        else{
+            localStorage.setItem('country_code', "NZ");
+        }
+           
+    }
+    if(localStorage.getItem('country_code')=='');
+    {    
+        localStorage.setItem('country_code', "NZ");
+    }
+  </script>
+<script src="https://get.geojs.io/v1/ip/geo.js"></script>
+  
+<script>
+   window.onload = function() {
+    var countryCode = localStorage.getItem('country_code');
+    console.log(countryCode);
+    var shipping_rate = document.getElementById('shipping_rate');
+    
+    
+    if(countryCode == 'AU') {
+        var bone_broth =  document.getElementById('bone-broth');
+        
+        if(shipping_rate){
+            shipping_rate.textContent='$100';
+        }
+        if(bone_broth)
+        {
+            document.getElementById('bone-broth').style.display = 'none';
+        }
+      $('label[for="bone-broth"]').hide();
+      $('.product-card').filter(function () {
+                        var categories = $(this).data('category').split(' ');
+                        return categories.includes("bone-broth");
+                    }).hide();
+        document.querySelectorAll('.nz-content').forEach(function(item) {
+                item.style.display = 'none';
+            });
+            document.querySelectorAll('.au-content').forEach(function(item) {
+                item.style.display = 'inline';
+            });
+    }
+    else{
+        if(shipping_rate){
+            shipping_rate.textContent='$80';
+        }
+        document.querySelectorAll('.au-content').forEach(function(item) {
+        item.style.display = 'none';
+        document.querySelectorAll('.nz-content').forEach(function(item) {
+                item.style.display = 'inline';
+            });
+    });
+
+    }
+  };
+ </script><div class="scroll-top rounded-full">
       <span class="icon-keyboard_arrow_up text-2xl"></span>
     </div>
   <div class="row peach max-width text-center list">
@@ -224,109 +284,109 @@
     <div class="content py-1"></div>
     
     
-    <a href="http://localhost:1313/posts/will-tallow-balm-give-me-acne/">
+    <a href="http://localhost:1313/posts/why-buy-instead-of-making-tallow-balm/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="Will Tallow Balm Give Me Acne? What You Need to Know" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="Why Buy Instead of Making Tallow Balm?—The Benefits of Ready-Made Options" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">Will Tallow Balm Give Me Acne? What You Need to Know</div>
-    <p class="text-gray-700 text-base pb-5">Will Tallow Balm Give Me Acne? If you’re worried about tallow balm NZ causing breakouts, you’re not alone. But despite being a fat...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">Why Buy Instead of Making Tallow Balm?—The Benefits of Ready-Made Options</div>
+    <p class="text-gray-700 text-base pb-5">Why Buy Instead of Making Tallow Balm?—The Benefits of Ready-Made Options Tallow balm has become a popular skincare product thanks...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/02/02</time>
+      <time>2025/02/16</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/is-tallow-balm-safe-for-babies/">
+    <a href="http://localhost:1313/posts/should-i-make-tallow-balm/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="Is Tallow Balm Safe for Babies?—Gentle Skincare for Delicate Skin" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="Should I Make Tallow Balm? Pros and Cons of DIY vs Buying" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">Is Tallow Balm Safe for Babies?—Gentle Skincare for Delicate Skin</div>
-    <p class="text-gray-700 text-base pb-5">Is Tallow Balm Safe for Babies?—Gentle Skincare for Delicate Skin When it comes to baby skincare, parents want products that are s...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">Should I Make Tallow Balm? Pros and Cons of DIY vs Buying</div>
+    <p class="text-gray-700 text-base pb-5">Should I Make Tallow Balm? Tallow balm NZ is a simple, natural skincare product that many people consider making themselves. While...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/01/13</time>
+      <time>2025/02/15</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/is-it-worth-making-your-own-tallow-balm/">
+    <a href="http://localhost:1313/posts/results-from-using-tallow-balm-on-a-baby/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="Is It Worth Making Your Own Tallow Balm?—DIY vs Store-Bought Options" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="The Results from Using Tallow Balm on a Baby: What to Expect" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">Is It Worth Making Your Own Tallow Balm?—DIY vs Store-Bought Options</div>
-    <p class="text-gray-700 text-base pb-5">Is It Worth Making Your Own Tallow Balm?—DIY vs Store-Bought Options Tallow balm is celebrated for its natural ingredients and nou...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">The Results from Using Tallow Balm on a Baby: What to Expect</div>
+    <p class="text-gray-700 text-base pb-5">The Results from Using Tallow Balm on a Baby Many parents switch to tallow balm NZ after struggling with dry skin, nappy rash, and...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/01/12</time>
+      <time>2025/02/15</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/how-to-use-tallow-balm/">
+    <a href="http://localhost:1313/posts/how-does-tallow-balm-support-skin-barrier/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="How to Use Tallow Balm—A Complete Guide for Healthy Skin" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="How Does Tallow Balm Support the Skin Barrier?" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">How to Use Tallow Balm—A Complete Guide for Healthy Skin</div>
-    <p class="text-gray-700 text-base pb-5">How to Use Tallow Balm—A Complete Guide for Healthy Skin Tallow balm is a versatile skincare product that’s rich in nourishing fat...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">How Does Tallow Balm Support the Skin Barrier?</div>
+    <p class="text-gray-700 text-base pb-5">How Does Tallow Balm Support the Skin Barrier? Your skin barrier is your body’s first line of defense against pollution, bacteria,...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/01/11</time>
+      <time>2025/02/14</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/benefits-of-tallow-balm/">
+    <a href="http://localhost:1313/posts/is-tallow-balm-safe-for-face/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="Benefits of Tallow Balm—Why Use It for Skincare?" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="Is Tallow Balm Safe for Your Face?—Benefits and How to Use It" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">Benefits of Tallow Balm—Why Use It for Skincare?</div>
-    <p class="text-gray-700 text-base pb-5">Benefits of Tallow Balm—Why Use It for Skincare? Tallow balm has gained popularity as a natural skincare solution, valued for its ...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">Is Tallow Balm Safe for Your Face?—Benefits and How to Use It</div>
+    <p class="text-gray-700 text-base pb-5">Is Tallow Balm Safe for Your Face?—Benefits and How to Use It When it comes to facial skincare, finding a product that’s both effe...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/01/10</time>
+      <time>2025/02/14</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/how-to-spot-a-good-quality-tallow-balm/">
+    <a href="http://localhost:1313/posts/tallow-balm-for-eczema-faq/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="How to Spot a Good Quality Tallow Balm—What to Look For" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="Tallow Balm for Eczema – Frequently Asked Questions" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">How to Spot a Good Quality Tallow Balm—What to Look For</div>
-    <p class="text-gray-700 text-base pb-5">How to Spot a Good Quality Tallow Balm—What to Look For Not all tallow balms are created equal. While tallow is naturally nourishi...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">Tallow Balm for Eczema – Frequently Asked Questions</div>
+    <p class="text-gray-700 text-base pb-5">Tallow Balm for Eczema – Frequently Asked Questions If you’re considering using tallow balm NZ for eczema, you may have questions ...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/01/08</time>
+      <time>2025/02/14</time>
     </p>
   </div>
 </div></div>
@@ -351,12 +411,6 @@
     
 
     
-    
-    
-    
-    <li><a class="shadow-md mx-2 py-3 px-5 rounded-full relative block border-white border-0 cursor-auto Class
-                Properties
-                pointer-events-none">...</a></li>
     
     
     
@@ -390,6 +444,25 @@
         class="shadow-md mx-2 py-3 px-5 rounded-full relative block border-white border-0 duration-100 bg-white text-blue-600 hover:shadow-sm dark:bg-warmgray-900 dark:border-gray-600 dark:hover:bg-warmgray-700">7</a></li>
     
     
+    
+    
+    
+    <li><a href="/tags/tallow-balm/page/8/"
+        class="shadow-md mx-2 py-3 px-5 rounded-full relative block border-white border-0 duration-100 bg-white text-blue-600 hover:shadow-sm dark:bg-warmgray-900 dark:border-gray-600 dark:hover:bg-warmgray-700">8</a></li>
+    
+    
+    
+    
+    
+    <li><a class="shadow-md mx-2 py-3 px-5 rounded-full relative block border-white border-0 cursor-auto Class
+                Properties
+                pointer-events-none">...</a></li>
+    
+    
+    
+    
+    
+    
 
     
     <li><a href="/tags/tallow-balm/page/7/" rel="next"
@@ -398,6 +471,10 @@
     
 
     
+    
+    <li class="page-item"><a href="/tags/tallow-balm/page/11/" rel="last"
+        class="shadow-md mx-2 py-3 px-5 rounded-full relative block border-white border-0 duration-100 bg-white text-blue-600 hover:shadow-sm dark:bg-warmgray-900 dark:border-gray-600 dark:hover:bg-warmgray-700">Last</a>
+    </li>
     
   </ul>
 </nav>

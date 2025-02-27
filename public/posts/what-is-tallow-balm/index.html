@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<meta charset="utf-8">
 <title>PrimalPantry | What Is Tallow Balm? Ingredients, Uses, and Benefits</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link rel="apple-touch-icon" sizes="180x180" href='/apple-touch-icon.png'>
@@ -134,7 +135,7 @@
         </div>
         
         <div class="flex items-center flex-shrink-0 text-xl text-grey-900">
-            <a href="http://localhost:1313/">
+            <a href="http://localhost:1313/" aria-label="PrimalPantry">
                 <img alt="" class="sitelogo mr-3" src="/img/logo/logo.webp">
             </a>
         </div>
@@ -214,7 +215,66 @@
     });
 </script>
 
-<div class="scroll-top rounded-full">
+<script type="application/javascript">
+    function geoip(json){
+        if(json.country_code){
+            localStorage.setItem('country_code', json.country_code);
+        }
+        else{
+            localStorage.setItem('country_code', "NZ");
+        }
+           
+    }
+    if(localStorage.getItem('country_code')=='');
+    {    
+        localStorage.setItem('country_code', "NZ");
+    }
+  </script>
+<script src="https://get.geojs.io/v1/ip/geo.js"></script>
+  
+<script>
+   window.onload = function() {
+    var countryCode = localStorage.getItem('country_code');
+    console.log(countryCode);
+    var shipping_rate = document.getElementById('shipping_rate');
+    
+    
+    if(countryCode == 'AU') {
+        var bone_broth =  document.getElementById('bone-broth');
+        
+        if(shipping_rate){
+            shipping_rate.textContent='$100';
+        }
+        if(bone_broth)
+        {
+            document.getElementById('bone-broth').style.display = 'none';
+        }
+      $('label[for="bone-broth"]').hide();
+      $('.product-card').filter(function () {
+                        var categories = $(this).data('category').split(' ');
+                        return categories.includes("bone-broth");
+                    }).hide();
+        document.querySelectorAll('.nz-content').forEach(function(item) {
+                item.style.display = 'none';
+            });
+            document.querySelectorAll('.au-content').forEach(function(item) {
+                item.style.display = 'inline';
+            });
+    }
+    else{
+        if(shipping_rate){
+            shipping_rate.textContent='$80';
+        }
+        document.querySelectorAll('.au-content').forEach(function(item) {
+        item.style.display = 'none';
+        document.querySelectorAll('.nz-content').forEach(function(item) {
+                item.style.display = 'inline';
+            });
+    });
+
+    }
+  };
+ </script><div class="scroll-top rounded-full">
       <span class="icon-keyboard_arrow_up text-2xl"></span>
     </div>
 <div class="mx-auto my-10 max-w-6xl">
@@ -239,6 +299,231 @@
 <p>Because <strong>tallow balm</strong> is completely natural, it’s ideal for those with <strong>eczema, psoriasis, or sensitive skin</strong>. It contains no preservatives, synthetic fragrances, or chemicals—just pure, skin-friendly fats.</p>
 <p>For those looking for <strong>tallow balm in NZ</strong>, it’s a tried-and-true solution for dry, irritated skin. Whether for yourself or your kids, it’s a simple, natural way to support healthy skin.</p>
 <p>🔗 <strong>Looking for high-quality tallow balm? Check out our <a href="/shop/products/tallow-skin/">Tallow Balm NZ</a> for the best options.</strong></p>
+</div>
+  </div>
+</div>
+<div class="row starter">
+  <div class="twenty">
+    <h4>New to Ancestral Living?</h4>
+    <h2 class="brush">Starter bundles</h2>
+    <p>We’ve got you, tried and true bundles for beginners</p>
+    <a class="btn btn-primary" href="/shop/">Shop now</a>
+  </div>
+</div>
+
+
+</div>
+
+  </main>
+<footer class="bg-tlgray-100">
+  <script src='/js/custom.js'></script>
+
+  
+  <script src='/js/clipboard.min.js'></script>
+  <script src='/js/highlight.min.js'></script>
+  <script src='/js/highlightjs-line-numbers.min.js'></script>
+  <script src='/js/sweetalert2.min.js'></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+    new ClipboardJS('.url');
+
+    function OnClickURL() {
+      Swal.fire({
+        icon: 'success',
+        title: 'Copied!',
+        text: 'Copied the URL and title.'
+      })
+    }
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    
+    function setCookie(name, value, days) {
+        const d = new Date();
+        d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+        const expires = "expires=" + d.toUTCString();
+        document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/";
+    }
+
+    
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+        }
+        return null;
+    }
+
+    
+    if (!getCookie('landingURL')) {
+        setCookie('landingURL', window.location.href, 30); 
+        console.log('Landing URL stored:', window.location.href);
+    } else {
+        console.log('Landing URL already exists:', getCookie('landingURL'));
+    }
+});
+  </script>
+  
+  <script>
+    function toggleNav() {
+      var hamburger = document.getElementById("hamburgerbtn");
+      var overlay = document.getElementById("overlay");
+      var body = document.body;
+
+      hamburger.addEventListener("click", function () {
+        overlay.classList.toggle("open");
+        hamburger.classList.toggle("is-open");
+        body.classList.toggle("scroll-lock");
+      });
+    }
+    toggleNav();
+
+    document.querySelector('.scroll-top').addEventListener('click', () => {
+      document.documentElement.scrollTop = 0;
+    });
+  </script>
+
+
+<script>
+  window.addEventListener('load', (event) => {
+    document.querySelectorAll('.buy-now').forEach(item => {
+      item.addEventListener('click', event => {
+        gtag('event', 'click', {
+          'event_category': 'ecommerce',
+          'event_label': 'buy-now',
+          'value': 1
+        });
+      });
+    });
+  });
+</script>
+
+
+
+  
+  <link href='/css/webfonts.min.css' rel="stylesheet" />
+  
+  <div class="flex items-center justify-between flex-wrap bg-gray-800 p-8 text-white">
+    <div class="items-center text-xl text-grey-900 mr-6">
+      
+    </div>
+    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto" id="mobileMenu">
+      <div class="text-lg lg:flex-grow">
+        <div class="socialmobnav">
+          <a class="iglink" href="https://www.facebook.com/profile.php?id=61560358912834"><img src="/img/fbw.png" alt="instagram for PrimalPantry"></a>
+          <a class="iglink" href="https://www.instagram.com/primalpantry.nz/"><img src="/img/instw.png" alt="instagram for PrimalPantry"></a>
+      </div>
+      </div>
+      <div class="flex flex-row items-center text-lg d-none d-md-block">
+        
+        <a href="/support/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
+
+          
+          Customer Support
+          
+        </a>
+        
+        <a href="/pages/reviews/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
+
+          
+          Reviews
+          
+        </a>
+        
+        <a href="/faq/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
+
+          
+          FAQs
+          
+        </a>
+        
+        <a href="/partner/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
+
+          
+          Partners
+          
+        </a>
+        
+        <a href="/pages/refund-policy/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
+
+          
+          Refund Policy
+          
+        </a>
+        
+        <a href="/pages/delivery/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
+
+          
+          Delivery
+          
+        </a>
+        
+        <a href="/pages/terms-of-use/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
+
+          
+          Terms of Use
+          
+        </a>
+        
+        <a href="/pages/privacy-policy/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
+
+          
+          Privacy Policy
+          
+        </a>
+        
+        <a href="/posts/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
+
+          
+          Blog
+          
+        </a>
+        
+        <a href="/get-listed/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
+
+          
+          Get listed
+          
+        </a>
+        
+        <a href="/sitemap/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
+
+          
+          Sitemap
+          
+        </a>
+        
+        <a href="/charity/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-8">
+
+          
+          Charity
+          
+        </a>
+        
+      </div>
+    </div>
+
+  </div>
+   
+  <div class="copy pl-8 py-5 bg-tlgray-700 text-white text-md">
+    &copy; PrimalPantry 2025 All Rights Reserved. 
+    <img style="float:right;padding-right:20px;"class="badges" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
+
+  </div>
+
+</footer>
+
+
+</body>
+
+</html>ong>, <strong>healing</strong>, and <strong>skin nourishment</strong>.</p>
+<p>With its <strong>whipped texture</strong>, <strong>premium ingredients</strong>, and <strong>refined formula</strong>, <strong>PrimalCare Tallow Balm</strong> stands out as a <strong>natural skincare essential</strong>.</p>
+<p>Order your jar of <strong>PrimalCare Tallow Balm</strong> today from our <strong><a href="/shop">online shop</a></strong> and experience <strong>ancient skincare reinvented for modern living</strong>!</p>
 </div>
   </div>
 </div>

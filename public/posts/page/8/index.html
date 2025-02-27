@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<meta charset="utf-8">
 <title>PrimalPantry | Posts</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link rel="apple-touch-icon" sizes="180x180" href='/apple-touch-icon.png'>
@@ -134,7 +135,7 @@
         </div>
         
         <div class="flex items-center flex-shrink-0 text-xl text-grey-900">
-            <a href="http://localhost:1313/">
+            <a href="http://localhost:1313/" aria-label="PrimalPantry">
                 <img alt="" class="sitelogo mr-3" src="/img/logo/logo.webp">
             </a>
         </div>
@@ -214,7 +215,66 @@
     });
 </script>
 
-<div class="scroll-top rounded-full">
+<script type="application/javascript">
+    function geoip(json){
+        if(json.country_code){
+            localStorage.setItem('country_code', json.country_code);
+        }
+        else{
+            localStorage.setItem('country_code', "NZ");
+        }
+           
+    }
+    if(localStorage.getItem('country_code')=='');
+    {    
+        localStorage.setItem('country_code', "NZ");
+    }
+  </script>
+<script src="https://get.geojs.io/v1/ip/geo.js"></script>
+  
+<script>
+   window.onload = function() {
+    var countryCode = localStorage.getItem('country_code');
+    console.log(countryCode);
+    var shipping_rate = document.getElementById('shipping_rate');
+    
+    
+    if(countryCode == 'AU') {
+        var bone_broth =  document.getElementById('bone-broth');
+        
+        if(shipping_rate){
+            shipping_rate.textContent='$100';
+        }
+        if(bone_broth)
+        {
+            document.getElementById('bone-broth').style.display = 'none';
+        }
+      $('label[for="bone-broth"]').hide();
+      $('.product-card').filter(function () {
+                        var categories = $(this).data('category').split(' ');
+                        return categories.includes("bone-broth");
+                    }).hide();
+        document.querySelectorAll('.nz-content').forEach(function(item) {
+                item.style.display = 'none';
+            });
+            document.querySelectorAll('.au-content').forEach(function(item) {
+                item.style.display = 'inline';
+            });
+    }
+    else{
+        if(shipping_rate){
+            shipping_rate.textContent='$80';
+        }
+        document.querySelectorAll('.au-content').forEach(function(item) {
+        item.style.display = 'none';
+        document.querySelectorAll('.nz-content').forEach(function(item) {
+                item.style.display = 'inline';
+            });
+    });
+
+    }
+  };
+ </script><div class="scroll-top rounded-full">
       <span class="icon-keyboard_arrow_up text-2xl"></span>
     </div>
   <div class="row peach max-width text-center list">
@@ -224,109 +284,109 @@
     <div class="content py-1"></div>
     
     
-    <a href="http://localhost:1313/posts/how-to-use-powdered-bone-broth/">
+    <a href="http://localhost:1313/posts/how-to-store-tallow-balm/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="How to Use Powdered Bone Broth—Simple and Versatile Options" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="How to Store Tallow Balm: Best Practices for Longevity" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">How to Use Powdered Bone Broth—Simple and Versatile Options</div>
-    <p class="text-gray-700 text-base pb-5">How to Use Powdered Bone Broth—Simple and Versatile Options Powdered bone broth is a convenient alternative to traditional liquid ...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">How to Store Tallow Balm: Best Practices for Longevity</div>
+    <p class="text-gray-700 text-base pb-5">How to Store Tallow Balm Tallow balm NZ is a natural skincare product with no preservatives, so proper storage helps keep it fresh...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/01/10</time>
+      <time>2025/02/13</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/how-to-use-bone-broth/">
+    <a href="http://localhost:1313/posts/how-to-use-tallow-balm/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="How to Use Bone Broth—A Practical Guide" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="How to Use Tallow Balm for Face, Body, and Skin Conditions" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">How to Use Bone Broth—A Practical Guide</div>
-    <p class="text-gray-700 text-base pb-5">How to Use Bone Broth—A Practical Guide Bone broth has long been valued for its nutritional benefits and culinary versatility. Pac...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">How to Use Tallow Balm for Face, Body, and Skin Conditions</div>
+    <p class="text-gray-700 text-base pb-5">How to Use Tallow Balm Tallow balm is a natural, multi-purpose moisturizer that works for face, body, babies, and skin conditions ...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/01/09</time>
+      <time>2025/02/13</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/how-to-spot-a-good-quality-tallow-balm/">
+    <a href="http://localhost:1313/posts/benefits-of-olive-oil-in-skincare/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="How to Spot a Good Quality Tallow Balm—What to Look For" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="Benefits of Olive Oil in Skincare: Why It’s a Must-Have Ingredient" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">How to Spot a Good Quality Tallow Balm—What to Look For</div>
-    <p class="text-gray-700 text-base pb-5">How to Spot a Good Quality Tallow Balm—What to Look For Not all tallow balms are created equal. While tallow is naturally nourishi...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">Benefits of Olive Oil in Skincare: Why It’s a Must-Have Ingredient</div>
+    <p class="text-gray-700 text-base pb-5">Benefits of Olive Oil in Skincare: Why It’s a Must-Have Ingredient Olive oil has been used for centuries as a natural skin remedy,...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/01/08</time>
+      <time>2025/02/12</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/how-to-make-tallow-balm/">
+    <a href="http://localhost:1313/posts/comparison-of-tallow-balm-vs-most-popular-moisturisers/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="How to Make Tallow Balm—DIY Guide vs Buying It Ready-Made" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="Comparison of Tallow Balm vs Most Popular Moisturisers" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">How to Make Tallow Balm—DIY Guide vs Buying It Ready-Made</div>
-    <p class="text-gray-700 text-base pb-5">How to Make Tallow Balm—DIY Guide vs Buying It Ready-Made Tallow balm is a nourishing moisturizer made from rendered animal fat, p...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">Comparison of Tallow Balm vs Most Popular Moisturisers</div>
+    <p class="text-gray-700 text-base pb-5">Comparison of Tallow Balm vs Most Popular Moisturisers Many people assume moisturisers are all the same, but there’s a big differe...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/01/07</time>
+      <time>2025/02/12</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/how-does-tallow-balm-not-go-rancid/">
+    <a href="http://localhost:1313/posts/does-tallow-balm-clog-pores/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="How Does Tallow Balm Not Go Rancid?—Stability and Shelf Life Explained" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="Does Tallow Balm Clog Pores? The Truth About Natural Skincare" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">How Does Tallow Balm Not Go Rancid?—Stability and Shelf Life Explained</div>
-    <p class="text-gray-700 text-base pb-5">How Does Tallow Balm Not Go Rancid?—Stability and Shelf Life Explained One of the most common questions about tallow balm is, “How...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">Does Tallow Balm Clog Pores? The Truth About Natural Skincare</div>
+    <p class="text-gray-700 text-base pb-5">Does Tallow Balm Clog Pores? Many people assume that animal-based moisturisers like tallow balm NZ will clog pores. But in reality...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/01/06</time>
+      <time>2025/02/12</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/drinking-recipes-with-bone-broth/">
+    <a href="http://localhost:1313/posts/is-tallow-balm-safe-for-acne/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="Drinking Recipes with Bone Broth—Creative and Nourishing Ideas" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="Is Tallow Balm Safe for Acne? Everything You Need to Know" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">Drinking Recipes with Bone Broth—Creative and Nourishing Ideas</div>
-    <p class="text-gray-700 text-base pb-5">Drinking Recipes with Bone Broth—Creative and Nourishing Ideas Bone broth isn’t just for soups and stews—it’s also perfect for dri...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">Is Tallow Balm Safe for Acne? Everything You Need to Know</div>
+    <p class="text-gray-700 text-base pb-5">Is Tallow Balm Safe for Acne? Many people worry that using an animal-based balm like tallow balm NZ could clog pores and trigger b...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/01/05</time>
+      <time>2025/02/12</time>
     </p>
   </div>
 </div></div>
@@ -395,6 +455,22 @@
         class="shadow-md mx-2 py-3 px-5 rounded-full relative block border-white border-0 duration-100 bg-white text-blue-600 hover:shadow-sm dark:bg-warmgray-900 dark:border-gray-600 dark:hover:bg-warmgray-700">10</a></li>
     
     
+    
+    
+    
+    <li><a class="shadow-md mx-2 py-3 px-5 rounded-full relative block border-white border-0 cursor-auto Class
+                Properties
+                pointer-events-none">...</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     
     <li><a href="/posts/page/9/" rel="next"
@@ -404,7 +480,7 @@
 
     
     
-    <li class="page-item"><a href="/posts/page/10/" rel="last"
+    <li class="page-item"><a href="/posts/page/15/" rel="last"
         class="shadow-md mx-2 py-3 px-5 rounded-full relative block border-white border-0 duration-100 bg-white text-blue-600 hover:shadow-sm dark:bg-warmgray-900 dark:border-gray-600 dark:hover:bg-warmgray-700">Last</a>
     </li>
     

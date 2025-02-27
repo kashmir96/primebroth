@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 	<meta name="generator" content="Hugo 0.124.1"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script><meta charset="utf-8">
+<meta charset="utf-8">
 <title>PrimalPantry</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link rel="apple-touch-icon" sizes="180x180" href='/apple-touch-icon.png'>
@@ -46,7 +46,7 @@
   </head>
 <body><div class="announcement full-width black text-center">
   <ul>
-      <li>Launch sale now on - 35% off <a style="color: white;" class="text-decoration-underline" href="/shop/products/tallow-skin">Tallow Balms!</a> - Free shipping over $80</li>
+      <li>Launch sale now on - 35% off <a style="color: white;" class="text-decoration-underline" href="/shop/products/tallow-skin">Tallow Balms!</a> - Free shipping over <span id="shipping_rate">$80</span></li>
   </ul>
 </div><header>
     
@@ -130,7 +130,7 @@
         </div>
         
         <div class="flex items-center flex-shrink-0 text-xl text-grey-900">
-            <a href="http://localhost:1313/">
+            <a href="http://localhost:1313/" aria-label="PrimalPantry">
                 <img alt="" class="sitelogo mr-3" src="/img/logo/logo.webp">
             </a>
         </div>
@@ -210,7 +210,66 @@
     });
 </script>
 
-<div class="scroll-top rounded-full">
+<script type="application/javascript">
+    function geoip(json){
+        if(json.country_code){
+            localStorage.setItem('country_code', json.country_code);
+        }
+        else{
+            localStorage.setItem('country_code', "NZ");
+        }
+           
+    }
+    if(localStorage.getItem('country_code')=='');
+    {    
+        localStorage.setItem('country_code', "NZ");
+    }
+  </script>
+<script src="https://get.geojs.io/v1/ip/geo.js"></script>
+  
+<script>
+   window.onload = function() {
+    var countryCode = localStorage.getItem('country_code');
+    console.log(countryCode);
+    var shipping_rate = document.getElementById('shipping_rate');
+    
+    
+    if(countryCode == 'AU') {
+        var bone_broth =  document.getElementById('bone-broth');
+        
+        if(shipping_rate){
+            shipping_rate.textContent='$100';
+        }
+        if(bone_broth)
+        {
+            document.getElementById('bone-broth').style.display = 'none';
+        }
+      $('label[for="bone-broth"]').hide();
+      $('.product-card').filter(function () {
+                        var categories = $(this).data('category').split(' ');
+                        return categories.includes("bone-broth");
+                    }).hide();
+        document.querySelectorAll('.nz-content').forEach(function(item) {
+                item.style.display = 'none';
+            });
+            document.querySelectorAll('.au-content').forEach(function(item) {
+                item.style.display = 'inline';
+            });
+    }
+    else{
+        if(shipping_rate){
+            shipping_rate.textContent='$80';
+        }
+        document.querySelectorAll('.au-content').forEach(function(item) {
+        item.style.display = 'none';
+        document.querySelectorAll('.nz-content').forEach(function(item) {
+                item.style.display = 'inline';
+            });
+    });
+
+    }
+  };
+ </script><div class="scroll-top rounded-full">
         <span class="icon-keyboard_arrow_up text-2xl"></span>
     </div>
     
@@ -230,54 +289,104 @@
       </div>
       <div class="row mt-4 mb-0 full-height align-items-center justify-content-around">
         <div class="text-center middle eighty row justify-content-center">
-          <h3 class="brush mb-4">Best sellers</h3>
+          <h2 class="brush mb-4">Best sellers</h2>
           <div class="d-flex gap-2 mob-hide">
-<div class="product-card grow left col-lg-3 col-sm-6" data-category="tallow">
+<div class="product-card grow left col-lg-3 col-sm-6" data-category="tallow" id="prodcardtallowskin">
   <a href="/shop/products/tallow-skin">
     <img src="/img/dec24/product-balmbig.webp" alt="Beef Tallow for Skincare">
     <div class="product-details">
       
-      <p><span class="attention-primalcare">$15</span> <span class="graytxt small text-decoration-line-through">$22.95</span><span class="special">35% off</span></p>
+      <p>
+<span class="nz-content" style="display:inline;">
+    
+        <span class="attention-primalcare">$15</span> <span class=" small text-decoration-line-through">$22.95</span>
+    
 
-      <h6>Tallow Balm - Whipped</h6>
-      <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>1800+ kiwis</p>
+</span>
+<span class="au-content" style="display:none;">
+    
+    
+        <span class="attention-primalcare">$16</span> <span class=" small text-decoration-line-through">$27.95</span>
+    
+
+</span><span class="special">35% off</span></p>
+
+      <p class="h6 fw-bold">Tallow Balm - Whipped</p>
+      <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>4600+ kiwis</p>
 
     </div>
   </a>
 </div>
 
 
-<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth bundles tallow"><a href="/shop/products/tallow-broth-bundle">
+<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth bundles tallow" id="prodcardinsideout"><a href="/shop/products/tallow-broth-bundle">
   <p class="stamp">Trending</p>
   <img src="/img/dec24/product-insideoutsmall.webp" alt="">
   <div class="product-details">
-    <p>$49.95</p>
-    <h6>Inside out bundle</h6>
-    <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>500+ kiwis</p>
+    <p>  <span class="nz-content" style="display:inline;">
+      
+          $49.95
+      
+  
+  </span>
+  <span class="au-content" style="display:none;">
+      
+      
+         $49.95
+      
+  
+  </span></p>
+    <p class="fw-bold h6">Inside out bundle</p>
+    <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>1000+ kiwis</p>
   </div>
 </a>
 </div>
-<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow"><a href="/shop/products/tallow-unscented-stack">
+<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow" id="prodcardtallowstack"><a href="/shop/products/tallow-unscented-stack">
   <p class="stamp">New</p>
   <img src="/img/sensitive.webp" alt="">
   <div class="product-details">
-    <p>$94.95</p>
-    <h6>Sensitive Skin Tallow Stack</h6>
-    <p>NEW</p>
+    <p><span class="nz-content" style="display:inline;">
+      
+          $94.95
+      
+  
+  </span>
+  <span class="au-content" style="display:none;">
+      
+      
+         $89.95
+      
+  
+  </span></p>
+    <p class="h6 fw-bold">Sensitive Skin Tallow Stack</p>
+    <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>200+ kiwis</p>
 
   </div>
 </a>
 </div></div>
         <div class="d-flex gap-2 mob-show d-none overflow-hidden overflow-auto">
-<div class="product-card grow left col-lg-3 col-sm-6" data-category="tallow">
+<div class="product-card grow left col-lg-3 col-sm-6" data-category="tallow" id="prodcardtallowskin">
   <a href="/shop/products/tallow-skin">
     <img src="/img/dec24/product-balmbig.webp" alt="Beef Tallow for Skincare">
     <div class="product-details">
       
-      <p><span class="attention-primalcare">$15</span> <span class="graytxt small text-decoration-line-through">$22.95</span><span class="special">35% off</span></p>
+      <p>
+<span class="nz-content" style="display:inline;">
+    
+        <span class="attention-primalcare">$15</span> <span class=" small text-decoration-line-through">$22.95</span>
+    
 
-      <h6>Tallow Balm - Whipped</h6>
-      <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>1800+ kiwis</p>
+</span>
+<span class="au-content" style="display:none;">
+    
+    
+        <span class="attention-primalcare">$16</span> <span class=" small text-decoration-line-through">$27.95</span>
+    
+
+</span><span class="special">35% off</span></p>
+
+      <p class="h6 fw-bold">Tallow Balm - Whipped</p>
+      <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>4600+ kiwis</p>
 
     </div>
   </a>
@@ -289,18 +398,18 @@
       </div>
       <div class="row eighty icons justify-content-center text-center center">
             <div class="left col-lg-3 col-sm-12">
-              <img src="/img/home/omnivore.webp">
-              <h4>Natural products</h4>
+              <img src="/img/home/omnivore.webp" alt="natural products">
+              <h3>Natural products</h3>
               <p>All ingredients sourced are natural, pure and simple. As they should be!</p>
             </div>
             <div class="left col-lg-3 col-sm-12">
-              <img src="/img/home/nochem.webp">
-              <h4>No harmful ingredients</h4>
+              <img src="/img/home/nochem.webp" alt="no harmful icon">
+              <h3>No harmful ingredients</h3>
               <p>We leave out bad chemicals big companies use to cut corners and strip natural benefits.</p>
             </div>
             <div class="left col-lg-3 col-sm-12">
-              <img src="/img/home/env.webp">
-              <h4>Sustainably sourced</h4>
+              <img src="/img/home/env.webp" alt="grass  icon">
+              <h3>Sustainably sourced</h3>
               <p>We use only grass fed ingredients in all our products, organic whenever possible.</p>
             </div>
       </div>
@@ -315,22 +424,22 @@
       </div>
 
       <div class="row">
-        <div class="col-lg-3 col-12"><img src="/img/talbaby.webp"></div>
+        <div class="col-lg-3 col-12"><img src="/img/talbaby.webp" alt="baby before and after image"></div>
         <div class="col-lg-3 col-12">
           <p>I recently purchased some tallow balms and beef broth powder. I just wanted to say how impressed I am with the quality, packaging and price of your products.</p>
           <p>It’s great to find an NZ based business selling quality product within a price range that is affordable for the average person. </p>
-          <h4>David C</h4>
+          <span class="h4">David C</span>
         </div>
-        <div class="col-lg-3 col-12"><img src="/img/home/carvid.webp"></div>
+        <div class="col-lg-3 col-12"><img src="/img/home/carvid.webp" alt="customer image"></div>
         <div class="col-lg-3 col-12">
           <p>I’m halfway through my first jar and I love it! I have very sensitive skin and I’ve had no redness issues.</p>
           <p>I’ll be back for more.</p>
-          <h4>Sandra L</h4>
+          <span class="h4">Sandra L</span>
         </div>
       </div>
       
       <div class="row lime mb-0">
-        <img src="/img/home/difference.webp" class="col-lg-6 col-12"/>
+        <img src="/img/home/difference.webp" class="col-lg-6 col-12" alt="primal pantry image"/>
         <div class="col-lg-6 col-12">
           <h2>The PrimalPantry Difference</h2>
           <p>See behind the scenes of our broth and balms</p>
@@ -383,6 +492,8 @@
         updateVisibility();
     });
 </script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
 <footer class="bg-tlgray-100">
   <script src='/js/custom.js'></script>
 

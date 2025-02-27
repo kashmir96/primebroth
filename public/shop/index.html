@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<meta charset="utf-8">
 <title>PrimalPantry | Shop - PrimalPantry</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link rel="apple-touch-icon" sizes="180x180" href='/apple-touch-icon.png'>
@@ -87,7 +88,7 @@
 </head>
 <body><div class="announcement full-width black text-center">
   <ul>
-      <li>Launch sale now on - 35% off <a style="color: white;" class="text-decoration-underline" href="/shop/products/tallow-skin">Tallow Balms!</a> - Free shipping over $80</li>
+      <li>Launch sale now on - 35% off <a style="color: white;" class="text-decoration-underline" href="/shop/products/tallow-skin">Tallow Balms!</a> - Free shipping over <span id="shipping_rate">$80</span></li>
   </ul>
 </div><header>
     
@@ -171,7 +172,7 @@
         </div>
         
         <div class="flex items-center flex-shrink-0 text-xl text-grey-900">
-            <a href="http://localhost:1313/">
+            <a href="http://localhost:1313/" aria-label="PrimalPantry">
                 <img alt="" class="sitelogo mr-3" src="/img/logo/logo.webp">
             </a>
         </div>
@@ -251,7 +252,66 @@
     });
 </script>
 
-<div class="scroll-top rounded-full">
+<script type="application/javascript">
+    function geoip(json){
+        if(json.country_code){
+            localStorage.setItem('country_code', json.country_code);
+        }
+        else{
+            localStorage.setItem('country_code', "NZ");
+        }
+           
+    }
+    if(localStorage.getItem('country_code')=='');
+    {    
+        localStorage.setItem('country_code', "NZ");
+    }
+  </script>
+<script src="https://get.geojs.io/v1/ip/geo.js"></script>
+  
+<script>
+   window.onload = function() {
+    var countryCode = localStorage.getItem('country_code');
+    console.log(countryCode);
+    var shipping_rate = document.getElementById('shipping_rate');
+    
+    
+    if(countryCode == 'AU') {
+        var bone_broth =  document.getElementById('bone-broth');
+        
+        if(shipping_rate){
+            shipping_rate.textContent='$100';
+        }
+        if(bone_broth)
+        {
+            document.getElementById('bone-broth').style.display = 'none';
+        }
+      $('label[for="bone-broth"]').hide();
+      $('.product-card').filter(function () {
+                        var categories = $(this).data('category').split(' ');
+                        return categories.includes("bone-broth");
+                    }).hide();
+        document.querySelectorAll('.nz-content').forEach(function(item) {
+                item.style.display = 'none';
+            });
+            document.querySelectorAll('.au-content').forEach(function(item) {
+                item.style.display = 'inline';
+            });
+    }
+    else{
+        if(shipping_rate){
+            shipping_rate.textContent='$80';
+        }
+        document.querySelectorAll('.au-content').forEach(function(item) {
+        item.style.display = 'none';
+        document.querySelectorAll('.nz-content').forEach(function(item) {
+                item.style.display = 'inline';
+            });
+    });
+
+    }
+  };
+ </script><div class="scroll-top rounded-full">
         <span class="icon-keyboard_arrow_up text-2xl"></span>
     </div><div class="swiper-container">
     <div class="swiper-wrapper">
@@ -261,12 +321,13 @@
     <div class="swiper-button-next"></div>
 </div>
 
+
     <div class="container shopcontainer">
         
         
 
-        <div style="margin-bottom: 0px; " class="row max-width shopsection"> 
-            <div style="margin-top:-50px;" class="filter-options mob-hide">
+        <div style="margin-bottom: 0px; " class="row  shopsection"> 
+            <div  class="filter-options mob-hide">
                 <input type="radio" id="all" name="product-filter" value="all" checked>
                 <label for="all">All</label>
     
@@ -288,28 +349,58 @@
                 
             </div>
             <div class="d-flex shopdiv flex-wrap gap-2">
-<div class="product-card grow left col-lg-3 col-sm-6" data-category="tallow">
+<div class="product-card grow left col-lg-3 col-sm-6" data-category="tallow" id="prodcardtallowskin">
   <a href="/shop/products/tallow-skin">
     <img src="/img/dec24/product-balmbig.webp" alt="Beef Tallow for Skincare">
     <div class="product-details">
       
-      <p><span class="attention-primalcare">$15</span> <span class="graytxt small text-decoration-line-through">$22.95</span><span class="special">35% off</span></p>
+      <p>
+<span class="nz-content" style="display:inline;">
+    
+        <span class="attention-primalcare">$15</span> <span class=" small text-decoration-line-through">$22.95</span>
+    
 
-      <h6>Tallow Balm - Whipped</h6>
-      <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>1800+ kiwis</p>
+</span>
+<span class="au-content" style="display:none;">
+    
+    
+        <span class="attention-primalcare">$16</span> <span class=" small text-decoration-line-through">$27.95</span>
+    
+
+</span><span class="special">35% off</span></p>
+
+      <p class="h6 fw-bold">Tallow Balm - Whipped</p>
+      <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>4600+ kiwis</p>
 
     </div>
   </a>
 </div>
 
 
-<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow bundles"><a href="/shop/products/tallow-trio">
+<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow bundles" id="prodcardtallowbundle"><a href="/shop/products/tallow-trio">
   <p class="stamp">Hot</p>
   <img src="/img/dec24/product-trio.webp" alt="">
   <div class="product-details">
-    <p><span class="attention-primalcare">$35.80</span> <span class="graytxt small text-decoration-line-through">$55</span><span class="special">35% off</span></p>
+    <p>
+      <span class="nz-content" style="display:inline;">
+        
+            
+            <span class="attention-primalcare">$35.82</span> <span class="graytxt small text-decoration-line-through">$55</span><span class="special">35% off</span>
+   
+        
+    
+    </span>
+    <span class="au-content" style="display:none;">
+        
+        
+          
+           <span class="attention-primalcare">$36</span> <span class="graytxt small text-decoration-line-through">$60</span><span class="special">35% off</span>
+   
+        
+    
+    </span></p>
     <h6>Tallow Balm Mixed Bundle</h6>
-    <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>500+ kiwis</p>
+    <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>1000+ kiwis</p>
  
   </div>
 </a>
@@ -321,35 +412,67 @@
 
 
 
-<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth"><a href="/shop/products/powder">
+<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth" id="prodcardpplpowder"><a href="/shop/products/powder">
   <p class="stamp">Trending</p>
   <img src="/img/dec24/product-broth.webp" alt="">
   <div class="product-details">
-    <p>$34.95</p>
+    <p><span class="nz-content" style="display:inline;">
+      
+          $34.95
+      
+  
+  </span>
+  <span class="au-content" style="display:none;">
+      
+      
+  
+  </span></p>
     <h6>Bone broth powder</h6>
-    <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>1000+ kiwis</p>
+    <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>1500+ kiwis</p>
 
   </div>
 </a>
 </div>
-<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow"><a href="/shop/products/tallow-unscented-stack">
+<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow" id="prodcardtallowstack"><a href="/shop/products/tallow-unscented-stack">
   <p class="stamp">New</p>
   <img src="/img/sensitive.webp" alt="">
   <div class="product-details">
-    <p>$94.95</p>
-    <h6>Sensitive Skin Tallow Stack</h6>
-    <p>NEW</p>
+    <p><span class="nz-content" style="display:inline;">
+      
+          $94.95
+      
+  
+  </span>
+  <span class="au-content" style="display:none;">
+      
+      
+         $89.95
+      
+  
+  </span></p>
+    <p class="h6 fw-bold">Sensitive Skin Tallow Stack</p>
+    <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>200+ kiwis</p>
 
   </div>
 </a>
 </div>
-<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth pets"><a href="/shop/products/pets-powder">
+<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth pets" id="prodcardpetpowder"><a href="/shop/products/pets-powder">
     <p class="stamp">Trending</p>
     <img src="/img/petsgrass.webp" alt="">
     <div class="product-details">
-      <p>$24.95</p>
+      <p><span class="nz-content" style="display:inline;">
+        
+            $24.95
+        
+    
+    </span>
+    <span class="au-content" style="display:none;">
+        
+        
+    
+    </span></p>
       <h6>Pets Bone Broth Powder</h6>
-      <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>500+ kiwis</p>
+      <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>1000+ kiwis</p>
 
     </div>
   </a>
@@ -357,68 +480,141 @@
 
 
   
-<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth bundles tallow"><a href="/shop/products/tallow-broth-bundle">
+<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth bundles tallow" id="prodcardinsideout"><a href="/shop/products/tallow-broth-bundle">
   <p class="stamp">Trending</p>
   <img src="/img/dec24/product-insideoutsmall.webp" alt="">
   <div class="product-details">
-    <p>$49.95</p>
-    <h6>Inside out bundle</h6>
-    <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>500+ kiwis</p>
+    <p>  <span class="nz-content" style="display:inline;">
+      
+          $49.95
+      
+  
+  </span>
+  <span class="au-content" style="display:none;">
+      
+      
+         $49.95
+      
+  
+  </span></p>
+    <p class="fw-bold h6">Inside out bundle</p>
+    <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>1000+ kiwis</p>
   </div>
 </a>
 </div>
-<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth bundles pets"><a href="/shop/products/broth-bundle">
+<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth bundles pets" id="prodcardbrothbundle"><a href="/shop/products/broth-bundle">
   <p class="stamp">Selling fast</p>
   <img src="/img/dec24/peoplepets.webp" alt="">
   <div class="product-details">
-    <p>$54.95</p>
+    <p>
+      <span class="nz-content" style="display:inline;">
+          
+              $54.95
+          
+      
+      </span>
+      <span class="au-content" style="display:none;">
+          
+          
+             $59.95
+          
+      
+      </span></p>
     <h6>People & Pets Bundle</h6>
+    <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>1000+ kiwis</p>
+
+  </div>
+</a>
+</div>
+<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow" id="prodcardtallowsunscreenbalm"><a href="/shop/products/tallow-sunscreen-balm">
+  <p class="stamp">New</p>
+  <img src="/img/sunscreen/main.webp" alt="">
+  <div class="product-details">
+    <p><span class="nz-content" style="display:inline;">
+      
+          $18.95
+      
+  
+  </span>
+  <span class="au-content" style="display:none;">
+      
+      
+         $21.95
+      
+  
+  </span></p>
+    <h6>Tallow Sunbalm</h6>
+    <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>400+ kiwis</p>
+
+  </div>
+</a>
+</div>
+<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow" id="prodcardtallowsoap"><a href="/shop/products/tallow-soap">
+  <p class="stamp">New</p>
+  <img src="/img/soaps-new/new-prod.webp" alt="">
+  <div class="product-details">
+    <p><span class="nz-content" style="display:inline;">
+      
+          $14.95
+      
+  
+  </span>
+  <span class="au-content" style="display:none;">
+      
+      
+         $17.95
+      
+  
+  </span></p>
+    <h6>Tallow Soap</h6>
     <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>500+ kiwis</p>
 
   </div>
 </a>
 </div>
-<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow"><a href="/shop/products/tallow-sunscreen-balm">
-  <p class="stamp">New</p>
-  <img src="/img/sunscreen/main.webp" alt="">
-  <div class="product-details">
-    <p>$18.95</p>
-    <h6>Tallow Sunbalm</h6>
-    <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>10+ kiwis</p>
-
-  </div>
-</a>
-</div>
-<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow"><a href="/shop/products/tallow-soap">
-  <p class="stamp">New</p>
-  <img src="/img/soaps-new/new-prod.webp" alt="">
-  <div class="product-details">
-    <p>$14.95</p>
-    <h6>Tallow Soap</h6>
-    <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>30+ kiwis</p>
-
-  </div>
-</a>
-</div>
-<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow"><a href="/shop/products/tallow-soap-mixed">
+<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow" id="prodcardtallowsoapmixed"><a href="/shop/products/tallow-soap-mixed">
   <p class="stamp">New</p>
   <img src="/img/soaps-new/mixed-prod.webp" alt="">
   <div class="product-details">
-    <p>$14.95</p>
+    <p><span class="nz-content" style="display:inline;">
+      
+          $14.95
+      
+  
+  </span>
+  <span class="au-content" style="display:none;">
+      
+      
+         $17.95
+      
+  
+  </span></p>
     <h6>Tallow Soap Mixed Sampler</h6>
-    <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>20+ kiwis</p>
+    <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>500+ kiwis</p>
 
   </div>
 </a>
 </div>
 
-<div class="product-card grow col-lg-3 col-sm-6" data-category="mushrooms food"><a href="/shop/products/tallow-shampoo-bar">
+<div class="product-card grow col-lg-3 col-sm-6" data-category="mushrooms food" id="prodcardshampoo"><a href="/shop/products/tallow-shampoo-bar">
   <p class="stamp">New</p>
   <img src="/img/prod/shampoo/1.webp" alt="">
   <div class="product-details">
-    <p>$17.95</p>
+    <p><span class="nz-content" style="display:inline;">
+      
+          $17.95
+      
+  
+  </span>
+  <span class="au-content" style="display:none;">
+      
+      
+         $19.95
+      
+  
+  </span></p>
     <h6>Tallow Shampoo Bar</h6>
-    <p>NEW</p>
+    <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>200+ kiwis</p>
 
   </div>
 </a>
@@ -471,6 +667,16 @@
                         var categories = $(this).data('category').split(' ');
                         return categories.includes(selectedFilter);
                     }).show();
+                }
+                var countryCode = localStorage.getItem('country_code');
+                
+                if (countryCode === 'AU') {
+                    document.getElementById('bone-broth').style.display = 'none';
+                    $('label[for="bone-broth"]').hide();
+                    $('.product-card').filter(function () {
+                        var categories = $(this).data('category').split(' ');
+                        return categories.includes("bone-broth");
+                    }).hide();
                 }
             });
     

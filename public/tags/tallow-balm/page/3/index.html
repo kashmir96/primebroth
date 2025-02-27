@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<meta charset="utf-8">
 <title>PrimalPantry | Tallow Balm</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link rel="apple-touch-icon" sizes="180x180" href='/apple-touch-icon.png'>
@@ -134,7 +135,7 @@
         </div>
         
         <div class="flex items-center flex-shrink-0 text-xl text-grey-900">
-            <a href="http://localhost:1313/">
+            <a href="http://localhost:1313/" aria-label="PrimalPantry">
                 <img alt="" class="sitelogo mr-3" src="/img/logo/logo.webp">
             </a>
         </div>
@@ -214,7 +215,66 @@
     });
 </script>
 
-<div class="scroll-top rounded-full">
+<script type="application/javascript">
+    function geoip(json){
+        if(json.country_code){
+            localStorage.setItem('country_code', json.country_code);
+        }
+        else{
+            localStorage.setItem('country_code', "NZ");
+        }
+           
+    }
+    if(localStorage.getItem('country_code')=='');
+    {    
+        localStorage.setItem('country_code', "NZ");
+    }
+  </script>
+<script src="https://get.geojs.io/v1/ip/geo.js"></script>
+  
+<script>
+   window.onload = function() {
+    var countryCode = localStorage.getItem('country_code');
+    console.log(countryCode);
+    var shipping_rate = document.getElementById('shipping_rate');
+    
+    
+    if(countryCode == 'AU') {
+        var bone_broth =  document.getElementById('bone-broth');
+        
+        if(shipping_rate){
+            shipping_rate.textContent='$100';
+        }
+        if(bone_broth)
+        {
+            document.getElementById('bone-broth').style.display = 'none';
+        }
+      $('label[for="bone-broth"]').hide();
+      $('.product-card').filter(function () {
+                        var categories = $(this).data('category').split(' ');
+                        return categories.includes("bone-broth");
+                    }).hide();
+        document.querySelectorAll('.nz-content').forEach(function(item) {
+                item.style.display = 'none';
+            });
+            document.querySelectorAll('.au-content').forEach(function(item) {
+                item.style.display = 'inline';
+            });
+    }
+    else{
+        if(shipping_rate){
+            shipping_rate.textContent='$80';
+        }
+        document.querySelectorAll('.au-content').forEach(function(item) {
+        item.style.display = 'none';
+        document.querySelectorAll('.nz-content').forEach(function(item) {
+                item.style.display = 'inline';
+            });
+    });
+
+    }
+  };
+ </script><div class="scroll-top rounded-full">
       <span class="icon-keyboard_arrow_up text-2xl"></span>
     </div>
   <div class="row peach max-width text-center list">
@@ -224,109 +284,109 @@
     <div class="content py-1"></div>
     
     
-    <a href="http://localhost:1313/posts/comparison-of-tallow-balm-vs-most-popular-moisturisers/">
+    <a href="http://localhost:1313/posts/why-choose-tallow-balm-made-from-nz-beef-tallow/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="Comparison of Tallow Balm vs Most Popular Moisturisers" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="Why Choose Tallow Balm Made from NZ Beef Tallow?" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">Comparison of Tallow Balm vs Most Popular Moisturisers</div>
-    <p class="text-gray-700 text-base pb-5">Comparison of Tallow Balm vs Most Popular Moisturisers Many people assume moisturisers are all the same, but there’s a big differe...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">Why Choose Tallow Balm Made from NZ Beef Tallow?</div>
+    <p class="text-gray-700 text-base pb-5">Why Choose Tallow Balm Made from NZ Beef Tallow? New Zealand is known for some of the best beef in the world, and that quality ext...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/02/12</time>
+      <time>2025/02/21</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/does-tallow-balm-clog-pores/">
+    <a href="http://localhost:1313/posts/frequently-asked-questions-using-tallow-balm-for-anti-aging-benefits/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="Does Tallow Balm Clog Pores? The Truth About Natural Skincare" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="Frequently Asked Questions – Using Tallow Balm for Anti-Aging Benefits" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">Does Tallow Balm Clog Pores? The Truth About Natural Skincare</div>
-    <p class="text-gray-700 text-base pb-5">Does Tallow Balm Clog Pores? Many people assume that animal-based moisturisers like tallow balm NZ will clog pores. But in reality...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">Frequently Asked Questions – Using Tallow Balm for Anti-Aging Benefits</div>
+    <p class="text-gray-700 text-base pb-5">Frequently Asked Questions – Using Tallow Balm for Anti-Aging Benefits If you’re wondering how tallow balm NZ can help with ...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/02/12</time>
+      <time>2025/02/20</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/is-tallow-balm-safe-for-acne/">
+    <a href="http://localhost:1313/posts/how-tallow-balm-can-help-eczema/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="Is Tallow Balm Safe for Acne? Everything You Need to Know" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="How Tallow Balm Can Help Eczema: A Natural Moisturiser for Dry, Irritated Skin" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">Is Tallow Balm Safe for Acne? Everything You Need to Know</div>
-    <p class="text-gray-700 text-base pb-5">Is Tallow Balm Safe for Acne? Many people worry that using an animal-based balm like tallow balm NZ could clog pores and trigger b...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">How Tallow Balm Can Help Eczema: A Natural Moisturiser for Dry, Irritated Skin</div>
+    <p class="text-gray-700 text-base pb-5">How Tallow Balm Can Help Eczema Eczema can leave skin itchy, inflamed, cracked, and painfully dry. Many store-bought creams contai...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/02/12</time>
+      <time>2025/02/20</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/tallow-balm-for-cracked-heels/">
+    <a href="http://localhost:1313/posts/the-ingredients-in-a-tallow-balm/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="Tallow Balm for Cracked Heels: How to Use It for Soft, Healthy Feet" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="The Ingredients in a Tallow Balm: What Makes It So Effective?" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">Tallow Balm for Cracked Heels: How to Use It for Soft, Healthy Feet</div>
-    <p class="text-gray-700 text-base pb-5">Tallow Balm for Cracked Heels: How to Use It Cracked heels are a common problem, especially in New Zealand’s dry or cold weather. ...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">The Ingredients in a Tallow Balm: What Makes It So Effective?</div>
+    <p class="text-gray-700 text-base pb-5">The Ingredients in a Tallow Balm Not all moisturisers are created equal. Tallow balm NZ is made from simple, natural ingredients t...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/02/12</time>
+      <time>2025/02/20</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/benefits-of-frankincense-in-skincare/">
+    <a href="http://localhost:1313/posts/why-choose-nz-made-tallow-balm/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="Benefits of Frankincense in Skincare: A Natural Anti-Aging Ingredient" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="Why Choose NZ-Made Tallow Balm? Supporting Local, Sustainable Skincare" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">Benefits of Frankincense in Skincare: A Natural Anti-Aging Ingredient</div>
-    <p class="text-gray-700 text-base pb-5">Benefits of Frankincense in Skincare Frankincense has been used for centuries in skincare and healing. When added to tallow balm N...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">Why Choose NZ-Made Tallow Balm? Supporting Local, Sustainable Skincare</div>
+    <p class="text-gray-700 text-base pb-5">Why Choose NZ-Made Tallow Balm? When you buy NZ-made tallow balm, you’re not just getting high-quality skincare—you’re also suppor...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/02/11</time>
+      <time>2025/02/20</time>
     </p>
   </div>
 </div></div>
     </a>
     
-    <a href="http://localhost:1313/posts/how-is-tallow-balm-made/">
+    <a href="http://localhost:1313/posts/how-tallow-balm-can-help-tsw/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
-  <img id="thumb" alt="How Is Tallow Balm Made? A Look at Ingredients &amp; Process" class="aspect-video object-cover w-auto lg:h-44"
+  <img id="thumb" alt="How Tallow Balm Can Help TSW (Topical Steroid Withdrawal)" class="aspect-video object-cover w-auto lg:h-44"
     src='/img/default.jpg'>
   
   <div
     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 relative pl-4 p-6 justify-between leading-normal max-w-full w-full">
-    <div class="text-gray-900 font-bold text-xl mb-2">How Is Tallow Balm Made? A Look at Ingredients &amp; Process</div>
-    <p class="text-gray-700 text-base pb-5">How Is Tallow Balm Made? Tallow balm is a simple but effective moisturizer made from beef tallow, blended with nourishing oils. Ho...</p>
+    <div class="text-gray-900 font-bold text-xl mb-2">How Tallow Balm Can Help TSW (Topical Steroid Withdrawal)</div>
+    <p class="text-gray-700 text-base pb-5">How Tallow Balm Can Help TSW (Topical Steroid Withdrawal) Topical Steroid Withdrawal (TSW) can cause red, inflamed, and painfully ...</p>
     <p class="text-sm text-gray-600 items-center">
-      <time>2025/02/11</time>
+      <time>2025/02/19</time>
     </p>
   </div>
 </div></div>
@@ -395,6 +455,14 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
 
     
     <li><a href="/tags/tallow-balm/page/4/" rel="next"
@@ -404,7 +472,7 @@
 
     
     
-    <li class="page-item"><a href="/tags/tallow-balm/page/7/" rel="last"
+    <li class="page-item"><a href="/tags/tallow-balm/page/11/" rel="last"
         class="shadow-md mx-2 py-3 px-5 rounded-full relative block border-white border-0 duration-100 bg-white text-blue-600 hover:shadow-sm dark:bg-warmgray-900 dark:border-gray-600 dark:hover:bg-warmgray-700">Last</a>
     </li>
     
