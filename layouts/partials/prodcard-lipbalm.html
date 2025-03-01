@@ -1,0 +1,32 @@
+<!-- Pet single product card -->
+<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow" id="prodcard-lipbalm"><a href="/shop/products/tallow-lip-balm">
+  <p class="stamp">NEW</p>
+  <img src="/img/prod/lipbalm/1.webp" alt="">
+  <div class="product-details">
+    <p><span class="nz-content" style="display:inline;">{{ with index site.Data.pricing.tallow.pricing.lipbalm 0 }}
+      {{ with .prices.NZ }}
+          ${{ .single_purchase }}
+      {{ end }}
+  {{ end }}
+  </span>
+  <span class="au-content" style="display:none;">
+      {{ with index site.Data.pricing.tallow.pricing.lipbalm 0 }}
+      {{ with .prices.AU }}
+         ${{ .single_purchase }}
+      {{ end }}
+  {{ end }}
+  </span></p>
+    <h6>Tallow Lip Balm</h6>
+    <p>NEW</p>
+ 
+  </div>
+</a>
+</div>
+
+
+
+
+
+
+
+

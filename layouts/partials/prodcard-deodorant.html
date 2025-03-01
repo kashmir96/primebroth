@@ -1,0 +1,30 @@
+<!-- Pet single product card -->
+<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow bundles" id="prodcardtallowbundle"><a href="/shop/products/tallow-deodorant">
+  <p class="stamp">Hot</p>
+  <img src="/img/prod/deodorant/1.webp" alt="">
+  <div class="product-details">
+    <p><span class="nz-content" style="display:inline;">{{ with index site.Data.pricing.tallow.pricing.deodorant 0 }}
+      {{ with .prices.NZ }}
+          ${{ .single_purchase }}
+      {{ end }}
+  {{ end }}
+  </span>
+  <span class="au-content" style="display:none;">
+      {{ with index site.Data.pricing.tallow.pricing.deodorant 0 }}
+      {{ with .prices.AU }}
+         ${{ .single_purchase }}
+      {{ end }}
+  {{ end }}
+  </span></p>
+    <h6>Tallow Deodorant</h6>
+    <p>NEW</p>
+ 
+  </div>
+</a>
+</div>
+
+
+
+
+
+
