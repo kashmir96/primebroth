@@ -63,6 +63,7 @@
                 cartItemsContainer.innerHTML = '';
                 const table = document.createElement('table');
                 table.className = 'table table-bordered';
+                if(window.innerWidth > 600){
                 table.innerHTML = `
                     <thead class="thead-light">
                         <tr>
@@ -74,6 +75,12 @@
                     </thead>
                     <tbody id="cart-table-body"></tbody>
                 `;
+                }
+                 else{
+                    table.innerHTML = `
+                    <tbody id="cart-table-body"></tbody>
+                `;
+                 }
                 cartItemsContainer.appendChild(table);
 
                 const cartTableBody = document.getElementById('cart-table-body');
@@ -95,12 +102,24 @@
                     totalCost += parseFloat(lineItemTotal);
 
                     const row = document.createElement('tr');
+                    if(window.innerWidth > 600){
                     row.innerHTML = `
                         <td class="max-200"><div style="max-width: 250px;" class="float-left">${item.title || 'Unknown Product'} - ${item.flavor || 'N/A'}  ${item.size || 'N/A'} (${item.orderType || 'N/A'})</div><button class="remove-item bin-sml float-right" data-index="${index}"><img src="/img/bin.svg"></button></td>
                         <td>$${unitPrice}${priceSuffix}</td>
                         <td><input type="number" style="width: 50px;" class="form-control quantity-input" data-index="${index}" value="${quantity}" min="1"></td>
                         <td class="line-total">$${lineItemTotal}${priceSuffix}</td>
                     `;
+                    }
+                    else{
+                        row.innerHTML = `
+                        <td><div>${item.title || 'Unknown Product'} - ${item.flavor || 'N/A'}  ${item.size || 'N/A'} (${item.orderType || 'N/A'})</div>
+                        <div class="row m-0 mt-2 p-0 align-items-center"><span class="col-4">$${unitPrice}${priceSuffix}</span>
+                        <span class="col-4 text-center"><input type="number" style="width: 50px;margin:auto" class="form-control quantity-input" data-index="${index}" value="${quantity}" min="1"></span><span class="col-4 text-end"> 
+                            <button class="remove-item bin-sml text-danger" data-index="${index}"><img src="/img/bin.svg"></button></span></div></td>
+                        <td class="line-total">$${lineItemTotal}${priceSuffix}</td>
+                    `;
+
+                    }
                     cartTableBody.appendChild(row);
                 });
 
@@ -164,6 +183,8 @@ if (cartEmptyDiv) {
 
             // Initial call to display the cart
             updateCart();
+            window.onresize = function(event) {
+  updateCart();}
 
             proceedToCheckoutButton.addEventListener('click', function () {
                 handleCheckout(cart);
@@ -194,7 +215,18 @@ if (cartEmptyDiv) {
                     });
             }
         });
+        
     </script>
+    <style>@media (max-width: 767px) {
+        table {
+            width: 100%;
+            min-width:100% !important;
+        }
+        .table-bordered td, .table-bordered th {
+    vertical-align: middle;
+}
+    }
+</style>
 </body>
 </html>
 
