@@ -210,5 +210,15 @@
         </div></div></div>
     <!-- Add html above -->
     {{- partial "footer.html" . -}}
+    <script>
+    $(document).ready(function() {
+        $("[data-fancybox]").fancybox({
+            afterClose: function(instance, current) {
+            // Redirect to /shop/ after Fancybox is closed
+            window.location.href = "/shop/";
+            }
+        });
+    });
+    </script>
 </body>
 </html>
