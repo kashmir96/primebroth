@@ -235,8 +235,7 @@
 <script>
     const productPricingRaw = {{ site.Data.pricing.tallow.pricing.cooking | jsonify | safeJS }};
     console.log("Raw product Pricing from Hugo:", productPricingRaw);
-    const country_code = localStorage.getItem('country_code');
-
+    const country_code = getCountryCookie('country_code') || "NZ";
     const productPricing = Array.isArray(productPricingRaw) ? productPricingRaw : [];
     if (!Array.isArray(productPricing)) {
         console.error("productPricing is not an array. Ensure your YAML structure and Hugo data access.");

@@ -168,7 +168,7 @@
                         return categories.includes(selectedFilter);
                     }).show();
                 }
-                var countryCode = localStorage.getItem('country_code');
+                const countryCode = getCountryCookie('country_code') || "NZ";
                 // If the country is NZ, show NZ-specific partials
                 if (countryCode === 'AU') {
                     document.getElementById('bone-broth').style.display = 'none';
