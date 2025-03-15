@@ -11,9 +11,9 @@
     <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
     <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
     <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" /> -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script> -->
 </head>
 <body>
     
@@ -25,64 +25,139 @@
     {{- partial "strip.html" . -}}
     <!-- Add html below -->
 
-    <div class="container">
-        <div style="margin-bottom: 0px;" class="row max-width lime shopsection"> 
-            <h1 class="text-center">Customer support</h1>
-            <p class="text-center">Need to query your order? submit this form and we'll be in touch asap.</p>               
-
-            <div class="custom-form">
-                <form id="contact-form" method="POST" data-netlify="true" name="support">
-                    <input type="hidden" name="form-name" value="support">
+    <div class="container-fluid">
+        <div style="margin-bottom: 0px;" class="row  lime shopsection"> 
+            <h1 class="text-center pt-3">Customer support</h1>
+            <!-- <p class="text-center">Need to query your order? submit this form and we'll be in touch asap.</p>               
+            -->
+            <div class="col-12 col-md-6 mt-4"> 
+                <p>Please note, usual wait times are up to 7 days between processing time and courier transport time depending
+                    where you're from in New Zealand. In Australia, please add 5 days to this to account for extra transit time.
+                </p>
+                <p>Orders containing products marked "backorder" will ship when the backorder item is in stock.</p>
+                <h3>Please check our FAQ prior to submitting a support request.</h3>
+                <div class="faq mt-4">
+                    <div class="accordion-item ">
+                        <h4 class="accordion-heading">I'd like to make a change to what I've just ordered.</h4>
+                        <div class="accordion-content">
+                          <p>Contact us as soon as possible, If the order has already sent, then you will either have to order again or ship the product
+                            back to us (sealed and unopened) to swap.
+                          </p> </div>
+                      </div>
                     
-                    <label>Name*</label>
-                    <input type="text" placeholder="Your Name" class="form-input" name="name" required>
-                    
-                    <label>Email*</label>
-                    <input type="email" placeholder="your@email.com" class="form-input" name="email" required>
+                      <div class="accordion-item ">
+                        <h4 class="accordion-heading">My order hasn't arrived yet</h4>
+                        <div class="accordion-content">
+                          <p>Normal wait times can be up to 7 days depending on location in NZ, often it can be sooner, but as a general rule of thumb
+                            please wait for this long Before asking us to follow up as it's likely already on the way to you.
+                          </p><p>Once your order has been processed (Usually with in 3 days) you will be sent a tracking code to follow your order to your door in the courier.</p></div>
+                      </div>
+          
+                      <div class="accordion-item  show">
+                        <h4 class="accordion-heading">I can't tell which scent is which</h4>
+                        <div class="accordion-content">
+                          <p>
+                            
+                          if you've received a jar of primalcare and are unable to tell what scent uou've received, check the label on front, or the best before sticker on the lid.</p>
+                        </div>
+                      </div>
+          
+                      <div class="accordion-item show">
+                        <h4 class="accordion-heading">My order was damaged in transit</h4>
+                        <div class="accordion-content">
+                       
+                          <p>Sometimes glass jars no matter how well we wrap them can take a hit in the courier van and turn up a bit worse for wear, If this has happened
+                            to You, be sure to fill in the form to the right and upload a photo. We will send you a replacement.
+                          </p>
+                            
+                        </div>
+                      
+                      </div>
+          
+                      <div class="accordion-item  show">
+                        <h4 class="accordion-heading">I'd like to returnan item I've ordered</h4>
+                        <div class="accordion-content">
+                         <p>As part of our money back guarantee, if you'd like to return a product that's in new and unused condition we will refund your money.
+                            Simply ship back to 6 Colt Place Wigram Christchurch 8025 and we'll refund you once it arrives.
+                             Be sure to write your name or email on the bag so we know who's order it is!
+                         </p>
+                        </div>
+                      </div>
+                      <div class="accordion-item  show">
+                        <h4 class="accordion-heading">I'd like to swap what I've ordered with another item</h4>
+                        <div class="accordion-content">
+                         <p>If the item is still sealed and unused you may return it for another,
+                             simply ship back to 6 Colt place Wigram Christchurch 8025 and we'll refund you once it ariives.
+                              Be sure to write your name or email on the bag so we know who's order it is!.  </p>
+                        </div>
+                      </div>
+                      <div class="accordion-item  show">
+                        <h4 class="accordion-heading">I didn't receive a receipt or confirmation email</h4>
+                        <div class="accordion-content">
+                         <p>A receipt will be sent to the email you used to create your order within an hour or two of it
+                            order being placed. If it's not received in this time it could be being lost in your spam folder, or often we find it's a misspelling of the email or a different email being auto-populated at checkout.
+                        If you haven't received yours we will look into it for you, just fill in the form to the right as best you can and we'll find it for you. </p>
+                        </div>
+                      </div>
+                </div>
 
-                    <label>Date of transaction</label>
-                    <input type="text" placeholder="e.g. 25/09/2024" class="form-input" name="transaction_date">
-
-                    <label>Receipt number (for faster processing of your query)</label>
-                    <input type="text" placeholder="e.g. 8039-1092" class="form-input" name="receipt">
-
-                    <label>Product purchased</label>
-                    <select class="form-input" name="product_purchased" required>
-                        <option value="" disabled selected>Select a product type</option>
-                        <option value="people-beef-powder">Bone broth powder (people)</option>
-                        <option value="pets-beef-powder">Bone broth powder (pets)</option>
-                        <option value="tallow-balm">Tallow balm</option>
-                        <option value="bundle-trio">Tallow trio bundle</option>
-                        <option value="bundle-inside-out">Inside out wellness bundle</option>
-                        <option value="bundle-people-pets">People and pets broth powder bundle</option>
-                    </select>
-
-                    <label>Support query type</label>
-                    <select class="form-input" name="support_query_type" required>
-                        <option value="" disabled selected>Select a query type</option>
-                        <option value="order_status">Order Status</option>
-                        <option value="product_details">Product Details</option>
-                        <option value="primebroth_query">Primebroth (Bone Broth) Query</option>
-                        <option value="balm_query">Tallow Balm Query</option>
-                        <option value="shipping_issue">Shipping Issue</option>
-                        <option value="refund_request">Refund or Exchange Request</option>
-                    </select>
-
-                    <label>Message*</label>
-                    <textarea rows="5" placeholder="Please provide details of your support query" class="form-input" name="message" required></textarea>
-                
-                    <label>Upload Supporting Images or Documents (Required for refunds or exchanges of received items)</label>
-                    <input type="file" class="form-input" name="attachments" accept="image/*,.pdf,.doc,.docx" multiple>
-
-                    <label>Affected product batch number (Required for refunds or exchanges of received items)</label>
-                    <input type="text" placeholder="e.g. 039" class="form-input" name="batch" >
-
-                    <label>Are you a robot? What's 5+1?*</label>
-                    <input type="text" id="specialField" placeholder="Answer correctly to submit" class="form-input" required>
-                    
-                    <button id="contact-submit" class="btn btn-primary" type="submit">Send</button>
-                </form>
             </div>
+            <div class="col-md-6 col-xs-12">
+                <div class="custom-form">
+                    <form id="contact-form" method="POST" data-netlify="true" name="support">
+                        <input type="hidden" name="form-name" value="support">
+                        
+                        <label>Name*</label>
+                        <input type="text" placeholder="Your Name" class="form-input" name="name" required>
+                        
+                        <label>Email*</label>
+                        <input type="email" placeholder="your@email.com" class="form-input" name="email" required>
+    
+                        <label>Date of transaction</label>
+                        <input type="text" placeholder="e.g. 25/09/2024" class="form-input" name="transaction_date">
+    
+                        <label>Receipt number (for faster processing of your query)</label>
+                        <input type="text" placeholder="e.g. 8039-1092" class="form-input" name="receipt">
+    
+                        <label>Product purchased</label>
+                        <select class="form-input" name="product_purchased" required>
+                            <option value="" disabled selected>Select a product type</option>
+                            <option value="people-beef-powder">Bone broth powder (people)</option>
+                            <option value="pets-beef-powder">Bone broth powder (pets)</option>
+                            <option value="tallow-balm">Tallow balm</option>
+                            <option value="bundle-trio">Tallow trio bundle</option>
+                            <option value="bundle-inside-out">Inside out wellness bundle</option>
+                            <option value="bundle-people-pets">People and pets broth powder bundle</option>
+                        </select>
+    
+                        <label>Support query type</label>
+                        <select class="form-input" name="support_query_type" required>
+                            <option value="" disabled selected>Select a query type</option>
+                            <option value="order_status">Order Status</option>
+                            <option value="product_details">Product Details</option>
+                            <option value="primebroth_query">Primebroth (Bone Broth) Query</option>
+                            <option value="balm_query">Tallow Balm Query</option>
+                            <option value="shipping_issue">Shipping Issue</option>
+                            <option value="refund_request">Refund or Exchange Request</option>
+                        </select>
+    
+                        <label>Message*</label>
+                        <textarea rows="5" placeholder="Please provide details of your support query" class="form-input" name="message" required></textarea>
+                    
+                        <label>Upload Supporting Images or Documents (Required for refunds or exchanges of received items)</label>
+                        <input type="file" class="form-input" name="attachments" accept="image/*,.pdf,.doc,.docx" multiple>
+    
+                        <label>Affected product batch number (Required for refunds or exchanges of received items)</label>
+                        <input type="text" placeholder="e.g. 039" class="form-input" name="batch" >
+    
+                        <label>Are you a robot? What's 5+1?*</label>
+                        <input type="text" id="specialField" placeholder="Answer correctly to submit" class="form-input" required>
+                        
+                        <button id="contact-submit" class="btn btn-primary" type="submit">Send</button>
+                    </form>
+                </div>
+            </div>
+            
         </div>
     </div>
 
