@@ -2349,17 +2349,25 @@ video {
 
 
 /* tablet or smaller */
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 767px) {
   .row > img {
   order: 1;
   }
   .row > div {
   order: 2;
+  padding:20px 10px !important;
   }
 
+  .shopdiv>.product-card, .charity-card { 
+    max-width: 49%;
+    flex:1 1 auto !important;
+   }
+   .shopcontainer{
+    padding: 0px !important
+  }
 }
 
-@media screen and (min-width: 701px) {
+@media screen and (min-width: 768px) {
   .main { padding:0px !important; }
   .big-hide {display:none;}
   .bannertext div { 
@@ -2368,6 +2376,13 @@ video {
   }
 
 
+  .shopdiv>.product-card, .charity-card { 
+    max-width: 32%;
+    flex: 1 1 auto !important
+   }
+ 
+}
+@media screen and (min-width: 1024px) {
   .shopdiv>.product-card, .charity-card { 
     max-width: 24%;
    }
@@ -2601,6 +2616,7 @@ input[type="submit"].fcf-btn-block, input[type="reset"].fcf-btn-block, input[typ
 }
 
 .hero {
+  background-color: #1f2937;
   background-image: url('/img/dec24/hero.webp');
   background-size: cover; /* Adjust this property as per your preference */
   background-position: fixed; /* Adjust this property as per your preference */
@@ -2631,6 +2647,9 @@ input[type="submit"].fcf-btn-block, input[type="reset"].fcf-btn-block, input[typ
     background-color: rgba(255, 255, 255, 0.85); /* Blue with 30% transparency */
     color: black; /* Text remains fully opaque */
     padding: 20px;
+  }
+  .container{
+    max-width: 100% !important;
   }
 
 }
@@ -3013,7 +3032,7 @@ nav.p-8 {
 }
 
 .topbanner, .hero, .starter {
-  min-height: 68vh;
+  min-height: 650px;
   margin:0px;
 }
 
@@ -3547,6 +3566,9 @@ nav {
   .mob-hide {
     display:none !important;
   }
+  label.product-form-radio{
+    font-size: 15px !important;
+  }
 
   .mob-show { 
     display: block !important;
@@ -3558,6 +3580,7 @@ nav {
 
   .shopdiv>.product-card, .charity-card { 
    max-width: 48.5%;
+   flex: 1 1 auto !important;
   }
 
   .partner-fold img { 
@@ -4172,36 +4195,36 @@ float: left;
 }
 
 /* Vintage Brush Font */
-@font-face {
+/* @font-face {
   font-family: 'Vintage Brush';
   src: url('/assets/fonts/vintage-brush.woff') format('truetype');
   font-weight: normal;
   font-style: normal;
-}
+} */
 
 /* Roboto - Regular (400) */
-@font-face {
+/* @font-face {
   font-family: 'Roboto';
-  src: url('/assets/fonts/roboto-regular.woff') format('truetype');
+  src: url('/assets/fonts/roboto-regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
 }
 
 /* Roboto - Medium (500) */
-@font-face {
+/* @font-face {
   font-family: 'Roboto';
-  src: url('/assets/fonts/roboto-medium.woff') format('truetype');
+  src: url('/assets/fonts/roboto-medium.woff') format('woff');
   font-weight: 500;
   font-style: normal;
-}
+} */
 
 /* Roboto - Bold (700) */
-@font-face {
+/* @font-face {
   font-family: 'Roboto';
-  src: url('/assets/fonts/roboto-bold.woff') format('truetype');
+  src: url('/assets/fonts/roboto-bold.woff') format('woff');
   font-weight: 700;
   font-style: normal;
-}
+} */ 
 
 /* General Font Styling */
 
@@ -4405,7 +4428,7 @@ strong, b {
     min-width: 120px;
   }
   .shopcontainer>div {
-    padding: 0px 20px !important; 
+    padding:0px !important; 
   }
 
   .index .product-card {
@@ -4415,7 +4438,24 @@ strong, b {
   .lg-hide { 
     display:none;
   }
+  .product-details{
+    padding: 10px !important
+  }
+ 
   
+}
+@media screen and (max-width: 390px) {
+  label.product-form-radio{
+    padding:3px 5px !important;
+    margin: 1px !important;
+    font-size: 14px !important;
+  }
+}
+@media screen and (max-width: 380px) {
+  .shopdiv>.product-card, .charity-card {
+      max-width: 99%;
+      flex: 1 1 auto !important;
+  }
 }
 
 #hamburgerbtn span { 

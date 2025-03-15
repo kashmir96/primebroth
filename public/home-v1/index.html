@@ -212,25 +212,34 @@
 
 <script type="application/javascript">
     function geoip(json){
+        const expires = new Date();
+        expires.setTime(expires.getTime() + (30 * 24 * 60 * 60 * 1000));  
         if(json.country_code){
-            localStorage.setItem('country_code', json.country_code);
+            
+            document.cookie = `country_code=${json.country_code}; expires=${expires.toUTCString()}; path=/`;
         }
         else{
-            localStorage.setItem('country_code', "NZ");
+            
+            document.cookie = `country_code="NZ"; expires=${expires.toUTCString()}; path=/`;
         }
            
     }
-    if(localStorage.getItem('country_code')=='');
-    {    
-        localStorage.setItem('country_code', "NZ");
+    function getCountryCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
     }
+    
+    
+    
+    
   </script>
 <script src="https://get.geojs.io/v1/ip/geo.js"></script>
   
 <script>
    window.onload = function() {
-    var countryCode = localStorage.getItem('country_code');
-    console.log(countryCode);
+    const countryCode = getCountryCookie('country_code') || "NZ";
     var shipping_rate = document.getElementById('shipping_rate');
     
     
@@ -334,7 +343,7 @@
         <div class="darker text-center">
           <h3>Sip or sprinkle towards a healthier lifestyle</h3>
         </div>
-<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth"><a href="/shop/products/liquid">
+<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="bone-broth"><a href="/shop/products/liquid">
   <p class="stamp">Trending</p>
   <img src="/img/mecurve.webp" alt="">
   <div class="product-details">
@@ -346,13 +355,13 @@
 
 </a>
 </div>
-<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth pets" id="prodcardpetpowder"><a href="/shop/products/pets-powder">
+<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="bone-broth pets" id="prodcardpetpowder"><a href="/shop/products/pets-powder">
     <p class="stamp">Trending</p>
     <img src="/img/petspownew.webp" alt="">
     <div class="product-details">
       <p><span class="nz-content" style="display:inline;">
         
-            $24.95
+            $34.95
         
     
     </span>
@@ -368,9 +377,9 @@
   </a>
   </div>
 
-
+ 
   
-<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth pets"><a href="/shop/products/pets">
+<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="bone-broth pets"><a href="/shop/products/pets">
   <p class="stamp">Trending</p>
   <img style="height:300px;margin:0px auto;" src="/img/louie.webp" alt="">
   <div class="product-details">
@@ -550,7 +559,7 @@
         });
   </script>
 <footer class="bg-tlgray-100">
-  <script src='/js/custom.js'></script>
+  <script src='/js/custom.js?v=1'></script>
 
   
   <script src='/js/clipboard.min.js'></script>

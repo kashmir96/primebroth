@@ -72,28 +72,28 @@ function isElementInViewport(el) {
 });
 
 
-        document.addEventListener("DOMContentLoaded", function() {
-      var showMoreButton = document.querySelector(".show-more-button");
-      var hiddenDivs = document.querySelectorAll(".hidden-div");
+    //     document.addEventListener("DOMContentLoaded", function() {
+    //   var showMoreButton = document.querySelector(".show-more-button");
+    //   var hiddenDivs = document.querySelectorAll(".hidden-div");
     
-      // Hide the additional divs on page load
-      hiddenDivs.forEach(function(div) {
-        div.style.display = "none";
-      });
+    //   // Hide the additional divs on page load
+    //   hiddenDivs.forEach(function(div) {
+    //     div.style.display = "none";
+    //   });
     
-      showMoreButton.addEventListener("click", function() {
-        hiddenDivs.forEach(function(div) {
-          div.style.display = div.style.display === "none" ? "block" : "none";
-        });
+    //   showMoreButton.addEventListener("click", function() {
+    //     hiddenDivs.forEach(function(div) {
+    //       div.style.display = div.style.display === "none" ? "block" : "none";
+    //     });
     
-        // Toggle the text of the button
-    if (showMoreButton.innerText === "Show Less") {
-      showMoreButton.innerText = "Show All";
-    } else {
-      showMoreButton.innerText = "Show Less";
-    }
-      });
-    });
+    //     // Toggle the text of the button
+    // if (showMoreButton.innerText === "Show Less") {
+    //   showMoreButton.innerText = "Show All";
+    // } else {
+    //   showMoreButton.innerText = "Show Less";
+    // }
+    //   });
+    // });
 
 // Function to check if an element is in the viewport
 function isInViewport(element) {
@@ -126,14 +126,7 @@ handleScroll();
 
 
 
-$(document).ready(function() {
-  $("[data-fancybox]").fancybox({
-    afterClose: function(instance, current) {
-      // Redirect to /shop/ after Fancybox is closed
-      window.location.href = "/shop/";
-    }
-  });
-});
+
 
 
 

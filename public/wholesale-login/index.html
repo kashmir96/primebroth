@@ -286,25 +286,34 @@
 
 <script type="application/javascript">
     function geoip(json){
+        const expires = new Date();
+        expires.setTime(expires.getTime() + (30 * 24 * 60 * 60 * 1000));  
         if(json.country_code){
-            localStorage.setItem('country_code', json.country_code);
+            
+            document.cookie = `country_code=${json.country_code}; expires=${expires.toUTCString()}; path=/`;
         }
         else{
-            localStorage.setItem('country_code', "NZ");
+            
+            document.cookie = `country_code="NZ"; expires=${expires.toUTCString()}; path=/`;
         }
            
     }
-    if(localStorage.getItem('country_code')=='');
-    {    
-        localStorage.setItem('country_code', "NZ");
+    function getCountryCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
     }
+    
+    
+    
+    
   </script>
 <script src="https://get.geojs.io/v1/ip/geo.js"></script>
   
 <script>
    window.onload = function() {
-    var countryCode = localStorage.getItem('country_code');
-    console.log(countryCode);
+    const countryCode = getCountryCookie('country_code') || "NZ";
     var shipping_rate = document.getElementById('shipping_rate');
     
     
@@ -397,7 +406,7 @@
 </div>
 
 
-<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth" id="prodcardpplpowder"><a href="/shop/products/powder">
+<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="bone-broth" id="prodcardpplpowder"><a href="/shop/products/powder">
   <p class="stamp">Trending</p>
   <img src="/img/dec24/product-broth.webp" alt="">
   <div class="product-details">
@@ -418,13 +427,13 @@
   </div>
 </a>
 </div>
-<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth pets" id="prodcardpetpowder"><a href="/shop/products/pets-powder">
+<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="bone-broth pets" id="prodcardpetpowder"><a href="/shop/products/pets-powder">
     <p class="stamp">Trending</p>
     <img src="/img/petspownew.webp" alt="">
     <div class="product-details">
       <p><span class="nz-content" style="display:inline;">
         
-            $24.95
+            $34.95
         
     
     </span>
@@ -440,9 +449,9 @@
   </a>
   </div>
 
-
+ 
   
-<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth bundles tallow" id="prodcardinsideout"><a href="/shop/products/tallow-broth-bundle">
+<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="bone-broth bundles tallow" id="prodcardinsideout"><a href="/shop/products/tallow-broth-bundle">
   <p class="stamp">Trending</p>
   <img src="/img/dec24/product-insideoutsmall.webp" alt="">
   <div class="product-details">
@@ -464,14 +473,14 @@
   </div>
 </a>
 </div>
-<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth bundles pets" id="prodcardbrothbundle"><a href="/shop/products/broth-bundle">
+<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="bone-broth bundles pets" id="prodcardbrothbundle"><a href="/shop/products/broth-bundle">
   <p class="stamp">Selling fast</p>
   <img src="/img/peoplepets.webp" alt="">
   <div class="product-details">
     <p>
       <span class="nz-content" style="display:inline;">
           
-              $54.95
+              $60.95
           
       
       </span>
@@ -487,28 +496,40 @@
 
   </div>
 </a>
-</div>
-<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow bundles" id="prodcardtallowbundle"><a href="/shop/products/tallow-trio">
+</div> 
+<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="tallow bundles" id="prodcardtallowbundle"><a href="/shop/products/tallow-trio">
   <p class="stamp">Hot</p>
   <img src="/img/dec24/product-trio.webp" alt="">
   <div class="product-details">
     <p>
       <span class="nz-content" style="display:inline;">
         
-            
-            <span class="attention-primalcare">$35.82</span> <span class="graytxt small text-decoration-line-through">$55</span><span class="special">35% off</span>
-   
         
-    
-    </span>
+            
+            <span class="attention-primalcare">$35.82</span> 
+          
+          
+          
+          
+            <span class=" small text-decoration-line-through">$55.08</span>
+          
+          
+            <span class="special">35% off</span>
+        </span>
     <span class="au-content" style="display:none;">
         
         
           
-           <span class="attention-primalcare">$36</span> <span class="graytxt small text-decoration-line-through">$60</span><span class="special">35% off</span>
-   
+           <span class="attention-primalcare">$36</span> 
         
-    
+           
+        
+        
+          <span class=" small text-decoration-line-through">$54.95</span>
+        
+        
+        <span class="special">35% off</span>
+  
     </span></p>
     <h6>Tallow Balm Mixed Bundle</h6>
     <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>1000+ kiwis</p>
@@ -523,7 +544,7 @@
 
 
 
-<div class="product-card-waitlist product-card grow col-lg-3 col-sm-6" data-category="marrow-butter" data-coming-soon="true">
+<div class="product-card-waitlist product-card grow col-lg-3 col-md-4 col-sm-6" data-category="marrow-butter" data-coming-soon="true">
     <img src="/img/marrow-butter.webp" alt="">
     <div class="product-details">
         <p>$15.00</p>

@@ -43,6 +43,7 @@
     <meta name="twitter:card" content="" />
     <meta name="twitter:site" content="" />
     <meta name="twitter:creator" content="" />
+    <link rel="preload" href="/img/dec24/hero.webp" as="image">
   </head>
 <body><div class="announcement full-width black text-center">
   <ul>
@@ -212,25 +213,34 @@
 
 <script type="application/javascript">
     function geoip(json){
+        const expires = new Date();
+        expires.setTime(expires.getTime() + (30 * 24 * 60 * 60 * 1000));  
         if(json.country_code){
-            localStorage.setItem('country_code', json.country_code);
+            
+            document.cookie = `country_code=${json.country_code}; expires=${expires.toUTCString()}; path=/`;
         }
         else{
-            localStorage.setItem('country_code', "NZ");
+            
+            document.cookie = `country_code="NZ"; expires=${expires.toUTCString()}; path=/`;
         }
            
     }
-    if(localStorage.getItem('country_code')=='');
-    {    
-        localStorage.setItem('country_code', "NZ");
+    function getCountryCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
     }
+    
+    
+    
+    
   </script>
 <script src="https://get.geojs.io/v1/ip/geo.js"></script>
   
 <script>
    window.onload = function() {
-    var countryCode = localStorage.getItem('country_code');
-    console.log(countryCode);
+    const countryCode = getCountryCookie('country_code') || "NZ";
     var shipping_rate = document.getElementById('shipping_rate');
     
     
@@ -293,7 +303,7 @@
           <div class="d-flex gap-2 mob-hide">
 <div class="product-card grow left col-lg-3 col-sm-6" data-category="tallow" id="prodcardtallowskin">
   <a href="/shop/products/tallow-skin">
-    <img src="/img/dec24/product-balmbig.webp" alt="Beef Tallow for Skincare">
+    <img src="/img/dec24/product-bigbalm-new.webp" alt="Beef Tallow for Skincare">
     <div class="product-details">
       
       <p>
@@ -331,7 +341,7 @@
 </div>
 
 
-<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth bundles tallow" id="prodcardinsideout"><a href="/shop/products/tallow-broth-bundle">
+<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="bone-broth bundles tallow" id="prodcardinsideout"><a href="/shop/products/tallow-broth-bundle">
   <p class="stamp">Trending</p>
   <img src="/img/dec24/product-insideoutsmall.webp" alt="">
   <div class="product-details">
@@ -353,7 +363,7 @@
   </div>
 </a>
 </div>
-<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow" id="prodcardtallowstack"><a href="/shop/products/tallow-unscented-stack">
+<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="tallow" id="prodcardtallowstack"><a href="/shop/products/tallow-unscented-stack">
   <p class="stamp">New</p>
   <img src="/img/sensitive.webp" alt="">
   <div class="product-details">
@@ -379,7 +389,7 @@
         <div class="d-flex gap-2 mob-show d-none overflow-hidden overflow-auto">
 <div class="product-card grow left col-lg-3 col-sm-6" data-category="tallow" id="prodcardtallowskin">
   <a href="/shop/products/tallow-skin">
-    <img src="/img/dec24/product-balmbig.webp" alt="Beef Tallow for Skincare">
+    <img src="/img/dec24/product-bigbalm-new.webp" alt="Beef Tallow for Skincare">
     <div class="product-details">
       
       <p>
@@ -474,52 +484,14 @@
 
     </div>
     
-    <script src="https://player.vimeo.com/api/player.js"></script>
-    <script>
-       document.querySelectorAll('.image-container img').forEach(function(image) {
-            image.addEventListener('click', function() {
-                
-                this.parentElement.style.display = 'none';
-                
-                var videoId = this.getAttribute('data-video-id');
-                document.getElementById(videoId).style.display = 'block';
-            });
-        });
-  </script>
+    
   
 
-  <script>
-    $(document).ready(function() {
-        function updateVisibility() {
-            
-            var selectedFilter = $('input[name="product-filter"]:checked').val();
+  
 
-            
-            $('#bundles, #broth, #tallow').hide();
 
-            
-            if (selectedFilter === 'bundles') {
-                $('#bundles').show();
-            } else if (selectedFilter === 'broth') {
-                $('#broth').show();
-            } else if (selectedFilter === 'tallow') {
-                $('#tallow').show();
-            }
-        }
-
-        
-        $('input[name="product-filter"]').on('change', function() {
-            updateVisibility();
-        });
-
-        
-        updateVisibility();
-    });
-</script>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
 <footer class="bg-tlgray-100">
-  <script src='/js/custom.js'></script>
+  <script src='/js/custom.js?v=1'></script>
 
   
   <script>

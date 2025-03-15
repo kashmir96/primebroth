@@ -254,25 +254,34 @@
 
 <script type="application/javascript">
     function geoip(json){
+        const expires = new Date();
+        expires.setTime(expires.getTime() + (30 * 24 * 60 * 60 * 1000));  
         if(json.country_code){
-            localStorage.setItem('country_code', json.country_code);
+            
+            document.cookie = `country_code=${json.country_code}; expires=${expires.toUTCString()}; path=/`;
         }
         else{
-            localStorage.setItem('country_code', "NZ");
+            
+            document.cookie = `country_code="NZ"; expires=${expires.toUTCString()}; path=/`;
         }
            
     }
-    if(localStorage.getItem('country_code')=='');
-    {    
-        localStorage.setItem('country_code', "NZ");
+    function getCountryCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
     }
+    
+    
+    
+    
   </script>
 <script src="https://get.geojs.io/v1/ip/geo.js"></script>
   
 <script>
    window.onload = function() {
-    var countryCode = localStorage.getItem('country_code');
-    console.log(countryCode);
+    const countryCode = getCountryCookie('country_code') || "NZ";
     var shipping_rate = document.getElementById('shipping_rate');
     
     
@@ -348,7 +357,7 @@
             <div class="d-flex shopdiv flex-wrap gap-2">
 <div class="product-card grow left col-lg-3 col-sm-6" data-category="tallow" id="prodcardtallowskin">
   <a href="/shop/products/tallow-skin">
-    <img src="/img/dec24/product-balmbig.webp" alt="Beef Tallow for Skincare">
+    <img src="/img/dec24/product-bigbalm-new.webp" alt="Beef Tallow for Skincare">
     <div class="product-details">
       
       <p>
@@ -386,7 +395,7 @@
 </div>
 
 
-<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow" id="prodcard-lipbalm"><a href="/shop/products/tallow-lip-balm">
+<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="tallow" id="prodcard-lipbalm"><a href="/shop/products/tallow-lip-balm">
   <p class="stamp">NEW</p>
   <img src="/img/prod/lipbalm/1.webp" alt="">
   <div class="product-details">
@@ -418,7 +427,7 @@
 
 
 
-<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow bundles" id="prodcardtallowbundle"><a href="/shop/products/tallow-deodorant">
+<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="tallow bundles" id="prodcardtallowbundle"><a href="/shop/products/tallow-deodorant">
   <p class="stamp">Hot</p>
   <img src="/img/prod/deodorant/1.webp" alt="">
   <div class="product-details">
@@ -448,7 +457,7 @@
 
 
 
-<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow" id="prodcardtallowstack"><a href="/shop/products/tallow-unscented-stack">
+<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="tallow" id="prodcardtallowstack"><a href="/shop/products/tallow-unscented-stack">
   <p class="stamp">New</p>
   <img src="/img/sensitive.webp" alt="">
   <div class="product-details">
@@ -471,27 +480,39 @@
   </div>
 </a>
 </div>
-<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow bundles" id="prodcardtallowbundle"><a href="/shop/products/tallow-trio">
+<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="tallow bundles" id="prodcardtallowbundle"><a href="/shop/products/tallow-trio">
   <p class="stamp">Hot</p>
   <img src="/img/dec24/product-trio.webp" alt="">
   <div class="product-details">
     <p>
       <span class="nz-content" style="display:inline;">
         
-            
-            <span class="attention-primalcare">$35.82</span> <span class="graytxt small text-decoration-line-through">$55</span><span class="special">35% off</span>
-   
         
-    
-    </span>
+            
+            <span class="attention-primalcare">$35.82</span> 
+          
+          
+          
+          
+            <span class=" small text-decoration-line-through">$55.08</span>
+          
+          
+            <span class="special">35% off</span>
+        </span>
     <span class="au-content" style="display:none;">
         
         
           
-           <span class="attention-primalcare">$36</span> <span class="graytxt small text-decoration-line-through">$60</span><span class="special">35% off</span>
-   
+           <span class="attention-primalcare">$36</span> 
         
-    
+           
+        
+        
+          <span class=" small text-decoration-line-through">$54.95</span>
+        
+        
+        <span class="special">35% off</span>
+  
     </span></p>
     <h6>Tallow Balm Mixed Bundle</h6>
     <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>1000+ kiwis</p>
@@ -506,7 +527,7 @@
 
 
 
-<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth" id="prodcardpplpowder"><a href="/shop/products/powder">
+<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="bone-broth" id="prodcardpplpowder"><a href="/shop/products/powder">
   <p class="stamp">Trending</p>
   <img src="/img/dec24/product-broth.webp" alt="">
   <div class="product-details">
@@ -527,7 +548,7 @@
   </div>
 </a>
 </div>
-<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth" id="prodcardpplpowderchicken"><a href="/shop/products/broth-powder-chicken">
+<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="bone-broth" id="prodcardpplpowderchicken"><a href="/shop/products/broth-powder-chicken">
   <p class="stamp">Trending</p>
   <img src="/img/prod/chicken/1.webp" alt="">
   <div class="product-details">
@@ -548,7 +569,7 @@
   </div>
 </a>
 </div>
-<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow" id="prodcardtallowsoapmixed"><a href="/shop/products/tallow-soap-mixed">
+<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="tallow" id="prodcardtallowsoapmixed"><a href="/shop/products/tallow-soap-mixed">
   <p class="stamp">New</p>
   <img src="/img/soaps-new/mixed-prod.webp" alt="">
   <div class="product-details">
@@ -572,7 +593,7 @@
 </a>
 </div>
 
-<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth bundles tallow" id="prodcardinsideout"><a href="/shop/products/tallow-broth-bundle">
+<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="bone-broth bundles tallow" id="prodcardinsideout"><a href="/shop/products/tallow-broth-bundle">
   <p class="stamp">Trending</p>
   <img src="/img/dec24/product-insideoutsmall.webp" alt="">
   <div class="product-details">
@@ -594,7 +615,7 @@
   </div>
 </a>
 </div>
-<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth pets" id="prodcardpetpowder"><a href="/shop/products/pets-powder">
+<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="bone-broth pets" id="prodcardpetpowder"><a href="/shop/products/pets-powder">
     <p class="stamp">Trending</p>
     <img src="/img/petspownew.webp" alt="">
     <div class="product-details">
@@ -618,7 +639,7 @@
 
  
   
-<div class="product-card grow col-lg-3 col-sm-6" data-category="bone-broth bundles pets" id="prodcardbrothbundle"><a href="/shop/products/broth-bundle">
+<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="bone-broth bundles pets" id="prodcardbrothbundle"><a href="/shop/products/broth-bundle">
   <p class="stamp">Selling fast</p>
   <img src="/img/peoplepets.webp" alt="">
   <div class="product-details">
@@ -642,7 +663,7 @@
   </div>
 </a>
 </div> 
-<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow" id="prodcardtallowsunscreenbalm"><a href="/shop/products/tallow-sunscreen-balm">
+<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="tallow" id="prodcardtallowsunscreenbalm"><a href="/shop/products/tallow-sunscreen-balm">
   <p class="stamp">New</p>
   <img src="/img/sunscreen/main.webp" alt="">
   <div class="product-details">
@@ -665,7 +686,7 @@
   </div>
 </a>
 </div>
-<div class="product-card grow col-lg-3 col-sm-6" data-category="tallow" id="prodcardtallowsoap"><a href="/shop/products/tallow-soap">
+<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="tallow" id="prodcardtallowsoap"><a href="/shop/products/tallow-soap">
   <p class="stamp">New</p>
   <img src="/img/soaps-new/new-prod.webp" alt="">
   <div class="product-details">
@@ -688,7 +709,7 @@
   </div>
 </a>
 </div>
-<div class="product-card grow col-lg-3 col-sm-6" data-category="mushrooms food" id="prodcardshampoo"><a href="/shop/products/tallow-shampoo-bar">
+<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="mushrooms food" id="prodcardshampoo"><a href="/shop/products/tallow-shampoo-bar">
   <p class="stamp">New</p>
   <img src="/img/prod/shampoo/1.webp" alt="">
   <div class="product-details">
@@ -760,7 +781,7 @@
                         return categories.includes(selectedFilter);
                     }).show();
                 }
-                var countryCode = localStorage.getItem('country_code');
+                const countryCode = getCountryCookie('country_code') || "NZ";
                 
                 if (countryCode === 'AU') {
                     document.getElementById('bone-broth').style.display = 'none';
@@ -779,7 +800,7 @@
     
     
 <footer class="bg-tlgray-100">
-  <script src='/js/custom.js'></script>
+  <script src='/js/custom.js?v=1'></script>
 
   
   <script src='/js/clipboard.min.js'></script>
