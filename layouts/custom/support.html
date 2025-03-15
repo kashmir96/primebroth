@@ -133,12 +133,16 @@
                         <label>Support query type</label>
                         <select class="form-input" name="support_query_type" required>
                             <option value="" disabled selected>Select a query type</option>
+                            <option value="change_order">Change Order</option>
                             <option value="order_status">Order Status</option>
+                            <option value="order_address">Order Address</option>
+                            
                             <option value="product_details">Product Details</option>
                             <option value="primebroth_query">Primebroth (Bone Broth) Query</option>
-                            <option value="balm_query">Tallow Balm Query</option>
-                            <option value="shipping_issue">Shipping Issue</option>
                             <option value="refund_request">Refund or Exchange Request</option>
+                            <option value="shipping_issue">Shipping Issue</option>
+                            <option value="balm_query">Tallow Balm Query</option>
+                            <option value="query_delivery_time">Query Delivery Time</option>
                         </select>
     
                         <label>Message*</label>
@@ -150,6 +154,12 @@
                         <label>Affected product batch number (Required for refunds or exchanges of received items)</label>
                         <input type="text" placeholder="e.g. 039" class="form-input" name="batch" >
     
+                        <label>Where are you from</label>
+                        <select class="form-input" name="country"  id="country" required>
+                            <option value="" disabled selected>Select Country </option>
+                            <option value="NZ">New Zealand</option>
+                            <option value="AU">Australia</option>
+                        </select>
                         <label>Are you a robot? What's 5+1?*</label>
                         <input type="text" id="specialField" placeholder="Answer correctly to submit" class="form-input" required>
                         
@@ -171,6 +181,12 @@
                     'value': 1
                 });
             });
+            const countrySelect = document.getElementById('country');
+            const countryCode = getCountryCookie('country_code') || "NZ";
+            const option = countrySelect.querySelector(`option[value="${countryCode}"]`);
+            if (option) {
+                option.selected = true; // Set the matching option as selected
+            }
         });
 
         function validateForm() {
