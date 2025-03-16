@@ -38,17 +38,54 @@
     {{- partial "strip.html" . -}}
     <!-- Add html below -->
 
-    <div class="container">
-        <div class="row peach max-width text-center">
+    <div class="container-fluid">
+        <div class="row peach text-center">
             <h1 class="fade-in-element">Thank you for your order!</h1>
+            <p>We have received your order and will ship it out to you as soon as possible.</p>
         </div>
-        <div class="row justify-content-around">
-            <div class="col">
-                <p>Thanks for your order of PrimalPantry!</p>
+        <div class="row my-0">
+            <div class="col-12 col-md-8 offset-md-2">
+                <!-- <p>Thanks for your order of PrimalPantry!</p>
                 <p>We will process your order as soon as possible. Keep an eye on your inbox, we'll let you know when your goods are on the way! </p>
-                <p>If you have any questions or queries about your order, get in touch with hello@PrimalPantry.co.nz and we will help you out! </p>
-                <!--  <div id="shareThisContainer"></div>-->
+            -->
+            <h2>Your Order:</h2>
+            <ul id="cart-items"></ul>
+        
+            <script>
+                // Function to get URL parameters
+                function getUrlParameter(name) {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    return urlParams.get(name);
+                }
+        
+                // Get the cart data from the URL
+                const encodedCartData = getUrlParameter('cartdata');
+                if (encodedCartData) {
+                    // Decode and parse the cart data
+                    const cartData = JSON.parse(decodeURIComponent(encodedCartData));
+        
+                    // Display cart items
+                    const cartItemsList = document.getElementById('cart-items');
+                    cartData.forEach(item => {
+                        const li = document.createElement('li');
+                        li.textContent = `${item.quantity || 'Unknown'} X ${item.title || 'Unknown Product'} - ${item.flavor || 'N/A'}  ${item.size || 'N/A'} (${item.orderType || 'N/A'}`;
+                        cartItemsList.appendChild(li);
+                    });
+                } else {
+                    console.log("No cart data available.");
+                }
+            </script>
+            
+            <p>You will be sent a receipt to 
+                    the email used at checkout within an hour.
+                </p>
 
+            </div>
+        </div>
+        <div class="lightpeach p-4 text-center">
+            <div class="col-12 ">
+                <b>If you have any questions or would like hand with
+                     your order, <br/> please visit our <a href="/support" class="text-decoration-underline">customer support page here.</a></b>
             </div>
         </div>
     </div>
