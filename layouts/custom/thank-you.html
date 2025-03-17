@@ -38,8 +38,8 @@
     {{- partial "strip.html" . -}}
     <!-- Add html below -->
 
-    <div class="container-fluid">
-        <div class="row peach text-center">
+    <div class="container-fluid p-0">
+        <div class="p-5 peach text-center">
             <h1 class="fade-in-element">Thank you for your order!</h1>
             <p>We have received your order and will ship it out to you as soon as possible.</p>
         </div>
@@ -49,7 +49,7 @@
                 <p>We will process your order as soon as possible. Keep an eye on your inbox, we'll let you know when your goods are on the way! </p>
             -->
             <h2>Your Order:</h2>
-            <ul id="cart-items"></ul>
+            <ul id="ordered-items" class="list-group"></ul>
         
             <script>
                 // Function to get URL parameters
@@ -65,9 +65,10 @@
                     const cartData = JSON.parse(decodeURIComponent(encodedCartData));
         
                     // Display cart items
-                    const cartItemsList = document.getElementById('cart-items');
+                    const cartItemsList = document.getElementById('ordered-items');
                     cartData.forEach(item => {
                         const li = document.createElement('li');
+                        li.classList.add('list-group-item');
                         li.textContent = `${item.quantity || 'Unknown'} X ${item.title || 'Unknown Product'} - ${item.flavor || 'N/A'}  ${item.size || 'N/A'} (${item.orderType || 'N/A'})`;
                         cartItemsList.appendChild(li);
                     });
