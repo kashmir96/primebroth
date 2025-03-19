@@ -102,7 +102,7 @@ exports.handler = async (event, context) => {
       }
     }
     else {
-      if (totalAmount >= 10000) {
+      if (totalAmount >= 15000) {
         shippingOptions = [
           {
             shipping_rate: freeShippingRateAU,
