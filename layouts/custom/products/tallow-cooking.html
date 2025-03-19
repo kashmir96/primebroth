@@ -51,7 +51,7 @@
     {{- partial "strip.html" . -}}
     <!-- Add html below -->
 
-    <div class="container">
+    <div class="container product-page">
         <div class="row topbanner rel">
             <p class="graytxt ninety position-absolute mt-1"><a href="/shop" class="darkgraytxt front pl-2 text-decoration-underline">Shop</a> > Vitallow cooking tallow</p>
 
@@ -64,23 +64,24 @@
 
                 <!-- Product Form Options with Bootstrap Styling -->
                 <div class="price-display">
-                    <p><span id="price">-</span></p>                
+                    <p class="mb-2"><span id="price">-</span></p>
+                    <p class="thin">or 4 interest free payments of $<span id="afterpay_price"></span> with <img src="/img/afterpay.webp" class="d-inline" height="28"></p>                 
                 </div>
 
                 <form id="productForm" class="form-group mb-4">
-                    <div class="text-left mb-4">
+                    <div class="text-left mb-3 mb-lg-4">
                         <label class="font-weight-bold" for="size">Select Size:</label>
                         <select class="form-control" id="size" name="size">
                             <option value="440g">440g</option>
                         </select>
                     </div>
-                    <div class="text-left mb-4">
+                    <div class="text-left mb-3 mb-lg-4">
                         <label class="font-weight-bold" for="flavor">Select Flavor:</label>
                         <select class="form-control" id="flavor" name="flavor">
                             <option value="vitallow">Vitallow Beef</option>
                         </select>
                     </div>
-                    <div class="text-left mb-4">
+                    <div class="text-left mb-3 mb-lg-4">
                         <label class="font-weight-bold"  for="orderType">Select Order Type:</label>
                         <select class="form-control" id="orderType" name="orderType">
                             <option value="single_purchase">Single unit</option>
@@ -91,7 +92,7 @@
                     </div>
 
  <!-- Quantity Selector -->
- <div class="form-group mb-4">
+ <div class="form-group  mb-3 mb-lg-4">
     <label for="quantityAll" class="font-weight-bold">Quantity:</label>
     <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
 </div>
@@ -254,8 +255,10 @@
         if (pricingEntry && pricingEntry.prices[country_code][orderType]) {
             const price = pricingEntry.prices[country_code][orderType];
             document.getElementById("price").textContent = `$${price.toFixed(2)}`;
+            document.getElementById("afterpay_price").textContent = `${(price/4).toFixed(2)}`;
         } else {
             document.getElementById("price").textContent = "N/A";
+            document.getElementById("afterpay_price").textContent = "N/A";
         }
     }
 

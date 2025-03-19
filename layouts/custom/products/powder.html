@@ -50,7 +50,7 @@
     {{- partial "strip.html" . -}}
     <!-- Add html below -->
 
-    <div class="container">
+    <div class="container product-page">
         <div class="row topbanner rel">
             <p class="graytxt ninety position-absolute mt-1 "><a href="/shop" class="darkgraytxt front pl-2 text-decoration-underline">Shop</a> > Chicken bone broth powder</p>
             <div class="col-xs-12 col-lg-6 product-photos mt-3 mb-0">
@@ -68,7 +68,8 @@
     <!-- YAML FORM STARTS -->
 
                 <div class="price-display thic">
-                    <p><span id="price">-</span></p>                
+                    <p class="mb-2"><span id="price">-</span></p>
+                    <p class="thin">or 4 interest free payments of $<span id="afterpay_price"></span> with <img src="/img/afterpay.webp" class="d-inline" height="28"></p>                 
                 </div>
 
 
@@ -486,8 +487,10 @@
         if (pricingEntry && pricingEntry.prices[country_code][orderType]) {
             const price = pricingEntry.prices[country_code][orderType];
             document.getElementById("price").textContent = `$${price.toFixed(2)}`;
+            document.getElementById("afterpay_price").textContent = `${(price/4).toFixed(2)}`;
         } else {
             document.getElementById("price").textContent = "N/A";
+            document.getElementById("afterpay_price").textContent = "N/A";
         }
     }
 

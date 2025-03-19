@@ -50,7 +50,7 @@
     {{- partial "strip.html" . -}}
     <!-- Add html below -->
   
-    <div class="container">
+    <div class="container product-page">
         <div class="row topbanner rel">
             <p class="graytxt ninety position-absolute mt-1 "><a href="/shop" class="darkgraytxt front pl-2 text-decoration-underline">Shop</a> > Oyster mushroom chips</p>
             <div class="col-xs-12 col-lg-6 product-photos mt-3 mb-0">
@@ -68,11 +68,12 @@
     <!-- YAML FORM STARTS -->
 
                 <div class="price-display thic">
-                    <p><span id="price">-</span></p>                
+                    <p class="mb-2"><span id="price">-</span></p>
+                    <p class="thin">or 4 interest free payments of $<span id="afterpay_price"></span> with <img src="/img/afterpay.webp" class="d-inline" height="28"></p>                 
                 </div>
 
                 <form id="productForm" class="form-group mb-4">                    
-                    <div class="text-left mb-4">
+                    <div class="text-left mb-3 mb-lg-4">
                         <label class="float-left mr-2">Select flavor:</label>
                         
                         <div class="product-form-radio">
@@ -87,7 +88,7 @@
                         </div>
                     </div>                    
 
-                    <div class="text-left mb-4">
+                    <div class="text-left  mb-3 mb-lg-4">
                         <label class="float-left mr-2">Select size:</label>
                     
                         <div class="product-form-radio">
@@ -95,7 +96,7 @@
                             <label for="size70g" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/resell/mushroomacv.webp">70g</label></p>
                         </div>
                     </div>
-                    <div class="text-left mb-4">
+                    <div class="text-left  mb-3 mb-lg-4">
                         <label class="mob-ninety mr-2">Select unit type:</label>
                     
                         <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
@@ -104,7 +105,7 @@
 
 
  <!-- Quantity Selector -->
- <div class="form-group mb-4">
+ <div class="form-group mb-3 mb-lg-4">
     <div class="mt-4 custom-radio float-right">
         <input type="radio" id="inStock" name="stockStatus" checked>
         <label class="custom-radio-label mb-0" for="inStock">In Stock</label>
@@ -261,8 +262,10 @@
     if (pricingEntry && pricingEntry.prices[country_code][orderType]) {
         const price = pricingEntry.prices[country_code][orderType];
         document.getElementById("price").textContent = `$${price.toFixed(2)}`;
+        document.getElementById("afterpay_price").textContent = `${(price/4).toFixed(2)}`;
     } else {
         document.getElementById("price").textContent = "N/A";
+        document.getElementById("afterpay_price").textContent = "N/A";
     }
     }
     

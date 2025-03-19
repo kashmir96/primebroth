@@ -45,7 +45,7 @@
             </div>
             <div class="col-xs-12 col-lg-6">
                 <img class="stars float-left mr-2" src="/img/stars/5.webp" alt=""><p class="thic">Loved by 6300+ kiwis.</p>
-                <h1 class="thic mt-2">Whipped Tallow Balm <br></h1>
+                <h1 class="thic mt-2">Whipped Tallow Balm </h1>
                 <p class="thin h1big">Naturally Perfect Skin</p>
                 <p class="graytxt">From PrimalCare</p>
                 <p class="thin">Your friends will ask what’s the secret to your <span class="attention-primalcare">glow up!</span></p>
@@ -55,10 +55,11 @@
 
 <!-- Product Form Options with Bootstrap Styling -->
                 <div class="price-display thic">
-                    <p><span id="price">-</span> <span class="special">This price is 35% off! + $1 donated to <span class="nz-content">EANZ</span><span class="au-content">EAA</span></p>                
+                    <p class="mb-2"><span id="price">-</span> <span class="special">This price is 35% off! + $1 donated to <span class="nz-content">EANZ</span><span class="au-content">EAA</span></p>    
+                    <p class="thin">or 4 interest free payments of $<span id="afterpay_price"></span> with <img src="/img/afterpay.webp" class="d-inline" height="28"></p>            
                 </div>
                 <form id="productForm" class="form-group mb-4">
-                    <div class="text-left mb-4">
+                    <div class="text-left mb-3 mb-lg-4">
                         <label class="mob-ninety">Select scent:</label>
                     
                         <input type="radio" id="vanilla-rose" name="flavor" value="vanilla-rose" checked>
@@ -104,7 +105,7 @@
                         <label for="cedar" class="product-form-radio">Cedar</label>
                         -->
                     </div> 
-                    <div class="text-left mb-4">
+                    <div class="text-left  mb-3 mb-lg-4">
                         <label class="float-left mob-ninety mr-2 mt-2">Select size:</label>
                         <div class="product-form-radio">
                             <input type="radio" id="size60ml" name="size" value="60ml" checked>
@@ -129,7 +130,7 @@
                         </div>
                         -->
                     </div>
-                    <div class="text-left mb-4">
+                    <div class="text-left mb-3 mb-lg-4">
                         <label class="mob-ninety">Select unit type:</label>
                     
                         <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
@@ -150,7 +151,7 @@
                     
 
  <!-- Quantity Selector -->
- <div class="form-group mb-4">
+ <div class="form-group mb-3 mb-lg-4">
     <div class="mt-4 custom-radio float-right">
         <input type="radio" id="inStock" name="stockStatus" checked>
         <label class="custom-radio-label mb-0" for="inStock">In Stock</label>
@@ -371,8 +372,10 @@
         if (pricingEntry && pricingEntry.prices[country_code][orderType]) {
             const price = pricingEntry.prices[country_code][orderType];
             document.getElementById("price").textContent = `$${price.toFixed(2)}`;
+            document.getElementById("afterpay_price").textContent = `${(price/4).toFixed(2)}`;
         } else {
             document.getElementById("price").textContent = "N/A";
+            document.getElementById("afterpay_price").textContent = "N/A";
         }
     }
 
