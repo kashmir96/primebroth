@@ -4676,7 +4676,55 @@ input[type="radio"]:checked + label.product-form-radio {
   border: 1px solid #4CAF50; /* Green border for active */
   color: #4CAF50; /* Green text for active */
 }
+select.product-select{
+display: inline-block;
+margin: 2px;
+padding: 6px 7px;
+border: 1px solid #4caf50;
+border-radius: 5px;
+cursor: pointer;
+/* text-align: center; */
+transition: all 0.3s ease;
+background: #e8f5e9;
+}
+.outOfStock {
+  cursor: not-allowed;
 
+  position:relative;
+}
+.outOfStock > a {
+  color: currentColor;
+  display: inline-block;  /* For IE11/ MS Edge bug */
+  pointer-events: none;
+  text-decoration: none;
+    opacity: 0.5;
+}
+ .outOfStock::before {
+    position: absolute;
+    content: 'OUT OF STOCK';
+    right: -0px;
+    color: #000;
+   z-index:9999;
+    transform: rotate(45deg);
+    top: 40px;
+
+
+  /* Legacy vendor prefixes that you probably don't need... */
+
+  /* Safari */
+    -webkit-transform: rotate(45deg);
+
+  /* Firefox */
+    -moz-transform: rotate(45deg);
+
+  /* IE */
+    -ms-transform: rotate(45deg);
+
+  /* Opera */
+    -o-transform: rotate(45deg);
+    font-size: 14px;
+    font-weight: bold;
+}
 .clear { 
   clear: both;
 }
