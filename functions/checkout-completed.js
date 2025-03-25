@@ -1,5 +1,6 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const crypto = require('crypto');  // Import crypto for hashing email
+const axios = require('axios');
 
 const FACEBOOK_PIXEL_ID = '809100344281173';  // Replace with your Pixel ID 
 const ACCESS_TOKEN = 'EAAU9shr9R4gBO2r17GFpgNP9LpZAvq8EUkpetaJG75ZAxOXnLZBZCtUfjcs0BnTu17leRfZATGUYmGppK1BrfIBP94BZBdCzb5yCTrj2tw2AeDiHPERBZBXZCuQJAln3JPCqviVlxPVbDXZBq0F8n45cPbjBZAYioouT8kDR7xSAjqwP3UoOwRIP8CWYRFTcoWZBWjvsfMyqOw1sARtudxqcLwrtY2XckSmyc4uwQZDZD';  // Replace with your Access Token
@@ -47,7 +48,7 @@ exports.handler = async (event, context) => {
     // Call your function to track the purchase
     await trackPurchase(purchaseData.email);
 
-    await tiktokpixel(purchaseData.email);
+    await tiktokPixel(purchaseData.email);
     console.log(`Purchase event successfully processed for ${customerEmail}`);
   }
 
@@ -89,36 +90,36 @@ async function trackPurchase(email) {
   }
 }
 
-async function tiktokpixel(email){
-  const axios = require('axios');
+
+async function tiktokPixel(email) {
   const hashedEmail = crypto.createHash('sha256').update(email.toLowerCase()).digest('hex');  // Hash email for privacy
 
-
-  axios.post(
-  'https://business-api.tiktok.com/open_api/v1.3/event/track/',
-  {
-      "event_source": "web",
-      "event_source_id": "CVEJ0HBC77U2AAG9J2P0",
-      "data": [
+  try {
+    const response = await axios.post(
+      'https://business-api.tiktok.com/open_api/v1.3/event/track/',
+      {
+        "event_source": "web",
+        "event_source_id": "CVEJ0HBC77U2AAG9J2P0",
+        "data": [
           {
-              "event": "CompletePayment",
-              "event_time": Math.floor(Date.now() / 1000),
-              "user": {
-                  "email": { hashedEmail }
-              }
+            "event": "CompletePayment",
+            "event_time": Math.floor(Date.now() / 1000),
+            "user": {
+              "email": hashedEmail  // Correct way to pass hashedEmail
+            }
           }
-      ]
-  },
-  {
-      headers: {
+        ]
+      },
+      {
+        headers: {
           'Access-Token': 'a4ef7fa3359a0f69ed8350da665410c5c52d7dc5',
           'Content-Type': 'application/json'
+        }
       }
-  })
-  .then(function (response) {
-      console.log(response);
-  })
-  .catch(function (error) {
-      console.log(error);
-  });
+    );
+
+    console.log(response.data);  // Log the response data if successful
+  } catch (error) {
+    console.log(error.response ? error.response.data : error.message);  // Log any errors
+  }
 }
