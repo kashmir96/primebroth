@@ -157,6 +157,47 @@
             }
         });
     });
+// Function to get URL parameter by name (e.g., ttclid)
+function getTitktokClickID(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+}
+
+// Function to set a cookie with the ttclid value
+function setTiktokCookie(name, value, days) {
+    const d = new Date();
+    d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));  // Set expiration time
+    const expires = "expires=" + d.toUTCString();
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";  // Set cookie
+}
+
+// Function to get the cookie value by name
+function getTiktokCookie(name) {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+// Capture ttclid from the URL
+const ttclid = getTitktokClickID('ttclid');
+
+// If ttclid exists in the URL, store it as a cookie
+if (ttclid) {
+    setTiktokCookie('ttclid', ttclid, 30);  // Store ttclid cookie for 30 days
+    console.log("ttclid stored in cookie:", ttclid);
+} else {
+    // If ttclid doesn't exist, try getting it from the cookie (if the user has visited before)
+    const storedTtclid = getTiktokCookie('ttclid');
+    if (storedTtclid) {
+        console.log("Using stored ttclid from cookie:", storedTtclid);
+    }
+}
+
   </script>
 <script src="https://get.geojs.io/v1/ip/geo.js"></script>
   
