@@ -5,7 +5,6 @@ const axios = require('axios');
 const FACEBOOK_PIXEL_ID = '809100344281173';  // Replace with your Pixel ID 
 const ACCESS_TOKEN = 'EAAU9shr9R4gBO2r17GFpgNP9LpZAvq8EUkpetaJG75ZAxOXnLZBZCtUfjcs0BnTu17leRfZATGUYmGppK1BrfIBP94BZBdCzb5yCTrj2tw2AeDiHPERBZBXZCuQJAln3JPCqviVlxPVbDXZBq0F8n45cPbjBZAYioouT8kDR7xSAjqwP3UoOwRIP8CWYRFTcoWZBWjvsfMyqOw1sARtudxqcLwrtY2XckSmyc4uwQZDZD';  // Replace with your Access Token
 const webhookSecret = process.env.CHECKOUT_COMPLETED_SECRET;
-const storedTtclid = getTiktokCookie('ttclid');
 
 exports.handler = async (event, context) => {
   // Dynamically import node-fetch
@@ -101,14 +100,13 @@ async function tiktokPixel(email) {
       {
         "event_source": "web",
         "event_source_id": "CVEJ0HBC77U2AAG9J2P0",
-       "data": [
+        "data": [
           {
-            "event": "CompletePayment",  // Event type
-            "event_time": Math.floor(Date.now() / 1000),  // Current timestamp
+            "event": "CompletePayment",
+            "event_time": Math.floor(Date.now() / 1000),
             "user": {
-              "email": hashedEmail  // Correct way to pass the hashed email
-            },
-            "ttclid": storedTtclid  // Add the ttclid value here
+              "email": hashedEmail  // Correct way to pass hashedEmail
+            }
           }
         ]
       },
