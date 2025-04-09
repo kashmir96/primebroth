@@ -30,8 +30,9 @@
 
         <div id="cart-summary" class="card p-4 shadow">
             <h3>Cart Summary</h3>
-            <p class="mb-1">Subtotal: <strong><span id="total-cost">$0.00</span></strong></p>
-            <p><em>Shipping applied at checkout</em></p>
+            
+            <p class="mb-1" id="shipping_info"><em>+$<span id="shipping_price"></span> shipping (spend over <span id="shipping_rate"></span> to get it free)</em></p>
+            <p >Total: <strong><span id="total-cost">$0.00</span></strong></p>
             <div class="add-to-cart">
                 <button id="proceed-to-checkout" class="btn btn-primary btn-lg buy-now mb-1 mt-3" disabled>Proceed to Checkout</button>
                 <p>Speedy Shipping NZ Wide | Money back guarantee</p>
@@ -53,6 +54,12 @@
             // Retrieve cart data from localStorage
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             const countryCode = getCountryCookie('country_code') || "NZ";
+            if(countryCode == 'NZ'){
+                document.getElementById("shipping_price").innerHTML = '6.95';
+            }
+            if(countryCode == 'AU'){
+                document.getElementById("shipping_price").innerHTML = '16.95';
+            }
 
             const cartItemsContainer = document.getElementById('cart-items');
             const totalCostElement = document.getElementById('total-cost');
@@ -123,6 +130,26 @@
                     cartTableBody.appendChild(row);
                 });
 
+                if(countryCode == 'NZ'){
+                    if(totalCost < 80){
+                        totalCost = totalCost + 6.95;  
+                        document.getElementById('shipping_info').classList.remove('d-none'); 
+                    }
+                    else{
+                        document.getElementById('shipping_info').classList.add('d-none');
+                    }
+                }
+                if(countryCode == 'AU'){
+                    if(totalCost < 150){
+                        totalCost = totalCost + 16.95;   
+                        document.getElementById('shipping_info').classList.remove('d-none');
+                    }
+                    else{
+                        document.getElementById('shipping_info').classList.add('d-none');
+                    }
+                }
+               
+               
                 // Update total cost
                 let totalPriceSuffix = '';
                 if (cart.some(item => item.orderType && item.orderType.includes('Quarterly'))) {
