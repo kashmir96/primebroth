@@ -48,7 +48,6 @@ exports.handler = async (event, context) => {
     // Call your function to track the purchase
     await trackPurchase(purchaseData.email);
 
-    await tiktokPixel(purchaseData.email);
     console.log(`Purchase event successfully processed for ${customerEmail}`);
   }
 
@@ -87,39 +86,5 @@ async function trackPurchase(email) {
     }
   } catch (error) {
     console.error('Error in Facebook Conversions API:', error);
-  }
-}
-
-
-async function tiktokPixel(email) {
-  const hashedEmail = crypto.createHash('sha256').update(email.toLowerCase()).digest('hex');  // Hash email for privacy
-
-  try {
-    const response = await axios.post(
-      'https://business-api.tiktok.com/open_api/v1.3/event/track/',
-      {
-        "event_source": "web",
-        "event_source_id": "CVEJ0HBC77U2AAG9J2P0",
-        "data": [
-          {
-            "event": "CompletePayment",
-            "event_time": Math.floor(Date.now() / 1000),
-            "user": {
-              "email": hashedEmail  // Correct way to pass hashedEmail
-            }
-          }
-        ]
-      },
-      {
-        headers: {
-          'Access-Token': 'a4ef7fa3359a0f69ed8350da665410c5c52d7dc5',
-          'Content-Type': 'application/json'
-        }
-      }
-    );
-
-    console.log(response.data);  // Log the response data if successful
-  } catch (error) {
-    console.log(error.response ? error.response.data : error.message);  // Log any errors
   }
 }
