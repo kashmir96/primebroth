@@ -26,15 +26,15 @@
     <!-- Add html below -->
 
     <div class="container-fluid">
-        <div style="margin-bottom: 0px;" class="row  lime shopsection"> 
+        <div style="margin-bottom: 0px;" class="row  lime align-items-center shopsection"> 
             <h1 class="text-center pt-3">Customer support</h1>
             <!-- <p class="text-center">Need to query your order? submit this form and we'll be in touch asap.</p>               
-            -->
+            --> <p class="text-center">Please note, usual wait times are up to 7 days between processing time and courier transport time depending
+                where you're from in New Zealand. In Australia, please add 5 days to this to account for extra transit time.
+            </p>
+            <p class="text-center">Orders containing products marked "backorder" will ship when the backorder item is in stock.</p>
             <div class="col-12 col-md-6 mt-4"> 
-                <p>Please note, usual wait times are up to 7 days between processing time and courier transport time depending
-                    where you're from in New Zealand. In Australia, please add 5 days to this to account for extra transit time.
-                </p>
-                <p>Orders containing products marked "backorder" will ship when the backorder item is in stock.</p>
+               
                 <h3>Please check our FAQ prior to submitting a support request.</h3>
                 <div class="faq mt-4">
                     <div class="accordion-item ">
@@ -102,9 +102,13 @@
                 </div>
 
             </div>
-            <div class="col-md-6 col-xs-12">
-                <div class="custom-form">
-                    <form id="contact-form" method="POST" data-netlify="true" name="support">
+            <div class="col-md-6 col-12">
+                <div class="custom-form h-100 text-center">
+                    <h3> Still need help?</h3>
+                    <div class="col-12 mt-3">
+                        <button type="button" class="btn btn-primary middle" id="open_intercom_chat">Contact Support</button>
+                    </div>
+                    <!-- <form id="contact-form" method="POST" data-netlify="true" name="support">
                         <input type="hidden" name="form-name" value="support">
                         
                         <label>Name*</label>
@@ -164,7 +168,7 @@
                         <input type="text" id="specialField" placeholder="Answer correctly to submit" class="form-input" required>
                         
                         <button id="contact-submit" class="btn btn-primary" type="submit">Send</button>
-                    </form>
+                    </form> -->
                 </div>
             </div>
             
@@ -172,7 +176,7 @@
     </div>
 
     <!-- Add html above -->
-    <script>
+    <!-- <script>
         window.addEventListener('load', () => {
             document.getElementById('contact-submit').addEventListener('click', () => {
                 gtag('event', 'contact_submit', {
@@ -198,7 +202,17 @@
                 return false;
             }
         }
-    </script>
+    </script> -->
+
+    <script>
+        window.intercomSettings = {
+          app_id: "qym1wd1w",
+           custom_launcher_selector:'#open_intercom_chat',
+           hide_default_launcher:true
+        };
+      </script>
+      <script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/your_app_id';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(document.readyState==='complete'){l();}else if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
+      </script>
     {{- partial "footer.html" . -}}
 </body>
 </html>
