@@ -31,18 +31,18 @@
 </script>
 <script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0124/4549.js" async="async" ></script>
 
-<meta name="description" content="The bone broth and tallow skincare company making the most rich and nutritious bone broth and silky smooth tallow in Christchurch for Kiwis around NZ." />
+<meta name="description" content="The tallow skincare company making the most silky smooth tallow in Christchurch for Kiwis around NZ." />
     <meta property="og:title" content="Ancestral products for wellness inside and out" />
     <meta property="og:type" content="" />
     <meta property="og:url" content="" />
     <meta property="og:image" content="/img/market1.webp" />
-    <meta property="og:description" content="The bone broth and tallow skincare company making the most rich and nutritious bone broth and silky smooth tallow in Christchurch for Kiwis around NZ." />
+    <meta property="og:description" content="The tallow skincare company making the most silky smooth tallow in Christchurch for Kiwis around NZ." />
     <meta name="twitter:card" content="" />
     <meta name="twitter:site" content="" />
     <meta name="twitter:creator" content="" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+    
 </head>
 <body><header>
     
@@ -84,25 +84,19 @@
             
             <li class="p-2">
                 <a href="/shop/">
-                    <span>Shop</span>
+                    <span>Shop Tallow</span>
                 </a>
             </li>
             
             <li class="p-2">
-                <a href="/wholesale/">
-                    <span>Wholesale</span>
+                <a href="/pages/reviews/">
+                    <span>Customer Reviews</span>
                 </a>
             </li>
             
             <li class="p-2">
                 <a href="/contact/">
                     <span>Contact</span>
-                </a>
-            </li>
-            
-            <li class="p-2">
-                <a href="/upcoming-markets/">
-                    <span>Markets</span>
                 </a>
             </li>
             
@@ -147,23 +141,19 @@
             </div>
             <div class="text-lg">
                 
-                <a href="/shop/" class="duration-200 block mt-4 lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
-                    Shop
+                <a href="/shop/" class="duration-200 block lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
+                    Shop Tallow
                 </a>
                 
-                <a href="/wholesale/" class="duration-200 block mt-4 lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
-                    Wholesale
+                <a href="/pages/reviews/" class="duration-200 block lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
+                    Customer Reviews
                 </a>
                 
-                <a href="/contact/" class="duration-200 block mt-4 lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
+                <a href="/contact/" class="duration-200 block lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
                     Contact
                 </a>
                 
-                <a href="/upcoming-markets/" class="duration-200 block mt-4 lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
-                    Markets
-                </a>
-                
-                <a href="/pages/about/" class="duration-200 block mt-4 lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
+                <a href="/pages/about/" class="duration-200 block lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
                     About
                 </a>
                 
@@ -230,6 +220,19 @@
     
     
     
+
+    
+    var outOfStockLinks=  document.querySelectorAll('.outOfStock a');
+    
+    outOfStockLinks.forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            
+            if (this.closest('.outOfStock')) {
+                event.preventDefault(); 
+                alert('This item is out of stock!'); 
+            }
+        });
+    });
   </script>
 <script src="https://get.geojs.io/v1/ip/geo.js"></script>
   
@@ -240,20 +243,20 @@
     
     
     if(countryCode == 'AU') {
-        var bone_broth =  document.getElementById('bone-broth');
+        
         
         if(shipping_rate){
-            shipping_rate.textContent='$100';
+            shipping_rate.textContent='$150';
         }
-        if(bone_broth)
-        {
-            document.getElementById('bone-broth').style.display = 'none';
-        }
-      $('label[for="bone-broth"]').hide();
-      $('.product-card').filter(function () {
-                        var categories = $(this).data('category').split(' ');
-                        return categories.includes("bone-broth");
-                    }).hide();
+        
+        
+        
+        
+    
+    
+    
+    
+    
         document.querySelectorAll('.nz-content').forEach(function(item) {
                 item.style.display = 'none';
             });
@@ -285,89 +288,107 @@
 </div>
 
 
-    <div class="container">
-        <div style="margin-bottom: 0px;" class="row max-width lime shopsection"> 
-            <h1 class="text-center">Customer support</h1>
-            <p class="text-center">Need to query your order? submit this form and we'll be in touch asap.</p>               
-
-            <div class="custom-form">
-                <form id="contact-form" method="POST" data-netlify="true" name="support">
-                    <input type="hidden" name="form-name" value="support">
+    <div class="container-fluid">
+        <div style="margin-bottom: 0px;" class="row  lime align-items-center shopsection"> 
+            <h1 class="text-center pt-3">Customer support</h1>
+             <p class="text-center">Please note, usual wait times are up to 7 days between processing time and courier transport time depending
+                where you're from in New Zealand. In Australia, please add 5 days to this to account for extra transit time.
+            </p>
+            <p class="text-center">Orders containing products marked "backorder" will ship when the backorder item is in stock.</p>
+            <div class="col-12 col-md-6 mt-4"> 
+               
+                <h3>Please check our FAQ prior to submitting a support request.</h3>
+                <div class="faq mt-4">
+                    <div class="accordion-item ">
+                        <h4 class="accordion-heading">I'd like to make a change to what I've just ordered.</h4>
+                        <div class="accordion-content">
+                          <p>Contact us as soon as possible, If the order has already sent, then you will either have to order again or ship the product
+                            back to us (sealed and unopened) to swap.
+                          </p> </div>
+                      </div>
                     
-                    <label>Name*</label>
-                    <input type="text" placeholder="Your Name" class="form-input" name="name" required>
-                    
-                    <label>Email*</label>
-                    <input type="email" placeholder="your@email.com" class="form-input" name="email" required>
+                      <div class="accordion-item ">
+                        <h4 class="accordion-heading">My order hasn't arrived yet</h4>
+                        <div class="accordion-content">
+                          <p>Normal wait times can be up to 7 days depending on location in NZ, often it can be sooner, but as a general rule of thumb
+                            please wait for this long Before asking us to follow up as it's likely already on the way to you.
+                          </p><p>Once your order has been processed (Usually with in 3 days) you will be sent a tracking code to follow your order to your door in the courier.</p></div>
+                      </div>
+          
+                      <div class="accordion-item  show">
+                        <h4 class="accordion-heading">I can't tell which scent is which</h4>
+                        <div class="accordion-content">
+                          <p>
+                            
+                          if you've received a jar of primalcare and are unable to tell what scent uou've received, check the label on front, or the best before sticker on the lid.</p>
+                        </div>
+                      </div>
+          
+                      <div class="accordion-item show">
+                        <h4 class="accordion-heading">My order was damaged in transit</h4>
+                        <div class="accordion-content">
+                       
+                          <p>Sometimes glass jars no matter how well we wrap them can take a hit in the courier van and turn up a bit worse for wear, If this has happened
+                            to You, be sure to fill in the form to the right and upload a photo. We will send you a replacement.
+                          </p>
+                            
+                        </div>
+                      
+                      </div>
+          
+                      <div class="accordion-item  show">
+                        <h4 class="accordion-heading">I'd like to returnan item I've ordered</h4>
+                        <div class="accordion-content">
+                         <p>As part of our money back guarantee, if you'd like to return a product that's in new and unused condition we will refund your money.
+                            Simply ship back to 6 Colt Place Wigram Christchurch 8025 and we'll refund you once it arrives.
+                             Be sure to write your name or email on the bag so we know who's order it is!
+                         </p>
+                        </div>
+                      </div>
+                      <div class="accordion-item  show">
+                        <h4 class="accordion-heading">I'd like to swap what I've ordered with another item</h4>
+                        <div class="accordion-content">
+                         <p>If the item is still sealed and unused you may return it for another,
+                             simply ship back to 6 Colt place Wigram Christchurch 8025 and we'll refund you once it ariives.
+                              Be sure to write your name or email on the bag so we know who's order it is!.  </p>
+                        </div>
+                      </div>
+                      <div class="accordion-item  show">
+                        <h4 class="accordion-heading">I didn't receive a receipt or confirmation email</h4>
+                        <div class="accordion-content">
+                         <p>A receipt will be sent to the email you used to create your order within an hour or two of it
+                            order being placed. If it's not received in this time it could be being lost in your spam folder, or often we find it's a misspelling of the email or a different email being auto-populated at checkout.
+                        If you haven't received yours we will look into it for you, just fill in the form to the right as best you can and we'll find it for you. </p>
+                        </div>
+                      </div>
+                </div>
 
-                    <label>Date of transaction</label>
-                    <input type="text" placeholder="e.g. 25/09/2024" class="form-input" name="transaction_date">
-
-                    <label>Receipt number (for faster processing of your query)</label>
-                    <input type="text" placeholder="e.g. 8039-1092" class="form-input" name="receipt">
-
-                    <label>Product purchased</label>
-                    <select class="form-input" name="product_purchased" required>
-                        <option value="" disabled selected>Select a product type</option>
-                        <option value="people-beef-powder">Bone broth powder (people)</option>
-                        <option value="pets-beef-powder">Bone broth powder (pets)</option>
-                        <option value="tallow-balm">Tallow balm</option>
-                        <option value="bundle-trio">Tallow trio bundle</option>
-                        <option value="bundle-inside-out">Inside out wellness bundle</option>
-                        <option value="bundle-people-pets">People and pets broth powder bundle</option>
-                    </select>
-
-                    <label>Support query type</label>
-                    <select class="form-input" name="support_query_type" required>
-                        <option value="" disabled selected>Select a query type</option>
-                        <option value="order_status">Order Status</option>
-                        <option value="product_details">Product Details</option>
-                        <option value="primebroth_query">Primebroth (Bone Broth) Query</option>
-                        <option value="balm_query">Tallow Balm Query</option>
-                        <option value="shipping_issue">Shipping Issue</option>
-                        <option value="refund_request">Refund or Exchange Request</option>
-                    </select>
-
-                    <label>Message*</label>
-                    <textarea rows="5" placeholder="Please provide details of your support query" class="form-input" name="message" required></textarea>
-                
-                    <label>Upload Supporting Images or Documents (Required for refunds or exchanges of received items)</label>
-                    <input type="file" class="form-input" name="attachments" accept="image/*,.pdf,.doc,.docx" multiple>
-
-                    <label>Affected product batch number (Required for refunds or exchanges of received items)</label>
-                    <input type="text" placeholder="e.g. 039" class="form-input" name="batch" >
-
-                    <label>Are you a robot? What's 5+1?*</label>
-                    <input type="text" id="specialField" placeholder="Answer correctly to submit" class="form-input" required>
-                    
-                    <button id="contact-submit" class="btn btn-primary" type="submit">Send</button>
-                </form>
             </div>
+            <div class="col-md-6 col-12">
+                <div class="custom-form h-100 text-center">
+                    <h3> Still need help?</h3>
+                    <div class="col-12 mt-3">
+                        <button type="button" class="btn btn-primary middle" id="open_intercom_chat">Contact Support</button>
+                    </div>
+                    
+                </div>
+            </div>
+            
         </div>
     </div>
 
     
-    <script>
-        window.addEventListener('load', () => {
-            document.getElementById('contact-submit').addEventListener('click', () => {
-                gtag('event', 'contact_submit', {
-                    'event_category': 'form',
-                    'event_label': 'contact-submit',
-                    'value': 1
-                });
-            });
-        });
+    
 
-        function validateForm() {
-            const inputField = document.getElementById('specialField');
-            if (inputField.value === '6') {
-                return true;
-            } else {
-                alert('Please enter the correct number in the robot detection field.');
-                return false;
-            }
-        }
-    </script>
+    <script>
+        window.intercomSettings = {
+          app_id: "qym1wd1w",
+           custom_launcher_selector:'#open_intercom_chat',
+           hide_default_launcher:true
+        };
+      </script>
+      <script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/your_app_id';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(document.readyState==='complete'){l();}else if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
+      </script>
 <footer class="bg-tlgray-100">
   <script src='/js/custom.js?v=1'></script>
 

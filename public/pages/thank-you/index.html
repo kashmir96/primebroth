@@ -31,12 +31,12 @@
 </script>
 <script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0124/4549.js" async="async" ></script>
 
-<meta name="description" content="The bone broth and tallow skincare company making the most rich and nutritious bone broth and silky smooth tallow in Christchurch for Kiwis around NZ." />
+<meta name="description" content="The tallow skincare company making the most silky smooth tallow in Christchurch for Kiwis around NZ." />
     <meta property="og:title" content="Ancestral products for wellness inside and out" />
     <meta property="og:type" content="" />
     <meta property="og:url" content="" />
     <meta property="og:image" content="/img/market1.webp" />
-    <meta property="og:description" content="The bone broth and tallow skincare company making the most rich and nutritious bone broth and silky smooth tallow in Christchurch for Kiwis around NZ." />
+    <meta property="og:description" content="The tallow skincare company making the most silky smooth tallow in Christchurch for Kiwis around NZ." />
     <meta name="twitter:card" content="" />
     <meta name="twitter:site" content="" />
     <meta name="twitter:creator" content="" />
@@ -98,25 +98,19 @@
             
             <li class="p-2">
                 <a href="/shop/">
-                    <span>Shop</span>
+                    <span>Shop Tallow</span>
                 </a>
             </li>
             
             <li class="p-2">
-                <a href="/wholesale/">
-                    <span>Wholesale</span>
+                <a href="/pages/reviews/">
+                    <span>Customer Reviews</span>
                 </a>
             </li>
             
             <li class="p-2">
                 <a href="/contact/">
                     <span>Contact</span>
-                </a>
-            </li>
-            
-            <li class="p-2">
-                <a href="/upcoming-markets/">
-                    <span>Markets</span>
                 </a>
             </li>
             
@@ -161,23 +155,19 @@
             </div>
             <div class="text-lg">
                 
-                <a href="/shop/" class="duration-200 block mt-4 lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
-                    Shop
+                <a href="/shop/" class="duration-200 block lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
+                    Shop Tallow
                 </a>
                 
-                <a href="/wholesale/" class="duration-200 block mt-4 lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
-                    Wholesale
+                <a href="/pages/reviews/" class="duration-200 block lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
+                    Customer Reviews
                 </a>
                 
-                <a href="/contact/" class="duration-200 block mt-4 lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
+                <a href="/contact/" class="duration-200 block lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
                     Contact
                 </a>
                 
-                <a href="/upcoming-markets/" class="duration-200 block mt-4 lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
-                    Markets
-                </a>
-                
-                <a href="/pages/about/" class="duration-200 block mt-4 lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
+                <a href="/pages/about/" class="duration-200 block lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
                     About
                 </a>
                 
@@ -244,6 +234,19 @@
     
     
     
+
+    
+    var outOfStockLinks=  document.querySelectorAll('.outOfStock a');
+    
+    outOfStockLinks.forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            
+            if (this.closest('.outOfStock')) {
+                event.preventDefault(); 
+                alert('This item is out of stock!'); 
+            }
+        });
+    });
   </script>
 <script src="https://get.geojs.io/v1/ip/geo.js"></script>
   
@@ -254,20 +257,20 @@
     
     
     if(countryCode == 'AU') {
-        var bone_broth =  document.getElementById('bone-broth');
+        
         
         if(shipping_rate){
-            shipping_rate.textContent='$100';
+            shipping_rate.textContent='$150';
         }
-        if(bone_broth)
-        {
-            document.getElementById('bone-broth').style.display = 'none';
-        }
-      $('label[for="bone-broth"]').hide();
-      $('.product-card').filter(function () {
-                        var categories = $(this).data('category').split(' ');
-                        return categories.includes("bone-broth");
-                    }).hide();
+        
+        
+        
+        
+    
+    
+    
+    
+    
         document.querySelectorAll('.nz-content').forEach(function(item) {
                 item.style.display = 'none';
             });
@@ -299,17 +302,53 @@
 </div>
 
 
-    <div class="container">
-        <div class="row peach max-width text-center">
+    <div class="container-fluid p-0">
+        <div class="p-5 peach text-center">
             <h1 class="fade-in-element">Thank you for your order!</h1>
+            <p>We have received your order and will ship it out to you as soon as possible.</p>
         </div>
-        <div class="row justify-content-around">
-            <div class="col">
-                <p>Thanks for your order of PrimalPantry!</p>
-                <p>We will process your order as soon as possible. Keep an eye on your inbox, we'll let you know when your goods are on the way! </p>
-                <p>If you have any questions or queries about your order, get in touch with hello@PrimalPantry.co.nz and we will help you out! </p>
+        <div class="row my-0">
+            <div class="col-12 col-md-8 offset-md-2">
                 
+            <h2>Your Order:</h2>
+            <ul id="ordered-items" class="list-group"></ul>
+        
+            <script>
+                
+                function getUrlParameter(name) {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    return urlParams.get(name);
+                }
+        
+                
+                const encodedCartData = getUrlParameter('cartdata');
+                if (encodedCartData) {
+                    
+                    const cartData = JSON.parse(decodeURIComponent(encodedCartData));
+        
+                    
+                    const cartItemsList = document.getElementById('ordered-items');
+                    cartData.forEach(item => {
+                        const li = document.createElement('li');
+                        li.classList.add('list-group-item');
+                        li.textContent = `${item.quantity || 'Unknown'} X ${item.title || 'Unknown Product'} - ${item.flavor || 'N/A'}  ${item.size || 'N/A'} (${item.orderType || 'N/A'})`;
+                        cartItemsList.appendChild(li);
+                    });
+                } else {
+                    console.log("No cart data available.");
+                }
+            </script>
+            
+            <p>You will be sent a receipt to 
+                    the email used at checkout within an hour.
+                </p>
 
+            </div>
+        </div>
+        <div class="lightpeach p-4 text-center">
+            <div class="col-12 ">
+                <b>If you have any questions or would like hand with
+                     your order, <br/> please visit our <a href="/support" class="text-decoration-underline">customer support page here.</a></b>
             </div>
         </div>
     </div>
