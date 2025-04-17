@@ -77,14 +77,14 @@
                 <input type="radio" id="all" name="product-filter" value="all" checked>
                 <label for="all">All</label>
     
-                <input type="radio" id="bone-broth" name="product-filter" value="bone-broth">
-                <label for="bone-broth">Bone Broth</label>
+                <!-- <input type="radio" id="bone-broth" name="product-filter" value="bone-broth">
+                <label for="bone-broth">Bone Broth</label> -->
     
                 <input type="radio" id="tallow" name="product-filter" value="tallow">
                 <label for="tallow">Tallow</label>
 
-                <input type="radio" id="pets" name="product-filter" value="pets">
-                <label for="pets">Pets</label>
+                <!-- <input type="radio" id="pets" name="product-filter" value="pets">
+                <label for="pets">Pets</label> -->
 
                 <input type="radio" id="bundles" name="product-filter" value="bundles">
                 <label for="bundles">Bundles</label>
@@ -101,10 +101,10 @@
             {{- partial "prodcardtallowbundle.html" . -}}
             {{- partial "prodcardtallowstack.html" . -}}
 
-            {{- partial "prodcardpplpowderchicken.html" . -}} 
+            <!-- {{- partial "prodcardpplpowderchicken.html" . -}}  -->
             {{- partial "prodcard-deodorant.html" . -}} 
 
-            {{- partial "prodcardpetpowder.html" . -}}
+            <!-- {{- partial "prodcardpetpowder.html" . -}} -->
 
 
             {{- partial "prodcardtallowsoapmixed.html" . -}}
@@ -114,9 +114,9 @@
 
             {{- partial "prodcardtallowsunscreenbalm.html" . -}}
             {{- partial "prodcardtallowsoap.html" . -}}
-            {{- partial "prodcardinsideout.html" . -}}
-            {{- partial "prodcardbrothbundle.html" . -}}
-            {{- partial "prodcardpplpowder.html" . -}} 
+            <!-- {{- partial "prodcardinsideout.html" . -}} -->
+            <!-- {{- partial "prodcardbrothbundle.html" . -}}
+            {{- partial "prodcardpplpowder.html" . -}}  -->
 
             
             <!--
@@ -174,14 +174,14 @@
                 }
                 const countryCode = getCountryCookie('country_code') || "NZ";
                 // If the country is NZ, show NZ-specific partials
-                if (countryCode === 'AU') {
-                    document.getElementById('bone-broth').style.display = 'none';
-                    $('label[for="bone-broth"]').hide();
-                    $('.product-card').filter(function () {
-                        var categories = $(this).data('category').split(' ');
-                        return categories.includes("bone-broth");
-                    }).hide();
-                }
+                // if (countryCode === 'AU') {
+                //     document.getElementById('bone-broth').style.display = 'none';
+                //     $('label[for="bone-broth"]').hide();
+                //     $('.product-card').filter(function () {
+                //         var categories = $(this).data('category').split(' ');
+                //         return categories.includes("bone-broth");
+                //     }).hide();
+                // }
             });
     
             // Trigger the change event to apply the initial filter

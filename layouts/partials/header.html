@@ -77,7 +77,7 @@
             </div>
             <div class="text-lg">
                 {{ range .Site.Menus.main }}
-                <a href="{{ .URL | safeURL }}" class="duration-200 block mt-4 lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
+                <a href="{{ .URL | safeURL }}" class="duration-200 block lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
                     {{ .Name }}
                 </a>
                 {{ end }}
@@ -167,20 +167,20 @@
     
     // If the country is NZ, show NZ-specific partials
     if(countryCode == 'AU') {
-        var bone_broth =  document.getElementById('bone-broth');
+        // var bone_broth =  document.getElementById('bone-broth');
         
         if(shipping_rate){
             shipping_rate.textContent='$150';
         }
-        if(bone_broth)
-        {
-            document.getElementById('bone-broth').style.display = 'none';
-        }
-      $('label[for="bone-broth"]').hide();
-      $('.product-card').filter(function () {
-                        var categories = $(this).data('category').split(' ');
-                        return categories.includes("bone-broth");
-                    }).hide();
+        // if(bone_broth)
+        // {
+        //     document.getElementById('bone-broth').style.display = 'none';
+        // }
+    //   $('label[for="bone-broth"]').hide();
+    //   $('.product-card').filter(function () {
+    //                     var categories = $(this).data('category').split(' ');
+    //                     return categories.includes("bone-broth");
+    //                 }).hide();
         document.querySelectorAll('.nz-content').forEach(function(item) {
                 item.style.display = 'none';
             });
