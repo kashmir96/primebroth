@@ -25,58 +25,37 @@
     {{- partial "strip.html" . -}}
     <!-- Add html below -->
 
-    <div class="container">
+    <div class="container" >
         <div style="margin-bottom: 0px;" class="row max-width lime shopsection"> 
             <h1 class="text-center">Contact us</h1>
-            <p class="text-center">Flick us a message and we'll be in touch asap. <br>Already a customer and wanting to query a transaction? <a href="/support">Fill in this form instead</a></p>               
+            <a class="text-center">Flick us a message and we'll be in touch asap.</p>               
 
-            <div class="custom-form">
-                <form id="contact-form" method="POST" data-netlify="true" name="contact">
-                    <input type="hidden" name="form-name" value="contact">
+            <div style="height: 50vh;" class="custom-form text-center">
+                <div class="col-md-6 col-12">
                     
-                    <label>Name*</label>
-                    <input type="text" placeholder="Your Name" class="form-input" name="name" required>
-                    
-                    <label>Email*</label>
-                    <input type="email" placeholder="your@email.com" class="form-input" name="email" required>
-                    
-                    <label>Subject*</label>
-                    <input type="text" placeholder="Enter Subject" class="form-input" name="subject" required>
-                    
-                    <label>Message*</label>
-                    <textarea rows="5" placeholder="Enter Message" class="form-input" name="message" required></textarea>
-                
-                    <label>Are you a robot? What's 5+1?*</label>
-                    <input type="text" id="specialField" placeholder="Answer correctly to submit" class="form-input" required>
-                    
-                    <button id="contact-submit" class="btn btn-primary" type="submit">Send</button>
-                </form>
+                    <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="open_intercom_chat"
+                    style="position: absolute; top: 200px; left: 50%; transform: translateX(-50%); z-index: 9999;">
+                    Click here to get in touch
+                  </button>
+                   
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Add html above -->
     <script>
-        window.addEventListener('load', () => {
-            document.getElementById('contact-submit').addEventListener('click', () => {
-                gtag('event', 'contact_submit', {
-                    'event_category': 'form',
-                    'event_label': 'contact-submit',
-                    'value': 1
-                });
-            });
-        });
-
-        function validateForm() {
-            const inputField = document.getElementById('specialField');
-            if (inputField.value === '6') {
-                return true;
-            } else {
-                alert('Please enter the correct number in the robot detection field.');
-                return false;
-            }
-        }
-    </script>
+        window.intercomSettings = {
+          app_id: "qym1wd1w",
+           custom_launcher_selector:'#open_intercom_chat',
+           hide_default_launcher:true
+        };
+      </script>
+      <script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/your_app_id';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(document.readyState==='complete'){l();}else if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
+      </script>
     {{- partial "footer.html" . -}}
 </body>
 </html>
