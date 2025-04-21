@@ -1,0 +1,26 @@
+<!-- <span class="attention-primalcare">$20.12</span> <span class=" small text-decoration-line-through">$31</span> -->
+<span class="nz-content" style="display:inline;">
+    {{ with index site.Data.pricing.tallow.pricing.balm 1 }}
+    {{ with .prices.NZ }}
+        <span class="attention-primalcare">${{ .single_purchase }}</span>   
+    {{ end }}
+    {{ end }}
+    {{ with index site.Data.pricing.tallow.discount_from.balm 1 }}
+        {{ with .prices.NZ }}
+    <span class=" small text-decoration-line-through">${{ .single_purchase }}</span>
+    {{ end }}
+    {{ end }}
+    
+</span>
+<span class="au-content" style="display:none;">
+    {{ with index site.Data.pricing.tallow.pricing.balm 1 }}
+    {{ with .prices.AU }}
+        <span class="attention-primalcare">${{ .single_purchase }}</span> 
+        {{ end }}
+        {{ end }}
+    {{ with index site.Data.pricing.tallow.discount_from.balm 1 }}
+        {{ with .prices.AU }}
+    <span class=" small text-decoration-line-through">${{ .single_purchase }}</span>
+   {{ end }}
+   {{ end }}
+</span>
