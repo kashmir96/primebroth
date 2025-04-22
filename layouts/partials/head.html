@@ -17,9 +17,9 @@
 {{ $styles := $styles | minify | fingerprint | resources.PostProcess }}
 <link rel="stylesheet" href="{{ $styles.RelPermalink }}" />
 {{ end }}
-{{ if .IsHome }}
+<!-- {{ if .IsHome }}
 <link rel="stylesheet" href='{{ "/css/swiper-bundle.min.css" | relURL }}'>
-{{ end }}
+{{ end }} -->
 <link href='{{ "/css/style.min.css" | relURL }}' rel="stylesheet" type="text/css">
 
 <!-- Google tag (gtag.js) -->
