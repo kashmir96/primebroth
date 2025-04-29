@@ -102,6 +102,11 @@
 
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
         const cartBadges = document.querySelectorAll('.cart-badge');
+        const tiktokparams = new URLSearchParams(window.location.search);
+        const ttclid = tiktokparams.get('ttclid');
+        if (ttclid) {
+            localStorage.setItem('ttclid', ttclid);
+        }
 
         console.log('Cart contents:', cart);
 
