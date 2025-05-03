@@ -113,8 +113,20 @@
                 } else {
                     console.log("No cart data available.");
                 }
-                const ttclid = localStorage.getItem('ttclid');
-                console.log(totalCost);
+                const url_params = new URLSearchParams(window.location.search);
+                const landing_url = url_params.get('landing_url');
+                // Step 1: Decode the URL
+                const decodedlanding_url = decodeURIComponent(landing_url);
+
+                // Step 2: Extract the query string
+                const urlObj = new URL(decodedlanding_url);
+                const params = new URLSearchParams(urlObj.search);
+
+                // Step 3: Get ttclid
+                const ttclid = params.get('ttclid');
+               // const ttclid = localStorage.getItem('ttclid');
+                console.log("ttclid: "+ ttclid);
+                console.log("totalcost: "+ totalCost);
                 if(ttclid){
                     ttq.track('CompletePayment', {
                     value: totalCost,
