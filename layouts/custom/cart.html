@@ -235,6 +235,7 @@ if (cartEmptyDiv) {
                         if (data.sessionId) {
                             stripe.redirectToCheckout({ sessionId: data.sessionId });
                         } else {
+                            console.error("Error creating checkout session:", data);
                             alert('Failed to create checkout session. Please try again.');
                         }
                     })
