@@ -160,7 +160,8 @@
                             alert('Failed to create checkout session. Please try again.');
                         }
                     })
-                    .catch(() => {
+                    .catch((err) => {
+                        console.error('Checkout session error:', err);
                         alert('Failed to create checkout session. Please try again.');
                     });
             }
