@@ -60,15 +60,15 @@
                 }
         
                 // Get the cart data from the URL
-                const encodedCartData = getUrlParameter('cartdata');
+                const encodedCartData =  JSON.parse(localStorage.getItem('previouscart')) || [];
+                console.log("previous cart:",encodedCartData);
                 let totalCost = 0;
                 if (encodedCartData) {
                     // Decode and parse the cart data
-                    const cartData = JSON.parse(decodeURIComponent(encodedCartData));
         
                     // Display cart items
                     const cartItemsList = document.getElementById('ordered-items');
-                    cartData.forEach(item => {
+                    encodedCartData.forEach(item => {
                         const li = document.createElement('li');
                         li.classList.add('list-group-item');
                         li.textContent = `${item.quantity || 'Unknown'} X ${item.title || 'Unknown Product'} - ${item.flavor || 'N/A'}  ${item.size || 'N/A'} (${item.orderType || 'N/A'})`;
@@ -78,9 +78,11 @@
                         const lineItemTotal = (unitPrice * quantity).toFixed(2);
                         totalCost += parseFloat(lineItemTotal);
                     });
+                    localStorage.removeItem('previouscart');
                 } else {
                     console.log("No cart data available.");
                 }
+                console.log("totalcost: "+ totalCost);
                 const url_params = new URLSearchParams(window.location.search);
                 const landing_url = url_params.get('landing_url');
                 // Step 1: Decode the URL
@@ -94,7 +96,6 @@
                 const ttclid = params.get('ttclid');
                // const ttclid = localStorage.getItem('ttclid');
                 console.log("ttclid: "+ ttclid);
-                console.log("totalcost: "+ totalCost);
                 if(ttclid){
                     ttq.track('CompletePayment', {
                     value: totalCost,

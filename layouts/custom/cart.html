@@ -233,9 +233,9 @@ if (cartEmptyDiv) {
                     .then(response => response.json())
                     .then(data => {
                         if (data.sessionId) {
+                            localStorage.setItem('previouscart', JSON.stringify(cart));
                             stripe.redirectToCheckout({ sessionId: data.sessionId });
                         } else {
-                            console.error("Error creating checkout session:", data);
                             alert('Failed to create checkout session. Please try again.');
                         }
                     })

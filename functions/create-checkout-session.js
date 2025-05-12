@@ -3,7 +3,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 exports.handler = async (event, context) => {
   try {
     const { cart, countryCode } = JSON.parse(event.body);
-    const encodedCartData = encodeURIComponent(JSON.stringify(cart));
+    // const encodedCartData = encodeURIComponent(JSON.stringify(cart));
 
     // Check if the cart is valid
     if (!cart || !Array.isArray(cart) || cart.length === 0) {
@@ -113,7 +113,7 @@ exports.handler = async (event, context) => {
     console.log(`Shipping options: ${JSON.stringify(shippingOptions)}`);
 
     // Create success URL with landingURL as a query parameter
-    const successUrl = `https://www.primalpantry.co.nz/pages/thank-you?landing_url=${encodeURIComponent(decodedLandingURL)}&cartdata=${encodedCartData}`;
+    const successUrl = `https://www.primalpantry.co.nz/pages/thank-you?landing_url=${encodeURIComponent(decodedLandingURL)}`;
 
     // Create a Stripe checkout session
     const session = await stripe.checkout.sessions.create({
