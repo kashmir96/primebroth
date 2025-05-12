@@ -446,7 +446,7 @@
     const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
     const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
     console.log(size);
-    if(size=="120ml")
+    if((size=="120ml" && orderType == "single_purchase") || ((size=="120ml" || size == "60ml") && orderType == "three_pack"))
     {
         document.getElementById("special").style.display="inline";
     }
