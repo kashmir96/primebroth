@@ -53,6 +53,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Retrieve cart data from localStorage
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            console.log(cart);
             const countryCode = getCountryCookie('country_code') || "NZ";
             if(countryCode == 'NZ'){
                 document.getElementById("shipping_price").innerHTML = '6.95';
