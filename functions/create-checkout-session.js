@@ -60,10 +60,10 @@ exports.handler = async (event, context) => {
     console.log(`Total amount in cents: ${totalAmount}`);
     
     // Determine the shipping rate based on the total amount
-    const standardShippingRate = 'shr_1QKTanFZRwx5tlYmmr0UUDQw';
+    const standardShippingRate = 'shr_1RNoLQFZRwx5tlYmbtbV28PB';
     const mediumShippingRate = 'shr_1QKTanFZRwx5tlYmmr0UUDQw';
-    const freeShippingRate = 'shr_1QKTagFZRwx5tlYmswF6jANR';
-    const ruralShippingRate = 'shr_1QKTajFZRwx5tlYmayPCyClE'; // Replace with your actual rural shipping rate ID
+    const freeShippingRate = 'shr_1RNoN3FZRwx5tlYmUStQxW5y';
+    const ruralShippingRate = 'shr_1RNoR5FZRwx5tlYmxFgyFs06'; // Replace with your actual rural shipping rate ID
     const standardShippingRateAU = 'shr_1QreQWFZRwx5tlYmSp5RW0qz';
     const freeShippingRateAU = 'shr_1QxGdxFZRwx5tlYmATptVQyM';
 
@@ -79,15 +79,6 @@ exports.handler = async (event, context) => {
           {
             shipping_rate: freeShippingRate,
           },
-        ];
-      } else if (totalAmount >= 1000) {
-        shippingOptions = [
-          {
-            shipping_rate: mediumShippingRate,
-          },
-          {
-            shipping_rate: ruralShippingRate,
-          }, // Include rural shipping as an option
         ];
       } else {
         // Show both standard and rural shipping options
