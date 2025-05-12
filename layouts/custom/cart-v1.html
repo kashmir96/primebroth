@@ -155,6 +155,7 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.sessionId) {
+                            console.error('data:', data);
                             stripe.redirectToCheckout({ sessionId: data.sessionId });
                         } else {
                             alert('Failed to create checkout session. Please try again.');
