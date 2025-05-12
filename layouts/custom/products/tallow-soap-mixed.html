@@ -27,6 +27,12 @@
         .custom-radio input[type="radio"]:checked + .custom-radio-label::before {
           background-color: green;
         }
+        .custom-radio input[type="radio"]:checked + .custom-radio-label::before {
+            background-color: red;
+        }
+        .custom-radio.out-of-stock  .custom-radio-label {
+            color: red;
+        }
         
         .custom-radio-label {
             color: green;
@@ -82,9 +88,9 @@
 
 <!-- Quantity Selector -->
 <div class="form-group mb-3 mb-lg-4">
-    <div class="mt-4 custom-radio float-right">
+    <div class="mt-4 custom-radio out-of-stock float-right">
         <input type="radio" id="inStock" name="stockStatus" checked>
-        <label class="custom-radio-label mb-0" for="inStock">In stock</label>
+        <label class="custom-radio-label mb-0" for="inStock">Out of stock</label>
     </div>
     <label for="quantityAll">Quantity of units:</label>
     <div class="quantity-container">
@@ -99,7 +105,7 @@
 
                  <!-- Add to Cart Button -->
                  <div class="add-to-cart text-center mb-4">
-                    <button type="button" class="btn btn-primary btn-lg buy-now mb-1" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
+                    <!-- <button type="button" class="btn btn-primary btn-lg buy-now mb-1" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button> -->
                     <p>Speedy Shipping NZ Wide | Money back guarantee</p>
                     <img class="badges middle" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
 
