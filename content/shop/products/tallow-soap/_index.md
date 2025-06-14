@@ -4,4 +4,5 @@ description: "A naturally cleansing and soothing tallow soap for your skin - Pri
 type: custom
 layout: products/tallow-soap
 wipe: true
+bootstrap5: true
 ---

@@ -11,10 +11,8 @@
     <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
     <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
     <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
-    
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ 
     <!-- Add the styling for the pill-shaped radio buttons -->
     <style>
         .filter-options {
@@ -58,33 +56,28 @@
     </style>
 </head>
 <body>
-    {{- partial "alert.html" . -}}
-    
-    {{- partial "header.html" . -}}
+     {{- partial "alert.html" . -}}
+    {{- partial "header_new.html" . -}}
     <div class="scroll-top rounded-full">
         <span class="icon-keyboard_arrow_up text-2xl"></span>
     </div>
-    {{- partial "slide.html" . -}}
-    {{- partial "strip.html" . -}}
-    <!-- Add html below -->
 
-    <div class="container shopcontainer">
+    <!-- Add html below -->
+<section class="py-80 light-peach px-80">
+  <div class="container-fluid shopcontainer">
         <!-- Filter buttons -->
         
 
-        <div style="margin-bottom: 0px; " class="row  shopsection"> 
+        <div style="margin-bottom: 0px; " class="col-12  shopsection"> 
             <div  class="filter-options mob-hide d-none">
                 <input type="radio" id="all" name="product-filter" value="all" checked>
                 <label for="all">All</label>
     
-                <!-- <input type="radio" id="bone-broth" name="product-filter" value="bone-broth">
-                <label for="bone-broth">Bone Broth</label> -->
-    
+              
                 <input type="radio" id="tallow" name="product-filter" value="tallow">
                 <label for="tallow">Tallow</label>
 
-                <!-- <input type="radio" id="pets" name="product-filter" value="pets">
-                <label for="pets">Pets</label> -->
+             
 
                 <input type="radio" id="bundles" name="product-filter" value="bundles">
                 <label for="bundles">Bundles</label>
@@ -93,45 +86,26 @@
                 <input type="radio" id="coming-soon" name="product-filter" value="coming-soon" class="coming-soon">
                 <label for="coming-soon" class="coming-soon">Coming Soon</label>-->
             </div>
-            <div class="d-flex shopdiv flex-wrap gap-2">
+            <div class="row shopdiv gx-3 gx-lg-5">
+                
             {{- partial "prodcardtallowskin.html" . -}} 
-
+ {{- partial "prodcard-honeybalm.html" . -}}
             {{- partial "prodcard-lipbalm.html" . -}} 
 
-            {{- partial "prodcardtallowbundle.html" . -}}
+            <!-- {{- partial "prodcardtallowbundle.html" . -}} -->
             {{- partial "prodcardtallowstack.html" . -}}
-
-            <!-- {{- partial "prodcardpplpowderchicken.html" . -}}  -->
+           
             {{- partial "prodcard-deodorant.html" . -}} 
-
-            <!-- {{- partial "prodcardpetpowder.html" . -}} -->
-
-
-
 
             <!-- {{- partial "prodcardshampoo.html" . -}} -->
 
             {{- partial "prodcardtallowsoap.html" . -}}
-            <!-- {{- partial "prodcardinsideout.html" . -}} -->
-            <!-- {{- partial "prodcardbrothbundle.html" . -}}
-            {{- partial "prodcardpplpowder.html" . -}}  -->
-
-            
-            <!--
-             {{- partial "prodcardmatcha.html" . -}}
-            {{- partial "prodcardhojicha.html" . -}}
-            {{- partial "prodcardsalmonskin.html" . -}}-->
-        
-            
-
 
         </div>
-    
-
-
-          <!--{{- partial "prodcardmarrow.html" . -}} -->  
         </div>
     </div>
+</section>
+  
 
     <!-- Filtering script -->
     <script>

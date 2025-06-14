@@ -100,7 +100,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         console.log('Script loaded and DOM content fully loaded.');
 
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
         const cartBadges = document.querySelectorAll('.cart-badge');
         const tiktokparams = new URLSearchParams(window.location.search);
         const ttclid = tiktokparams.get('ttclid');

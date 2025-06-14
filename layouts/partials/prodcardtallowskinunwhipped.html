@@ -1,13 +1,37 @@
 <!-- Tallow skin product card -->
-<div class="product-card grow left col-lg-3 col-sm-6" data-category="tallow">
+<div class="product-card grow left col-xxl-3 col-lg-4 col-md-4 col-sm-6" data-category="tallow">
   <a href="/shop/products/tallow-balm-skin-unwhipped">
     <img src="/img/dec24/product-balmunwhip.webp" alt="Beef Tallow for Skincare">
     <div class="product-details">
       <!-- Price partial inclusion -->
-      <p>{{- partial "price-tallow-skin-60.html" . -}} <span class="special">35% off</span></p>
+      <p><span class="nz-content" style="display:inline;">
+    {{ with index site.Data.pricing.tallow.pricing.balm 0 }}
+    {{ with .prices.NZ }}
+        <span class="attention-primalcare"> ${{ .single_purchase }}</span>   
+    {{ end }}
+    {{ end }}
+    <!-- {{ with index site.Data.pricing.tallow.discount_from.balm 0 }}
+        {{ with .prices.NZ }}
+    <span class=" small text-decoration-line-through">${{ .single_purchase }}</span>
+    {{ end }}
+    {{ end }}
+     -->
+</span>
+<span class="au-content" style="display:none;">
+    {{ with index site.Data.pricing.tallow.pricing.balm 0 }}
+    {{ with .prices.AU }}
+        <span class="attention-primalcare">From ${{ .single_purchase }}</span> 
+        {{ end }}
+        {{ end }}
+    <!-- {{ with index site.Data.pricing.tallow.discount_from.balm 0 }}
+        {{ with .prices.AU }}
+    <span class=" small text-decoration-line-through">${{ .single_purchase }}</span>
+   {{ end }}
+   {{ end }} -->
+</span></p>
 
       <h6>Tallow Balm - Unwhipped</h6>
-      <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>NEW</p>
+      <p>NEW</p>
 
     </div>
   </a>

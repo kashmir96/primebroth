@@ -11,13 +11,7 @@
     <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
     <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
     <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
-    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=667c998f7bead90019480329&product=inline-share-buttons&source=platform" async="async"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://js.stripe.com/v3/"></script> <!-- Stripe script -->
 </head>
 <body>
     <style>
@@ -30,102 +24,88 @@
             color: green;
         }
             </style>
-    {{- partial "alert.html" . -}}
-    {{- partial "header.html" . -}}
+             {{- partial "alert.html" . -}}
+    {{- partial "header_new.html" . -}}
     
     <div class="container product-page">
         <div class="row topbanner rel">
-            <p class="graytxt ninety position-absolute mt-1"><a href="/shop" class="darkgraytxt front pl-2 text-decoration-underline">Shop</a> > Sensitive skin bundle</p>
+            <p class="text-muted ninety  mt-1"><a href="/shop" class="dark text-muted front pl-2 text-decoration-underline">Shop</a> > Sensitive skin bundle</p>
 
-            <div class="col-xs-12 col-lg-6 product-photos mt-3 mb-0">
+            <div class="col-12 col-lg-6 product-photos mt-3 mb-0">
                 {{- partial "images-sensitive-stack.html" . -}}
             </div>
-            <div class="col-xs-12 col-lg-6">
+            <div class="col-12 col-lg-6">
 
-                <img class="stars float-left mr-2" src="/img/stars/5.webp" alt=""><p class="thic">Loved by 300+ kiwis</p>
-                <h1 class="thic mt-2">Sensitive Skin Tallow Stack </h1><p class="thin h1big">Naturally Soothing Skincare</p>
-                <p class="thin">A natural toolkit for <span class="attention-primalcare"> nourishing sensitive skin!</span></p>
- 
-
-<!-- Product Form Options with Bootstrap Styling -->
-<div class="price-display">    
-    <p class="mb-2"><span id="price">-</span></p>
-    <p>or 4 interest free payments of $<span id="afterpay_price"></span> with <img src="/img/afterpay.webp" class="d-inline" height="28"></p>                
-
-</div>
+                <img class="stars float-left mr-2" src="/img/stars/5.webp" alt=""><p class="fw-bold">Loved by 300+ kiwis</p>
+                <h1 class="fw-bold mt-2">Sensitive Skin Tallow Stack </h1><p class="fw-lighter h1 h1big">Naturally Soothing Skincare</p>
+                <p class="fw-lighter">A natural toolkit for <span class="attention-primalcare"> nourishing sensitive skin!</span></p>
+                <!-- Product Form Options with Bootstrap Styling -->
+                <div class="price-display">    
+                    <p class="mb-2"><span id="price">-</span></p>
+                    <p>or 4 interest free payments of $<span id="afterpay_price"></span> with <img src="/img/afterpay.webp" class="d-inline" height="28"></p>                
+                </div>
                  <!-- YAML FORM STARTS -->
                  <form id="productForm" class="form-group mb-4">
 
-                 <div class="text-left  mb-3 mb-lg-4">
-                    <label class="mob-ninety">Sensitive combo:</label>
-                    <input type="radio" id="unscented" name="flavor" value="unscented" checked>
-                    <label for="unscented" class="product-form-radio">
-                        <ul class="text-left">
-                            <li>1x Travel tallow balm 60ml (Vanilla rose)</li>
-                            <li>1x Tallow balm 120ml (Vanilla rose)</li>
-                            <!-- <li>1x Tallow soap (unscented)</li> -->
-                            <li>1x Lip Balm (Manuka honey)</li>
-                            <li>1x Deodorant (Cedarwood)</li>
-                            <!-- <li>1x Shampoo bar (rosemary & peppermint)</li> -->
-                        </ul></label>
-                </div>  
+                    <div class="text-left  mb-3 mb-lg-4">
+                        <label class="mob-ninety">Sensitive combo:</label>
+                        <input type="radio" id="unscented" name="flavor" value="unscented" checked>
+                        <label for="unscented" class="product-form-radio">
+                            <ul class="text-left">
+                                <li>1x Travel tallow balm 60ml (Vanilla rose)</li>
+                                <li>1x Tallow balm 120ml (Vanilla rose)</li>
+                                <!-- <li>1x Tallow soap (unscented)</li> -->
+                                <li>1x Lip Balm (Manuka honey)</li>
+                                <li>1x Deodorant (Cedarwood)</li>
+                                <!-- <li>1x Shampoo bar (rosemary & peppermint)</li> -->
+                            </ul></label>
+                    </div>  
                 
-                <div class="text-left d-none mb-3 mb-lg-4">
-                    <label class="float-left mob-ninety mr-2 mt-2">Select size:</label>
-                    <div class=" product-form-radio">
-                        <input type="radio" id="sizeone-size" name="size" value="one-size" checked>
-                        <label for="sizeone-size" class="product-form-radio"><img class="prod-radio-img" src="/img/sensitive-trans.webp">One Size<span></span></label></p>
+                    <div class="text-left d-none mb-3 mb-lg-4">
+                        <label class="float-left mob-ninety mr-2 mt-2">Select size:</label>
+                        <div class=" product-form-radio">
+                            <input type="radio" id="sizeone-size" name="size" value="one-size" checked>
+                            <label for="sizeone-size" class="product-form-radio"><img class="prod-radio-img" src="/img/sensitive-trans.webp">One Size<span></span></label></p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="text-left mb-3 mb-lg-4">
-                    <label class="mob-ninety">Select unit type:</label>
-                
-                    <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
-                    <label for="single_purchase" class="product-form-radio"><img class="prod-radio-img" src="/img/sensitive-trans.webp">Single bundle</label>
-                
-                    <input type="radio" id="three_pack" name="orderType" value="three_pack">
-                    <label for="three_pack" class="product-form-radio"><img class="prod-radio-img" src="/img/sensitive-trans-3.webp">3 pack <span class="attention-primalcare small">(save 20%)</span></label>
-                </div>
+                    <div class="text-left mb-3 mb-lg-4">
+                        <label class="mob-ninety">Select unit type:</label>
                     
-
- <!-- Quantity Selector -->
- <div class="form-group mb-3 mb-lg-4">
-    <div class="mt-4 custom-radio float-right">
-        <input type="radio" id="inStock" name="stockStatus" checked>
-        <label class="custom-radio-label mb-0" for="inStock">In stock</label>
-    </div>
-    <label for="quantityAll">Quantity of units:</label>
-    <div class="quantity-container">
-        <button type="button" class="btn-decrease">-</button>
-        <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
-        <button type="button" class="btn-increase">+</button>
-      </div>
-</div>
-
+                        <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
+                        <label for="single_purchase" class="product-form-radio"><img class="prod-radio-img" src="/img/sensitive-trans.webp">Single bundle</label>
                     
+                        <input type="radio" id="three_pack" name="orderType" value="three_pack">
+                        <label for="three_pack" class="product-form-radio"><img class="prod-radio-img" src="/img/sensitive-trans-3.webp">3 pack <span class="attention-primalcare small">(save 20%)</span></label>
+                    </div>
+                    <!-- Quantity Selector -->
+                    <div class="form-group mb-3 mb-lg-4">
+                        <div class="mt-4 custom-radio float-right">
+                            <input type="radio" id="inStock" name="stockStatus" checked>
+                            <label class="custom-radio-label mb-0" for="inStock">In stock</label>
+                        </div>
+                        <label for="quantityAll"  class="form-label">Quantity of units:</label>
+                        <div class="quantity-container">
+                            <button type="button" class="btn-decrease">-</button>
+                            <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+                            <button type="button" class="btn-increase">+</button>
+                        </div>
+                    </div>
+                    <!-- Add to Cart Button -->
+                    <div class="add-to-cart text-center mb-4">
+                        <button type="button" class="btn btn-black btn-lg buy-now mb-2" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
+                        <p>Speedy Shipping NZ Wide | Money back guarantee</p>
+                        <img class="badges middle" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
 
+                    </div>
 
-
-                <!-- Add to Cart Button -->
-                <div class="add-to-cart text-center mb-4">
-                    <button type="button" class="btn btn-primary btn-lg buy-now mb-1" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
-                    <p>Speedy Shipping NZ Wide | Money back guarantee</p>
-                    <img class="badges middle" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
-
-                </div>
-
-                </form>
-
-    <!-- YAML FORM ENDS -->
-
-               
+                </form> 
             </div>
         </div>
-        <div class="row mt-0">
+        <div class="row mt-4">
             <div class="col-12 col-md-6 text-center">
                 <div class="row mt-4 mb-0 py-0">
-                    <h2>Delivering life changing results time and time again</h2>
+                    <h3>Delivering life changing results time and time again</h3>
                     <div class="col-6">
                         <img src="/img/prod/balm/eczema.webp" alt="">
                     </div>
@@ -186,39 +166,50 @@
                     </div>
                     <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
                         <h4>Shipping</h4>
-                        <p><strong>Processing time:</strong> Your order will be processed within 3 business days after which you can expect usual courier times to your area (generally 3-5 business days) </p>
+                        <p><strong>Processing time:</strong> Your order will be processed wifw-lighter 3 business days after which you can expect usual courier times to your area (generally 3-5 business days) </p>
                         <p><strong>Shipping rates:</strong> We usually charge between $4.95 and $6.95 for shipping. You can view the shipping costs at the checkout before completing your purchase.</p>
-                        <p><strong>International shipping:</strong> Currently, we only offer shipping within New Zealand. We apologize for any inconvenience this may cause.</p>
+                        <p><strong>International shipping:</strong> Currently, we only offer shipping wifw-lighter New Zealand. We apologize for any inconvenience this may cause.</p>
                         <p>If you have any questions or concerns regarding shipping, please don't hesitate to <a href="contact">contact us</a>.</p>
                     </div>
                 </div>
                 
             </div>
-           
+        </div>
+    </div>
+    <div class="section light-peach py-80 mt-5">
+        <div class="container">
+            <div class="text-center">
+            <h2>You might also like</h2>
+            <div class="row justify-content-around d-none d-md-flex mt-5">
+            {{- partial "prodcardtallowstack.html" . -}}
+            {{- partial "prodcard-deodorant.html" . -}} 
+            {{- partial "prodcard-lipbalm.html" . -}} 
+            </div>
+            <div class="d-md-none d-block mt-3">
+                {{- partial "prodcardtallowstack.html" . -}}
 
-
-
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    var tabs = document.querySelectorAll('.faq-nav-tab');
-                    tabs.forEach(function(tab) {
-                        tab.addEventListener('click', function() {
-                            document.querySelector('.faq-nav-tab.active').classList.remove('active');
-                            tab.classList.add('active');
-                            var tabContent = document.querySelector('.faq-tab-content .tab-pane.show.active');
-                            tabContent.classList.remove('show', 'active');
-                            var target = tab.getAttribute('href');
-                            document.querySelector(target).classList.add('show', 'active');
-                        });
-                    });
-                });
-            </script>
+            </div>
             </div>
         </div>
-         <!-- YAML SCRIPT STARTS -->
+    </div> 
 
 
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var tabs = document.querySelectorAll('.faq-nav-tab');
+            tabs.forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    document.querySelector('.faq-nav-tab.active').classList.remove('active');
+                    tab.classList.add('active');
+                    var tabContent = document.querySelector('.faq-tab-content .tab-pane.show.active');
+                    tabContent.classList.remove('show', 'active');
+                    var target = tab.getAttribute('href');
+                    document.querySelector(target).classList.add('show', 'active');
+                });
+            });
+        });
+    </script>
 <script>
     const productPricingRaw = {{ site.Data.pricing.bundles.pricing.sensitive_stack | jsonify | safeJS }};
     console.log("Raw product Pricing from Hugo:", productPricingRaw);
@@ -458,7 +449,7 @@ const flavor = document.querySelector(`label[for="${selectedFlavor.id}"]`).textC
     }
 
     // Add to cart
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
     cart.push({
         priceId,
         title,
@@ -468,7 +459,7 @@ const flavor = document.querySelector(`label[for="${selectedFlavor.id}"]`).textC
         quantity,
         unitPrice
     });
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('cartV2', JSON.stringify(cart));
 
     console.log('Cart updated:', cart); // Debugging
 
@@ -505,8 +496,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
                 </button>
             </div>
             <div class="modal-body">
@@ -514,7 +504,7 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
-                <a href="/cart" class="btn btn-primary">Go to Cart</a>
+                <a href="/cart" class="btn btn-black">Go to Cart</a>
             </div>
         </div>
     </div>

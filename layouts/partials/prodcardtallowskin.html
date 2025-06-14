@@ -1,15 +1,41 @@
 <!-- Tallow skin product card -->
-<div class="product-card grow left col-lg-3 col-sm-6" data-category="tallow" id="prodcardtallowskin">
+<div class="product-card grow left col-xxl-3 col-lg-4 col-md-4 col-sm-6" data-category="tallow" id="prodcardtallowskin">
   <a href="/shop/products/tallow-skin">
-    <img src="/img/dec24/product-bigbalm.webp" alt="Beef Tallow for Skincare">
-    <div class="product-details">
-      <!-- Price partial inclusion -->
-      <p>{{- partial "price-tallow-skin-60.html" . -}}</p>
-      <!-- <p>{{- partial "price-tallow-skin-60.html" . -}} <span class="special">35% off</span></p> -->
+    <div class="product-card-inner">
+          <p class="stamp">Best Seller</p>
+      <img src="/img/shop/balm.webp" max-height="400" class="d-block m-auto" alt="Beef Tallow for Skincare">
+      <div class="product-details">
+        <!-- Price partial inclusion -->
+        <p class="h5"><span class="nz-content" style="display:inline;">
+          {{ with index site.Data.pricing.tallow.pricing.balm 0 }}
+          {{ with .prices.NZ }}
+              <span class="attention-primalcare"> ${{ .single_purchase }}</span>   
+          {{ end }}
+          {{ end }}
+          <!-- {{ with index site.Data.pricing.tallow.discount_from.balm 0 }}
+              {{ with .prices.NZ }}
+          <span class=" small text-decoration-line-through">${{ .single_purchase }}</span>
+          {{ end }}
+          {{ end }}
+          -->
+          </span>
+          <span class="au-content" style="display:none;">
+              {{ with index site.Data.pricing.tallow.pricing.balm 0 }}
+              {{ with .prices.AU }}
+                  <span class="attention-primalcare">From ${{ .single_purchase }}</span> 
+                  {{ end }}
+                  {{ end }}
+              <!-- {{ with index site.Data.pricing.tallow.discount_from.balm 0 }}
+                  {{ with .prices.AU }}
+              <span class=" small text-decoration-line-through">${{ .single_purchase }}</span>
+            {{ end }}
+            {{ end }} -->
+          </span></p>
+        
 
-      <p class="h6 fw-bold">Tallow Balm - Whipped</p>
-      <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>11000+ kiwis</p>
-
+        <p class="h5 fw-bold">Tallow Balm - Whipped</p>
+        <p>11000+ kiwis</p>
+      </div>
     </div>
   </a>
 </div>

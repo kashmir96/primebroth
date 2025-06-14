@@ -11,157 +11,143 @@
     <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
     <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
     <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
-    <link rel="preload" href="/img/dec24/hero.webp" as="image">
-  </head>
+  
+  <link rel="preload" href="/img/home/hero.webp"  fetchpriority="high" as="image" type="image/webp"></head>
 <body>
-    {{- partial "alert.html" . -}}
     
-    {{- partial "header.html" . -}}
+    {{- partial "header_new.html" . -}}
     <div class="scroll-top rounded-full">
         <span class="icon-keyboard_arrow_up text-2xl"></span>
     </div>
     <!-- Add html for homepage here -->
     <div class="section">
+      <div class="container-fluid p-0">
       <div class=" row hero">
-        <div class="col-xl-6 col-lg-8 col-12 bannertext d-flex align-items-center">
-          <div>
+        <div class="col-xl-6 col-md-8 col-12 bannertext ">
+          <div class="col-12  ">
           <h1>NZ made tallow skincare for sensitive skin</h1>
             <p>Simple, affordable & soothing NZ tallow skincare, straight from kiwi pastures to your pantry.</p>
-            <a class="btn btn-primary mt-3" href="/shop/">Shop tallow skincare</a>
+            <a class="btn btn-black" href="/shop/">Shop tallow skincare</a>
           </div>
+          <div class="col-12 mt-5 d-none d-md-block"><img src="/img/home/eanz.webp" width="200" alt="eanz logo"></div>
           </div>
         </div>
         <div class="col-lg-6 col-12">
 
         </div>
-      </div>
-      <div class="row mt-4 mb-0 full-height align-items-center justify-content-around">
-        <div class="text-center middle eighty row justify-content-center">
-          <h2 class="brush mb-4">Best sellers</h2>
-          <div class="d-flex gap-2 mob-hide">
-            {{- partial "prodcardtallowskin.html" . -}}
-            {{- partial "prodcard-deodorant.html" . -}} 
-            {{- partial "prodcard-lipbalm.html" . -}} 
         </div>
-        <div class="d-flex gap-2 mob-show d-none overflow-hidden overflow-auto">
-          {{- partial "prodcardtallowskin.html" . -}}
+      </div>
+      <section class="py-80 light-peach">
+        <div class="container-fluid px-5">
+          <div class="row align-items-center justify-content-center">
+            <div class="col-12">
+              <h2 class="brush mb-5 heading-title text-center">Best sellers</h2>
+              <div class="col-12 d-none d-md-block">
+                <div class="row gx-xl-5 justify-content-center">
+                  {{- partial "prodcard-deodorant.html" . -}} 
+                  {{- partial "prodcardtallowskin.html" . -}}
+                  
+                  {{- partial "prodcard-lipbalm.html" . -}} 
+                </div>
+              </div>
+             
+              <div class="d-block text-center justify-content-center col-12  d-md-none">
+                {{- partial "prodcardtallowskin.html" . -}}
+                </div>
+              <div class=" col-12 text-center fw-bold mt-5">
+                <h3 class="fs-2">A jar finds a new home at a kiwi household every 3 minutes</h3>
+              </div>
+            </div>
           </div>
-        <div class=" col-12 text-center fw-bold">
-          <h3 class="fs-2">A jar finds a new home at a kiwi household every 3 minutes</h3>
         </div>
-
-      </div>
-      </div>
-      <!-- <div class="row eighty icons justify-content-center text-center center">
-            <div class="left col-lg-3 col-sm-12">
-              <img src="/img/home/omnivore.webp" alt="natural products">
-              <h3>Natural products</h3>
-              <p>All ingredients sourced are natural, pure and simple. As they should be!</p>
-            </div>
-            <div class="left col-lg-3 col-sm-12">
-              <img src="/img/home/nochem.webp" alt="no harmful icon">
-              <h3>No harmful ingredients</h3>
-              <p>We leave out bad chemicals big companies use to cut corners and strip natural benefits.</p>
-            </div>
-            <div class="left col-lg-3 col-sm-12">
-              <img src="/img/home/env.webp" alt="grass  icon">
-              <h3>Sustainably sourced</h3>
-              <p>We use only grass fed ingredients in all our products, organic whenever possible.</p>
-            </div>
-      </div> -->
-
-      <!-- <div class="row starter">
-        <div class="twenty">
-          <h4>New to Primal Pantry?</h4>
-          <h2 class="brush">Starter bundles</h2>
-          <p>We’ve got you, tried and true bundles for beginners</p>
-          <a class="btn btn-primary" href="/shop/">Shop now</a>
-        </div>
-      </div> -->
-      <div class="section bg-gray-200">
+      </section>
+      <div class="section">
         <div class="container-fluid">
-          <div class="row gx-5">
-            <div class="col-lg-6"><img src="/img/home/team1.webp" height="490" width="633" class="m-auto" alt="team image"></div>
+          <div class="row  py-80">
+            <div class="col-lg-6 text-center d-none d-lg-flex"><img src="/img/home/team1.webp" height="490" width="633"  alt="team image"></div>
             <div class="col-lg-6">
-              <div class="p-md-5 p-2">
-                <h3 class="fs-1">Our Mission</h3>
-            <p class="fs-2">“To help as many kiwis with dry
-            & irritated skin as possible.”</p>
-            <ul class="list-inline mt-3 mt-md-5 fs-4 d-flex justify-content-between w-100 fw-bold">
-              <li class="list-inline-item">
-               All natural
-              </li>
-              <li  class="list-inline-item" >
-                No nasties
-              </li>
-              <li  class="list-inline-item">
-                Affordable
-              </li>
-            
-            </ul>
+              <div class="p-md-5 p-2 col-12">
+                <h3 class="heading-title">Our Mission</h3>
+                <p class="fs-2">“To help as many kiwis with dry
+                & irritated skin as possible.”</p>
+                <ul class="list-inline mt-3 mt-md-5 fs-4 d-flex justify-content-between w-100 fw-bold">
+                  <li class="list-inline-item">
+                  All natural
+                  </li>
+                  <li  class="list-inline-item" >
+                    No nasties
+                  </li>
+                  <li  class="list-inline-item">
+                    Affordable
+                  </li>
+                
+                </ul>
            </div>
             
           </div>
         </div>
       </div>
       </div>
-      <div class="section">
+      <div class="section py-80 lower-banner">
         <div class="container-fluid">
-          <div class="row px-lg-5">
-            <div class="col-lg-6 order-2 order-lg-1"><h3 class="fs-1 fw-bold mb-4">…and we’re well on our way</h3>
-              <p class="fs-4 mb-5">  So far in 2025: <br>
-    - 11,000+ Kiwis helped <br>
-    - 15,000+ jars sold <br>
-    - 17 new crew members
-    </p>
-    <p class="h2 fw-bold mb-4">Ofﬁcial bronze partner to the Eczema Association.</p>
-    </div>
-    <div class="col-lg-6 order-1 order-lg-2">
-      <img src="/img/home/moisturiser.webp" alt="moisturiser image">
-    </div>
+          <div class="row px-lg-5 justify-content-center align-items-center">
+            <div class="col-lg-5 pt-md-5 text-center"><h3 class="heading-title fw-bold mb-4">…and we’re well on our way</h3>
+              <p class="fs-3 mb-5">  So far in 2025: <br>
+               20,000+ Kiwis helped <br>
+              15,000+ jars sold <br>
+              17 new crew members
+              </p>
+              <div class="col-12 mt-5 d-none d-md-block"><img src="/img/home/eanz.webp" width="200" alt="eanz logo"></div>
+              <p class="h2 fw-bold mt-4 text-white">Ofﬁcial bronze partner to the Eczema Association.</p>
+              
+            </div>
             
           </div>
         </div>
       </div>
-      <div class="container-fluid">
-        <div class="row px-lg-5">
-          <div class="col-lg-6 text-center col-12"><img src="/img/talbaby.webp" alt="baby before and after image" class="m-auto" width="400" height="710"></div>
-          <div class="col-lg-6 col-12">
-            <h2 class="fw-bold fs-1 mb-5">“Best on the market & the best price”</h2>
-            <div class="bg-gray-200 rounded-20 p-md-5 p-2 fs-5 position-relative mb-5">
-              <div class="floated-jar"><img src="/img/home/minijar.webp" width="200" alt="minijar"></div>
-              <span class="h4 fw-bold">Margaret</span>
-              <p class="mt-3">“I’ve looked at quite a few different brands that are popping up on my
-                phone and they all seem to be quite orientated about making money and
-                all seem to be quite highly priced.
-                </p><p>
-                Your product is the <span style="color:#AD10BA">best product on the market and is also at the best
-                  price.</span> Thank you for looking after us and not being greedy. “
-                </p>
+       <div class="section py-80 px-80">
+        <div class="container-fluid">
+          <div class="row ">
+            <div class="col-lg-6 text-center col-12"><img src="/img/talbaby.webp" alt="baby before and after image"  width="400" height="710"></div>
+            <div class="col-lg-6 col-12">
+              <h2 class="fw-bold heading-title mb-5">“Best on the market & the best price”</h2>
+              <div class="bg-gray-200 rounded-20 p-md-5 p-3 fs-5 position-relative mb-5">
+                <div class="floated-jar"><img src="/img/home/minijar.webp" width="200" alt="minijar"></div>
+                <span class="h4 fw-bold">Margaret</span>
+                <p class="mt-3">“I’ve looked at quite a few different brands that are popping up on my
+                  phone and they all seem to be quite orientated about making money and
+                  all seem to be quite highly priced.
+                  </p><p>
+                  Your product is the <span style="color:#AD10BA">best product on the market and is also at the best
+                    price.</span> Thank you for looking after us and not being greedy. “
+                  </p>
+                
+                </div>
+                <p> <a href="" class="btn btn-outline-dark">Read more reviews</a></p>
               
-              </div>
-              <p> <a href="" class="btn btn-secondary">Read more reviews</a></p>
-            
-          </div>
+            </div>
   
         </div>
       </div>
+       </div>
       
       
-      <div class="row  mb-0">
-        <div class="col-lg-6 col-12 ps-0">
-          <img src="/img/home/teambottom.webp"  alt="primal pantry team image"/>
+     <section class="section py-80">
+      <div class="container-fluid">
+        <div class="row  mb-0">
+          <div class="col-lg-6 col-12 ps-0">
+            <img src="/img/home/teambottom.webp"  alt="primal pantry team image"/>
+          </div>
+          
+          <div class="col-lg-6 col-12">
+            <h2 class="heading-title fw-bold mt-3">About Primalpantry</h2>
+            <p class="fs-5">Learn about our story and see behind the scenes of our team of young kiwis dedicated to bringing affordable skin relief to you and your  family.</p>
+            <a class="btn btn-black" href="/pages/about/">Learn about PrimalPantry</a>
+          </div>      
         </div>
-        
-        <div class="col-lg-6 col-12">
-          <h2 class="fs-1 fw-bold">About Primalpantry</h2>
-          <p class="fs-5">Learn about our story and see behind the scenes of our team of young kiwis dedicated to bringing affordable skin relief to you and your  family.</p>
-          <a class="btn btn-primary" href="/pages/about/">Learn about PrimalPantry</a>
-        </div>      
-      </div>
-      
+        </div>
+      </section>
 
-    </div>
     <!-- Add html for homepage above -->
     <!-- <script src="https://player.vimeo.com/api/player.js"></script>
     <script>

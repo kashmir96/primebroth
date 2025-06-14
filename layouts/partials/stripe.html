@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const unitPrice = parseFloat(priceText.replace(/[^0-9.]/g, '')).toFixed(2); // Ensure it's stored as dollars, not cents
 
         // Get current cart from localStorage or initialize an empty array
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let cart = JSON.parse(localStorage.getItem('cartV2')) || [];
 
         // Add new product to the cart with title
         cart.push({ priceId, quantity, flavour: selectedFlavour, size: selectedSize, unitPrice, title: productTitle });

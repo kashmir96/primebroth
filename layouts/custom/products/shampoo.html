@@ -11,11 +11,8 @@
     <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
     <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
     <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
-    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=667c998f7bead90019480329&product=inline-share-buttons&source=platform" async="async"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+
 </head>
 <body>
 
@@ -58,7 +55,7 @@
 
     <div class="container product-page">
         <div class="row topbanner rel">
-            <p class="graytxt ninety position-absolute mt-1 "><a href="/shop" class="darkgraytxt front pl-2 text-decoration-underline">Shop</a> > Tallow Shampoo Bar</p>
+            <p class="text-muted ninety position-absolute mt-1 "><a href="/shop" class="darktext-muted front pl-2 text-decoration-underline">Shop</a> > Tallow Shampoo Bar</p>
             <div class="col-xs-12 col-lg-6 product-photos mt-3 mb-0">
                 {{- partial "images-shampoo.html" . -}}
             </div>            
@@ -107,7 +104,7 @@
         <input type="radio" id="inStock" name="stockStatus" checked>
         <label class="custom-radio-label mb-0" for="inStock">Out of stock</label>
     </div>
-    <label for="quantityAll">Quantity of units:</label>
+    <label for="quantityAll"  class="form-label">Quantity of units:</label>
     <div class="quantity-container">
         <button type="button" class="btn-decrease">-</button>
         <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
@@ -209,7 +206,7 @@
   <div class="text-center">
     <h2>You might also like</h2>
     <div class="row justify-content-around mob-hide">
-    {{- partial "prodcardtallowbundle.html" . -}}
+    {{- partial "prodcardtallowskin.html" . -}}
     {{- partial "prodcardtallowstack.html" . -}}
     {{- partial "prodcard-lipbalm.html" . -}} 
     </div>
@@ -491,7 +488,7 @@ return;
 }
 
 // Add to cart
-const cart = JSON.parse(localStorage.getItem('cart')) || [];
+const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
 cart.push({
 priceId,
 title,
@@ -501,7 +498,7 @@ orderType: orderTypeSelect,
 quantity,
 unitPrice,
 });
-localStorage.setItem('cart', JSON.stringify(cart));
+localStorage.setItem('cartV2', JSON.stringify(cart));
 
 console.log('Cart updated:', cart); // Debugging
 
@@ -538,8 +535,7 @@ console.error('Add to Cart button not found!');
 <div class="modal-content">
     <div class="modal-header">
         <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
         </button>
     </div>
     <div class="modal-body">

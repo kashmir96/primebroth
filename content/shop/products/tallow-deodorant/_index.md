@@ -4,4 +4,5 @@ description: "A natural tallow deodorant that works without the chemical nasties
 type: custom
 layout: products/tallow-deodorant
 wipe: true
+bootstrap5: true
 ---

@@ -122,13 +122,21 @@
 
                                 <li>20g:</li>
                                 <ul>
-                                    <li>Normal price: {{- partial "price-pet-powder-20g.html" . -}}</li>
+                                    <li>Normal price: {{ with index site.Data.pricing.broth.pricing 1 }}
+                                        {{ with .prices.NZ }}
+                                            ${{ .single_purchase }}
+                                        {{ end }}
+                                    {{ end }}</li>
                                     <li>With your code they save 15%: $8.46</li>
                                     <li>Your 20% revenue share: $2</li>
                                 </ul>
                                 <li>50g:</li>
                                 <ul>
-                                    <li>Normal price: {{- partial "price-pet-powder-50g.html" . -}}</li>
+                                    <li>Normal price: {{ with index site.Data.pricing.broth.pricing 2 }}
+        {{ with .prices.NZ }}
+            ${{ .single_purchase }}
+        {{ end }}
+    {{ end }}</li>
                                     <li>With your code they save 15%: $16.11</li>
                                     <li>Your 20% revenue share: $4</li>
                                 </ul>

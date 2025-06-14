@@ -4,4 +4,5 @@ description: "A bundle of unscented tallow products for sensitive skin, soothe e
 type: custom
 layout: products/bundle-unscented-stack
 wipe: true
+bootstrap5: true
 ---

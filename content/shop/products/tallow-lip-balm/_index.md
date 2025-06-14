@@ -4,4 +4,5 @@ description: "A moisturising and natural tallow lip balm without the chemical na
 type: custom
 layout: products/tallow-lip-balm
 wipe: true
+bootstrap5: true
 ---

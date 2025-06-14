@@ -1,23 +1,27 @@
 <!-- Soap single product card -->
-<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="tallow" id="prodcardtallowstack"><a href="/shop/products/tallow-unscented-stack">
-  <img src="/img/skinstack.webp" alt="">
-  <div class="product-details">
-    <p><span class="nz-content" style="display:inline;">{{ with index site.Data.pricing.bundles.pricing.sensitive_stack 0 }}
-      {{ with .prices.NZ }}
+<div class="product-card grow col-xxl-3 col-lg-4 col-md-4 col-sm-6" data-category="tallow" id="prodcardtallowstack">
+  <a href="/shop/products/tallow-unscented-stack">
+    <div class="product-card-inner">
+      <p class="stamp">Rising star</p>
+    <img src="/img/shop/stack.webp" alt="tallow stack" class="d-block m-auto" max-height="400">
+    <div class="product-details">
+      <p class="h5"><span class="nz-content" style="display:inline;">{{ with index site.Data.pricing.bundles.pricing.sensitive_stack 0 }}
+        {{ with .prices.NZ }}
+            ${{ .single_purchase }}
+        {{ end }}
+    {{ end }}
+    </span>
+    <span class="au-content" style="display:none;">
+        {{ with index site.Data.pricing.bundles.pricing.sensitive_stack 0 }}
+        {{ with .prices.AU }}
           ${{ .single_purchase }}
-      {{ end }}
-  {{ end }}
-  </span>
-  <span class="au-content" style="display:none;">
-      {{ with index site.Data.pricing.bundles.pricing.sensitive_stack 0 }}
-      {{ with .prices.AU }}
-         ${{ .single_purchase }}
-      {{ end }}
-  {{ end }}
-  </span></p>
-    <p class="h6 fw-bold">Sensitive Skin Tallow Stack</p>
-    <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>300+ kiwis</p>
+        {{ end }}
+    {{ end }}
+    </span></p>
+      <p class="h5 fw-bold">Sensitive Skin Tallow Stack</p>
+      <p>300+ kiwis</p>
 
+    </div>
   </div>
 </a>
 </div>

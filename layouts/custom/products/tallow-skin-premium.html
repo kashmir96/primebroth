@@ -11,164 +11,295 @@
     <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
     <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
     <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
-    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=667c998f7bead90019480329&product=inline-share-buttons&source=platform" async="async"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://js.stripe.com/v3/"></script> <!-- Stripe script -->
+    <!-- <script src="https://js.stripe.com/v3/"></script> Stripe script -->
 </head>
 <body>
-    {{- partial "alert.html" . -}}
-    {{- partial "header.html" . -}}
+<style>
+.custom-radio.out-of-stock input[type="radio"]:checked + .custom-radio-label::before {
+    background-color: red;
+}
+
+.custom-radio.in-stock input[type="radio"]:checked + .custom-radio-label::before {
+    background-color: green;
+}
+
+.custom-radio-label {
+    color: inherit; /* Uses parent color for easy updates */
+}
+</style>
+    {{- partial "header_new.html" . -}}
     
     <div class="container product-page">
         <div class="row topbanner rel">
-            <p class="graytxt ninety position-absolute mt-1"><a href="/shop" class="darkgraytxt front pl-2 text-decoration-underline">Shop</a> > Premium tallow balm</p>
-
-            <div class="col-xs-12 col-lg-6 product-photos mt-3 mb-0">
+            <p class="text-dark col-12 ninety mt-1"><a href="/shop" class="text-dark text-decoration-underline">Shop</a> > Tallow balm</p>
+            <div class="col-12 col-lg-6 product-photos mb-3">
                 {{- partial "tallowskinimages.html" . -}}
             </div>
-            <div class="col-xs-12 col-lg-6">
-                <img class="thirty" src="/img/stars/5.webp" alt="">
-                <h1 class="my-4">Tallow Balm - Heavenly Smooth</h1>
-                <h3 class="my-4">Primalcare - original range</h3>
+            <div class="col-12 col-lg-6">
+                <p class="fw-bold mt-2"><img class="stars pe-2" src="/img/stars/5.webp" alt="">Loved by 11000+ kiwis.</p>
+                <h1 class="fw-bold mt-2">Tallow Balm - Heavenly Smooth </h1>
+                <p class="fw-lighter h1 h1big">Primalcare - original range</p>
 
-                <p id="priceDisplay" class="product-price"></p> <!-- Placeholder for the price -->
+                <p class="fw-lighter">Your friends will ask what’s the secret to your <span class="attention-primalcare">glow up!</span></p>
+ 
+                
+    <!-- YAML FORM STARTS -->
 
-                <!-- Product Form Options with Bootstrap Styling -->
-                <form>
-                    <!-- Dropdown for selecting scent -->
-                    <div class="form-group mb-3 mb-lg-4">
-                        <label for="productScent" class="font-weight-bold">Select Scent:</label>
-                        <select id="productScent" class="form-control">
-                            <option value="neutral">Neutral</option>
-                            <option value="vanillarose">Vanilla & Rose</option>
-                            <option value="francensense">Frankincense</option>
-                            <option value="lavendar">Lavender</option><!-- 
-                            <option value="patchouli">Patchouli</option>
-                            <option value="sweetorange">Sweet Orange</option>
-                            <option value="cedarwood">Cedarwood</option>
-                            -->
+<!-- Product Form Options with Bootstrap Styling -->
+                <div class="price-display fw-bold">
+                    <p class="mb-2"><span id="price">-</span> <span class="special" id="special" style="display:none">This price is 35% off!</p>    
+                    <p class="fw-lighter">or 4 interest free payments of $<span id="afterpay_price"></span> with <img src="/img/afterpay.webp" class="d-inline" height="28" alt="afterpay"></p>            
+                </div>
+                <form id="productForm" class="form-group mb-4" autocomplete="off">
+                    <div class="text-left mb-3 mb-lg-4">
+                        <label class="mob-ninety">Select unit type:</label>
+                    
+                        <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
+                        <label for="single_purchase" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/balm/1.webp" alt="single jar">Single jar</label>
+                    
+                        <input type="radio" id="three_pack" name="orderType" value="three_pack">
+                        <label for="three_pack" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/balm/3.webp" alt="3 pack jar">3 pack <span class="attention-primalcare small">(save 35%)</span></label>
+                    
+                        <!-- Uncomment to enable subscription options -->
+                        <!-- 
+                        <input type="radio" id="recurring_monthly" name="orderType" value="recurring_monthly">
+                        <label for="recurring_monthly" class="product-form-radio">Subscribe Monthly (save 20%)</label>
+                    
+                        <input type="radio" id="recurring_quarterly" name="orderType" value="recurring_quarterly">
+                        <label for="recurring_quarterly" class="product-form-radio">Subscribe Quarterly (save 12.5%)</label>
+                        -->
+                    </div>
+                    <div class="text-left mb-3 mb-lg-4 " id="pack_unit_fragnance">
+                        <label class="mob-ninety">Select scent:</label>
+                        <select class="product-select form-select" name="flavor">
+                            <!-- Vanilla & rose, Frankincense, Lavender combinations -->
+                            <option value="trio-v-f-l">Vanilla & rose, Frankincense, Lavender</option>
+                            <option value="trio-v-f-n">Vanilla & rose, Frankincense, Natural</option>
+                            <option value="trio-v-l-n">Vanilla & rose, Lavender, Natural</option>
+                            <option value="trio-f-l-n">Frankincense, Lavender, Natural</option>
+                            <option value="trio-v-v-f">Vanilla & rose, Vanilla & rose, Frankincense</option>
+                            <option value="trio-v-v-l">Vanilla & rose, Vanilla & rose, Lavender</option>
+                            <option value="trio-v-v-n">Vanilla & rose, Vanilla & rose, Natural</option>
+                            
+                            <!-- Frankincense, Frankincense, Vanilla & rose combinations -->
+                            <option value="trio-f-f-v">Frankincense, Frankincense, Vanilla & rose</option>
+                            <option value="trio-f-f-l">Frankincense, Frankincense, Lavender</option>
+                            <option value="trio-f-f-n">Frankincense, Frankincense, Natural</option>
+                            
+                            <!-- Lavender, Lavender, Vanilla & rose combinations -->
+                            <option value="trio-l-l-v">Lavender, Lavender, Vanilla & rose</option>
+                            <option value="trio-l-l-f">Lavender, Lavender, Frankincense</option>
+                            <option value="trio-l-l-n">Lavender, Lavender, Natural</option>
+                            
+                            <!-- Natural, Natural, Vanilla & rose combinations -->
+                            <option value="trio-n-n-v">Natural, Natural, Vanilla & rose</option>
+                            <option value="trio-n-n-f">Natural, Natural, Frankincense</option>
+                            <option value="trio-n-n-l">Natural, Natural, Lavender</option>
+                            
+                            <!-- Vanilla & rose, Vanilla & rose, Vanilla & rose combinations -->
+                            <option value="trio-v-v-v">Vanilla & rose, Vanilla & rose, Vanilla & rose</option>
+                            
+                            <!-- Frankincense, Frankincense, Frankincense combinations -->
+                            <option value="trio-f-f-f">Frankincense, Frankincense, Frankincense</option>
+                            
+                            <!-- Lavender, Lavender, Lavender combinations -->
+                            <option value="trio-l-l-l">Lavender, Lavender, Lavender</option>
+                            
+                            <!-- Natural, Natural, Natural combinations -->
+                            <option value="trio-n-n-n">Natural, Natural, Natural</option>
                         </select>
                     </div>
+                    <div class="text-left mb-3 mb-lg-4" id="single_unit_fragnance">
+                        <label class="mob-ninety">Select scent:</label>
+                    
+                        <input type="radio" id="vanilla-rose" name="flavor" value="vanilla-rose" checked>
+                        <label for="vanilla-rose" class="product-form-radio">Vanilla rose</label>
+                        
+                        <input type="radio" id="lavender" name="flavor" value="lavender" >
+                        <label for="lavender" class="product-form-radio">Lavender</label>
 
-                    <!-- Dropdown for selecting size -->
-                    <div class="form-group mb-3 mb-lg-4">
-                        <label for="productSize" class="font-weight-bold">Select Size:</label>
-                        <select id="productSize" class="form-control">
-                            <!--<option value="60ml">60ml</option>-->
-                            <!--<option value="100ml">100ml</option>-->
-                            <option value="175ml">175ml</option>
-                            <!--<option value="200ml">200ml</option>-->
-                        </select>
-                    </div>
+                        <input type="radio" id="frankincense" name="flavor" value="frankincense" >
+                        <label for="frankincense" class="product-form-radio">Frankincense</label>
 
-                    <!-- Checkbox for Oil Type -->
-                    <div class="form-group form-check mb-3 mb-lg-4" style="display: none;">
-                        <input type="checkbox" class="form-check-input" id="jojobaCheckbox" checked>
-                        <label class="form-check-label" for="jojobaCheckbox">Use Jojoba Oil</label>
-                    </div>
+                        <input type="radio" id="neutral" name="flavor" value="neutral">
+                        <label for="neutral" class="product-form-radio">Natural</label>
 
-                    <!-- Quantity Selector -->
-                    <div class="form-group  mb-3 mb-lg-4">
-                        <label for="quantityAll" class="font-weight-bold">Quantity:</label>
-                        <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
-                    </div>
 
-                    <!-- Add to Cart Button -->
-                    <div class="text-center  mb-3 mb-lg-4">
-                        <button type="button" class="btn btn-primary btn-lg buy-now" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
+                         <!-- Uncomment to enable Rose -->
+                        <!--
+                        <input type="radio" id="rose" name="flavor" value="rose">
+                        <label for="rose" class="product-form-radio">Rose</label>
+                        -->
+                    
+                        <!-- Uncomment to enable Vanilla -->
+                        <!--
+                        <input type="radio" id="vanilla" name="flavor" value="vanilla">
+                        <label for="vanilla" class="product-form-radio">Vanilla</label>
+                        -->
+                    
+                        <!-- Uncomment to enable Patchouli -->
+                        <!--
+                        <input type="radio" id="patchouli" name="flavor" value="patchouli">
+                        <label for="patchouli" class="product-form-radio">Patchouli</label>
+                        -->
+                    
+                        <!-- Uncomment to enable Orange -->
+                        <!--
+                        <input type="radio" id="orange" name="flavor" value="orange">
+                        <label for="orange" class="product-form-radio">Orange</label>
+                        -->
+                    
+                        <!-- Uncomment to enable Cedar -->
+                        <!--
+                        <input type="radio" id="cedar" name="flavor" value="cedar">
+                        <label for="cedar" class="product-form-radio">Cedar</label>
+                        -->
+                    </div> 
+                    <div class="text-left  mb-3 mb-lg-4">
+                        <label class="float-left mob-ninety mr-2 mt-2">Select size:</label>
+                      <div class="product-form-radio">
+                            <input type="radio" id="size60ml" name="size" value="60ml" checked>
+                            <label for="size60ml" class="product-form-radio float-left"><img class="prod-radio-img" src="/img/radio/balm/1.webp" alt="balm">60ml</label>
+                        </div>
+                        <!--   Uncomment to enable 100ml option -->
+                        <!-- 
+                        <div class="product-form-radio">
+                            <input type="radio" id="size100ml" name="size" value="100ml">
+                            <label for="size100ml" class="product-form-radio">100ml</label>
+                        </div>
+                        -->
+                        <div class="product-form-radio">
+                            <input type="radio" id="size120ml" name="size" value="120ml" >
+                            <label for="size120ml" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/balm/175.webp" alt="balm">120ml <span class="attention-primalcare small">(cheaper per ml)</span></label>
+                        </div>
+                        <!-- Uncomment to enable 200ml option -->
+                        <!-- 
+                        <div class="product-form-radio">
+                            <input type="radio" id="size200ml" name="size" value="200ml">
+                            <label for="size200ml" class="product-form-radio">200ml</label>
+                        </div>
+                        -->
                     </div>
+                    
+
+ <!-- Quantity Selector -->
+ <div class="form-group mb-3 mb-lg-4">
+    <div class="mt-4 custom-radio float-end">
+        <input type="radio" id="inStock" name="stockStatus" checked>
+        <label class="custom-radio-label mb-0" for="inStock">In Stock</label>
+    </div>
+    <label for="quantityAll" class="form-label">Quantity of units:</label>
+    <div class="quantity-container">
+        <button type="button" class="btn-decrease">-</button>
+        <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+        <button type="button" class="btn-increase">+</button>
+      </div>
+</div>
+
+
+
+
+                    
+
+
+
+                <!-- Add to Cart Button -->
+                <div class="add-to-cart text-center mb-4">
+                    <button type="button" class="btn btn-black btn-lg buy-now mb-2" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
+                    <p>Speedy Shipping NZ Wide | Money back guarantee</p>
+                    <img class="badges middle" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
+
+                </div>
+
                 </form>
 
-                <p>Shipping & promotions applied at checkout</p>
+    <!-- YAML FORM ENDS -->
 
-                <img class="badges mb-4" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
-                <div style="margin-top:-50px;margin-bottom:-50px; font-size:90%;" class="row mt-0 trust">
-                    <div class="col-4">
-                        <img class="middle" src="/img/delivery.webp">
-                        <p>Free shipping over <span id="shipping_rate">$80</span></p>
-                    </div>
-                    <div class="col-4">
-                        <img class="middle" src="/img/exclusive.webp">
-                        <p>Money back guarantee</p>
-                    </div>
-                    <div class="col-4">
-                        <img class="middle" src="/img/kiwi.webp">
-                        <p>Used by 1500+ Kiwis</p>
-                    </div>
-                </div>
+
             </div>
         </div>
-        <div class="row mt-0">
-            <div class="col-12 col-md-6">
-                    <img src="/img/markets/11.webp" alt="Click to watch video" id="thumbnail" data-video-id="videoContainer1" loading="lazy">
+        <div class="row mt-4 py-0  d-flex align-items-center justify-content-center">
+            <div class="col-12 col-md-6 text-center">
+                <div class="row mt-4 mb-0 py-0">
+                    <h2>Delivering life changing results time and time again</h2>
+                    <div class="col-6">
+                        <img src="/img/prod/balm/eczema.webp" alt="eczema">
+                    </div>
+                    <div class="col-6">
+                        <img src="/img/prod/balm/baby-eczema.webp" alt="baby eczema">
+                    </div>
+                    <p>With oils closely mimicking those produced by our bodies, our tallow <span class="attention-primalcare">soothes dry and irritated skin</span></p>
+                </div>
+
             </div>
             <div class="faq-tab-container col-12 col-md-6">
                 <!-- Nav tabs -->
                 <div class="faq-nav-tabs">
-                    <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</div>
+                    <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Fast facts</div>
+                    <div class="faq-nav-tab" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</div>
                     <div class="faq-nav-tab" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</div>
                     <div class="faq-nav-tab" id="directions-tab" data-toggle="tab" href="#directions" role="tab" aria-controls="directions" aria-selected="false">Directions</div>
-                    <div class="faq-nav-tab" id="storage-tab" data-toggle="tab" href="#storage" role="tab" aria-controls="storage" aria-selected="false">Storage</div>
                     <div class="faq-nav-tab" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</div>
                 </div>
-        
+
                 <!-- Tab panes -->
                 <div class="tab-content faq-tab-content">
-                    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-                        <h4>Description</h4>
-                        
-                        <p>A light and whipped tallow balm with a fluffy consistency, soaks into the skin rapidly for deep moisturising and relief from tight, dry and irritated skin. </p>
-
-                        <h6>What makes our tallow balm different? </h6>
-                        <ul>
-                            <li>It’s a whipped tallow balm, most others aren’t. Meaning it soaks in much better.</li>
-                            <li>All natural ingredients, no nasties added. </li>
-                            <li>We render and filter every batch 6 times for better smell, consistency an colour (12 days of work)</li>
-                            <li>We offer the best value tallow on the NZ market, get more, at better quality for less.</li>
-                        </ul>
-
-
-                        <h6>Key benefits of the PrimalCare range</h6>
-                        <ul>
-                            <li>Moisturises dry and irritated skin</li>
-                            <li>Soothes eczema, psoriasis, burns and other angry skin</li>                       
-                        </ul>
-                        
-                    <div class="row text-center justify-content-around mt-0 mb-0">
-                        <div class="col-3">
-                            <img src="/img/prod/balm/omnivore.webp" alt="">
-                            <h6>Natural products</h6>
-                        </div>
-                        <div class="col-3">
-                            <img src="/img/prod/balm/free.webp" alt="">
-                            <h6>No harmful ingredients</h6>
-                        </div>
-                        <div class="col-3">
-                            <img src="/img/prod/balm/save-the-world.webp" alt="">
-                            <h6>Sustainably sourced</h6>
+            <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">        
+                <p>Don’t waste another dollar on expensive moisturisers and steroid creams that <span class="attention-primalcare">don’t work</span> and are filled with <span class="attention-primalcare">chemical nasties!</span></p>
+                <p>Watch as light and fluffy balm soaks deeply into your skin, going to work giving rapid <span class="attention-primalcare">hydrating and rejuvenating relief</span> to dry, cracked and itchy skin.</p>
+                <p class="mt-4 h6">What makes Primalcare tallow balm different? </p>
+                <ul>
+                    <li>It’s a whipped tallow balm, most others aren’t. Meaning it soaks in much better.</li>
+                    <li>We offer the best value tallow on the NZ market–get more, at better quality, for less.</li>
+                </ul>
+                
+            <div class="row text-center justify-content-around mt-0 mb-0">
+                <h3 class="h4">Meet your moisturiser match</h3>
+            <p>See why <span class="attention-primalcare">11000+ kiwis just like you</span> switched to Primalcare</p>
+                            <img class="seventy" src="/img/comparison-card-primalcare-balm.svg" alt="balm">
+                </div>
+                
+            
+                
+            </div>
+            <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                <h4>See what our customers say online</h4>
+                <img class="eighty middle" src="/img/prod/balm/balmreviews.webp" alt="reviews">
+            </div>
+            <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
+                    <h4>4 Nourishing Ingredients</h4>
+                    <p>A harmonic combination that soaks in for immediate hydration</p>
+                    <p>Grass-fed purified NZ beef tallow (98%), organic olive oil, organic jojoba oil, essential oil. </p>
+            
+                        <div class="row text-center">
+                            <div class="col-6">
+                                <img src="/img/prod/balm/tallowwhite.webp" class="w-50 mb-2 middle" alt="Grass-fed beef tallow">
+                                <p>We use high grade grass-fed suet, which we wet render and filter 6 times.</p>
+                            </div>
+                            <div class="col-6">
+                                <img src="/img/prod/balm/oliveoil.webp" class="w-50 mb-2 middle" alt="Organic cold pressed olive oil">
+                                <p>Important for providing a light and whipped texture to our unique whipped balm.</p>
+                            </div>
+                            <div class="col-6">
+                                <img src="/img/prod/balm/jojobaoil.webp" class="w-50 mb-2 middle" alt="Organic cold pressed jojoba oil">
+                                <p>Adding extra lift to the whip while providing smoothing and benefits to your skin.</p>    
+                            </div>
+                            <div class="col-6">
+                                <img src="/img/prod/balm/essentialoil.webp" class="w-50 mb-2 middle" alt="Natural essential oils">
+                                <p>These add the aroma and additional health benefits to your balms.</p>
+                            </div>
                         </div>
                     </div>
-                        
-                    </div>
-                    <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
-                        <h4>Ingredients</h4>
-                        <p><span class="product-flavour">Grass-fed purified NZ beef tallow, organic olive oil, organic jojoba oil, essential oil. 
-                                                    </div>
+                    
                     <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
                         <h4>Directions</h4>
                         <p>Apply a small amount on the face, neck, hands or feet daily in the morning as a moisturiser or evening as a night cream. Best used on slightly damp skin.</p>
                         <p>Body and facial moisturizer. Eczema cream, monthly hair conditioner.</p>
 
-
-                    </div>
-                    <div class="tab-pane fade" id="storage" role="tabpanel" aria-labelledby="storage-tab">
-                        <h4>Storage</h4>
                         <p>Keep in temperatures below 30 degrees and out of direct sunlight to maintain the shelf life of this balm.</p>
                     </div>
+
                     <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
                         <h4>Shipping</h4>
                         <p><strong>Processing time:</strong> Your order will be processed within 3 business days after which you can expect usual courier times to your area (generally 3-5 business days) </p>
@@ -177,326 +308,46 @@
                         <p>If you have any questions or concerns regarding shipping, please don't hesitate to <a href="/contact/">contact us</a>.</p>
                     </div>
                 </div>
-                
-            </div>
 
-            <div class="text-center">
-                <h2>Delivering life changing results time and time again</h2>
-                <p>With oils closely mimicking those produced by our bodies, our tallow soothes dry and irritated skin</p>
-                <div class="row">
-                    <div class="col-4">
-                        <img src="/img/prod/balm/balmreviews.webp" alt="">
-                    </div>
-                    <div class="col-4">
-                        <img src="/img/prod/balm/eczema.webp" alt="">
-                    </div>
-                    <div class="col-4">
-                        <img src="/img/prod/balm/baby-eczema.webp" alt="">
-                    </div>
-                </div>
-            </div>
-
-            <div class="ingredients text-center">
-                <h2>4 Nourishing Ingredients</h2>
-                <p>A harmonic combination that soaks in for immediate hydration</p>
-                <div id="ingredientsCarousel" class="carousel slide eighty middle" data-ride="carousel" data-pause="hover">
-                    <div class="carousel-inner ">
-                        <!-- Slide 1 -->
-                        <div class="carousel-item active eighty">
-                            <div class="row lighttan align-items-center justify-content-center">
-                                <h5>Grass-fed beef tallow (98%)</h5>
-                                <img src="/img/prod/balm/tallowwhite.webp" alt="Grass-fed beef tallow">
-                                <p>We use high grade grass-fed suet, which we wet render and filter 6 times (that’s a week of hot, backbreaking work per batch) to improve quality, smell and consistency.</p>
-                            </div>
-                        </div>
-                        <!-- Slide 2 -->
-                        <div class="carousel-item">
-                            <div class="row lighttan align-items-center justify-content-center">
-                                <h5>Organic cold pressed olive oil</h5>
-                                <img src="/img/prod/balm/oliveoil.webp" alt="Organic cold pressed olive oil">
-                                <p>Important for providing a light and whipped texture to our unique whipped balm.</p>
-                            </div>
-                        </div>
-                        <!-- Slide 3 -->
-                        <div class="carousel-item">
-                            <div class="row lighttan align-items-center justify-content-center">
-                                <h5>Organic cold pressed jojoba oil</h5>
-                                <img src="/img/prod/balm/jojobaoil.webp" alt="Organic cold pressed jojoba oil">
-                                <p>Adding extra lift to the whip while providing smoothing and benefits to your skin.</p>
-                            </div>
-                        </div>
-                        <!-- Slide 4 -->
-                        <div class="carousel-item">
-                            <div class="row lighttan align-items-center justify-content-center">
-                                <h5>Natural essential oils (to scent)</h5>
-                                <img src="/img/prod/balm/essentialoil.webp" alt="Natural essential oils">
-                                <p>These add the aroma and additional health benefits to your balms. This changes by the balm chosen, so we won't go into the specifics here.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Navigation Buttons -->
-                    <div class="carousel-controls mt-3">
-                        <button class="carousel-control-prev" type="button" data-target="#ingredientsCarousel" data-slide="prev">
-                            Previous
-                        </button>
-                        <button class="carousel-control-next" type="button" data-target="#ingredientsCarousel" data-slide="next">
-                            Next
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            
-            <div class="eighty middle">
-                <h2 class="text-center">How to use tallow balm</h2>
-                <p class="text-center">*Use in the evening before bed as a moisturiser or night cream (morning too if intensive care required)</p>
-                    <div class="big-txt text-center">
-                        <div class="row lightlime">
-                            <div class="col-2"><p><strong>1</strong></p></div>
-                            <div class="col-10"><p>Rinse skin with water, towel pat dry</p></div>
-                        </div>
-                        <div class="row lime">
-                            <div class="col-10"><p>Apply sparingly and smooth into skin, focus on dry or irritated areas. use body heat to dissolve any naturally occurring hydrating grains</p></div>
-                            <div class="col-2"><p><strong>2</strong></p></div>
-                        </div>
-                        <div class="row lightlime">
-                            <div class="col-2"><p><strong>3</strong></p></div>
-                            <div class="col-10"><p>Let the tallow soak in and do it’s job!</p></div>
-                        </div>
-            </div></div>
-            <div class="text-center">
-                <h2>You might also like</h2>
-                <div class="row justify-content-around">
-                {{- partial "prodcardtallowbundle.html" . -}}
-                {{- partial "prodcardtallowstack.html" . -}}
-                {{- partial "prodcardshampoo.html" . -}} 
-                </div>
-            </div>
-               
-
-
-
-            
-                    
-
-
-
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    var tabs = document.querySelectorAll('.faq-nav-tab');
-                    tabs.forEach(function(tab) {
-                        tab.addEventListener('click', function() {
-                            document.querySelector('.faq-nav-tab.active').classList.remove('active');
-                            tab.classList.add('active');
-                            var tabContent = document.querySelector('.faq-tab-content .tab-pane.show.active');
-                            tabContent.classList.remove('show', 'active');
-                            var target = tab.getAttribute('href');
-                            document.querySelector(target).classList.add('show', 'active');
-                        });
-                    });
-                });
-            </script>
-            </div>
-
-          
-
-
-    </div>
-
-    </div>
-    </div>
-
-    <!-- Script for handling the selection, updating the price ID, and Stripe checkout -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const stripe = Stripe('pk_live_51Ot2iTABkrUo6tgOu44jd79tB4Dg2B64I6lucmLcKdxZfcy2Dy3bTnbxQNiwDtRfeWSwWx1WsDpC0h91tTlubPXW000IuWtQTX');
-
-            // Set up event listeners for dropdowns
-            document.getElementById('productScent').addEventListener('change', updatePriceID);
-            document.getElementById('productSize').addEventListener('change', updatePriceID);
-            document.getElementById('jojobaCheckbox').addEventListener('change', updatePriceID);
-
-            // Handle add to cart button click
-            document.querySelector('.buy-now').addEventListener('click', handleAddToCart);
-
-            function updatePriceID() {
-                const isJojoba = document.getElementById('jojobaCheckbox').checked ? 'jojoba' : 'olive';
-                const selectedScent = document.getElementById('productScent').value;
-                const selectedSize = document.getElementById('productSize').value;
-
-                const priceID = priceIDs[isJojoba][selectedScent][selectedSize];
-                const unitPrice = getPriceText(priceID);
-
-                // Update the button's data-price-id and unit price
-                document.querySelector('.buy-now').setAttribute('data-price-id', priceID);
-                document.querySelector('.buy-now').setAttribute('data-unit-price', unitPrice);
-            }
-
-            function getPriceText(priceID) {
-    // Fetch the price based on the priceID
-    switch (priceID) {
-        case '{{ index .Params "balm-or-lav-60ml" }}':
-        case '{{ index .Params "balm-or-ros-60ml" }}':
-        case '{{ index .Params "balm-or-neu-60ml" }}':
-        case '{{ index .Params "balm-or-van-60ml" }}':
-        case '{{ index .Params "balm-or-patch-60ml" }}':
-        case '{{ index .Params "balm-or-orang-60ml" }}':
-        case '{{ index .Params "balm-or-cedar-60ml" }}':
-        case '{{ index .Params "balm-or-frank-60ml" }}':
-            return 22.95; // Price for 60ml sizes
-
-        case '{{ index .Params "balm-or-lav-100ml" }}':
-        case '{{ index .Params "balm-or-ros-100ml" }}':
-        case '{{ index .Params "balm-or-neu-100ml" }}':
-        case '{{ index .Params "balm-or-van-100ml" }}':
-        case '{{ index .Params "balm-or-patch-100ml" }}':
-        case '{{ index .Params "balm-or-orang-100ml" }}':
-        case '{{ index .Params "balm-or-cedar-100ml" }}':
-        case '{{ index .Params "balm-or-frank-100ml" }}':
-
-            return 24.95; // Price for 100ml sizes
-
-        case '{{ index .Params "balm-or-lav-175ml" }}':
-        case '{{ index .Params "balm-or-ros-175ml" }}':
-        case '{{ index .Params "balm-or-neu-175ml" }}':
-        case '{{ index .Params "balm-or-van-175ml" }}':
-        case '{{ index .Params "balm-or-patch-175ml" }}':
-        case '{{ index .Params "balm-or-orang-175ml" }}':
-        case '{{ index .Params "balm-or-cedar-175ml" }}':
-        case '{{ index .Params "balm-or-frank-175ml" }}':
-
-            return 30.95; // Price for 175ml sizes
-
-        case '{{ index .Params "balm-or-lav-200ml" }}':
-        case '{{ index .Params "balm-or-ros-200ml" }}':
-        case '{{ index .Params "balm-or-neu-200ml" }}':
-        case '{{ index .Params "balm-or-van-200ml" }}':
-        case '{{ index .Params "balm-or-patch-200ml" }}':
-        case '{{ index .Params "balm-or-orang-200ml" }}':
-        case '{{ index .Params "balm-or-cedar-200ml" }}':
-        case '{{ index .Params "balm-or-frank-200ml" }}':
-            return 35.00; // Price for 200ml sizes
-
-        default:
-            return 35.00; // Default price if no matching ID found
-    }
-}
-
-
-            function handleAddToCart(e) {
-                e.preventDefault();
-                const button = e.target;
-                const priceId = button.getAttribute('data-price-id');
-                const unitPrice = parseFloat(button.getAttribute('data-unit-price')).toFixed(2);
-                const quantity = parseInt(document.getElementById('quantityAll').value, 10);
-                const selectedScent = document.getElementById('productScent').value;
-                const selectedSize = document.getElementById('productSize').value;
-                const isJojoba = document.getElementById('jojobaCheckbox').checked;
-
-                if (!priceId) {
-                    alert('Please select a scent and size.');
-                    return;
-                }
-
-                // Modify the flavor text to include " + Jojoba" if the checkbox is checked
-                const flavorText = isJojoba ? `${selectedScent} + Jojoba` : selectedScent;
-
-                // Add product to cart (localStorage)
-                let cart = JSON.parse(localStorage.getItem('cart')) || [];
-                const productTitle = document.querySelector('h1').innerText;
-
-                cart.push({ priceId, quantity, flavour: flavorText, size: selectedSize, unitPrice, title: productTitle });
-                localStorage.setItem('cart', JSON.stringify(cart));
-
-                // Show "Added to Cart" modal
-                $('#addedToCartModal').modal('show');
-            }
-
-            const priceIDs = {
-                olive: {
-                    lavendar: { '60ml': '{{ index .Params "balm-or-lav-60ml" }}', '100ml': '{{ index .Params "balm-or-lav-100ml" }}', '175ml': '{{ index .Params "balm-or-lav-175ml" }}', '200ml': '{{ index .Params "balm-or-lav-200ml" }}' },
-                    rose: { '60ml': '{{ index .Params "balm-or-ros-60ml" }}', '100ml': '{{ index .Params "balm-or-ros-100ml" }}', '175ml': '{{ index .Params "balm-or-ros-175ml" }}', '200ml': '{{ index .Params "balm-or-ros-200ml" }}' },
-                    neutral: { '60ml': '{{ index .Params "balm-or-neu-60ml" }}', '100ml': '{{ index .Params "balm-or-neu-100ml" }}', '175ml': '{{ index .Params "balm-or-neu-175ml" }}', '200ml': '{{ index .Params "balm-or-neu-200ml" }}' },
-                    vanilla: { '60ml': '{{ index .Params "balm-or-van-60ml" }}', '100ml': '{{ index .Params "balm-or-van-100ml" }}', '175ml': '{{ index .Params "balm-or-van-175ml" }}', '200ml': '{{ index .Params "balm-or-van-200ml" }}' },
-                    patchouli: { '60ml': '{{ index .Params "balm-or-patch-60ml" }}', '100ml': '{{ index .Params "balm-or-patch-100ml" }}', '175ml': '{{ index .Params "balm-or-patch-175ml" }}', '200ml': '{{ index .Params "balm-or-patch-200ml" }}' },
-                    sweetorange: { '60ml': '{{ index .Params "balm-or-orang-60ml" }}', '100ml': '{{ index .Params "balm-or-orang-100ml" }}', '175ml': '{{ index .Params "balm-or-orang-175ml" }}', '200ml': '{{ index .Params "balm-or-orang-200ml" }}' },
-                    cedar: { '60ml': '{{ index .Params "balm-or-cedar-60ml" }}', '100ml': '{{ index .Params "balm-or-cedar-100ml" }}', '175ml': '{{ index .Params "balm-or-cedar-175ml" }}', '200ml': '{{ index .Params "balm-or-cedar-200ml" }}' },
-                    frankincense: { '60ml': '{{ index .Params "balm-or-frank-60ml" }}', '100ml': '{{ index .Params "balm-or-frank-100ml" }}', '175ml': '{{ index .Params "balm-or-frank-175ml" }}', '200ml': '{{ index .Params "balm-or-frank-200ml" }}' }
-
-                },
-                jojoba: {
-                    lavendar: { '60ml': '{{ index .Params "balm-or-lav-60ml" }}', '100ml': '{{ index .Params "balm-or-lav-100ml" }}', '175ml': '{{ index .Params "balm-or-lav-175ml" }}', '200ml': '{{ index .Params "balm-or-lav-200ml" }}' },
-                    rose: { '60ml': '{{ index .Params "balm-or-ros-60ml" }}', '100ml': '{{ index .Params "balm-or-ros-100ml" }}', '175ml': '{{ index .Params "balm-or-ros-175ml" }}', '200ml': '{{ index .Params "balm-or-ros-200ml" }}' },
-                    neutral: { '60ml': '{{ index .Params "balm-or-neu-60ml" }}', '100ml': '{{ index .Params "balm-or-neu-100ml" }}', '175ml': '{{ index .Params "balm-or-neu-175ml" }}', '200ml': '{{ index .Params "balm-or-neu-200ml" }}' },
-                    vanilla: { '60ml': '{{ index .Params "balm-or-van-60ml" }}', '100ml': '{{ index .Params "balm-or-van-100ml" }}', '175ml': '{{ index .Params "balm-or-van-175ml" }}', '200ml': '{{ index .Params "balm-or-van-200ml" }}' },
-                    patchouli: { '60ml': '{{ index .Params "balm-or-patch-60ml" }}', '100ml': '{{ index .Params "balm-or-patch-100ml" }}', '175ml': '{{ index .Params "balm-or-patch-175ml" }}', '200ml': '{{ index .Params "balm-or-patch-200ml" }}' },
-                    sweetorange: { '60ml': '{{ index .Params "balm-or-orang-60ml" }}', '100ml': '{{ index .Params "balm-or-orang-100ml" }}', '175ml': '{{ index .Params "balm-or-orang-175ml" }}', '200ml': '{{ index .Params "balm-or-orang-200ml" }}' },
-                    cedar: { '60ml': '{{ index .Params "balm-or-cedar-60ml" }}', '100ml': '{{ index .Params "balm-or-cedar-100ml" }}', '175ml': '{{ index .Params "balm-or-cedar-175ml" }}', '200ml': '{{ index .Params "balm-or-cedar-200ml" }}' },
-                    frankincense: { '60ml': '{{ index .Params "balm-or-frank-60ml" }}', '100ml': '{{ index .Params "balm-or-frank-100ml" }}', '175ml': '{{ index .Params "balm-or-frank-175ml" }}', '200ml': '{{ index .Params "balm-or-frank-200ml" }}' }
-                }
-            };
-
-            // Initial update on page load
-            updatePriceID();
-        });
-    </script>
-
-    <!-- Bootstrap Modal for Added to Cart -->
-    <div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Your item has been added to the cart. What would you like to do next?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
-                    <a href="/cart" class="btn btn-primary">Go to Cart</a>
-                </div>
             </div>
         </div>
     </div>
+    <div class="section light-peach py-80 mt-5">
+        <div class="container">
+            <div class="text-center">
+            <h2>You might also like</h2>
+            <div class="row justify-content-around d-none d-md-flex mt-5">
+            {{- partial "prodcardtallowstack.html" . -}}
+            {{- partial "prodcard-deodorant.html" . -}} 
+            {{- partial "prodcard-lipbalm.html" . -}} 
+            </div>
+            <div class="d-md-none d-block mt-3">
+                {{- partial "prodcardtallowstack.html" . -}}
 
+            </div>
+            </div>
+        </div>
+    </div> 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-    // Existing event listeners
-    document.getElementById('productScent').addEventListener('change', updatePriceID);
-    document.getElementById('productSize').addEventListener('change', updatePriceID);
-    document.getElementById('jojobaCheckbox').addEventListener('change', updatePriceID);
-
-    function updatePriceID() {
-        const selectedSize = document.getElementById('productSize').value;
-
-        // Get the placeholder for price
-        const priceDisplay = document.getElementById('priceDisplay');
-
-       // Determine the price to display
-        if (selectedSize === '60ml') {
-            priceDisplay.innerHTML = '{{ partial "price-tallow-skin-60.html" . }}';
-        } else if (selectedSize === '100ml') {
-            priceDisplay.innerHTML = '{{ partial "price-tallow-skin-100.html" . }}';
-        } else if (selectedSize === '175ml') {
-            priceDisplay.innerHTML = '{{ partial "price-tallow-skin-175.html" . }}';
-        } else if (selectedSize === '200ml') {
-            priceDisplay.innerHTML = '{{ partial "price-tallow-skin-200.html" . }}';
-        } 
-    }
-
-    // Initial update on page load
-    updatePriceID();
-});
-
+        document.addEventListener('DOMContentLoaded', function() {
+            var tabs = document.querySelectorAll('.faq-nav-tab');
+            tabs.forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    document.querySelector('.faq-nav-tab.active').classList.remove('active');
+                    tab.classList.add('active');
+                    var tabContent = document.querySelector('.faq-tab-content .tab-pane.show.active');
+                    tabContent.classList.remove('show', 'active');
+                    var target = tab.getAttribute('href');
+                    document.querySelector(target).classList.add('show', 'active');
+                });
+            });
+        });
     </script>
-    
+
 
     <!-- Include Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-    <script src="https://player.vimeo.com/api/player.js"></script>
+    <!-- <script src="https://player.vimeo.com/api/player.js"></script>
     <script>
        document.querySelectorAll('.image-container img').forEach(function(image) {
             image.addEventListener('click', function() {
@@ -507,8 +358,446 @@
                 document.getElementById(videoId).style.display = 'block';
             });
         });
-  </script>
+  </script> -->
+
+    <!-- YAML SCRIPT STARTS -->
+
+
+
+<script>
+    const productPricingRaw = {{ site.Data.pricing.tallow.pricing.balm | jsonify | safeJS }};
+    console.log("Raw product Pricing from Hugo:", productPricingRaw);
+    const country_code = getCountryCookie('country_code') || "NZ";
+
+    const productPricing = Array.isArray(productPricingRaw) ? productPricingRaw : [];
+    if (!Array.isArray(productPricing)) {
+        console.error("productPricing is not an array. Ensure your YAML structure and Hugo data access.");
+    } else {
+        console.log("Parsed product Pricing:", productPricing);
+    }
+
+    function updatePrice() {
+        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
+        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
+
+        console.log("Selected size:", size);
+        console.log("Selected order type:", orderType);
+
+        const pricingEntry = productPricing.find(entry => entry.size.toLowerCase() === size);
+        if (pricingEntry && pricingEntry.prices[country_code][orderType]) {
+            const price = pricingEntry.prices[country_code][orderType];
+            document.getElementById("price").textContent = `$${price.toFixed(2)}`;
+            document.getElementById("afterpay_price").textContent = `${(price/4).toFixed(2)}`;
+        } else {
+            document.getElementById("price").textContent = "N/A";
+            document.getElementById("afterpay_price").textContent = "N/A";
+        }
+    }
+
+
+
+    // Attach event listener for changes
+    document.getElementById("productForm").addEventListener("change", updatePrice);
+
+    // Initialize the price on page load
+    document.addEventListener("DOMContentLoaded", updatePrice);
+</script>
+
+
+<script>
+    // Function to update the price ID display
+    function updatePriceID() {
+    const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
+    const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+    const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
+    
+
+
+    // Default value for price ID
+    let priceID = "N/A";
+
+    // Debug: Check the loaded data and selected values
+    console.log("Loaded Data:", productPricingRaw);
+    console.log("Selected - Size:", size, "Flavor:", flavor, "Order Type:", orderType);
+
+    // Traverse the pricing structure for the selected combination
+    if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.balm) {
+        const balmData = productPricingRaw.ids.balm;
+        console.log("balm Data:", balmData);
+
+        const orderTypeData = balmData[orderType];
+        console.log("Order Type Data:", orderTypeData);
+
+        if (orderTypeData && orderTypeData[flavor]) {
+            const flavorData = orderTypeData[flavor];
+            console.log("Flavor Data:", flavorData);
+
+            const sizeData = flavorData[size];
+            console.log("Size Data:", sizeData);
+
+            if (sizeData) {
+                priceID = sizeData[country_code]; // Assign the resolved price ID
+            }
+        }
+    }
+
+    // Update the DOM element with the resolved price ID
+    document.getElementById("price-id").textContent = priceID !== "N/A" ? priceID : "Price ID Not Available";
+
+    // Log final result
+    console.log("Resolved Price ID:", priceID);
+
+};
+</script>
+<script>
+    // Parse the JSON string into an object
+    const rawData = "{{ .Site.Data.pricing | jsonify }}"; // Embedded JSON string from Hugo
+    const pricingData = JSON.parse(rawData); // Parse into a JavaScript object
+    console.log('Parsed Pricing Data:', pricingData); // Debugging output
+
+    function updatePriceId() {
+    // Get the selected values
+    const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
+    const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
+    console.log(size);
+    if((size=="120ml" || size == "60ml") && orderType == "three_pack")
+    {
+        document.getElementById("special").style.display="inline";
+    }
+    else{
+        document.getElementById("special").style.display="none";
+    }
+
+    try {
+        let priceId;
+
+        // Access the correct price ID based on the order type
+        if (orderType === 'single_purchase') {
+            const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+            document.getElementById("single_unit_fragnance").style.display = 'block';
+            document.getElementById("pack_unit_fragnance").style.display = 'none';
+            priceId = pricingData.tallow.ids.balm.single[flavor][size][country_code];
+        } else if (orderType === 'recurring_monthly') {
+            const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+            priceId = pricingData.tallow.ids.balm.monthly[flavor][size][country_code];
+        } else if (orderType === 'recurring_quarterly') {
+            const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+            priceId = pricingData.tallow.ids.balm.quarterly[flavor][size][country_code];
+        } else if (orderType === 'three_pack') {
+            const flavor = document.querySelector('.product-select').value.trim().toLowerCase();
+            document.getElementById("single_unit_fragnance").style.display = 'none';
+            document.getElementById("pack_unit_fragnance").style.display = 'block';
+            priceId = pricingData.tallow.ids.balm.pack[flavor][size][country_code];
+        }
+
+        console.log('Price ID:', priceId);
+
+        // Update the DOM element with the resolved price ID, if it exists
+        const priceIdElement = document.getElementById('price-id');
+        if (priceIdElement) {
+            priceIdElement.textContent = priceId || 'Price ID not found';
+        }
+
+        // Update the button's data-price-id attribute
+        const buyNowButton = document.querySelector(".buy-now");
+        if (buyNowButton) {
+            buyNowButton.setAttribute("data-price-id", priceId || "");
+            console.log('Button updated with Price ID:', priceId);
+        }
+    } catch (error) {
+        console.error('Error fetching Price ID:', error);
+
+        // Clear the button's data-price-id attribute on error
+        const buyNowButton = document.querySelector(".buy-now");
+        if (buyNowButton) {
+            buyNowButton.setAttribute("data-price-id", "");
+        }
+    }
+}
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
+        console.log('hiiii',orderType);
+        if (orderType === 'single_purchase') {
+            document.getElementById("single_unit_fragnance").style.display = 'block';
+            document.getElementById("pack_unit_fragnance").style.display = 'none';
+        } else if (orderType === 'three_pack') {
+            document.getElementById("single_unit_fragnance").style.display = 'none';
+            document.getElementById("pack_unit_fragnance").style.display = 'block';
+        }
+        // Add event listener for form changes
+        document.getElementById('productForm').addEventListener('change', updatePriceId);
+
+        // Trigger the update function on page load
+        updatePriceId();
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    // Convert the ids structure to a simplified format
+    function preprocessproductData(rawData) {
+        const simplified = {};
+
+        // Iterate over balm (or pets, if needed)
+        if (rawData.ids && rawData.ids.balm) {
+            const categories = rawData.ids.balm;
+
+            for (const [orderType, flavors] of Object.entries(categories)) {
+                for (const [flavor, sizes] of Object.entries(flavors)) {
+                    for (const [size, priceId] of Object.entries(sizes)) {
+                        if (!simplified[size]) {
+                            simplified[size] = {};
+                        }
+                        if (!simplified[size][flavor]) {
+                            simplified[size][flavor] = {};
+                        }
+                        simplified[size][flavor][orderType] = priceId;
+                    }
+                }
+            }
+        }
+        return simplified;
+    }
+
+    // Example: Assume productPricingRaw is available globally or passed here
+    const normalizedproductData = preprocessproductData(productPricingRaw);
+    console.log('Normalized product Data:', normalizedproductData);
+
+    // Use normalizedproductData for price ID lookups
+    function getPriceID(size, flavor, orderType) {
+        return (
+            normalizedproductData[size]?.[flavor]?.[orderType] ||
+            "Price ID not found"
+        );
+    }
+
+});
+
+</script>
+
+
+<script>
+    // Add to Cart Handler Function
+    function handleAddToCart(event) {
+    event.preventDefault();
+
+    console.log('Add to Cart button clicked!'); // Debugging
+
+    const button = event.target;
+
+    
+
+    // Retrieve values from the dropdowns
+    const selectedSize = document.querySelector('input[name="size"]:checked');
+    const size = document.querySelector(`label[for="${selectedSize.id}"]`).textContent.trim(); // Updated to get label text
+
+// Use the text content of the selected option
+let flavor;
+
+
+// Use the text content of the selected option
+    const selectedOrderType = document.querySelector('input[name="orderType"]:checked');
+    const orderTypeSelect = document.querySelector(`label[for="${selectedOrderType.id}"]`).textContent.trim();
+    const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
+
+    if (orderType === 'single_purchase') {
+        const selectedFlavor = document.querySelector('input[name="flavor"]:checked');
+        flavor = document.querySelector(`label[for="${selectedFlavor.id}"]`).textContent.trim();
+        } else if (orderType === 'three_pack') {
+        flavor = document.querySelector('.product-select').selectedOptions[0].text.trim();
+        }
+   
+    const unitPriceElement = document.getElementById('price');
+    const unitPrice = unitPriceElement 
+        ? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00
+        : 0.00;
+
+    // Retrieve the price ID
+    const priceId = button.getAttribute('data-price-id') || 'N/A';
+    const title = document.querySelector('h1').innerText;
+
+    // Retrieve quantity
+    const quantityField = document.getElementById('quantityAll');
+    const quantity = quantityField ? parseInt(quantityField.value, 10) || 1 : 1;
+
+    // Debugging
+    console.log('Size:', size); // Updated to show label
+    console.log('Flavor:', flavor);
+    console.log('Order Type:', orderTypeSelect); // Updated to show label
+    console.log('Quantity:', quantity);
+    console.log('Price ID:', priceId);
+
+    // Check if price ID is valid
+    if (!priceId || priceId === 'N/A') {
+        alert('Please select valid options before adding to cart.');
+        return;
+    }
+
+    // Add to cart
+    const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+    cart.push({
+        priceId,
+        title,
+        size,
+        flavor,
+        orderType: orderTypeSelect,
+        quantity,
+        unitPrice,
+        eligibleForDiscount: false // Set this directly to true or false
+    });
+    localStorage.setItem('cartV2', JSON.stringify(cart));
+
+    console.log('Cart updated:', cart); // Debugging
+
+    // Trigger success modal or alert
+    const modal = document.getElementById('addedToCartModal');
+    if (modal) {
+        $('#addedToCartModal').modal('show');
+    } else {
+        alert('Item added to cart successfully!');
+    }
+}
+
+// Attach the event listener to the Add to Cart button
+document.addEventListener('DOMContentLoaded', function () {
+    const addToCartButton = document.querySelector('.buy-now');
+    if (addToCartButton) {
+        addToCartButton.addEventListener('click', handleAddToCart);
+        console.log('Add to Cart button is ready.');
+    } else {
+        console.error('Add to Cart button not found!');
+    }
+});
+
+</script>
+
+
+
+
+
+
+<!-- Modal for Add to Cart Confirmation -->
+<div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                Your item has been successfully added to the cart. What would you like to do next?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
+                <a href="/cart" class="btn btn-black">Go to Cart</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- YAML SCRIPT ENDS -->
+
+
+    <script>
+        const quantityInput = document.getElementById('quantityAll');
+        const btnIncrease = document.querySelector('.btn-increase');
+        const btnDecrease = document.querySelector('.btn-decrease');
+        
+        // Increase quantity
+        btnIncrease.addEventListener('click', () => {
+          quantityInput.value = parseInt(quantityInput.value) + 1;
+        });
+        
+        // Decrease quantity (minimum value = 1)
+        btnDecrease.addEventListener('click', () => {
+          const currentValue = parseInt(quantityInput.value);
+          if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+          }
+        });
+        
+            </script>
+            
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const flavorOptions = document.querySelectorAll('input[name="flavor"]');
+                    const sizeOptions = document.querySelectorAll('input[name="size"]');
+                    const stockLabel = document.querySelector('label[for="inStock"]');
+                    const customRadio = document.querySelector('.custom-radio');
+                    const addToCartButton = document.querySelector('.buy-now');
+            
+                    // Define out-of-stock combinations
+                    const outOfStockCombinations = [
+                    ];
+            
+                    function updateStockLabel() {
+                        const selectedFlavor = document.querySelector('input[name="flavor"]:checked').value;
+                        const selectedSize = document.querySelector('input[name="size"]:checked').value;
+            
+                        // Check if the selected combination is out of stock
+                        const isOutOfStock = outOfStockCombinations.some(combo =>
+                            combo.flavor === selectedFlavor && combo.size === selectedSize
+                        );
+            
+                        document.querySelectorAll('.custom-radio').forEach(radio => {
+                            radio.classList.remove('out-of-stock', 'in-stock'); // Clear existing classes
+                        });
+            
+                        if (isOutOfStock) {
+                            stockLabel.textContent = "Temporarily of Stock";
+                            stockLabel.style.color = "red"; // Apply red color for out of stock
+            
+                            // Disable the Add to Cart button
+                            addToCartButton.disabled = true;
+                            addToCartButton.style.backgroundColor = "gray"; // Gray out the button
+                            addToCartButton.style.cursor = "not-allowed"; // Change cursor style
+            
+                            // Apply out-of-stock class to all relevant elements
+                            document.querySelectorAll('.custom-radio').forEach(radio => {
+                                radio.classList.add('out-of-stock');
+                            });
+                        } else {
+                            stockLabel.textContent = "In Stock";
+                            stockLabel.style.color = "green"; // Apply green color for in stock
+            
+                            // Enable the Add to Cart button
+                            addToCartButton.disabled = false;
+                            addToCartButton.style.backgroundColor = ""; // Reset to default color
+                            addToCartButton.style.cursor = "pointer"; // Reset cursor style
+            
+                            // Apply in-stock class to all relevant elements
+                            document.querySelectorAll('.custom-radio').forEach(radio => {
+                                radio.classList.add('in-stock');
+                            });
+                        }
+                    }
+            
+                    flavorOptions.forEach(option => {
+                        option.addEventListener('change', updateStockLabel);
+                    });
+            
+                    sizeOptions.forEach(option => {
+                        option.addEventListener('change', updateStockLabel);
+                    });
+            
+                    // Initialize on page load
+                    updateStockLabel();
+                });
+            </script>
+            
+            
+            
+
+
+
     {{- partial "footer.html" . }}
 
 </body>
 </html>
+
+
+
+
+

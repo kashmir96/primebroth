@@ -6,22 +6,33 @@
 <link rel="icon" type="image/png" sizes="32x32" href='favicon-32x32.png'>
 <link rel="icon" type="image/png" sizes="16x16" href='favicon-16x16.png'>
 <link rel="manifest" href='{{ "site.webmanifest" | relURL }}'>
+
 <link rel="canonical" href="{{ .Permalink }}">
 {{- /* Styles */}}
 {{ if .Site.Params.icon.fontawesome }}
 <link href='{{ "/css/fa6.min.css" | relURL }}' rel="stylesheet" type="text/css">
 {{ end }}
-{{ $styles := resources.Get "css/style.css" | postCSS }}
-{{ if .Site.IsServer }}
-<link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+{{ if .Params.bootstrap5 }}
+  {{ $bootstrap := resources.Get "css/bootstrap.min.css" | postCSS }}
+  <link rel="stylesheet" href="{{ $bootstrap.RelPermalink }}" />
+  {{ $styles := resources.Get "css/style_new.css" | postCSS }}
+  {{ if .Site.IsServer }}
+  <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+  {{ else }}
+  {{ $styles := $styles | minify | fingerprint | resources.PostProcess }}
+  <link rel="stylesheet" href="{{ $styles.RelPermalink }}" />
+  {{ end }}
+   
 {{ else }}
-{{ $styles := $styles | minify | fingerprint | resources.PostProcess }}
-<link rel="stylesheet" href="{{ $styles.RelPermalink }}" />
+{{ $styles := resources.Get "css/style.css" | postCSS }}
+  {{ if .Site.IsServer }}
+  <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+  {{ else }}
+  {{ $styles := $styles | minify | fingerprint | resources.PostProcess }}
+  <link rel="stylesheet" href="{{ $styles.RelPermalink }}" />
+  {{ end }}
+  <link href='{{ "/css/style.min.css" | relURL }}' rel="stylesheet" type="text/css">
 {{ end }}
-<!-- {{ if .IsHome }}
-<link rel="stylesheet" href='{{ "/css/swiper-bundle.min.css" | relURL }}'>
-{{ end }} -->
-<link href='{{ "/css/style.min.css" | relURL }}' rel="stylesheet" type="text/css">
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZR6LL35JPP"></script>

@@ -1,43 +1,44 @@
 <!-- Pet single product card -->
-<div class="product-card grow col-lg-3 col-md-4 col-sm-6" data-category="tallow bundles" id="prodcardtallowbundle"><a href="/shop/products/tallow-trio">
-  <p class="stamp">Hot</p>
-  <img src="/img/dec24/product-trio.webp" alt="">
-  <div class="product-details">
-    <p>
-      <span class="nz-content" style="display:inline;">
-        {{ with index site.Data.pricing.bundles.pricing.tallow_trio 0 }}
-        {{ with .prices.NZ }}
-            
-            <span class="attention-primalcare">${{ .single_purchase }}</span> 
-          {{ end }}
-          {{ end }}
-          {{ with index site.Data.pricing.tallow.discount_from.balm 0 }}
+<div class="product-card grow col-xxl-3 col-lg-4 col-md-4 col-sm-6" data-category="tallow bundles" id="prodcardtallowbundle"><a href="/shop/products/tallow-trio">
+  <div class="product-card-inner">
+    <p class="stamp">Hot</p>
+    <img src="/img/dec24/product-trio.webp" alt="tallow trio" class="d-block m-auto" max-height="400">
+    <div class="product-details">
+      <p class="h5">
+        <span class="nz-content" style="display:inline;">
+          {{ with index site.Data.pricing.bundles.pricing.tallow_trio 0 }}
           {{ with .prices.NZ }}
-            <span class=" small text-decoration-line-through">${{ .three_pack }}</span>
-          {{ end }}
-          {{ end }}
+              
+              <span class="attention-primalcare">${{ .single_purchase }}</span> 
+            {{ end }}
+            {{ end }}
+            {{ with index site.Data.pricing.tallow.discount_from.balm 0 }}
+            {{ with .prices.NZ }}
+              <span class=" small text-decoration-line-through">${{ .three_pack }}</span>
+            {{ end }}
+            {{ end }}
+              <span class="special">35% off</span>
+          </span>
+        <span class="au-content" style="display:none;">
+            {{ with index site.Data.pricing.bundles.pricing.tallow_trio 0 }}
+            {{ with .prices.AU }}
+              
+              <span class="attention-primalcare">${{ .single_purchase }}</span> 
+            {{ end }}
+            {{ end }}   
+            {{ with index site.Data.pricing.tallow.discount_from.balm 0 }}
+            {{ with .prices.AU }}
+              <span class=" small text-decoration-line-through">${{ .three_pack }}</span>
+            {{ end }}
+            {{ end }}
             <span class="special">35% off</span>
-        </span>
-    <span class="au-content" style="display:none;">
-        {{ with index site.Data.pricing.bundles.pricing.tallow_trio 0 }}
-        {{ with .prices.AU }}
-          
-           <span class="attention-primalcare">${{ .single_purchase }}</span> 
-        {{ end }}
-        {{ end }}   
-        {{ with index site.Data.pricing.tallow.discount_from.balm 0 }}
-        {{ with .prices.AU }}
-          <span class=" small text-decoration-line-through">${{ .three_pack }}</span>
-        {{ end }}
-        {{ end }}
-        <span class="special">35% off</span>
-  
-    </span></p>
-    <h6>Tallow Balm Mixed Bundle</h6>
-    <img class="float-left stars mt-1 mr-2" src="/img/stars/5.webp" alt=""><p>1800+ kiwis</p>
- 
-  </div>
-</a>
+      
+        </span></p>
+        <p class="h5 fw-bold">Tallow Balm Mixed Bundle</h5>
+        <p>1800+ kiwis</p>
+      </div>
+    </div>
+  </a>
 </div>
 
 
