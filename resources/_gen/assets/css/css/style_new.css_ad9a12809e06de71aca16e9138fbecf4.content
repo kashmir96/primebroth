@@ -639,12 +639,20 @@ input[type=number] {
     }
 }
 @media(max-width: 768px) {
-    .hero {
+    .hero{
         background-image:url(/img/home/hero-mobile.webp);
         background-position: center;
         min-height: 100vh!important;
         align-items: normal;
         padding-top:50px
+    }
+    .aboutus-header,.aboutus-hero {
+        background-color: #d5bca0;
+        background-image: none;
+        min-height: auto !important;
+        align-items: normal;
+        padding-top:50px;
+        padding-bottom: 50px;;
     }
     .lower-banner{
     background-image: url('/img/home/lower-mobile.webp');
@@ -681,6 +689,14 @@ input[type=number] {
         padding-left:30px;
         padding-right: 30px;
     }
+    .shopdiv > .product-card, .charity-card {
+    max-width: 50%;
+    flex: auto !important;
+  }
+  .mobile-product .product-card{
+    max-width: 400px;
+    margin:auto
+  }
 
    
 }
@@ -770,6 +786,13 @@ input[type=number] {
     padding:3px 5px !important;
     margin: 1px !important;
     font-size: 13px !important;
+  }
+}
+
+@media screen and (max-width: 340px) {
+    .shopdiv > .product-card, .charity-card {
+    max-width: 100%;
+    flex: auto !important;
   }
 }
 
