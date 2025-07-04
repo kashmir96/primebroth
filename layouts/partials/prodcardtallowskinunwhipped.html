@@ -1,38 +1,40 @@
 <!-- Tallow skin product card -->
 <div class="product-card grow left col-xxl-3 col-lg-4 col-md-4" data-category="tallow">
-  <a href="/shop/products/tallow-balm-skin-unwhipped">
-    <img src="/img/dec24/product-balmunwhip.webp" alt="Beef Tallow for Skincare">
-    <div class="product-details">
-      <!-- Price partial inclusion -->
-      <p><span class="nz-content" style="display:inline;">
-    {{ with index site.Data.pricing.tallow.pricing.balm 0 }}
-    {{ with .prices.NZ }}
-        <span class="attention-primalcare"> ${{ .single_purchase }}</span>   
-    {{ end }}
-    {{ end }}
-    <!-- {{ with index site.Data.pricing.tallow.discount_from.balm 0 }}
-        {{ with .prices.NZ }}
-    <span class=" small text-decoration-line-through">${{ .single_purchase }}</span>
-    {{ end }}
-    {{ end }}
-     -->
-</span>
-<span class="au-content" style="display:none;">
-    {{ with index site.Data.pricing.tallow.pricing.balm 0 }}
-    {{ with .prices.AU }}
-        <span class="attention-primalcare">From ${{ .single_purchase }}</span> 
-        {{ end }}
-        {{ end }}
-    <!-- {{ with index site.Data.pricing.tallow.discount_from.balm 0 }}
-        {{ with .prices.AU }}
-    <span class=" small text-decoration-line-through">${{ .single_purchase }}</span>
-   {{ end }}
-   {{ end }} -->
-</span></p>
+  <a href="/shop/products/unwhipped-tallow-balm">
+      <div class="product-card-inner">
+          <p class="stamp">New</p>
+          <img src="/img/shop/shop-unwhipped.webp" alt="Shop Unwhipped balm">
+          <div class="product-details">
+            <!-- Price partial inclusion -->
+          <p class="h5"><span class="nz-content" style="display:inline;">
+          {{ with index site.Data.pricing.tallow.pricing.tallowunwhip 0 }}
+          {{ with .prices.NZ }}
+              <span class=""> ${{ .single_purchase }}</span>   
+          {{ end }}
+          {{ end }}
+          <!-- {{ with index site.Data.pricing.tallow.discount_from.balm 0 }}
+              {{ with .prices.NZ }}
+          <span class=" small text-decoration-line-through">${{ .single_purchase }}</span>
+          {{ end }}
+          {{ end }}
+          -->
+          </span>
+        <span class="au-content" style="display:none;">
+            {{ with index site.Data.pricing.tallow.pricing.tallowunwhip 0 }}
+            {{ with .prices.AU }}
+                <span class="">From ${{ .single_purchase }}</span> 
+                {{ end }}
+                {{ end }}
+            <!-- {{ with index site.Data.pricing.tallow.discount_from.balm 0 }}
+                {{ with .prices.AU }}
+            <span class=" small text-decoration-line-through">${{ .single_purchase }}</span>
+          {{ end }}
+          {{ end }} -->
+        </span></p>
 
-      <h6>Tallow Balm - Unwhipped</h6>
-      <p>NEW</p>
-
+        <p class="h5 fw-bold">Unwhipped Tallow Balm </p>
+        <p>NEW</p>
+      </div>
     </div>
   </a>
 </div>

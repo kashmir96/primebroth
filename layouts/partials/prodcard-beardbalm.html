@@ -1,0 +1,34 @@
+<!-- Pet single product card -->
+<div class="product-card grow col-xxl-3 col-lg-4 col-md-4 " data-category="tallow" id="prodcard-lipbalm">
+  <a href="/shop/products/tallow-beard-balm">
+    <div class="product-card-inner">
+      <p class="stamp">New</p>
+        <img src="/img/shop/shopbeardi.webp" alt="lip balm" class="d-block m-auto" max-height="400">
+        <div class="product-details">
+          <p class="h5"><span class="nz-content" style="display:inline;">{{ with index site.Data.pricing.tallow.pricing.beardbalm 0 }}
+            {{ with .prices.NZ }}
+                ${{ .single_purchase }}
+            {{ end }}
+        {{ end }}
+        </span>
+        <span class="au-content" style="display:none;">
+            {{ with index site.Data.pricing.tallow.pricing.beardbalm 0 }}
+            {{ with .prices.AU }}
+              ${{ .single_purchase }}
+            {{ end }}
+        {{ end }}
+        </span></p>
+        <p class="h5 fw-bold">Tallow Beard Balm</h6>
+        <p>New</p>
+      </div>
+    </div>
+  </a>
+</div>
+
+
+
+
+
+
+
+
