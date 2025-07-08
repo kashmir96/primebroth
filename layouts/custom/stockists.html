@@ -27,32 +27,11 @@
             font-weight: bold;
             color: #007bff;
         }
-        .add-to-calendar {
-            margin-top: 5px;
-            display: flex;
-            justify-content: flex-start;
-            gap: 10px;
-        }
-        .add-to-calendar a {
-            text-decoration: none;
-            padding: 5px 10px;
-            color: #fff;
-            background-color: #007bff;
-            border-radius: 5px;
-            font-size: 0.9em;
-        }
-        .add-to-calendar a:hover {
-            background-color: #0056b3;
-        }
         /* Styling for mobile */
         @media (max-width: 768px) {
             .market-box {
                 padding: 5px;
                 margin-bottom: 10px;
-            }
-            .add-to-calendar a {
-                font-size: 0.8em;
-                padding: 4px 8px;
             }
         }
         /* Styling for list removal and date containers */
@@ -61,8 +40,6 @@
         }
         /* Scrollable box for market dates */
         .market-box {
-            max-height: 300px;
-            overflow-y: auto;
             border: 1px solid #ccc;
             padding: 10px;
             margin-bottom: 20px;
@@ -71,21 +48,21 @@
     </style>
 </head>
 <body>
-    {{- partial "header.html" . -}}
+    {{- partial "header_new.html" . -}}
     <div class="scroll-top rounded-full">
         <span class="icon-keyboard_arrow_up text-2xl"></span>
     </div>
-    {{- partial "slide.html" . -}}
-    {{- partial "strip.html" . -}}
 
-    <div class="container">
+<section class="py-80 light-peach px-80">
+
+    <div class="container-fluid">
         <div class="row light-peach max-width text-center">
-            <h1 class="fade-in-element">Pick up our Primalcare range at a stockist near you</h1>
+            <h1 class="fade-in-element mb-4 heading-title">Pick up our Primalcare range at a stockist near you</h1>
         </div>
         <div class="justify-content-around">
             <div id="faq-section" class="faq">
-                <div class="market-box">
-                    <ul id="market-dates">
+                <div class="market-box p-3">
+                    <ul id="market-dates" class="list-unstyled">
                          <li><h3>* New World - Christchurch Central(Durham Street)</h3></li>
                         <li><h3>* New World - Lincoln</h3></li>
                         <li><h3>* New World - St Martins</h3></li>
@@ -102,12 +79,12 @@
         </div>
 
         <!-- CTA Section -->
-        <div class="row text-center">
+        <div class="col-12 text-center">
             <h3>Can't find one near you? Enquire at your local New World or Order online!</h3>
-            <a href="/shop" class="btn btn-primary middle">Shop now</a>
+            <a href="/shop" class="btn btn-black mt-3">Shop now</a>
         </div>
     </div>
-
+</section>
     {{- partial "footer.html" . -}}
 
     
