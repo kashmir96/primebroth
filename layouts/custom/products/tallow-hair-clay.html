@@ -33,16 +33,16 @@
     
     <div class="container product-page">
         <div class="row topbanner rel">
-            <p class="text-dark col-12 ninety mt-1"><a href="/shop" class="text-dark text-decoration-underline">Shop</a> > Tallow Beard balm</p>
+            <p class="text-dark col-12 ninety mt-1"><a href="/shop" class="text-dark text-decoration-underline">Shop</a> > Tallow Hair Clay</p>
             <div class="col-12 col-lg-6 product-photos mb-3">
-                {{- partial "images-tallow-beardbalm.html" . -}}
+                {{- partial "images-tallow-hairclay.html" . -}}
             </div>
             <div class="col-12 col-lg-6">
                 <p class="fw-bold mt-2">NEW</p>
-                <h1 class="fw-bold mt-2">Tallow beard balm </h1>
-                <p class="fw-lighter h1 h1big">Naturally groomed</p>
+                <h1 class="fw-bold mt-2">Tallow Hair Clay </h1>
+                <h2 class="fw-lighter h1 h1big"> Naturally styled hair</h2>
                 <p class="text-muted">From PrimalCare</p>
-                <p class="fw-lighter">Your friends will ask what’s the secret to your <span class="attention-primalcare">sleek and groomed beard!</span></p>
+                <p class="fw-lighter">Your friends will ask why your hair looks and smells so good.</span></p>
  
                 
     <!-- YAML FORM STARTS -->
@@ -75,8 +75,8 @@
                     <div class="text-left mb-3 mb-lg-4" id="single_unit_fragnance">
                         <label class="mob-ninety">Select scent:</label>
                     
-                        <input type="radio" id="gingerbread" name="flavor" value="gingerbread" checked>
-                        <label for="gingerbread" class="product-form-radio">Gingerbread</label>
+                        <input type="radio" id="medium-hold" name="flavor" value="medium-hold" checked>
+                        <label for="medium-hold" class="product-form-radio">Medium hold</label>
                         
                         <!-- <input type="radio" id="lavender" name="flavor" value="lavender" >
                         <label for="lavender" class="product-form-radio">Lavender</label>
@@ -127,14 +127,14 @@
         </div>
         <div class="row mt-4 py-0  d-flex align-items-center justify-content-center">
             <div class="col-12 col-md-6 text-center">
-                <div class="row mt-4 mb-0 py-0">
+                <!-- <div class="row mt-4 mb-0 py-0">
                     <h2>Delivering life changing results time and time again</h2>
                     <div class="col-12">
                         <img src="/img/shop/before-after.webp" alt="eczema">
                     </div>
                  
                     <p>With oils closely mimicking those produced by our bodies, our tallow <span class="attention-primalcare">soothes dry and irritated skin</span></p>
-                </div>
+                </div> -->
 
             </div>
             <div class="faq-tab-container col-12 col-md-6">
@@ -150,14 +150,14 @@
                 <!-- Tab panes -->
                 <div class="tab-content faq-tab-content">
             <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">        
-                <p>Make your beard smoother, softer and scratch-free with NZ’s only tallow based beard balm made by gold partners of the Eczema Association.</p>
-                <p>A naturally luscious beard the way nature intended, this sting-free and sensitive safe beard balm will have you looking and smelling sharp while soothing and hydrating the skin below. </p>
+                <p>Style your hair naturally with NZ’s only tallow-based hair clay – handmade by gold partners of the Eczema Association.</p>
+                <p>This non-irritating, scalp-friendly hair clay gives a strong hold with a matte finish, using nothing but natural, skin-loving ingredients. No flakes, no harsh chemicals – just clean, confident control. </p>
                 <p>Handmade in Christchurch with all natural and chemical-free ingredients</p>
-                <p class="mt-4 h6">What makes Primalcare tallow beard balm different? </p>
+                <p class="mt-4 h6">What makes PrimalCare Tallow Hair Clay different? </p>
                 <ul>
-                    <li> It’s made from a tallow base, rich in oils identical to those produced by our own skin. Bringing hydration your skin can recognise and absorb easily. </li>
-                    <li> It’s rich in vitamins and fatty acids that bring moisture and shine to your beard while pulling in strays to keep you looking sharp. </li>
-                </ul>
+                 <li>- It’s made from a tallow base – rich in skin-identical oils that nourish the scalp and prevent dryness or irritation.</li>
+<li>- Packed with vitamins and fatty acids, it gives your hair structure, strength, and shape without the crunch or shine.</li>
+<li>- Easy to restyle, easy to rinse – and safe for sensitive scalps.</li></ul>
                 
             <div class="row text-center justify-content-around mt-0 mb-0">
                 <h3 class="h4">Meet your moisturiser match</h3>
@@ -175,7 +175,8 @@
             <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
                     <h4>5 Nourishing Ingredients</h4>
                     <p>A harmonic combination that soaks in for immediate hydration</p>
-                    <p>Grass-fed purified NZ beef tallow,beeswax, organic olive oil, organic jojoba oil, essential oil. </p>
+                    <p>KAOLIN CLAY, BEES WAX, JOJOBA OIL, GRASS FED BEEF TALLOW, BENTONITE CLAY, COCONUT OIL, GINGER, CASSIA & CLOVE BUD ESSENTIAL OILS.
+ </p>
             
                         <div class="row text-center">
                             <div class="col-6">
@@ -251,7 +252,7 @@
         });
     </script>
     <script>
-        const productPricingRaw = {{ site.Data.pricing.tallow.pricing.beardbalm | jsonify | safeJS }};
+        const productPricingRaw = {{ site.Data.pricing.tallow.pricing.hairclay | jsonify | safeJS }};
         console.log("Raw product Pricing from Hugo:", productPricingRaw);
         const country_code = getCountryCookie('country_code') || "NZ";
 
@@ -307,8 +308,8 @@
         console.log("Selected - Size:", size, "Flavor:", flavor, "Order Type:", orderType);
 
         // Traverse the pricing structure for the selected combination
-        if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.beardbalm) {
-            const balmData = productPricingRaw.ids.beardbalm;
+        if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.hairclay) {
+            const balmData = productPricingRaw.ids.hairclay;
             console.log("balm Data:", balmData);
 
             const orderTypeData = balmData[orderType];
@@ -352,13 +353,13 @@
 
             // Access the correct price ID based on the order type
             if (orderType === 'single_purchase') {
-                priceId = pricingData.tallow.ids.beardbalm.single[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.hairclay.single[flavor][size][country_code];
             } else if (orderType === 'recurring_monthly') {
-                priceId = pricingData.tallow.ids.beardbalm.monthly[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.hairclay.monthly[flavor][size][country_code];
             } else if (orderType === 'recurring_quarterly') {
-                priceId = pricingData.tallow.ids.beardbalm.quarterly[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.hairclay.quarterly[flavor][size][country_code];
             } else if (orderType === 'three_pack') {
-                priceId = pricingData.tallow.ids.beardbalm.pack[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.hairclay.pack[flavor][size][country_code];
             }
 
             console.log('Price ID:', priceId);
