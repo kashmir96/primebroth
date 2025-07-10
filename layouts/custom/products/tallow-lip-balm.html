@@ -73,6 +73,10 @@
                             <input type="radio" id="size10ml" name="size" value="10ml" checked>
                             <label for="size10ml" class="product-form-radio float-left"><img class="prod-radio-img" src="/img/lip-1.webp">10ml</label>
                         </div>
+                        <div class="product-form-radio">
+                            <input type="radio" id="size15ml" name="size" value="15ml">
+                            <label for="size15ml" class="product-form-radio float-left"><img class="prod-radio-img" src="/img/lip-1.webp">15ml</label>
+                        </div>
                     </div>
                     <div class="text-left mb-3 mb-lg-4">
                         <label class="mob-ninety">Select unit type:</label>
@@ -330,9 +334,23 @@
 
     function updatePriceId() {
     // Get the selected values
-    const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
-    const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+   const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+     if(flavor=="manuka-tub")
+    {
+        document.getElementById("size15ml").nextElementSibling.style.display="inline";
+        document.getElementById("size15ml").checked=true;
+        document.getElementById("size10ml").nextElementSibling.style.display="none";
+    }
+    else{
+        document.getElementById("size15ml").nextElementSibling.style.display="none";
+        document.getElementById("size10ml").checked=true;
+        document.getElementById("size10ml").nextElementSibling.style.display="inline";
+    }
+    
     const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
+    const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
+   
+
 
     try {
         let priceId;
