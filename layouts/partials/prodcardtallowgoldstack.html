@@ -1,0 +1,40 @@
+<!-- Tallow skin product card -->
+<div class="product-card grow left col-xxl-3 col-lg-4 col-md-4" data-category="tallow">
+  <a href="/shop/products/golden-tallow-honey-stack/">
+      <div class="product-card-inner">
+          <p class="stamp">New</p>
+          <img src="/img/shop/shop-gold.webp" alt="Shop gold bundle">
+          <div class="product-details">
+            <!-- Price partial inclusion -->
+          <p class="h5"><span class="nz-content" style="display:inline;">
+            {{ with index site.Data.pricing.bundles.pricing.gold_stack 0 }}
+                {{ with .prices.NZ }}
+                    <span class=""> ${{ .single_purchase }}</span>   
+                {{ end }}
+          {{ end }}
+          <!-- {{ with index site.Data.pricing.tallow.discount_from.balm 0 }}
+              {{ with .prices.NZ }}
+          <span class=" small text-decoration-line-through">${{ .single_purchase }}</span>
+          {{ end }}
+          {{ end }}
+          -->
+          </span>
+        <span class="au-content" style="display:none;">
+             {{ with index site.Data.pricing.bundles.pricing.gold_stack 0 }}
+                {{ with .prices.AU }}
+                    <span class="">From ${{ .single_purchase }}</span> 
+                {{ end }}
+                {{ end }}
+            <!-- {{ with index site.Data.pricing.tallow.discount_from.balm 0 }}
+                {{ with .prices.AU }}
+            <span class=" small text-decoration-line-through">${{ .single_purchase }}</span>
+          {{ end }}
+          {{ end }} -->
+        </span></p>
+
+        <p class="h5 fw-bold">Gold Stack Bundle </p>
+        <p>NEW</p>
+      </div>
+    </div>
+  </a>
+</div>
