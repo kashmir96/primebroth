@@ -116,7 +116,13 @@
   {{ if .Site.Params.googleFonts }}
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Open+Sans&display=swap" rel="stylesheet" />
   {{ else }}
-  <link href='{{ "css/webfonts.min.css" | relURL }}?v=1.1' rel="stylesheet" />
+  {{ $webfonts := resources.Get "css/webfonts.min.css" | postCSS }}
+    {{ if .Site.IsServer }}
+    <link rel="stylesheet" href="{{ $webfonts.RelPermalink }}">
+    {{ else }}
+    {{ $webfonts := $webfonts | minify | fingerprint | resources.PostProcess }}
+    <link rel="stylesheet" href="{{ $webfonts.RelPermalink }}" />
+    {{ end }}
   {{ end }}
   <div class="flex items-center justify-between flex-wrap bg-gray-800 p-3 p-md-5 text-white">
     <div class="items-center text-xl text-grey-900 me-5">
