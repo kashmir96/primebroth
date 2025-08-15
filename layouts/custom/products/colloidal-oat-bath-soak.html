@@ -29,15 +29,15 @@
     
     <div class="container product-page">
         <div class="row topbanner rel">
-            <p class="text-muted ninety  mt-1"><a href="/shop" class="dark text-muted front pl-2 text-decoration-underline">Shop</a> > Golden Stack bundle</p>
+            <p class="text-muted ninety  mt-1"><a href="/shop" class="dark text-muted front pl-2 text-decoration-underline">Shop</a> > Colloidal Oat Bath Soak</p>
 
             <div class="col-12 col-lg-6 product-photos mt-3 mb-0">
-                {{- partial "images-colloidial-oat.html" . -}}
+                {{- partial "images-colloidal-oat.html" . -}}
             </div>
             <div class="col-12 col-lg-6">
 
                 <p class="fw-bold">New</p>
-                <h1 class="fw-bold mt-2">Colloidial oat bath soak </h1>
+                <h1 class="fw-bold mt-2">colloidal oat bath soak </h1>
                 <p class="fw-lighter h1 h1big">Soothe the itch, calm the mind</p>
                 <p class="text-muted">From PrimalCare</p>
                  <p class="fw-lighter">Soak the itch away</p>
@@ -110,7 +110,7 @@
                 </div>
                 <div class="row mt-4 mb-0 py-0">
                     <div class="col-12 col-md-8 text-center m-auto">
-                        <img src="/img/shop/oat-image1.webp" alt="colloidial">
+                        <img src="/img/shop/oat-image1.webp" alt="colloidal">
                     </div>
                     
                 </div>
@@ -133,8 +133,8 @@
                         <p>Say goodbye to irritation with our new Colloidal Oat Bath Soak Powder — 
 a gentle, skin-loving blend designed to soothe dry, itchy and irritated skin, and more.
 </p>
- <p>Just one soak helps calm inflammation, relieve discomfort, and leave your skin feeling soft,
- smooth, and nourished.”
+ <p>Helps calm inflammation, relieve discomfort, and leave your skin feeling soft,
+ smooth, and nourished.
  </p><p>
 Whether you’re looking to relax and unwind with a skin-replenishing soak or add a gentle
  touch to your baby’s bath time, this soothing oat soak is the perfect way to care for delicate, irritated skin</p>
@@ -209,7 +209,7 @@ Whether you’re looking to relax and unwind with a skin-replenishing soak or ad
         });
     </script>
     <script>
-        const productPricingRaw = {{ site.Data.pricing.tallow.pricing.colloidial_oat | jsonify | safeJS }};
+        const productPricingRaw = {{ site.Data.pricing.tallow.pricing.colloidal_oat | jsonify | safeJS }};
         console.log("Raw product Pricing from Hugo:", productPricingRaw);
         const country_code = getCountryCookie('country_code') || "NZ";
 
@@ -265,8 +265,8 @@ Whether you’re looking to relax and unwind with a skin-replenishing soak or ad
         console.log("Selected - Size:", size, "Flavor:", flavor, "Order Type:", orderType);
 
         // Traverse the pricing structure for the selected combination
-        if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.colloidial_oat) {
-            const balmData = productPricingRaw.ids.colloidial_oat;
+        if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.colloidal_oat) {
+            const balmData = productPricingRaw.ids.colloidal_oat;
             console.log("balm Data:", balmData);
 
             const orderTypeData = balmData[orderType];
@@ -310,13 +310,13 @@ Whether you’re looking to relax and unwind with a skin-replenishing soak or ad
 
             // Access the correct price ID based on the order type
             if (orderType === 'single_purchase') {
-                priceId = pricingData.tallow.ids.colloidial_oat.single[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.colloidal_oat.single[flavor][size][country_code];
             } else if (orderType === 'recurring_monthly') {
-                priceId = pricingData.tallow.ids.colloidial_oat.monthly[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.colloidal_oat.monthly[flavor][size][country_code];
             } else if (orderType === 'recurring_quarterly') {
-                priceId = pricingData.tallow.ids.colloidial_oat.quarterly[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.colloidal_oat.quarterly[flavor][size][country_code];
             } else if (orderType === 'three_pack') {
-                priceId = pricingData.tallow.ids.colloidial_oat.pack[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.colloidal_oat.pack[flavor][size][country_code];
             }
 
             console.log('Price ID:', priceId);
