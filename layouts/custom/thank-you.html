@@ -196,35 +196,57 @@
             });
         });
     </script>
-  <script>
-    // Ensure dataLayer exists
-    window.dataLayer = window.dataLayer || [];
+ <script>
+  // ---- GA4 purchase dataLayer push ----
+  window.dataLayer = window.dataLayer || [];
 
-    // Collect ordered items
-    const items = encodedCartData.map(item => {
-        return {
-            item_name: item.title || "Unknown Product",
-            item_variant: item.flavor || item.size || "N/A",
-            quantity: parseInt(item.quantity, 10) || 1,
-            price: parseFloat(item.unitPrice).toFixed(2) || 0
-        };
-    });
+  // Build items array (GA4 format)
+  const items = (encodedCartData || []).map((item, idx) => {
+    const qty = parseInt(item.quantity, 10) || 1;
+    const price = parseFloat(item.unitPrice) || 0;
+    return {
+      item_name: item.title || "Unknown Product",
+      item_id: item.sku || item.id || `line_${idx + 1}`, // fallback
+      item_brand: "PrimalPantry",
+      item_category: item.orderType || undefined,       // e.g. "subscription" / "one-off"
+      item_variant: item.flavor || item.size || undefined,
+      quantity: qty,
+      price: price
+    };
+  });
 
-    // Try to detect shipping cost from page element
-    let shippingCost = 0;
-    const shippingEl = document.getElementById('shipping_rate');
-    if (shippingEl && shippingEl.textContent) {
-        shippingCost = parseFloat(shippingEl.textContent.replace(/[^0-9.]/g, '')) || 0;
+  // Shipping (optional, from #shipping_rate if present)
+  let shippingCost = 0;
+  const shippingEl = document.getElementById('shipping_rate');
+  if (shippingEl && shippingEl.textContent) {
+    shippingCost = parseFloat(shippingEl.textContent.replace(/[^0-9.]/g, '')) || 0;
+  }
+
+  // Transaction ID (use a real order ID if you have one)
+  const urlParams = new URLSearchParams(window.location.search);
+  const txFromUrl = urlParams.get('order_id') || urlParams.get('transaction_id');
+  const transactionId = txFromUrl || `pp_${Date.now()}`;
+
+  // Totals
+  const tax = 0; // set if you can
+  const value = (Number(totalCost) || 0) + shippingCost + tax;
+
+  // Push purchase event for GA4 via GTM
+  window.dataLayer.push({
+    event: "purchase",
+    ecommerce: {
+      transaction_id: transactionId,
+      affiliation: "Online Store",
+      value: value,
+      tax: tax,
+      shipping: shippingCost,
+      currency: "NZD",
+      coupon: undefined, // set if you can
+      items: items
     }
-
-    // Push into dataLayer
-    window.dataLayer.push({
-        event: "purchaseComplete",
-        cartTotal: totalCost,
-        shipping: shippingCost,
-        items: items
-    });
+  });
 </script>
+
 
 
 
