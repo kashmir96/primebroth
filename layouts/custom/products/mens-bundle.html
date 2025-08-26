@@ -78,6 +78,7 @@
                     
                         <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
                         <label for="single_purchase" class="product-form-radio">Single bundle</label>
+                        
                     
                         <!-- <input type="radio" id="three_pack" name="orderType" value="three_pack">
                         <label for="three_pack" class="product-form-radio"><img class="prod-radio-img" src="/img/sensitive-trans-3.webp">3 pack <span class="attention-primalcare small">(save 20%)</span></label> -->
@@ -241,7 +242,7 @@
     function updatePrice() {
     const url_params = new URLSearchParams(window.location.search);
     const from_url = url_params.get('from_url');
-    if(from_url == 'mensbundle'){
+    if(from_url == 'fathersday'){
         document.querySelector('#sizeone-size').removeAttribute('checked');
         document.querySelector('#discounted').setAttribute('checked','checked');
         document.querySelector('#special').style.display='inline';
