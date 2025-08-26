@@ -241,6 +241,7 @@
     function updatePrice() {
     const url_params = new URLSearchParams(window.location.search);
     const from_url = url_params.get('from_url');
+     document.querySelector('#special').style.display='inline';
     if(from_url == 'goldenstack'){
         document.querySelector('#sizeone-size').removeAttribute('checked');
         document.querySelector('#discounted').setAttribute('checked','checked');
@@ -249,7 +250,7 @@
     else{
         document.querySelector('#sizeone-size').setAttribute('checked','checked');
         document.querySelector('#discounted').removeAttribute('checked');
-         document.querySelector('#special').style.display='none';
+        //  document.querySelector('#special').style.display='none';
     }
         const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
         const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
