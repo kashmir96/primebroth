@@ -65,13 +65,13 @@
                     </div> 
                     <div class="text-left  mb-3 mb-lg-4">
                         <label class="float-left mob-ninety mr-2 mt-2">Select size:</label>
-                      <!-- <div class="product-form-radio">
+                      <div class="product-form-radio">
                             <input type="radio" id="size60ml" name="size" value="60ml" checked>
                             <label for="size60ml" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/balm/1.webp">60ml</label>
-                        </div> -->
+                        </div>
 
                         <div class="product-form-radio">
-                            <input type="radio" id="size120ml" name="size" value="120ml" checked>
+                            <input type="radio" id="size120ml" name="size" value="120ml" >
                             <label for="size120ml" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/balm/175.webp">120ml</label>
                         </div>
                     </div>
@@ -345,10 +345,18 @@
 
         function updatePriceId() {
         // Get the selected values
-        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
         const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
         const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
-        console.log(size);
+        console.log(flavor);
+        if(flavor == "vanilla" && orderType == "single_purchase")
+        {
+            document.getElementById("size60ml").parentElement.classList.remove('d-none');
+        }
+        else{
+            document.getElementById("size60ml").parentElement.classList.add('d-none');
+            document.getElementById("size120ml").checked= true;
+        }
+        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
         if((size=="120ml" || size == "60ml") && orderType == "three_pack")
         {
             document.getElementById("special").style.display="inline";
