@@ -81,8 +81,8 @@
                     
                        
                         
-                        <input type="radio" id="manukahoney_vitc" name="flavor" value="manukahoney_vitc" checked>
-                        <label for="manukahoney_vitc" class="product-form-radio">Rose + Zinc</label>
+                        <input type="radio" id="rose_zinc" name="flavor" value="rose_zinc" checked>
+                        <label for="rose_zinc" class="product-form-radio">Rose + Zinc</label>
                         <!--
                         <input type="radio" id="frankincense" name="flavor" value="frankincense" >
                         <label for="frankincense" class="product-form-radio">Frankincense</label>
@@ -273,7 +273,7 @@
         });
     </script>
     <script>
-        const productPricingRaw = {{ site.Data.pricing.tallow.pricing.eyecream | jsonify | safeJS }};
+        const productPricingRaw = {{ site.Data.pricing.tallow.pricing.summer_balm | jsonify | safeJS }};
         console.log("Raw product Pricing from Hugo:", productPricingRaw);
         const country_code = getCountryCookie('country_code') || "NZ";
 
@@ -329,8 +329,8 @@
         console.log("Selected - Size:", size, "Flavor:", flavor, "Order Type:", orderType);
 
         // Traverse the pricing structure for the selected combination
-        if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.eyecream) {
-            const balmData = productPricingRaw.ids.eyecream;
+        if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.summer_balm) {
+            const balmData = productPricingRaw.ids.summer_balm;
             console.log("balm Data:", balmData);
 
             const orderTypeData = balmData[orderType];
@@ -374,13 +374,13 @@
 
             // Access the correct price ID based on the order type
             if (orderType === 'single_purchase') {
-                priceId = pricingData.tallow.ids.eyecream.single[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.summer_balm.single[flavor][size][country_code];
             } else if (orderType === 'recurring_monthly') {
-                priceId = pricingData.tallow.ids.eyecream.monthly[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.summer_balm.monthly[flavor][size][country_code];
             } else if (orderType === 'recurring_quarterly') {
-                priceId = pricingData.tallow.ids.eyecream.quarterly[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.summer_balm.quarterly[flavor][size][country_code];
             } else if (orderType === 'three_pack') {
-                priceId = pricingData.tallow.ids.eyecream.pack[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.summer_balm.pack[flavor][size][country_code];
             }
 
             console.log('Price ID:', priceId);
