@@ -264,7 +264,20 @@
             console.log("Parsed product Pricing:", productPricing);
         }
 
-         function updatePrice() {
+        function updatePrice() {
+        const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+      
+        console.log(flavor);
+        if(flavor == "vanilla")
+        {
+            document.getElementById("size60ml").parentElement.classList.remove('d-none');
+        }
+        else{
+            document.getElementById("size60ml").checked= false;
+            document.getElementById("size60ml").parentElement.classList.add('d-none');
+            
+            document.getElementById("size120ml").checked= true;
+        }
         const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
         const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
 
@@ -346,17 +359,20 @@
         function updatePriceId() {
         // Get the selected values
         const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
-        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
+      
         console.log(flavor);
-        if(flavor == "vanilla" && orderType == "single_purchase")
+        if(flavor == "vanilla")
         {
             document.getElementById("size60ml").parentElement.classList.remove('d-none');
         }
         else{
+            document.getElementById("size60ml").checked= false;
             document.getElementById("size60ml").parentElement.classList.add('d-none');
+            
             document.getElementById("size120ml").checked= true;
         }
         const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
+        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
         if((size=="120ml" || size == "60ml") && orderType == "three_pack")
         {
             document.getElementById("special").style.display="inline";
