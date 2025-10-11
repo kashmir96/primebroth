@@ -33,7 +33,7 @@
     
     <div class="container product-page">
         <div class="row topbanner rel">
-            <p class="text-dark col-12 ninety mt-1"><a href="/shop" class="text-dark text-decoration-underline">Shop</a> > Tallow Eye Cream</p>
+            <p class="text-dark col-12 ninety mt-1"><a href="/shop" class="text-dark text-decoration-underline">Shop</a> > Tallow Liquid Bundle</p>
             <div class="col-12 col-lg-6 product-photos mb-3">
                 {{- partial "images-liquid-bundle.html" . -}}
             </div>
@@ -414,8 +414,8 @@
             const simplified = {};
 
             // Iterate over balm (or pets, if needed)
-            if (rawData.ids && rawData.ids.balm) {
-                const categories = rawData.ids.balm;
+            if (rawData.ids && rawData.ids.liquid_bundle) {
+                const categories = rawData.ids.liquid_bundle;
 
                 for (const [orderType, flavors] of Object.entries(categories)) {
                     for (const [flavor, sizes] of Object.entries(flavors)) {
