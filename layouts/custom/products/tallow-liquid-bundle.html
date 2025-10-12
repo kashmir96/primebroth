@@ -268,7 +268,7 @@
         });
     </script>
     <script>
-        const productPricingRaw = {{ site.Data.pricing.tallow.pricing.eyecream | jsonify | safeJS }};
+        const productPricingRaw = {{ site.Data.pricing.tallow.pricing.liquid_bundle | jsonify | safeJS }};
         console.log("Raw product Pricing from Hugo:", productPricingRaw);
         const country_code = getCountryCookie('country_code') || "NZ";
 
@@ -324,8 +324,8 @@
         console.log("Selected - Size:", size, "Flavor:", flavor, "Order Type:", orderType);
 
         // Traverse the pricing structure for the selected combination
-        if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.eyecream) {
-            const balmData = productPricingRaw.ids.eyecream;
+        if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.liquid_bundle) {
+            const balmData = productPricingRaw.ids.liquid_bundle;
             console.log("balm Data:", balmData);
 
             const orderTypeData = balmData[orderType];
@@ -369,13 +369,13 @@
 
             // Access the correct price ID based on the order type
             if (orderType === 'single_purchase') {
-                priceId = pricingData.tallow.ids.eyecream.single[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.liquid_bundle.single[flavor][size][country_code];
             } else if (orderType === 'recurring_monthly') {
-                priceId = pricingData.tallow.ids.eyecream.monthly[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.liquid_bundle.monthly[flavor][size][country_code];
             } else if (orderType === 'recurring_quarterly') {
-                priceId = pricingData.tallow.ids.eyecream.quarterly[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.liquid_bundle.quarterly[flavor][size][country_code];
             } else if (orderType === 'three_pack') {
-                priceId = pricingData.tallow.ids.eyecream.pack[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.liquid_bundle.pack[flavor][size][country_code];
             }
 
             console.log('Price ID:', priceId);
