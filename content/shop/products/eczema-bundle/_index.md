@@ -1,6 +1,6 @@
 ---
-title: "Eczema Bundle- Primalcare by Primalpantry"
-description: "Achieve a natural glow without the chemical nasties using Primalcare whipped beef tallow balm for skin made in NZ from PrimalPantry"
+title: "Skin Support Bundle - Primalcare by Primalpantry"
+description: "Soothe dry and itchy skin with our tallow skincare bundle designed for rashy skin"
 type: custom
 layout: products/eczema-bundle
 wipe: true
