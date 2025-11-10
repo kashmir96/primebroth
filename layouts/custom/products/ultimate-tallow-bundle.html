@@ -52,8 +52,8 @@
 
                     <div class="text-start  mb-3 mb-lg-4">
                         <label class="mob-ninety">Includes:</label>
-                        <input type="radio" id="unscented" name="flavor" value="unscented" checked>
-                        <label for="unscented" class="product-form-radio">
+                        <input type="radio" id="one-scent" name="flavor" value="one-scent" checked>
+                        <label for="one-scent" class="product-form-radio">
                             <ul class="text-start">
                                 <li>1x Tallow Eye Cream</li>
                                 <li>1x Manuka Honey & Vanilla Tallow Balm 120ml</li>
@@ -250,7 +250,7 @@ Nourish, brighten, and cleanse with our best-selling tallow essentials — featu
         });
     </script>
 <script>
-    const productPricingRaw = {{ site.Data.pricing.bundles.pricing.eczema_bundle | jsonify | safeJS }};
+    const productPricingRaw = {{ site.Data.pricing.bundles.pricing.ultimate_bundle | jsonify | safeJS }};
     console.log("Raw product Pricing from Hugo:", productPricingRaw);
     const country_code = getCountryCookie('country_code') || "NZ";
 
@@ -352,13 +352,13 @@ Nourish, brighten, and cleanse with our best-selling tallow essentials — featu
 
         // Access the correct price ID based on the order type
         if (orderType === 'single_purchase') {
-            priceId = pricingData.bundles.ids.eczema_bundle.single[flavor][size][country_code];
+            priceId = pricingData.bundles.ids.ultimate_bundle.single[flavor][size][country_code];
         } else if (orderType === 'recurring_monthly') {
-            priceId = pricingData.bundles.ids.eczema_bundle.monthly[flavor][size][country_code];
+            priceId = pricingData.bundles.ids.ultimate_bundle.monthly[flavor][size][country_code];
         } else if (orderType === 'recurring_quarterly') {
-            priceId = pricingData.bundles.ids.eczema_bundle.quarterly[flavor][size][country_code];
+            priceId = pricingData.bundles.ids.ultimate_bundle.quarterly[flavor][size][country_code];
         } else if (orderType === 'three_pack') {
-            priceId = pricingData.bundles.ids.eczema_bundle.pack[flavor][size][country_code];
+            priceId = pricingData.bundles.ids.ultimate_bundle.pack[flavor][size][country_code];
         }
 
         console.log('Price ID:', priceId);
