@@ -1,0 +1,25 @@
+<div class="product-card grow col-xxl-3 col-lg-4 col-md-4 " data-category="tallow" id="prodcard-giftbox">
+  <a href="/shop/products/tallow-giftbox">
+    <div class="product-card-inner">
+      <p class="stamp">New</p>
+        <img src="/img/giftbox-shop.webp" alt="tallow giftbox photo" class="d-block m-auto" max-height="400">
+        <div class="product-details">
+          <p class="h5"><span class="nz-content" style="display:inline;">{{ with index site.Data.pricing.tallow.pricing.giftbox 0 }}
+            {{ with .prices.NZ }}
+                ${{ .single_purchase }}
+            {{ end }}
+        {{ end }}
+        </span>
+        <span class="au-content" style="display:none;">
+            {{ with index site.Data.pricing.tallow.pricing.giftbox 0 }}
+            {{ with .prices.AU }}
+              ${{ .single_purchase }}
+            {{ end }}
+        {{ end }}
+        </span></p>
+        <p class="h5 fw-bold">Christmas Tallow Giftbox</h6>
+        <p>New</p>
+      </div>
+    </div>
+  </a>
+</div>
