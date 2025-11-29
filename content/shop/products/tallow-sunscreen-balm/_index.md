@@ -1,7 +1,8 @@
 ---
-title: "Natural tallow sunscreen balm made in NZ - PrimalPantry"
-description: "A naturally soothing balm with light protection of 15 spf - Primalpantry"
+title: "Tallow SummerBalm with Zinc - PrimalCare by PrimalPantry"
+description: "Soothe, hydrate and support your skin barrier this summer with PrimalCare Tallow SummerBalm — a light, zinc-infused whipped tallow balm made in NZ."
 type: custom
-layout: products/tallow-sunscreen-balm
+layout: products/summer-balm
 wipe: true
+bootstrap5: true
 ---
