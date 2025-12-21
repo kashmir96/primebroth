@@ -74,7 +74,7 @@
                     
                        
                         
-                        <input type="radio" id="vitc" name="flavor" value="geranium" checked style="display:none;">
+                        <input type="radio" id="geranium" name="flavor" value="geranium" checked style="display:none;">
                         <label for="geranium" class="product-form-radio" style="display:none;">Fresh Geranium</label>
                         <!--
                         <input type="radio" id="frankincense" name="flavor" value="frankincense" >
@@ -290,7 +290,7 @@
         });
     </script>
     <script>
-        const productPricingRaw = {{ site.Data.pricing.tallow.pricing.serum | jsonify | safeJS }};
+        const productPricingRaw = {{ site.Data.pricing.tallow.pricing.conditioner | jsonify | safeJS }};
         console.log("Raw product Pricing from Hugo:", productPricingRaw);
         const country_code = getCountryCookie('country_code') || "NZ";
 
@@ -346,8 +346,8 @@
         console.log("Selected - Size:", size, "Flavor:", flavor, "Order Type:", orderType);
 
         // Traverse the pricing structure for the selected combination
-        if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.serum) {
-            const balmData = productPricingRaw.ids.serum;
+        if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.conditioner) {
+            const balmData = productPricingRaw.ids.conditioner;
             console.log("balm Data:", balmData);
 
             const orderTypeData = balmData[orderType];
@@ -391,13 +391,13 @@
 
             // Access the correct price ID based on the order type
             if (orderType === 'single_purchase') {
-                priceId = pricingData.tallow.ids.serumm.single[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.conditioner.single[flavor][size][country_code];
             } else if (orderType === 'recurring_monthly') {
-                priceId = pricingData.tallow.ids.serum.monthly[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.conditioner.monthly[flavor][size][country_code];
             } else if (orderType === 'recurring_quarterly') {
-                priceId = pricingData.tallow.ids.serum.quarterly[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.conditioner.quarterly[flavor][size][country_code];
             } else if (orderType === 'three_pack') {
-                priceId = pricingData.tallow.ids.serum.pack[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.conditioner.pack[flavor][size][country_code];
             }
 
             console.log('Price ID:', priceId);
