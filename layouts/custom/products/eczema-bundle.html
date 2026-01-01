@@ -180,6 +180,7 @@
                 }
                 
                 const opp = opportunities[0];
+                const flavorText = opp.flavor ? ` - ${opp.flavor}` : '';
                 
                 upsellBanner.classList.remove('d-none');
                 upsellBanner.innerHTML = `
@@ -189,9 +190,9 @@
                                 <div class="d-flex align-items-center">
                                     <span class="upsell-icon">🎁</span>
                                     <div>
-                                        <span class="upsell-title">Upgrade your <strong>${opp.productName}</strong> to a 3-pack for just <strong>$${opp.difference} more</strong></span>
+                                        <span class="upsell-title">Upgrade your <strong>${opp.productName}${flavorText}</strong> to a 3-pack for just <strong>$${opp.difference} more</strong></span>
                                         <br>
-                                        <span class="upsell-subtitle">+ FREE Tallow Lip Balm (worth $14.95)</span>
+                                        <span class="upsell-subtitle">+ FREE Lip Balm valued at $12.95</span>
                                     </div>
                                 </div>
                             </div>
@@ -328,7 +329,7 @@
 
                     // Check if this is a 3-pack to show free lip balm message
                     const isPackItem = isThreePack(item);
-                    const freeLipBalmTag = isPackItem ? '<div class="free-gift-tag mt-1">🎁 + Free Tallow Lip Balm <span class="text-muted">(One per customer)</span></div>' : '';
+                    const freeLipBalmTag = isPackItem ? '<div class="free-gift-tag mt-1">🎁 + Free Lip Balm valued at $12.95 <span class="text-muted">(One per customer)</span></div>' : '';
 
                     const row = document.createElement('tr');
 
