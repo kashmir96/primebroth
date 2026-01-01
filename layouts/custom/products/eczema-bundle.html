@@ -62,7 +62,7 @@
                 productName: 'Tallow & Honey Balm',
                 sizes: ['30ml', '60ml', '120ml']
             },
-            'originalbalm': {
+            'balm': {
                 productName: 'Original Tallow Balm',
                 sizes: ['30ml', '60ml', '120ml']
             },
@@ -97,17 +97,29 @@
             const proceedToCheckoutButton = document.getElementById('proceed-to-checkout');
             const upsellBanner = document.getElementById('upsell-banner');
 
+            // Function to check if item is a 3-pack
+            function isThreePack(item) {
+                if (!item.orderType) return false;
+                const orderTypeLower = item.orderType.toLowerCase();
+                return orderTypeLower.includes('pack') || 
+                       orderTypeLower.includes('3 pack') || 
+                       orderTypeLower.includes('three') ||
+                       orderTypeLower.includes('2 get 1');
+            }
+
             // Function to find upsell opportunities
             function findUpsellOpportunities() {
                 const opportunities = [];
                 
                 cart.forEach((item, index) => {
                     // Check if it's a single purchase (not already a 3-pack or subscription)
-                    const isSinglePurchase = item.orderType && 
-                        (item.orderType.toLowerCase().includes('single') || 
-                         (!item.orderType.toLowerCase().includes('pack') && 
-                          !item.orderType.toLowerCase().includes('monthly') && 
-                          !item.orderType.toLowerCase().includes('quarterly')));
+                    const orderTypeLower = (item.orderType || '').toLowerCase();
+                    const isSinglePurchase = orderTypeLower.includes('single') || 
+                         (!orderTypeLower.includes('pack') && 
+                          !orderTypeLower.includes('monthly') && 
+                          !orderTypeLower.includes('quarterly') &&
+                          !orderTypeLower.includes('three') &&
+                          !orderTypeLower.includes('2 get 1'));
                     
                     if (!isSinglePurchase) return;
                     
@@ -121,14 +133,19 @@
                     
                     if (titleLower.includes('honey') && titleLower.includes('balm')) {
                         productKey = 'honeybalm';
-                    } else if (titleLower.includes('original') && titleLower.includes('balm')) {
-                        productKey = 'originalbalm';
+                    } else if ((titleLower.includes('original') || titleLower.includes('tallow balm')) && !titleLower.includes('honey') && !titleLower.includes('summer')) {
+                        productKey = 'balm';
                     } else if (titleLower.includes('summer') && titleLower.includes('balm')) {
                         productKey = 'summer_balm';
                     } else if (titleLower.includes('lotion')) {
                         productKey = 'liquid_lotion';
                     } else if (titleLower.includes('shampoo')) {
                         productKey = 'shampoo';
+                    }
+                    
+                    // Also check if title is just "Tallow Balm" without honey/summer
+                    if (!productKey && titleLower.includes('balm') && !titleLower.includes('honey') && !titleLower.includes('summer') && !titleLower.includes('lip')) {
+                        productKey = 'balm';
                     }
                     
                     if (!productKey) return;
@@ -197,30 +214,26 @@
                 
                 upsellBanner.classList.remove('d-none');
                 upsellBanner.innerHTML = `
-                    <div class="upsell-card p-3" style="background: linear-gradient(135deg, #fff9e6 0%, #fff0f5 100%); border-radius: 12px; border: 2px solid #ffd700;">
+                    <div class="upsell-card p-3">
                         <div class="d-flex align-items-center justify-content-between flex-wrap">
                             <div class="upsell-text mb-2 mb-md-0">
                                 <div class="d-flex align-items-center">
-                                    <span style="font-size: 24px; margin-right: 10px;">🎁</span>
+                                    <span class="upsell-icon">🎁</span>
                                     <div>
-                                        <strong style="color: #333;">Make it 3 for just $${opp.difference} more</strong>
+                                        <span class="upsell-title">Upgrade your <strong>${opp.productName}</strong> to a 3-pack for just <strong>$${opp.difference} more</strong></span>
                                         <br>
-                                        <span style="color: #28a745; font-weight: 600;">& get a FREE Tallow Lip Balm!</span>
+                                        <span class="upsell-subtitle">+ FREE Tallow Lip Balm (worth $14.95)</span>
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn btn-warning btn-upsell" 
+                            <button class="btn btn-upsell" 
                                     data-index="${opp.cartIndex}"
                                     data-product="${opp.productKey}"
                                     data-size="${opp.size}"
                                     data-flavor="${opp.flavor}"
-                                    data-pack-price="${opp.packPrice}"
-                                    style="font-weight: 600; padding: 10px 20px;">
-                                Upgrade to 3-Pack
+                                    data-pack-price="${opp.packPrice}">
+                                Swap to 3-Pack
                             </button>
-                        </div>
-                        <div class="mt-2" style="font-size: 13px; color: #666;">
-                            <em>Save 33% per jar + Free gift worth $14.95</em>
                         </div>
                     </div>
                 `;
@@ -292,10 +305,10 @@
                     
                     // Show success feedback
                     upsellBanner.innerHTML = `
-                        <div class="alert alert-success d-flex align-items-center" role="alert">
-                            <span style="font-size: 24px; margin-right: 10px;">✅</span>
+                        <div class="alert alert-success d-flex align-items-center mb-0" role="alert">
+                            <span style="font-size: 20px; margin-right: 10px;">✅</span>
                             <div>
-                                <strong>Upgraded!</strong> You're now getting the 3-pack + a FREE Lip Balm!
+                                <strong>Swapped!</strong> Your ${originalItem.title} is now a 3-pack + you'll receive a FREE Lip Balm!
                             </div>
                         </div>
                     `;
@@ -350,6 +363,10 @@
                     const lineItemTotal = (unitPrice * quantity).toFixed(2);
                     totalCost += parseFloat(lineItemTotal);
 
+                    // Check if this is a 3-pack to show free lip balm message
+                    const isPackItem = isThreePack(item);
+                    const freeLipBalmTag = isPackItem ? '<div class="free-gift-tag mt-1">🎁 + Free Tallow Lip Balm <span class="text-muted">(One per customer)</span></div>' : '';
+
                     const row = document.createElement('tr');
 
                     if (window.innerWidth > 600) {
@@ -362,6 +379,7 @@
                                     <div style="max-width: 250px;" class="float-left">
                                         ${item.title || 'Unknown Product'} - Pack of 3 Jars
                                         <ul>${flavorList}</ul>
+                                        ${freeLipBalmTag}
                                     </div>
                                     <button class="remove-item bin-sml float-right" data-index="${index}">
                                         <img src="/img/bin.svg">
@@ -376,6 +394,7 @@
                                 <td class="max-200">
                                     <div style="max-width: 250px;" class="float-left">
                                         ${item.title || 'Unknown Product'} - ${item.flavor || 'N/A'} (${item.size || 'N/A'}) (${item.orderType || 'N/A'})
+                                        ${freeLipBalmTag}
                                     </div>
                                     <button class="remove-item bin-sml float-right" data-index="${index}">
                                         <img src="/img/bin.svg">
@@ -395,6 +414,7 @@
                                 <td>
                                     <div>${item.title || 'Unknown Product'} - Pack of 3 Jars
                                         <ul>${flavorList}</ul>
+                                        ${freeLipBalmTag}
                                     <div class="row m-0 mt-2 p-0 align-items-center">
                                         <span class="col-4">$${unitPrice}${priceSuffix}</span>
                                         <span class="col-4 text-center"><input type="number" style="width: 50px;margin:auto" class="form-control quantity-input" data-index="${index}" value="${quantity}" min="1"></span>
@@ -410,7 +430,9 @@
                         } else {
                             row.innerHTML = `
                                 <td>
-                                    <div>${item.title || 'Unknown Product'} - ${item.flavor || 'N/A'} (${item.size || 'N/A'}) (${item.orderType || 'N/A'})</div>
+                                    <div>${item.title || 'Unknown Product'} - ${item.flavor || 'N/A'} (${item.size || 'N/A'}) (${item.orderType || 'N/A'})
+                                        ${freeLipBalmTag}
+                                    </div>
                                     <div class="row m-0 mt-2 p-0 align-items-center">
                                         <span class="col-4">$${unitPrice}${priceSuffix}</span>
                                         <span class="col-4 text-center"><input type="number" style="width: 50px;margin:auto" class="form-control quantity-input" data-index="${index}" value="${quantity}" min="1"></span>
@@ -545,30 +567,85 @@
             }
         }
         
+        /* Upsell Banner Styles - Subtle but noticeable */
         .upsell-card {
-            animation: pulse-border 2s infinite;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-left: 4px solid #28a745;
+            border-radius: 6px;
         }
         
-        @keyframes pulse-border {
-            0%, 100% {
-                box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4);
-            }
-            50% {
-                box-shadow: 0 0 0 8px rgba(255, 215, 0, 0);
-            }
+        .upsell-icon {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+        
+        .upsell-title {
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .upsell-subtitle {
+            font-size: 13px;
+            color: #28a745;
+            font-weight: 500;
         }
         
         .btn-upsell {
-            background: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
+            background: #28a745;
             border: none;
-            color: #333;
-            transition: transform 0.2s ease;
+            color: #fff;
+            font-weight: 500;
+            font-size: 13px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background 0.2s ease;
         }
         
         .btn-upsell:hover {
-            transform: scale(1.05);
-            background: linear-gradient(135deg, #ffb347 0%, #ffd700 100%);
-            color: #333;
+            background: #218838;
+            color: #fff;
+        }
+        
+        /* Free Gift Tag Styles */
+        .free-gift-tag {
+            font-size: 12px;
+            color: #28a745;
+            font-weight: 500;
+            background: #e8f5e9;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        
+        .free-gift-tag .text-muted {
+            font-size: 11px;
+            font-weight: 400;
+        }
+        
+        @media (max-width: 767px) {
+            .upsell-card {
+                text-align: center;
+            }
+            
+            .upsell-card .d-flex {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .upsell-text .d-flex {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .upsell-icon {
+                margin-right: 0;
+                margin-bottom: 5px;
+            }
+            
+            .btn-upsell {
+                width: 100%;
+            }
         }
     </style>
 </body>
