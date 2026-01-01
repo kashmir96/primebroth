@@ -57,75 +57,103 @@
         const pricingData = JSON.parse('{{ .Site.Data.pricing | jsonify }}');
 
         // Product detection config - maps title keywords to YAML keys
-        const productConfig = {
-            'lotion': {
+        // Order matters - more specific matches first
+        const productConfig = [
+            {
+                keywords: ['lotion'],
                 yamlKey: 'liquid_lotion',
                 category: 'tallow',
-                defaultFlavor: 'natural'
+                defaultFlavor: 'natural',
+                flavorMap: {
+                    'natural': 'natural',
+                    'unscented': 'natural',
+                    'fragrance free': 'natural',
+                    'geranium': 'geranium',
+                    'rose geranium': 'geranium',
+                    'rose': 'geranium'
+                }
             },
-            'whipped': {
+            {
+                keywords: ['whipped', 'whipped tallow'],
                 yamlKey: 'balm',
                 category: 'tallow',
-                defaultFlavor: 'vanilla-rose'
+                defaultFlavor: 'vanilla-rose',
+                flavorMap: {
+                    'lavender': 'lavender',
+                    'vanilla rose': 'vanilla-rose',
+                    'vanilla-rose': 'vanilla-rose',
+                    'vanilla & rose': 'vanilla-rose',
+                    'vanilla and rose': 'vanilla-rose',
+                    'neutral': 'neutral',
+                    'natural': 'neutral',
+                    'unscented': 'neutral',
+                    'fragrance free': 'neutral',
+                    'vanilla': 'vanilla',
+                    'vanilla & manuka': 'vanilla',
+                    'manuka': 'vanilla',
+                    'frankincense': 'frankincense',
+                    'frank': 'frankincense',
+                    'patchouli': 'patchouli',
+                    'orange': 'orange',
+                    'sweet orange': 'orange',
+                    'cedar': 'cedar',
+                    'cedarwood': 'cedar'
+                }
             },
-            'shampoo bar': {
+            {
+                keywords: ['shampoo bar', 'shampoo'],
                 yamlKey: 'shampoo',
                 category: 'tallow',
-                defaultFlavor: 'peppermintrosemary'
+                defaultFlavor: 'peppermintrosemary',
+                flavorMap: {
+                    'peppermint': 'peppermintrosemary',
+                    'peppermint rosemary': 'peppermintrosemary',
+                    'peppermint & rosemary': 'peppermintrosemary',
+                    'rosemary': 'peppermintrosemary'
+                }
             },
-            'shampoo': {
-                yamlKey: 'shampoo',
-                category: 'tallow',
-                defaultFlavor: 'peppermintrosemary'
-            },
-            'tallow & honey': {
+            {
+                keywords: ['tallow & honey', 'honey balm', 'tallow and honey'],
                 yamlKey: 'honeybalm',
                 category: 'tallow',
-                defaultFlavor: 'vanilla'
+                defaultFlavor: 'vanilla',
+                flavorMap: {
+                    'vanilla': 'vanilla',
+                    'vanilla & manuka': 'vanilla',
+                    'manuka': 'vanilla',
+                    'tansy': 'tansy',
+                    'blue tansy': 'tansy'
+                }
             },
-            'honey balm': {
-                yamlKey: 'honeybalm',
-                category: 'tallow',
-                defaultFlavor: 'vanilla'
-            },
-            'eye cream': {
+            {
+                keywords: ['eye cream'],
                 yamlKey: 'eyecream',
                 category: 'tallow',
-                defaultFlavor: 'manukahoney_vitc'
+                defaultFlavor: 'manukahoney_vitc',
+                flavorMap: {
+                    'manuka': 'manukahoney_vitc',
+                    'manuka honey': 'manukahoney_vitc',
+                    'vitamin c': 'manukahoney_vitc',
+                    'vit c': 'manukahoney_vitc'
+                }
             },
-            'deodorant': {
+            {
+                keywords: ['deodorant', 'deo'],
                 yamlKey: 'deodorant',
                 category: 'tallow',
-                defaultFlavor: 'frankincense'
+                defaultFlavor: 'frankincense',
+                flavorMap: {
+                    'frankincense': 'frankincense',
+                    'frank': 'frankincense',
+                    'cedarwood': 'cedarwood',
+                    'cedar': 'cedarwood',
+                    'vanilla rose': 'vanilla-rose',
+                    'vanilla-rose': 'vanilla-rose',
+                    'vanilla & rose': 'vanilla-rose',
+                    'vanilla and rose': 'vanilla-rose'
+                }
             }
-        };
-
-        // Flavor mapping - maps cart flavor text to YAML flavor keys
-        const flavorMapping = {
-            // Balm flavors
-            'lavender': 'lavender',
-            'vanilla rose': 'vanilla-rose',
-            'vanilla-rose': 'vanilla-rose',
-            'vanilla & rose': 'vanilla-rose',
-            'neutral': 'neutral',
-            'natural': 'natural',
-            'unscented': 'natural',
-            'vanilla': 'vanilla',
-            'frankincense': 'frankincense',
-            'geranium': 'geranium',
-            'rose geranium': 'geranium',
-            'peppermint': 'peppermintrosemary',
-            'peppermint rosemary': 'peppermintrosemary',
-            'cedarwood': 'cedarwood',
-            'cedar': 'cedar',
-            // Honey balm
-            'manuka': 'vanilla',
-            'vanilla & manuka': 'vanilla',
-            'tansy': 'tansy',
-            // Eye cream
-            'manuka honey': 'manukahoney_vitc',
-            'vitamin c': 'manukahoney_vitc'
-        };
+        ];
 
         document.addEventListener('DOMContentLoaded', function() {
             let cart = JSON.parse(localStorage.getItem('cartV2')) || [];
@@ -162,24 +190,32 @@
             // Detect product config from title
             function detectProduct(title) {
                 const titleLower = (title || '').toLowerCase();
-                for (const [keyword, config] of Object.entries(productConfig)) {
-                    if (titleLower.includes(keyword)) {
-                        return config;
+                for (const config of productConfig) {
+                    for (const keyword of config.keywords) {
+                        if (titleLower.includes(keyword)) {
+                            return config;
+                        }
                     }
                 }
                 return null;
             }
 
-            // Map flavor text to YAML key
-            function mapFlavor(flavorText, defaultFlavor) {
-                if (!flavorText) return defaultFlavor;
-                const flavorLower = flavorText.toLowerCase();
-                for (const [keyword, yamlKey] of Object.entries(flavorMapping)) {
-                    if (flavorLower.includes(keyword)) {
+            // Map flavor text to YAML key using product-specific mapping
+            function mapFlavor(flavorText, product) {
+                if (!flavorText) return product.defaultFlavor;
+                
+                const flavorLower = flavorText.toLowerCase().trim();
+                
+                // Check product-specific flavor map
+                for (const [keyword, yamlKey] of Object.entries(product.flavorMap)) {
+                    if (flavorLower.includes(keyword) || flavorLower === keyword) {
                         return yamlKey;
                     }
                 }
-                return defaultFlavor;
+                
+                // Fallback to default
+                console.log(`No flavor match for "${flavorText}", using default: ${product.defaultFlavor}`);
+                return product.defaultFlavor;
             }
 
             // Clean size string - extract just the number and unit
@@ -204,34 +240,52 @@
             }
 
             // Look up pack price ID from YAML
-            function getPackPriceId(productConfig, flavor, size, countryCode) {
+            function getPackPriceId(product, flavor, size, countryCode) {
                 try {
-                    const category = pricingData[productConfig.category];
-                    if (!category || !category.ids) return null;
+                    console.log(`Looking up pack price ID: ${product.category}.ids.${product.yamlKey}.pack.${flavor}.${size}.${countryCode}`);
                     
-                    const product = category.ids[productConfig.yamlKey];
-                    if (!product || !product.pack) return null;
+                    const category = pricingData[product.category];
+                    if (!category || !category.ids) {
+                        console.log('Category or ids not found');
+                        return null;
+                    }
                     
-                    const flavorData = product.pack[flavor];
-                    if (!flavorData) return null;
+                    const productData = category.ids[product.yamlKey];
+                    if (!productData || !productData.pack) {
+                        console.log('Product or pack not found');
+                        return null;
+                    }
+                    
+                    const flavorData = productData.pack[flavor];
+                    if (!flavorData) {
+                        console.log(`Flavor "${flavor}" not found in pack options`);
+                        console.log('Available flavors:', Object.keys(productData.pack));
+                        return null;
+                    }
                     
                     const sizeData = flavorData[size];
-                    if (!sizeData) return null;
+                    if (!sizeData) {
+                        console.log(`Size "${size}" not found for flavor "${flavor}"`);
+                        console.log('Available sizes:', Object.keys(flavorData));
+                        return null;
+                    }
                     
-                    return sizeData[countryCode] || null;
+                    const priceId = sizeData[countryCode];
+                    console.log(`Found price ID: ${priceId}`);
+                    return priceId || null;
                 } catch (error) {
-                    console.error('Error looking up pack price:', error);
+                    console.error('Error looking up pack price ID:', error);
                     return null;
                 }
             }
 
             // Look up pack price from YAML
-            function getPackPrice(productConfig, size, countryCode) {
+            function getPackPrice(product, size, countryCode) {
                 try {
-                    const category = pricingData[productConfig.category];
+                    const category = pricingData[product.category];
                     if (!category || !category.pricing) return null;
                     
-                    const productPricing = category.pricing[productConfig.yamlKey];
+                    const productPricing = category.pricing[product.yamlKey];
                     if (!Array.isArray(productPricing)) return null;
                     
                     const sizeEntry = productPricing.find(entry => {
@@ -239,7 +293,7 @@
                         return entrySize === size;
                     });
                     
-                    if (!sizeEntry || !sizeEntry.prices[countryCode]) return null;
+                    if (!sizeEntry || !sizeEntry.prices || !sizeEntry.prices[countryCode]) return null;
                     
                     return sizeEntry.prices[countryCode].three_pack || null;
                 } catch (error) {
@@ -274,8 +328,8 @@
                         return;
                     }
                     
-                    // Get flavor and size
-                    const flavor = mapFlavor(item.flavor, product.defaultFlavor);
+                    // Get flavor using product-specific mapping
+                    const flavor = mapFlavor(item.flavor, product);
                     const size = cleanSize(item.size);
                     
                     // Check if pack exists for this product/flavor/size
@@ -288,7 +342,8 @@
                         quantity,
                         alreadyHasThreePack,
                         product: product.yamlKey,
-                        flavor,
+                        cartFlavor: item.flavor,
+                        mappedFlavor: flavor,
                         size,
                         packPriceId,
                         packPrice
@@ -383,7 +438,7 @@
                     <div class="alert alert-success d-flex align-items-center mb-0" role="alert">
                         <span style="font-size: 20px; margin-right: 10px;">✅</span>
                         <div>
-                            <strong>Upgraded!</strong> Your ${opp.title} is now a 3-pack. You saved $${opp.savings} + you'll receive a FREE Lip Balm!
+                            <strong>Upgraded!</strong> Your ${opp.title}${opp.flavor ? ' - ' + opp.flavor : ''} is now a 3-pack. You saved $${opp.savings} + you'll receive a FREE Lip Balm!
                         </div>
                     </div>
                 `;
