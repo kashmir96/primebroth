@@ -56,28 +56,13 @@
         // Pricing data from YAML
         const pricingData = JSON.parse("{{ .Site.Data.pricing | jsonify }}");
         
-        // Upsell configuration - maps single products to their 3-pack equivalents
+        // Upsell configuration
         const upsellConfig = {
-            'honeybalm': {
-                productName: 'Tallow & Honey Balm',
-                sizes: ['30ml', '60ml', '120ml']
-            },
-            'balm': {
-                productName: 'Original Tallow Balm',
-                sizes: ['30ml', '60ml', '120ml']
-            },
-            'summer_balm': {
-                productName: 'Summer Balm',
-                sizes: ['30ml']
-            },
-            'liquid_lotion': {
-                productName: 'Aloe Tallow Body Lotion',
-                sizes: ['220ml']
-            },
-            'shampoo': {
-                productName: 'Tallow Shampoo Bar',
-                sizes: ['120g']
-            }
+            'honeybalm': { productName: 'Tallow & Honey Balm' },
+            'balm': { productName: 'Original Tallow Balm' },
+            'summer_balm': { productName: 'Summer Balm' },
+            'liquid_lotion': { productName: 'Aloe Tallow Body Lotion' },
+            'shampoo': { productName: 'Tallow Shampoo Bar' }
         };
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -97,7 +82,7 @@
             const proceedToCheckoutButton = document.getElementById('proceed-to-checkout');
             const upsellBanner = document.getElementById('upsell-banner');
 
-            // Function to check if item is a 3-pack
+            // Check if item is a 3-pack
             function isThreePack(item) {
                 if (!item.orderType) return false;
                 const orderTypeLower = item.orderType.toLowerCase();
@@ -107,12 +92,11 @@
                        orderTypeLower.includes('2 get 1');
             }
 
-            // Function to find upsell opportunities
+            // Find upsell opportunities
             function findUpsellOpportunities() {
                 const opportunities = [];
                 
                 cart.forEach((item, index) => {
-                    // Check if it's a single purchase (not already a 3-pack or subscription)
                     const orderTypeLower = (item.orderType || '').toLowerCase();
                     const isSinglePurchase = orderTypeLower.includes('single') || 
                          (!orderTypeLower.includes('pack') && 
@@ -123,43 +107,30 @@
                     
                     if (!isSinglePurchase) return;
                     
-                    // Try to identify the product from the title or other attributes
                     let productKey = null;
-                    let detectedSize = null;
-                    let detectedFlavor = null;
-                    
-                    // Check title for product identification
                     const titleLower = (item.title || '').toLowerCase();
                     
                     if (titleLower.includes('honey') && titleLower.includes('balm')) {
                         productKey = 'honeybalm';
-                    } else if ((titleLower.includes('original') || titleLower.includes('tallow balm')) && !titleLower.includes('honey') && !titleLower.includes('summer')) {
-                        productKey = 'balm';
                     } else if (titleLower.includes('summer') && titleLower.includes('balm')) {
                         productKey = 'summer_balm';
                     } else if (titleLower.includes('lotion')) {
                         productKey = 'liquid_lotion';
                     } else if (titleLower.includes('shampoo')) {
                         productKey = 'shampoo';
-                    }
-                    
-                    // Also check if title is just "Tallow Balm" without honey/summer
-                    if (!productKey && titleLower.includes('balm') && !titleLower.includes('honey') && !titleLower.includes('summer') && !titleLower.includes('lip')) {
+                    } else if (titleLower.includes('balm') && !titleLower.includes('honey') && !titleLower.includes('summer') && !titleLower.includes('lip')) {
                         productKey = 'balm';
                     }
                     
                     if (!productKey) return;
                     
-                    // Get size from item
-                    detectedSize = item.size ? item.size.toLowerCase().replace(/\s/g, '') : null;
-                    detectedFlavor = item.flavor || null;
+                    const detectedSize = item.size ? item.size.toLowerCase().replace(/\s/g, '') : null;
+                    const detectedFlavor = item.flavor || null;
                     
-                    // Look up pricing
                     try {
                         const productPricing = pricingData.tallow.pricing[productKey];
                         if (!Array.isArray(productPricing)) return;
                         
-                        // Find matching size
                         const pricingEntry = productPricing.find(entry => {
                             const entrySize = entry.size.toLowerCase().replace(/\s/g, '');
                             return entrySize === detectedSize;
@@ -172,7 +143,6 @@
                         
                         if (!singlePrice || !packPrice) return;
                         
-                        // Calculate the upsell difference
                         const currentTotal = singlePrice * item.quantity;
                         const packTotal = packPrice * item.quantity;
                         const difference = packTotal - currentTotal;
@@ -199,7 +169,7 @@
                 return opportunities;
             }
 
-            // Function to render upsell banner
+            // Render upsell banner
             function renderUpsellBanner() {
                 const opportunities = findUpsellOpportunities();
                 
@@ -209,7 +179,6 @@
                     return;
                 }
                 
-                // Show upsell for the first opportunity
                 const opp = opportunities[0];
                 
                 upsellBanner.classList.remove('d-none');
@@ -238,7 +207,6 @@
                     </div>
                 `;
                 
-                // Add event listener for upsell button
                 const upsellButton = upsellBanner.querySelector('.btn-upsell');
                 if (upsellButton) {
                     upsellButton.addEventListener('click', function() {
@@ -247,7 +215,7 @@
                 }
             }
 
-            // Function to handle upsell upgrade
+            // Handle upsell upgrade
             function handleUpsell(button) {
                 const index = parseInt(button.getAttribute('data-index'));
                 const productKey = button.getAttribute('data-product');
@@ -257,13 +225,10 @@
                 
                 const originalItem = cart[index];
                 
-                // Get the 3-pack price ID
                 try {
-                    // Normalize size for lookup
                     const sizeKey = size.toLowerCase().replace(/\s/g, '');
                     
-                    // Determine flavor key - need to map display flavor back to YAML key
-                    let flavorKey = 'vanilla'; // default
+                    let flavorKey = 'vanilla';
                     if (flavor) {
                         const flavorLower = flavor.toLowerCase();
                         if (flavorLower.includes('vanilla') || flavorLower.includes('manuka')) {
@@ -291,7 +256,6 @@
                         return;
                     }
                     
-                    // Update the cart item
                     cart[index] = {
                         ...originalItem,
                         priceId: packPriceId,
@@ -303,7 +267,6 @@
                     localStorage.setItem('cartV2', JSON.stringify(cart));
                     updateCart();
                     
-                    // Show success feedback
                     upsellBanner.innerHTML = `
                         <div class="alert alert-success d-flex align-items-center mb-0" role="alert">
                             <span style="font-size: 20px; margin-right: 10px;">✅</span>
@@ -567,7 +530,7 @@
             }
         }
         
-        /* Upsell Banner Styles - Subtle but noticeable */
+        /* Upsell Banner Styles */
         .upsell-card {
             background: #f8f9fa;
             border: 1px solid #dee2e6;
@@ -628,7 +591,7 @@
                 text-align: center;
             }
             
-            .upsell-card .d-flex {
+            .upsell-card > .d-flex {
                 flex-direction: column;
                 gap: 12px;
             }
