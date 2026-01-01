@@ -7,7 +7,7 @@
     {{ template "_internal/google_analytics.html" . }}
     <!-- / Google Analytics -->
 
-        <!-- Meta Pixel Code -->
+    <!-- Meta Pixel Code -->
     <script>
         !function(f,b,e,v,n,t,s) {
             if(f.fbq) return;
@@ -42,7 +42,6 @@
                 </a>
             </li>
             {{ end }}
-            
         </ul>
     </div>
 
@@ -61,19 +60,16 @@
             </a>
         </div>
 
-        
-
         <a class="iglink lg:hidden" href="/cart">
-                <div class="cart-icon-container" style="position: relative; display: inline-block;">
-                    <img src="/img/cart.webp" alt="Cart for PrimalPantry">
-                    <!-- Badge for desktop cart icon -->
-                    <span class="cart-badge" style="display: none; position: absolute; top: 0; right: 0; background-color: red; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px;">1</span>
-                </div>
-            </a>
+            <div class="cart-icon-container" style="position: relative; display: inline-block;">
+                <img src="/img/cart.webp" alt="Cart for PrimalPantry" class="cart-icon">
+                <!-- Badge for mobile cart icon -->
+                <span class="cart-badge" style="display: none; position: absolute; top: 0; right: 0; background-color: red; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px;">1</span>
+            </div>
+        </a>
 
         <div class="hidden w-full block flex-grow lg:flex lg:items-center lg:w-auto" id="mobileMenu">
             <div class="text-lg lg:flex-grow">
-                <!-- Missing closing tag added here -->
             </div>
             <div class="text-lg">
                 {{ range .Site.Menus.main }}
@@ -84,15 +80,118 @@
             </div>
             <a class="iglink mob-hide mr-6" href="/cart">
                 <div class="cart-icon-container" style="position: relative; display: inline-block;">
-                    <img src="/img/cart.webp" alt="Cart for PrimalPantry">
+                    <img src="/img/cart.webp" alt="Cart for PrimalPantry" class="cart-icon">
                     <!-- Badge for desktop cart icon -->
                     <span class="cart-badge" style="display: none; position: absolute; top: 0; right: 0; background-color: red; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px;">1</span>
                 </div>
             </a>
-            
         </div>
     </nav>
-    
+
+    <style>
+        @keyframes cartBounce {
+            0%, 100% { transform: scale(1); }
+            20% { transform: scale(1.2) rotate(-10deg); }
+            40% { transform: scale(1.1) rotate(10deg); }
+            60% { transform: scale(1.15) rotate(-5deg); }
+            80% { transform: scale(1.05) rotate(3deg); }
+        }
+
+        @keyframes badgePop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4); background-color: #ff4444; }
+            100% { transform: scale(1); background-color: red; }
+        }
+
+        .cart-icon-container.bounce .cart-icon {
+            animation: cartBounce 0.6s ease-in-out;
+        }
+
+        .cart-icon-container.bounce .cart-badge {
+            animation: badgePop 0.4s ease-in-out;
+        }
+
+        /* Fixed cart notification that appears when scrolled */
+        .cart-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 10px;
+            padding: 15px 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        .cart-notification.hide {
+            animation: slideOut 0.3s ease-in forwards;
+        }
+
+        .cart-notification .notification-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .cart-notification .notification-text {
+            font-weight: 500;
+        }
+
+        .cart-notification .notification-text small {
+            display: block;
+            color: #666;
+            font-weight: normal;
+        }
+
+        .cart-notification .go-to-cart {
+            background: #000;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .cart-notification .go-to-cart:hover {
+            background: #333;
+        }
+    </style>
+
+    <!-- Fixed Cart Notification -->
+    <div class="cart-notification" id="cartNotification">
+        <img src="/img/cart.webp" alt="Cart" class="notification-icon">
+        <div class="notification-text">
+            Added to cart!
+            <small id="notificationProductName"></small>
+        </div>
+        <a href="/cart" class="go-to-cart">View Cart</a>
+    </div>
 </header>
 
 <!-- Script for Cart Badges -->
@@ -111,13 +210,11 @@
         console.log('Cart contents:', cart);
 
         if (cart.length > 0) {
-            // Display the badges and show the number of items in the cart
             cartBadges.forEach(badge => {
                 badge.style.display = 'flex';
                 badge.textContent = cart.length;
             });
         } else {
-            // Hide the badges if the cart is empty
             cartBadges.forEach(badge => {
                 badge.style.display = 'none';
             });
@@ -125,85 +222,119 @@
     });
 </script>
 
+<!-- Global Cart Functions -->
+<script>
+    // Global function to update cart badge
+    function updateCartBadge() {
+        const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+        const cartBadges = document.querySelectorAll('.cart-badge');
+        
+        if (cart.length > 0) {
+            cartBadges.forEach(badge => {
+                badge.style.display = 'flex';
+                badge.textContent = cart.length;
+            });
+        } else {
+            cartBadges.forEach(badge => {
+                badge.style.display = 'none';
+            });
+        }
+    }
+
+    // Global function to trigger cart icon bounce and show notification
+    function triggerCartBounce(productName) {
+        // Bounce the cart icons
+        const cartContainers = document.querySelectorAll('.cart-icon-container');
+        cartContainers.forEach(container => {
+            container.classList.remove('bounce');
+            void container.offsetWidth; // Force reflow
+            container.classList.add('bounce');
+            setTimeout(() => container.classList.remove('bounce'), 700);
+        });
+        
+        // Show fixed notification (visible even when scrolled)
+        const notification = document.getElementById('cartNotification');
+        const productNameEl = document.getElementById('notificationProductName');
+        
+        if (notification) {
+            notification.classList.remove('hide');
+            notification.style.display = 'flex';
+            
+            if (productNameEl && productName) {
+                productNameEl.textContent = productName;
+            }
+            
+            // Auto-hide after 3 seconds
+            setTimeout(() => {
+                notification.classList.add('hide');
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                    notification.classList.remove('hide');
+                }, 300);
+            }, 3000);
+        }
+    }
+</script>
+
 <script type="application/javascript">
     function geoip(json){
         const expires = new Date();
-        expires.setTime(expires.getTime() + (30 * 24 * 60 * 60 * 1000));  // 30 days from now
+        expires.setTime(expires.getTime() + (30 * 24 * 60 * 60 * 1000));
         if(json.country_code){
-            // localStorage.setItem('country_code', json.country_code);
             document.cookie = `country_code=${json.country_code}; expires=${expires.toUTCString()}; path=/`;
         }
         else{
-            // localStorage.setItem('country_code', "NZ");
             document.cookie = `country_code="NZ"; expires=${expires.toUTCString()}; path=/`;
         }
-           
     }
+
     function getCountryCookie(name) {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) return parts.pop().split(';').shift();
         return null;
     }
-    // if(localStorage.getItem('country_code')=='');
-    // {    
-    //     localStorage.setItem('country_code', "NZ");
-    // }
 
     // Disable link for out of stock 
-    var outOfStockLinks=  document.querySelectorAll('.outOfStock a');
-    // Loop through each 'outOfStock' element and add event listeners
+    var outOfStockLinks = document.querySelectorAll('.outOfStock a');
     outOfStockLinks.forEach(function (link) {
         link.addEventListener('click', function (event) {
-            // Check if the clicked element's parent has the 'outOfStock' class
             if (this.closest('.outOfStock')) {
-                event.preventDefault(); // Prevent default action (e.g., navigating the link)
-                alert('This item is out of stock!'); // Optionally show a message
+                event.preventDefault();
+                alert('This item is out of stock!');
             }
         });
     });
-  </script>
+</script>
+
 <script src="https://get.geojs.io/v1/ip/geo.js"></script>
-  
+
 <script>
-   window.onload = function() {
-    const countryCode = getCountryCookie('country_code') || "NZ";
-    var shipping_rate = document.getElementById('shipping_rate');
-    
-    // If the country is NZ, show NZ-specific partials
-    if(countryCode == 'AU') {
-        // var bone_broth =  document.getElementById('bone-broth');
+    window.onload = function() {
+        const countryCode = getCountryCookie('country_code') || "NZ";
+        var shipping_rate = document.getElementById('shipping_rate');
         
-        if(shipping_rate){
-            shipping_rate.textContent='$150';
-        }
-        // if(bone_broth)
-        // {
-        //     document.getElementById('bone-broth').style.display = 'none';
-        // }
-    //   $('label[for="bone-broth"]').hide();
-    //   $('.product-card').filter(function () {
-    //                     var categories = $(this).data('category').split(' ');
-    //                     return categories.includes("bone-broth");
-    //                 }).hide();
-        document.querySelectorAll('.nz-content').forEach(function(item) {
+        if(countryCode == 'AU') {
+            if(shipping_rate){
+                shipping_rate.textContent='$150';
+            }
+            document.querySelectorAll('.nz-content').forEach(function(item) {
                 item.style.display = 'none';
             });
             document.querySelectorAll('.au-content').forEach(function(item) {
                 item.style.display = 'inline';
             });
-    }
-    else{
-        if(shipping_rate){
-            shipping_rate.textContent='$80';
         }
-        document.querySelectorAll('.au-content').forEach(function(item) {
-        item.style.display = 'none';
-        document.querySelectorAll('.nz-content').forEach(function(item) {
+        else{
+            if(shipping_rate){
+                shipping_rate.textContent='$80';
+            }
+            document.querySelectorAll('.au-content').forEach(function(item) {
+                item.style.display = 'none';
+            });
+            document.querySelectorAll('.nz-content').forEach(function(item) {
                 item.style.display = 'inline';
             });
-    });
-
-    }
-  };
- </script>
+        }
+    };
+</script>
