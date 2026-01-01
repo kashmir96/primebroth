@@ -508,6 +508,20 @@
     </div>
 </div>
 
+<!-- Toast Notification (self-contained in partial) -->
+<div id="routineToast" class="routine-toast">
+    <div class="routine-toast-content">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#98fb98" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+        </svg>
+        <div class="routine-toast-text">
+            <strong>Added to Cart!</strong>
+            <span id="routineToastProduct"></span>
+        </div>
+        <a href="/cart" class="routine-toast-btn">View Cart</a>
+    </div>
+</div>
+
 <style>
 /* Routine Section Styles */
 .btn-pink {
@@ -564,6 +578,68 @@
 .evening-header {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
+}
+
+/* Toast Notification Styles */
+.routine-toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: white;
+    border-radius: 12px;
+    padding: 16px 20px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    z-index: 999999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    max-width: 90vw;
+    width: auto;
+}
+
+.routine-toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.routine-toast-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.routine-toast-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.routine-toast-text strong {
+    font-size: 14px;
+    color: #333;
+}
+
+.routine-toast-text span {
+    font-size: 12px;
+    color: #666;
+}
+
+.routine-toast-btn {
+    background: #000;
+    color: #fff !important;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none !important;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    margin-left: 8px;
+}
+
+.routine-toast-btn:hover {
+    background: #333;
 }
 
 /* Mobile Carousel Styles */
@@ -638,18 +714,55 @@
         width: 24px;
         border-radius: 5px;
     }
+    
+    .routine-toast {
+        bottom: 80px;
+        left: 10px;
+        right: 10px;
+        transform: translateX(0) translateY(100px);
+        max-width: none;
+        width: auto;
+    }
+    
+    .routine-toast.show {
+        transform: translateX(0) translateY(0);
+    }
 }
 </style>
 
 <script>
-// Routine Quick Add to Cart - Simple "Added to Cart" state
+// Routine Quick Add to Cart with Toast Notification
 document.addEventListener('DOMContentLoaded', function() {
-    // Parse pricing data if available
     const pricingDataExists = typeof pricingData !== 'undefined';
     const countryCodeExists = typeof country_code !== 'undefined';
     
     if (!pricingDataExists || !countryCodeExists) {
         console.warn('Pricing data not available on this page');
+    }
+    
+    // Show toast notification
+    function showRoutineToast(productName) {
+        const toast = document.getElementById('routineToast');
+        const productEl = document.getElementById('routineToastProduct');
+        
+        if (toast) {
+            if (productEl) {
+                productEl.textContent = productName;
+            }
+            
+            toast.classList.remove('show');
+            void toast.offsetWidth;
+            toast.classList.add('show');
+            
+            setTimeout(function() {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+        
+        // Also try the header notification
+        if (typeof triggerCartBounce === 'function') {
+            triggerCartBounce(productName);
+        }
     }
     
     // Update all product prices from YAML data
@@ -658,7 +771,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const priceElements = document.querySelectorAll('.product-price');
         
-        priceElements.forEach(element => {
+        priceElements.forEach(function(element) {
             const product = element.getAttribute('data-product');
             const size = element.getAttribute('data-size');
             const orderType = element.getAttribute('data-order-type');
@@ -667,13 +780,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 const productPricingData = pricingData.tallow.pricing[product];
                 
                 if (Array.isArray(productPricingData)) {
-                    const pricingEntry = productPricingData.find(entry => 
-                        entry.size.toLowerCase() === size.toLowerCase()
-                    );
+                    const pricingEntry = productPricingData.find(function(entry) {
+                        return entry.size.toLowerCase() === size.toLowerCase();
+                    });
                     
                     if (pricingEntry && pricingEntry.prices[country_code] && pricingEntry.prices[country_code][orderType]) {
                         const price = pricingEntry.prices[country_code][orderType];
-                        element.textContent = `$${price.toFixed(2)}`;
+                        element.textContent = '$' + price.toFixed(2);
                     }
                 }
             } catch (error) {
@@ -687,71 +800,55 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle all quick add to cart buttons
     const quickAddButtons = document.querySelectorAll('.quick-add-to-cart');
     
-    quickAddButtons.forEach(button => {
+    quickAddButtons.forEach(function(button) {
         button.addEventListener('click', function(e) {
             e.preventDefault();
             
+            var btn = this;
+            
             // Check if already added
-            if (this.classList.contains('added')) {
-                return; // Do nothing if already added
+            if (btn.classList.contains('added')) {
+                return;
             }
             
-            const product = this.getAttribute('data-product');
-            const orderType = this.getAttribute('data-order-type');
-            const flavor = this.getAttribute('data-flavor');
-            const size = this.getAttribute('data-size');
+            var product = btn.getAttribute('data-product');
+            var orderType = btn.getAttribute('data-order-type');
+            var flavor = btn.getAttribute('data-flavor');
+            var size = btn.getAttribute('data-size');
             
-            const title = this.getAttribute('data-title');
-            const displaySize = this.getAttribute('data-display-size');
-            const displayFlavor = this.getAttribute('data-display-flavor');
-            const displayOrderType = this.getAttribute('data-display-order-type');
-            const quantity = 1;
+            var title = btn.getAttribute('data-title');
+            var displaySize = btn.getAttribute('data-display-size');
+            var displayFlavor = btn.getAttribute('data-display-flavor');
+            var displayOrderType = btn.getAttribute('data-display-order-type');
+            var quantity = 1;
             
             if (!pricingDataExists) {
                 alert('Unable to add product to cart. Pricing data not available.');
                 return;
             }
             
-            let priceId = null;
-            let unitPrice = 0;
+            var priceId = null;
+            var unitPrice = 0;
             
             try {
                 priceId = pricingData.tallow.ids[product][orderType][flavor][size][country_code];
                 
-                const productPricingData = pricingData.tallow.pricing[product];
+                var productPricingData = pricingData.tallow.pricing[product];
                 
                 if (Array.isArray(productPricingData)) {
-                    const pricingEntry = productPricingData.find(entry => 
-                        entry.size.toLowerCase() === size.toLowerCase()
-                    );
+                    var pricingEntry = productPricingData.find(function(entry) {
+                        return entry.size.toLowerCase() === size.toLowerCase();
+                    });
                     
                     if (pricingEntry && pricingEntry.prices[country_code]) {
-                        const pricingOrderType = orderType === 'single' ? 'single_purchase' : 
-                                                orderType === 'pack' ? 'three_pack' : orderType;
+                        var pricingOrderType = orderType === 'single' ? 'single_purchase' : 
+                                              orderType === 'pack' ? 'three_pack' : orderType;
                         
                         unitPrice = pricingEntry.prices[country_code][pricingOrderType] || 0;
                     }
                 }
-                
-                console.log('Retrieved data:', {
-                    product,
-                    orderType,
-                    flavor,
-                    size,
-                    country_code,
-                    priceId,
-                    unitPrice
-                });
-                
             } catch (error) {
                 console.error('Error fetching data from YAML:', error);
-                console.error('Data path attempted:', {
-                    product,
-                    orderType,
-                    flavor,
-                    size,
-                    country_code
-                });
             }
             
             if (!priceId || unitPrice === 0) {
@@ -760,7 +857,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+            var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
             
             cart.push({
                 priceId: priceId,
@@ -775,49 +872,40 @@ document.addEventListener('DOMContentLoaded', function() {
             
             localStorage.setItem('cartV2', JSON.stringify(cart));
             
-            // Update button to "Added to Cart" permanently
-            this.textContent = 'Added to Cart';
-            this.classList.add('added');
-            this.disabled = true;
+            // Update button
+            btn.textContent = 'Added to Cart';
+            btn.classList.add('added');
+            btn.disabled = true;
             
             // Update cart badge
             if (typeof updateCartBadge === 'function') {
                 updateCartBadge();
             }
             
-            // Trigger cart icon animation
-            if (typeof triggerCartBounce === 'function') {
-                triggerCartBounce(title);
-            }
+            // Show toast notification
+            showRoutineToast(title);
             
-            console.log('Added to cart:', {
-                priceId, 
-                title, 
-                size: displaySize, 
-                flavor: displayFlavor, 
-                orderType: displayOrderType, 
-                quantity, 
-                unitPrice
-            });
+            console.log('Added to cart:', title);
         });
     });
     
     // Mobile Carousel Functionality
     function initCarousel(carouselId) {
-        const carousel = document.getElementById(carouselId);
+        var carousel = document.getElementById(carouselId);
         if (!carousel) return;
         
-        const dots = carousel.parentElement.querySelectorAll('.dot');
-        const cards = carousel.querySelectorAll('.routine-card-wrapper');
+        var container = carousel.parentElement;
+        var dots = container.querySelectorAll('.dot');
+        var cards = carousel.querySelectorAll('.routine-card-wrapper');
         
         if (cards.length === 0) return;
         
         carousel.addEventListener('scroll', function() {
-            const scrollLeft = carousel.scrollLeft;
-            const cardWidth = cards[0].offsetWidth + 15;
-            const activeIndex = Math.round(scrollLeft / cardWidth);
+            var scrollLeft = carousel.scrollLeft;
+            var cardWidth = cards[0].offsetWidth + 15;
+            var activeIndex = Math.round(scrollLeft / cardWidth);
             
-            dots.forEach((dot, index) => {
+            dots.forEach(function(dot, index) {
                 if (index === activeIndex) {
                     dot.classList.add('active');
                 } else {
@@ -826,9 +914,9 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        dots.forEach((dot, index) => {
+        dots.forEach(function(dot, index) {
             dot.addEventListener('click', function() {
-                const cardWidth = cards[0].offsetWidth + 15;
+                var cardWidth = cards[0].offsetWidth + 15;
                 carousel.scrollTo({
                     left: cardWidth * index,
                     behavior: 'smooth'
