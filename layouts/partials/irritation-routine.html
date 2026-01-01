@@ -526,17 +526,14 @@
 }
 
 .btn-pink:disabled {
-    cursor: pointer;
-}
-
-.btn-pink.in-cart {
     background-color: #98fb98;
     color: #000;
+    cursor: default;
 }
 
-.btn-pink.in-cart:hover {
-    background-color: #ff6b6b;
-    color: #fff;
+.btn-pink.added {
+    background-color: #98fb98;
+    color: #000;
 }
 
 .card {
@@ -645,7 +642,7 @@
 </style>
 
 <script>
-// Routine Quick Add to Cart with Remove Functionality
+// Routine Quick Add to Cart - Simple "Added to Cart" state
 document.addEventListener('DOMContentLoaded', function() {
     // Parse pricing data if available
     const pricingDataExists = typeof pricingData !== 'undefined';
@@ -685,56 +682,19 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Generate unique ID for cart item
-    function generateCartItemId(product, orderType, flavor, size) {
-        return `${product}-${orderType}-${flavor}-${size}`;
-    }
-    
-    // Check if item is in cart
-    function isItemInCart(itemId) {
-        const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
-        return cart.some(item => {
-            const cartItemId = generateCartItemId(
-                item.priceId.split('-')[0] || '',
-                item.orderType.toLowerCase().replace(' ', '_'),
-                item.flavor.toLowerCase().replace(/\s+/g, '_'),
-                item.size.toLowerCase()
-            );
-            return cartItemId === itemId;
-        });
-    }
-    
-    // Update button states based on cart contents
-    function updateButtonStates() {
-        const quickAddButtons = document.querySelectorAll('.quick-add-to-cart');
-        
-        quickAddButtons.forEach(button => {
-            const product = button.getAttribute('data-product');
-            const orderType = button.getAttribute('data-order-type');
-            const flavor = button.getAttribute('data-flavor');
-            const size = button.getAttribute('data-size');
-            
-            const itemId = generateCartItemId(product, orderType, flavor, size);
-            
-            if (isItemInCart(itemId)) {
-                button.textContent = 'Remove from Cart';
-                button.classList.add('in-cart');
-            } else {
-                button.textContent = 'Quick Add';
-                button.classList.remove('in-cart');
-            }
-        });
-    }
-    
     updateProductPrices();
-    updateButtonStates();
     
-    // Handle all quick add/remove to cart buttons
+    // Handle all quick add to cart buttons
     const quickAddButtons = document.querySelectorAll('.quick-add-to-cart');
     
     quickAddButtons.forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
+            
+            // Check if already added
+            if (this.classList.contains('added')) {
+                return; // Do nothing if already added
+            }
             
             const product = this.getAttribute('data-product');
             const orderType = this.getAttribute('data-order-type');
@@ -745,97 +705,100 @@ document.addEventListener('DOMContentLoaded', function() {
             const displaySize = this.getAttribute('data-display-size');
             const displayFlavor = this.getAttribute('data-display-flavor');
             const displayOrderType = this.getAttribute('data-display-order-type');
+            const quantity = 1;
             
-            const itemId = generateCartItemId(product, orderType, flavor, size);
+            if (!pricingDataExists) {
+                alert('Unable to add product to cart. Pricing data not available.');
+                return;
+            }
+            
+            let priceId = null;
+            let unitPrice = 0;
+            
+            try {
+                priceId = pricingData.tallow.ids[product][orderType][flavor][size][country_code];
+                
+                const productPricingData = pricingData.tallow.pricing[product];
+                
+                if (Array.isArray(productPricingData)) {
+                    const pricingEntry = productPricingData.find(entry => 
+                        entry.size.toLowerCase() === size.toLowerCase()
+                    );
+                    
+                    if (pricingEntry && pricingEntry.prices[country_code]) {
+                        const pricingOrderType = orderType === 'single' ? 'single_purchase' : 
+                                                orderType === 'pack' ? 'three_pack' : orderType;
+                        
+                        unitPrice = pricingEntry.prices[country_code][pricingOrderType] || 0;
+                    }
+                }
+                
+                console.log('Retrieved data:', {
+                    product,
+                    orderType,
+                    flavor,
+                    size,
+                    country_code,
+                    priceId,
+                    unitPrice
+                });
+                
+            } catch (error) {
+                console.error('Error fetching data from YAML:', error);
+                console.error('Data path attempted:', {
+                    product,
+                    orderType,
+                    flavor,
+                    size,
+                    country_code
+                });
+            }
+            
+            if (!priceId || unitPrice === 0) {
+                console.error('Invalid price data for product:', title);
+                alert('Unable to add this product to cart. Please visit the product page.');
+                return;
+            }
+            
             const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
             
-            // Check if item is in cart
-            if (this.classList.contains('in-cart')) {
-                // Remove from cart
-                const newCart = cart.filter(item => {
-                    const cartItemId = generateCartItemId(
-                        item.priceId.split('-')[0] || product,
-                        item.orderType.toLowerCase().replace(' ', '_'),
-                        item.flavor.toLowerCase().replace(/\s+/g, '_'),
-                        item.size.toLowerCase()
-                    );
-                    return cartItemId !== itemId;
-                });
-                
-                localStorage.setItem('cartV2', JSON.stringify(newCart));
-                
-                this.textContent = 'Quick Add';
-                this.classList.remove('in-cart');
-                
-                if (typeof updateCartBadge === 'function') {
-                    updateCartBadge();
-                }
-                
-                console.log('Removed from cart:', { product, title });
-            } else {
-                // Add to cart
-                if (!pricingDataExists) {
-                    alert('Unable to add product to cart. Pricing data not available.');
-                    return;
-                }
-                
-                let priceId = null;
-                let unitPrice = 0;
-                
-                try {
-                    priceId = pricingData.tallow.ids[product][orderType][flavor][size][country_code];
-                    
-                    const productPricingData = pricingData.tallow.pricing[product];
-                    
-                    if (Array.isArray(productPricingData)) {
-                        const pricingEntry = productPricingData.find(entry => 
-                            entry.size.toLowerCase() === size.toLowerCase()
-                        );
-                        
-                        if (pricingEntry && pricingEntry.prices[country_code]) {
-                            const pricingOrderType = orderType === 'single' ? 'single_purchase' : 
-                                                    orderType === 'pack' ? 'three_pack' : orderType;
-                            
-                            unitPrice = pricingEntry.prices[country_code][pricingOrderType] || 0;
-                        }
-                    }
-                } catch (error) {
-                    console.error('Error fetching data from YAML:', error);
-                }
-                
-                if (!priceId || unitPrice === 0) {
-                    console.error('Invalid price data for product:', title);
-                    alert('Unable to add this product to cart. Please visit the product page.');
-                    return;
-                }
-                
-                cart.push({
-                    priceId: priceId,
-                    title: title,
-                    size: displaySize,
-                    flavor: displayFlavor,
-                    orderType: displayOrderType,
-                    quantity: 1,
-                    unitPrice: unitPrice,
-                    eligibleForDiscount: false
-                });
-                
-                localStorage.setItem('cartV2', JSON.stringify(cart));
-                
-                this.textContent = 'Remove from Cart';
-                this.classList.add('in-cart');
-                
-                if (typeof updateCartBadge === 'function') {
-                    updateCartBadge();
-                }
-                
-                // Trigger cart icon animation
-                if (typeof triggerCartBounce === 'function') {
-                    triggerCartBounce();
-                }
-                
-                console.log('Added to cart:', { priceId, title, unitPrice });
+            cart.push({
+                priceId: priceId,
+                title: title,
+                size: displaySize,
+                flavor: displayFlavor,
+                orderType: displayOrderType,
+                quantity: quantity,
+                unitPrice: unitPrice,
+                eligibleForDiscount: false
+            });
+            
+            localStorage.setItem('cartV2', JSON.stringify(cart));
+            
+            // Update button to "Added to Cart" permanently
+            this.textContent = 'Added to Cart';
+            this.classList.add('added');
+            this.disabled = true;
+            
+            // Update cart badge
+            if (typeof updateCartBadge === 'function') {
+                updateCartBadge();
             }
+            
+            // Trigger cart icon animation
+            if (typeof triggerCartBounce === 'function') {
+                triggerCartBounce();
+            }
+            
+            console.log('Added to cart:', {
+                priceId, 
+                title, 
+                size: displaySize, 
+                flavor: displayFlavor, 
+                orderType: displayOrderType, 
+                quantity, 
+                unitPrice
+            });
         });
     });
     
