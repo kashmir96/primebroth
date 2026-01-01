@@ -54,20 +54,82 @@
 
     <script>
         // Pricing data from YAML
-        const pricingData = JSON.parse("{{ .Site.Data.pricing | jsonify }}");
-        
-        // Upsell configuration
-        const upsellConfig = {
-            'honeybalm': { productName: 'Tallow & Honey Balm' },
-            'balm': { productName: 'Whipped Tallow Balm' },
-            'summer_balm': { productName: 'Summer Balm' },
-            'liquid_lotion': { productName: 'Aloe Tallow Body Lotion' },
-            'shampoo': { productName: 'Tallow Shampoo Bar' }
+        const pricingData = JSON.parse('{{ .Site.Data.pricing | jsonify }}');
+
+        // Product detection config - maps title keywords to YAML keys
+        const productConfig = {
+            'lotion': {
+                yamlKey: 'liquid_lotion',
+                category: 'tallow',
+                defaultFlavor: 'natural'
+            },
+            'whipped': {
+                yamlKey: 'balm',
+                category: 'tallow',
+                defaultFlavor: 'vanilla-rose'
+            },
+            'shampoo bar': {
+                yamlKey: 'shampoo',
+                category: 'tallow',
+                defaultFlavor: 'peppermintrosemary'
+            },
+            'shampoo': {
+                yamlKey: 'shampoo',
+                category: 'tallow',
+                defaultFlavor: 'peppermintrosemary'
+            },
+            'tallow & honey': {
+                yamlKey: 'honeybalm',
+                category: 'tallow',
+                defaultFlavor: 'vanilla'
+            },
+            'honey balm': {
+                yamlKey: 'honeybalm',
+                category: 'tallow',
+                defaultFlavor: 'vanilla'
+            },
+            'eye cream': {
+                yamlKey: 'eyecream',
+                category: 'tallow',
+                defaultFlavor: 'manukahoney_vitc'
+            },
+            'deodorant': {
+                yamlKey: 'deodorant',
+                category: 'tallow',
+                defaultFlavor: 'frankincense'
+            }
+        };
+
+        // Flavor mapping - maps cart flavor text to YAML flavor keys
+        const flavorMapping = {
+            // Balm flavors
+            'lavender': 'lavender',
+            'vanilla rose': 'vanilla-rose',
+            'vanilla-rose': 'vanilla-rose',
+            'vanilla & rose': 'vanilla-rose',
+            'neutral': 'neutral',
+            'natural': 'natural',
+            'unscented': 'natural',
+            'vanilla': 'vanilla',
+            'frankincense': 'frankincense',
+            'geranium': 'geranium',
+            'rose geranium': 'geranium',
+            'peppermint': 'peppermintrosemary',
+            'peppermint rosemary': 'peppermintrosemary',
+            'cedarwood': 'cedarwood',
+            'cedar': 'cedar',
+            // Honey balm
+            'manuka': 'vanilla',
+            'vanilla & manuka': 'vanilla',
+            'tansy': 'tansy',
+            // Eye cream
+            'manuka honey': 'manukahoney_vitc',
+            'vitamin c': 'manukahoney_vitc'
         };
 
         document.addEventListener('DOMContentLoaded', function() {
             let cart = JSON.parse(localStorage.getItem('cartV2')) || [];
-            console.log(cart);
+            console.log('Cart contents:', cart);
             const countryCode = getCountryCookie('country_code') || "NZ";
             
             if(countryCode == 'NZ'){
@@ -97,114 +159,159 @@
                 return cart.some(item => isThreePack(item));
             }
 
-            // Clean size string - remove extra text like "(cheaper per ml)"
-            function cleanSize(size) {
-                if (!size) return null;
-                return size.toLowerCase()
-                    .replace(/\s/g, '')
-                    .replace(/\(.*\)/g, '')
-                    .trim();
+            // Detect product config from title
+            function detectProduct(title) {
+                const titleLower = (title || '').toLowerCase();
+                for (const [keyword, config] of Object.entries(productConfig)) {
+                    if (titleLower.includes(keyword)) {
+                        return config;
+                    }
+                }
+                return null;
             }
 
-            // Find upsell opportunities
+            // Map flavor text to YAML key
+            function mapFlavor(flavorText, defaultFlavor) {
+                if (!flavorText) return defaultFlavor;
+                const flavorLower = flavorText.toLowerCase();
+                for (const [keyword, yamlKey] of Object.entries(flavorMapping)) {
+                    if (flavorLower.includes(keyword)) {
+                        return yamlKey;
+                    }
+                }
+                return defaultFlavor;
+            }
+
+            // Clean size string - extract just the number and unit
+            function cleanSize(size) {
+                if (!size) return null;
+                const match = size.match(/(\d+)(ml|g)/i);
+                if (match) {
+                    return match[1] + match[2].toLowerCase();
+                }
+                return size.toLowerCase().replace(/\s/g, '');
+            }
+
+            // Get list of product titles that are already in cart as 3-packs
+            function getThreePackTitlesInCart() {
+                const titles = [];
+                cart.forEach(item => {
+                    if (isThreePack(item) && item.title) {
+                        titles.push(item.title.toLowerCase());
+                    }
+                });
+                return titles;
+            }
+
+            // Look up pack price ID from YAML
+            function getPackPriceId(productConfig, flavor, size, countryCode) {
+                try {
+                    const category = pricingData[productConfig.category];
+                    if (!category || !category.ids) return null;
+                    
+                    const product = category.ids[productConfig.yamlKey];
+                    if (!product || !product.pack) return null;
+                    
+                    const flavorData = product.pack[flavor];
+                    if (!flavorData) return null;
+                    
+                    const sizeData = flavorData[size];
+                    if (!sizeData) return null;
+                    
+                    return sizeData[countryCode] || null;
+                } catch (error) {
+                    console.error('Error looking up pack price:', error);
+                    return null;
+                }
+            }
+
+            // Look up pack price from YAML
+            function getPackPrice(productConfig, size, countryCode) {
+                try {
+                    const category = pricingData[productConfig.category];
+                    if (!category || !category.pricing) return null;
+                    
+                    const productPricing = category.pricing[productConfig.yamlKey];
+                    if (!Array.isArray(productPricing)) return null;
+                    
+                    const sizeEntry = productPricing.find(entry => {
+                        const entrySize = cleanSize(entry.size);
+                        return entrySize === size;
+                    });
+                    
+                    if (!sizeEntry || !sizeEntry.prices[countryCode]) return null;
+                    
+                    return sizeEntry.prices[countryCode].three_pack || null;
+                } catch (error) {
+                    console.error('Error looking up pack price:', error);
+                    return null;
+                }
+            }
+
+            // Find single items that can be upsold
             function findUpsellOpportunities() {
                 const opportunities = [];
+                const threePackTitles = getThreePackTitlesInCart();
                 
                 cart.forEach((item, index) => {
                     const orderTypeLower = (item.orderType || '').toLowerCase();
-                    const isSinglePurchase = orderTypeLower.includes('single') || 
-                         (!orderTypeLower.includes('pack') && 
-                          !orderTypeLower.includes('monthly') && 
-                          !orderTypeLower.includes('quarterly') &&
-                          !orderTypeLower.includes('three') &&
-                          !orderTypeLower.includes('2 get 1'));
-                    
-                    if (!isSinglePurchase) return;
-                    
-                    let productKey = null;
+                    const quantity = parseInt(item.quantity, 10);
                     const titleLower = (item.title || '').toLowerCase();
                     
-                    // Detect product type from title
-                    if (titleLower.includes('honey') && titleLower.includes('balm')) {
-                        productKey = 'honeybalm';
-                    } else if (titleLower.includes('summer') && titleLower.includes('balm')) {
-                        productKey = 'summer_balm';
-                    } else if (titleLower.includes('lotion')) {
-                        productKey = 'liquid_lotion';
-                    } else if (titleLower.includes('shampoo')) {
-                        productKey = 'shampoo';
-                    } else if (titleLower.includes('whipped') && titleLower.includes('balm')) {
-                        productKey = 'balm';
-                    } else if (titleLower.includes('original') && titleLower.includes('balm')) {
-                        productKey = 'balm';
-                    } else if (titleLower.includes('tallow balm') && !titleLower.includes('honey') && !titleLower.includes('summer') && !titleLower.includes('lip')) {
-                        productKey = 'balm';
-                    } else if (titleLower.includes('balm') && !titleLower.includes('honey') && !titleLower.includes('summer') && !titleLower.includes('lip')) {
-                        productKey = 'balm';
-                    }
+                    // Check if it contains "single" and quantity < 3
+                    const isSingle = orderTypeLower.includes('single');
                     
-                    if (!productKey) {
-                        console.log('Could not detect product for:', item.title);
+                    // Check if this product already has a 3-pack in cart
+                    const alreadyHasThreePack = threePackTitles.some(packTitle => {
+                        return packTitle.includes(titleLower) || titleLower.includes(packTitle);
+                    });
+                    
+                    // Detect product type
+                    const product = detectProduct(item.title);
+                    
+                    if (!product) {
+                        console.log('No product config found for:', item.title);
                         return;
                     }
                     
-                    const detectedSize = cleanSize(item.size);
-                    const detectedFlavor = item.flavor || null;
+                    // Get flavor and size
+                    const flavor = mapFlavor(item.flavor, product.defaultFlavor);
+                    const size = cleanSize(item.size);
                     
-                    console.log('Checking upsell for:', item.title, 'productKey:', productKey, 'size:', detectedSize, 'flavor:', detectedFlavor);
+                    // Check if pack exists for this product/flavor/size
+                    const packPriceId = getPackPriceId(product, flavor, size, countryCode);
+                    const packPrice = getPackPrice(product, size, countryCode);
                     
-                    try {
-                        const productPricing = pricingData.tallow.pricing[productKey];
-                        if (!Array.isArray(productPricing)) {
-                            console.log('No pricing array found for:', productKey);
-                            return;
-                        }
+                    console.log('Checking item:', item.title, {
+                        orderType: item.orderType,
+                        isSingle,
+                        quantity,
+                        alreadyHasThreePack,
+                        product: product.yamlKey,
+                        flavor,
+                        size,
+                        packPriceId,
+                        packPrice
+                    });
+                    
+                    if (isSingle && quantity < 3 && !alreadyHasThreePack && packPriceId && packPrice) {
+                        const currentPrice = parseFloat(item.unitPrice);
+                        const savings = (currentPrice * 3) - packPrice;
                         
-                        const pricingEntry = productPricing.find(entry => {
-                            const entrySize = cleanSize(entry.size);
-                            return entrySize === detectedSize;
+                        opportunities.push({
+                            cartIndex: index,
+                            title: item.title || 'Unknown Product',
+                            flavor: item.flavor || '',
+                            size: item.size || '',
+                            originalItem: item,
+                            productConfig: product,
+                            flavorKey: flavor,
+                            sizeKey: size,
+                            packPriceId: packPriceId,
+                            packPrice: packPrice,
+                            currentPrice: currentPrice,
+                            savings: savings.toFixed(2)
                         });
-                        
-                        if (!pricingEntry) {
-                            console.log('No pricing entry found for size:', detectedSize);
-                            return;
-                        }
-                        
-                        if (!pricingEntry.prices[countryCode]) {
-                            console.log('No pricing for country:', countryCode);
-                            return;
-                        }
-                        
-                        const singlePrice = pricingEntry.prices[countryCode].single_purchase;
-                        const packPrice = pricingEntry.prices[countryCode].three_pack;
-                        
-                        if (!singlePrice || !packPrice) {
-                            console.log('Missing single or pack price');
-                            return;
-                        }
-                        
-                        const currentTotal = singlePrice * item.quantity;
-                        const packTotal = packPrice * item.quantity;
-                        const difference = packTotal - currentTotal;
-                        
-                        console.log('Upsell opportunity found! Difference:', difference);
-                        
-                        if (difference > 0) {
-                            opportunities.push({
-                                cartIndex: index,
-                                productKey: productKey,
-                                productName: upsellConfig[productKey].productName,
-                                size: item.size,
-                                flavor: detectedFlavor,
-                                singlePrice: singlePrice,
-                                packPrice: packPrice,
-                                difference: difference.toFixed(2),
-                                quantity: item.quantity,
-                                originalItem: item
-                            });
-                        }
-                    } catch (error) {
-                        console.error('Error calculating upsell:', error);
                     }
                 });
                 
@@ -223,6 +330,7 @@
                 
                 const opp = opportunities[0];
                 const flavorText = opp.flavor ? ` - ${opp.flavor}` : '';
+                const productDescription = `${opp.title}${flavorText}`;
                 
                 upsellBanner.classList.remove('d-none');
                 upsellBanner.innerHTML = `
@@ -232,105 +340,61 @@
                                 <div class="d-flex align-items-center">
                                     <span class="upsell-icon">🎁</span>
                                     <div>
-                                        <span class="upsell-title">Upgrade your <strong>${opp.productName}${flavorText}</strong> to a 3-pack for just <strong>$${opp.difference} more</strong></span>
+                                        <span class="upsell-title">Upgrade your <strong>${productDescription}</strong> to a 3-pack & save <strong>$${opp.savings}</strong></span>
                                         <br>
                                         <span class="upsell-subtitle">+ FREE Lip Balm valued at $12.95</span>
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn btn-upsell" 
-                                    data-index="${opp.cartIndex}"
-                                    data-product="${opp.productKey}"
-                                    data-size="${opp.size}"
-                                    data-flavor="${opp.flavor}"
-                                    data-pack-price="${opp.packPrice}">
+                            <button class="btn btn-upsell" data-index="${opp.cartIndex}">
                                 Swap to 3-Pack
                             </button>
                         </div>
                     </div>
                 `;
                 
+                // Add click handler
                 const upsellButton = upsellBanner.querySelector('.btn-upsell');
                 if (upsellButton) {
                     upsellButton.addEventListener('click', function() {
-                        handleUpsell(this);
+                        handleUpsell(opp);
                     });
                 }
             }
 
-            // Handle upsell upgrade
-            function handleUpsell(button) {
-                const index = parseInt(button.getAttribute('data-index'));
-                const productKey = button.getAttribute('data-product');
-                const size = button.getAttribute('data-size');
-                const flavor = button.getAttribute('data-flavor');
-                const packPrice = parseFloat(button.getAttribute('data-pack-price'));
+            // Handle upsell swap
+            function handleUpsell(opp) {
+                console.log('Swapping to 3-pack:', opp);
                 
-                const originalItem = cart[index];
+                // Update the cart item
+                cart[opp.cartIndex] = {
+                    ...opp.originalItem,
+                    priceId: opp.packPriceId,
+                    orderType: '3 pack (Buy 2 Get 1 Free)',
+                    unitPrice: opp.packPrice,
+                    eligibleForDiscount: false
+                };
                 
-                try {
-                    const sizeKey = cleanSize(size);
-                    
-                    let flavorKey = 'vanilla';
-                    if (flavor) {
-                        const flavorLower = flavor.toLowerCase();
-                        if (flavorLower.includes('vanilla') || flavorLower.includes('manuka')) {
-                            flavorKey = 'vanilla';
-                        } else if (flavorLower.includes('lavender')) {
-                            flavorKey = 'lavender';
-                        } else if (flavorLower.includes('geranium')) {
-                            flavorKey = 'geranium';
-                        } else if (flavorLower.includes('rose') && !flavorLower.includes('zinc')) {
-                            flavorKey = 'geranium';
-                        } else if (flavorLower.includes('natural') || flavorLower.includes('neutral')) {
-                            flavorKey = 'natural';
-                        } else if (flavorLower.includes('frankincense')) {
-                            flavorKey = 'frankincense';
-                        } else if (flavorLower.includes('peppermint')) {
-                            flavorKey = 'peppermintrosemary';
-                        } else if (flavorLower.includes('zinc')) {
-                            flavorKey = 'rose_zinc';
-                        }
-                    }
-                    
-                    console.log('Attempting upsell swap:', productKey, flavorKey, sizeKey, countryCode);
-                    
-                    const packPriceId = pricingData.tallow.ids[productKey].pack[flavorKey][sizeKey][countryCode];
-                    
-                    if (!packPriceId) {
-                        console.error('Could not find pack price ID');
-                        alert('Unable to upgrade. Please try adding the 3-pack from the product page.');
-                        return;
-                    }
-                    
-                    cart[index] = {
-                        ...originalItem,
-                        priceId: packPriceId,
-                        orderType: '3 pack (2 Get 1 Free)',
-                        unitPrice: packPrice,
-                        eligibleForDiscount: false
-                    };
-                    
-                    localStorage.setItem('cartV2', JSON.stringify(cart));
-                    updateCart();
-                    
-                    upsellBanner.innerHTML = `
-                        <div class="alert alert-success d-flex align-items-center mb-0" role="alert">
-                            <span style="font-size: 20px; margin-right: 10px;">✅</span>
-                            <div>
-                                <strong>Swapped!</strong> Your ${originalItem.title} is now a 3-pack + you'll receive a FREE Lip Balm!
-                            </div>
+                // Save to localStorage
+                localStorage.setItem('cartV2', JSON.stringify(cart));
+                
+                // Show success message
+                upsellBanner.innerHTML = `
+                    <div class="alert alert-success d-flex align-items-center mb-0" role="alert">
+                        <span style="font-size: 20px; margin-right: 10px;">✅</span>
+                        <div>
+                            <strong>Upgraded!</strong> Your ${opp.title} is now a 3-pack. You saved $${opp.savings} + you'll receive a FREE Lip Balm!
                         </div>
-                    `;
-                    
-                    setTimeout(() => {
-                        renderUpsellBanner();
-                    }, 3000);
-                    
-                } catch (error) {
-                    console.error('Error upgrading to pack:', error);
-                    alert('Unable to upgrade. Please try adding the 3-pack from the product page.');
-                }
+                    </div>
+                `;
+                
+                // Update cart display
+                updateCart();
+                
+                // Check for more upsell opportunities after delay
+                setTimeout(() => {
+                    renderUpsellBanner();
+                }, 3000);
             }
 
             function updateCart() {
@@ -664,6 +728,7 @@
             font-size: 13px;
             padding: 8px 16px;
             border-radius: 4px;
+            cursor: pointer;
             transition: background 0.2s ease;
         }
         
