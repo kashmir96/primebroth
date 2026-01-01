@@ -1,605 +1,843 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {{- partial "head.html" . -}}
-    <meta name="description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
-    <meta property="og:title" content="{{ .Site.Params.homepage_meta_tags.meta_og_title }}" />
-    <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
-    <meta property="og:url" content="{{ .Site.Params.homepage_meta_tags.meta_og_url }}" />
-    <meta property="og:image" content="{{ .Site.Params.homepage_meta_tags.meta_og_image }}" />
-    <meta property="og:description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
-    <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
-    <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
-    <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Sensitive Skin Routine Section -->
+<div class="section light-peach py-5 mt-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold mb-4">Our sensitive skin & anti-redness routine</h2>
+        </div>
 
-</head>
-<body>
+        <!-- Desktop View -->
+        <div class="d-none d-md-block">
+            <!-- Morning Routine -->
+            <div class="mb-5">
+                <!-- Morning Section Header -->
+                <div class="routine-section-header morning-header mb-4">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-sunrise me-3" viewBox="0 0 16 16">
+                            <path d="M7.646 1.146a.5.5 0 0 1 .708 0l1.5 1.5a.5.5 0 0 1-.708.708L8.5 2.707V4.5a.5.5 0 0 1-1 0V2.707l-.646.647a.5.5 0 1 1-.708-.708l1.5-1.5zM2.343 4.343a.5.5 0 0 1 .707 0l1.414 1.414a.5.5 0 0 1-.707.707L2.343 5.05a.5.5 0 0 1 0-.707zm11.314 0a.5.5 0 0 1 0 .707l-1.414 1.414a.5.5 0 1 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zM8 7a3 3 0 0 1 2.599 4.5H5.4A3 3 0 0 1 8 7zm3.71 4.5a4 4 0 1 0-7.418 0H.499a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1h-3.79zM0 10a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 0 10zm13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
+                        <h3 class="h3 fw-bold mb-0">Morning Routine</h3>
+                    </div>
+                </div>
 
-    <style> 
-       .custom-radio input[type="radio"]:checked + .custom-radio-label::before {
-            background-color: red;
-        }
-        .custom-radio.out-of-stock  .custom-radio-label {
-            color: red;
-        }
+                <div class="row g-4">
+                    <!-- Product 1: Tallow Shampoo Bar -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <span class="badge bg-secondary">Online Exclusive</span>
+                                    <span class="h6 fw-bold text-muted">STEP 1</span>
+                                </div>
+                                <div class="text-center mb-3">
+                                    <a href="https://www.primalpantry.co.nz/shop/products/tallow-shampoo/">
+                                        <img src="/img/radio/resell/Shampoo.webp" alt="Tallow Shampoo Bar 100g" class="img-fluid" style="max-height: 200px;">
+                                    </a>
+                                </div>
+                                <p class="h5 fw-bold product-price" 
+                                   data-product="shampoo"
+                                   data-size="120g"
+                                   data-order-type="single_purchase">
+                                    Loading...
+                                </p>
+                                <p class="h6 fw-bold mb-2">
+                                    <a href="https://www.primalpantry.co.nz/shop/products/tallow-shampoo/" class="text-decoration-none text-dark">
+                                        Tallow Shampoo Bar 100g
+                                    </a>
+                                </p>
+                                <p class="text-muted small mb-3">6,000+ Kiwis</p>
+                                <p class="small">Scalp health natural shampoo for glowing hair and healthy scalp</p>
+                                <button 
+                                    class="btn btn-pink w-100 mt-3 quick-add-to-cart" 
+                                    data-product="shampoo"
+                                    data-order-type="single"
+                                    data-flavor="peppermintrosemary"
+                                    data-size="120g"
+                                    data-title="Tallow Shampoo Bar 100g"
+                                    data-display-size="100g"
+                                    data-display-flavor="Peppermint Rosemary"
+                                    data-display-order-type="Single block">
+                                    Quick Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
-.custom-radio input[type="radio"]:checked + .custom-radio-label::before {
-  background-color: green;
+                    <!-- Product 2: Tallow + Zinc Summer Balm -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <span class="badge bg-secondary">Online Exclusive</span>
+                                    <span class="h6 fw-bold text-muted">STEP 2</span>
+                                </div>
+                                <div class="text-center mb-3">
+                                    <a href="https://www.primalpantry.co.nz/shop/products/tallow-summerbalm">
+                                        <img src="/img/summer.webp" alt="Tallow + Zinc Summer Balm" class="img-fluid" style="max-height: 200px;">
+                                    </a>
+                                </div>
+                                <p class="h5 fw-bold product-price" 
+                                   data-product="summer_balm"
+                                   data-size="30ml"
+                                   data-order-type="single_purchase">
+                                    Loading...
+                                </p>
+                                <p class="h6 fw-bold mb-2">
+                                    <a href="https://www.primalpantry.co.nz/shop/products/tallow-summerbalm" class="text-decoration-none text-dark">
+                                        Tallow + Zinc Summer Balm
+                                    </a>
+                                </p>
+                                <p class="text-muted small mb-3">700+ Kiwis</p>
+                                <p class="small">A barrier building balm to protect irritated skin from the kiwi summer elements.</p>
+                                <button 
+                                    class="btn btn-pink w-100 mt-3 quick-add-to-cart" 
+                                    data-product="summer_balm"
+                                    data-order-type="single"
+                                    data-flavor="rose_zinc"
+                                    data-size="30ml"
+                                    data-title="Tallow + Zinc Summer Balm"
+                                    data-display-size="30ml"
+                                    data-display-flavor="Rose + Zinc"
+                                    data-display-order-type="Single jar">
+                                    Quick Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Evening Routine -->
+            <div>
+                <!-- Evening Section Header -->
+                <div class="routine-section-header evening-header mb-4">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-moon-stars me-3" viewBox="0 0 16 16">
+                            <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z"/>
+                            <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+                        </svg>
+                        <h3 class="h3 fw-bold mb-0">Evening Routine</h3>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Product 3: Tallow Cleanser -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <span class="badge bg-secondary">Online Exclusive</span>
+                                    <span class="h6 fw-bold text-muted">STEP 3</span>
+                                </div>
+                                <div class="text-center mb-3">
+                                    <a href="https://www.primalpantry.co.nz/shop/products/tallow-cleanser">
+                                        <img src="/img/cleanser/tallow-cleasner-productpage.webp" alt="Tallow Cleanser" class="img-fluid" style="max-height: 200px;">
+                                    </a>
+                                </div>
+                                <p class="h5 fw-bold product-price" 
+                                   data-product="cleanser"
+                                   data-size="100ml"
+                                   data-order-type="single_purchase">
+                                    Loading...
+                                </p>
+                                <p class="h6 fw-bold mb-2">
+                                    <a href="https://www.primalpantry.co.nz/shop/products/tallow-cleanser" class="text-decoration-none text-dark">
+                                        Tallow Cleanser
+                                    </a>
+                                </p>
+                                <p class="text-muted small mb-3">New</p>
+                                <p class="small">A gentle cleanser to lift makeup and dirt while leaving the skin happy</p>
+                                <button 
+                                    class="btn btn-pink w-100 mt-3 quick-add-to-cart" 
+                                    data-product="cleanser"
+                                    data-order-type="single"
+                                    data-flavor="geranium"
+                                    data-size="100ml"
+                                    data-title="Tallow Cleanser"
+                                    data-display-size="100ml"
+                                    data-display-flavor="Rose Geranium"
+                                    data-display-order-type="Single bottle">
+                                    Quick Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 4: Tallow & Honey Balm 120ml -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <span class="badge bg-warning text-dark">Best Seller</span>
+                                    <span class="h6 fw-bold text-muted">STEP 4</span>
+                                </div>
+                                <div class="text-center mb-3">
+                                    <a href="https://www.primalpantry.co.nz/shop/products/tallow-honey-balm">
+                                        <img src="/img/shop/honeyshop.webp" alt="Tallow & Honey Balm" class="img-fluid" style="max-height: 200px;">
+                                    </a>
+                                </div>
+                                <p class="h5 fw-bold product-price" 
+                                   data-product="honeybalm"
+                                   data-size="120ml"
+                                   data-order-type="single_purchase">
+                                    Loading...
+                                </p>
+                                <p class="h6 fw-bold mb-2">
+                                    <a href="https://www.primalpantry.co.nz/shop/products/tallow-honey-balm" class="text-decoration-none text-dark">
+                                        Tallow & Honey Balm 120ml
+                                    </a>
+                                </p>
+                                <p class="text-muted small mb-3">20,000+ Kiwis</p>
+                                <p class="small">A nourishing tallow balm to rebuild and repair after a long day.</p>
+                                <button 
+                                    class="btn btn-pink w-100 mt-3 quick-add-to-cart" 
+                                    data-product="honeybalm"
+                                    data-order-type="single"
+                                    data-flavor="vanilla"
+                                    data-size="120ml"
+                                    data-title="Tallow & Honey Balm 120ml"
+                                    data-display-size="120ml"
+                                    data-display-flavor="Vanilla & Manuka"
+                                    data-display-order-type="Single jar">
+                                    Quick Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 5: Tallow Eye Cream -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <span class="badge bg-secondary">Online Exclusive</span>
+                                    <span class="h6 fw-bold text-muted">STEP 5</span>
+                                </div>
+                                <div class="text-center mb-3">
+                                    <a href="https://www.primalpantry.co.nz/shop/products/tallow-eye-cream">
+                                        <img src="/img/shop/eyecream.webp" alt="Tallow Eye Cream" class="img-fluid" style="max-height: 200px;">
+                                    </a>
+                                </div>
+                                <p class="h5 fw-bold product-price" 
+                                   data-product="eyecream"
+                                   data-size="10ml"
+                                   data-order-type="single_purchase">
+                                    Loading...
+                                </p>
+                                <p class="h6 fw-bold mb-2">
+                                    <a href="https://www.primalpantry.co.nz/shop/products/tallow-eye-cream" class="text-decoration-none text-dark">
+                                        Tallow Eye Cream
+                                    </a>
+                                </p>
+                                <p class="text-muted small mb-3">8,000+ Kiwis</p>
+                                <p class="small">A lightweight brightening undereye cream to support your most sensitive skin.</p>
+                                <button 
+                                    class="btn btn-pink w-100 mt-3 quick-add-to-cart" 
+                                    data-product="eyecream"
+                                    data-order-type="single"
+                                    data-flavor="manukahoney_vitc"
+                                    data-size="10ml"
+                                    data-title="Tallow Eye Cream"
+                                    data-display-size="15ml"
+                                    data-display-flavor="Manuka Honey & Vitamin C"
+                                    data-display-order-type="Single jar">
+                                    Quick Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Carousel View -->
+        <div class="d-md-none">
+            <!-- Morning Section Header -->
+            <div class="routine-section-header morning-header mb-4">
+                <div class="d-flex align-items-center justify-content-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-sunrise me-2" viewBox="0 0 16 16">
+                        <path d="M7.646 1.146a.5.5 0 0 1 .708 0l1.5 1.5a.5.5 0 0 1-.708.708L8.5 2.707V4.5a.5.5 0 0 1-1 0V2.707l-.646.647a.5.5 0 1 1-.708-.708l1.5-1.5zM2.343 4.343a.5.5 0 0 1 .707 0l1.414 1.414a.5.5 0 0 1-.707.707L2.343 5.05a.5.5 0 0 1 0-.707zm11.314 0a.5.5 0 0 1 0 .707l-1.414 1.414a.5.5 0 1 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zM8 7a3 3 0 0 1 2.599 4.5H5.4A3 3 0 0 1 8 7zm3.71 4.5a4 4 0 1 0-7.418 0H.499a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1h-3.79zM0 10a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 0 10zm13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                    <h3 class="h4 fw-bold mb-0">Morning Routine</h3>
+                </div>
+            </div>
+
+            <!-- Morning Carousel -->
+            <div class="routine-carousel-container position-relative mb-5">
+                <div class="routine-carousel" id="morningCarousel">
+                    <!-- Product 1: Tallow Shampoo Bar -->
+                    <div class="routine-card-wrapper">
+                        <div class="card border-0 shadow-sm">
+                            <div class="step-badge">STEP 1</div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <span class="badge bg-secondary small">Online Exclusive</span>
+                                </div>
+                                <div class="text-center mb-3">
+                                    <a href="https://www.primalpantry.co.nz/shop/products/tallow-shampoo/">
+                                        <img src="/img/radio/resell/Shampoo.webp" alt="Tallow Shampoo Bar 100g" class="img-fluid" style="max-height: 180px;">
+                                    </a>
+                                </div>
+                                <p class="h5 fw-bold product-price" 
+                                   data-product="shampoo"
+                                   data-size="120g"
+                                   data-order-type="single_purchase">
+                                    Loading...
+                                </p>
+                                <p class="h6 fw-bold mb-2">
+                                    <a href="https://www.primalpantry.co.nz/shop/products/tallow-shampoo/" class="text-decoration-none text-dark">
+                                        Tallow Shampoo Bar 100g
+                                    </a>
+                                </p>
+                                <p class="text-muted small mb-3">6,000+ Kiwis</p>
+                                <p class="small">Scalp health natural shampoo for glowing hair and healthy scalp</p>
+                                <button 
+                                    class="btn btn-pink w-100 mt-3 quick-add-to-cart" 
+                                    data-product="shampoo"
+                                    data-order-type="single"
+                                    data-flavor="peppermintrosemary"
+                                    data-size="120g"
+                                    data-title="Tallow Shampoo Bar 100g"
+                                    data-display-size="100g"
+                                    data-display-flavor="Peppermint Rosemary"
+                                    data-display-order-type="Single block">
+                                    Quick Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 2: Tallow + Zinc Summer Balm -->
+                    <div class="routine-card-wrapper">
+                        <div class="card border-0 shadow-sm">
+                            <div class="step-badge">STEP 2</div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <span class="badge bg-secondary small">Online Exclusive</span>
+                                </div>
+                                <div class="text-center mb-3">
+                                    <a href="https://www.primalpantry.co.nz/shop/products/tallow-summerbalm">
+                                        <img src="/img/summer.webp" alt="Tallow + Zinc Summer Balm" class="img-fluid" style="max-height: 180px;">
+                                    </a>
+                                </div>
+                                <p class="h5 fw-bold product-price" 
+                                   data-product="summer_balm"
+                                   data-size="30ml"
+                                   data-order-type="single_purchase">
+                                    Loading...
+                                </p>
+                                <p class="h6 fw-bold mb-2">
+                                    <a href="https://www.primalpantry.co.nz/shop/products/tallow-summerbalm" class="text-decoration-none text-dark">
+                                        Tallow + Zinc Summer Balm
+                                    </a>
+                                </p>
+                                <p class="text-muted small mb-3">700+ Kiwis</p>
+                                <p class="small">A barrier building balm to protect irritated skin from the kiwi summer elements.</p>
+                                <button 
+                                    class="btn btn-pink w-100 mt-3 quick-add-to-cart" 
+                                    data-product="summer_balm"
+                                    data-order-type="single"
+                                    data-flavor="rose_zinc"
+                                    data-size="30ml"
+                                    data-title="Tallow + Zinc Summer Balm"
+                                    data-display-size="30ml"
+                                    data-display-flavor="Rose + Zinc"
+                                    data-display-order-type="Single jar">
+                                    Quick Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Carousel Dots -->
+                <div class="carousel-dots text-center mt-3">
+                    <span class="dot active" data-slide="0"></span>
+                    <span class="dot" data-slide="1"></span>
+                </div>
+            </div>
+
+            <!-- Evening Section Header -->
+            <div class="routine-section-header evening-header mb-4">
+                <div class="d-flex align-items-center justify-content-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-moon-stars me-2" viewBox="0 0 16 16">
+                        <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z"/>
+                        <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+                    </svg>
+                    <h3 class="h4 fw-bold mb-0">Evening Routine</h3>
+                </div>
+            </div>
+
+            <!-- Evening Carousel -->
+            <div class="routine-carousel-container position-relative">
+                <div class="routine-carousel" id="eveningCarousel">
+                    <!-- Product 3: Tallow Cleanser -->
+                    <div class="routine-card-wrapper">
+                        <div class="card border-0 shadow-sm">
+                            <div class="step-badge">STEP 3</div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <span class="badge bg-secondary small">Online Exclusive</span>
+                                </div>
+                                <div class="text-center mb-3">
+                                    <a href="https://www.primalpantry.co.nz/shop/products/tallow-cleanser">
+                                        <img src="/img/cleanser/tallow-cleasner-productpage.webp" alt="Tallow Cleanser" class="img-fluid" style="max-height: 180px;">
+                                    </a>
+                                </div>
+                                <p class="h5 fw-bold product-price" 
+                                   data-product="cleanser"
+                                   data-size="100ml"
+                                   data-order-type="single_purchase">
+                                    Loading...
+                                </p>
+                                <p class="h6 fw-bold mb-2">
+                                    <a href="https://www.primalpantry.co.nz/shop/products/tallow-cleanser" class="text-decoration-none text-dark">
+                                        Tallow Cleanser
+                                    </a>
+                                </p>
+                                <p class="text-muted small mb-3">New</p>
+                                <p class="small">A gentle cleanser to lift makeup and dirt while leaving the skin happy</p>
+                                <button 
+                                    class="btn btn-pink w-100 mt-3 quick-add-to-cart" 
+                                    data-product="cleanser"
+                                    data-order-type="single"
+                                    data-flavor="geranium"
+                                    data-size="100ml"
+                                    data-title="Tallow Cleanser"
+                                    data-display-size="100ml"
+                                    data-display-flavor="Rose Geranium"
+                                    data-display-order-type="Single bottle">
+                                    Quick Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 4: Tallow & Honey Balm -->
+                    <div class="routine-card-wrapper">
+                        <div class="card border-0 shadow-sm">
+                            <div class="step-badge">STEP 4</div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <span class="badge bg-warning text-dark small">Best Seller</span>
+                                </div>
+                                <div class="text-center mb-3">
+                                    <a href="https://www.primalpantry.co.nz/shop/products/tallow-honey-balm">
+                                        <img src="/img/shop/honeyshop.webp" alt="Tallow & Honey Balm" class="img-fluid" style="max-height: 180px;">
+                                    </a>
+                                </div>
+                                <p class="h5 fw-bold product-price" 
+                                   data-product="honeybalm"
+                                   data-size="120ml"
+                                   data-order-type="single_purchase">
+                                    Loading...
+                                </p>
+                                <p class="h6 fw-bold mb-2">
+                                    <a href="https://www.primalpantry.co.nz/shop/products/tallow-honey-balm" class="text-decoration-none text-dark">
+                                        Tallow & Honey Balm 120ml
+                                    </a>
+                                </p>
+                                <p class="text-muted small mb-3">20,000+ Kiwis</p>
+                                <p class="small">A nourishing tallow balm to rebuild and repair after a long day.</p>
+                                <button 
+                                    class="btn btn-pink w-100 mt-3 quick-add-to-cart" 
+                                    data-product="honeybalm"
+                                    data-order-type="single"
+                                    data-flavor="vanilla"
+                                    data-size="120ml"
+                                    data-title="Tallow & Honey Balm 120ml"
+                                    data-display-size="120ml"
+                                    data-display-flavor="Vanilla & Manuka"
+                                    data-display-order-type="Single jar">
+                                    Quick Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 5: Tallow Eye Cream -->
+                    <div class="routine-card-wrapper">
+                        <div class="card border-0 shadow-sm">
+                            <div class="step-badge">STEP 5</div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <span class="badge bg-secondary small">Online Exclusive</span>
+                                </div>
+                                <div class="text-center mb-3">
+                                    <a href="https://www.primalpantry.co.nz/shop/products/tallow-eye-cream">
+                                        <img src="/img/shop/eyecream.webp" alt="Tallow Eye Cream" class="img-fluid" style="max-height: 180px;">
+                                    </a>
+                                </div>
+                                <p class="h5 fw-bold product-price" 
+                                   data-product="eyecream"
+                                   data-size="10ml"
+                                   data-order-type="single_purchase">
+                                    Loading...
+                                </p>
+                                <p class="h6 fw-bold mb-2">
+                                    <a href="https://www.primalpantry.co.nz/shop/products/tallow-eye-cream" class="text-decoration-none text-dark">
+                                        Tallow Eye Cream
+                                    </a>
+                                </p>
+                                <p class="text-muted small mb-3">8,000+ Kiwis</p>
+                                <p class="small">A lightweight brightening undereye cream to support your most sensitive skin.</p>
+                                <button 
+                                    class="btn btn-pink w-100 mt-3 quick-add-to-cart" 
+                                    data-product="eyecream"
+                                    data-order-type="single"
+                                    data-flavor="manukahoney_vitc"
+                                    data-size="10ml"
+                                    data-title="Tallow Eye Cream"
+                                    data-display-size="15ml"
+                                    data-display-flavor="Manuka Honey & Vitamin C"
+                                    data-display-order-type="Single jar">
+                                    Quick Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carousel Dots -->
+                <div class="carousel-dots text-center mt-3">
+                    <span class="dot active" data-slide="0"></span>
+                    <span class="dot" data-slide="1"></span>
+                    <span class="dot" data-slide="2"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Routine Section Styles */
+.btn-pink {
+    background-color: #ffb6c1;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
 
-.custom-radio-label {
-    color: green;
-} 
-    </style>
+.btn-pink:hover {
+    background-color: #ff9eb0;
+    color: #000;
+}
+
+.btn-pink:disabled {
+    background-color: #98fb98;
+    color: #000;
+    cursor: default;
+}
+
+.btn-pink.added {
+    background-color: #98fb98;
+    color: #000;
+}
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1) !important;
+}
+
+.light-peach {
+    background-color: #fef5f1;
+}
+
+/* Morning/Evening Section Headers */
+.routine-section-header {
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.morning-header {
+    background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+    color: white;
+}
+
+.evening-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+/* Mobile Carousel Styles */
+@media (max-width: 767px) {
+    .routine-carousel-container {
+        padding: 0 10px;
+    }
+
+    .routine-carousel {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        gap: 15px;
+        padding: 10px 5px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        padding-left: calc((100vw - 85vw) / 2);
+        padding-right: calc((100vw - 85vw) / 2);
+    }
+
+    .routine-carousel::-webkit-scrollbar {
+        display: none;
+    }
+
+    .routine-card-wrapper {
+        flex: 0 0 85%;
+        scroll-snap-align: center;
+        position: relative;
+    }
+
+    .step-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 14px;
+        z-index: 10;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .routine-card-wrapper .card {
+        height: 100%;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .carousel-dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 15px;
+    }
+
+    .dot {
+        height: 10px;
+        width: 10px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .dot.active {
+        background-color: #667eea;
+        width: 24px;
+        border-radius: 5px;
+    }
+}
+</style>
+
+<script>
+// Routine Quick Add to Cart - Simple "Added to Cart" state
+document.addEventListener('DOMContentLoaded', function() {
+    // Parse pricing data if available
+    const pricingDataExists = typeof pricingData !== 'undefined';
+    const countryCodeExists = typeof country_code !== 'undefined';
     
-    {{ if .Params.charity }}
-<div class="announcement full-width black text-center">
-    <ul>
-        <li>Proceeds from this page are donated to {{ .Params.charity }}.</li>
-    </ul>
-</div>
-{{ else }}
-{{- partial "alert.html" . -}}
-{{ end }}
-
- 
- 
-    {{- partial "header_new.html" . -}}
-    <div class="scroll-top rounded-full">
-        <span class="icon-keyboard_arrow_up text-2xl"></span>
-    </div>
-    {{- partial "slide.html" . -}}
-    {{- partial "strip.html" . -}}
-    <!-- Add html below -->
-
-    <div class="container product-page">
-        <div class="row topbanner rel">
-            <p class="text-muted ninety position-absolute mt-1 "><a href="/shop" class="darktext-muted front pl-2 text-decoration-underline">Shop</a> > Tallow Shampoo Bar</p>
-            <div class="col-xs-12 col-lg-6 product-photos mt-3 mb-0">
-                {{- partial "images-shampoo.html" . -}}
-            </div>            
+    if (!pricingDataExists || !countryCodeExists) {
+        console.warn('Pricing data not available on this page');
+    }
+    
+    // Update all product prices from YAML data
+    function updateProductPrices() {
+        if (!pricingDataExists) return;
         
-            <div class="col-xs-12 col-lg-6">
-                <img class="stars float-left mr-2" src="/img/stars/5.webp" alt=""><p class="thic">Used by 6000+ kiwis <br>Online Only, Not in Stores</p>
-                <h1 class="thic mt-2">Tallow Shampoo Bar</h1><p class="thin h1big">Scalp Health Natural Shampoo</p>
-                <p class="thin">Glowing hair, healthy scalp—your friends will <span class="attention-primalcare">beg for your secret! </span></p>
-
-    <!-- YAML FORM STARTS -->
-
-                <div class="price-display thic">
-                    <p class="mb-2"><span id="price">-</span>
-                    <p class="thin">or 4 interest free payments of $<span id="afterpay_price"></span> with <img src="/img/afterpay.webp" class="d-inline" height="28"></p>                
-                </div>
-
-
-                <form id="productForm" class="form-group mb-4">                    
-                    <div class="text-left  mb-3 mb-lg-4" style="display:none;">
-                        <label class="float-left mr-2">Select flavor:</label>
-                        
-                        <div class="product-form-radio">
-                            <input type="radio" id="peppermintrosemary" name="flavor" value="peppermintrosemary" checked>
-                            <label for="peppermintrosemary" class="product-form-radio">Natural</label>
-                        </div>
-                    </div>                    
-
-                    <div class="text-left mb-3 mb-lg-4" style="display:none;">
-                        <label class="float-left mr-2">Select size:</label>
-                    
-                        <div class="product-form-radio">
-                            <input type="radio" id="size120g" name="size" value="120g" checked>
-                            <label for="size120g" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/resell/Shampoo.webp">100g</label></p>
-                        </div>
-                    </div>
-                    <div class="text-left mb-3 mb-lg-4">
-                        <label class="mob-ninety mr-2">Select unit type:</label>
-                    
-                        <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
-                        <label for="single_purchase" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/resell/Shampoo.webp">Single block</label>
-
-                        <input type="radio" id="three_pack" name="orderType" value="three_pack">
-                        <label for="three_pack" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/resell/Shampoo.webp" alt="3 pack shampoo">3 pack <span class="attention-primalcare small">(2 Get 1 Free)</span></label>
-                    
-                    </div>
-
-                    
-
- <!-- Quantity Selector -->
- <div class="form-group mb-3 mb-lg-4">
-    <div class="mt-4 custom-radio  float-right">
-        <input type="radio" id="inStock" name="stockStatus" checked>
-        <label class="custom-radio-label mb-0" for="inStock">In stock</label>
-    </div>
-    <label for="quantityAll"  class="form-label">Quantity of units:</label>
-    <div class="quantity-container">
-        <button type="button" class="btn-decrease">-</button>
-        <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
-        <button type="button" class="btn-increase">+</button>
-      </div>
-</div>
-
-                    
-
-
-
-                <!-- Add to Cart Button -->
-                <div class="add-to-cart text-center mb-4">
-                    <button type="button" class="btn btn-primary btn-lg buy-now mb-1" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
-                    <p>Speedy Shipping NZ Wide | Money back guarantee</p>
-                    <img class="badges middle" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
-
-                </div>
-
-                </form>
-
-                
-                    <!-- YAML FORM ENDS -->
-
-            </div>
-
-            <div class="row mt-0">
-                <div class="col-12 col-md-6 text-center">
-  <div class="col-12 text-center">
-                    <h2>As Featured on</h2>
-                    <div class="col-12 d-none d-md-block">
-                        <img src="/img/shop/desktop-product-logos.webp" class="img-fluid">
-                    </div>
-                    <div class="col-12 d-block d-md-none">
-                        <img src="/img/shop/mobile-logos.webp" class="img-fluid">
-                    </div>
-                </div></div>
-
-
-                    
-         
+        const priceElements = document.querySelectorAll('.product-price');
+        
+        priceElements.forEach(element => {
+            const product = element.getAttribute('data-product');
+            const size = element.getAttribute('data-size');
+            const orderType = element.getAttribute('data-order-type');
             
-            <div class="faq-tab-container col-12 col-md-6">
-                <!-- Nav tabs -->
-                <div class="faq-nav-tabs">
-                    <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Fast facts</div>
-                    <div class="faq-nav-tab" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</div>
-                    <div class="faq-nav-tab" id="directions-tab" data-toggle="tab" href="#directions" role="tab" aria-controls="directions" aria-selected="false">Directions</div>
-                    <div class="faq-nav-tab" id="storage-tab" data-toggle="tab" href="#storage" role="tab" aria-controls="storage" aria-selected="false">Storage</div>
-                    <div class="faq-nav-tab" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</div>
-                </div>
+            try {
+                const productPricingData = pricingData.tallow.pricing[product];
                 
-                <!-- Tab panes -->
-                <div class="tab-content faq-tab-content">
-                    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">  
-                        <h4>Why use a tallow shampoo bar?</h4>      
-                        <p>Don't waste another dollar on chemical-laden shampoos that strip your hair and irritate your scalp!</p>
-
-                        <p>Cleanse, moisturize, and nourish your hair with a tallow shampoo bar—hydrating and soothing dryness, psoriasis, or eczema on the scalp.</p>
-                        
-                        <p>Gentle yet effective, it leaves your hair clean, soft, and conditioned—all without the plastic waste of traditional bottles.</p>
-                        
-                        <p>Give your hair and scalp the love they deserve with a shampoo bar gifted straight from Mother Nature!</p>
-                    </div>
-                
-                    <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
-                        <h4>Ingredients</h4>
-                        <p>Grass-Fed Beef Tallow, Olive Oil, Coconut Oil, Castor Oil Lye (none remains in product after 4 weeks of curing), Peppermint & Rosemary Essential Oils.</p>
-                    </div>
-                
-                    <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
-                        <h4>Directions</h4>
-                        <p>Lather in your hands before running them through your hair. Rinse after washing hair. Try to keep the block dry to avoid it decaying prematurely</p>
-                    </div>
-                
-                    <div class="tab-pane fade" id="storage" role="tabpanel" aria-labelledby="storage-tab">
-                        <h4>Storage</h4>
-                        <p>Store in a dry, cool place away from direct sunlight to extend the shelf life of the soap.</p>
-                    </div>
-                
-                    <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
-                        <h4>Shipping</h4>
-                        <p><strong>Processing time:</strong> Your order will be processed within 3 business days after which you can expect usual courier times to your area (generally 3-5 business days) </p>
-                        <p><strong>Shipping rates:</strong> Shipping is available for $6.95 to most areas of NZ.</p>
-                        <p><strong>International shipping:</strong> Currently, we only offer shipping within New Zealand. We apologize for any inconvenience this may cause.</p>
-                        <p>If you have any questions or concerns regarding shipping, please don't hesitate to <a href="/contact/">contact us</a>.</p>
-                    </div>
-                </div>
-                
-                
-                </div>
-                
-            </div>
-                
-            </div>
-            
-                
-                </div>
-        </div>
-    </div>
-</div>
-
-
-</div>
+                if (Array.isArray(productPricingData)) {
+                    const pricingEntry = productPricingData.find(entry => 
+                        entry.size.toLowerCase() === size.toLowerCase()
+                    );
+                    
+                    if (pricingEntry && pricingEntry.prices[country_code] && pricingEntry.prices[country_code][orderType]) {
+                        const price = pricingEntry.prices[country_code][orderType];
+                        element.textContent = `$${price.toFixed(2)}`;
+                    }
+                }
+            } catch (error) {
+                console.error('Error updating price:', error);
+            }
+        });
+    }
     
-  </div>
-
-  <!-- Include Skincare Routine Partial -->
-  {{- partial "skincare-routine.html" . -}}
-  
-  <div class="section light-peach py-80 mt-5">
-        <div class="container">
-            <div class="text-center">
-            <h2>You might also like</h2>
-            <div class="row justify-content-around d-none d-md-flex mt-5">
-            {{- partial "prodcardtallowstack.html" . -}}
-            {{- partial "prodcard-deodorant.html" . -}} 
-            {{- partial "prodcard-lipbalm.html" . -}} 
-            </div>
-            <div class="d-md-none d-block mt-3">
-                {{- partial "prodcardtallowstack.html" . -}}
-
-            </div>
-            </div>
-        </div>
-    </div> 
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var tabs = document.querySelectorAll('.faq-nav-tab');
-            tabs.forEach(function(tab) {
-                tab.addEventListener('click', function() {
-                    document.querySelector('.faq-nav-tab.active').classList.remove('active');
-                    tab.classList.add('active');
-                    var tabContent = document.querySelector('.faq-tab-content .tab-pane.show.active');
-                    tabContent.classList.remove('show', 'active');
-                    var target = tab.getAttribute('href');
-                    document.querySelector(target).classList.add('show', 'active');
+    updateProductPrices();
+    
+    // Handle all quick add to cart buttons
+    const quickAddButtons = document.querySelectorAll('.quick-add-to-cart');
+    
+    quickAddButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Check if already added
+            if (this.classList.contains('added')) {
+                return; // Do nothing if already added
+            }
+            
+            const product = this.getAttribute('data-product');
+            const orderType = this.getAttribute('data-order-type');
+            const flavor = this.getAttribute('data-flavor');
+            const size = this.getAttribute('data-size');
+            
+            const title = this.getAttribute('data-title');
+            const displaySize = this.getAttribute('data-display-size');
+            const displayFlavor = this.getAttribute('data-display-flavor');
+            const displayOrderType = this.getAttribute('data-display-order-type');
+            const quantity = 1;
+            
+            if (!pricingDataExists) {
+                alert('Unable to add product to cart. Pricing data not available.');
+                return;
+            }
+            
+            let priceId = null;
+            let unitPrice = 0;
+            
+            try {
+                priceId = pricingData.tallow.ids[product][orderType][flavor][size][country_code];
+                
+                const productPricingData = pricingData.tallow.pricing[product];
+                
+                if (Array.isArray(productPricingData)) {
+                    const pricingEntry = productPricingData.find(entry => 
+                        entry.size.toLowerCase() === size.toLowerCase()
+                    );
+                    
+                    if (pricingEntry && pricingEntry.prices[country_code]) {
+                        const pricingOrderType = orderType === 'single' ? 'single_purchase' : 
+                                                orderType === 'pack' ? 'three_pack' : orderType;
+                        
+                        unitPrice = pricingEntry.prices[country_code][pricingOrderType] || 0;
+                    }
+                }
+                
+                console.log('Retrieved data:', {
+                    product,
+                    orderType,
+                    flavor,
+                    size,
+                    country_code,
+                    priceId,
+                    unitPrice
+                });
+                
+            } catch (error) {
+                console.error('Error fetching data from YAML:', error);
+                console.error('Data path attempted:', {
+                    product,
+                    orderType,
+                    flavor,
+                    size,
+                    country_code
+                });
+            }
+            
+            if (!priceId || unitPrice === 0) {
+                console.error('Invalid price data for product:', title);
+                alert('Unable to add this product to cart. Please visit the product page.');
+                return;
+            }
+            
+            const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+            
+            cart.push({
+                priceId: priceId,
+                title: title,
+                size: displaySize,
+                flavor: displayFlavor,
+                orderType: displayOrderType,
+                quantity: quantity,
+                unitPrice: unitPrice,
+                eligibleForDiscount: false
+            });
+            
+            localStorage.setItem('cartV2', JSON.stringify(cart));
+            
+            // Update button to "Added to Cart" permanently
+            this.textContent = 'Added to Cart';
+            this.classList.add('added');
+            this.disabled = true;
+            
+            // Update cart badge
+            if (typeof updateCartBadge === 'function') {
+                updateCartBadge();
+            }
+            
+            // Trigger cart icon animation
+            if (typeof triggerCartBounce === 'function') {
+                triggerCartBounce();
+            }
+            
+            console.log('Added to cart:', {
+                priceId, 
+                title, 
+                size: displaySize, 
+                flavor: displayFlavor, 
+                orderType: displayOrderType, 
+                quantity, 
+                unitPrice
+            });
+        });
+    });
+    
+    // Mobile Carousel Functionality
+    function initCarousel(carouselId) {
+        const carousel = document.getElementById(carouselId);
+        if (!carousel) return;
+        
+        const dots = carousel.parentElement.querySelectorAll('.dot');
+        const cards = carousel.querySelectorAll('.routine-card-wrapper');
+        
+        if (cards.length === 0) return;
+        
+        carousel.addEventListener('scroll', function() {
+            const scrollLeft = carousel.scrollLeft;
+            const cardWidth = cards[0].offsetWidth + 15;
+            const activeIndex = Math.round(scrollLeft / cardWidth);
+            
+            dots.forEach((dot, index) => {
+                if (index === activeIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        });
+        
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', function() {
+                const cardWidth = cards[0].offsetWidth + 15;
+                carousel.scrollTo({
+                    left: cardWidth * index,
+                    behavior: 'smooth'
                 });
             });
         });
-    </script>
-    </div>
-
-  
-
-
-</div>
-
-</div>
-</div>    
-{{- partial "stripe.html" . -}}    
-
-<!-- Include Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-
-<!-- YAML SCRIPT STARTS -->
-
-
-
-<script>
-const productPricingRaw = {{ site.Data.pricing.tallow.pricing.shampoo | jsonify | safeJS }};
-console.log("Raw product Pricing from Hugo:", productPricingRaw);
-const country_code = getCountryCookie('country_code') || "NZ";
-
-const productPricing = Array.isArray(productPricingRaw) ? productPricingRaw : [];
-if (!Array.isArray(productPricing)) {
-console.error("productPricing is not an array. Ensure your YAML structure and Hugo data access.");
-} else {
-console.log("Parsed product Pricing:", productPricing);
-}
-
-function updatePrice() {
-const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
-const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
-
-console.log("Selected size:", size);
-console.log("Selected order type:", orderType);
-
-const pricingEntry = productPricing.find(entry => entry.size.toLowerCase() === size);
-if (pricingEntry && pricingEntry.prices[country_code][orderType]) {
-    const price = pricingEntry.prices[country_code][orderType];
-    document.getElementById("price").textContent = `$${price.toFixed(2)}`;
-    document.getElementById("afterpay_price").textContent = `${(price/4).toFixed(2)}`;
-} else {
-    document.getElementById("price").textContent = "N/A";
-    document.getElementById("afterpay_price").textContent = "N/A";
-}
-}
-
-
-
-// Attach event listener for changes
-document.getElementById("productForm").addEventListener("change", updatePrice);
-
-// Initialize the price on page load
-document.addEventListener("DOMContentLoaded", updatePrice);
-</script>
-
-
-<script>
-// Function to update the price ID display
-function updatePriceID() {
-const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
-const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
-const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
-
-
-
-// Default value for price ID
-let priceID = "N/A";
-
-// Debug: Check the loaded data and selected values
-console.log("Loaded Data:", productPricingRaw);
-console.log("Selected - Size:", size, "Flavor:", flavor, "Order Type:", orderType);
-
-// Traverse the pricing structure for the selected combination
-if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.shampoo) {
-const shampooData = productPricingRaw.ids.shampoo;
-console.log("Shampoo Data:", shampooData);
-
-const orderTypeData = shampooData[orderType];
-console.log("Order Type Data:", orderTypeData);
-
-if (orderTypeData && orderTypeData[flavor]) {
-    const flavorData = orderTypeData[flavor];
-    console.log("Flavor Data:", flavorData);
-
-    const sizeData = flavorData[size];
-    console.log("Size Data:", sizeData);
-
-    if (sizeData) {
-        priceID = sizeData[country_code]; // Assign the resolved price ID
     }
-}
-}
-
-// Update the DOM element with the resolved price ID
-document.getElementById("price-id").textContent = priceID !== "N/A" ? priceID : "Price ID Not Available";
-
-// Log final result
-console.log("Resolved Price ID:", priceID);
-
-};
-</script>
-<script>
-// Parse the JSON string into an object
-const rawData = "{{ .Site.Data.pricing | jsonify }}"; // Embedded JSON string from Hugo
-const pricingData = JSON.parse(rawData); // Parse into a JavaScript object
-console.log('Parsed Pricing Data:', pricingData); // Debugging output
-
-function updatePriceId() {
-// Get the selected values
-const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
-const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
-const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
-
-try {
-let priceId;
-
-// Access the correct price ID based on the order type
-if (orderType === 'single_purchase') {
-    priceId = pricingData.tallow.ids.shampoo.single[flavor][size][country_code];
-} else if (orderType === 'recurring_monthly') {
-    priceId = pricingData.tallow.ids.shampoo.monthly[flavor][size][country_code];
-} else if (orderType === 'recurring_quarterly') {
-    priceId = pricingData.tallow.ids.shampoo.quarterly[flavor][size][country_code];
-} else if (orderType === 'three_pack') {
-    priceId = pricingData.tallow.ids.shampoo.pack[flavor][size][country_code];
-}
-
-console.log('Price ID:', priceId);
-
-// Update the DOM element with the resolved price ID, if it exists
-const priceIdElement = document.getElementById('price-id');
-if (priceIdElement) {
-    priceIdElement.textContent = priceId || 'Price ID not found';
-}
-
-// Update the button's data-price-id attribute
-const buyNowButton = document.querySelector(".buy-now");
-if (buyNowButton) {
-    buyNowButton.setAttribute("data-price-id", priceId || "");
-    console.log('Button updated with Price ID:', priceId);
-}
-} catch (error) {
-console.error('Error fetching Price ID:', error);
-
-// Clear the button's data-price-id attribute on error
-const buyNowButton = document.querySelector(".buy-now");
-if (buyNowButton) {
-    buyNowButton.setAttribute("data-price-id", "");
-}
-}
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-// Add event listener for form changes
-document.getElementById('productForm').addEventListener('change', updatePriceId);
-
-// Trigger the update function on page load
-updatePriceId();
+    
+    initCarousel('morningCarousel');
+    initCarousel('eveningCarousel');
 });
 </script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-// Convert the ids structure to a simplified format
-function preprocessproductData(rawData) {
-const simplified = {};
-
-// Iterate over shampoo (or pets, if needed)
-if (rawData.ids && rawData.ids.shampoo) {
-    const categories = rawData.ids.shampoo;
-
-    for (const [orderType, flavors] of Object.entries(categories)) {
-        for (const [flavor, sizes] of Object.entries(flavors)) {
-            for (const [size, priceId] of Object.entries(sizes)) {
-                if (!simplified[size]) {
-                    simplified[size] = {};
-                }
-                if (!simplified[size][flavor]) {
-                    simplified[size][flavor] = {};
-                }
-                simplified[size][flavor][orderType] = priceId;
-            }
-        }
-    }
-}
-return simplified;
-}
-
-// Example: Assume productPricingRaw is available globally or passed here
-const normalizedproductData = preprocessproductData(productPricingRaw);
-console.log('Normalized product Data:', normalizedproductData);
-
-// Use normalizedproductData for price ID lookups
-function getPriceID(size, flavor, orderType) {
-return (
-    normalizedproductData[size]?.[flavor]?.[orderType] ||
-    "Price ID not found"
-);
-}
-
-});
-
-</script>
-
-
-<script>
-// Add to Cart Handler Function
-function handleAddToCart(event) {
-event.preventDefault();
-
-console.log('Add to Cart button clicked!'); // Debugging
-
-const button = event.target;
-
-
-
-// Retrieve values from the dropdowns
-const selectedSize = document.querySelector('input[name="size"]:checked');
-const size = document.querySelector(`label[for="${selectedSize.id}"]`).textContent.trim(); // Updated to get label text
-
-// Use the text content of the selected option
-const selectedFlavor = document.querySelector('input[name="flavor"]:checked');
-const flavor = document.querySelector(`label[for="${selectedFlavor.id}"]`).textContent.trim();
-
-// Use the text content of the selected option
-const selectedOrderType = document.querySelector('input[name="orderType"]:checked');
-const orderTypeSelect = document.querySelector(`label[for="${selectedOrderType.id}"]`).textContent.trim();
-
-const unitPriceElement = document.getElementById('price');
-const unitPrice = unitPriceElement 
-? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00
-: 0.00;
-
-// Retrieve the price ID
-const priceId = button.getAttribute('data-price-id') || 'N/A';
-const title = document.querySelector('h1').innerText;
-
-// Retrieve quantity
-const quantityField = document.getElementById('quantityAll');
-const quantity = quantityField ? parseInt(quantityField.value, 10) || 1 : 1;
-
-// Debugging
-console.log('Size:', size); // Updated to show label
-console.log('Flavor:', flavor);
-console.log('Order Type:', orderTypeSelect); // Updated to show label
-console.log('Quantity:', quantity);
-console.log('Price ID:', priceId);
-
-// Check if price ID is valid
-if (!priceId || priceId === 'N/A') {
-alert('Please select valid options before adding to cart.');
-return;
-}
-
-// Add to cart
-const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
-cart.push({
-priceId,
-title,
-size,
-flavor,
-orderType: orderTypeSelect,
-quantity,
-unitPrice,
-eligibleForDiscount: false
-});
-localStorage.setItem('cartV2', JSON.stringify(cart));
-
-console.log('Cart updated:', cart); // Debugging
-
-// Update cart badge
-if (typeof updateCartBadge === 'function') {
-    updateCartBadge();
-}
-
-// Trigger success modal or alert
-const modal = document.getElementById('addedToCartModal');
-if (modal) {
-$('#addedToCartModal').modal('show');
-} else {
-alert('Item added to cart successfully!');
-}
-}
-
-// Attach the event listener to the Add to Cart button
-document.addEventListener('DOMContentLoaded', function () {
-const addToCartButton = document.querySelector('.buy-now');
-if (addToCartButton) {
-addToCartButton.addEventListener('click', handleAddToCart);
-console.log('Add to Cart button is ready.');
-} else {
-console.error('Add to Cart button not found!');
-}
-});
-
-</script>
-
-
-
-
-
-
-<!-- Modal for Add to Cart Confirmation -->
-<div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-<div class="modal-content">
-    <div class="modal-header">
-        <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
-        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
-        </button>
-    </div>
-    <div class="modal-body">
-        Your item has been successfully added to the cart. What would you like to do next?
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
-        <a href="/cart" class="btn btn-primary">Go to Cart</a>
-    </div>
-</div>
-</div>
-</div>
-
-<!-- YAML SCRIPT ENDS -->
-
-
-<script>
-const quantityInput = document.getElementById('quantityAll');
-const btnIncrease = document.querySelector('.btn-increase');
-const btnDecrease = document.querySelector('.btn-decrease');
-
-// Increase quantity
-btnIncrease.addEventListener('click', () => {
-  quantityInput.value = parseInt(quantityInput.value) + 1;
-});
-
-// Decrease quantity (minimum value = 1)
-btnDecrease.addEventListener('click', () => {
-  const currentValue = parseInt(quantityInput.value);
-  if (currentValue > 1) {
-    quantityInput.value = currentValue - 1;
-  }
-});
-
-    </script>
-
-{{- partial "footer.html" . -}}
-</body>
-</html>
