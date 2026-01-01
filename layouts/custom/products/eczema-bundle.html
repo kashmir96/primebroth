@@ -29,6 +29,11 @@
                 <!-- Cart items will be dynamically injected here -->
             </div>
 
+            <!-- Free Gift Banner (shown when cart has a 3-pack) -->
+            <div id="free-gift-banner" class="d-none mb-4">
+                <!-- Free gift content injected here -->
+            </div>
+
             <!-- Upsell Banner -->
             <div id="upsell-banner" class="d-none mb-4">
                 <!-- Upsell content injected here -->
@@ -81,6 +86,7 @@
             const totalCostElement = document.getElementById('total-cost');
             const proceedToCheckoutButton = document.getElementById('proceed-to-checkout');
             const upsellBanner = document.getElementById('upsell-banner');
+            const freeGiftBanner = document.getElementById('free-gift-banner');
 
             // Check if item is a 3-pack
             function isThreePack(item) {
@@ -90,6 +96,11 @@
                        orderTypeLower.includes('3 pack') || 
                        orderTypeLower.includes('three') ||
                        orderTypeLower.includes('2 get 1');
+            }
+
+            // Check if cart has any 3-pack
+            function cartHasThreePack() {
+                return cart.some(item => isThreePack(item));
             }
 
             // Find upsell opportunities
@@ -167,6 +178,29 @@
                 });
                 
                 return opportunities;
+            }
+
+            // Render free gift banner
+            function renderFreeGiftBanner() {
+                if (cartHasThreePack()) {
+                    freeGiftBanner.classList.remove('d-none');
+                    freeGiftBanner.innerHTML = `
+                        <div class="free-gift-card p-3">
+                            <div class="d-flex align-items-center">
+                                <span class="free-gift-icon">🎁</span>
+                                <div>
+                                    <span class="free-gift-title"><strong>FREE Tallow Lip Balm</strong> valued at $12.95</span>
+                                    <br>
+                                    <span class="free-gift-subtitle">Included with your 3-pack purchase (one per order)</span>
+                                </div>
+                                <span class="free-gift-price ml-auto">FREE</span>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    freeGiftBanner.classList.add('d-none');
+                    freeGiftBanner.innerHTML = '';
+                }
             }
 
             // Render upsell banner
@@ -327,10 +361,6 @@
                     const lineItemTotal = (unitPrice * quantity).toFixed(2);
                     totalCost += parseFloat(lineItemTotal);
 
-                    // Check if this is a 3-pack to show free lip balm message
-                    const isPackItem = isThreePack(item);
-                    const freeLipBalmTag = isPackItem ? '<div class="free-gift-tag mt-1">🎁 + Free Lip Balm valued at $12.95 <span class="text-muted">(One per customer)</span></div>' : '';
-
                     const row = document.createElement('tr');
 
                     if (window.innerWidth > 600) {
@@ -343,7 +373,6 @@
                                     <div style="max-width: 250px;" class="float-left">
                                         ${item.title || 'Unknown Product'} - Pack of 3 Jars
                                         <ul>${flavorList}</ul>
-                                        ${freeLipBalmTag}
                                     </div>
                                     <button class="remove-item bin-sml float-right" data-index="${index}">
                                         <img src="/img/bin.svg">
@@ -358,7 +387,6 @@
                                 <td class="max-200">
                                     <div style="max-width: 250px;" class="float-left">
                                         ${item.title || 'Unknown Product'} - ${item.flavor || 'N/A'} (${item.size || 'N/A'}) (${item.orderType || 'N/A'})
-                                        ${freeLipBalmTag}
                                     </div>
                                     <button class="remove-item bin-sml float-right" data-index="${index}">
                                         <img src="/img/bin.svg">
@@ -378,7 +406,6 @@
                                 <td>
                                     <div>${item.title || 'Unknown Product'} - Pack of 3 Jars
                                         <ul>${flavorList}</ul>
-                                        ${freeLipBalmTag}
                                     <div class="row m-0 mt-2 p-0 align-items-center">
                                         <span class="col-4">$${unitPrice}${priceSuffix}</span>
                                         <span class="col-4 text-center"><input type="number" style="width: 50px;margin:auto" class="form-control quantity-input" data-index="${index}" value="${quantity}" min="1"></span>
@@ -394,9 +421,7 @@
                         } else {
                             row.innerHTML = `
                                 <td>
-                                    <div>${item.title || 'Unknown Product'} - ${item.flavor || 'N/A'} (${item.size || 'N/A'}) (${item.orderType || 'N/A'})
-                                        ${freeLipBalmTag}
-                                    </div>
+                                    <div>${item.title || 'Unknown Product'} - ${item.flavor || 'N/A'} (${item.size || 'N/A'}) (${item.orderType || 'N/A'})</div>
                                     <div class="row m-0 mt-2 p-0 align-items-center">
                                         <span class="col-4">$${unitPrice}${priceSuffix}</span>
                                         <span class="col-4 text-center"><input type="number" style="width: 50px;margin:auto" class="form-control quantity-input" data-index="${index}" value="${quantity}" min="1"></span>
@@ -455,6 +480,9 @@
                         cartEmptyDiv.classList.add('d-none');
                     }
                 }
+
+                // Render free gift banner (if cart has 3-pack)
+                renderFreeGiftBanner();
 
                 // Render upsell banner
                 renderUpsellBanner();
@@ -531,6 +559,38 @@
             }
         }
         
+        /* Free Gift Banner Styles */
+        .free-gift-card {
+            background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+            border: 1px dashed #28a745;
+            border-radius: 8px;
+        }
+        
+        .free-gift-icon {
+            font-size: 28px;
+            margin-right: 12px;
+        }
+        
+        .free-gift-title {
+            font-size: 15px;
+            color: #333;
+        }
+        
+        .free-gift-subtitle {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .free-gift-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: #28a745;
+            background: #fff;
+            padding: 4px 12px;
+            border-radius: 4px;
+            border: 1px solid #28a745;
+        }
+        
         /* Upsell Banner Styles */
         .upsell-card {
             background: #f8f9fa;
@@ -571,22 +631,6 @@
             color: #fff;
         }
         
-        /* Free Gift Tag Styles */
-        .free-gift-tag {
-            font-size: 12px;
-            color: #28a745;
-            font-weight: 500;
-            background: #e8f5e9;
-            padding: 4px 8px;
-            border-radius: 4px;
-            display: inline-block;
-        }
-        
-        .free-gift-tag .text-muted {
-            font-size: 11px;
-            font-weight: 400;
-        }
-        
         @media (max-width: 767px) {
             .upsell-card {
                 text-align: center;
@@ -609,6 +653,23 @@
             
             .btn-upsell {
                 width: 100%;
+            }
+            
+            .free-gift-card .d-flex {
+                flex-wrap: wrap;
+                justify-content: center;
+                text-align: center;
+            }
+            
+            .free-gift-icon {
+                margin-right: 0;
+                margin-bottom: 8px;
+                width: 100%;
+            }
+            
+            .free-gift-price {
+                margin-top: 10px;
+                margin-left: 0 !important;
             }
         }
     </style>
