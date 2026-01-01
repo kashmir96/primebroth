@@ -111,7 +111,7 @@
             animation: badgePop 0.4s ease-in-out;
         }
 
-        /* Fixed cart notification that appears when scrolled */
+        /* Fixed cart notification that appears when item added */
         .cart-notification {
             position: fixed;
             top: 20px;
@@ -119,11 +119,16 @@
             background: white;
             border-radius: 10px;
             padding: 15px 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            z-index: 9999;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            z-index: 99999;
             display: none;
             align-items: center;
             gap: 12px;
+            border: 2px solid #98fb98;
+        }
+
+        .cart-notification.show {
+            display: flex !important;
             animation: slideIn 0.3s ease-out;
         }
 
@@ -180,6 +185,7 @@
 
         .cart-notification .go-to-cart:hover {
             background: #333;
+            color: #fff;
         }
     </style>
 
@@ -243,22 +249,31 @@
 
     // Global function to trigger cart icon bounce and show notification
     function triggerCartBounce(productName) {
+        console.log('triggerCartBounce called with:', productName);
+        
         // Bounce the cart icons
         const cartContainers = document.querySelectorAll('.cart-icon-container');
         cartContainers.forEach(container => {
             container.classList.remove('bounce');
-            void container.offsetWidth; // Force reflow
+            void container.offsetWidth;
             container.classList.add('bounce');
             setTimeout(() => container.classList.remove('bounce'), 700);
         });
         
-        // Show fixed notification (visible even when scrolled)
+        // Show fixed notification
         const notification = document.getElementById('cartNotification');
         const productNameEl = document.getElementById('notificationProductName');
         
+        console.log('Notification element:', notification);
+        
         if (notification) {
+            // Reset state
             notification.classList.remove('hide');
-            notification.style.display = 'flex';
+            notification.classList.remove('show');
+            void notification.offsetWidth;
+            
+            // Show it
+            notification.classList.add('show');
             
             if (productNameEl && productName) {
                 productNameEl.textContent = productName;
@@ -268,10 +283,12 @@
             setTimeout(() => {
                 notification.classList.add('hide');
                 setTimeout(() => {
-                    notification.style.display = 'none';
+                    notification.classList.remove('show');
                     notification.classList.remove('hide');
                 }, 300);
             }, 3000);
+        } else {
+            console.error('Cart notification element not found!');
         }
     }
 </script>
