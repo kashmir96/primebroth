@@ -59,7 +59,7 @@
         // Upsell configuration
         const upsellConfig = {
             'honeybalm': { productName: 'Tallow & Honey Balm' },
-            'balm': { productName: 'Original Tallow Balm' },
+            'balm': { productName: 'Whipped Tallow Balm' },
             'summer_balm': { productName: 'Summer Balm' },
             'liquid_lotion': { productName: 'Aloe Tallow Body Lotion' },
             'shampoo': { productName: 'Tallow Shampoo Bar' }
@@ -97,6 +97,15 @@
                 return cart.some(item => isThreePack(item));
             }
 
+            // Clean size string - remove extra text like "(cheaper per ml)"
+            function cleanSize(size) {
+                if (!size) return null;
+                return size.toLowerCase()
+                    .replace(/\s/g, '')
+                    .replace(/\(.*\)/g, '')
+                    .trim();
+            }
+
             // Find upsell opportunities
             function findUpsellOpportunities() {
                 const opportunities = [];
@@ -115,6 +124,7 @@
                     let productKey = null;
                     const titleLower = (item.title || '').toLowerCase();
                     
+                    // Detect product type from title
                     if (titleLower.includes('honey') && titleLower.includes('balm')) {
                         productKey = 'honeybalm';
                     } else if (titleLower.includes('summer') && titleLower.includes('balm')) {
@@ -123,34 +133,61 @@
                         productKey = 'liquid_lotion';
                     } else if (titleLower.includes('shampoo')) {
                         productKey = 'shampoo';
+                    } else if (titleLower.includes('whipped') && titleLower.includes('balm')) {
+                        productKey = 'balm';
+                    } else if (titleLower.includes('original') && titleLower.includes('balm')) {
+                        productKey = 'balm';
+                    } else if (titleLower.includes('tallow balm') && !titleLower.includes('honey') && !titleLower.includes('summer') && !titleLower.includes('lip')) {
+                        productKey = 'balm';
                     } else if (titleLower.includes('balm') && !titleLower.includes('honey') && !titleLower.includes('summer') && !titleLower.includes('lip')) {
                         productKey = 'balm';
                     }
                     
-                    if (!productKey) return;
+                    if (!productKey) {
+                        console.log('Could not detect product for:', item.title);
+                        return;
+                    }
                     
-                    const detectedSize = item.size ? item.size.toLowerCase().replace(/\s/g, '') : null;
+                    const detectedSize = cleanSize(item.size);
                     const detectedFlavor = item.flavor || null;
+                    
+                    console.log('Checking upsell for:', item.title, 'productKey:', productKey, 'size:', detectedSize, 'flavor:', detectedFlavor);
                     
                     try {
                         const productPricing = pricingData.tallow.pricing[productKey];
-                        if (!Array.isArray(productPricing)) return;
+                        if (!Array.isArray(productPricing)) {
+                            console.log('No pricing array found for:', productKey);
+                            return;
+                        }
                         
                         const pricingEntry = productPricing.find(entry => {
-                            const entrySize = entry.size.toLowerCase().replace(/\s/g, '');
+                            const entrySize = cleanSize(entry.size);
                             return entrySize === detectedSize;
                         });
                         
-                        if (!pricingEntry || !pricingEntry.prices[countryCode]) return;
+                        if (!pricingEntry) {
+                            console.log('No pricing entry found for size:', detectedSize);
+                            return;
+                        }
+                        
+                        if (!pricingEntry.prices[countryCode]) {
+                            console.log('No pricing for country:', countryCode);
+                            return;
+                        }
                         
                         const singlePrice = pricingEntry.prices[countryCode].single_purchase;
                         const packPrice = pricingEntry.prices[countryCode].three_pack;
                         
-                        if (!singlePrice || !packPrice) return;
+                        if (!singlePrice || !packPrice) {
+                            console.log('Missing single or pack price');
+                            return;
+                        }
                         
                         const currentTotal = singlePrice * item.quantity;
                         const packTotal = packPrice * item.quantity;
                         const difference = packTotal - currentTotal;
+                        
+                        console.log('Upsell opportunity found! Difference:', difference);
                         
                         if (difference > 0) {
                             opportunities.push({
@@ -232,7 +269,7 @@
                 const originalItem = cart[index];
                 
                 try {
-                    const sizeKey = size.toLowerCase().replace(/\s/g, '');
+                    const sizeKey = cleanSize(size);
                     
                     let flavorKey = 'vanilla';
                     if (flavor) {
@@ -241,7 +278,9 @@
                             flavorKey = 'vanilla';
                         } else if (flavorLower.includes('lavender')) {
                             flavorKey = 'lavender';
-                        } else if (flavorLower.includes('geranium') || flavorLower.includes('rose')) {
+                        } else if (flavorLower.includes('geranium')) {
+                            flavorKey = 'geranium';
+                        } else if (flavorLower.includes('rose') && !flavorLower.includes('zinc')) {
                             flavorKey = 'geranium';
                         } else if (flavorLower.includes('natural') || flavorLower.includes('neutral')) {
                             flavorKey = 'natural';
@@ -253,6 +292,8 @@
                             flavorKey = 'rose_zinc';
                         }
                     }
+                    
+                    console.log('Attempting upsell swap:', productKey, flavorKey, sizeKey, countryCode);
                     
                     const packPriceId = pricingData.tallow.ids[productKey].pack[flavorKey][sizeKey][countryCode];
                     
