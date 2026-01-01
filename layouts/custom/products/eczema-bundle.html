@@ -89,8 +89,6 @@
                     'unscented': 'neutral',
                     'fragrance free': 'neutral',
                     'vanilla': 'vanilla',
-                    'vanilla & manuka': 'vanilla',
-                    'manuka': 'vanilla',
                     'frankincense': 'frankincense',
                     'frank': 'frankincense',
                     'patchouli': 'patchouli',
@@ -120,9 +118,12 @@
                 flavorMap: {
                     'vanilla': 'vanilla',
                     'vanilla & manuka': 'vanilla',
-                    'manuka': 'vanilla',
+                    'vanilla manuka': 'vanilla',
+                    'manuka vanilla': 'vanilla',
                     'tansy': 'tansy',
-                    'blue tansy': 'tansy'
+                    'blue tansy': 'tansy',
+                    'blue tansy & manuka': 'tansy',
+                    'blue tansy manuka': 'tansy'
                 }
             },
             {
@@ -206,9 +207,12 @@
                 
                 const flavorLower = flavorText.toLowerCase().trim();
                 
-                // Check product-specific flavor map
-                for (const [keyword, yamlKey] of Object.entries(product.flavorMap)) {
+                // Check product-specific flavor map - check longer/more specific matches first
+                const sortedEntries = Object.entries(product.flavorMap).sort((a, b) => b[0].length - a[0].length);
+                
+                for (const [keyword, yamlKey] of sortedEntries) {
                     if (flavorLower.includes(keyword) || flavorLower === keyword) {
+                        console.log(`Flavor matched: "${flavorText}" -> "${keyword}" -> "${yamlKey}"`);
                         return yamlKey;
                     }
                 }
@@ -351,7 +355,9 @@
                     
                     if (isSingle && quantity < 3 && !alreadyHasThreePack && packPriceId && packPrice) {
                         const currentPrice = parseFloat(item.unitPrice);
-                        const savings = (currentPrice * 3) - packPrice;
+                        const totalSavings = (currentPrice * 3) - packPrice;
+                        const savingsPerUnit = totalSavings / 3;
+                        const extraCost = packPrice - currentPrice;
                         
                         opportunities.push({
                             cartIndex: index,
@@ -365,7 +371,9 @@
                             packPriceId: packPriceId,
                             packPrice: packPrice,
                             currentPrice: currentPrice,
-                            savings: savings.toFixed(2)
+                            totalSavings: totalSavings.toFixed(2),
+                            savingsPerUnit: savingsPerUnit.toFixed(2),
+                            extraCost: extraCost.toFixed(2)
                         });
                     }
                 });
@@ -395,7 +403,7 @@
                                 <div class="d-flex align-items-center">
                                     <span class="upsell-icon">🎁</span>
                                     <div>
-                                        <span class="upsell-title">Upgrade your <strong>${productDescription}</strong> to a 3-pack & save <strong>$${opp.savings}</strong></span>
+                                        <span class="upsell-title">Upgrade your <strong>${productDescription}</strong> to a 3-pack for just <strong>$${opp.extraCost}</strong> & save <strong>$${opp.savingsPerUnit} per jar</strong></span>
                                         <br>
                                         <span class="upsell-subtitle">+ FREE Lip Balm valued at $12.95</span>
                                     </div>
@@ -438,7 +446,7 @@
                     <div class="alert alert-success d-flex align-items-center mb-0" role="alert">
                         <span style="font-size: 20px; margin-right: 10px;">✅</span>
                         <div>
-                            <strong>Upgraded!</strong> Your ${opp.title}${opp.flavor ? ' - ' + opp.flavor : ''} is now a 3-pack. You saved $${opp.savings} + you'll receive a FREE Lip Balm!
+                            <strong>Upgraded!</strong> Your ${opp.title}${opp.flavor ? ' - ' + opp.flavor : ''} is now a 3-pack. You're saving $${opp.savingsPerUnit} per jar + you'll receive a FREE Lip Balm!
                         </div>
                     </div>
                 `;
