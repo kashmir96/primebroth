@@ -234,7 +234,7 @@
             {
                 name: 'Tallow Soap',
                 price: 14.95,
-                image: '/img/products/soap.webp',
+                image: 'https://www.primalpantry.co.nz/img/soaps/tallow-soap-range-productpage.webp',
                 description: 'Gentle cleansing with NZ grass-fed tallow',
                 maxGap: 14.95,
                 addToCartData: {
@@ -249,7 +249,7 @@
             {
                 name: 'Tallow Shampoo Bar',
                 price: 17.95,
-                image: '/img/products/shampoo.webp',
+                image: 'https://www.primalpantry.co.nz/img/shampoobar/shampoo-bar-prodcutpage.webp',
                 description: 'Natural hair care with grass-fed tallow',
                 maxGap: 17.95,
                 addToCartData: {
@@ -264,7 +264,7 @@
             {
                 name: 'Whipped Tallow Balm',
                 price: 24.95,
-                image: '/img/products/balm.webp',
+                image: 'https://www.primalpantry.co.nz/img/shop/balm.webp',
                 description: 'Nourishing skincare with vanilla rose',
                 maxGap: 24.95,
                 addToCartData: {
@@ -279,7 +279,7 @@
             {
                 name: 'Tallow Lotion',
                 price: 34.95,
-                image: '/img/products/lotion.webp',
+                image: 'https://www.primalpantry.co.nz/img/body-lotion-natural-cutout.webp',
                 description: 'Lightweight daily moisturiser',
                 maxGap: 35,
                 addToCartData: {
@@ -632,11 +632,8 @@
                     ? `<span class="shipping-savings-badge">Saves $${shippingCost.toFixed(2)} shipping</span>`
                     : '';
                 
-                // Update content with product suggestion
+                // Update content with product suggestion (no image - cleaner)
                 document.getElementById('shipping-upsell-content').innerHTML = `
-                    <div class="shipping-product-image">
-                        <img src="${suggestedProduct.image}" alt="${suggestedProduct.name}" onerror="this.parentElement.innerHTML='<span>Product</span>'">
-                    </div>
                     <div class="shipping-product-details">
                         <div class="shipping-product-name">${suggestedProduct.name}</div>
                         <div class="shipping-savings-line">
