@@ -73,11 +73,11 @@
                                 <span>Subtotal</span>
                                 <span id="subtotal-cost">$0.00</span>
                             </div>
-                            <div class="summary-row shipping-row" id="shipping-row">
+                            <div class="summary-row" id="shipping-row">
                                 <span>Shipping</span>
                                 <span id="shipping-display">$6.95</span>
                             </div>
-                            <div class="summary-row free-shipping-row d-none" id="free-shipping-row">
+                            <div class="summary-row d-none" id="free-shipping-row">
                                 <span>Shipping</span>
                                 <span class="free-shipping-text">FREE</span>
                             </div>
@@ -230,41 +230,37 @@
 
         // Shipping upsell products - products to suggest for free shipping threshold
         // Ordered by price ascending for matching to gap amount
+        // Uses country-specific pricing
         const shippingUpsellProducts = [
             {
                 name: 'Tallow Soap',
-                price: 14.95,
-                image: 'https://www.primalpantry.co.nz/img/soaps/tallow-soap-range-productpage.webp',
+                price: { NZ: 14.95, AU: 17.95 },
                 description: 'Gentle cleansing with NZ grass-fed tallow',
                 maxGap: 14.95,
                 addToCartData: {
                     title: 'Tallow Soap',
                     flavor: 'Natural',
-                    size: '100g',
+                    size: '120g',
                     orderType: 'Single',
-                    priceId: 'price_soap_nz',
-                    unitPrice: 14.95
+                    priceId: { NZ: 'price_1RWv8oFZRwx5tlYmLEa4Fmto', AU: 'price_1QuWTRFZRwx5tlYmrZ3GUIuo' }
                 }
             },
             {
                 name: 'Tallow Shampoo Bar',
-                price: 17.95,
-                image: 'https://www.primalpantry.co.nz/img/shampoobar/shampoo-bar-prodcutpage.webp',
+                price: { NZ: 17.95, AU: 19.95 },
                 description: 'Natural hair care with grass-fed tallow',
                 maxGap: 17.95,
                 addToCartData: {
                     title: 'Tallow Shampoo Bar',
                     flavor: 'Peppermint & Rosemary',
-                    size: '100g',
+                    size: '120g',
                     orderType: 'Single',
-                    priceId: 'price_shampoo_nz',
-                    unitPrice: 17.95
+                    priceId: { NZ: 'price_1Qh7s8FZRwx5tlYmoGIr66aB', AU: 'price_1QuWRUFZRwx5tlYmNmCkq18X' }
                 }
             },
             {
                 name: 'Whipped Tallow Balm',
-                price: 24.95,
-                image: 'https://www.primalpantry.co.nz/img/shop/balm.webp',
+                price: { NZ: 18.95, AU: 16.22 },
                 description: 'Nourishing skincare with vanilla rose',
                 maxGap: 24.95,
                 addToCartData: {
@@ -272,23 +268,20 @@
                     flavor: 'Vanilla Rose',
                     size: '60ml',
                     orderType: 'Single',
-                    priceId: 'price_balm_vanilla_rose_60_nz',
-                    unitPrice: 24.95
+                    priceId: { NZ: 'price_1R5ivSFZRwx5tlYmtT6ztX1C', AU: 'price_1Qx0VPFZRwx5tlYmlrackSHT' }
                 }
             },
             {
                 name: 'Tallow Lotion',
-                price: 34.95,
-                image: 'https://www.primalpantry.co.nz/img/body-lotion-natural-cutout.webp',
+                price: { NZ: 34.95, AU: 34.95 },
                 description: 'Lightweight daily moisturiser',
                 maxGap: 35,
                 addToCartData: {
                     title: 'Tallow Lotion',
                     flavor: 'Natural',
-                    size: '250ml',
+                    size: '220ml',
                     orderType: 'Single',
-                    priceId: 'price_lotion_natural_nz',
-                    unitPrice: 34.95
+                    priceId: { NZ: 'price_1SGvHOFZRwx5tlYm3zWDyNdR', AU: 'price_1SGvHOFZRwx5tlYm3zWDyNdR' }
                 }
             }
         ];
@@ -297,7 +290,7 @@
         const threePackUpsellProducts = [
             {
                 name: 'Whipped Tallow Balm 3-Pack',
-                price: 47.95,
+                price: { NZ: 47.95, AU: 46.12 },
                 minGap: 35.01,
                 maxGap: 47.95,
                 description: 'Best value - 3 jars of our bestselling balm + FREE lip balm',
@@ -306,13 +299,12 @@
                     flavor: 'Vanilla Rose',
                     size: '120ml',
                     orderType: '3 pack (Buy 2 Get 1 Free)',
-                    priceId: 'price_balm_vanilla_rose_120_3pack_nz',
-                    unitPrice: 47.95
+                    priceId: { NZ: 'price_1RNSfAFZRwx5tlYmgD0yVKSY', AU: 'price_1Qx0RUFZRwx5tlYmyP3dXKRh' }
                 }
             },
             {
                 name: 'Tallow & Honey Balm 3-Pack',
-                price: 71.95,
+                price: { NZ: 71.95, AU: 71.95 },
                 minGap: 47.96,
                 maxGap: 71.95,
                 description: 'Best value - 3 jars of manuka honey balm + FREE lip balm',
@@ -321,8 +313,7 @@
                     flavor: 'Manuka Vanilla',
                     size: '120ml',
                     orderType: '3 pack (Buy 2 Get 1 Free)',
-                    priceId: 'price_honeybalm_vanilla_120_3pack_nz',
-                    unitPrice: 71.95
+                    priceId: { NZ: 'price_1RTuDFFZRwx5tlYm5vldTXDT', AU: 'price_1RU1zKFZRwx5tlYmFdTn350w' }
                 }
             }
         ];
@@ -647,7 +638,8 @@
                 } else {
                     // Find best single product to suggest based on gap
                     for (const product of shippingUpsellProducts) {
-                        if (product.price >= amountToFreeShipping && amountToFreeShipping <= product.maxGap) {
+                        const productPrice = product.price[countryCode] || product.price.NZ;
+                        if (productPrice >= amountToFreeShipping && amountToFreeShipping <= product.maxGap) {
                             suggestedProduct = product;
                             break;
                         }
@@ -660,6 +652,9 @@
                     return;
                 }
                 
+                // Get country-specific price
+                const productPrice = suggestedProduct.price[countryCode] || suggestedProduct.price.NZ;
+                
                 // Update progress bar
                 document.getElementById('shipping-progress-fill').style.width = progressPercent + '%';
                 
@@ -669,8 +664,8 @@
                 
                 // Calculate effective price and discount for single products
                 // Effective price = product price - shipping saved
-                const effectivePrice = suggestedProduct.price - shippingCost;
-                const discountPercent = Math.round((shippingCost / suggestedProduct.price) * 100);
+                const effectivePrice = productPrice - shippingCost;
+                const discountPercent = Math.round((shippingCost / productPrice) * 100);
                 
                 // Build price display and pitch text
                 let priceDisplay, pitchText;
@@ -679,7 +674,7 @@
                     // For 3-pack, show regular pricing without effective discount
                     // Only mention free lip balm if cart doesn't already have a 3-pack
                     const alreadyHasThreePack = cartHasThreePack();
-                    priceDisplay = `<span class="shipping-product-price">$${suggestedProduct.price.toFixed(2)}</span>`;
+                    priceDisplay = `<span class="shipping-product-price">$${productPrice.toFixed(2)}</span>`;
                     if (alreadyHasThreePack) {
                         pitchText = suggestedProduct.name.includes('Honey') 
                             ? 'Best value - 3 jars of manuka honey balm'
@@ -687,12 +682,12 @@
                     } else {
                         pitchText = suggestedProduct.description;
                     }
-                } else if (effectivePrice < suggestedProduct.price) {
+                } else if (effectivePrice < productPrice) {
                     // For singles where they save, show effective price
-                    priceDisplay = `<span class="original-price">$${suggestedProduct.price.toFixed(2)}</span> <span class="effective-price">Effectively $${effectivePrice.toFixed(2)}</span>`;
+                    priceDisplay = `<span class="original-price">$${productPrice.toFixed(2)}</span> <span class="effective-price">Effectively $${effectivePrice.toFixed(2)}</span>`;
                     pitchText = `Unlocks free shipping, essentially saving ${discountPercent}% on this item`;
                 } else {
-                    priceDisplay = `<span class="shipping-product-price">$${suggestedProduct.price.toFixed(2)}</span>`;
+                    priceDisplay = `<span class="shipping-product-price">$${productPrice.toFixed(2)}</span>`;
                     pitchText = suggestedProduct.description;
                 }
                 
@@ -717,9 +712,18 @@
                 const addButton = shippingUpsellModule.querySelector('.btn-shipping-upsell');
                 if (addButton) {
                     addButton.addEventListener('click', function() {
+                        // Get country-specific priceId and price
+                        const priceId = suggestedProduct.addToCartData.priceId[countryCode] || suggestedProduct.addToCartData.priceId.NZ;
+                        const unitPrice = suggestedProduct.price[countryCode] || suggestedProduct.price.NZ;
+                        
                         // Add to cart
                         cart.push({
-                            ...suggestedProduct.addToCartData,
+                            title: suggestedProduct.addToCartData.title,
+                            flavor: suggestedProduct.addToCartData.flavor,
+                            size: suggestedProduct.addToCartData.size,
+                            orderType: suggestedProduct.addToCartData.orderType,
+                            priceId: priceId,
+                            unitPrice: unitPrice,
                             quantity: 1,
                             eligibleForDiscount: !isThreePackSuggestion
                         });
@@ -1058,24 +1062,6 @@
             align-items: center;
         }
 
-        .item-image {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(145deg, #E8DFD4 0%, #D4C8B8 100%);
-            border-radius: 6px;
-            flex-shrink: 0;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .item-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
         .item-details {
             flex: 1;
         }
@@ -1094,10 +1080,6 @@
             margin: 0;
             padding: 0;
             list-style: none;
-        }
-
-        .item-meta li {
-            margin-bottom: 2px;
         }
 
         .item-price {
@@ -1131,16 +1113,6 @@
         .qty-btn:hover {
             border-color: var(--sage);
             color: var(--sage-dark);
-        }
-
-        .qty-input {
-            width: 44px;
-            height: 28px;
-            border: 1px solid var(--border-light);
-            border-radius: 4px;
-            text-align: center;
-            font-size: 0.9rem;
-            font-family: 'DM Sans', sans-serif;
         }
 
         .qty-value {
@@ -1180,14 +1152,6 @@
         /* ========== Free Gift Item ========== */
         .free-gift-item {
             background: rgba(156, 175, 136, 0.08);
-        }
-
-        .free-gift-image {
-            background: rgba(156, 175, 136, 0.2) !important;
-        }
-
-        .gift-icon {
-            font-size: 1.5rem;
         }
 
         .free-gift-label {
@@ -1284,7 +1248,7 @@
             font-size: 1.2rem;
         }
 
-        /* ========== Shipping Upsell Module (Option B) ========== */
+        /* ========== Shipping Upsell Module ========== */
         .shipping-upsell-module {
             background: linear-gradient(135deg, #F5EFE6 0%, #EDE5D8 100%);
             border-radius: 12px;
@@ -1354,28 +1318,6 @@
             padding: 14px 16px;
         }
 
-        .shipping-product-image {
-            width: 65px;
-            height: 65px;
-            background: linear-gradient(145deg, #E8DFD4 0%, #D4C8B8 100%);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.5rem;
-            color: var(--warm-brown);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            flex-shrink: 0;
-            overflow: hidden;
-        }
-
-        .shipping-product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
         .shipping-product-details {
             flex: 1;
         }
@@ -1413,25 +1355,9 @@
             font-size: 0.95rem;
         }
 
-        .shipping-savings-badge {
-            background: rgba(156, 175, 136, 0.2);
-            color: var(--sage-dark);
-            font-size: 0.65rem;
-            font-weight: 600;
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-
         .shipping-product-pitch {
             font-size: 0.75rem;
             color: var(--warm-brown);
-        }
-
-        .shipping-simple-message {
-            text-align: center;
-            padding: 8px 16px;
-            font-size: 0.9rem;
-            color: var(--charcoal);
         }
 
         .btn-shipping-upsell {
@@ -1484,6 +1410,10 @@
             margin-bottom: 14px;
             font-size: 0.9rem;
             color: var(--charcoal);
+        }
+
+        .summary-row.d-none {
+            display: none !important;
         }
 
         .free-shipping-text {
