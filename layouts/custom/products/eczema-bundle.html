@@ -475,18 +475,15 @@
                 
                 const opp = opportunities[0];
                 const flavorText = opp.flavor ? ` - ${opp.flavor}` : '';
-                const productDescription = `${opp.title}${flavorText}`;
                 const alreadyHasThreePack = cartHasThreePack();
-                const lipBalmText = alreadyHasThreePack ? '' : ' <span class="upsell-subtitle">+ FREE Lip Balm</span>';
+                const lipBalmText = alreadyHasThreePack ? '' : ' + FREE Lip Balm valued at $12.95';
                 
                 upsellBanner.classList.remove('d-none');
                 upsellBanner.innerHTML = `
                     <div class="pack-upsell-module">
                         <div class="pack-upsell-inner">
-                            <div class="pack-upsell-icon">🎁</div>
                             <div class="pack-upsell-content">
-                                <div class="pack-upsell-title">Upgrade to 3-Pack & Save $${opp.savingsPerUnit}/item${lipBalmText}</div>
-                                <div class="pack-upsell-text">${productDescription}</div>
+                                <span class="pack-upsell-label">Best value:</span> Upgrade your ${opp.title}${flavorText} to a 3-pack and save $${opp.savingsPerUnit} per item${lipBalmText}
                             </div>
                             <button class="btn-pack-upsell" data-index="${opp.cartIndex}">Upgrade</button>
                         </div>
@@ -1011,30 +1008,22 @@
         }
 
         .pack-upsell-inner {
-            padding: 10px 14px;
+            padding: 12px 14px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
-        .pack-upsell-icon { font-size: 1.2rem; flex-shrink: 0; }
-
-        .pack-upsell-content { flex: 1; }
-
-        .pack-upsell-title {
+        .pack-upsell-content {
+            flex: 1;
             font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--deep-brown);
-        }
-
-        .pack-upsell-text {
-            font-size: 0.75rem;
             color: var(--charcoal);
+            line-height: 1.4;
         }
 
-        .upsell-subtitle {
+        .pack-upsell-label {
+            font-weight: 600;
             color: var(--sage-dark);
-            font-weight: 500;
         }
 
         .btn-pack-upsell {
@@ -1047,6 +1036,7 @@
             cursor: pointer;
             border-radius: 4px;
             white-space: nowrap;
+            flex-shrink: 0;
         }
 
         .btn-pack-upsell:hover { background: var(--sage-dark); }
