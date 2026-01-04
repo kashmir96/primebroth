@@ -785,6 +785,13 @@
                         const variantParts = [];
                         if (item.flavor) variantParts.push(item.flavor);
                         if (item.size) variantParts.push(item.size);
+                        // Add order type (Single, 3-pack, etc.)
+                        if (item.orderType) {
+                            const orderTypeShort = item.orderType.includes('3 pack') || item.orderType.includes('Buy 2') 
+                                ? '3-Pack' 
+                                : item.orderType.includes('Single') ? 'Single' : item.orderType;
+                            variantParts.push(orderTypeShort);
+                        }
                         const variantStr = variantParts.length > 0 ? variantParts.join(' • ') : '';
                         
                         cartItem.innerHTML = `
@@ -823,11 +830,11 @@
                             <div class="item-details">
                                 <span class="free-gift-label">FREE GIFT</span>
                                 <h3 class="item-title">Tallow Lip Balm</h3>
-                                <p class="item-meta">Included with 3-pack bundle</p>
+                                <p class="item-meta">Included with 3-pack bundle, limit one per customer</p>
                             </div>
                         </div>
-                        <div class="item-price"><s class="text-muted">$12.95</s></div>
-                        <div class="item-quantity"><span class="text-center d-block">1</span></div>
+                        <div class="item-price"><s>$12.95</s></div>
+                        <div class="item-quantity"></div>
                         <div class="item-total">
                             <span class="free-gift-price">$0.00</span>
                         </div>
