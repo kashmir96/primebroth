@@ -677,11 +677,19 @@
                 
                 if (isThreePackSuggestion) {
                     // For 3-pack, show regular pricing without effective discount
+                    // Only mention free lip balm if cart doesn't already have a 3-pack
+                    const alreadyHasThreePack = cartHasThreePack();
                     priceDisplay = `<span class="shipping-product-price">$${suggestedProduct.price.toFixed(2)}</span>`;
-                    pitchText = suggestedProduct.description;
+                    if (alreadyHasThreePack) {
+                        pitchText = suggestedProduct.name.includes('Honey') 
+                            ? 'Best value - 3 jars of manuka honey balm'
+                            : 'Best value - 3 jars of our bestselling balm';
+                    } else {
+                        pitchText = suggestedProduct.description;
+                    }
                 } else if (effectivePrice < suggestedProduct.price) {
                     // For singles where they save, show effective price
-                    priceDisplay = `<s class="original-price">$${suggestedProduct.price.toFixed(2)}</s> <span class="effective-price">Effectively $${effectivePrice.toFixed(2)}</span>`;
+                    priceDisplay = `<span class="original-price">$${suggestedProduct.price.toFixed(2)}</span> <span class="effective-price">Effectively $${effectivePrice.toFixed(2)}</span>`;
                     pitchText = `Unlock free shipping + get ${discountPercent}% off this ${suggestedProduct.name.toLowerCase()}`;
                 } else {
                     priceDisplay = `<span class="shipping-product-price">$${suggestedProduct.price.toFixed(2)}</span>`;
