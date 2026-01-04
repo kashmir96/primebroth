@@ -807,10 +807,16 @@
                 
                 if (cart.length === 0) {
                     if (cartContainer) cartContainer.classList.add('d-none');
-                    if (cartEmptyDiv) cartEmptyDiv.classList.remove('d-none');
+                    if (cartEmptyDiv) {
+                        cartEmptyDiv.classList.remove('d-none');
+                        cartEmptyDiv.style.display = 'flex';
+                    }
                 } else {
                     if (cartContainer) cartContainer.classList.remove('d-none');
-                    if (cartEmptyDiv) cartEmptyDiv.classList.add('d-none');
+                    if (cartEmptyDiv) {
+                        cartEmptyDiv.classList.add('d-none');
+                        cartEmptyDiv.style.display = '';
+                    }
                 }
 
                 // Only show shipping upsell if not at free shipping threshold
@@ -1346,12 +1352,14 @@
         /* Empty Cart */
         .empty-cart-container {
             min-height: 50vh;
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
         }
 
-        .empty-cart-container.d-none { display: none !important; }
+        .empty-cart-container:not(.d-none) { 
+            display: flex !important; 
+        }
 
         .empty-cart-content { text-align: center; }
 
