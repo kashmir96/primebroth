@@ -586,13 +586,13 @@
                         ? 'Best value - 3 jars of our bestselling balm'
                         : suggestedProduct.description;
                 } else {
-                    priceLine = `$${productPrice.toFixed(2)} <span class="effective-price">(Effectively only $${effectivePrice.toFixed(2)} more after unlocking free shipping)</span>`;
+                    priceLine = `$${productPrice.toFixed(2)}`;
                     pitchText = suggestedProduct.description;
                 }
                 
                 document.getElementById('shipping-upsell-content').innerHTML = `
                     <div class="shipping-product-details">
-                        <div class="shipping-product-name"><span class="recommended-label">Recommended:</span> ${suggestedProduct.name} — ${priceLine}</div>
+                        <div class="shipping-product-name"><span class="recommended-label">Recommended to unlock:</span> ${suggestedProduct.name} — ${priceLine}</div>
                         <div class="shipping-product-pitch">${pitchText}</div>
                     </div>
                     <button class="btn-shipping-upsell">Add</button>
