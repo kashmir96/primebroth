@@ -569,31 +569,28 @@
                 const productPrice = suggestedProduct.price[countryCode] || suggestedProduct.price.NZ;
                 
                 document.getElementById('shipping-progress-fill').style.width = progressPercent + '%';
-                document.getElementById('shipping-upsell-title').textContent = 
-                    `$${amountToFreeShipping.toFixed(2)} from free shipping`;
+                document.getElementById('shipping-upsell-title').innerHTML = 
+                    `<strong>Almost there!</strong> Just $${amountToFreeShipping.toFixed(2)} from free shipping`;
                 
                 const effectivePrice = productPrice - shippingCost;
                 const discountPercent = Math.round((shippingCost / productPrice) * 100);
                 
-                let priceDisplay, pitchText;
+                let priceLine, pitchText;
                 
                 if (isThreePackSuggestion) {
                     const alreadyHasThreePack = cartHasThreePack();
-                    priceDisplay = `<span class="shipping-product-price">$${productPrice.toFixed(2)}</span>`;
+                    priceLine = `$${productPrice.toFixed(2)}`;
                     pitchText = alreadyHasThreePack 
-                        ? 'Best value - 3 jars'
+                        ? 'Best value - 3 jars of our bestselling balm'
                         : suggestedProduct.description;
-                } else if (effectivePrice < productPrice) {
-                    priceDisplay = `<span class="effective-price">Effectively $${effectivePrice.toFixed(2)}</span>`;
-                    pitchText = `Save ${discountPercent}% with free shipping`;
                 } else {
-                    priceDisplay = `<span class="shipping-product-price">$${productPrice.toFixed(2)}</span>`;
+                    priceLine = `$${productPrice.toFixed(2)} <span class="effective-price">(Effectively $${effectivePrice.toFixed(2)} — ${discountPercent}% off after unlocking free shipping)</span>`;
                     pitchText = suggestedProduct.description;
                 }
                 
                 document.getElementById('shipping-upsell-content').innerHTML = `
                     <div class="shipping-product-details">
-                        <div class="shipping-product-name">${suggestedProduct.name} ${priceDisplay}</div>
+                        <div class="shipping-product-name">${suggestedProduct.name} — ${priceLine}</div>
                         <div class="shipping-product-pitch">${pitchText}</div>
                     </div>
                     <button class="btn-shipping-upsell">Add</button>
@@ -648,12 +645,10 @@
 
                     if (item.orderTypeVal === 'three_pack') {
                         const flavorList = item.flavors.map(f => f).join(', ');
-                        const isFirst3Pack = !cart.slice(0, index).some(i => i.orderTypeVal === 'three_pack' || isThreePack(i));
-                        const freeGiftBadge = isFirst3Pack ? '<span class="free-gift-badge">+ FREE Lip Balm</span>' : '';
                         cartItem.innerHTML = `
                             <div class="item-product">
                                 <div class="item-details">
-                                    <h3 class="item-title">${item.title || 'Unknown Product'} 3-Pack ${freeGiftBadge}</h3>
+                                    <h3 class="item-title">${item.title || 'Unknown Product'} 3-Pack</h3>
                                     <p class="item-meta">${flavorList} • ${item.size}</p>
                                 </div>
                             </div>
@@ -676,7 +671,6 @@
                         const variantParts = [];
                         if (item.flavor) variantParts.push(item.flavor);
                         if (item.size) variantParts.push(item.size);
-                        const isItemThreePack = isThreePack(item);
                         if (item.orderType) {
                             const orderTypeShort = item.orderType.includes('3 pack') || item.orderType.includes('Buy 2') 
                                 ? '3-Pack' 
@@ -685,19 +679,10 @@
                         }
                         const variantStr = variantParts.length > 0 ? variantParts.join(' • ') : '';
                         
-                        let freeGiftBadge = '';
-                        if (isItemThreePack) {
-                            const priorItems = cart.slice(0, index);
-                            const isFirst3Pack = !priorItems.some(i => isThreePack(i) || i.orderTypeVal === 'three_pack');
-                            if (isFirst3Pack) {
-                                freeGiftBadge = '<span class="free-gift-badge">+ FREE Lip Balm</span>';
-                            }
-                        }
-                        
                         cartItem.innerHTML = `
                             <div class="item-product">
                                 <div class="item-details">
-                                    <h3 class="item-title">${item.title || 'Unknown Product'} ${freeGiftBadge}</h3>
+                                    <h3 class="item-title">${item.title || 'Unknown Product'}</h3>
                                     <p class="item-meta">${variantStr}</p>
                                 </div>
                             </div>
@@ -719,6 +704,27 @@
                     }
                     cartItemsContainer.appendChild(cartItem);
                 });
+
+                // Add free lip balm row if cart has a 3-pack
+                if (hasThreePack) {
+                    const freeGiftItem = document.createElement('div');
+                    freeGiftItem.className = 'cart-item free-gift-item';
+                    freeGiftItem.innerHTML = `
+                        <div class="item-product">
+                            <div class="item-details">
+                                <span class="free-gift-label">FREE GIFT</span>
+                                <h3 class="item-title">Tallow Lip Balm</h3>
+                                <p class="item-meta">One per order • Included with 3-pack</p>
+                            </div>
+                        </div>
+                        <div class="item-price"><s>$12.95</s></div>
+                        <div class="item-quantity"></div>
+                        <div class="item-total">
+                            <span class="free-gift-price">FREE</span>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(freeGiftItem);
+                }
 
                 let totalCost = subtotal;
                 const shippingRow = document.getElementById('shipping-row');
@@ -973,17 +979,27 @@
             color: #c44;
         }
 
-        /* Free Gift Badge */
-        .free-gift-badge {
+        /* Free Gift Row */
+        .free-gift-item {
+            background: rgba(156, 175, 136, 0.08);
+        }
+
+        .free-gift-label {
             display: inline-block;
             font-size: 0.6rem;
             font-weight: 600;
             color: var(--sage-dark);
-            background: rgba(156, 175, 136, 0.2);
+            background: rgba(156, 175, 136, 0.25);
             padding: 2px 6px;
             border-radius: 3px;
-            margin-left: 6px;
-            vertical-align: middle;
+            margin-bottom: 2px;
+            letter-spacing: 0.05em;
+        }
+
+        .free-gift-price {
+            color: var(--sage-dark);
+            font-weight: 600;
+            font-size: 0.9rem;
         }
 
         /* 3-Pack Upsell */
@@ -1093,7 +1109,7 @@
 
         .shipping-product-name {
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--deep-brown);
             margin-bottom: 2px;
         }
@@ -1104,12 +1120,13 @@
         }
 
         .effective-price {
-            font-weight: 600;
+            font-weight: 500;
             color: var(--sage-dark);
+            font-size: 0.8rem;
         }
 
         .shipping-product-pitch {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             color: var(--warm-brown);
         }
 
@@ -1308,13 +1325,6 @@
                 flex-direction: column;
                 align-items: center;
                 gap: 6px;
-            }
-
-            .free-gift-badge {
-                display: block;
-                margin-left: 0;
-                margin-top: 4px;
-                width: fit-content;
             }
         }
     </style>
