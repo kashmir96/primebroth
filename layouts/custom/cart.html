@@ -523,6 +523,12 @@
             function renderShippingUpsell(subtotal) {
                 const amountToFreeShipping = freeShippingThreshold - subtotal;
                 
+                // Only show if subtotal is at least $40
+                if (subtotal < 40) {
+                    shippingUpsellModule.classList.add('d-none');
+                    return;
+                }
+                
                 if (amountToFreeShipping <= 0 || cart.length === 0) {
                     shippingUpsellModule.classList.add('d-none');
                     return;
