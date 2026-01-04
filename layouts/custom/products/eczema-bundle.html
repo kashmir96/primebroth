@@ -752,9 +752,6 @@
                         }).join('');
                         cartItem.innerHTML = `
                             <div class="item-product">
-                                <div class="item-image">
-                                    <img src="${item.image || '/img/placeholder.webp'}" alt="${item.title}" onerror="this.style.display='none'">
-                                </div>
                                 <div class="item-details">
                                     <h3 class="item-title">${item.title || 'Unknown Product'} - Pack of 3</h3>
                                     <ul class="item-meta">${flavorList}</ul>
@@ -778,9 +775,6 @@
                     } else {
                         cartItem.innerHTML = `
                             <div class="item-product">
-                                <div class="item-image">
-                                    <img src="${item.image || '/img/placeholder.webp'}" alt="${item.title}" onerror="this.style.display='none'">
-                                </div>
                                 <div class="item-details">
                                     <h3 class="item-title">${item.title || 'Unknown Product'}</h3>
                                     <p class="item-meta">${item.flavor || ''} ${item.size ? '• ' + item.size : ''} ${item.orderType ? '• ' + item.orderType : ''}</p>
@@ -812,9 +806,6 @@
                     freeGiftItem.className = 'cart-item free-gift-item';
                     freeGiftItem.innerHTML = `
                         <div class="item-product">
-                            <div class="item-image free-gift-image">
-                                <span class="gift-icon">🎁</span>
-                            </div>
                             <div class="item-details">
                                 <span class="free-gift-label">FREE GIFT</span>
                                 <h3 class="item-title">Tallow Lip Balm</h3>
