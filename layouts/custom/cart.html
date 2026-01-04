@@ -16,7 +16,7 @@
     {{- partial "header.html" . }}
 
     <div class="cart-page-wrapper">
-        <div class="container my-4">
+        <div class="container my-2">
             <div id="cartempty" class="empty-cart-container d-none">
                 <div class="empty-cart-content">
                     <h1 class="empty-cart-title">Your cart is empty</h1>
@@ -60,8 +60,8 @@
                                 <span id="subtotal-cost">$0.00</span>
                             </div>
                             <div class="summary-row" id="shipping-row">
-                                <span>Shipping (Spend over $80 to get it free)</span>
-                                <span id="shipping-display">$6.95 </span>
+                                <span>Shipping</span>
+                                <span id="shipping-display">$6.95</span>
                             </div>
                             <div class="summary-row d-none" id="free-shipping-row">
                                 <span>Shipping</span>
@@ -914,6 +914,7 @@
             background: var(--cream);
             min-height: 80vh;
             font-family: 'DM Sans', sans-serif;
+            padding-top: 0;
         }
 
         .cart-page-title {
@@ -957,15 +958,15 @@
         .item-details { flex: 1; }
 
         .item-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.55rem;
-            font-weight: 500;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
             color: var(--deep-brown);
             margin: 0 0 4px 0;
         }
 
         .item-meta {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--warm-brown);
             margin: 0;
         }
@@ -1338,7 +1339,7 @@
 
         /* Empty Cart */
         .empty-cart-container {
-            min-height: 60vh;
+            min-height: 50vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1349,18 +1350,19 @@
         .empty-cart-content { text-align: center; }
 
         .empty-cart-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.6rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 500;
             color: var(--deep-brown);
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .btn-continue-shopping {
             display: inline-block;
             background: var(--charcoal);
             color: var(--soft-white);
-            padding: 12px 24px;
-            font-size: 0.8rem;
+            padding: 14px 32px;
+            font-size: 1rem;
             font-weight: 500;
             border-radius: 4px;
             text-decoration: none;
@@ -1415,13 +1417,13 @@
         }
 
         @media (max-width: 480px) {
-            .item-title { font-size: 1.4rem; }
-            .item-meta { font-size: 1.05rem; }
-            .item-total-price { font-size: 1.25rem; }
-            .upsell-text { font-size: 1rem; }
-            .btn-item-upsell { font-size: 0.9rem; }
-            .shipping-upsell-title { font-size: 1rem; }
-            .shipping-product-name { font-size: 1rem; }
+            .item-title { font-size: 1.25rem; }
+            .item-meta { font-size: 1rem; }
+            .item-total-price { font-size: 1.2rem; }
+            .upsell-text { font-size: 0.95rem; }
+            .btn-item-upsell { font-size: 0.85rem; }
+            .shipping-upsell-title { font-size: 0.95rem; }
+            .shipping-product-name { font-size: 0.95rem; }
             .summary-box { padding: 16px; }
         }
     </style>
