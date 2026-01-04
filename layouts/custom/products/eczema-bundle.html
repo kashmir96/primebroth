@@ -668,9 +668,9 @@
                     `You're $${amountToFreeShipping.toFixed(2)} from free shipping`;
                 
                 // Calculate effective price and discount for single products
-                const effectivePrice = amountToFreeShipping;
-                const discountAmount = suggestedProduct.price - effectivePrice;
-                const discountPercent = Math.round((discountAmount / suggestedProduct.price) * 100);
+                // Effective price = product price - shipping saved
+                const effectivePrice = suggestedProduct.price - shippingCost;
+                const discountPercent = Math.round((shippingCost / suggestedProduct.price) * 100);
                 
                 // Build price display and pitch text
                 let priceDisplay, pitchText;
