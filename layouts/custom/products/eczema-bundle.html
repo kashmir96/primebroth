@@ -476,7 +476,7 @@
                 const opp = opportunities[0];
                 const flavorText = opp.flavor ? ` - ${opp.flavor}` : '';
                 const alreadyHasThreePack = cartHasThreePack();
-                const lipBalmText = alreadyHasThreePack ? '' : ' + FREE $12.95 Lip Balm';
+                const lipBalmText = alreadyHasThreePack ? '' : ' + FREE Lip Balm valued at $12.95';
                 
                 upsellBanner.classList.remove('d-none');
                 upsellBanner.innerHTML = `
@@ -728,6 +728,7 @@
                         <div class="item-price"><s>$12.95</s></div>
                         <div class="item-quantity"></div>
                         <div class="item-total">
+                            <span class="free-gift-price">FREE</span>
                         </div>
                     `;
                     cartItemsContainer.appendChild(freeGiftItem);
