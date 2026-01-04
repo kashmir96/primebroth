@@ -642,11 +642,17 @@
 
                     if (item.orderTypeVal === 'three_pack') {
                         const flavorList = item.flavors.map(f => f).join(', ');
+                        // Extract savings info from orderType (e.g., "3 pack (Buy 2 Get 1 Free)" or "3 pack (Save 25%)")
+                        let savingsText = 'Buy 2 Get 1 Free';
+                        if (item.orderType) {
+                            const match = item.orderType.match(/\(([^)]+)\)/);
+                            if (match) savingsText = match[1];
+                        }
                         cartItem.innerHTML = `
                             <div class="item-product">
                                 <div class="item-details">
                                     <h3 class="item-title">${item.title || 'Unknown Product'} 3pk</h3>
-                                    <p class="item-meta"><span class="savings-text">Save 33%</span> • 3 jars of ${flavorList} ${item.size}</p>
+                                    <p class="item-meta"><span class="savings-text">${savingsText}</span> • 3 jars of ${flavorList} ${item.size}</p>
                                 </div>
                             </div>
                             <div class="item-price">$${unitPrice}${priceSuffix}</div>
@@ -668,9 +674,19 @@
                         // Check if this is a 3-pack for title/meta formatting
                         const isItemThreePack = isThreePack(item);
                         const titleSuffix = isItemThreePack ? ' 3pk' : '';
-                        const metaText = isItemThreePack 
-                            ? `<span class="savings-text">Save 33%</span> • 3 jars of ${item.flavor || ''} ${item.size || ''}`
-                            : [item.flavor, item.size].filter(Boolean).join(' • ');
+                        
+                        let metaText;
+                        if (isItemThreePack) {
+                            // Extract savings info from orderType
+                            let savingsText = 'Buy 2 Get 1 Free';
+                            if (item.orderType) {
+                                const match = item.orderType.match(/\(([^)]+)\)/);
+                                if (match) savingsText = match[1];
+                            }
+                            metaText = `<span class="savings-text">${savingsText}</span> • 3 jars of ${item.flavor || ''} ${item.size || ''}`;
+                        } else {
+                            metaText = [item.flavor, item.size].filter(Boolean).join(' • ');
+                        }
                         
                         cartItem.innerHTML = `
                             <div class="item-product">
