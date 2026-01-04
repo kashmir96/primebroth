@@ -12,7 +12,869 @@
     <script>
         const stripe = Stripe('pk_live_51QKEaJFZRwx5tlYmhyIEFR3mGroCdpqIHHVT68y9jGnizGDZXypuSfjilbCSkMarU39KeV4kUulC6HfpReRSJwb000fyIehR3I');
     </script>
+</head>
+<body>
+    <!-- REPLACE WITH: {{- partial "header.html" . }} -->
+    <header class="header-placeholder">
+        <a href="/" class="logo">
+            PrimalPantry
+            <span>Ancestral Wellness</span>
+        </a>
+        <nav class="header-nav">
+            <a href="/shop">Shop Tallow</a>
+            <a href="/reviews">Customer Reviews</a>
+            <a href="/stockists">Stockists</a>
+            <a href="/contact">Contact</a>
+        </nav>
+    </header>
+
+    <div class="container my-2">
+        <div id="cartempty" class="d-none text-center vh-55 align-items-center">
+            <div class="middle">
+                <h1>Your cart is empty</h1>
+                <a href="/shop" class="btn btn-primary">Continue shopping</a>
+            </div>
+        </div>
+        <div class="cartcontainerall">
+            <div class="urgency-banner my-2 align-items-center">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12,6 12,12 16,14"/>
+                </svg>
+                <p class="mb-0 ml-2">The items in your cart are popular — get them while you still can.</p>
+            </div>
+            
+            <h1 class="page-title">Your Cart</h1>
+
+            <div class="cart-layout">
+                <!-- Left Column -->
+                <div class="cart-column">
+                    <div class="cart-items-container">
+                        <div id="cart-items" class="mb-4">
+                            <!-- Cart items will be dynamically injected here -->
+                        </div>
+                    </div>
+
+                    <!-- Upsell Banner (3-pack) -->
+                    <div id="upsell-banner" class="d-none mb-4">
+                        <!-- Upsell content injected here -->
+                    </div>
+
+                    <!-- Shipping Upsell Banner -->
+                    <div id="shipping-upsell-banner" class="d-none mb-4">
+                        <!-- Shipping upsell content injected here -->
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="cart-summary-container">
+                    <div id="cart-summary" class="card p-4">
+                        <h3>Order Summary</h3>
+                        <p class="mb-1" id="shipping_info"><em>+$<span id="shipping_price"></span> shipping (spend over $<span id="shipping_rate"></span> to get it free)</em></p>
+                        <p class="total-line">Total: <strong><span id="total-cost">$0.00</span></strong></p>
+                        <div class="add-to-cart">
+                            <button id="proceed-to-checkout" class="btn btn-primary btn-lg buy-now mb-1 mt-3" disabled>Proceed to Checkout</button>
+                            <p>Speedy Shipping NZ Wide | Money back guarantee</p>
+                            <img class="badges" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
+                        </div>
+                        <div class="trust-signals">
+                            <span class="trust-item">🚚 Fast NZ Shipping</span>
+                            <span class="trust-item">✓ Money Back Guarantee</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REPLACE WITH: {{- partial "footer.html" . }} -->
+    <footer class="footer-placeholder">
+        <div class="footer-inner">
+            <div class="footer-links">
+                <a href="/support">Customer Support</a>
+                <a href="/reviews">Reviews</a>
+                <a href="/faq">FAQs</a>
+                <a href="/refund">Refund Policy</a>
+                <a href="/terms">Terms of Use</a>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/blog">Blog</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Pricing data from YAML
+        // UNCOMMENT FOR HUGO: const pricingData = JSON.parse('{{ .Site.Data.pricing | jsonify }}');
+        
+        // Mock data for demo
+        const pricingData = {
+            tallow: {
+                ids: {},
+                pricing: {}
+            }
+        };
+
+        // Size aliases - maps frontend sizes to YAML sizes
+        const sizeAliases = {
+            '15ml': '10ml',    // Eye cream
+            '250ml': '220ml',  // Lotion
+            '100g': '120g'     // Shampoo bar
+        };
+
+        // Product detection config - maps title keywords to YAML keys
+        // Order matters - more specific matches first
+        const productConfig = [
+            {
+                keywords: ['lotion'],
+                yamlKey: 'liquid_lotion',
+                category: 'tallow',
+                defaultFlavor: 'natural',
+                flavorMap: {
+                    'natural': 'natural',
+                    'unscented': 'natural',
+                    'fragrance free': 'natural',
+                    'fragrance-free': 'natural',
+                    'geranium': 'geranium',
+                    'rose geranium': 'geranium',
+                    'rose': 'geranium'
+                }
+            },
+            {
+                keywords: ['whipped', 'whipped tallow'],
+                yamlKey: 'balm',
+                category: 'tallow',
+                defaultFlavor: 'vanilla-rose',
+                flavorMap: {
+                    'lavender': 'lavender',
+                    'vanilla rose': 'vanilla-rose',
+                    'vanilla-rose': 'vanilla-rose',
+                    'vanilla & rose': 'vanilla-rose',
+                    'vanilla and rose': 'vanilla-rose',
+                    'neutral': 'neutral',
+                    'natural': 'neutral',
+                    'unscented': 'neutral',
+                    'fragrance free': 'neutral',
+                    'fragrance-free': 'neutral',
+                    'vanilla': 'vanilla',
+                    'frankincense': 'frankincense',
+                    'frank': 'frankincense',
+                    'patchouli': 'patchouli',
+                    'orange': 'orange',
+                    'sweet orange': 'orange',
+                    'cedar': 'cedar',
+                    'cedarwood': 'cedar'
+                }
+            },
+            {
+                keywords: ['shampoo bar', 'shampoo'],
+                yamlKey: 'shampoo',
+                category: 'tallow',
+                defaultFlavor: 'peppermintrosemary',
+                flavorMap: {
+                    'peppermint': 'peppermintrosemary',
+                    'peppermint rosemary': 'peppermintrosemary',
+                    'peppermint & rosemary': 'peppermintrosemary',
+                    'peppermint and rosemary': 'peppermintrosemary',
+                    'rosemary': 'peppermintrosemary',
+                    'rosemary peppermint': 'peppermintrosemary'
+                }
+            },
+            {
+                keywords: ['tallow & honey', 'honey balm', 'tallow and honey'],
+                yamlKey: 'honeybalm',
+                category: 'tallow',
+                defaultFlavor: 'vanilla',
+                flavorMap: {
+                    'vanilla': 'vanilla',
+                    'vanilla & manuka': 'vanilla',
+                    'vanilla manuka': 'vanilla',
+                    'vanilla and manuka': 'vanilla',
+                    'manuka vanilla': 'vanilla',
+                    'tansy': 'tansy',
+                    'blue tansy': 'tansy',
+                    'blue tansy & manuka': 'tansy',
+                    'blue tansy manuka': 'tansy',
+                    'blue tansy and manuka': 'tansy'
+                }
+            },
+            {
+                keywords: ['eye cream', 'eyecream'],
+                yamlKey: 'eyecream',
+                category: 'tallow',
+                defaultFlavor: 'manukahoney_vitc',
+                flavorMap: {
+                    'manuka': 'manukahoney_vitc',
+                    'manuka honey': 'manukahoney_vitc',
+                    'manuka honey & vitamin c': 'manukahoney_vitc',
+                    'manuka honey vitamin c': 'manukahoney_vitc',
+                    'manuka & vitamin c': 'manukahoney_vitc',
+                    'vitamin c': 'manukahoney_vitc',
+                    'vit c': 'manukahoney_vitc'
+                }
+            },
+            {
+                keywords: ['deodorant', 'deo'],
+                yamlKey: 'deodorant',
+                category: 'tallow',
+                defaultFlavor: 'frankincense',
+                flavorMap: {
+                    'frankincense': 'frankincense',
+                    'frank': 'frankincense',
+                    'cedarwood': 'cedarwood',
+                    'cedar': 'cedarwood',
+                    'vanilla rose': 'vanilla-rose',
+                    'vanilla-rose': 'vanilla-rose',
+                    'vanilla & rose': 'vanilla-rose',
+                    'vanilla and rose': 'vanilla-rose'
+                }
+            }
+        ];
+
+        // Helper to get cookie
+        function getCountryCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            let cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+            console.log('Cart contents:', cart);
+            const countryCode = getCountryCookie('country_code') || "NZ";
+            
+            // Set shipping info based on country
+            let shippingCost = 6.95;
+            let freeShippingThreshold = 80;
+            
+            if(countryCode == 'NZ'){
+                document.getElementById("shipping_price").innerHTML = '6.95';
+                document.getElementById("shipping_rate").innerHTML = '80';
+                shippingCost = 6.95;
+                freeShippingThreshold = 80;
+            }
+            if(countryCode == 'AU'){
+                document.getElementById("shipping_price").innerHTML = '16.95';
+                document.getElementById("shipping_rate").innerHTML = '150';
+                shippingCost = 16.95;
+                freeShippingThreshold = 150;
+            }
+
+            const cartItemsContainer = document.getElementById('cart-items');
+            const totalCostElement = document.getElementById('total-cost');
+            const proceedToCheckoutButton = document.getElementById('proceed-to-checkout');
+            const upsellBanner = document.getElementById('upsell-banner');
+            const shippingUpsellBanner = document.getElementById('shipping-upsell-banner');
+
+            // Check if item is a 3-pack
+            function isThreePack(item) {
+                if (!item.orderType) return false;
+                const orderTypeLower = item.orderType.toLowerCase();
+                return orderTypeLower.includes('pack') || 
+                       orderTypeLower.includes('3 pack') || 
+                       orderTypeLower.includes('three') ||
+                       orderTypeLower.includes('2 get 1');
+            }
+
+            // Check if cart has any 3-pack
+            function cartHasThreePack() {
+                return cart.some(item => isThreePack(item));
+            }
+
+            // Detect product config from title
+            function detectProduct(title) {
+                const titleLower = (title || '').toLowerCase();
+                for (const config of productConfig) {
+                    for (const keyword of config.keywords) {
+                        if (titleLower.includes(keyword)) {
+                            return config;
+                        }
+                    }
+                }
+                return null;
+            }
+
+            // Map flavor text to YAML key using product-specific mapping
+            function mapFlavor(flavorText, product) {
+                if (!flavorText) return product.defaultFlavor;
+                
+                const flavorLower = flavorText.toLowerCase().trim();
+                
+                // Check product-specific flavor map - check longer/more specific matches first
+                const sortedEntries = Object.entries(product.flavorMap).sort((a, b) => b[0].length - a[0].length);
+                
+                for (const [keyword, yamlKey] of sortedEntries) {
+                    if (flavorLower.includes(keyword) || flavorLower === keyword) {
+                        return yamlKey;
+                    }
+                }
+                
+                return product.defaultFlavor;
+            }
+
+            // Clean size string - extract just the number and unit, then check for aliases
+            function cleanSize(size) {
+                if (!size) return null;
+                // Match number followed by ml or g (case insensitive)
+                const match = size.match(/(\d+)\s*(ml|g)/i);
+                if (match) {
+                    const extractedSize = match[1] + match[2].toLowerCase();
+                    // Check if there's an alias for this size
+                    if (sizeAliases[extractedSize]) {
+                        return sizeAliases[extractedSize];
+                    }
+                    return extractedSize;
+                }
+                // Fallback - just remove spaces and lowercase
+                return size.toLowerCase().replace(/\s/g, '');
+            }
+
+            // Get list of product titles that are already in cart as 3-packs
+            function getThreePackTitlesInCart() {
+                const titles = [];
+                cart.forEach(item => {
+                    if (isThreePack(item) && item.title) {
+                        titles.push(item.title.toLowerCase());
+                    }
+                });
+                return titles;
+            }
+
+            // Look up pack price ID from YAML
+            function getPackPriceId(product, flavor, size, countryCode) {
+                try {
+                    const category = pricingData[product.category];
+                    if (!category || !category.ids) return null;
+                    
+                    const productData = category.ids[product.yamlKey];
+                    if (!productData || !productData.pack) return null;
+                    
+                    const flavorData = productData.pack[flavor];
+                    if (!flavorData) return null;
+                    
+                    const sizeData = flavorData[size];
+                    if (!sizeData) return null;
+                    
+                    return sizeData[countryCode] || null;
+                } catch (error) {
+                    console.error('Error looking up pack price ID:', error);
+                    return null;
+                }
+            }
+
+            // Look up pack price from YAML
+            function getPackPrice(product, size, countryCode) {
+                try {
+                    const category = pricingData[product.category];
+                    if (!category || !category.pricing) return null;
+                    
+                    const productPricing = category.pricing[product.yamlKey];
+                    if (!Array.isArray(productPricing)) return null;
+                    
+                    const sizeEntry = productPricing.find(entry => {
+                        const entrySize = cleanSize(entry.size);
+                        return entrySize === size;
+                    });
+                    
+                    if (!sizeEntry || !sizeEntry.prices || !sizeEntry.prices[countryCode]) return null;
+                    
+                    return sizeEntry.prices[countryCode].three_pack || null;
+                } catch (error) {
+                    console.error('Error looking up pack price:', error);
+                    return null;
+                }
+            }
+
+            // Find single items that can be upsold
+            function findUpsellOpportunities() {
+                const opportunities = [];
+                const threePackTitles = getThreePackTitlesInCart();
+                
+                cart.forEach((item, index) => {
+                    const orderTypeLower = (item.orderType || '').toLowerCase();
+                    const quantity = parseInt(item.quantity, 10);
+                    const titleLower = (item.title || '').toLowerCase();
+                    
+                    // Check if it contains "single" and quantity < 3
+                    const isSingle = orderTypeLower.includes('single');
+                    
+                    // Check if this product already has a 3-pack in cart
+                    const alreadyHasThreePack = threePackTitles.some(packTitle => {
+                        return packTitle.includes(titleLower) || titleLower.includes(packTitle);
+                    });
+                    
+                    // Detect product type
+                    const product = detectProduct(item.title);
+                    
+                    if (!product) return;
+                    
+                    // Get flavor using product-specific mapping
+                    const flavor = mapFlavor(item.flavor, product);
+                    const size = cleanSize(item.size);
+                    
+                    // Check if pack exists for this product/flavor/size
+                    const packPriceId = getPackPriceId(product, flavor, size, countryCode);
+                    const packPrice = getPackPrice(product, size, countryCode);
+                    
+                    if (isSingle && quantity < 3 && !alreadyHasThreePack && packPriceId && packPrice) {
+                        const currentPrice = parseFloat(item.unitPrice);
+                        const totalSavings = (currentPrice * 3) - packPrice;
+                        const savingsPerUnit = totalSavings / 3;
+                        const extraCost = packPrice - currentPrice;
+                        
+                        opportunities.push({
+                            cartIndex: index,
+                            title: item.title || 'Unknown Product',
+                            flavor: item.flavor || '',
+                            size: item.size || '',
+                            originalItem: item,
+                            productConfig: product,
+                            flavorKey: flavor,
+                            sizeKey: size,
+                            packPriceId: packPriceId,
+                            packPrice: packPrice,
+                            currentPrice: currentPrice,
+                            totalSavings: totalSavings.toFixed(2),
+                            savingsPerUnit: savingsPerUnit.toFixed(2),
+                            extraCost: extraCost.toFixed(2)
+                        });
+                    }
+                });
+                
+                return opportunities;
+            }
+
+            // Render upsell banner (YOUR EXISTING 3-PACK UPSELL - STYLED WITH OPTION B)
+            function renderUpsellBanner() {
+                const opportunities = findUpsellOpportunities();
+                
+                if (opportunities.length === 0) {
+                    upsellBanner.classList.add('d-none');
+                    upsellBanner.innerHTML = '';
+                    return;
+                }
+                
+                const opp = opportunities[0];
+                const flavorText = opp.flavor ? ` - ${opp.flavor}` : '';
+                const productDescription = `${opp.title}${flavorText}`;
+                
+                // Check if cart already has a 3-pack (lip balm already included)
+                const alreadyHasThreePack = cartHasThreePack();
+                const lipBalmText = alreadyHasThreePack ? '' : '<div class="upsell-subtitle">+ FREE Lip Balm valued at $12.95</div>';
+                
+                upsellBanner.classList.remove('d-none');
+                upsellBanner.innerHTML = `
+                    <div class="upsell-module">
+                        <div class="upsell-progress-bar">
+                            <div class="upsell-progress-fill" style="width: 33%;"></div>
+                        </div>
+                        <div class="upsell-inner">
+                            <div class="upsell-header">
+                                <span class="upsell-badge">Best Value!</span>
+                                <div class="upsell-title">Upgrade to a 3-pack and save</div>
+                            </div>
+                            <div class="upsell-content">
+                                <div class="upsell-icon-box">🎁</div>
+                                <div class="upsell-details">
+                                    <div class="upsell-product-name">${productDescription}</div>
+                                    <div class="upsell-savings-line">
+                                        <span class="upsell-savings-badge">Save $${opp.savingsPerUnit} per jar</span>
+                                    </div>
+                                    ${lipBalmText}
+                                </div>
+                                <button class="btn-upsell" data-index="${opp.cartIndex}">
+                                    Swap to 3-Pack
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Add click handler
+                const upsellButton = upsellBanner.querySelector('.btn-upsell');
+                if (upsellButton) {
+                    upsellButton.addEventListener('click', function() {
+                        handleUpsell(opp);
+                    });
+                }
+            }
+
+            // Handle upsell swap (YOUR EXISTING LOGIC - UNCHANGED)
+            function handleUpsell(opp) {
+                // Check if this is the first 3-pack (for success message)
+                const hadThreePackBefore = cartHasThreePack();
+                
+                // Update the cart item
+                cart[opp.cartIndex] = {
+                    ...opp.originalItem,
+                    priceId: opp.packPriceId,
+                    orderType: '3 pack (Buy 2 Get 1 Free)',
+                    unitPrice: opp.packPrice,
+                    eligibleForDiscount: false
+                };
+                
+                // Save to localStorage
+                localStorage.setItem('cartV2', JSON.stringify(cart));
+                
+                // Show success message - only mention lip balm if this is the first 3-pack
+                const lipBalmMessage = hadThreePackBefore ? '' : ' + you\'ll receive a FREE Lip Balm!';
+                
+                upsellBanner.innerHTML = `
+                    <div class="alert alert-success d-flex align-items-center mb-0" role="alert">
+                        <span style="font-size: 20px; margin-right: 10px;">✅</span>
+                        <div>
+                            <strong>Upgraded!</strong> Your ${opp.title}${opp.flavor ? ' - ' + opp.flavor : ''} is now a 3-pack. You're saving $${opp.savingsPerUnit} per jar${lipBalmMessage}
+                        </div>
+                    </div>
+                `;
+                
+                // Update cart display
+                updateCart();
+                
+                // Check for more upsell opportunities after delay
+                setTimeout(() => {
+                    renderUpsellBanner();
+                }, 3000);
+            }
+
+            // NEW: Render shipping upsell banner
+            function renderShippingUpsellBanner(subtotal) {
+                const amountToFreeShipping = freeShippingThreshold - subtotal;
+                
+                // Only show if within range for soap ($14.95) or shampoo ($17.95)
+                if (amountToFreeShipping <= 0 || amountToFreeShipping > 17.95) {
+                    shippingUpsellBanner.classList.add('d-none');
+                    shippingUpsellBanner.innerHTML = '';
+                    return;
+                }
+                
+                const progressPercent = Math.min((subtotal / freeShippingThreshold) * 100, 100);
+                
+                // Determine which product to suggest
+                let suggestedProduct, suggestedPrice, suggestedPitch, productEmoji;
+                
+                if (amountToFreeShipping <= 14.95) {
+                    // Suggest soap
+                    suggestedProduct = 'Tallow Soap';
+                    suggestedPrice = 14.95;
+                    suggestedPitch = 'Gentle cleansing with NZ grass-fed tallow';
+                    productEmoji = '🧼';
+                } else if (amountToFreeShipping <= 17.95) {
+                    // Suggest shampoo
+                    suggestedProduct = 'Tallow Shampoo Bar';
+                    suggestedPrice = 17.95;
+                    suggestedPitch = 'Natural hair care with peppermint & rosemary';
+                    productEmoji = '🧴';
+                }
+                
+                shippingUpsellBanner.classList.remove('d-none');
+                shippingUpsellBanner.innerHTML = `
+                    <div class="shipping-upsell-module">
+                        <div class="shipping-progress-bar">
+                            <div class="shipping-progress-fill" style="width: ${progressPercent}%;"></div>
+                        </div>
+                        <div class="shipping-upsell-inner">
+                            <div class="shipping-upsell-header">
+                                <span class="shipping-upsell-badge">Almost There!</span>
+                                <div class="shipping-upsell-title">You're $${amountToFreeShipping.toFixed(2)} from free shipping</div>
+                            </div>
+                            <div class="shipping-upsell-content">
+                                <div class="shipping-product-image">
+                                    <span style="font-size: 28px;">${productEmoji}</span>
+                                </div>
+                                <div class="shipping-upsell-details">
+                                    <div class="shipping-product-name">${suggestedProduct}</div>
+                                    <div class="shipping-savings-line">
+                                        <span class="shipping-price">$${suggestedPrice.toFixed(2)}</span>
+                                        <span class="shipping-savings-badge">Saves $${shippingCost.toFixed(2)} shipping</span>
+                                    </div>
+                                    <div class="shipping-product-pitch">${suggestedPitch}</div>
+                                </div>
+                                <button class="btn-shipping-upsell">Add & Save</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // TODO: Wire up the Add button to your add-to-cart logic
+                // const addBtn = shippingUpsellBanner.querySelector('.btn-shipping-upsell');
+                // addBtn.addEventListener('click', function() { ... });
+            }
+
+            function updateCart() {
+                cartItemsContainer.innerHTML = '';
+                const table = document.createElement('table');
+                table.className = 'table table-bordered';
+                
+                const hasThreePack = cartHasThreePack();
+                
+                if(window.innerWidth > 600){
+                    table.innerHTML = `
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="max-200" scope="col">Product</th>
+                                <th scope="col">Unit $</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart-table-body"></tbody>
+                    `;
+                } else {
+                    table.innerHTML = `
+                        <tbody id="cart-table-body"></tbody>
+                    `;
+                }
+                cartItemsContainer.appendChild(table);
+
+                const cartTableBody = document.getElementById('cart-table-body');
+                let totalCost = 0;
+                let subtotal = 0;
+
+                cart.forEach((item, index) => {
+                    const quantity = parseInt(item.quantity, 10);
+                    const unitPrice = parseFloat(item.unitPrice).toFixed(2);
+
+                    let priceSuffix = '';
+                    if (item.orderType && item.orderType.includes('Quarterly')) {
+                        priceSuffix = '<span class="price-suffix">/3mo</span>';
+                    } else if (item.orderType && item.orderType.includes('Monthly')) {
+                        priceSuffix = '<span class="price-suffix">/mo</span>';
+                    }
+
+                    const lineItemTotal = (unitPrice * quantity).toFixed(2);
+                    totalCost += parseFloat(lineItemTotal);
+                    subtotal += parseFloat(lineItemTotal);
+
+                    const row = document.createElement('tr');
+
+                    if (window.innerWidth > 600) {
+                        if (item.orderTypeVal === 'three_pack') {
+                            const flavorList = item.flavors.map((flavor, i) => {
+                                return `<li>Jar ${i + 1}: ${flavor} - ${item.size}</li>`;
+                            }).join('');
+                            row.innerHTML = `
+                                <td class="max-200">
+                                    <div style="max-width: 250px;" class="float-left">
+                                        ${item.title || 'Unknown Product'} - Pack of 3 Jars
+                                        <ul>${flavorList}</ul>
+                                    </div>
+                                    <button class="remove-item bin-sml float-right" data-index="${index}">
+                                        <img src="/img/bin.svg">
+                                    </button>
+                                </td>
+                                <td>$${unitPrice}${priceSuffix}</td>
+                                <td><input type="number" style="width: 50px;" class="form-control quantity-input" data-index="${index}" value="${quantity}" min="1"></td>
+                                <td class="line-total">$${lineItemTotal}${priceSuffix}</td>
+                            `;
+                        } else {
+                            row.innerHTML = `
+                                <td class="max-200">
+                                    <div style="max-width: 250px;" class="float-left">
+                                        ${item.title || 'Unknown Product'} - ${item.flavor || 'N/A'} (${item.size || 'N/A'}) (${item.orderType || 'N/A'})
+                                    </div>
+                                    <button class="remove-item bin-sml float-right" data-index="${index}">
+                                        <img src="/img/bin.svg">
+                                    </button>
+                                </td>
+                                <td>$${unitPrice}${priceSuffix}</td>
+                                <td><input type="number" style="width: 50px;" class="form-control quantity-input" data-index="${index}" value="${quantity}" min="1"></td>
+                                <td class="line-total">$${lineItemTotal}${priceSuffix}</td>
+                            `;
+                        }
+                    } else {
+                        if (item.orderTypeVal === 'three_pack') {
+                            const flavorList = item.flavors.map((flavor, i) => {
+                                return `<li>Jar ${i + 1}: ${flavor} - ${item.size}</li>`;
+                            }).join('');
+                            row.innerHTML = `
+                                <td>
+                                    <div>${item.title || 'Unknown Product'} - Pack of 3 Jars
+                                        <ul>${flavorList}</ul>
+                                    <div class="row m-0 mt-2 p-0 align-items-center">
+                                        <span class="col-4">$${unitPrice}${priceSuffix}</span>
+                                        <span class="col-4 text-center"><input type="number" style="width: 50px;margin:auto" class="form-control quantity-input" data-index="${index}" value="${quantity}" min="1"></span>
+                                        <span class="col-4 text-end">
+                                            <button class="remove-item bin-sml text-danger" data-index="${index}">
+                                                <img src="/img/bin.svg">
+                                            </button>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="line-total">$${lineItemTotal}${priceSuffix}</td>
+                            `;
+                        } else {
+                            row.innerHTML = `
+                                <td>
+                                    <div>${item.title || 'Unknown Product'} - ${item.flavor || 'N/A'} (${item.size || 'N/A'}) (${item.orderType || 'N/A'})</div>
+                                    <div class="row m-0 mt-2 p-0 align-items-center">
+                                        <span class="col-4">$${unitPrice}${priceSuffix}</span>
+                                        <span class="col-4 text-center"><input type="number" style="width: 50px;margin:auto" class="form-control quantity-input" data-index="${index}" value="${quantity}" min="1"></span>
+                                        <span class="col-4 text-end">
+                                            <button class="remove-item bin-sml text-danger" data-index="${index}">
+                                                <img src="/img/bin.svg">
+                                            </button>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="line-total">$${lineItemTotal}${priceSuffix}</td>
+                            `;
+                        }
+                    }
+
+                    cartTableBody.appendChild(row);
+                });
+
+                // Add free gift row if cart has a 3-pack
+                if (hasThreePack) {
+                    const freeGiftRow = document.createElement('tr');
+                    freeGiftRow.className = 'free-gift-row';
+                    
+                    if (window.innerWidth > 600) {
+                        freeGiftRow.innerHTML = `
+                            <td class="max-200">
+                                <div style="max-width: 250px;" class="float-left">
+                                    <span class="free-gift-label">🎁 FREE GIFT</span>
+                                    <strong>Tallow Lip Balm</strong>
+                                    <br><span class="text-muted small">Included with 3-pack bundle (one per order)</span>
+                                </div>
+                            </td>
+                            <td><s class="text-muted">$12.95</s></td>
+                            <td class="text-center">1</td>
+                            <td class="free-gift-total">$0.00</td>
+                        `;
+                    } else {
+                        freeGiftRow.innerHTML = `
+                            <td>
+                                <div>
+                                    <span class="free-gift-label">🎁 FREE GIFT</span>
+                                    <strong>Tallow Lip Balm</strong>
+                                    <br><span class="text-muted small">Included with 3-pack bundle (one per order)</span>
+                                </div>
+                                <div class="row m-0 mt-2 p-0 align-items-center">
+                                    <span class="col-4"><s class="text-muted">$12.95</s></span>
+                                    <span class="col-4 text-center">1</span>
+                                    <span class="col-4 text-end"></span>
+                                </div>
+                            </td>
+                            <td class="free-gift-total">$0.00</td>
+                        `;
+                    }
+                    
+                    cartTableBody.appendChild(freeGiftRow);
+                }
+
+                if(countryCode == 'NZ'){
+                    if(totalCost < 80){
+                        totalCost = totalCost + 6.95;  
+                        document.getElementById('shipping_info').classList.remove('d-none'); 
+                    } else {
+                        document.getElementById('shipping_info').classList.add('d-none');
+                    }
+                }
+                if(countryCode == 'AU'){
+                    if(totalCost < 150){
+                        totalCost = totalCost + 16.95;   
+                        document.getElementById('shipping_info').classList.remove('d-none');
+                    } else {
+                        document.getElementById('shipping_info').classList.add('d-none');
+                    }
+                }
+
+                let totalPriceSuffix = '';
+                if (cart.some(item => item.orderType && item.orderType.includes('Quarterly'))) {
+                    totalPriceSuffix = '<span class="price-suffix">/3mo</span>';
+                } else if (cart.some(item => item.orderType && item.orderType.includes('Monthly'))) {
+                    totalPriceSuffix = '<span class="price-suffix">/mo</span>';
+                }
+                totalCostElement.innerHTML = `$${totalCost.toFixed(2)}${totalPriceSuffix}`;
+                proceedToCheckoutButton.disabled = cart.length === 0;
+
+                const hotMessage = document.querySelector('.cartcontainerall');
+                if (cart.length === 0 && hotMessage) {
+                    hotMessage.remove();
+                }
+
+                const cartEmptyDiv = document.querySelector('#cartempty');
+                if (cartEmptyDiv) {
+                    if (cart.length === 0) {
+                        cartEmptyDiv.classList.remove('d-none');
+                        cartEmptyDiv.classList.add('d-flex');
+                    } else {
+                        cartEmptyDiv.classList.add('d-none');
+                    }
+                }
+
+                // Render upsell banners
+                renderUpsellBanner();
+                renderShippingUpsellBanner(subtotal);
+
+                document.querySelectorAll('.quantity-input').forEach(input => {
+                    input.addEventListener('input', function () {
+                        const index = this.getAttribute('data-index');
+                        cart[index].quantity = parseInt(this.value, 10) || 1;
+                        localStorage.setItem('cartV2', JSON.stringify(cart));
+                        updateCart();
+                    });
+                });
+
+                document.querySelectorAll('.remove-item').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const index = this.getAttribute('data-index');
+                        cart.splice(index, 1);
+                        localStorage.setItem('cartV2', JSON.stringify(cart));
+                        updateCart();
+                    });
+                });
+            }
+
+            window.addEventListener('storage', function () {
+                cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+                updateCart();
+            });
+
+            updateCart();
+            window.onresize = function(event) {
+                updateCart();
+            };
+
+            proceedToCheckoutButton.addEventListener('click', function () {
+                handleCheckout(cart);
+            });
+
+            function handleCheckout(cart) {
+                cart = cart.map(item => {
+                    return { ...item, quantity: parseInt(item.quantity, 10) };
+                });
+
+                fetch('/.netlify/functions/create-checkout-session', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ cart, countryCode }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.sessionId) {
+                            localStorage.setItem('previouscart', JSON.stringify(cart));
+                            stripe.redirectToCheckout({ sessionId: data.sessionId });
+                        } else {
+                            alert('Failed to create checkout session. Please try again.');
+                        }
+                    })
+                    .catch(() => {
+                        alert('Failed to create checkout session. Please try again.');
+                    });
+            }
+        });
+    </script>
+    
     <style>
+        /* ========== BASE STYLES ========== */
         :root {
             --cream: #FAF7F2;
             --warm-brown: #8B7355;
@@ -23,21 +885,12 @@
             --charcoal: #2D2A26;
             --soft-white: #FFFFFF;
             --border-light: rgba(139, 115, 85, 0.15);
-            --success-green: #9CAF88;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
         }
 
         body {
             font-family: 'DM Sans', sans-serif;
             background: var(--cream);
-            min-height: 100vh;
             color: var(--charcoal);
-            line-height: 1.6;
         }
 
         /* ========== HEADER PLACEHOLDER ========== */
@@ -86,45 +939,22 @@
             color: var(--sage-dark);
         }
 
-        /* ========== URGENCY BANNER ========== */
-        .urgency-banner {
-            background: var(--charcoal);
-            color: var(--soft-white);
-            padding: 14px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            font-size: 0.9rem;
+        @media (max-width: 767px) {
+            .header-nav {
+                display: none;
+            }
         }
 
-        .urgency-banner svg {
-            animation: pulse 2s ease-in-out infinite;
-            flex-shrink: 0;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        /* ========== MAIN CONTAINER ========== */
-        .main-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 40px 20px 80px;
-        }
-
+        /* ========== PAGE LAYOUT ========== */
         .page-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 400;
             color: var(--deep-brown);
-            margin-bottom: 32px;
+            margin-bottom: 28px;
             letter-spacing: 0.02em;
         }
 
-        /* ========== CART LAYOUT ========== */
         .cart-layout {
             display: grid;
             grid-template-columns: 1fr 380px;
@@ -138,34 +968,29 @@
             }
         }
 
-        /* ========== CART EMPTY STATE ========== */
-        #cartempty {
-            text-align: center;
-            padding: 80px 20px;
-        }
-
-        #cartempty h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
-            font-weight: 400;
-            color: var(--deep-brown);
-            margin-bottom: 20px;
-        }
-
-        #cartempty .btn-primary {
+        /* ========== URGENCY BANNER ========== */
+        .urgency-banner {
             background: var(--charcoal);
-            border: none;
-            padding: 14px 32px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
+            color: var(--soft-white);
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border-radius: 4px;
-            transition: background 0.2s;
         }
 
-        #cartempty .btn-primary:hover {
-            background: var(--deep-brown);
+        .urgency-banner svg {
+            animation: pulse 2s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .urgency-banner p {
+            font-size: 0.9rem;
         }
 
         /* ========== CART ITEMS TABLE ========== */
@@ -176,100 +1001,52 @@
             overflow: hidden;
         }
 
-        #cart-items table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 0;
+        #cart-items .table {
+            margin-bottom: 0;
+            border: none;
         }
 
-        #cart-items thead {
+        #cart-items .table-bordered {
+            border: none;
+        }
+
+        #cart-items .table-bordered td,
+        #cart-items .table-bordered th {
+            border-color: var(--border-light);
+        }
+
+        #cart-items .thead-light th {
             background: rgba(139, 115, 85, 0.06);
-        }
-
-        #cart-items thead th {
             font-size: 0.7rem;
             font-weight: 600;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
             color: var(--warm-brown);
-            padding: 16px 20px;
-            border: none;
-            text-align: left;
-        }
-
-        #cart-items tbody tr {
             border-bottom: 1px solid var(--border-light);
         }
 
-        #cart-items tbody tr:last-child {
-            border-bottom: none;
-        }
-
         #cart-items tbody td {
-            padding: 20px;
             vertical-align: middle;
-            border: none;
-            font-size: 0.9rem;
+            padding: 16px;
         }
 
-        #cart-items .max-200 {
-            max-width: 280px;
-        }
-
-        #cart-items .max-200 > div:first-child {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.05rem;
-            font-weight: 500;
-            color: var(--deep-brown);
-            line-height: 1.5;
-        }
-
-        /* Quantity Input */
         .quantity-input {
-            width: 56px !important;
-            text-align: center;
-            border: 1px solid var(--border-light);
+            border: 1px solid var(--border-light) !important;
             border-radius: 4px;
-            padding: 8px;
-            font-size: 0.9rem;
-            font-family: 'DM Sans', sans-serif;
         }
 
         .quantity-input:focus {
-            outline: none;
-            border-color: var(--sage);
+            border-color: var(--sage) !important;
+            box-shadow: none !important;
         }
 
-        /* Remove Button */
-        .remove-item {
-            background: none;
-            border: none;
-            opacity: 0.5;
-            cursor: pointer;
-            padding: 8px;
-            transition: opacity 0.2s;
-        }
-
-        .remove-item:hover {
-            opacity: 1;
-        }
-
-        .remove-item img {
-            width: 18px;
-            height: 18px;
-        }
-
-        /* Line Total */
         .line-total {
             font-weight: 600;
-            color: var(--charcoal);
         }
 
-        /* Price Suffix */
         .price-suffix {
             font-size: 0.75rem;
             color: var(--warm-brown);
-            font-weight: 400;
         }
 
         /* ========== FREE GIFT ROW ========== */
@@ -286,7 +1063,6 @@
             padding: 3px 8px;
             border-radius: 4px;
             margin-right: 8px;
-            margin-bottom: 4px;
             letter-spacing: 0.05em;
         }
 
@@ -295,11 +1071,7 @@
             font-weight: 600;
         }
 
-        /* ========== UPSELL BANNER (OPTION B STYLE) ========== */
-        #upsell-banner {
-            margin-top: 24px;
-        }
-
+        /* ========== 3-PACK UPSELL (OPTION B STYLE) ========== */
         .upsell-module {
             background: linear-gradient(135deg, #F5EFE6 0%, #EDE5D8 100%);
             border-radius: 12px;
@@ -310,13 +1082,11 @@
         .upsell-progress-bar {
             height: 6px;
             background: #DDD5C8;
-            position: relative;
         }
 
         .upsell-progress-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--sage) 0%, var(--sage-dark) 100%);
-            transition: width 0.4s ease;
             position: relative;
         }
 
@@ -433,13 +1203,11 @@
             background: var(--sage-dark);
         }
 
-        /* Upsell Success Alert */
         #upsell-banner .alert-success {
             background: rgba(156, 175, 136, 0.15);
             border: 1px solid var(--sage);
             color: var(--deep-brown);
             border-radius: 8px;
-            padding: 16px 20px;
         }
 
         @media (max-width: 600px) {
@@ -447,35 +1215,30 @@
                 flex-direction: column;
                 text-align: center;
             }
-
             .upsell-savings-line {
                 justify-content: center;
             }
-
             .btn-upsell {
                 width: 100%;
             }
         }
 
-        /* ========== FREE SHIPPING UPSELL ========== */
+        /* ========== SHIPPING UPSELL (OPTION B STYLE) ========== */
         .shipping-upsell-module {
             background: linear-gradient(135deg, #F5EFE6 0%, #EDE5D8 100%);
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 20px rgba(74, 55, 40, 0.08);
-            margin-top: 24px;
         }
 
         .shipping-progress-bar {
             height: 6px;
             background: #DDD5C8;
-            position: relative;
         }
 
         .shipping-progress-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--sage) 0%, var(--sage-dark) 100%);
-            transition: width 0.4s ease;
             position: relative;
         }
 
@@ -527,21 +1290,14 @@
         }
 
         .shipping-product-image {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             background: linear-gradient(145deg, #E8DFD4 0%, #D4C8B8 100%);
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            overflow: hidden;
-        }
-
-        .shipping-product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
 
         .shipping-upsell-details {
@@ -607,11 +1363,9 @@
                 flex-direction: column;
                 text-align: center;
             }
-
             .shipping-savings-line {
                 justify-content: center;
             }
-
             .btn-shipping-upsell {
                 width: 100%;
             }
@@ -623,11 +1377,15 @@
             top: 20px;
         }
 
+        @media (max-width: 900px) {
+            .cart-summary-container {
+                position: static;
+            }
+        }
+
         #cart-summary {
             background: var(--soft-white);
-            border-radius: 8px;
             border: 1px solid var(--border-light);
-            padding: 28px;
             box-shadow: none;
         }
 
@@ -636,7 +1394,7 @@
             font-size: 1.4rem;
             font-weight: 500;
             color: var(--deep-brown);
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             padding-bottom: 16px;
             border-bottom: 1px solid var(--border-light);
         }
@@ -644,24 +1402,17 @@
         #cart-summary #shipping_info {
             font-size: 0.85rem;
             color: var(--sage-dark);
-            margin-bottom: 8px;
         }
 
-        #cart-summary p {
-            font-size: 0.9rem;
-            color: var(--charcoal);
-        }
-
-        #cart-summary #total-cost {
-            font-size: 1.3rem;
-            font-weight: 600;
+        #cart-summary .total-line {
+            font-size: 1.1rem;
+            margin-top: 12px;
         }
 
         #proceed-to-checkout {
             width: 100%;
             background: var(--charcoal);
             border: none;
-            padding: 18px 24px;
             font-family: 'DM Sans', sans-serif;
             font-size: 0.85rem;
             font-weight: 600;
@@ -669,8 +1420,6 @@
             text-transform: uppercase;
             border-radius: 4px;
             transition: background 0.2s;
-            margin-top: 20px;
-            margin-bottom: 16px;
         }
 
         #proceed-to-checkout:hover:not(:disabled) {
@@ -679,13 +1428,11 @@
 
         #proceed-to-checkout:disabled {
             background: #ccc;
-            cursor: not-allowed;
         }
 
         .add-to-cart p {
             font-size: 0.8rem;
             color: var(--warm-brown);
-            margin-bottom: 16px;
             text-align: center;
         }
 
@@ -696,7 +1443,6 @@
             opacity: 0.8;
         }
 
-        /* Trust Signals */
         .trust-signals {
             display: flex;
             justify-content: center;
@@ -710,9 +1456,6 @@
         .trust-item {
             font-size: 0.72rem;
             color: var(--warm-brown);
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
 
         /* ========== FOOTER PLACEHOLDER ========== */
@@ -726,17 +1469,13 @@
         .footer-inner {
             max-width: 1100px;
             margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
         }
 
         .footer-links {
             display: flex;
             gap: 24px;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .footer-links a {
@@ -750,30 +1489,18 @@
             color: var(--soft-white);
         }
 
-        /* ========== MOBILE STYLES ========== */
-        @media (max-width: 600px) {
-            .header-nav {
-                display: none;
+        /* ========== MOBILE TABLE STYLES ========== */
+        @media (max-width: 767px) {
+            table {
+                width: 100%;
+                min-width: 100% !important;
             }
-
-            .page-title {
-                font-size: 1.8rem;
-            }
-
-            #cart-items thead {
-                display: none;
-            }
-
-            #cart-items tbody td {
-                padding: 16px;
-            }
-
-            .cart-summary-container {
-                position: static;
+            .table-bordered td, .table-bordered th {
+                vertical-align: middle;
             }
         }
 
-        /* ========== UTILITY ========== */
+        /* ========== EMPTY CART ========== */
         .vh-55 {
             min-height: 55vh;
         }
@@ -781,804 +1508,29 @@
         .middle {
             margin: auto;
         }
-    </style>
-</head>
-<body>
-    <!-- Header Placeholder (replace with your partial) -->
-    <header class="header-placeholder">
-        <a href="/" class="logo">
-            PrimalPantry
-            <span>Ancestral Wellness</span>
-        </a>
-        <nav class="header-nav">
-            <a href="/shop">Shop Tallow</a>
-            <a href="/reviews">Customer Reviews</a>
-            <a href="/stockists">Stockists</a>
-            <a href="/contact">Contact</a>
-        </nav>
-    </header>
 
-    <!-- Cart Empty State -->
-    <div id="cartempty" class="d-none">
-        <div class="middle">
-            <h1>Your cart is empty</h1>
-            <a href="/shop" class="btn btn-primary">Continue Shopping</a>
-        </div>
-    </div>
-
-    <!-- Cart Content -->
-    <div class="cartcontainerall">
-        <!-- Urgency Banner -->
-        <div class="urgency-banner">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/>
-                <polyline points="12,6 12,12 16,14"/>
-            </svg>
-            The items in your cart are popular — complete your order while they're in stock
-        </div>
-
-        <div class="main-container">
-            <h1 class="page-title">Your Cart</h1>
-
-            <div class="cart-layout">
-                <!-- Left Column: Cart Items -->
-                <div class="cart-column">
-                    <div class="cart-items-container">
-                        <div id="cart-items">
-                            <!-- Cart items will be dynamically injected here -->
-                        </div>
-                    </div>
-
-                    <!-- 3-Pack Upsell Banner -->
-                    <div id="upsell-banner" class="d-none">
-                        <!-- Upsell content injected here -->
-                    </div>
-
-                    <!-- Free Shipping Upsell -->
-                    <div id="shipping-upsell-banner" class="d-none">
-                        <!-- Shipping upsell content injected here -->
-                    </div>
-                </div>
-
-                <!-- Right Column: Summary -->
-                <div class="cart-summary-container">
-                    <div id="cart-summary">
-                        <h3>Order Summary</h3>
-                        <p id="shipping_info"><em>+$<span id="shipping_price"></span> shipping (spend over $<span id="shipping_rate"></span> to get it free)</em></p>
-                        <p style="font-size: 1.1rem; margin-top: 16px;">Total: <strong><span id="total-cost">$0.00</span></strong></p>
-                        <div class="add-to-cart">
-                            <button id="proceed-to-checkout" class="btn btn-primary btn-lg" disabled>Proceed to Checkout</button>
-                            <p>Speedy Shipping NZ Wide | Money back guarantee</p>
-                            <img class="badges" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
-                        </div>
-                        <div class="trust-signals">
-                            <span class="trust-item">🚚 Fast NZ Shipping</span>
-                            <span class="trust-item">✓ Money Back Guarantee</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer Placeholder (replace with your partial) -->
-    <footer class="footer-placeholder">
-        <div class="footer-inner">
-            <div class="footer-links">
-                <a href="/support">Customer Support</a>
-                <a href="/reviews">Reviews</a>
-                <a href="/faq">FAQs</a>
-                <a href="/refund">Refund Policy</a>
-                <a href="/terms">Terms of Use</a>
-                <a href="/privacy">Privacy Policy</a>
-                <a href="/blog">Blog</a>
-            </div>
-        </div>
-    </footer>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-        // Pricing data from YAML - REPLACE WITH YOUR HUGO TEMPLATE
-        // const pricingData = JSON.parse('{{ .Site.Data.pricing | jsonify }}');
-        
-        // For demo purposes, using mock data
-        const pricingData = {
-            tallow: {
-                ids: {},
-                pricing: {}
-            }
-        };
-
-        // Size aliases - maps frontend sizes to YAML sizes
-        const sizeAliases = {
-            '15ml': '10ml',
-            '250ml': '220ml',
-            '100g': '120g'
-        };
-
-        // Product detection config
-        const productConfig = [
-            {
-                keywords: ['lotion'],
-                yamlKey: 'liquid_lotion',
-                category: 'tallow',
-                defaultFlavor: 'natural',
-                flavorMap: {
-                    'natural': 'natural',
-                    'unscented': 'natural',
-                    'fragrance free': 'natural',
-                    'fragrance-free': 'natural',
-                    'geranium': 'geranium',
-                    'rose geranium': 'geranium',
-                    'rose': 'geranium'
-                }
-            },
-            {
-                keywords: ['whipped', 'whipped tallow'],
-                yamlKey: 'balm',
-                category: 'tallow',
-                defaultFlavor: 'vanilla-rose',
-                flavorMap: {
-                    'lavender': 'lavender',
-                    'vanilla rose': 'vanilla-rose',
-                    'vanilla-rose': 'vanilla-rose',
-                    'vanilla & rose': 'vanilla-rose',
-                    'vanilla and rose': 'vanilla-rose',
-                    'neutral': 'neutral',
-                    'natural': 'neutral',
-                    'unscented': 'neutral',
-                    'fragrance free': 'neutral',
-                    'fragrance-free': 'neutral',
-                    'vanilla': 'vanilla',
-                    'frankincense': 'frankincense',
-                    'frank': 'frankincense',
-                    'patchouli': 'patchouli',
-                    'orange': 'orange',
-                    'sweet orange': 'orange',
-                    'cedar': 'cedar',
-                    'cedarwood': 'cedar'
-                }
-            },
-            {
-                keywords: ['shampoo bar', 'shampoo'],
-                yamlKey: 'shampoo',
-                category: 'tallow',
-                defaultFlavor: 'peppermintrosemary',
-                flavorMap: {
-                    'peppermint': 'peppermintrosemary',
-                    'peppermint rosemary': 'peppermintrosemary',
-                    'peppermint & rosemary': 'peppermintrosemary',
-                    'peppermint and rosemary': 'peppermintrosemary',
-                    'rosemary': 'peppermintrosemary',
-                    'rosemary peppermint': 'peppermintrosemary'
-                }
-            },
-            {
-                keywords: ['tallow & honey', 'honey balm', 'tallow and honey'],
-                yamlKey: 'honeybalm',
-                category: 'tallow',
-                defaultFlavor: 'vanilla',
-                flavorMap: {
-                    'vanilla': 'vanilla',
-                    'vanilla & manuka': 'vanilla',
-                    'vanilla manuka': 'vanilla',
-                    'vanilla and manuka': 'vanilla',
-                    'manuka vanilla': 'vanilla',
-                    'tansy': 'tansy',
-                    'blue tansy': 'tansy',
-                    'blue tansy & manuka': 'tansy',
-                    'blue tansy manuka': 'tansy',
-                    'blue tansy and manuka': 'tansy'
-                }
-            },
-            {
-                keywords: ['eye cream', 'eyecream'],
-                yamlKey: 'eyecream',
-                category: 'tallow',
-                defaultFlavor: 'manukahoney_vitc',
-                flavorMap: {
-                    'manuka': 'manukahoney_vitc',
-                    'manuka honey': 'manukahoney_vitc',
-                    'manuka honey & vitamin c': 'manukahoney_vitc',
-                    'manuka honey vitamin c': 'manukahoney_vitc',
-                    'manuka & vitamin c': 'manukahoney_vitc',
-                    'vitamin c': 'manukahoney_vitc',
-                    'vit c': 'manukahoney_vitc'
-                }
-            },
-            {
-                keywords: ['deodorant', 'deo'],
-                yamlKey: 'deodorant',
-                category: 'tallow',
-                defaultFlavor: 'frankincense',
-                flavorMap: {
-                    'frankincense': 'frankincense',
-                    'frank': 'frankincense',
-                    'cedarwood': 'cedarwood',
-                    'cedar': 'cedarwood',
-                    'vanilla rose': 'vanilla-rose',
-                    'vanilla-rose': 'vanilla-rose',
-                    'vanilla & rose': 'vanilla-rose',
-                    'vanilla and rose': 'vanilla-rose'
-                }
-            }
-        ];
-
-        // Helper function to get country cookie
-        function getCountryCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-            return null;
+        #cartempty h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--deep-brown);
+            margin-bottom: 20px;
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            let cart = JSON.parse(localStorage.getItem('cartV2')) || [];
-            console.log('Cart contents:', cart);
-            const countryCode = getCountryCookie('country_code') || "NZ";
-            
-            // Set shipping prices based on country
-            const shippingPrice = countryCode === 'AU' ? 16.95 : 6.95;
-            const freeShippingThreshold = countryCode === 'AU' ? 150 : 80;
-            
-            document.getElementById("shipping_price").innerHTML = shippingPrice.toFixed(2);
-            document.getElementById("shipping_rate").innerHTML = freeShippingThreshold;
+        #cartempty .btn-primary {
+            background: var(--charcoal);
+            border: none;
+            padding: 14px 32px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border-radius: 4px;
+        }
 
-            const cartItemsContainer = document.getElementById('cart-items');
-            const totalCostElement = document.getElementById('total-cost');
-            const proceedToCheckoutButton = document.getElementById('proceed-to-checkout');
-            const upsellBanner = document.getElementById('upsell-banner');
-            const shippingUpsellBanner = document.getElementById('shipping-upsell-banner');
-
-            // Check if item is a 3-pack
-            function isThreePack(item) {
-                if (!item.orderType) return false;
-                const orderTypeLower = item.orderType.toLowerCase();
-                return orderTypeLower.includes('pack') || 
-                       orderTypeLower.includes('3 pack') || 
-                       orderTypeLower.includes('three') ||
-                       orderTypeLower.includes('2 get 1');
-            }
-
-            // Check if cart has any 3-pack
-            function cartHasThreePack() {
-                return cart.some(item => isThreePack(item));
-            }
-
-            // Detect product config from title
-            function detectProduct(title) {
-                const titleLower = (title || '').toLowerCase();
-                for (const config of productConfig) {
-                    for (const keyword of config.keywords) {
-                        if (titleLower.includes(keyword)) {
-                            return config;
-                        }
-                    }
-                }
-                return null;
-            }
-
-            // Map flavor text to YAML key
-            function mapFlavor(flavorText, product) {
-                if (!flavorText) return product.defaultFlavor;
-                const flavorLower = flavorText.toLowerCase().trim();
-                const sortedEntries = Object.entries(product.flavorMap).sort((a, b) => b[0].length - a[0].length);
-                for (const [keyword, yamlKey] of sortedEntries) {
-                    if (flavorLower.includes(keyword) || flavorLower === keyword) {
-                        return yamlKey;
-                    }
-                }
-                return product.defaultFlavor;
-            }
-
-            // Clean size string
-            function cleanSize(size) {
-                if (!size) return null;
-                const match = size.match(/(\d+)\s*(ml|g)/i);
-                if (match) {
-                    const extractedSize = match[1] + match[2].toLowerCase();
-                    if (sizeAliases[extractedSize]) {
-                        return sizeAliases[extractedSize];
-                    }
-                    return extractedSize;
-                }
-                return size.toLowerCase().replace(/\s/g, '');
-            }
-
-            // Get list of product titles that are already in cart as 3-packs
-            function getThreePackTitlesInCart() {
-                const titles = [];
-                cart.forEach(item => {
-                    if (isThreePack(item) && item.title) {
-                        titles.push(item.title.toLowerCase());
-                    }
-                });
-                return titles;
-            }
-
-            // Look up pack price ID from YAML
-            function getPackPriceId(product, flavor, size, countryCode) {
-                try {
-                    const category = pricingData[product.category];
-                    if (!category || !category.ids) return null;
-                    const productData = category.ids[product.yamlKey];
-                    if (!productData || !productData.pack) return null;
-                    const flavorData = productData.pack[flavor];
-                    if (!flavorData) return null;
-                    const sizeData = flavorData[size];
-                    if (!sizeData) return null;
-                    return sizeData[countryCode] || null;
-                } catch (error) {
-                    console.error('Error looking up pack price ID:', error);
-                    return null;
-                }
-            }
-
-            // Look up pack price from YAML
-            function getPackPrice(product, size, countryCode) {
-                try {
-                    const category = pricingData[product.category];
-                    if (!category || !category.pricing) return null;
-                    const productPricing = category.pricing[product.yamlKey];
-                    if (!Array.isArray(productPricing)) return null;
-                    const sizeEntry = productPricing.find(entry => {
-                        const entrySize = cleanSize(entry.size);
-                        return entrySize === size;
-                    });
-                    if (!sizeEntry || !sizeEntry.prices || !sizeEntry.prices[countryCode]) return null;
-                    return sizeEntry.prices[countryCode].three_pack || null;
-                } catch (error) {
-                    console.error('Error looking up pack price:', error);
-                    return null;
-                }
-            }
-
-            // Find single items that can be upsold
-            function findUpsellOpportunities() {
-                const opportunities = [];
-                const threePackTitles = getThreePackTitlesInCart();
-                
-                cart.forEach((item, index) => {
-                    const orderTypeLower = (item.orderType || '').toLowerCase();
-                    const quantity = parseInt(item.quantity, 10);
-                    const titleLower = (item.title || '').toLowerCase();
-                    const isSingle = orderTypeLower.includes('single');
-                    const alreadyHasThreePack = threePackTitles.some(packTitle => {
-                        return packTitle.includes(titleLower) || titleLower.includes(packTitle);
-                    });
-                    const product = detectProduct(item.title);
-                    if (!product) return;
-                    const flavor = mapFlavor(item.flavor, product);
-                    const size = cleanSize(item.size);
-                    const packPriceId = getPackPriceId(product, flavor, size, countryCode);
-                    const packPrice = getPackPrice(product, size, countryCode);
-                    
-                    if (isSingle && quantity < 3 && !alreadyHasThreePack && packPriceId && packPrice) {
-                        const currentPrice = parseFloat(item.unitPrice);
-                        const totalSavings = (currentPrice * 3) - packPrice;
-                        const savingsPerUnit = totalSavings / 3;
-                        const extraCost = packPrice - currentPrice;
-                        
-                        opportunities.push({
-                            cartIndex: index,
-                            title: item.title || 'Unknown Product',
-                            flavor: item.flavor || '',
-                            size: item.size || '',
-                            originalItem: item,
-                            productConfig: product,
-                            flavorKey: flavor,
-                            sizeKey: size,
-                            packPriceId: packPriceId,
-                            packPrice: packPrice,
-                            currentPrice: currentPrice,
-                            totalSavings: totalSavings.toFixed(2),
-                            savingsPerUnit: savingsPerUnit.toFixed(2),
-                            extraCost: extraCost.toFixed(2)
-                        });
-                    }
-                });
-                
-                return opportunities;
-            }
-
-            // Render 3-pack upsell banner (Option B style)
-            function renderUpsellBanner() {
-                const opportunities = findUpsellOpportunities();
-                
-                if (opportunities.length === 0) {
-                    upsellBanner.classList.add('d-none');
-                    upsellBanner.innerHTML = '';
-                    return;
-                }
-                
-                const opp = opportunities[0];
-                const flavorText = opp.flavor ? ` - ${opp.flavor}` : '';
-                const productDescription = `${opp.title}${flavorText}`;
-                const alreadyHasThreePack = cartHasThreePack();
-                const lipBalmText = alreadyHasThreePack ? '' : '<div class="upsell-subtitle">+ FREE Lip Balm valued at $12.95</div>';
-                
-                upsellBanner.classList.remove('d-none');
-                upsellBanner.innerHTML = `
-                    <div class="upsell-module">
-                        <div class="upsell-progress-bar">
-                            <div class="upsell-progress-fill" style="width: 33%;"></div>
-                        </div>
-                        <div class="upsell-inner">
-                            <div class="upsell-header">
-                                <span class="upsell-badge">Best Value!</span>
-                                <div class="upsell-title">Upgrade to a 3-pack and save</div>
-                            </div>
-                            <div class="upsell-content">
-                                <div class="upsell-icon-box">🎁</div>
-                                <div class="upsell-details">
-                                    <div class="upsell-product-name">${productDescription}</div>
-                                    <div class="upsell-savings-line">
-                                        <span class="upsell-savings-badge">Save $${opp.savingsPerUnit} per jar</span>
-                                    </div>
-                                    ${lipBalmText}
-                                </div>
-                                <button class="btn-upsell" data-index="${opp.cartIndex}">Swap to 3-Pack</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                
-                const upsellButton = upsellBanner.querySelector('.btn-upsell');
-                if (upsellButton) {
-                    upsellButton.addEventListener('click', function() {
-                        handleUpsell(opp);
-                    });
-                }
-            }
-
-            // Handle upsell swap
-            function handleUpsell(opp) {
-                const hadThreePackBefore = cartHasThreePack();
-                
-                cart[opp.cartIndex] = {
-                    ...opp.originalItem,
-                    priceId: opp.packPriceId,
-                    orderType: '3 pack (Buy 2 Get 1 Free)',
-                    unitPrice: opp.packPrice,
-                    eligibleForDiscount: false
-                };
-                
-                localStorage.setItem('cartV2', JSON.stringify(cart));
-                
-                const lipBalmMessage = hadThreePackBefore ? '' : ' + you\'ll receive a FREE Lip Balm!';
-                
-                upsellBanner.innerHTML = `
-                    <div class="alert alert-success d-flex align-items-center" role="alert">
-                        <span style="font-size: 20px; margin-right: 12px;">✅</span>
-                        <div>
-                            <strong>Upgraded!</strong> Your ${opp.title}${opp.flavor ? ' - ' + opp.flavor : ''} is now a 3-pack. You're saving $${opp.savingsPerUnit} per jar${lipBalmMessage}
-                        </div>
-                    </div>
-                `;
-                
-                updateCart();
-                
-                setTimeout(() => {
-                    renderUpsellBanner();
-                }, 3000);
-            }
-
-            // Render free shipping upsell banner
-            function renderShippingUpsell(subtotal) {
-                const amountToFreeShipping = freeShippingThreshold - subtotal;
-                
-                if (amountToFreeShipping <= 0 || amountToFreeShipping > 30) {
-                    shippingUpsellBanner.classList.add('d-none');
-                    shippingUpsellBanner.innerHTML = '';
-                    return;
-                }
-                
-                const progressPercent = Math.min((subtotal / freeShippingThreshold) * 100, 100);
-                
-                // Suggest product based on gap
-                let suggestedProduct, suggestedPrice, suggestedPitch;
-                if (amountToFreeShipping <= 15) {
-                    suggestedProduct = 'Tallow Lip Balm';
-                    suggestedPrice = 12.95;
-                    suggestedPitch = 'Nourishing lip care with Manuka honey';
-                } else {
-                    suggestedProduct = 'Tallow Soap Bar';
-                    suggestedPrice = 14.95;
-                    suggestedPitch = 'Gentle cleansing with NZ grass-fed tallow';
-                }
-                
-                shippingUpsellBanner.classList.remove('d-none');
-                shippingUpsellBanner.innerHTML = `
-                    <div class="shipping-upsell-module">
-                        <div class="shipping-progress-bar">
-                            <div class="shipping-progress-fill" style="width: ${progressPercent}%;"></div>
-                        </div>
-                        <div class="shipping-upsell-inner">
-                            <div class="shipping-upsell-header">
-                                <span class="shipping-upsell-badge">Almost There!</span>
-                                <div class="shipping-upsell-title">You're $${amountToFreeShipping.toFixed(2)} from free shipping</div>
-                            </div>
-                            <div class="shipping-upsell-content">
-                                <div class="shipping-product-image">
-                                    <span style="font-size: 28px;">🧼</span>
-                                </div>
-                                <div class="shipping-upsell-details">
-                                    <div class="shipping-product-name">${suggestedProduct}</div>
-                                    <div class="shipping-savings-line">
-                                        <span class="shipping-price">$${suggestedPrice.toFixed(2)}</span>
-                                        <span class="shipping-savings-badge">Saves $${shippingPrice.toFixed(2)} shipping</span>
-                                    </div>
-                                    <div class="shipping-product-pitch">${suggestedPitch}</div>
-                                </div>
-                                <button class="btn-shipping-upsell">Add & Save</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                
-                // Note: You'll need to wire up the Add button to your actual add-to-cart logic
-            }
-
-            function updateCart() {
-                cartItemsContainer.innerHTML = '';
-                const table = document.createElement('table');
-                table.className = 'table';
-                
-                const hasThreePack = cartHasThreePack();
-                
-                if(window.innerWidth > 600){
-                    table.innerHTML = `
-                        <thead>
-                            <tr>
-                                <th scope="col">Product</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Qty</th>
-                                <th scope="col">Total</th>
-                            </tr>
-                        </thead>
-                        <tbody id="cart-table-body"></tbody>
-                    `;
-                } else {
-                    table.innerHTML = `
-                        <tbody id="cart-table-body"></tbody>
-                    `;
-                }
-                cartItemsContainer.appendChild(table);
-
-                const cartTableBody = document.getElementById('cart-table-body');
-                let subtotal = 0;
-
-                cart.forEach((item, index) => {
-                    const quantity = parseInt(item.quantity, 10);
-                    const unitPrice = parseFloat(item.unitPrice).toFixed(2);
-
-                    let priceSuffix = '';
-                    if (item.orderType && item.orderType.includes('Quarterly')) {
-                        priceSuffix = '<span class="price-suffix">/3mo</span>';
-                    } else if (item.orderType && item.orderType.includes('Monthly')) {
-                        priceSuffix = '<span class="price-suffix">/mo</span>';
-                    }
-
-                    const lineItemTotal = (unitPrice * quantity).toFixed(2);
-                    subtotal += parseFloat(lineItemTotal);
-
-                    const row = document.createElement('tr');
-
-                    if (window.innerWidth > 600) {
-                        if (item.orderTypeVal === 'three_pack') {
-                            const flavorList = item.flavors.map((flavor, i) => {
-                                return `<li>Jar ${i + 1}: ${flavor} - ${item.size}</li>`;
-                            }).join('');
-                            row.innerHTML = `
-                                <td class="max-200">
-                                    <div style="max-width: 280px;" class="float-left">
-                                        ${item.title || 'Unknown Product'} - Pack of 3 Jars
-                                        <ul style="font-size: 0.85rem; color: var(--warm-brown); margin-top: 8px;">${flavorList}</ul>
-                                    </div>
-                                    <button class="remove-item float-right" data-index="${index}">
-                                        <img src="/img/bin.svg" alt="Remove">
-                                    </button>
-                                </td>
-                                <td>$${unitPrice}${priceSuffix}</td>
-                                <td><input type="number" class="form-control quantity-input" data-index="${index}" value="${quantity}" min="1"></td>
-                                <td class="line-total">$${lineItemTotal}${priceSuffix}</td>
-                            `;
-                        } else {
-                            row.innerHTML = `
-                                <td class="max-200">
-                                    <div style="max-width: 280px;" class="float-left">
-                                        ${item.title || 'Unknown Product'} - ${item.flavor || 'N/A'} (${item.size || 'N/A'}) (${item.orderType || 'N/A'})
-                                    </div>
-                                    <button class="remove-item float-right" data-index="${index}">
-                                        <img src="/img/bin.svg" alt="Remove">
-                                    </button>
-                                </td>
-                                <td>$${unitPrice}${priceSuffix}</td>
-                                <td><input type="number" class="form-control quantity-input" data-index="${index}" value="${quantity}" min="1"></td>
-                                <td class="line-total">$${lineItemTotal}${priceSuffix}</td>
-                            `;
-                        }
-                    } else {
-                        if (item.orderTypeVal === 'three_pack') {
-                            const flavorList = item.flavors.map((flavor, i) => {
-                                return `<li>Jar ${i + 1}: ${flavor} - ${item.size}</li>`;
-                            }).join('');
-                            row.innerHTML = `
-                                <td>
-                                    <div>${item.title || 'Unknown Product'} - Pack of 3 Jars
-                                        <ul style="font-size: 0.85rem; color: var(--warm-brown);">${flavorList}</ul>
-                                    <div class="row m-0 mt-2 p-0 align-items-center">
-                                        <span class="col-4">$${unitPrice}${priceSuffix}</span>
-                                        <span class="col-4 text-center"><input type="number" style="width: 50px;margin:auto" class="form-control quantity-input" data-index="${index}" value="${quantity}" min="1"></span>
-                                        <span class="col-4 text-right">
-                                            <button class="remove-item" data-index="${index}">
-                                                <img src="/img/bin.svg" alt="Remove">
-                                            </button>
-                                        </span>
-                                    </div>
-                                </td>
-                                <td class="line-total">$${lineItemTotal}${priceSuffix}</td>
-                            `;
-                        } else {
-                            row.innerHTML = `
-                                <td>
-                                    <div>${item.title || 'Unknown Product'} - ${item.flavor || 'N/A'} (${item.size || 'N/A'}) (${item.orderType || 'N/A'})</div>
-                                    <div class="row m-0 mt-2 p-0 align-items-center">
-                                        <span class="col-4">$${unitPrice}${priceSuffix}</span>
-                                        <span class="col-4 text-center"><input type="number" style="width: 50px;margin:auto" class="form-control quantity-input" data-index="${index}" value="${quantity}" min="1"></span>
-                                        <span class="col-4 text-right">
-                                            <button class="remove-item" data-index="${index}">
-                                                <img src="/img/bin.svg" alt="Remove">
-                                            </button>
-                                        </span>
-                                    </div>
-                                </td>
-                                <td class="line-total">$${lineItemTotal}${priceSuffix}</td>
-                            `;
-                        }
-                    }
-
-                    cartTableBody.appendChild(row);
-                });
-
-                // Add free gift row if cart has a 3-pack
-                if (hasThreePack) {
-                    const freeGiftRow = document.createElement('tr');
-                    freeGiftRow.className = 'free-gift-row';
-                    
-                    if (window.innerWidth > 600) {
-                        freeGiftRow.innerHTML = `
-                            <td class="max-200">
-                                <div style="max-width: 280px;" class="float-left">
-                                    <span class="free-gift-label">🎁 FREE GIFT</span>
-                                    <strong>Tallow Lip Balm</strong>
-                                    <br><span style="font-size: 0.8rem; color: var(--warm-brown);">Included with 3-pack bundle (one per order)</span>
-                                </div>
-                            </td>
-                            <td><s style="color: var(--warm-brown);">$12.95</s></td>
-                            <td class="text-center">1</td>
-                            <td class="free-gift-total">$0.00</td>
-                        `;
-                    } else {
-                        freeGiftRow.innerHTML = `
-                            <td>
-                                <div>
-                                    <span class="free-gift-label">🎁 FREE GIFT</span>
-                                    <strong>Tallow Lip Balm</strong>
-                                    <br><span style="font-size: 0.8rem; color: var(--warm-brown);">Included with 3-pack bundle (one per order)</span>
-                                </div>
-                                <div class="row m-0 mt-2 p-0 align-items-center">
-                                    <span class="col-4"><s style="color: var(--warm-brown);">$12.95</s></span>
-                                    <span class="col-4 text-center">1</span>
-                                    <span class="col-4 text-right"></span>
-                                </div>
-                            </td>
-                            <td class="free-gift-total">$0.00</td>
-                        `;
-                    }
-                    
-                    cartTableBody.appendChild(freeGiftRow);
-                }
-
-                // Calculate total with shipping
-                let totalCost = subtotal;
-                if (subtotal < freeShippingThreshold) {
-                    totalCost = subtotal + shippingPrice;
-                    document.getElementById('shipping_info').classList.remove('d-none');
-                } else {
-                    document.getElementById('shipping_info').classList.add('d-none');
-                }
-
-                let totalPriceSuffix = '';
-                if (cart.some(item => item.orderType && item.orderType.includes('Quarterly'))) {
-                    totalPriceSuffix = '<span class="price-suffix">/3mo</span>';
-                } else if (cart.some(item => item.orderType && item.orderType.includes('Monthly'))) {
-                    totalPriceSuffix = '<span class="price-suffix">/mo</span>';
-                }
-                totalCostElement.innerHTML = `$${totalCost.toFixed(2)}${totalPriceSuffix}`;
-                proceedToCheckoutButton.disabled = cart.length === 0;
-
-                const hotMessage = document.querySelector('.cartcontainerall');
-                if (cart.length === 0 && hotMessage) {
-                    hotMessage.classList.add('d-none');
-                }
-
-                const cartEmptyDiv = document.querySelector('#cartempty');
-                if (cartEmptyDiv) {
-                    if (cart.length === 0) {
-                        cartEmptyDiv.classList.remove('d-none');
-                        cartEmptyDiv.classList.add('d-flex');
-                    } else {
-                        cartEmptyDiv.classList.add('d-none');
-                    }
-                }
-
-                // Render upsell banners
-                renderUpsellBanner();
-                renderShippingUpsell(subtotal);
-
-                // Event listeners for quantity and remove
-                document.querySelectorAll('.quantity-input').forEach(input => {
-                    input.addEventListener('input', function () {
-                        const index = this.getAttribute('data-index');
-                        cart[index].quantity = parseInt(this.value, 10) || 1;
-                        localStorage.setItem('cartV2', JSON.stringify(cart));
-                        updateCart();
-                    });
-                });
-
-                document.querySelectorAll('.remove-item').forEach(button => {
-                    button.addEventListener('click', function () {
-                        const index = this.getAttribute('data-index');
-                        cart.splice(index, 1);
-                        localStorage.setItem('cartV2', JSON.stringify(cart));
-                        updateCart();
-                    });
-                });
-            }
-
-            window.addEventListener('storage', function () {
-                cart = JSON.parse(localStorage.getItem('cartV2')) || [];
-                updateCart();
-            });
-
-            updateCart();
-            window.onresize = function(event) {
-                updateCart();
-            };
-
-            proceedToCheckoutButton.addEventListener('click', function () {
-                handleCheckout(cart);
-            });
-
-            function handleCheckout(cart) {
-                cart = cart.map(item => {
-                    return { ...item, quantity: parseInt(item.quantity, 10) };
-                });
-
-                fetch('/.netlify/functions/create-checkout-session', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ cart, countryCode }),
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.sessionId) {
-                            localStorage.setItem('previouscart', JSON.stringify(cart));
-                            stripe.redirectToCheckout({ sessionId: data.sessionId });
-                        } else {
-                            alert('Failed to create checkout session. Please try again.');
-                        }
-                    })
-                    .catch(() => {
-                        alert('Failed to create checkout session. Please try again.');
-                    });
-            }
-        });
-    </script>
+        #cartempty .btn-primary:hover {
+            background: var(--deep-brown);
+        }
+    </style>
 </body>
 </html>
