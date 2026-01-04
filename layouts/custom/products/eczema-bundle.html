@@ -229,33 +229,66 @@
         ];
 
         // Shipping upsell products - products to suggest for free shipping threshold
+        // Ordered by price ascending for matching to gap amount
         const shippingUpsellProducts = [
             {
-                name: 'Tallow Lip Balm',
-                price: 12.95,
-                image: '/img/products/lip-balm.webp',
-                description: 'Nourishing lip care with NZ grass-fed tallow',
-                addToCartData: {
-                    title: 'Tallow Lip Balm',
-                    flavor: 'Manuka Honey',
-                    size: '10g',
-                    orderType: 'Single',
-                    priceId: 'price_lipbalm_nz', // Update with actual price ID
-                    unitPrice: 12.95
-                }
-            },
-            {
-                name: 'Tallow Soap Bar',
+                name: 'Tallow Soap',
                 price: 14.95,
                 image: '/img/products/soap.webp',
-                description: 'Gentle cleansing with grass-fed tallow',
+                description: 'Gentle cleansing with NZ grass-fed tallow',
+                maxGap: 14.95,
                 addToCartData: {
                     title: 'Tallow Soap',
                     flavor: 'Natural',
                     size: '100g',
                     orderType: 'Single',
-                    priceId: 'price_soap_nz', // Update with actual price ID
+                    priceId: 'price_soap_nz',
                     unitPrice: 14.95
+                }
+            },
+            {
+                name: 'Tallow Shampoo Bar',
+                price: 17.95,
+                image: '/img/products/shampoo.webp',
+                description: 'Natural hair care with grass-fed tallow',
+                maxGap: 17.95,
+                addToCartData: {
+                    title: 'Tallow Shampoo Bar',
+                    flavor: 'Peppermint & Rosemary',
+                    size: '100g',
+                    orderType: 'Single',
+                    priceId: 'price_shampoo_nz',
+                    unitPrice: 17.95
+                }
+            },
+            {
+                name: 'Whipped Tallow Balm',
+                price: 24.95,
+                image: '/img/products/balm.webp',
+                description: 'Nourishing skincare with vanilla rose',
+                maxGap: 24.95,
+                addToCartData: {
+                    title: 'Whipped Tallow Balm',
+                    flavor: 'Vanilla Rose',
+                    size: '60ml',
+                    orderType: 'Single',
+                    priceId: 'price_balm_vanilla_rose_60_nz',
+                    unitPrice: 24.95
+                }
+            },
+            {
+                name: 'Tallow Lotion',
+                price: 34.95,
+                image: '/img/products/lotion.webp',
+                description: 'Lightweight daily moisturiser',
+                maxGap: 35,
+                addToCartData: {
+                    title: 'Tallow Lotion',
+                    flavor: 'Natural',
+                    size: '250ml',
+                    orderType: 'Single',
+                    priceId: 'price_lotion_natural_nz',
+                    unitPrice: 34.95
                 }
             }
         ];
@@ -555,16 +588,25 @@
                     return;
                 }
                 
-                // Calculate progress percentage
-                const progressPercent = Math.min((subtotal / freeShippingThreshold) * 100, 100);
+                // Calculate progress percentage - starts at 50% and scales up from there
+                const actualProgress = (subtotal / freeShippingThreshold);
+                const progressPercent = 50 + (actualProgress * 50); // Maps 0-100% to 50-100%
                 
                 // Find best product to suggest based on gap
-                let suggestedProduct = shippingUpsellProducts[0]; // Default to lip balm
+                // Product should be >= gap amount so adding it gets them to free shipping
+                let suggestedProduct = null;
                 for (const product of shippingUpsellProducts) {
-                    if (product.price >= amountToFreeShipping) {
+                    if (product.price >= amountToFreeShipping && amountToFreeShipping <= product.maxGap) {
                         suggestedProduct = product;
                         break;
                     }
+                }
+                
+                // For gaps over $35, use lotion but without savings badge
+                const isLargeGap = amountToFreeShipping > 35;
+                if (isLargeGap) {
+                    // Find lotion or last product in list
+                    suggestedProduct = shippingUpsellProducts.find(p => p.name === 'Tallow Lotion') || shippingUpsellProducts[shippingUpsellProducts.length - 1];
                 }
                 
                 // Update progress bar
@@ -574,7 +616,23 @@
                 document.getElementById('shipping-upsell-title').textContent = 
                     `You're $${amountToFreeShipping.toFixed(2)} from free shipping`;
                 
-                // Update content
+                // If no suitable product found, show simple message
+                if (!suggestedProduct) {
+                    document.getElementById('shipping-upsell-content').innerHTML = `
+                        <div class="shipping-simple-message">
+                            <span>Add a few more items to unlock free shipping!</span>
+                        </div>
+                    `;
+                    shippingUpsellModule.classList.remove('d-none');
+                    return;
+                }
+                
+                // Only show savings badge if gap is $35 or less
+                const savingsBadge = !isLargeGap 
+                    ? `<span class="shipping-savings-badge">Saves $${shippingCost.toFixed(2)} shipping</span>`
+                    : '';
+                
+                // Update content with product suggestion
                 document.getElementById('shipping-upsell-content').innerHTML = `
                     <div class="shipping-product-image">
                         <img src="${suggestedProduct.image}" alt="${suggestedProduct.name}" onerror="this.parentElement.innerHTML='<span>Product</span>'">
@@ -583,12 +641,12 @@
                         <div class="shipping-product-name">${suggestedProduct.name}</div>
                         <div class="shipping-savings-line">
                             <span class="shipping-product-price">$${suggestedProduct.price.toFixed(2)}</span>
-                            <span class="shipping-savings-badge">Saves $${shippingCost.toFixed(2)} shipping</span>
+                            ${savingsBadge}
                         </div>
                         <div class="shipping-product-pitch">${suggestedProduct.description}</div>
                     </div>
                     <button class="btn-shipping-upsell" data-product="${shippingUpsellProducts.indexOf(suggestedProduct)}">
-                        Add & Save
+                        Add to Cart
                     </button>
                 `;
                 
@@ -1296,6 +1354,13 @@
         .shipping-product-pitch {
             font-size: 0.75rem;
             color: var(--warm-brown);
+        }
+
+        .shipping-simple-message {
+            text-align: center;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            color: var(--charcoal);
         }
 
         .btn-shipping-upsell {
