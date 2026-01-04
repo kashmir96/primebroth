@@ -476,16 +476,16 @@
                 const opp = opportunities[0];
                 const flavorText = opp.flavor ? ` - ${opp.flavor}` : '';
                 const alreadyHasThreePack = cartHasThreePack();
-                const lipBalmText = alreadyHasThreePack ? '' : ' + get a $12.95 Lip Balm FREE';
+                const lipBalmText = alreadyHasThreePack ? '' : ' + FREE Lip Balm valued at $12.95';
                 
                 upsellBanner.classList.remove('d-none');
                 upsellBanner.innerHTML = `
                     <div class="pack-upsell-module">
                         <div class="pack-upsell-inner">
                             <div class="pack-upsell-content">
-                                <span class="pack-upsell-label">Better value:</span> Upgrade your ${opp.title}${flavorText} to a 3-pack and save $${opp.savingsPerUnit} per item${lipBalmText}
+                                <span class="pack-upsell-label">Best value:</span> Upgrade your ${opp.title}${flavorText} to a 3-pack and save $${opp.savingsPerUnit} per item${lipBalmText}
                             </div>
-                            <button class="btn-pack-upsell" data-index="${opp.cartIndex}">Bundle & Save</button>
+                            <button class="btn-pack-upsell" data-index="${opp.cartIndex}">Upgrade</button>
                         </div>
                     </div>
                 `;
@@ -646,7 +646,7 @@
                             <div class="item-product">
                                 <div class="item-details">
                                     <h3 class="item-title">${item.title || 'Unknown Product'} 3pk</h3>
-                                    <p class="item-meta">3 jars of ${flavorList} ${item.size}</p>
+                                    <p class="item-meta"><span class="savings-text">Save 33%</span> • 3 jars of ${flavorList} ${item.size}</p>
                                 </div>
                             </div>
                             <div class="item-price">$${unitPrice}${priceSuffix}</div>
@@ -669,7 +669,7 @@
                         const isItemThreePack = isThreePack(item);
                         const titleSuffix = isItemThreePack ? ' 3pk' : '';
                         const metaText = isItemThreePack 
-                            ? `3 jars of ${item.flavor || ''} ${item.size || ''}`
+                            ? `<span class="savings-text">Save 33%</span> • 3 jars of ${item.flavor || ''} ${item.size || ''}`
                             : [item.flavor, item.size].filter(Boolean).join(' • ');
                         
                         cartItem.innerHTML = `
@@ -712,6 +712,7 @@
                         <div class="item-price"><s>$12.95</s></div>
                         <div class="item-quantity"></div>
                         <div class="item-total">
+                            <span class="free-gift-price">FREE</span>
                         </div>
                     `;
                     cartItemsContainer.appendChild(freeGiftItem);
@@ -902,6 +903,11 @@
             font-size: 0.75rem;
             color: var(--warm-brown);
             margin: 0;
+        }
+
+        .savings-text {
+            color: var(--sage-dark);
+            font-weight: 600;
         }
 
         .item-price {
