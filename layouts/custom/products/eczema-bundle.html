@@ -653,18 +653,29 @@
                 
                 // Calculate effective price for single products
                 const effectivePrice = productPrice - shippingCost;
+                const discountPercent = Math.round((shippingCost / productPrice) * 100);
                 
-                // Build compact inline content
-                let inlineContent;
+                // Build compact inline content with pitch text
+                let priceDisplay, pitchText;
                 if (isThreePackSuggestion) {
-                    inlineContent = `<span class="shipping-suggestion">${suggestedProduct.name} <strong>$${productPrice.toFixed(2)}</strong></span>`;
+                    const alreadyHasThreePack = cartHasThreePack();
+                    priceDisplay = `$${productPrice.toFixed(2)}`;
+                    pitchText = alreadyHasThreePack 
+                        ? 'Best value - 3 jars'
+                        : '+ FREE lip balm';
                 } else {
-                    inlineContent = `<span class="shipping-suggestion">${suggestedProduct.name} <span class="effective-inline">$${effectivePrice.toFixed(2)}</span></span>`;
+                    priceDisplay = `$${productPrice.toFixed(2)} → <span class="effective-price-inline">effectively $${effectivePrice.toFixed(2)}</span>`;
+                    pitchText = `Save ${discountPercent}% by unlocking free shipping`;
                 }
                 
                 // Update content
                 document.getElementById('shipping-upsell-content').innerHTML = `
-                    ${inlineContent}
+                    <div class="shipping-suggestion">
+                        <div class="shipping-product-row">
+                            <strong>${suggestedProduct.name}</strong> ${priceDisplay}
+                        </div>
+                        <div class="shipping-pitch">${pitchText}</div>
+                    </div>
                     <button class="btn-shipping-add">Add</button>
                 `;
                 
@@ -1124,7 +1135,7 @@
         .shipping-upsell-info {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
@@ -1132,6 +1143,7 @@
             font-weight: 600;
             font-size: 0.8rem;
             color: var(--deep-brown);
+            white-space: nowrap;
         }
 
         .shipping-upsell-divider {
@@ -1140,20 +1152,40 @@
         }
 
         .shipping-suggestion {
-            font-size: 0.75rem;
+            flex: 1;
+            font-size: 0.8rem;
             color: var(--charcoal);
+            min-width: 0;
         }
 
-        .effective-inline {
+        .shipping-product-row {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .effective-price-inline {
             font-weight: 600;
             color: var(--sage-dark);
+        }
+
+        .was-price {
+            font-size: 0.7rem;
+            color: var(--warm-brown);
+        }
+
+        .shipping-pitch {
+            font-size: 0.7rem;
+            color: var(--sage-dark);
+            font-weight: 500;
         }
 
         .btn-shipping-add {
             background: var(--sage);
             color: var(--soft-white);
             border: none;
-            padding: 5px 12px;
+            padding: 6px 14px;
             font-family: 'DM Sans', sans-serif;
             font-size: 0.65rem;
             font-weight: 600;
@@ -1161,8 +1193,8 @@
             text-transform: uppercase;
             cursor: pointer;
             border-radius: 4px;
-            margin-left: auto;
             white-space: nowrap;
+            flex-shrink: 0;
         }
 
         .btn-shipping-add:hover {
