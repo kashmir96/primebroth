@@ -688,11 +688,41 @@
                             metaText = [item.flavor, item.size].filter(Boolean).join(' • ');
                         }
                         
+                        // Check for upsell opportunity on this item
+                        let upsellHtml = '';
+                        const orderTypeLower = (item.orderType || '').toLowerCase();
+                        const isSingle = orderTypeLower.includes('single');
+                        
+                        if (isSingle && !isItemThreePack) {
+                            const product = detectProduct(item.title);
+                            if (product) {
+                                const flavor = mapFlavor(item.flavor, product);
+                                const size = cleanSize(item.size);
+                                const packPriceId = getPackPriceId(product, flavor, size, countryCode);
+                                const packPrice = getPackPrice(product, size, countryCode);
+                                
+                                if (packPriceId && packPrice) {
+                                    const currentPrice = parseFloat(item.unitPrice);
+                                    const savingsPerUnit = ((currentPrice * 3) - packPrice) / 3;
+                                    const alreadyHasThreePack = cartHasThreePack();
+                                    const lipBalmText = alreadyHasThreePack ? '' : ' + FREE $12.95 Lip Balm';
+                                    
+                                    upsellHtml = `
+                                        <div class="item-upsell">
+                                            <span class="upsell-text"><strong>Better value:</strong> Upgrade to 3pk and save $${savingsPerUnit.toFixed(2)} each ($${packPrice.toFixed(2)})${lipBalmText}</span>
+                                            <button class="btn-item-upsell" data-index="${index}" data-pack-price-id="${packPriceId}" data-pack-price="${packPrice}">Bundle & Save</button>
+                                        </div>
+                                    `;
+                                }
+                            }
+                        }
+                        
                         cartItem.innerHTML = `
                             <div class="item-product">
                                 <div class="item-details">
                                     <h3 class="item-title">${item.title || 'Unknown Product'}${titleSuffix}</h3>
                                     <p class="item-meta">${metaText}</p>
+                                    ${upsellHtml}
                                 </div>
                             </div>
                             <div class="item-price">$${unitPrice}${priceSuffix}</div>
@@ -775,12 +805,8 @@
                     if (cartEmptyDiv) cartEmptyDiv.classList.add('d-none');
                 }
 
-                const hasThreePackUpsell = renderUpsellBanner();
-                if (!hasThreePackUpsell) {
-                    renderShippingUpsell(subtotal);
-                } else {
-                    shippingUpsellModule.classList.add('d-none');
-                }
+                // Only show shipping upsell if not at free shipping threshold
+                renderShippingUpsell(subtotal);
 
                 document.querySelectorAll('.qty-minus').forEach(btn => {
                     btn.addEventListener('click', function() {
@@ -806,6 +832,27 @@
                     button.addEventListener('click', function () {
                         const index = this.getAttribute('data-index');
                         cart.splice(index, 1);
+                        localStorage.setItem('cartV2', JSON.stringify(cart));
+                        updateCart();
+                    });
+                });
+
+                // Handle inline upsell buttons
+                document.querySelectorAll('.btn-item-upsell').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        const packPriceId = this.getAttribute('data-pack-price-id');
+                        const packPrice = parseFloat(this.getAttribute('data-pack-price'));
+                        
+                        // Update the cart item to 3-pack
+                        cart[index] = {
+                            ...cart[index],
+                            priceId: packPriceId,
+                            orderType: '3 pack (Buy 2 Get 1 Free)',
+                            unitPrice: packPrice,
+                            eligibleForDiscount: false
+                        };
+                        
                         localStorage.setItem('cartV2', JSON.stringify(cart));
                         updateCart();
                     });
@@ -1013,6 +1060,40 @@
         .free-gift-price {
             color: var(--sage-dark);
             font-weight: 600;
+        }
+
+        /* Inline Item Upsell */
+        .item-upsell {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 6px;
+            padding: 6px 10px;
+            background: rgba(156, 175, 136, 0.1);
+            border-radius: 4px;
+            flex-wrap: wrap;
+        }
+
+        .upsell-text {
+            font-size: 0.8rem;
+            color: var(--charcoal);
+            flex: 1;
+        }
+
+        .btn-item-upsell {
+            background: var(--sage);
+            color: var(--soft-white);
+            border: none;
+            padding: 5px 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .btn-item-upsell:hover {
+            background: var(--sage-dark);
         }
 
         /* 3-Pack Upsell */
