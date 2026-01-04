@@ -756,19 +756,19 @@
 
                     if (item.orderTypeVal === 'three_pack') {
                         const flavorList = item.flavors.map((flavor, i) => {
-                            return `<li>Jar ${i + 1}: ${flavor} - ${item.size}</li>`;
-                        }).join('');
+                            return `${flavor}`;
+                        }).join(', ');
                         cartItem.innerHTML = `
                             <div class="item-product">
                                 <div class="item-details">
-                                    <h3 class="item-title">${item.title || 'Unknown Product'} - Pack of 3</h3>
-                                    <ul class="item-meta">${flavorList}</ul>
+                                    <h3 class="item-title">${item.title || 'Unknown Product'} 3-Pack</h3>
+                                    <p class="item-meta">${flavorList} • ${item.size}</p>
                                 </div>
                             </div>
                             <div class="item-price">$${unitPrice}${priceSuffix}</div>
                             <div class="item-quantity">
                                 <button class="qty-btn qty-minus" data-index="${index}">−</button>
-                                <input type="number" class="qty-input quantity-input" data-index="${index}" value="${quantity}" min="1">
+                                <span class="qty-value">${quantity}</span>
                                 <button class="qty-btn qty-plus" data-index="${index}">+</button>
                             </div>
                             <div class="item-total">
@@ -781,17 +781,23 @@
                             </div>
                         `;
                     } else {
+                        // Build concise variant string
+                        const variantParts = [];
+                        if (item.flavor) variantParts.push(item.flavor);
+                        if (item.size) variantParts.push(item.size);
+                        const variantStr = variantParts.length > 0 ? variantParts.join(' • ') : '';
+                        
                         cartItem.innerHTML = `
                             <div class="item-product">
                                 <div class="item-details">
                                     <h3 class="item-title">${item.title || 'Unknown Product'}</h3>
-                                    <p class="item-meta">${item.flavor || ''} ${item.size ? '• ' + item.size : ''} ${item.orderType ? '• ' + item.orderType : ''}</p>
+                                    <p class="item-meta">${variantStr}</p>
                                 </div>
                             </div>
                             <div class="item-price">$${unitPrice}${priceSuffix}</div>
                             <div class="item-quantity">
                                 <button class="qty-btn qty-minus" data-index="${index}">−</button>
-                                <input type="number" class="qty-input quantity-input" data-index="${index}" value="${quantity}" min="1">
+                                <span class="qty-value">${quantity}</span>
                                 <button class="qty-btn qty-plus" data-index="${index}">+</button>
                             </div>
                             <div class="item-total">
@@ -902,15 +908,6 @@
                     btn.addEventListener('click', function() {
                         const index = this.getAttribute('data-index');
                         cart[index].quantity = parseInt(cart[index].quantity, 10) + 1;
-                        localStorage.setItem('cartV2', JSON.stringify(cart));
-                        updateCart();
-                    });
-                });
-
-                document.querySelectorAll('.quantity-input').forEach(input => {
-                    input.addEventListener('input', function () {
-                        const index = this.getAttribute('data-index');
-                        cart[index].quantity = parseInt(this.value, 10) || 1;
                         localStorage.setItem('cartV2', JSON.stringify(cart));
                         updateCart();
                     });
@@ -1137,6 +1134,13 @@
             text-align: center;
             font-size: 0.9rem;
             font-family: 'DM Sans', sans-serif;
+        }
+
+        .qty-value {
+            min-width: 24px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 0.9rem;
         }
 
         .item-total {
@@ -1604,45 +1608,26 @@
             }
 
             .cart-item {
-                grid-template-columns: 1fr;
-                gap: 12px;
+                grid-template-columns: 1fr auto;
+                grid-template-rows: auto auto;
+                gap: 8px 16px;
                 padding: 16px 20px;
             }
 
             .item-product {
-                margin-bottom: 8px;
+                grid-column: 1 / -1;
             }
 
-            .item-price,
-            .item-quantity,
-            .item-total {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            .item-price::before {
-                content: 'Price: ';
-                color: var(--warm-brown);
-                font-weight: normal;
-            }
-
-            .item-quantity::before {
-                content: 'Qty: ';
-                color: var(--warm-brown);
-                font-weight: normal;
-                margin-right: auto;
+            .item-price {
+                display: none;
             }
 
             .item-quantity {
                 justify-content: flex-start;
-                gap: 12px;
             }
 
-            .item-total::before {
-                content: 'Total: ';
-                color: var(--warm-brown);
-                font-weight: normal;
+            .item-total {
+                justify-content: flex-end;
             }
 
             .pack-upsell-inner {
@@ -1684,13 +1669,12 @@
                 font-size: 1.6rem;
             }
 
-            .item-image {
-                width: 60px;
-                height: 60px;
+            .item-title {
+                font-size: 0.9rem;
             }
 
-            .item-title {
-                font-size: 0.95rem;
+            .item-meta {
+                font-size: 0.75rem;
             }
 
             .summary-box {
