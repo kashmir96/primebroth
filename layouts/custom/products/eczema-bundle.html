@@ -476,7 +476,7 @@
                 const opp = opportunities[0];
                 const flavorText = opp.flavor ? ` - ${opp.flavor}` : '';
                 const alreadyHasThreePack = cartHasThreePack();
-                const lipBalmText = alreadyHasThreePack ? '' : ' + FREE Lip Balm valued at $12.95';
+                const lipBalmText = alreadyHasThreePack ? '' : ' + get a FREE $12.95 Lip Balm';
                 
                 upsellBanner.classList.remove('d-none');
                 upsellBanner.innerHTML = `
@@ -704,12 +704,13 @@
                                 if (packPriceId && packPrice) {
                                     const currentPrice = parseFloat(item.unitPrice);
                                     const savingsPerUnit = ((currentPrice * 3) - packPrice) / 3;
+                                    const totalSavings = (currentPrice * 3) - packPrice;
                                     const alreadyHasThreePack = cartHasThreePack();
                                     const lipBalmText = alreadyHasThreePack ? '' : ' + FREE $12.95 Lip Balm';
                                     
                                     upsellHtml = `
                                         <div class="item-upsell">
-                                            <span class="upsell-text"><strong>Better value:</strong> Upgrade to 3pk and save $${savingsPerUnit.toFixed(2)} each ($${packPrice.toFixed(2)})${lipBalmText}</span>
+                                            <span class="upsell-text"><strong>Better value:</strong> Upgrade to a 3pk & save $${savingsPerUnit.toFixed(2)}/ea ($${totalSavings.toFixed(2)})${lipBalmText}</span>
                                             <button class="btn-item-upsell" data-index="${index}" data-pack-price-id="${packPriceId}" data-pack-price="${packPrice}">Bundle & Save</button>
                                         </div>
                                     `;
