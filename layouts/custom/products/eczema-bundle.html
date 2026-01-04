@@ -27,62 +27,15 @@
                 <h1 class="cart-page-title">Your Cart</h1>
                 
                 <div class="cart-layout">
-                    <!-- Top Row: Order Summary + Shipping Upsell -->
-                    <div class="cart-top-row">
-                        <div id="cart-summary" class="summary-box-compact">
-                            <div class="summary-main">
-                                <div class="summary-totals">
-                                    <div class="summary-line">
-                                        <span>Subtotal</span>
-                                        <span id="subtotal-cost">$0.00</span>
-                                    </div>
-                                    <div class="summary-line" id="shipping-row">
-                                        <span>Shipping</span>
-                                        <span id="shipping-display">$6.95</span>
-                                    </div>
-                                    <div class="summary-line d-none" id="free-shipping-row">
-                                        <span>Shipping</span>
-                                        <span class="free-shipping-text">FREE</span>
-                                    </div>
-                                    <div class="summary-line total-line">
-                                        <span>Total</span>
-                                        <span id="total-cost">$0.00</span>
-                                    </div>
-                                </div>
-                                <button id="proceed-to-checkout" class="checkout-btn" disabled>Checkout</button>
-                            </div>
-                            <div class="trust-row">
-                                <span>🚚 NZ Wide</span>
-                                <span>✓ Money Back Guarantee</span>
-                                <img class="payment-badges" src="/img/stripe-badge-transparent.webp" alt="secure payments">
-                            </div>
-                        </div>
-
-                        <!-- Compact Shipping Upsell -->
-                        <div id="shipping-upsell" class="shipping-upsell-compact d-none">
-                            <div class="shipping-progress-bar-compact">
-                                <div class="shipping-progress-fill-compact" id="shipping-progress-fill"></div>
-                            </div>
-                            <div class="shipping-upsell-row">
-                                <div class="shipping-upsell-text">
-                                    <span class="shipping-gap-text" id="shipping-upsell-title">$X from free shipping</span>
-                                </div>
-                                <div class="shipping-upsell-product" id="shipping-upsell-content">
-                                    <!-- Product suggestion injected here -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Cart Items Column -->
+                    <!-- Left Column: Cart Items -->
                     <div class="cart-items-column">
                         <!-- Urgency Banner -->
                         <div class="urgency-banner">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <circle cx="12" cy="12" r="10"/>
                                 <polyline points="12,6 12,12 16,14"/>
                             </svg>
-                            <span>Items in your cart are popular — order soon</span>
+                            <span>The items in your cart are popular — complete your order while they're in stock</span>
                         </div>
                         
                         <div id="cart-items" class="cart-items-container">
@@ -93,27 +46,56 @@
                         <div id="upsell-banner" class="d-none">
                             <!-- Upsell content injected here -->
                         </div>
-                    </div>
-                </div>
 
-                <!-- Sticky Checkout Bar (Mobile) -->
-                <div id="sticky-checkout-bar" class="sticky-checkout-bar d-none">
-                    <div class="sticky-bar-inner">
-                        <div class="sticky-bar-info">
-                            <div class="sticky-bar-total">
-                                <span class="sticky-total-label">Total:</span>
-                                <span class="sticky-total-amount" id="sticky-total">$0.00</span>
+                        <!-- Free Shipping Upsell Module -->
+                        <div id="shipping-upsell" class="shipping-upsell-module d-none">
+                            <div class="shipping-progress-bar">
+                                <div class="shipping-progress-fill" id="shipping-progress-fill"></div>
                             </div>
-                            <div class="sticky-bar-shipping" id="sticky-shipping-info">
-                                <span class="sticky-shipping-icon">🚚</span>
-                                <span class="sticky-shipping-text" id="sticky-shipping-text">$X to free shipping</span>
+                            <div class="shipping-upsell-inner">
+                                <div class="shipping-upsell-header">
+                                    <span class="shipping-upsell-badge">Almost There!</span>
+                                    <div class="shipping-upsell-title" id="shipping-upsell-title">You're $X.XX from free shipping</div>
+                                </div>
+                                <div class="shipping-upsell-content" id="shipping-upsell-content">
+                                    <!-- Product suggestion injected here -->
+                                </div>
                             </div>
                         </div>
-                        <button id="sticky-checkout-btn" class="sticky-checkout-btn" disabled>Checkout</button>
                     </div>
-                    <div id="sticky-upsell-drawer" class="sticky-upsell-drawer d-none">
-                        <div class="sticky-upsell-content" id="sticky-upsell-content">
-                            <!-- Upsell content injected here -->
+
+                    <!-- Right Column: Order Summary -->
+                    <div class="cart-summary-column">
+                        <div id="cart-summary" class="summary-box">
+                            <h2 class="summary-title">Order Summary</h2>
+                            
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span id="subtotal-cost">$0.00</span>
+                            </div>
+                            <div class="summary-row shipping-row" id="shipping-row">
+                                <span>Shipping</span>
+                                <span id="shipping-display">$6.95</span>
+                            </div>
+                            <div class="summary-row free-shipping-row d-none" id="free-shipping-row">
+                                <span>Shipping</span>
+                                <span class="free-shipping-text">FREE</span>
+                            </div>
+                            <div class="summary-row total-row">
+                                <span>Total</span>
+                                <span id="total-cost">$0.00</span>
+                            </div>
+
+                            <button id="proceed-to-checkout" class="checkout-btn" disabled>Proceed to Checkout</button>
+
+                            <div class="trust-signals">
+                                <span class="trust-item">🚚 NZ Wide Shipping</span>
+                                <span class="trust-item">✓ Money Back Guarantee</span>
+                            </div>
+
+                            <div class="payment-icons">
+                                <img class="badges" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -365,245 +347,6 @@
             const proceedToCheckoutButton = document.getElementById('proceed-to-checkout');
             const upsellBanner = document.getElementById('upsell-banner');
             const shippingUpsellModule = document.getElementById('shipping-upsell');
-            const stickyCheckoutBar = document.getElementById('sticky-checkout-bar');
-            const stickyCheckoutBtn = document.getElementById('sticky-checkout-btn');
-            const stickyTotalEl = document.getElementById('sticky-total');
-            const stickyShippingText = document.getElementById('sticky-shipping-text');
-            const stickyShippingInfo = document.getElementById('sticky-shipping-info');
-            const stickyUpsellDrawer = document.getElementById('sticky-upsell-drawer');
-
-            // Update sticky checkout bar
-            function updateStickyBar(totalCost, subtotal, suggestedProduct, isThreePackSuggestion) {
-                if (cart.length === 0) {
-                    stickyCheckoutBar.classList.add('d-none');
-                    return;
-                }
-
-                stickyCheckoutBar.classList.remove('d-none');
-                stickyCheckoutBtn.disabled = false;
-
-                // Update total
-                let totalPriceSuffix = '';
-                if (cart.some(item => item.orderType && item.orderType.includes('Quarterly'))) {
-                    totalPriceSuffix = '/3mo';
-                } else if (cart.some(item => item.orderType && item.orderType.includes('Monthly'))) {
-                    totalPriceSuffix = '/mo';
-                }
-                stickyTotalEl.textContent = `$${totalCost.toFixed(2)}${totalPriceSuffix}`;
-
-                // Update shipping info
-                const amountToFreeShipping = freeShippingThreshold - subtotal;
-                if (amountToFreeShipping <= 0) {
-                    stickyShippingText.textContent = 'Free shipping!';
-                    stickyShippingText.classList.add('free-shipping');
-                    stickyShippingInfo.style.cursor = 'default';
-                    stickyUpsellDrawer.classList.remove('expanded');
-                    stickyUpsellDrawer.innerHTML = '';
-                } else {
-                    stickyShippingText.textContent = `$${amountToFreeShipping.toFixed(2)} to free shipping`;
-                    stickyShippingText.classList.remove('free-shipping');
-                    
-                    // If there's a suggested product, make it tappable
-                    if (suggestedProduct) {
-                        stickyShippingInfo.style.cursor = 'pointer';
-                        
-                        // Build upsell drawer content
-                        const effectivePrice = suggestedProduct.price - shippingCost;
-                        const discountPercent = Math.round((shippingCost / suggestedProduct.price) * 100);
-                        
-                        let priceHtml;
-                        if (isThreePackSuggestion) {
-                            priceHtml = `<span>$${suggestedProduct.price.toFixed(2)}</span>`;
-                        } else {
-                            priceHtml = `<span class="original-price">$${suggestedProduct.price.toFixed(2)}</span> <span class="effective">Effectively $${effectivePrice.toFixed(2)}</span>`;
-                        }
-                        
-                        stickyUpsellDrawer.innerHTML = `
-                            <div class="sticky-upsell-content">
-                                <div class="sticky-upsell-details">
-                                    <div class="sticky-upsell-name">${suggestedProduct.name}</div>
-                                    <div class="sticky-upsell-price">${priceHtml}</div>
-                                </div>
-                                <button class="sticky-upsell-btn">Add</button>
-                            </div>
-                        `;
-                        
-                        // Add click handler for add button
-                        const addBtn = stickyUpsellDrawer.querySelector('.sticky-upsell-btn');
-                        if (addBtn) {
-                            addBtn.addEventListener('click', function(e) {
-                                e.stopPropagation();
-                                cart.push({
-                                    ...suggestedProduct.addToCartData,
-                                    quantity: 1,
-                                    eligibleForDiscount: !isThreePackSuggestion
-                                });
-                                localStorage.setItem('cartV2', JSON.stringify(cart));
-                                stickyUpsellDrawer.classList.remove('expanded');
-                                updateCart();
-                            });
-                        }
-                    } else {
-                        stickyShippingInfo.style.cursor = 'default';
-                        stickyUpsellDrawer.innerHTML = '';
-                    }
-                }
-            }
-
-            // Toggle upsell drawer on shipping info click
-            stickyShippingInfo.addEventListener('click', function() {
-                if (stickyUpsellDrawer.innerHTML.trim() !== '') {
-                    stickyUpsellDrawer.classList.toggle('expanded');
-                }
-            });
-
-            // Sticky checkout button click
-            stickyCheckoutBtn.addEventListener('click', function() {
-                handleCheckout(cart);
-            });
-            
-            // Sticky bar elements
-            const stickyCheckoutBar = document.getElementById('sticky-checkout-bar');
-            const stickyTotal = document.getElementById('sticky-total');
-            const stickyShippingInfo = document.getElementById('sticky-shipping-info');
-            const stickyShippingText = document.getElementById('sticky-shipping-text');
-            const stickyCheckoutBtn = document.getElementById('sticky-checkout-btn');
-            const stickyUpsellDrawer = document.getElementById('sticky-upsell-drawer');
-            const stickyUpsellContent = document.getElementById('sticky-upsell-content');
-
-            // Update sticky checkout bar
-            function updateStickyBar(subtotal, totalCost) {
-                if (cart.length === 0) {
-                    stickyCheckoutBar.classList.add('d-none');
-                    return;
-                }
-                
-                stickyCheckoutBar.classList.remove('d-none');
-                
-                // Update total
-                let totalPriceSuffix = '';
-                if (cart.some(item => item.orderType && item.orderType.includes('Quarterly'))) {
-                    totalPriceSuffix = '/3mo';
-                } else if (cart.some(item => item.orderType && item.orderType.includes('Monthly'))) {
-                    totalPriceSuffix = '/mo';
-                }
-                stickyTotal.textContent = `$${totalCost.toFixed(2)}${totalPriceSuffix}`;
-                
-                // Update shipping info
-                const amountToFreeShipping = freeShippingThreshold - subtotal;
-                
-                if (amountToFreeShipping <= 0) {
-                    stickyShippingText.textContent = 'Free shipping!';
-                    stickyShippingInfo.classList.add('free-shipping');
-                    stickyUpsellDrawer.classList.add('d-none');
-                } else {
-                    stickyShippingText.textContent = `$${amountToFreeShipping.toFixed(2)} to free shipping`;
-                    stickyShippingInfo.classList.remove('free-shipping');
-                    
-                    // Populate upsell drawer if we have a suggestion
-                    updateStickyUpsell(subtotal, amountToFreeShipping);
-                }
-            }
-            
-            // Update sticky upsell drawer content
-            function updateStickyUpsell(subtotal, amountToFreeShipping) {
-                // Don't show if gap is too large
-                if (amountToFreeShipping > 71.95) {
-                    stickyUpsellDrawer.classList.add('d-none');
-                    return;
-                }
-                
-                let suggestedProduct = null;
-                let isThreePackSuggestion = false;
-                
-                // For gaps over $35, find appropriate 3-pack
-                if (amountToFreeShipping > 35) {
-                    for (const pack of threePackUpsellProducts) {
-                        if (amountToFreeShipping >= pack.minGap && amountToFreeShipping <= pack.maxGap) {
-                            suggestedProduct = pack;
-                            isThreePackSuggestion = true;
-                            break;
-                        }
-                    }
-                } else {
-                    // Find best single product
-                    for (const product of shippingUpsellProducts) {
-                        if (product.price >= amountToFreeShipping && amountToFreeShipping <= product.maxGap) {
-                            suggestedProduct = product;
-                            break;
-                        }
-                    }
-                }
-                
-                if (!suggestedProduct) {
-                    stickyUpsellDrawer.classList.add('d-none');
-                    return;
-                }
-                
-                // Build content
-                const effectivePrice = suggestedProduct.price - shippingCost;
-                const discountPercent = Math.round((shippingCost / suggestedProduct.price) * 100);
-                
-                let priceHtml, pitchText;
-                if (isThreePackSuggestion) {
-                    const alreadyHasThreePack = cartHasThreePack();
-                    priceHtml = `<span class="shipping-product-price">$${suggestedProduct.price.toFixed(2)}</span>`;
-                    pitchText = alreadyHasThreePack 
-                        ? (suggestedProduct.name.includes('Honey') ? 'Best value - 3 jars of manuka honey balm' : 'Best value - 3 jars of our bestselling balm')
-                        : suggestedProduct.description;
-                } else {
-                    priceHtml = `<span class="original-price">$${suggestedProduct.price.toFixed(2)}</span> <span class="effective-price">$${effectivePrice.toFixed(2)}</span>`;
-                    pitchText = `Save ${discountPercent}% with free shipping`;
-                }
-                
-                stickyUpsellContent.innerHTML = `
-                    <div class="sticky-upsell-details">
-                        <div class="sticky-upsell-name">${suggestedProduct.name}</div>
-                        <div class="sticky-upsell-pitch">${pitchText}</div>
-                    </div>
-                    <div class="sticky-upsell-price">${priceHtml}</div>
-                    <button class="btn-sticky-upsell">Add</button>
-                `;
-                
-                // Add click handler
-                const addBtn = stickyUpsellContent.querySelector('.btn-sticky-upsell');
-                if (addBtn) {
-                    addBtn.addEventListener('click', function() {
-                        cart.push({
-                            ...suggestedProduct.addToCartData,
-                            quantity: 1,
-                            eligibleForDiscount: !isThreePackSuggestion
-                        });
-                        localStorage.setItem('cartV2', JSON.stringify(cart));
-                        stickyUpsellDrawer.classList.add('d-none');
-                        updateCart();
-                    });
-                }
-            }
-            
-            // Toggle upsell drawer on shipping info click
-            stickyShippingInfo.addEventListener('click', function() {
-                const amountToFreeShipping = freeShippingThreshold - getCurrentSubtotal();
-                if (amountToFreeShipping > 0 && amountToFreeShipping <= 71.95) {
-                    stickyUpsellDrawer.classList.toggle('d-none');
-                }
-            });
-            
-            // Sticky checkout button handler
-            stickyCheckoutBtn.addEventListener('click', function() {
-                handleCheckout(cart);
-            });
-            
-            // Helper to get current subtotal
-            function getCurrentSubtotal() {
-                let subtotal = 0;
-                cart.forEach(item => {
-                    const quantity = parseInt(item.quantity, 10);
-                    const unitPrice = parseFloat(item.unitPrice);
-                    subtotal += unitPrice * quantity;
-                });
-                return subtotal;
-            }
 
             // Check if item is a 3-pack
             function isThreePack(item) {
@@ -887,7 +630,7 @@
                 
                 // Calculate progress percentage - starts at 50% and scales up from there
                 const actualProgress = (subtotal / freeShippingThreshold);
-                const progressPercent = 50 + (actualProgress * 50);
+                const progressPercent = 50 + (actualProgress * 50); // Maps 0-100% to 50-100%
                 
                 let suggestedProduct = null;
                 let isThreePackSuggestion = false;
@@ -918,16 +661,14 @@
                 }
                 
                 // Update progress bar
-                const progressFill = document.getElementById('shipping-progress-fill');
-                if (progressFill) {
-                    progressFill.style.width = progressPercent + '%';
-                }
+                document.getElementById('shipping-progress-fill').style.width = progressPercent + '%';
                 
                 // Update title
                 document.getElementById('shipping-upsell-title').textContent = 
-                    `$${amountToFreeShipping.toFixed(2)} from free shipping`;
+                    `You're $${amountToFreeShipping.toFixed(2)} from free shipping`;
                 
                 // Calculate effective price and discount for single products
+                // Effective price = product price - shipping saved
                 const effectivePrice = suggestedProduct.price - shippingCost;
                 const discountPercent = Math.round((shippingCost / suggestedProduct.price) * 100);
                 
@@ -935,24 +676,27 @@
                 let priceDisplay, pitchText;
                 
                 if (isThreePackSuggestion) {
+                    // For 3-pack, show regular pricing without effective discount
+                    // Only mention free lip balm if cart doesn't already have a 3-pack
                     const alreadyHasThreePack = cartHasThreePack();
                     priceDisplay = `<span class="shipping-product-price">$${suggestedProduct.price.toFixed(2)}</span>`;
                     if (alreadyHasThreePack) {
                         pitchText = suggestedProduct.name.includes('Honey') 
-                            ? '3 jars of manuka honey balm'
-                            : '3 jars of our bestselling balm';
+                            ? 'Best value - 3 jars of manuka honey balm'
+                            : 'Best value - 3 jars of our bestselling balm';
                     } else {
                         pitchText = suggestedProduct.description;
                     }
                 } else if (effectivePrice < suggestedProduct.price) {
-                    priceDisplay = `<span class="original-price">$${suggestedProduct.price.toFixed(2)}</span> <span class="effective-price">$${effectivePrice.toFixed(2)}</span>`;
-                    pitchText = `Save ${discountPercent}% with free shipping`;
+                    // For singles where they save, show effective price
+                    priceDisplay = `<span class="original-price">$${suggestedProduct.price.toFixed(2)}</span> <span class="effective-price">Effectively $${effectivePrice.toFixed(2)}</span>`;
+                    pitchText = `Unlocks free shipping, essentially saving ${discountPercent}% on this item`;
                 } else {
                     priceDisplay = `<span class="shipping-product-price">$${suggestedProduct.price.toFixed(2)}</span>`;
                     pitchText = suggestedProduct.description;
                 }
                 
-                // Update content with compact product suggestion
+                // Update content with product suggestion
                 document.getElementById('shipping-upsell-content').innerHTML = `
                     <div class="shipping-product-details">
                         <div class="shipping-product-name">${suggestedProduct.name}</div>
@@ -961,7 +705,9 @@
                         </div>
                         <div class="shipping-product-pitch">${pitchText}</div>
                     </div>
-                    <button class="btn-shipping-upsell">Add</button>
+                    <button class="btn-shipping-upsell">
+                        Add to Cart
+                    </button>
                 `;
                 
                 // Show module
@@ -971,6 +717,7 @@
                 const addButton = shippingUpsellModule.querySelector('.btn-shipping-upsell');
                 if (addButton) {
                     addButton.addEventListener('click', function() {
+                        // Add to cart
                         cart.push({
                             ...suggestedProduct.addToCartData,
                             quantity: 1,
@@ -1126,9 +873,6 @@
                 subtotalCostElement.innerHTML = `$${subtotal.toFixed(2)}${totalPriceSuffix}`;
                 totalCostElement.innerHTML = `$${totalCost.toFixed(2)}${totalPriceSuffix}`;
                 proceedToCheckoutButton.disabled = cart.length === 0;
-                
-                // Update sticky checkout bar
-                updateStickyBar(subtotal, totalCost);
 
                 // Handle empty cart state
                 const cartContainer = document.querySelector('.cartcontainerall');
@@ -1251,216 +995,17 @@
 
         .cart-page-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 400;
             color: var(--deep-brown);
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             letter-spacing: 0.02em;
         }
 
         .cart-layout {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        /* ========== Compact Summary Box ========== */
-        .cart-top-row {
-            display: flex;
-            gap: 16px;
-            align-items: stretch;
-        }
-
-        .summary-box-compact {
-            background: var(--soft-white);
-            border-radius: 8px;
-            border: 1px solid var(--border-light);
-            padding: 16px 20px;
-            flex: 1;
-        }
-
-        .summary-main {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .summary-totals {
-            flex: 1;
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .summary-line {
-            display: flex;
-            flex-direction: column;
-            font-size: 0.85rem;
-        }
-
-        .summary-line.d-none {
-            display: none !important;
-        }
-
-        .summary-line span:first-child {
-            color: var(--warm-brown);
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .summary-line span:last-child {
-            font-weight: 600;
-            color: var(--charcoal);
-        }
-
-        .total-line span:last-child {
-            font-size: 1.1rem;
-            color: var(--deep-brown);
-        }
-
-        .free-shipping-text {
-            color: var(--sage-dark) !important;
-        }
-
-        .checkout-btn {
-            background: var(--charcoal);
-            color: var(--soft-white);
-            border: none;
-            padding: 14px 28px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border-radius: 4px;
-            white-space: nowrap;
-        }
-
-        .checkout-btn:hover:not(:disabled) {
-            background: var(--deep-brown);
-        }
-
-        .checkout-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .trust-row {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid var(--border-light);
-            font-size: 0.7rem;
-            color: var(--warm-brown);
-        }
-
-        .payment-badges {
-            height: 20px;
-            margin-left: auto;
-        }
-
-        /* ========== Compact Shipping Upsell ========== */
-        .shipping-upsell-compact {
-            background: linear-gradient(135deg, #F5EFE6 0%, #EDE5D8 100%);
-            border-radius: 8px;
-            overflow: hidden;
-            min-width: 320px;
-            max-width: 400px;
-        }
-
-        .shipping-progress-bar-compact {
-            height: 4px;
-            background: #DDD5C8;
-        }
-
-        .shipping-progress-fill-compact {
-            height: 100%;
-            background: linear-gradient(90deg, var(--sage) 0%, var(--sage-dark) 100%);
-            width: 50%;
-            transition: width 0.4s ease;
-        }
-
-        .shipping-upsell-row {
-            padding: 12px 16px;
-        }
-
-        .shipping-gap-text {
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--deep-brown);
-        }
-
-        .shipping-upsell-product {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-top: 8px;
-        }
-
-        .shipping-product-details {
-            flex: 1;
-        }
-
-        .shipping-product-name {
-            font-weight: 600;
-            font-size: 0.8rem;
-            color: var(--deep-brown);
-        }
-
-        .shipping-savings-line {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-
-        .shipping-product-price {
-            font-weight: 600;
-            color: var(--charcoal);
-            font-size: 0.8rem;
-        }
-
-        .original-price {
-            color: var(--warm-brown);
-            font-size: 0.75rem;
-            margin-right: 4px;
-        }
-
-        .effective-price {
-            font-weight: 600;
-            color: var(--sage-dark);
-            font-size: 0.8rem;
-        }
-
-        .shipping-product-pitch {
-            font-size: 0.7rem;
-            color: var(--warm-brown);
-            margin-top: 2px;
-        }
-
-        .btn-shipping-upsell {
-            background: var(--sage);
-            color: var(--soft-white);
-            border: none;
-            padding: 8px 14px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.03em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border-radius: 4px;
-            white-space: nowrap;
-        }
-
-        .btn-shipping-upsell:hover {
-            background: var(--sage-dark);
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 40px;
         }
 
         /* ========== Urgency Banner ========== */
@@ -1909,6 +1454,106 @@
             background: var(--sage-dark);
         }
 
+        /* ========== Order Summary ========== */
+        .cart-summary-column {
+            position: sticky;
+            top: 100px;
+            align-self: start;
+        }
+
+        .summary-box {
+            background: var(--soft-white);
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            padding: 28px;
+        }
+
+        .summary-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--deep-brown);
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            font-size: 0.9rem;
+            color: var(--charcoal);
+        }
+
+        .free-shipping-text {
+            color: var(--sage-dark);
+            font-weight: 600;
+        }
+
+        .total-row {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: var(--charcoal);
+            color: var(--soft-white);
+            border: none;
+            padding: 18px 24px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: 4px;
+            margin-top: 24px;
+        }
+
+        .checkout-btn:hover:not(:disabled) {
+            background: var(--deep-brown);
+        }
+
+        .checkout-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .trust-signals {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+            flex-wrap: wrap;
+        }
+
+        .trust-item {
+            font-size: 0.75rem;
+            color: var(--warm-brown);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .payment-icons {
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .payment-icons .badges {
+            max-width: 100%;
+            height: auto;
+        }
+
         /* ========== Empty Cart ========== */
         .empty-cart-container {
             min-height: 60vh;
@@ -1958,436 +1603,15 @@
             color: var(--warm-brown);
         }
 
-        /* ========== Sticky Checkout Bar ========== */
-        .sticky-checkout-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--soft-white);
-            border-top: 1px solid var(--border-light);
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            padding: 0;
-        }
-
-        .sticky-checkout-bar.d-none {
-            display: none !important;
-        }
-
-        .sticky-bar-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-            gap: 16px;
-        }
-
-        .sticky-bar-info {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .sticky-bar-total {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .sticky-total-label {
-            font-size: 0.85rem;
-            color: var(--warm-brown);
-        }
-
-        .sticky-total-amount {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--charcoal);
-        }
-
-        .sticky-bar-shipping {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(156, 175, 136, 0.15);
-            padding: 6px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-
-        .sticky-bar-shipping:hover {
-            background: rgba(156, 175, 136, 0.25);
-        }
-
-        .sticky-bar-shipping.free-shipping {
-            background: rgba(156, 175, 136, 0.3);
-        }
-
-        .sticky-shipping-icon {
-            font-size: 0.9rem;
-        }
-
-        .sticky-shipping-text {
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: var(--sage-dark);
-        }
-
-        .sticky-checkout-btn {
-            background: var(--charcoal);
-            color: var(--soft-white);
-            border: none;
-            padding: 14px 28px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: background 0.2s ease;
-            border-radius: 4px;
-            white-space: nowrap;
-        }
-
-        .sticky-checkout-btn:hover {
-            background: var(--deep-brown);
-        }
-
-        .sticky-upsell-drawer {
-            border-top: 1px solid var(--border-light);
-            background: linear-gradient(135deg, #F5EFE6 0%, #EDE5D8 100%);
-            padding: 16px 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .sticky-upsell-drawer.d-none {
-            display: none !important;
-        }
-
-        .sticky-upsell-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-        }
-
-        .sticky-upsell-details {
-            flex: 1;
-        }
-
-        .sticky-upsell-name {
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: var(--deep-brown);
-            margin-bottom: 2px;
-        }
-
-        .sticky-upsell-pitch {
-            font-size: 0.8rem;
-            color: var(--warm-brown);
-        }
-
-        .sticky-upsell-price {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .sticky-upsell-price .original-price {
-            color: var(--warm-brown);
-            font-size: 0.8rem;
-        }
-
-        .sticky-upsell-price .effective-price {
-            font-weight: 600;
-            color: var(--sage-dark);
-            font-size: 0.9rem;
-        }
-
-        .btn-sticky-upsell {
-            background: var(--sage);
-            color: var(--soft-white);
-            border: none;
-            padding: 10px 16px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: background 0.2s ease;
-            border-radius: 4px;
-            white-space: nowrap;
-        }
-
-        .btn-sticky-upsell:hover {
-            background: var(--sage-dark);
-        }
-
-        /* Add padding to body to account for sticky bar */
-        .cart-page-wrapper {
-            padding-bottom: 100px;
-        }
-
-        /* Desktop: hide sticky bar, show normal summary */
-        @media (min-width: 901px) {
-            .sticky-checkout-bar {
-                display: none !important;
-            }
-            
-            .cart-page-wrapper {
-                padding-bottom: 0;
-            }
-        }
-
-        /* Mobile: show sticky bar */
+        /* ========== Responsive ========== */
         @media (max-width: 900px) {
-            .sticky-checkout-bar:not(.d-none) {
-                display: block;
+            .cart-layout {
+                grid-template-columns: 1fr;
+                gap: 24px;
             }
 
             .cart-summary-column {
-                display: none;
-            }
-
-            .shipping-upsell-module {
-                display: none;
-            }
-
-            .cart-page-wrapper {
-                padding-bottom: 140px;
-            }
-
-            .sticky-bar-inner {
-                padding: 10px 16px;
-            }
-
-            .sticky-bar-info {
-                gap: 12px;
-            }
-
-            .sticky-checkout-btn {
-                padding: 12px 20px;
-                font-size: 0.8rem;
-            }
-
-            .sticky-upsell-content {
-                flex-direction: column;
-                text-align: center;
-                gap: 12px;
-            }
-
-            .btn-sticky-upsell {
-                width: 100%;
-            }
-        }
-
-        /* ========== Sticky Checkout Bar ========== */
-        .sticky-checkout-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--soft-white);
-            border-top: 1px solid var(--border-light);
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            padding: 0;
-        }
-
-        .sticky-bar-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 16px;
-            gap: 12px;
-        }
-
-        .sticky-bar-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .sticky-bar-total {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 2px;
-        }
-
-        .sticky-total-label {
-            font-size: 0.8rem;
-            color: var(--warm-brown);
-        }
-
-        .sticky-total-amount {
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: var(--charcoal);
-        }
-
-        .sticky-bar-shipping {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            cursor: pointer;
-        }
-
-        .sticky-shipping-icon {
-            font-size: 0.85rem;
-        }
-
-        .sticky-shipping-text {
-            font-size: 0.75rem;
-            color: var(--sage-dark);
-            font-weight: 500;
-        }
-
-        .sticky-shipping-text.free-shipping {
-            color: var(--sage-dark);
-        }
-
-        .sticky-checkout-btn {
-            background: var(--charcoal);
-            color: var(--soft-white);
-            border: none;
-            padding: 14px 24px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            cursor: pointer;
-            border-radius: 4px;
-            white-space: nowrap;
-            transition: background 0.2s ease;
-        }
-
-        .sticky-checkout-btn:hover:not(:disabled) {
-            background: var(--deep-brown);
-        }
-
-        .sticky-checkout-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .sticky-upsell-drawer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.3s ease;
-            background: linear-gradient(135deg, #F5EFE6 0%, #EDE5D8 100%);
-        }
-
-        .sticky-upsell-drawer.expanded {
-            max-height: 200px;
-            padding: 16px;
-            border-top: 1px solid var(--border-light);
-        }
-
-        .sticky-upsell-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-        }
-
-        .sticky-upsell-details {
-            flex: 1;
-        }
-
-        .sticky-upsell-name {
-            font-weight: 600;
-            font-size: 0.85rem;
-            color: var(--deep-brown);
-            margin-bottom: 2px;
-        }
-
-        .sticky-upsell-price {
-            font-size: 0.8rem;
-            color: var(--charcoal);
-        }
-
-        .sticky-upsell-price .effective {
-            color: var(--sage-dark);
-            font-weight: 600;
-        }
-
-        .sticky-upsell-btn {
-            background: var(--sage);
-            color: var(--soft-white);
-            border: none;
-            padding: 10px 16px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.03em;
-            text-transform: uppercase;
-            cursor: pointer;
-            border-radius: 4px;
-            white-space: nowrap;
-        }
-
-        .sticky-upsell-btn:hover {
-            background: var(--sage-dark);
-        }
-
-        /* Hide sticky bar on desktop, show on mobile */
-        @media (min-width: 901px) {
-            .sticky-checkout-bar {
-                display: none !important;
-            }
-        }
-
-        @media (max-width: 900px) {
-            .sticky-checkout-bar.d-none {
-                display: none !important;
-            }
-
-            .sticky-checkout-bar:not(.d-none) {
-                display: block;
-            }
-
-            /* Add padding to bottom of page for sticky bar */
-            .cart-page-wrapper {
-                padding-bottom: 100px;
-            }
-
-            /* Hide the regular summary on mobile when sticky bar is active */
-            .cart-summary-column .summary-box .checkout-btn {
-                display: none;
-            }
-        }
-
-        /* ========== Responsive ========== */
-        @media (max-width: 900px) {
-            .cart-top-row {
-                flex-direction: column;
-            }
-
-            .shipping-upsell-compact {
-                min-width: 100%;
-                max-width: 100%;
-            }
-
-            .summary-main {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            .summary-totals {
-                width: 100%;
-                justify-content: space-between;
-            }
-
-            .checkout-btn {
-                width: 100%;
+                position: static;
             }
 
             .cart-item {
@@ -2423,9 +1647,10 @@
                 width: 100%;
             }
 
-            .shipping-upsell-product {
+            .shipping-upsell-content {
                 flex-direction: column;
                 text-align: center;
+                gap: 12px;
             }
 
             .shipping-savings-line {
@@ -2434,27 +1659,21 @@
 
             .btn-shipping-upsell {
                 width: 100%;
-                margin-top: 8px;
             }
 
             .urgency-banner {
-                font-size: 0.75rem;
-                padding: 8px 12px;
+                font-size: 0.8rem;
+                padding: 10px 16px;
+            }
+
+            .urgency-banner span {
+                text-align: center;
             }
         }
 
         @media (max-width: 480px) {
             .cart-page-title {
-                font-size: 1.4rem;
-            }
-
-            .summary-totals {
-                flex-wrap: wrap;
-                gap: 12px;
-            }
-
-            .summary-line {
-                min-width: 60px;
+                font-size: 1.6rem;
             }
 
             .item-title {
@@ -2465,15 +1684,14 @@
                 font-size: 0.75rem;
             }
 
-            .trust-row {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 8px;
+            .summary-box {
+                padding: 20px;
             }
 
-            .payment-badges {
-                margin-left: 0;
-                margin-top: 4px;
+            .trust-signals {
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
             }
         }
     </style>
