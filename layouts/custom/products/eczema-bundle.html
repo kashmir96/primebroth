@@ -17,13 +17,13 @@
 
     <div class="cart-page-wrapper">
         <div class="container my-4">
-            <div id="cartempty" class="d-none text-center vh-55 align-items-center">
-                <div class="middle">
+            <div id="cartempty" class="empty-cart-container d-none">
+                <div class="empty-cart-content">
                     <h1 class="empty-cart-title">Your cart is empty</h1>
-                    <a href="/shop" class="btn btn-primary btn-continue-shopping">Continue shopping</a>
+                    <a href="/shop" class="btn-continue-shopping">Continue shopping</a>
                 </div>
             </div>
-            <div class="cartcontainerall">
+            <div class="cartcontainerall d-none">
                 <h1 class="cart-page-title">Your Cart</h1>
                 
                 <div class="cart-layout">
@@ -459,14 +459,14 @@
                 return opportunities;
             }
 
-            // Render 3-pack upsell banner
+            // Render 3-pack upsell banner - returns true if there's an upsell opportunity
             function renderUpsellBanner() {
                 const opportunities = findUpsellOpportunities();
                 
                 if (opportunities.length === 0) {
                     upsellBanner.classList.add('d-none');
                     upsellBanner.innerHTML = '';
-                    return;
+                    return false;
                 }
                 
                 const opp = opportunities[0];
@@ -503,6 +503,8 @@
                         handleUpsell(opp);
                     });
                 }
+                
+                return true;
             }
 
             // Handle 3-pack upsell swap
@@ -758,22 +760,25 @@
                 const cartEmptyDiv = document.querySelector('#cartempty');
                 
                 if (cart.length === 0) {
-                    if (cartContainer) cartContainer.style.display = 'none';
+                    if (cartContainer) cartContainer.classList.add('d-none');
                     if (cartEmptyDiv) {
                         cartEmptyDiv.classList.remove('d-none');
-                        cartEmptyDiv.classList.add('d-flex');
                     }
                 } else {
-                    if (cartContainer) cartContainer.style.display = 'block';
+                    if (cartContainer) cartContainer.classList.remove('d-none');
                     if (cartEmptyDiv) {
                         cartEmptyDiv.classList.add('d-none');
-                        cartEmptyDiv.classList.remove('d-flex');
                     }
                 }
 
                 // Render upsell banners
-                renderUpsellBanner();
-                renderShippingUpsell(subtotal);
+                // 3-pack upsell takes priority - only show shipping upsell if no 3-pack opportunity
+                const hasThreePackUpsell = renderUpsellBanner();
+                if (!hasThreePackUpsell) {
+                    renderShippingUpsell(subtotal);
+                } else {
+                    shippingUpsellModule.classList.add('d-none');
+                }
 
                 // Add event listeners for quantity buttons
                 document.querySelectorAll('.qty-minus').forEach(btn => {
@@ -1414,14 +1419,30 @@
         }
 
         /* ========== Empty Cart ========== */
+        .empty-cart-container {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .empty-cart-container.d-none {
+            display: none !important;
+        }
+
+        .empty-cart-content {
+            text-align: center;
+        }
+
         .empty-cart-title {
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.8rem;
             color: var(--deep-brown);
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .btn-continue-shopping {
+            display: inline-block;
             background: var(--charcoal);
             color: var(--soft-white);
             border: none;
@@ -1431,11 +1452,14 @@
             font-weight: 500;
             letter-spacing: 0.05em;
             border-radius: 4px;
+            text-decoration: none;
+            transition: background 0.2s ease;
         }
 
         .btn-continue-shopping:hover {
             background: var(--deep-brown);
             color: var(--soft-white);
+            text-decoration: none;
         }
 
         .price-suffix {
