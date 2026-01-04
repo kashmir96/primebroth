@@ -646,25 +646,24 @@
                     if (item.orderTypeVal === 'three_pack') {
                         const flavorList = item.flavors.map(f => f).join(', ');
                         cartItem.innerHTML = `
-                            <div class="item-product">
-                                <div class="item-details">
-                                    <h3 class="item-title">${item.title || 'Unknown Product'} 3-Pack</h3>
-                                    <p class="item-meta">${flavorList} • ${item.size}</p>
+                            <div class="item-main">
+                                <div class="item-title-row">
+                                    <h3 class="item-title">${item.title || 'Unknown Product'} 3pk</h3>
+                                    <button class="remove-item" data-index="${index}">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M18 6L6 18M6 6l12 12"/>
+                                        </svg>
+                                    </button>
                                 </div>
-                            </div>
-                            <div class="item-price">$${unitPrice}${priceSuffix}</div>
-                            <div class="item-quantity">
-                                <button class="qty-btn qty-minus" data-index="${index}">−</button>
-                                <span class="qty-value">${quantity}</span>
-                                <button class="qty-btn qty-plus" data-index="${index}">+</button>
-                            </div>
-                            <div class="item-total">
-                                <span class="item-total-price">$${lineItemTotal}${priceSuffix}</span>
-                                <button class="remove-item" data-index="${index}">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
-                                    </svg>
-                                </button>
+                                <p class="item-meta">Best seller • 3 jars of ${flavorList} ${item.size}</p>
+                                <div class="item-price-qty-row">
+                                    <span class="item-line-price">$${lineItemTotal}${priceSuffix}</span>
+                                    <div class="item-quantity">
+                                        <button class="qty-btn qty-minus" data-index="${index}">−</button>
+                                        <span class="qty-value">${quantity}</span>
+                                        <button class="qty-btn qty-plus" data-index="${index}">+</button>
+                                    </div>
+                                </div>
                             </div>
                         `;
                     } else {
@@ -673,32 +672,36 @@
                         if (item.size) variantParts.push(item.size);
                         if (item.orderType) {
                             const orderTypeShort = item.orderType.includes('3 pack') || item.orderType.includes('Buy 2') 
-                                ? '3-Pack' 
-                                : item.orderType.includes('Single') ? 'Single' : item.orderType;
-                            variantParts.push(orderTypeShort);
+                                ? '3pk' 
+                                : item.orderType.includes('Single') ? '' : item.orderType;
+                            if (orderTypeShort) variantParts.push(orderTypeShort);
                         }
                         const variantStr = variantParts.length > 0 ? variantParts.join(' • ') : '';
                         
+                        // Check if this is a 3-pack for title formatting
+                        const isItemThreePack = isThreePack(item);
+                        const titleSuffix = isItemThreePack ? ' 3pk' : '';
+                        const metaPrefix = isItemThreePack ? 'Best seller • 3 jars of ' : '';
+                        
                         cartItem.innerHTML = `
-                            <div class="item-product">
-                                <div class="item-details">
-                                    <h3 class="item-title">${item.title || 'Unknown Product'}</h3>
-                                    <p class="item-meta">${variantStr}</p>
+                            <div class="item-main">
+                                <div class="item-title-row">
+                                    <h3 class="item-title">${item.title || 'Unknown Product'}${titleSuffix}</h3>
+                                    <button class="remove-item" data-index="${index}">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M18 6L6 18M6 6l12 12"/>
+                                        </svg>
+                                    </button>
                                 </div>
-                            </div>
-                            <div class="item-price">$${unitPrice}${priceSuffix}</div>
-                            <div class="item-quantity">
-                                <button class="qty-btn qty-minus" data-index="${index}">−</button>
-                                <span class="qty-value">${quantity}</span>
-                                <button class="qty-btn qty-plus" data-index="${index}">+</button>
-                            </div>
-                            <div class="item-total">
-                                <span class="item-total-price">$${lineItemTotal}${priceSuffix}</span>
-                                <button class="remove-item" data-index="${index}">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
-                                    </svg>
-                                </button>
+                                <p class="item-meta">${metaPrefix}${item.flavor || ''}${item.size ? ' ' + item.size : ''}</p>
+                                <div class="item-price-qty-row">
+                                    <span class="item-line-price">$${lineItemTotal}${priceSuffix}</span>
+                                    <div class="item-quantity">
+                                        <button class="qty-btn qty-minus" data-index="${index}">−</button>
+                                        <span class="qty-value">${quantity}</span>
+                                        <button class="qty-btn qty-plus" data-index="${index}">+</button>
+                                    </div>
+                                </div>
                             </div>
                         `;
                     }
@@ -710,17 +713,14 @@
                     const freeGiftItem = document.createElement('div');
                     freeGiftItem.className = 'cart-item free-gift-item';
                     freeGiftItem.innerHTML = `
-                        <div class="item-product">
-                            <div class="item-details">
-                                <span class="free-gift-label">FREE GIFT</span>
-                                <h3 class="item-title">Tallow Lip Balm</h3>
-                                <p class="item-meta">One per order • Included with 3-pack</p>
+                        <div class="item-main">
+                            <div class="item-title-row">
+                                <h3 class="item-title">Tallow Lip Balm Stick - Manuka <span class="free-gift-badge">FREE GIFT</span></h3>
                             </div>
-                        </div>
-                        <div class="item-price"><s>$12.95</s></div>
-                        <div class="item-quantity"></div>
-                        <div class="item-total">
-                            <span class="free-gift-price">FREE</span>
+                            <p class="item-meta">One per order • Included with 3-pack</p>
+                            <div class="item-price-qty-row">
+                                <span class="item-line-price"><s class="was-price">$12.95</s> <span class="free-price">FREE</span></span>
+                            </div>
                         </div>
                     `;
                     cartItemsContainer.appendChild(freeGiftItem);
@@ -881,30 +881,31 @@
         }
 
         .cart-item {
-            display: grid;
-            grid-template-columns: 2fr 80px 100px 100px;
             padding: 12px 16px;
             border-bottom: 1px solid var(--border-light);
-            align-items: center;
-            gap: 12px;
         }
 
         .cart-item:last-child { border-bottom: none; }
 
-        .item-product {
+        .item-main {
             display: flex;
-            gap: 12px;
-            align-items: center;
+            flex-direction: column;
+            gap: 4px;
         }
 
-        .item-details { flex: 1; }
+        .item-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+        }
 
         .item-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 500;
             color: var(--deep-brown);
-            margin: 0 0 2px 0;
+            margin: 0;
         }
 
         .item-meta {
@@ -913,17 +914,23 @@
             margin: 0;
         }
 
-        .item-price {
-            font-weight: 500;
+        .item-price-qty-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 4px;
+        }
+
+        .item-line-price {
+            font-weight: 600;
             color: var(--charcoal);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
 
         .item-quantity {
             display: flex;
             align-items: center;
             gap: 6px;
-            justify-content: center;
         }
 
         .qty-btn {
@@ -952,19 +959,6 @@
             font-size: 0.85rem;
         }
 
-        .item-total {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-        }
-
-        .item-total-price {
-            font-weight: 600;
-            color: var(--charcoal);
-            font-size: 0.9rem;
-        }
-
         .remove-item {
             background: none;
             border: none;
@@ -972,6 +966,7 @@
             cursor: pointer;
             opacity: 0.5;
             padding: 2px;
+            flex-shrink: 0;
         }
 
         .remove-item:hover {
@@ -984,22 +979,27 @@
             background: rgba(156, 175, 136, 0.08);
         }
 
-        .free-gift-label {
+        .free-gift-badge {
             display: inline-block;
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             font-weight: 600;
             color: var(--sage-dark);
             background: rgba(156, 175, 136, 0.25);
             padding: 2px 6px;
             border-radius: 3px;
-            margin-bottom: 2px;
-            letter-spacing: 0.05em;
+            margin-left: 8px;
+            vertical-align: middle;
+            letter-spacing: 0.03em;
         }
 
-        .free-gift-price {
+        .was-price {
+            color: var(--warm-brown);
+            font-weight: 400;
+        }
+
+        .free-price {
             color: var(--sage-dark);
             font-weight: 600;
-            font-size: 0.9rem;
         }
 
         /* 3-Pack Upsell */
@@ -1286,18 +1286,6 @@
 
             .cart-summary-column { position: static; }
 
-            .cart-item {
-                grid-template-columns: 1fr auto;
-                grid-template-rows: auto auto;
-                gap: 6px 12px;
-                padding: 10px 14px;
-            }
-
-            .item-product { grid-column: 1 / -1; }
-            .item-price { display: none; }
-            .item-quantity { justify-content: flex-start; }
-            .item-total { justify-content: flex-end; }
-
             .pack-upsell-inner {
                 flex-direction: column;
                 text-align: center;
@@ -1317,7 +1305,7 @@
 
         @media (max-width: 480px) {
             .cart-page-title { font-size: 1.4rem; }
-            .item-title { font-size: 0.85rem; }
+            .item-title { font-size: 0.9rem; }
             .item-meta { font-size: 0.7rem; }
             .summary-box { padding: 16px; }
 
