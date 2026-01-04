@@ -23,9 +23,7 @@
                     <a href="/shop" class="btn-continue-shopping">Continue shopping</a>
                 </div>
             </div>
-            <div class="cartcontainerall d-none">
-                <h1 class="cart-page-title">Your Cart</h1>
-                
+            <div class="cartcontainerall d-none">                
                 <div class="cart-layout">
                     <!-- Left Column: Cart Items -->
                     <div class="cart-items-column">
@@ -582,7 +580,7 @@
                         ? 'Best value - 3 jars of our bestselling balm'
                         : suggestedProduct.description;
                 } else {
-                    priceLine = `$${productPrice.toFixed(2)} <span class="effective-price">(Effectively $${effectivePrice.toFixed(2)} — ${discountPercent}% off after unlocking free shipping)</span>`;
+                    priceLine = `$${productPrice.toFixed(2)} <span class="effective-price">(Effectively only $${effectivePrice.toFixed(2)} more after unlocking free shipping)</span>`;
                     pitchText = suggestedProduct.description;
                 }
                 
@@ -960,14 +958,14 @@
 
         .item-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.1rem;
+            font-size: 1.55rem;
             font-weight: 500;
             color: var(--deep-brown);
-            margin: 0 0 3px 0;
+            margin: 0 0 4px 0;
         }
 
         .item-meta {
-            font-size: 0.85rem;
+            font-size: 1.2rem;
             color: var(--warm-brown);
             margin: 0;
         }
@@ -980,7 +978,7 @@
         .item-price {
             font-weight: 500;
             color: var(--charcoal);
-            font-size: 0.95rem;
+            font-size: 1.35rem;
         }
 
         .item-quantity {
@@ -1026,7 +1024,7 @@
         .item-total-price {
             font-weight: 600;
             color: var(--charcoal);
-            font-size: 1rem;
+            font-size: 1.4rem;
         }
 
         .remove-item {
@@ -1079,7 +1077,7 @@
         }
 
         .upsell-text {
-            font-size: 0.8rem;
+            font-size: 1.1rem;
             color: var(--charcoal);
             flex: 1;
         }
@@ -1093,8 +1091,8 @@
             background: var(--sage);
             color: var(--soft-white);
             border: none;
-            padding: 5px 12px;
-            font-size: 0.7rem;
+            padding: 8px 16px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             border-radius: 4px;
@@ -1186,7 +1184,7 @@
         }
 
         .shipping-upsell-title {
-            font-size: 0.8rem;
+            font-size: 1.1rem;
             font-weight: 600;
             color: var(--deep-brown);
             margin-bottom: 8px;
@@ -1201,7 +1199,7 @@
         .shipping-product-details { flex: 1; }
 
         .shipping-product-name {
-            font-size: 0.85rem;
+            font-size: 1.15rem;
             color: var(--deep-brown);
             margin-bottom: 2px;
         }
@@ -1219,11 +1217,11 @@
         .effective-price {
             font-weight: 500;
             color: var(--sage-dark);
-            font-size: 0.8rem;
+            font-size: 1.1rem;
         }
 
         .shipping-product-pitch {
-            font-size: 0.75rem;
+            font-size: 1.05rem;
             color: var(--warm-brown);
         }
 
@@ -1231,8 +1229,8 @@
             background: var(--sage);
             color: var(--soft-white);
             border: none;
-            padding: 5px 12px;
-            font-size: 0.75rem;
+            padding: 8px 16px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             border-radius: 4px;
@@ -1417,9 +1415,13 @@
         }
 
         @media (max-width: 480px) {
-            .cart-page-title { font-size: 1.4rem; }
-            .item-title { font-size: 1rem; }
-            .item-meta { font-size: 0.8rem; }
+            .item-title { font-size: 1.4rem; }
+            .item-meta { font-size: 1.05rem; }
+            .item-total-price { font-size: 1.25rem; }
+            .upsell-text { font-size: 1rem; }
+            .btn-item-upsell { font-size: 0.9rem; }
+            .shipping-upsell-title { font-size: 1rem; }
+            .shipping-product-name { font-size: 1rem; }
             .summary-box { padding: 16px; }
         }
     </style>
