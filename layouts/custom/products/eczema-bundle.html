@@ -704,13 +704,14 @@
                                 if (packPriceId && packPrice) {
                                     const currentPrice = parseFloat(item.unitPrice);
                                     const totalSavings = (currentPrice * 3) - packPrice;
+                                    const savingsPerUnit = totalSavings / 3;
                                     const alreadyHasThreePack = cartHasThreePack();
                                     const lipBalmText = alreadyHasThreePack ? '' : ' + 🎁 FREE Lip Balm';
                                     
                                     upsellHtml = `
                                         <div class="item-upsell">
-                                            <span class="upsell-text">Save $${totalSavings.toFixed(2)}${lipBalmText}</span>
-                                            <button class="btn-item-upsell" data-index="${index}" data-pack-price-id="${packPriceId}" data-pack-price="${packPrice}">3pk Upgrade</button>
+                                            <span class="upsell-text">Save $${savingsPerUnit.toFixed(2)}/ea ($${totalSavings.toFixed(2)})${lipBalmText}</span>
+                                            <button class="btn-item-upsell" data-index="${index}" data-pack-price-id="${packPriceId}" data-pack-price="${packPrice}">↑ 3pk</button>
                                         </div>
                                     `;
                                 }
