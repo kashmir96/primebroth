@@ -29,15 +29,6 @@
                 <div class="cart-layout">
                     <!-- Left Column: Cart Items -->
                     <div class="cart-items-column">
-                        <!-- Urgency Banner -->
-                        <div class="urgency-banner">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                                <polyline points="12,6 12,12 16,14"/>
-                            </svg>
-                            <span>The items in your cart are popular — complete your order while they're in stock</span>
-                        </div>
-                        
                         <div id="cart-items" class="cart-items-container">
                             <!-- Cart items will be dynamically injected here -->
                         </div>
@@ -47,18 +38,16 @@
                             <!-- Upsell content injected here -->
                         </div>
 
-                        <!-- Free Shipping Upsell Module -->
-                        <div id="shipping-upsell" class="shipping-upsell-module d-none">
-                            <div class="shipping-progress-bar">
-                                <div class="shipping-progress-fill" id="shipping-progress-fill"></div>
-                            </div>
-                            <div class="shipping-upsell-inner">
-                                <div class="shipping-upsell-header">
-                                    <span class="shipping-upsell-badge">Almost There!</span>
-                                    <div class="shipping-upsell-title" id="shipping-upsell-title">You're $X.XX from free shipping</div>
+                        <!-- Free Shipping Upsell Module - Compact -->
+                        <div id="shipping-upsell" class="shipping-upsell-compact d-none">
+                            <div class="shipping-upsell-row">
+                                <div class="shipping-progress-mini">
+                                    <div class="shipping-progress-fill-mini" id="shipping-progress-fill"></div>
                                 </div>
-                                <div class="shipping-upsell-content" id="shipping-upsell-content">
-                                    <!-- Product suggestion injected here -->
+                                <div class="shipping-upsell-info">
+                                    <span class="shipping-gap-amount" id="shipping-upsell-title">$X.XX to free shipping</span>
+                                    <span class="shipping-upsell-divider">→</span>
+                                    <span id="shipping-upsell-content"></span>
                                 </div>
                             </div>
                         </div>
@@ -603,7 +592,7 @@
                 }, 3000);
             }
 
-            // Render shipping upsell module
+            // Render shipping upsell module - compact inline version
             function renderShippingUpsell(subtotal) {
                 const amountToFreeShipping = freeShippingThreshold - subtotal;
                 
@@ -621,7 +610,7 @@
                 
                 // Calculate progress percentage - starts at 50% and scales up from there
                 const actualProgress = (subtotal / freeShippingThreshold);
-                const progressPercent = 50 + (actualProgress * 50); // Maps 0-100% to 50-100%
+                const progressPercent = 50 + (actualProgress * 50);
                 
                 let suggestedProduct = null;
                 let isThreePackSuggestion = false;
@@ -658,65 +647,37 @@
                 // Update progress bar
                 document.getElementById('shipping-progress-fill').style.width = progressPercent + '%';
                 
-                // Update title
+                // Update title - compact format
                 document.getElementById('shipping-upsell-title').textContent = 
-                    `You're $${amountToFreeShipping.toFixed(2)} from free shipping`;
+                    `$${amountToFreeShipping.toFixed(2)} to free shipping`;
                 
-                // Calculate effective price and discount for single products
-                // Effective price = product price - shipping saved
+                // Calculate effective price for single products
                 const effectivePrice = productPrice - shippingCost;
-                const discountPercent = Math.round((shippingCost / productPrice) * 100);
                 
-                // Build price display and pitch text
-                let priceDisplay, pitchText;
-                
+                // Build compact inline content
+                let inlineContent;
                 if (isThreePackSuggestion) {
-                    // For 3-pack, show regular pricing without effective discount
-                    // Only mention free lip balm if cart doesn't already have a 3-pack
-                    const alreadyHasThreePack = cartHasThreePack();
-                    priceDisplay = `<span class="shipping-product-price">$${productPrice.toFixed(2)}</span>`;
-                    if (alreadyHasThreePack) {
-                        pitchText = suggestedProduct.name.includes('Honey') 
-                            ? 'Best value - 3 jars of manuka honey balm'
-                            : 'Best value - 3 jars of our bestselling balm';
-                    } else {
-                        pitchText = suggestedProduct.description;
-                    }
-                } else if (effectivePrice < productPrice) {
-                    // For singles where they save, show effective price
-                    priceDisplay = `<span class="original-price">$${productPrice.toFixed(2)}</span> <span class="effective-price">Effectively $${effectivePrice.toFixed(2)}</span>`;
-                    pitchText = `Unlocks free shipping, essentially saving ${discountPercent}% on this item`;
+                    inlineContent = `<span class="shipping-suggestion">${suggestedProduct.name} <strong>$${productPrice.toFixed(2)}</strong></span>`;
                 } else {
-                    priceDisplay = `<span class="shipping-product-price">$${productPrice.toFixed(2)}</span>`;
-                    pitchText = suggestedProduct.description;
+                    inlineContent = `<span class="shipping-suggestion">${suggestedProduct.name} <span class="effective-inline">$${effectivePrice.toFixed(2)}</span></span>`;
                 }
                 
-                // Update content with product suggestion
+                // Update content
                 document.getElementById('shipping-upsell-content').innerHTML = `
-                    <div class="shipping-product-details">
-                        <div class="shipping-product-name">${suggestedProduct.name}</div>
-                        <div class="shipping-savings-line">
-                            ${priceDisplay}
-                        </div>
-                        <div class="shipping-product-pitch">${pitchText}</div>
-                    </div>
-                    <button class="btn-shipping-upsell">
-                        Add to Cart
-                    </button>
+                    ${inlineContent}
+                    <button class="btn-shipping-add">Add</button>
                 `;
                 
                 // Show module
                 shippingUpsellModule.classList.remove('d-none');
                 
                 // Add click handler for add button
-                const addButton = shippingUpsellModule.querySelector('.btn-shipping-upsell');
+                const addButton = shippingUpsellModule.querySelector('.btn-shipping-add');
                 if (addButton) {
                     addButton.addEventListener('click', function() {
-                        // Get country-specific priceId and price
                         const priceId = suggestedProduct.addToCartData.priceId[countryCode] || suggestedProduct.addToCartData.priceId.NZ;
                         const unitPrice = suggestedProduct.price[countryCode] || suggestedProduct.price.NZ;
                         
-                        // Add to cart
                         cart.push({
                             title: suggestedProduct.addToCartData.title,
                             flavor: suggestedProduct.addToCartData.flavor,
@@ -762,10 +723,13 @@
                         const flavorList = item.flavors.map((flavor, i) => {
                             return `${flavor}`;
                         }).join(', ');
+                        // Show free lip balm badge only on first 3-pack
+                        const isFirst3Pack = !cart.slice(0, index).some(i => i.orderTypeVal === 'three_pack' || isThreePack(i));
+                        const freeGiftBadge = isFirst3Pack ? '<span class="free-gift-badge">+ FREE Lip Balm</span>' : '';
                         cartItem.innerHTML = `
                             <div class="item-product">
                                 <div class="item-details">
-                                    <h3 class="item-title">${item.title || 'Unknown Product'} 3-Pack</h3>
+                                    <h3 class="item-title">${item.title || 'Unknown Product'} 3-Pack ${freeGiftBadge}</h3>
                                     <p class="item-meta">${flavorList} • ${item.size}</p>
                                 </div>
                             </div>
@@ -790,6 +754,7 @@
                         if (item.flavor) variantParts.push(item.flavor);
                         if (item.size) variantParts.push(item.size);
                         // Add order type (Single, 3-pack, etc.)
+                        const isItemThreePack = isThreePack(item);
                         if (item.orderType) {
                             const orderTypeShort = item.orderType.includes('3 pack') || item.orderType.includes('Buy 2') 
                                 ? '3-Pack' 
@@ -798,10 +763,20 @@
                         }
                         const variantStr = variantParts.length > 0 ? variantParts.join(' • ') : '';
                         
+                        // Show free lip balm badge only on first 3-pack in cart
+                        let freeGiftBadge = '';
+                        if (isItemThreePack) {
+                            const priorItems = cart.slice(0, index);
+                            const isFirst3Pack = !priorItems.some(i => isThreePack(i) || i.orderTypeVal === 'three_pack');
+                            if (isFirst3Pack) {
+                                freeGiftBadge = '<span class="free-gift-badge">+ FREE Lip Balm</span>';
+                            }
+                        }
+                        
                         cartItem.innerHTML = `
                             <div class="item-product">
                                 <div class="item-details">
-                                    <h3 class="item-title">${item.title || 'Unknown Product'}</h3>
+                                    <h3 class="item-title">${item.title || 'Unknown Product'} ${freeGiftBadge}</h3>
                                     <p class="item-meta">${variantStr}</p>
                                 </div>
                             </div>
@@ -824,27 +799,6 @@
 
                     cartItemsContainer.appendChild(cartItem);
                 });
-
-                // Add free gift row if cart has a 3-pack
-                if (hasThreePack) {
-                    const freeGiftItem = document.createElement('div');
-                    freeGiftItem.className = 'cart-item free-gift-item';
-                    freeGiftItem.innerHTML = `
-                        <div class="item-product">
-                            <div class="item-details">
-                                <span class="free-gift-label">FREE GIFT</span>
-                                <h3 class="item-title">Tallow Lip Balm</h3>
-                                <p class="item-meta">Included with 3-pack bundle, limit one per customer</p>
-                            </div>
-                        </div>
-                        <div class="item-price"><s>$12.95</s></div>
-                        <div class="item-quantity"></div>
-                        <div class="item-total">
-                            <span class="free-gift-price">$0.00</span>
-                        </div>
-                    `;
-                    cartItemsContainer.appendChild(freeGiftItem);
-                }
 
                 // Calculate total with shipping
                 let totalCost = subtotal;
@@ -1012,44 +966,20 @@
             gap: 40px;
         }
 
-        /* ========== Urgency Banner ========== */
-        .urgency-banner {
-            background: var(--charcoal);
-            color: var(--soft-white);
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-size: 0.85rem;
-            border-radius: 6px 6px 0 0;
-        }
-
-        .urgency-banner svg {
-            animation: pulse 2s ease-in-out infinite;
-            flex-shrink: 0;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
         /* ========== Cart Items Container ========== */
         .cart-items-container {
             background: var(--soft-white);
             border: 1px solid var(--border-light);
-            border-top: none;
-            border-radius: 0 0 6px 6px;
+            border-radius: 6px;
         }
 
         .cart-item {
             display: grid;
             grid-template-columns: 2fr 100px 120px 120px;
-            padding: 20px 24px;
+            padding: 16px 20px;
             border-bottom: 1px solid var(--border-light);
             align-items: center;
-            gap: 16px;
+            gap: 12px;
         }
 
         .cart-item:last-child {
@@ -1149,45 +1079,113 @@
             color: #c44;
         }
 
-        /* ========== Free Gift Item ========== */
-        .free-gift-item {
-            background: rgba(156, 175, 136, 0.08);
-        }
-
-        .free-gift-label {
+        /* ========== Free Gift Badge (inline on 3-pack items) ========== */
+        .free-gift-badge {
             display: inline-block;
             font-size: 0.65rem;
             font-weight: 600;
             color: var(--sage-dark);
-            background: rgba(156, 175, 136, 0.25);
+            background: rgba(156, 175, 136, 0.2);
             padding: 2px 8px;
             border-radius: 3px;
-            margin-bottom: 4px;
-            letter-spacing: 0.05em;
+            margin-left: 8px;
+            vertical-align: middle;
         }
 
-        .free-gift-price {
-            color: var(--sage-dark);
+        /* ========== Compact Shipping Upsell ========== */
+        .shipping-upsell-compact {
+            background: linear-gradient(135deg, #F5EFE6 0%, #EDE5D8 100%);
+            border-radius: 6px;
+            margin-top: 12px;
+            overflow: hidden;
+        }
+
+        .shipping-upsell-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 10px 14px;
+        }
+
+        .shipping-progress-mini {
+            height: 3px;
+            background: #DDD5C8;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .shipping-progress-fill-mini {
+            height: 100%;
+            background: linear-gradient(90deg, var(--sage) 0%, var(--sage-dark) 100%);
+            width: 50%;
+            transition: width 0.4s ease;
+        }
+
+        .shipping-upsell-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .shipping-gap-amount {
             font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--deep-brown);
+        }
+
+        .shipping-upsell-divider {
+            color: var(--warm-brown);
+            font-size: 0.75rem;
+        }
+
+        .shipping-suggestion {
+            font-size: 0.75rem;
+            color: var(--charcoal);
+        }
+
+        .effective-inline {
+            font-weight: 600;
+            color: var(--sage-dark);
+        }
+
+        .btn-shipping-add {
+            background: var(--sage);
+            color: var(--soft-white);
+            border: none;
+            padding: 5px 12px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-left: auto;
+            white-space: nowrap;
+        }
+
+        .btn-shipping-add:hover {
+            background: var(--sage-dark);
         }
 
         /* ========== 3-Pack Upsell Module ========== */
         .pack-upsell-module {
             background: linear-gradient(135deg, #F5EFE6 0%, #EDE5D8 100%);
-            border-radius: 8px;
-            margin-top: 20px;
+            border-radius: 6px;
+            margin-top: 12px;
             border: 1px solid var(--border-light);
         }
 
         .pack-upsell-inner {
-            padding: 20px 24px;
+            padding: 12px 16px;
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 12px;
         }
 
         .pack-upsell-icon {
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             flex-shrink: 0;
         }
 
@@ -1197,16 +1195,16 @@
 
         .pack-upsell-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 500;
             color: var(--deep-brown);
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
         .pack-upsell-text {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--charcoal);
-            line-height: 1.4;
+            line-height: 1.3;
         }
 
         .upsell-subtitle {
@@ -1218,14 +1216,14 @@
             background: var(--sage);
             color: var(--soft-white);
             border: none;
-            padding: 12px 20px;
+            padding: 8px 14px;
             font-family: 'DM Sans', sans-serif;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             font-weight: 600;
             letter-spacing: 0.03em;
             cursor: pointer;
             transition: all 0.2s ease;
-            border-radius: 6px;
+            border-radius: 4px;
             white-space: nowrap;
         }
 
@@ -1236,148 +1234,17 @@
         .upsell-success-message {
             background: rgba(156, 175, 136, 0.15);
             border: 1px solid var(--sage);
-            border-radius: 8px;
-            padding: 16px 20px;
+            border-radius: 6px;
+            padding: 12px 16px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-top: 20px;
+            gap: 10px;
+            margin-top: 12px;
+            font-size: 0.85rem;
         }
 
         .success-icon {
-            font-size: 1.2rem;
-        }
-
-        /* ========== Shipping Upsell Module ========== */
-        .shipping-upsell-module {
-            background: linear-gradient(135deg, #F5EFE6 0%, #EDE5D8 100%);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(74, 55, 40, 0.08);
-            margin-top: 20px;
-        }
-
-        .shipping-progress-bar {
-            height: 6px;
-            background: #DDD5C8;
-            position: relative;
-        }
-
-        .shipping-progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--sage) 0%, var(--sage-dark) 100%);
-            width: 0%;
-            position: relative;
-            transition: width 0.4s ease;
-        }
-
-        .shipping-progress-fill::after {
-            content: '🚚';
-            position: absolute;
-            right: -12px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 14px;
-        }
-
-        .shipping-upsell-inner {
-            padding: 20px 24px;
-        }
-
-        .shipping-upsell-header {
-            text-align: center;
-            margin-bottom: 16px;
-        }
-
-        .shipping-upsell-badge {
-            display: inline-block;
-            background: var(--sage);
-            color: var(--soft-white);
-            font-size: 0.65rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            padding: 5px 12px;
-            border-radius: 20px;
-            margin-bottom: 8px;
-        }
-
-        .shipping-upsell-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: var(--deep-brown);
-        }
-
-        .shipping-upsell-content {
-            display: flex;
-            gap: 16px;
-            align-items: center;
-            background: var(--soft-white);
-            border-radius: 8px;
-            padding: 14px 16px;
-        }
-
-        .shipping-product-details {
-            flex: 1;
-        }
-
-        .shipping-product-name {
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: var(--deep-brown);
-            margin-bottom: 4px;
-        }
-
-        .shipping-savings-line {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 4px;
-            flex-wrap: wrap;
-        }
-
-        .shipping-product-price {
-            font-weight: 600;
-            color: var(--charcoal);
-            font-size: 0.9rem;
-        }
-
-        .original-price {
-            color: var(--warm-brown);
-            font-size: 0.85rem;
-            margin-right: 8px;
-        }
-
-        .effective-price {
-            font-weight: 600;
-            color: var(--sage-dark);
-            font-size: 0.95rem;
-        }
-
-        .shipping-product-pitch {
-            font-size: 0.75rem;
-            color: var(--warm-brown);
-        }
-
-        .btn-shipping-upsell {
-            background: var(--sage);
-            color: var(--soft-white);
-            border: none;
-            padding: 14px 16px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border-radius: 6px;
-            white-space: nowrap;
-        }
-
-        .btn-shipping-upsell:hover {
-            background: var(--sage-dark);
+            font-size: 1rem;
         }
 
         /* ========== Order Summary ========== */
@@ -1537,7 +1404,7 @@
         @media (max-width: 900px) {
             .cart-layout {
                 grid-template-columns: 1fr;
-                gap: 24px;
+                gap: 20px;
             }
 
             .cart-summary-column {
@@ -1547,8 +1414,8 @@
             .cart-item {
                 grid-template-columns: 1fr auto;
                 grid-template-rows: auto auto;
-                gap: 8px 16px;
-                padding: 16px 20px;
+                gap: 6px 12px;
+                padding: 12px 16px;
             }
 
             .item-product {
@@ -1570,58 +1437,50 @@
             .pack-upsell-inner {
                 flex-direction: column;
                 text-align: center;
-                gap: 12px;
+                gap: 10px;
             }
 
             .btn-pack-upsell {
                 width: 100%;
             }
 
-            .shipping-upsell-content {
-                flex-direction: column;
-                text-align: center;
-                gap: 12px;
-            }
-
-            .shipping-savings-line {
+            .shipping-upsell-info {
                 justify-content: center;
             }
 
-            .btn-shipping-upsell {
-                width: 100%;
-            }
-
-            .urgency-banner {
-                font-size: 0.8rem;
-                padding: 10px 16px;
-            }
-
-            .urgency-banner span {
-                text-align: center;
+            .btn-shipping-add {
+                margin: 4px auto 0;
             }
         }
 
         @media (max-width: 480px) {
             .cart-page-title {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
             }
 
             .item-title {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
             }
 
             .item-meta {
-                font-size: 0.75rem;
+                font-size: 0.7rem;
             }
 
             .summary-box {
-                padding: 20px;
+                padding: 16px;
             }
 
             .trust-signals {
                 flex-direction: column;
                 align-items: center;
-                gap: 8px;
+                gap: 6px;
+            }
+
+            .free-gift-badge {
+                display: block;
+                margin-left: 0;
+                margin-top: 4px;
+                width: fit-content;
             }
         }
     </style>
