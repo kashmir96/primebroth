@@ -23,7 +23,9 @@
                     <a href="/shop" class="btn-continue-shopping">Continue shopping</a>
                 </div>
             </div>
-            <div class="cartcontainerall d-none">                
+            <div class="cartcontainerall d-none">
+                <h1 class="cart-page-title">Your Cart</h1>
+                
                 <div class="cart-layout">
                     <!-- Left Column: Cart Items -->
                     <div class="cart-items-column">
@@ -52,7 +54,9 @@
 
                     <!-- Right Column: Order Summary -->
                     <div class="cart-summary-column">
-                        <div id="cart-summary" class="summary-box">                            
+                        <div id="cart-summary" class="summary-box">
+                            <h2 class="summary-title">Order Summary</h2>
+                            
                             <div class="summary-row">
                                 <span>Subtotal</span>
                                 <span id="subtotal-cost">$0.00</span>
@@ -73,7 +77,8 @@
                             <button id="proceed-to-checkout" class="checkout-btn" disabled>Proceed to Checkout</button>
 
                             <div class="trust-signals">
-                                <span class="trust-item">🚚 NZ Wide Shipping</span>
+                                <span class="trust-item">🚚 NZ Wide</span>
+                                <span class="trust-item-separator">•</span>
                                 <span class="trust-item">✓ Money Back Guarantee</span>
                             </div>
 
@@ -270,7 +275,7 @@
         // 3-pack options for larger gaps
         const threePackUpsellProducts = [
             {
-                name: 'Tallow Balm Vanilla Rose 3-Pack',
+                name: 'Whipped Balm 3-Pack',
                 price: { NZ: 47.95, AU: 46.12 },
                 minGap: 35.01,
                 maxGap: 47.95,
@@ -284,7 +289,7 @@
                 }
             },
             {
-                name: 'Honey Balm 3-Pack',
+                name: 'Tallow Balm - Manuka & Vanilla 3-Pack',
                 price: { NZ: 71.95, AU: 71.95 },
                 minGap: 47.96,
                 maxGap: 71.95,
@@ -583,7 +588,7 @@
                 
                 document.getElementById('shipping-upsell-content').innerHTML = `
                     <div class="shipping-product-details">
-                        <div class="shipping-product-name">${suggestedProduct.name} — ${priceLine}</div>
+                        <div class="shipping-product-name"><span class="recommended-label">Recommended:</span> ${suggestedProduct.name} — ${priceLine}</div>
                         <div class="shipping-product-pitch">${pitchText}</div>
                     </div>
                     <button class="btn-shipping-upsell">Add</button>
@@ -618,6 +623,7 @@
                 cartItemsContainer.innerHTML = '';
                 const hasThreePack = cartHasThreePack();
                 let subtotal = 0;
+                let upsellShown = false; // Only show one 3pk upsell
 
                 cart.forEach((item, index) => {
                     const quantity = parseInt(item.quantity, 10);
@@ -689,7 +695,7 @@
                         const orderTypeLower = (item.orderType || '').toLowerCase();
                         const isSingle = orderTypeLower.includes('single');
                         
-                        if (isSingle && !isItemThreePack) {
+                        if (isSingle && !isItemThreePack && !upsellShown) {
                             const product = detectProduct(item.title);
                             if (product) {
                                 const flavor = mapFlavor(item.flavor, product);
@@ -706,10 +712,11 @@
                                     
                                     upsellHtml = `
                                         <div class="item-upsell">
-                                            <span class="upsell-text">Better value: Save ${savingsPerUnit.toFixed(2)}/ea ($${totalSavings.toFixed(2)})${lipBalmText}</span>
-                                            <button class="btn-item-upsell" data-index="${index}" data-pack-price-id="${packPriceId}" data-pack-price="${packPrice}">↑ 3pk</button>
+                                            <span class="upsell-text"><span class="upsell-label">3pk Value:</span> Save $${savingsPerUnit.toFixed(2)}/ea ($${totalSavings.toFixed(2)})${lipBalmText}</span>
+                                            <button class="btn-item-upsell" data-index="${index}" data-pack-price-id="${packPriceId}" data-pack-price="${packPrice}">Upgrade</button>
                                         </div>
                                     `;
+                                    upsellShown = true;
                                 }
                             }
                         }
@@ -1077,6 +1084,11 @@
             flex: 1;
         }
 
+        .upsell-label {
+            font-weight: 600;
+            color: var(--sage-dark);
+        }
+
         .btn-item-upsell {
             background: var(--sage);
             color: var(--soft-white);
@@ -1184,18 +1196,19 @@
             display: flex;
             gap: 12px;
             align-items: center;
-            background: var(--soft-white);
-            border-radius: 6px;
-            padding: 10px 12px;
         }
 
         .shipping-product-details { flex: 1; }
 
         .shipping-product-name {
-            font-weight: 600;
             font-size: 0.85rem;
             color: var(--deep-brown);
             margin-bottom: 2px;
+        }
+
+        .recommended-label {
+            font-weight: 600;
+            color: var(--sage-dark);
         }
 
         .shipping-product-price {
@@ -1218,10 +1231,9 @@
             background: var(--sage);
             color: var(--soft-white);
             border: none;
-            padding: 8px 14px;
-            font-size: 0.65rem;
+            padding: 5px 12px;
+            font-size: 0.75rem;
             font-weight: 600;
-            text-transform: uppercase;
             cursor: pointer;
             border-radius: 4px;
             white-space: nowrap;
@@ -1297,16 +1309,22 @@
         .trust-signals {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            align-items: center;
+            gap: 8px;
             margin-top: 14px;
             padding-top: 14px;
             border-top: 1px solid var(--border-light);
-            flex-wrap: wrap;
         }
 
         .trust-item {
             font-size: 0.7rem;
             color: var(--warm-brown);
+        }
+
+        .trust-item-separator {
+            font-size: 0.7rem;
+            color: var(--warm-brown);
+            opacity: 0.5;
         }
 
         .payment-icons {
