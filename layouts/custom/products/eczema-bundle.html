@@ -646,7 +646,7 @@
                             <div class="item-product">
                                 <div class="item-details">
                                     <h3 class="item-title">${item.title || 'Unknown Product'} 3pk</h3>
-                                    <p class="item-meta">Best seller • 3 jars of ${flavorList} ${item.size}</p>
+                                    <p class="item-meta">3 jars of ${flavorList} ${item.size}</p>
                                 </div>
                             </div>
                             <div class="item-price">$${unitPrice}${priceSuffix}</div>
@@ -669,7 +669,7 @@
                         const isItemThreePack = isThreePack(item);
                         const titleSuffix = isItemThreePack ? ' 3pk' : '';
                         const metaText = isItemThreePack 
-                            ? `Best seller • 3 jars of ${item.flavor || ''} ${item.size || ''}`
+                            ? `3 jars of ${item.flavor || ''} ${item.size || ''}`
                             : [item.flavor, item.size].filter(Boolean).join(' • ');
                         
                         cartItem.innerHTML = `
