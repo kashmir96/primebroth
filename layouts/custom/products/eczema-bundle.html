@@ -293,6 +293,40 @@
             }
         ];
 
+        // 3-pack options for larger gaps
+        const threePackUpsellProducts = [
+            {
+                name: 'Whipped Tallow Balm 3-Pack',
+                price: 47.95,
+                minGap: 35.01,
+                maxGap: 47.95,
+                description: 'Best value - 3 jars of our bestselling balm + FREE lip balm',
+                addToCartData: {
+                    title: 'Whipped Tallow Balm',
+                    flavor: 'Vanilla Rose',
+                    size: '120ml',
+                    orderType: '3 pack (Buy 2 Get 1 Free)',
+                    priceId: 'price_balm_vanilla_rose_120_3pack_nz',
+                    unitPrice: 47.95
+                }
+            },
+            {
+                name: 'Tallow & Honey Balm 3-Pack',
+                price: 71.95,
+                minGap: 47.96,
+                maxGap: 71.95,
+                description: 'Best value - 3 jars of manuka honey balm + FREE lip balm',
+                addToCartData: {
+                    title: 'Tallow & Honey Balm',
+                    flavor: 'Manuka Vanilla',
+                    size: '120ml',
+                    orderType: '3 pack (Buy 2 Get 1 Free)',
+                    priceId: 'price_honeybalm_vanilla_120_3pack_nz',
+                    unitPrice: 71.95
+                }
+            }
+        ];
+
         document.addEventListener('DOMContentLoaded', function() {
             let cart = JSON.parse(localStorage.getItem('cartV2')) || [];
             console.log('Cart contents:', cart);
@@ -588,25 +622,42 @@
                     return;
                 }
                 
+                // If gap is over $71.95, don't show any upsell
+                if (amountToFreeShipping > 71.95) {
+                    shippingUpsellModule.classList.add('d-none');
+                    return;
+                }
+                
                 // Calculate progress percentage - starts at 50% and scales up from there
                 const actualProgress = (subtotal / freeShippingThreshold);
                 const progressPercent = 50 + (actualProgress * 50); // Maps 0-100% to 50-100%
                 
-                // Find best product to suggest based on gap
-                // Product should be >= gap amount so adding it gets them to free shipping
                 let suggestedProduct = null;
-                for (const product of shippingUpsellProducts) {
-                    if (product.price >= amountToFreeShipping && amountToFreeShipping <= product.maxGap) {
-                        suggestedProduct = product;
-                        break;
+                let isThreePackSuggestion = false;
+                
+                // For gaps over $35, find appropriate 3-pack
+                if (amountToFreeShipping > 35) {
+                    for (const pack of threePackUpsellProducts) {
+                        if (amountToFreeShipping >= pack.minGap && amountToFreeShipping <= pack.maxGap) {
+                            suggestedProduct = pack;
+                            isThreePackSuggestion = true;
+                            break;
+                        }
+                    }
+                } else {
+                    // Find best single product to suggest based on gap
+                    for (const product of shippingUpsellProducts) {
+                        if (product.price >= amountToFreeShipping && amountToFreeShipping <= product.maxGap) {
+                            suggestedProduct = product;
+                            break;
+                        }
                     }
                 }
                 
-                // For gaps over $35, use lotion but without savings badge
-                const isLargeGap = amountToFreeShipping > 35;
-                if (isLargeGap) {
-                    // Find lotion or last product in list
-                    suggestedProduct = shippingUpsellProducts.find(p => p.name === 'Tallow Lotion') || shippingUpsellProducts[shippingUpsellProducts.length - 1];
+                // If no suitable product found, hide the module
+                if (!suggestedProduct) {
+                    shippingUpsellModule.classList.add('d-none');
+                    return;
                 }
                 
                 // Update progress bar
@@ -616,33 +667,37 @@
                 document.getElementById('shipping-upsell-title').textContent = 
                     `You're $${amountToFreeShipping.toFixed(2)} from free shipping`;
                 
-                // If no suitable product found, show simple message
-                if (!suggestedProduct) {
-                    document.getElementById('shipping-upsell-content').innerHTML = `
-                        <div class="shipping-simple-message">
-                            <span>Add a few more items to unlock free shipping!</span>
-                        </div>
-                    `;
-                    shippingUpsellModule.classList.remove('d-none');
-                    return;
+                // Calculate effective price and discount for single products
+                const effectivePrice = amountToFreeShipping;
+                const discountAmount = suggestedProduct.price - effectivePrice;
+                const discountPercent = Math.round((discountAmount / suggestedProduct.price) * 100);
+                
+                // Build price display and pitch text
+                let priceDisplay, pitchText;
+                
+                if (isThreePackSuggestion) {
+                    // For 3-pack, show regular pricing without effective discount
+                    priceDisplay = `<span class="shipping-product-price">$${suggestedProduct.price.toFixed(2)}</span>`;
+                    pitchText = suggestedProduct.description;
+                } else if (effectivePrice < suggestedProduct.price) {
+                    // For singles where they save, show effective price
+                    priceDisplay = `<s class="original-price">$${suggestedProduct.price.toFixed(2)}</s> <span class="effective-price">Effectively $${effectivePrice.toFixed(2)}</span>`;
+                    pitchText = `Unlock free shipping + get ${discountPercent}% off this ${suggestedProduct.name.toLowerCase()}`;
+                } else {
+                    priceDisplay = `<span class="shipping-product-price">$${suggestedProduct.price.toFixed(2)}</span>`;
+                    pitchText = suggestedProduct.description;
                 }
                 
-                // Only show savings badge if gap is $35 or less
-                const savingsBadge = !isLargeGap 
-                    ? `<span class="shipping-savings-badge">Saves $${shippingCost.toFixed(2)} shipping</span>`
-                    : '';
-                
-                // Update content with product suggestion (no image - cleaner)
+                // Update content with product suggestion
                 document.getElementById('shipping-upsell-content').innerHTML = `
                     <div class="shipping-product-details">
                         <div class="shipping-product-name">${suggestedProduct.name}</div>
                         <div class="shipping-savings-line">
-                            <span class="shipping-product-price">$${suggestedProduct.price.toFixed(2)}</span>
-                            ${savingsBadge}
+                            ${priceDisplay}
                         </div>
-                        <div class="shipping-product-pitch">${suggestedProduct.description}</div>
+                        <div class="shipping-product-pitch">${pitchText}</div>
                     </div>
-                    <button class="btn-shipping-upsell" data-product="${shippingUpsellProducts.indexOf(suggestedProduct)}">
+                    <button class="btn-shipping-upsell">
                         Add to Cart
                     </button>
                 `;
@@ -654,14 +709,11 @@
                 const addButton = shippingUpsellModule.querySelector('.btn-shipping-upsell');
                 if (addButton) {
                     addButton.addEventListener('click', function() {
-                        const productIndex = parseInt(this.getAttribute('data-product'));
-                        const product = shippingUpsellProducts[productIndex];
-                        
                         // Add to cart
                         cart.push({
-                            ...product.addToCartData,
+                            ...suggestedProduct.addToCartData,
                             quantity: 1,
-                            eligibleForDiscount: true
+                            eligibleForDiscount: !isThreePackSuggestion
                         });
                         
                         localStorage.setItem('cartV2', JSON.stringify(cart));
@@ -1337,6 +1389,18 @@
             font-weight: 600;
             color: var(--charcoal);
             font-size: 0.9rem;
+        }
+
+        .original-price {
+            color: var(--warm-brown);
+            font-size: 0.85rem;
+            margin-right: 8px;
+        }
+
+        .effective-price {
+            font-weight: 600;
+            color: var(--sage-dark);
+            font-size: 0.95rem;
         }
 
         .shipping-savings-badge {
