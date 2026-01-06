@@ -1,1429 +1,950 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {{- partial "head.html" . }}
-    <title>Checkout - PrimalPantry</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    <script src="https://js.stripe.com/v3/"></script>
-    <script>
-        const stripe = Stripe('pk_live_51QKEaJFZRwx5tlYmhyIEFR3mGroCdpqIHHVT68y9jGnizGDZXypuSfjilbCSkMarU39KeV4kUulC6HfpReRSJwb000fyIehR3I');
-    </script>
+    {{- partial "head.html" . -}}
+    <meta name="description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta property="og:title" content="{{ .Site.Params.homepage_meta_tags.meta_og_title }}" />
+    <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
+    <meta property="og:url" content="{{ .Site.Params.homepage_meta_tags.meta_og_url }}" />
+    <meta property="og:image" content="{{ .Site.Params.homepage_meta_tags.meta_og_image }}" />
+    <meta property="og:description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
+    <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
+    <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* New Product Form Styles */
+        .product-form-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .product-form-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #555;
+            width: 44px;
+            flex-shrink: 0;
+        }
+        .product-radio-group {
+            display: flex;
+            flex: 1;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            padding: 4px;
+        }
+        .product-radio-btn {
+            flex: 1;
+            padding: 10px 12px;
+            border: none;
+            border-radius: 6px;
+            background-color: transparent;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 400;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.15s ease;
+        }
+        .product-radio-btn.active {
+            background-color: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            font-weight: 600;
+            color: #333;
+        }
+        .product-radio-btn img {
+            height: 22px;
+        }
+        .badge-pink {
+            color: #E91E8C;
+            font-size: 10px;
+            font-weight: 600;
+        }
+        .badge-green {
+            background-color: #4CAF50;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .badge-pink-solid {
+            background-color: #E91E8C;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .product-select-styled {
+            flex: 1;
+            padding: 12px 14px;
+            border-radius: 8px;
+            border: none;
+            font-size: 12px;
+            font-weight: 500;
+            background-color: #f0f0f0;
+            color: #333;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+        }
+        .qty-container {
+            display: flex;
+            align-items: center;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .qty-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background-color: #f5f5f5;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .qty-value {
+            width: 44px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .stock-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: auto;
+        }
+        .stock-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #4CAF50;
+        }
+        .stock-text {
+            color: #4CAF50;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        .subscribe-box {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 16px;
+            background-color: white;
+            transition: all 0.2s ease;
+        }
+        .subscribe-box.active {
+            border: 2px solid #4CAF50;
+            background-color: rgba(76,175,80,0.03);
+        }
+        .subscribe-checkbox {
+            width: 20px;
+            height: 20px;
+            accent-color: #4CAF50;
+        }
+        .subscribe-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+        .frequency-buttons {
+            display: none;
+            gap: 8px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
+        }
+        .frequency-buttons.show {
+            display: flex;
+        }
+        .frequency-btn {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: white;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            text-align: center;
+        }
+        .frequency-btn.active {
+            border: 2px solid #4CAF50;
+            background-color: rgba(76,175,80,0.08);
+        }
+        .frequency-btn span {
+            color: #4CAF50;
+        }
+        .price-display-new {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            justify-content: flex-end;
+        }
+        .price-main {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2D2A26;
+        }
+        .price-suffix {
+            font-size: 14px;
+            color: #888;
+        }
+        .price-compare {
+            font-size: 14px;
+            color: #999;
+            text-decoration: line-through;
+        }
+        .price-badges {
+            display: flex;
+            gap: 4px;
+            justify-content: flex-end;
+            margin-top: 4px;
+        }
+        .btn-add-cart {
+            width: 100%;
+            padding: 18px;
+            background-color: #2D2A26;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        .btn-add-cart:hover {
+            background-color: #1a1816;
+        }
+        .product-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        .product-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            color: #666;
+            margin: 4px 0 0 0;
+            font-style: italic;
+        }
+
+        /* Hide original form elements, show new ones */
+        #productForm .text-left { display: none; }
+        #productForm .form-group { display: none; }
+        #productForm .add-to-cart { display: none; }
+        .new-product-form { display: block; }
+    </style>
 </head>
 <body>
-    {{- partial "header.html" . }}
+{{- partial "alert.html" . -}}
+{{- partial "header_new.html" . -}}
 
-    <div class="cart-page-wrapper">
-        <div class="container my-4">
-            <div id="cartempty" class="empty-cart-container d-none">
-                <div class="empty-cart-content">
-                    <h1 class="empty-cart-title">Your cart is empty</h1>
-                    <a href="/shop" class="btn-continue-shopping">Continue shopping</a>
+<div class="container product-page">
+    <div class="row topbanner rel">
+        <p class="text-dark col-12 ninety mt-1"><a href="/shop" class="text-dark text-decoration-underline">Shop</a> > Tallow balm</p>
+        
+        <!-- Product Images - Using existing partial -->
+        <div class="col-12 col-lg-6 product-photos mb-3">
+            {{- partial "tallowskinimages.html" . -}}
+        </div>
+        
+        <!-- Product Form -->
+        <div class="col-12 col-lg-6">
+            <p class="fw-bold mt-2"><img class="stars pe-2" src="/img/stars/5.webp" alt="">Used by 20000+ kiwis.</p>
+            
+            <!-- Title + Price Row -->
+            <div class="product-header-row">
+                <div>
+                    <h1 class="fw-bold mt-2">Whipped Tallow Balm</h1>
+                    <p class="product-subtitle">Naturally Perfect Skin ~ By PrimalCare</p>
+                </div>
+                <div style="text-align: right;">
+                    <div class="price-display-new">
+                        <span class="price-main" id="price">$24.95</span>
+                        <span class="price-suffix" id="price-suffix" style="display:none">/mo</span>
+                        <span class="price-compare" id="price-compare" style="display:none">$24.95</span>
+                    </div>
+                    <div class="price-badges" id="price-badges">
+                        <!-- Badges inserted by JS -->
+                    </div>
                 </div>
             </div>
-            <div class="cartcontainerall d-none">                
-                <div class="cart-layout">
-                    <!-- Left Column: Cart Items -->
-                    <div class="cart-items-column">
-                        <div id="cart-items" class="cart-items-container">
-                            <!-- Cart items will be dynamically injected here -->
-                        </div>
+            
+            <p class="fw-lighter">Your friends will ask what's the secret to your <span class="attention-primalcare">glow up!</span></p>
+            
+            <!-- Afterpay -->
+            <p class="fw-lighter mb-3" id="afterpay-line">or 4 interest free payments of $<span id="afterpay_price">6.24</span> with <img src="/img/afterpay.webp" class="d-inline" height="28" alt="afterpay"></p>
 
-                        <!-- 3-Pack Upsell Banner -->
-                        <div id="upsell-banner" class="d-none">
-                            <!-- Upsell content injected here -->
-                        </div>
+            <!-- New Styled Form -->
+            <form id="productForm" class="form-group mb-4" autocomplete="off">
+                
+                <!-- Hidden original inputs for compatibility -->
+                <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked style="display:none">
+                <input type="radio" id="three_pack" name="orderType" value="three_pack" style="display:none">
+                <input type="radio" id="recurring_monthly" name="orderType" value="recurring_monthly" style="display:none">
+                <input type="radio" id="recurring_quarterly" name="orderType" value="recurring_quarterly" style="display:none">
+                <input type="radio" id="vanilla-rose" name="flavor" value="vanilla-rose" checked style="display:none">
+                <input type="radio" id="lavender" name="flavor" value="lavender" style="display:none">
+                <input type="radio" id="frankincense" name="flavor" value="frankincense" style="display:none">
+                <input type="radio" id="neutral" name="flavor" value="neutral" style="display:none">
+                <input type="radio" id="size60ml" name="size" value="60ml" style="display:none">
+                <input type="radio" id="size120ml" name="size" value="120ml" checked style="display:none">
+                
+                <!-- Hidden pack scent select -->
+                <select class="product-select" name="flavor" id="pack-flavor-hidden" style="display:none">
+                    <option value="trio-v-f-l">Vanilla & rose, Frankincense, Lavender</option>
+                    <option value="trio-v-f-n">Vanilla & rose, Frankincense, Natural</option>
+                    <option value="trio-v-l-n">Vanilla & rose, Lavender, Natural</option>
+                    <option value="trio-f-l-n">Frankincense, Lavender, Natural</option>
+                    <option value="trio-v-v-f">Vanilla & rose, Vanilla & rose, Frankincense</option>
+                    <option value="trio-v-v-l">Vanilla & rose, Vanilla & rose, Lavender</option>
+                    <option value="trio-v-v-n">Vanilla & rose, Vanilla & rose, Natural</option>
+                    <option value="trio-f-f-v">Frankincense, Frankincense, Vanilla & rose</option>
+                    <option value="trio-f-f-l">Frankincense, Frankincense, Lavender</option>
+                    <option value="trio-f-f-n">Frankincense, Frankincense, Natural</option>
+                    <option value="trio-l-l-v">Lavender, Lavender, Vanilla & rose</option>
+                    <option value="trio-l-l-f">Lavender, Lavender, Frankincense</option>
+                    <option value="trio-l-l-n">Lavender, Lavender, Natural</option>
+                    <option value="trio-n-n-v">Natural, Natural, Vanilla & rose</option>
+                    <option value="trio-n-n-f">Natural, Natural, Frankincense</option>
+                    <option value="trio-n-n-l">Natural, Natural, Lavender</option>
+                    <option value="trio-v-v-v">Vanilla & rose, Vanilla & rose, Vanilla & rose</option>
+                    <option value="trio-f-f-f">Frankincense, Frankincense, Frankincense</option>
+                    <option value="trio-l-l-l">Lavender, Lavender, Lavender</option>
+                    <option value="trio-n-n-n">Natural, Natural, Natural</option>
+                </select>
 
-                        <!-- Free Shipping Upsell Module - Compact -->
-                        <div id="shipping-upsell" class="shipping-upsell-module d-none">
-                            <div class="shipping-progress-bar">
-                                <div class="shipping-progress-fill" id="shipping-progress-fill"></div>
-                            </div>
-                            <div class="shipping-upsell-inner">
-                                <div class="shipping-upsell-title" id="shipping-upsell-title">You're $X.XX from free shipping</div>
-                                <div class="shipping-upsell-content" id="shipping-upsell-content">
-                                    <!-- Product suggestion injected here -->
-                                </div>
-                            </div>
+                <div class="new-product-form">
+                    <!-- Unit Type -->
+                    <div class="product-form-row">
+                        <span class="product-form-label">Unit</span>
+                        <div class="product-radio-group">
+                            <button type="button" class="product-radio-btn active" data-value="single" id="btn-single">
+                                <img src="/img/radio/balm/1.webp" alt="">
+                                Single jar
+                            </button>
+                            <button type="button" class="product-radio-btn" data-value="pack" id="btn-pack">
+                                <img src="/img/radio/balm/3.webp" alt="">
+                                3-Pack <span class="badge-pink" id="pack-badge">-35% +GIFT</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Size -->
+                    <div class="product-form-row">
+                        <span class="product-form-label">Size</span>
+                        <div class="product-radio-group">
+                            <button type="button" class="product-radio-btn active" data-value="120ml" id="btn-120ml">
+                                <img src="/img/radio/balm/175.webp" alt="">
+                                120ml <span style="color:#888;font-size:11px" id="price-120ml">$24.95</span>
+                                <span class="badge-pink">best value</span>
+                            </button>
+                            <button type="button" class="product-radio-btn" data-value="60ml" id="btn-60ml">
+                                <img src="/img/radio/balm/1.webp" alt="" style="height:18px">
+                                60ml <span style="color:#888;font-size:11px" id="price-60ml">$18.95</span>
+                            </button>
                         </div>
                     </div>
 
-                    <!-- Right Column: Order Summary -->
-                    <div class="cart-summary-column">
-                        <div id="cart-summary" class="summary-box">
-                            <h2 class="summary-title">Order Summary</h2>
-                            
-                            <div class="summary-row">
-                                <span>Subtotal</span>
-                                <span id="subtotal-cost">$0.00</span>
-                            </div>
-                            <div class="summary-row" id="shipping-row">
-                                <span>Shipping (Spend over $80 to get it free)</span>
-                                <span id="shipping-display">$6.95 </span>
-                            </div>
-                            <div class="summary-row d-none" id="free-shipping-row">
-                                <span>Shipping</span>
-                                <span class="free-shipping-text">FREE</span>
-                            </div>
-                            <div class="summary-row total-row">
-                                <span>Total</span>
-                                <span id="total-cost">$0.00</span>
-                            </div>
-
-                            <button id="proceed-to-checkout" class="checkout-btn" disabled>Proceed to Checkout</button>
-
-                            <div class="trust-signals">
-                                <span class="trust-item">🚚 NZ Wide</span>
-                                <span class="trust-item-separator">•</span>
-                                <span class="trust-item">✓ Money Back Guarantee</span>
-                            </div>
-
-                            <div class="payment-icons">
-                                <img class="badges" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
-                            </div>
+                    <!-- Scent - Single -->
+                    <div class="product-form-row" id="scent-single-row">
+                        <span class="product-form-label">Scent</span>
+                        <div class="product-radio-group">
+                            <button type="button" class="product-radio-btn active" data-value="vanilla-rose" id="btn-vanilla">Vanilla rose</button>
+                            <button type="button" class="product-radio-btn" data-value="lavender" id="btn-lavender">Lavender</button>
+                            <button type="button" class="product-radio-btn" data-value="frankincense" id="btn-frank">Frankincense</button>
+                            <button type="button" class="product-radio-btn" data-value="neutral" id="btn-natural">Natural</button>
                         </div>
                     </div>
+
+                    <!-- Scent - Pack -->
+                    <div class="product-form-row" id="scent-pack-row" style="display:none">
+                        <span class="product-form-label">Scent</span>
+                        <select class="product-select-styled" id="pack-scent-select">
+                            <optgroup label="Mix of all scents">
+                                <option value="trio-v-f-l">Vanilla & rose, Frankincense, Lavender</option>
+                                <option value="trio-v-f-n">Vanilla & rose, Frankincense, Natural</option>
+                                <option value="trio-v-l-n">Vanilla & rose, Lavender, Natural</option>
+                                <option value="trio-f-l-n">Frankincense, Lavender, Natural</option>
+                            </optgroup>
+                            <optgroup label="2 of one + 1 of another">
+                                <option value="trio-v-v-f">Vanilla & rose ×2, Frankincense</option>
+                                <option value="trio-v-v-l">Vanilla & rose ×2, Lavender</option>
+                                <option value="trio-v-v-n">Vanilla & rose ×2, Natural</option>
+                                <option value="trio-f-f-v">Frankincense ×2, Vanilla & rose</option>
+                                <option value="trio-f-f-l">Frankincense ×2, Lavender</option>
+                                <option value="trio-f-f-n">Frankincense ×2, Natural</option>
+                                <option value="trio-l-l-v">Lavender ×2, Vanilla & rose</option>
+                                <option value="trio-l-l-f">Lavender ×2, Frankincense</option>
+                                <option value="trio-l-l-n">Lavender ×2, Natural</option>
+                                <option value="trio-n-n-v">Natural ×2, Vanilla & rose</option>
+                                <option value="trio-n-n-f">Natural ×2, Frankincense</option>
+                                <option value="trio-n-n-l">Natural ×2, Lavender</option>
+                            </optgroup>
+                            <optgroup label="All same scent">
+                                <option value="trio-v-v-v">Vanilla & rose ×3</option>
+                                <option value="trio-f-f-f">Frankincense ×3</option>
+                                <option value="trio-l-l-l">Lavender ×3</option>
+                                <option value="trio-n-n-n">Natural ×3</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <!-- Quantity -->
+                    <div class="product-form-row">
+                        <span class="product-form-label">Qty</span>
+                        <div class="qty-container">
+                            <button type="button" class="qty-btn" id="qty-decrease">−</button>
+                            <span class="qty-value" id="qty-display">1</span>
+                            <button type="button" class="qty-btn" id="qty-increase">+</button>
+                        </div>
+                        <input type="hidden" id="quantityAll" name="quantity" value="1">
+                        <div class="stock-indicator">
+                            <span class="stock-dot"></span>
+                            <span class="stock-text">In Stock</span>
+                        </div>
+                    </div>
+
+                    <!-- Subscribe Box -->
+                    <div class="subscribe-box" id="subscribe-box">
+                        <label class="subscribe-label">
+                            <input type="checkbox" class="subscribe-checkbox" id="subscribe-check">
+                            <div style="flex:1">
+                                <span style="font-weight:600;color:#333;font-size:15px">Subscribe & Save <span id="savings-amount">$4.99</span></span>
+                                <span class="badge-green">20% OFF + FREE SHIP</span>
+                            </div>
+                        </label>
+                        <div class="frequency-buttons" id="frequency-buttons">
+                            <button type="button" class="frequency-btn active" data-value="monthly" id="btn-monthly">
+                                Monthly <span>(-20%)</span>
+                            </button>
+                            <button type="button" class="frequency-btn" data-value="quarterly" id="btn-quarterly">
+                                3 months <span>(-12.5%)</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Add to Cart -->
+                    <button type="button" class="btn-add-cart buy-now" id="add-to-cart-btn" data-price-id="" data-quantity-id="quantityAll">
+                        Add To Cart
+                    </button>
+                    <p class="text-center text-muted small" id="shipping-text">🚚 Speedy Shipping NZ Wide | Money back guarantee</p>
+                    <div class="text-center">
+                        <img class="badges middle" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Rest of page content -->
+    <div class="row mt-4 py-0 d-flex justify-content-center">
+        <div class="col-12 col-md-6 text-center">
+            <div class="col-12 text-center">
+                <h2>As Featured on</h2>
+                <div class="col-12 d-none d-md-block">
+                    <img src="/img/shop/desktop-product-logos.webp" class="img-fluid">
+                </div>
+                <div class="col-12 d-block d-md-none">
+                    <img src="/img/shop/mobile-logos.webp" class="img-fluid">
+                </div>
+            </div>
+            <div class="row mt-4 mb-0 py-0">
+                <div class="col-6">
+                    <img src="/img/prod/balm/eczema.webp" alt="eczema">
+                </div>
+                <div class="col-6">
+                    <img src="/img/prod/balm/baby-eczema.webp" alt="baby eczema">
+                </div>
+                <p>With oils closely mimicking those produced by our bodies, our tallow <span class="attention-primalcare">soothes dry and irritated skin</span></p>
+            </div>
+        </div>
+        
+        <div class="faq-tab-container col-12 col-md-6">
+            <!-- Nav tabs -->
+            <div class="faq-nav-tabs">
+                <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Fast facts</div>
+                <div class="faq-nav-tab" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</div>
+                <div class="faq-nav-tab" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</div>
+                <div class="faq-nav-tab" id="directions-tab" data-toggle="tab" href="#directions" role="tab" aria-controls="directions" aria-selected="false">Directions</div>
+                <div class="faq-nav-tab" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</div>
+            </div>
+
+            <!-- Tab panes -->
+            <div class="tab-content faq-tab-content">
+                <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">        
+                    <p>Don't waste another dollar on expensive moisturisers and steroid creams that <span class="attention-primalcare">don't work</span> and are filled with <span class="attention-primalcare">chemical nasties!</span></p>
+                    <p>Watch as light and fluffy balm soaks deeply into your skin, going to work giving rapid <span class="attention-primalcare">hydrating and rejuvenating relief</span> to dry, cracked and itchy skin.</p>
+                    <p class="mt-4 h6">What makes Primalcare tallow balm different? </p>
+                    <ul>
+                        <li>It's a whipped tallow balm, most others aren't. Meaning it soaks in much better.</li>
+                        <li>We offer the best value tallow on the NZ market–get more, at better quality, for less.</li>
+                    </ul>
+                    <div class="row text-center justify-content-around mt-0 mb-0">
+                        <h3 class="h4">Meet your moisturiser match</h3>
+                        <p>See why <span class="attention-primalcare">20000+ kiwis just like you</span> switched to Primalcare</p>
+                        <img class="seventy" src="/img/comparison-card-primalcare-balm.svg" alt="balm">
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                    <h4>See what our customers say online</h4>
+                    <img class="eighty middle" src="/img/prod/balm/balmreviews.webp" alt="reviews">
+                </div>
+                <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
+                    <h4>4 Nourishing Ingredients</h4>
+                    <p>A harmonic combination that soaks in for immediate hydration</p>
+                    <p>Grass-fed purified NZ beef tallow (98%), organic olive oil, organic jojoba oil, essential oil.</p>
+                    <div class="row text-center">
+                        <div class="col-6">
+                            <img src="/img/prod/balm/tallowwhite.webp" class="w-50 mb-2 middle" alt="Grass-fed beef tallow">
+                            <p>We use high grade grass-fed suet, which we wet render and filter 6 times.</p>
+                        </div>
+                        <div class="col-6">
+                            <img src="/img/prod/balm/oliveoil.webp" class="w-50 mb-2 middle" alt="Organic cold pressed olive oil">
+                            <p>Important for providing a light and whipped texture to our unique whipped balm.</p>
+                        </div>
+                        <div class="col-6">
+                            <img src="/img/prod/balm/jojobaoil.webp" class="w-50 mb-2 middle" alt="Organic cold pressed jojoba oil">
+                            <p>Adding extra lift to the whip while providing smoothing and benefits to your skin.</p>    
+                        </div>
+                        <div class="col-6">
+                            <img src="/img/prod/balm/essentialoil.webp" class="w-50 mb-2 middle" alt="Natural essential oils">
+                            <p>These add the aroma and additional health benefits to your balms.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
+                    <h4>Directions</h4>
+                    <p>Apply a small amount on the face, neck, hands or feet daily in the morning as a moisturiser or evening as a night cream. Best used on slightly damp skin.</p>
+                    <p>Body and facial moisturizer. Eczema cream, monthly hair conditioner.</p>
+                    <p>For best texture and consistency when using, keep in temperatures between 18 and 25 degrees celsius and out of direct sunlight.</p>
+                </div>
+                <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
+                    <h4>Shipping</h4>
+                    <p><strong>Processing time:</strong> Your order will be processed within 3 business days after which you can expect usual courier times to your area (generally 3-5 business days)</p>
+                    <p><strong>Shipping rates:</strong> We usually charge between $4.95 and $6.95 for shipping. You can view the shipping costs at the checkout before completing your purchase.</p>
+                    <p><strong>International shipping:</strong> Currently, we only offer shipping within New Zealand. We apologize for any inconvenience this may cause.</p>
+                    <p>If you have any questions or concerns regarding shipping, please don't hesitate to <a href="/contact/">contact us</a>.</p>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    {{- partial "footer.html" . }}
+<div class="section light-peach py-80 mt-5">
+    {{- partial "irritation-routine.html" . -}}
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-        // Pricing data from YAML
-        const pricingData = JSON.parse('{{ .Site.Data.pricing | jsonify }}');
-
-        // Size aliases - maps frontend sizes to YAML sizes
-        const sizeAliases = {
-            '15ml': '10ml',
-            '250ml': '220ml',
-            '100g': '120g'
-        };
-
-        // Product detection config
-        const productConfig = [
-            {
-                keywords: ['lotion'],
-                yamlKey: 'liquid_lotion',
-                category: 'tallow',
-                defaultFlavor: 'natural',
-                flavorMap: {
-                    'natural': 'natural',
-                    'unscented': 'natural',
-                    'fragrance free': 'natural',
-                    'fragrance-free': 'natural',
-                    'geranium': 'geranium',
-                    'rose geranium': 'geranium',
-                    'rose': 'geranium'
-                }
-            },
-            {
-                keywords: ['whipped', 'whipped tallow'],
-                yamlKey: 'balm',
-                category: 'tallow',
-                defaultFlavor: 'vanilla-rose',
-                flavorMap: {
-                    'lavender': 'lavender',
-                    'vanilla rose': 'vanilla-rose',
-                    'vanilla-rose': 'vanilla-rose',
-                    'vanilla & rose': 'vanilla-rose',
-                    'vanilla and rose': 'vanilla-rose',
-                    'neutral': 'neutral',
-                    'natural': 'neutral',
-                    'unscented': 'neutral',
-                    'fragrance free': 'neutral',
-                    'fragrance-free': 'neutral',
-                    'vanilla': 'vanilla',
-                    'frankincense': 'frankincense',
-                    'frank': 'frankincense',
-                    'patchouli': 'patchouli',
-                    'orange': 'orange',
-                    'sweet orange': 'orange',
-                    'cedar': 'cedar',
-                    'cedarwood': 'cedar'
-                }
-            },
-            {
-                keywords: ['shampoo bar', 'shampoo'],
-                yamlKey: 'shampoo',
-                category: 'tallow',
-                defaultFlavor: 'peppermintrosemary',
-                flavorMap: {
-                    'peppermint': 'peppermintrosemary',
-                    'peppermint rosemary': 'peppermintrosemary',
-                    'peppermint & rosemary': 'peppermintrosemary',
-                    'peppermint and rosemary': 'peppermintrosemary',
-                    'rosemary': 'peppermintrosemary',
-                    'rosemary peppermint': 'peppermintrosemary'
-                }
-            },
-            {
-                keywords: ['tallow & honey', 'honey balm', 'tallow and honey'],
-                yamlKey: 'honeybalm',
-                category: 'tallow',
-                defaultFlavor: 'vanilla',
-                flavorMap: {
-                    'vanilla': 'vanilla',
-                    'vanilla & manuka': 'vanilla',
-                    'vanilla manuka': 'vanilla',
-                    'vanilla and manuka': 'vanilla',
-                    'manuka vanilla': 'vanilla',
-                    'tansy': 'tansy',
-                    'blue tansy': 'tansy',
-                    'blue tansy & manuka': 'tansy',
-                    'blue tansy manuka': 'tansy',
-                    'blue tansy and manuka': 'tansy'
-                }
-            },
-            {
-                keywords: ['eye cream', 'eyecream'],
-                yamlKey: 'eyecream',
-                category: 'tallow',
-                defaultFlavor: 'manukahoney_vitc',
-                flavorMap: {
-                    'manuka': 'manukahoney_vitc',
-                    'manuka honey': 'manukahoney_vitc',
-                    'manuka honey & vitamin c': 'manukahoney_vitc',
-                    'manuka honey vitamin c': 'manukahoney_vitc',
-                    'manuka & vitamin c': 'manukahoney_vitc',
-                    'vitamin c': 'manukahoney_vitc',
-                    'vit c': 'manukahoney_vitc'
-                }
-            },
-            {
-                keywords: ['deodorant', 'deo'],
-                yamlKey: 'deodorant',
-                category: 'tallow',
-                defaultFlavor: 'frankincense',
-                flavorMap: {
-                    'frankincense': 'frankincense',
-                    'frank': 'frankincense',
-                    'cedarwood': 'cedarwood',
-                    'cedar': 'cedarwood',
-                    'vanilla rose': 'vanilla-rose',
-                    'vanilla-rose': 'vanilla-rose',
-                    'vanilla & rose': 'vanilla-rose',
-                    'vanilla and rose': 'vanilla-rose'
-                }
-            }
-        ];
-
-        // Shipping upsell products with country-specific pricing
-        const shippingUpsellProducts = [
-            {
-                name: 'Tallow Soap',
-                price: { NZ: 14.95, AU: 17.95 },
-                description: 'Gentle cleansing with grass-fed tallow',
-                maxGap: 14.95,
-                addToCartData: {
-                    title: 'Tallow Soap',
-                    flavor: 'Natural',
-                    size: '120g',
-                    orderType: 'Single',
-                    priceId: { NZ: 'price_1RWv8oFZRwx5tlYmLEa4Fmto', AU: 'price_1QuWTRFZRwx5tlYmrZ3GUIuo' }
-                }
-            },
-            {
-                name: 'Shampoo Bar',
-                price: { NZ: 17.95, AU: 19.95 },
-                description: 'Natural hair care with grass-fed tallow',
-                maxGap: 17.95,
-                addToCartData: {
-                    title: 'Tallow Shampoo Bar',
-                    flavor: 'Peppermint & Rosemary',
-                    size: '120g',
-                    orderType: 'Single',
-                    priceId: { NZ: 'price_1Qh7s8FZRwx5tlYmoGIr66aB', AU: 'price_1QuWRUFZRwx5tlYmNmCkq18X' }
-                }
-            },
-            {
-                name: 'Whipped Balm 60ml',
-                price: { NZ: 18.95, AU: 16.22 },
-                description: 'Nourishing skincare',
-                maxGap: 24.95,
-                addToCartData: {
-                    title: 'Whipped Tallow Balm',
-                    flavor: 'Vanilla Rose',
-                    size: '60ml',
-                    orderType: 'Single',
-                    priceId: { NZ: 'price_1R5ivSFZRwx5tlYmtT6ztX1C', AU: 'price_1Qx0VPFZRwx5tlYmlrackSHT' }
-                }
-            },
-            {
-                name: 'Tallow Lotion',
-                price: { NZ: 34.95, AU: 34.95 },
-                description: 'Lightweight daily moisturiser',
-                maxGap: 35,
-                addToCartData: {
-                    title: 'Tallow Lotion',
-                    flavor: 'Natural',
-                    size: '220ml',
-                    orderType: 'Single',
-                    priceId: { NZ: 'price_1SGvHOFZRwx5tlYm3zWDyNdR', AU: 'price_1SGvHOFZRwx5tlYm3zWDyNdR' }
-                }
-            }
-        ];
-
-        // 3-pack options for larger gaps
-        const threePackUpsellProducts = [
-            {
-                name: 'Whipped Balm 3-Pack',
-                price: { NZ: 47.95, AU: 46.12 },
-                minGap: 35.01,
-                maxGap: 47.95,
-                description: '3 jars + FREE lip balm',
-                addToCartData: {
-                    title: 'Whipped Tallow Balm',
-                    flavor: 'Vanilla Rose',
-                    size: '120ml',
-                    orderType: '3 pack (Buy 2 Get 1 Free)',
-                    priceId: { NZ: 'price_1RNSfAFZRwx5tlYmgD0yVKSY', AU: 'price_1Qx0RUFZRwx5tlYmyP3dXKRh' }
-                }
-            },
-            {
-                name: 'Tallow Balm - Manuka & Vanilla 3-Pack',
-                price: { NZ: 71.95, AU: 71.95 },
-                minGap: 47.96,
-                maxGap: 71.95,
-                description: '3 jars + FREE lip balm',
-                addToCartData: {
-                    title: 'Tallow & Honey Balm',
-                    flavor: 'Manuka Vanilla',
-                    size: '120ml',
-                    orderType: '3 pack (Buy 2 Get 1 Free)',
-                    priceId: { NZ: 'price_1RTuDFFZRwx5tlYm5vldTXDT', AU: 'price_1RU1zKFZRwx5tlYmFdTn350w' }
-                }
-            }
-        ];
-
-        document.addEventListener('DOMContentLoaded', function() {
-            let cart = JSON.parse(localStorage.getItem('cartV2')) || [];
-            console.log('Cart contents:', cart);
-            const countryCode = getCountryCookie('country_code') || "NZ";
-            
-            let shippingCost = 6.95;
-            let freeShippingThreshold = 80;
-            
-            if(countryCode == 'AU'){
-                shippingCost = 16.95;
-                freeShippingThreshold = 150;
-            }
-
-            const cartItemsContainer = document.getElementById('cart-items');
-            const totalCostElement = document.getElementById('total-cost');
-            const subtotalCostElement = document.getElementById('subtotal-cost');
-            const proceedToCheckoutButton = document.getElementById('proceed-to-checkout');
-            const upsellBanner = document.getElementById('upsell-banner');
-            const shippingUpsellModule = document.getElementById('shipping-upsell');
-
-            function isThreePack(item) {
-                if (!item.orderType) return false;
-                const orderTypeLower = item.orderType.toLowerCase();
-                return orderTypeLower.includes('pack') || 
-                       orderTypeLower.includes('3 pack') || 
-                       orderTypeLower.includes('three') ||
-                       orderTypeLower.includes('2 get 1');
-            }
-
-            function cartHasThreePack() {
-                return cart.some(item => isThreePack(item));
-            }
-
-            function detectProduct(title) {
-                const titleLower = (title || '').toLowerCase();
-                for (const config of productConfig) {
-                    for (const keyword of config.keywords) {
-                        if (titleLower.includes(keyword)) {
-                            return config;
-                        }
-                    }
-                }
-                return null;
-            }
-
-            function mapFlavor(flavorText, product) {
-                if (!flavorText) return product.defaultFlavor;
-                const flavorLower = flavorText.toLowerCase().trim();
-                const sortedEntries = Object.entries(product.flavorMap).sort((a, b) => b[0].length - a[0].length);
-                for (const [keyword, yamlKey] of sortedEntries) {
-                    if (flavorLower.includes(keyword) || flavorLower === keyword) {
-                        return yamlKey;
-                    }
-                }
-                return product.defaultFlavor;
-            }
-
-            function cleanSize(size) {
-                if (!size) return null;
-                const match = size.match(/(\d+)\s*(ml|g)/i);
-                if (match) {
-                    const extractedSize = match[1] + match[2].toLowerCase();
-                    if (sizeAliases[extractedSize]) {
-                        return sizeAliases[extractedSize];
-                    }
-                    return extractedSize;
-                }
-                return size.toLowerCase().replace(/\s/g, '');
-            }
-
-            function getThreePackTitlesInCart() {
-                const titles = [];
-                cart.forEach(item => {
-                    if (isThreePack(item) && item.title) {
-                        titles.push(item.title.toLowerCase());
-                    }
-                });
-                return titles;
-            }
-
-            function getPackPriceId(product, flavor, size, countryCode) {
-                try {
-                    const category = pricingData[product.category];
-                    if (!category || !category.ids) return null;
-                    const productData = category.ids[product.yamlKey];
-                    if (!productData || !productData.pack) return null;
-                    const flavorData = productData.pack[flavor];
-                    if (!flavorData) return null;
-                    const sizeData = flavorData[size];
-                    if (!sizeData) return null;
-                    return sizeData[countryCode] || null;
-                } catch (error) {
-                    console.error('Error looking up pack price ID:', error);
-                    return null;
-                }
-            }
-
-            function getPackPrice(product, size, countryCode) {
-                try {
-                    const category = pricingData[product.category];
-                    if (!category || !category.pricing) return null;
-                    const productPricing = category.pricing[product.yamlKey];
-                    if (!Array.isArray(productPricing)) return null;
-                    const sizeEntry = productPricing.find(entry => {
-                        const entrySize = cleanSize(entry.size);
-                        return entrySize === size;
-                    });
-                    if (!sizeEntry || !sizeEntry.prices || !sizeEntry.prices[countryCode]) return null;
-                    return sizeEntry.prices[countryCode].three_pack || null;
-                } catch (error) {
-                    console.error('Error looking up pack price:', error);
-                    return null;
-                }
-            }
-
-            function findUpsellOpportunities() {
-                const opportunities = [];
-                const threePackTitles = getThreePackTitlesInCart();
-                
-                cart.forEach((item, index) => {
-                    const orderTypeLower = (item.orderType || '').toLowerCase();
-                    const quantity = parseInt(item.quantity, 10);
-                    const titleLower = (item.title || '').toLowerCase();
-                    const isSingle = orderTypeLower.includes('single');
-                    const alreadyHasThreePack = threePackTitles.some(packTitle => {
-                        return packTitle.includes(titleLower) || titleLower.includes(packTitle);
-                    });
-                    const product = detectProduct(item.title);
-                    if (!product) return;
-                    const flavor = mapFlavor(item.flavor, product);
-                    const size = cleanSize(item.size);
-                    const packPriceId = getPackPriceId(product, flavor, size, countryCode);
-                    const packPrice = getPackPrice(product, size, countryCode);
-                    
-                    if (isSingle && quantity < 3 && !alreadyHasThreePack && packPriceId && packPrice) {
-                        const currentPrice = parseFloat(item.unitPrice);
-                        const totalSavings = (currentPrice * 3) - packPrice;
-                        const savingsPerUnit = totalSavings / 3;
-                        const extraCost = packPrice - currentPrice;
-                        
-                        opportunities.push({
-                            cartIndex: index,
-                            title: item.title || 'Unknown Product',
-                            flavor: item.flavor || '',
-                            size: item.size || '',
-                            originalItem: item,
-                            productConfig: product,
-                            flavorKey: flavor,
-                            sizeKey: size,
-                            packPriceId: packPriceId,
-                            packPrice: packPrice,
-                            currentPrice: currentPrice,
-                            totalSavings: totalSavings.toFixed(2),
-                            savingsPerUnit: savingsPerUnit.toFixed(2),
-                            extraCost: extraCost.toFixed(2)
-                        });
-                    }
-                });
-                return opportunities;
-            }
-
-            function renderUpsellBanner() {
-                const opportunities = findUpsellOpportunities();
-                
-                if (opportunities.length === 0) {
-                    upsellBanner.classList.add('d-none');
-                    upsellBanner.innerHTML = '';
-                    return false;
-                }
-                
-                const opp = opportunities[0];
-                const flavorText = opp.flavor ? ` - ${opp.flavor}` : '';
-                const alreadyHasThreePack = cartHasThreePack();
-                const lipBalmText = alreadyHasThreePack ? '' : ' + FREE Lip Balm valued at $12.95';
-                
-                upsellBanner.classList.remove('d-none');
-                upsellBanner.innerHTML = `
-                    <div class="pack-upsell-module">
-                        <div class="pack-upsell-inner">
-                            <div class="pack-upsell-content">
-                                <span class="pack-upsell-label">Best value:</span> Upgrade your ${opp.title}${flavorText} to a 3-pack and save $${opp.savingsPerUnit} per item${lipBalmText}
-                            </div>
-                            <button class="btn-pack-upsell" data-index="${opp.cartIndex}">Upgrade</button>
-                        </div>
-                    </div>
-                `;
-                
-                const upsellButton = upsellBanner.querySelector('.btn-pack-upsell');
-                if (upsellButton) {
-                    upsellButton.addEventListener('click', function() {
-                        handleUpsell(opp);
-                    });
-                }
-                return true;
-            }
-
-            function handleUpsell(opp) {
-                const hadThreePackBefore = cartHasThreePack();
-                cart[opp.cartIndex] = {
-                    ...opp.originalItem,
-                    priceId: opp.packPriceId,
-                    orderType: '3 pack (Buy 2 Get 1 Free)',
-                    unitPrice: opp.packPrice,
-                    eligibleForDiscount: false
-                };
-                localStorage.setItem('cartV2', JSON.stringify(cart));
-                const lipBalmMessage = hadThreePackBefore ? '' : ' + FREE Lip Balm!';
-                
-                upsellBanner.innerHTML = `
-                    <div class="upsell-success-message">
-                        <span class="success-icon">✅</span>
-                        <span><strong>Upgraded!</strong> Saving $${opp.savingsPerUnit}/jar${lipBalmMessage}</span>
-                    </div>
-                `;
-                updateCart();
-                setTimeout(() => { renderUpsellBanner(); }, 3000);
-            }
-
-            function renderShippingUpsell(subtotal) {
-                const amountToFreeShipping = freeShippingThreshold - subtotal;
-                
-                if (amountToFreeShipping <= 0 || cart.length === 0) {
-                    shippingUpsellModule.classList.add('d-none');
-                    return;
-                }
-                
-                if (amountToFreeShipping > 71.95) {
-                    shippingUpsellModule.classList.add('d-none');
-                    return;
-                }
-                
-                const actualProgress = (subtotal / freeShippingThreshold);
-                const progressPercent = 50 + (actualProgress * 50);
-                
-                let suggestedProduct = null;
-                let isThreePackSuggestion = false;
-                
-                if (amountToFreeShipping > 35) {
-                    for (const pack of threePackUpsellProducts) {
-                        if (amountToFreeShipping >= pack.minGap && amountToFreeShipping <= pack.maxGap) {
-                            suggestedProduct = pack;
-                            isThreePackSuggestion = true;
-                            break;
-                        }
-                    }
-                } else {
-                    for (const product of shippingUpsellProducts) {
-                        const productPrice = product.price[countryCode] || product.price.NZ;
-                        if (productPrice >= amountToFreeShipping && amountToFreeShipping <= product.maxGap) {
-                            suggestedProduct = product;
-                            break;
-                        }
-                    }
-                }
-                
-                if (!suggestedProduct) {
-                    shippingUpsellModule.classList.add('d-none');
-                    return;
-                }
-                
-                const productPrice = suggestedProduct.price[countryCode] || suggestedProduct.price.NZ;
-                
-                document.getElementById('shipping-progress-fill').style.width = progressPercent + '%';
-                document.getElementById('shipping-upsell-title').innerHTML = 
-                    `<strong>Almost there!</strong> Just $${amountToFreeShipping.toFixed(2)} from free shipping`;
-                
-                const effectivePrice = productPrice - shippingCost;
-                const discountPercent = Math.round((shippingCost / productPrice) * 100);
-                
-                let priceLine, pitchText;
-                
-                if (isThreePackSuggestion) {
-                    const alreadyHasThreePack = cartHasThreePack();
-                    priceLine = `$${productPrice.toFixed(2)}`;
-                    pitchText = alreadyHasThreePack 
-                        ? 'Best value - 3 jars of our bestselling balm'
-                        : suggestedProduct.description;
-                } else {
-                    priceLine = `$${productPrice.toFixed(2)} <span class="effective-price">(Effectively only $${effectivePrice.toFixed(2)} more after unlocking free shipping)</span>`;
-                    pitchText = suggestedProduct.description;
-                }
-                
-                document.getElementById('shipping-upsell-content').innerHTML = `
-                    <div class="shipping-product-details">
-                        <div class="shipping-product-name"><span class="recommended-label">Recommended:</span> ${suggestedProduct.name} — ${priceLine}</div>
-                        <div class="shipping-product-pitch">${pitchText}</div>
-                    </div>
-                    <button class="btn-shipping-upsell">Add</button>
-                `;
-                
-                shippingUpsellModule.classList.remove('d-none');
-                
-                const addButton = shippingUpsellModule.querySelector('.btn-shipping-upsell');
-                if (addButton) {
-                    addButton.addEventListener('click', function() {
-                        const priceId = suggestedProduct.addToCartData.priceId[countryCode] || suggestedProduct.addToCartData.priceId.NZ;
-                        const unitPrice = suggestedProduct.price[countryCode] || suggestedProduct.price.NZ;
-                        
-                        cart.push({
-                            title: suggestedProduct.addToCartData.title,
-                            flavor: suggestedProduct.addToCartData.flavor,
-                            size: suggestedProduct.addToCartData.size,
-                            orderType: suggestedProduct.addToCartData.orderType,
-                            priceId: priceId,
-                            unitPrice: unitPrice,
-                            quantity: 1,
-                            eligibleForDiscount: !isThreePackSuggestion
-                        });
-                        
-                        localStorage.setItem('cartV2', JSON.stringify(cart));
-                        updateCart();
-                    });
-                }
-            }
-
-            function updateCart() {
-                cartItemsContainer.innerHTML = '';
-                const hasThreePack = cartHasThreePack();
-                let subtotal = 0;
-                let upsellShown = false; // Only show one 3pk upsell
-
-                cart.forEach((item, index) => {
-                    const quantity = parseInt(item.quantity, 10);
-                    const unitPrice = parseFloat(item.unitPrice).toFixed(2);
-
-                    let priceSuffix = '';
-                    if (item.orderType && item.orderType.includes('Quarterly')) {
-                        priceSuffix = '<span class="price-suffix">/3mo</span>';
-                    } else if (item.orderType && item.orderType.includes('Monthly')) {
-                        priceSuffix = '<span class="price-suffix">/mo</span>';
-                    }
-
-                    const lineItemTotal = (unitPrice * quantity).toFixed(2);
-                    subtotal += parseFloat(lineItemTotal);
-
-                    const cartItem = document.createElement('div');
-                    cartItem.className = 'cart-item';
-
-                    if (item.orderTypeVal === 'three_pack') {
-                        const flavorList = item.flavors.map(f => f).join(', ');
-                        // Extract savings info from orderType (e.g., "3 pack (Buy 2 Get 1 Free)" or "3 pack (Save 25%)")
-                        let savingsText = 'Buy 2 Get 1 Free';
-                        if (item.orderType) {
-                            const match = item.orderType.match(/\(([^)]+)\)/);
-                            if (match) savingsText = match[1];
-                        }
-                        cartItem.innerHTML = `
-                            <div class="item-product">
-                                <div class="item-details">
-                                    <h3 class="item-title">${item.title || 'Unknown Product'} 3pk</h3>
-                                    <p class="item-meta"><span class="savings-text">${savingsText}</span> • 3 jars of ${flavorList} ${item.size}</p>
-                                </div>
-                            </div>
-                            <div class="item-price">$${unitPrice}${priceSuffix}</div>
-                            <div class="item-quantity">
-                                <button class="qty-btn qty-minus" data-index="${index}">−</button>
-                                <span class="qty-value">${quantity}</span>
-                                <button class="qty-btn qty-plus" data-index="${index}">+</button>
-                            </div>
-                            <div class="item-total">
-                                <span class="item-total-price">$${lineItemTotal}${priceSuffix}</span>
-                                <button class="remove-item" data-index="${index}">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
-                                    </svg>
-                                </button>
-                            </div>
-                        `;
-                    } else {
-                        // Check if this is a 3-pack for title/meta formatting
-                        const isItemThreePack = isThreePack(item);
-                        const titleSuffix = isItemThreePack ? ' 3pk' : '';
-                        
-                        let metaText;
-                        if (isItemThreePack) {
-                            // Extract savings info from orderType
-                            let savingsText = 'Buy 2 Get 1 Free';
-                            if (item.orderType) {
-                                const match = item.orderType.match(/\(([^)]+)\)/);
-                                if (match) savingsText = match[1];
-                            }
-                            metaText = `<span class="savings-text">${savingsText}</span> • 3 jars of ${item.flavor || ''} ${item.size || ''}`;
-                        } else {
-                            metaText = [item.flavor, item.size].filter(Boolean).join(' • ');
-                        }
-                        
-                        // Check for upsell opportunity on this item
-                        let upsellHtml = '';
-                        const orderTypeLower = (item.orderType || '').toLowerCase();
-                        const isSingle = orderTypeLower.includes('single');
-                        
-                        if (isSingle && !isItemThreePack && !upsellShown) {
-                            const product = detectProduct(item.title);
-                            if (product) {
-                                const flavor = mapFlavor(item.flavor, product);
-                                const size = cleanSize(item.size);
-                                const packPriceId = getPackPriceId(product, flavor, size, countryCode);
-                                const packPrice = getPackPrice(product, size, countryCode);
-                                
-                                if (packPriceId && packPrice) {
-                                    const currentPrice = parseFloat(item.unitPrice);
-                                    const totalSavings = (currentPrice * 3) - packPrice;
-                                    const savingsPerUnit = totalSavings / 3;
-                                    const alreadyHasThreePack = cartHasThreePack();
-                                    const lipBalmText = alreadyHasThreePack ? '' : ' + 🎁 FREE Lip Balm';
-                                    
-                                    upsellHtml = `
-                                        <div class="item-upsell">
-                                            <span class="upsell-text"><span class="upsell-label">3pk Value:</span> Save $${savingsPerUnit.toFixed(2)}/ea ($${totalSavings.toFixed(2)})${lipBalmText}</span>
-                                            <button class="btn-item-upsell" data-index="${index}" data-pack-price-id="${packPriceId}" data-pack-price="${packPrice}">Upgrade</button>
-                                        </div>
-                                    `;
-                                    upsellShown = true;
-                                }
-                            }
-                        }
-                        
-                        cartItem.innerHTML = `
-                            <div class="item-product">
-                                <div class="item-details">
-                                    <h3 class="item-title">${item.title || 'Unknown Product'}${titleSuffix}</h3>
-                                    <p class="item-meta">${metaText}</p>
-                                    ${upsellHtml}
-                                </div>
-                            </div>
-                            <div class="item-price">$${unitPrice}${priceSuffix}</div>
-                            <div class="item-quantity">
-                                <button class="qty-btn qty-minus" data-index="${index}">−</button>
-                                <span class="qty-value">${quantity}</span>
-                                <button class="qty-btn qty-plus" data-index="${index}">+</button>
-                            </div>
-                            <div class="item-total">
-                                <span class="item-total-price">$${lineItemTotal}${priceSuffix}</span>
-                                <button class="remove-item" data-index="${index}">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
-                                    </svg>
-                                </button>
-                            </div>
-                        `;
-                    }
-                    cartItemsContainer.appendChild(cartItem);
-                });
-
-                // Add free lip balm row if cart has a 3-pack
-                if (hasThreePack) {
-                    const freeGiftItem = document.createElement('div');
-                    freeGiftItem.className = 'cart-item free-gift-item';
-                    freeGiftItem.innerHTML = `
-                        <div class="item-product">
-                            <div class="item-details">
-                                <h3 class="item-title">Tallow Lip Balm Stick - Manuka <span class="free-gift-badge">FREE GIFT</span></h3>
-                                <p class="item-meta">One per order • Included with 3-pack</p>
-                            </div>
-                        </div>
-                        <div class="item-price"><s>$12.95</s></div>
-                        <div class="item-quantity"></div>
-                        <div class="item-total">
-                            <span class="free-gift-price">FREE</span>
-                        </div>
-                    `;
-                    cartItemsContainer.appendChild(freeGiftItem);
-                }
-
-                let totalCost = subtotal;
-                const shippingRow = document.getElementById('shipping-row');
-                const freeShippingRow = document.getElementById('free-shipping-row');
-                const shippingDisplay = document.getElementById('shipping-display');
-                
-                if (subtotal < freeShippingThreshold && cart.length > 0) {
-                    totalCost = subtotal + shippingCost;
-                    shippingRow.classList.remove('d-none');
-                    freeShippingRow.classList.add('d-none');
-                    shippingDisplay.textContent = '$' + shippingCost.toFixed(2);
-                } else {
-                    shippingRow.classList.add('d-none');
-                    if (cart.length > 0) {
-                        freeShippingRow.classList.remove('d-none');
-                    } else {
-                        freeShippingRow.classList.add('d-none');
-                    }
-                }
-
-                let totalPriceSuffix = '';
-                if (cart.some(item => item.orderType && item.orderType.includes('Quarterly'))) {
-                    totalPriceSuffix = '<span class="price-suffix">/3mo</span>';
-                } else if (cart.some(item => item.orderType && item.orderType.includes('Monthly'))) {
-                    totalPriceSuffix = '<span class="price-suffix">/mo</span>';
-                }
-                
-                subtotalCostElement.innerHTML = `$${subtotal.toFixed(2)}${totalPriceSuffix}`;
-                totalCostElement.innerHTML = `$${totalCost.toFixed(2)}${totalPriceSuffix}`;
-                proceedToCheckoutButton.disabled = cart.length === 0;
-
-                const cartContainer = document.querySelector('.cartcontainerall');
-                const cartEmptyDiv = document.querySelector('#cartempty');
-                
-                if (cart.length === 0) {
-                    if (cartContainer) cartContainer.classList.add('d-none');
-                    if (cartEmptyDiv) cartEmptyDiv.classList.remove('d-none');
-                } else {
-                    if (cartContainer) cartContainer.classList.remove('d-none');
-                    if (cartEmptyDiv) cartEmptyDiv.classList.add('d-none');
-                }
-
-                // Only show shipping upsell if not at free shipping threshold
-                renderShippingUpsell(subtotal);
-
-                document.querySelectorAll('.qty-minus').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const index = this.getAttribute('data-index');
-                        if (cart[index].quantity > 1) {
-                            cart[index].quantity = parseInt(cart[index].quantity, 10) - 1;
-                            localStorage.setItem('cartV2', JSON.stringify(cart));
-                            updateCart();
-                        }
-                    });
-                });
-
-                document.querySelectorAll('.qty-plus').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const index = this.getAttribute('data-index');
-                        cart[index].quantity = parseInt(cart[index].quantity, 10) + 1;
-                        localStorage.setItem('cartV2', JSON.stringify(cart));
-                        updateCart();
-                    });
-                });
-
-                document.querySelectorAll('.remove-item').forEach(button => {
-                    button.addEventListener('click', function () {
-                        const index = this.getAttribute('data-index');
-                        cart.splice(index, 1);
-                        localStorage.setItem('cartV2', JSON.stringify(cart));
-                        updateCart();
-                    });
-                });
-
-                // Handle inline upsell buttons
-                document.querySelectorAll('.btn-item-upsell').forEach(button => {
-                    button.addEventListener('click', function () {
-                        const index = parseInt(this.getAttribute('data-index'));
-                        const packPriceId = this.getAttribute('data-pack-price-id');
-                        const packPrice = parseFloat(this.getAttribute('data-pack-price'));
-                        
-                        // Update the cart item to 3-pack
-                        cart[index] = {
-                            ...cart[index],
-                            priceId: packPriceId,
-                            orderType: '3 pack (Buy 2 Get 1 Free)',
-                            unitPrice: packPrice,
-                            eligibleForDiscount: false
-                        };
-                        
-                        localStorage.setItem('cartV2', JSON.stringify(cart));
-                        updateCart();
-                    });
-                });
-            }
-
-            window.addEventListener('storage', function () {
-                cart = JSON.parse(localStorage.getItem('cartV2')) || [];
-                updateCart();
+<!-- Tab switching script -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var tabs = document.querySelectorAll('.faq-nav-tab');
+        tabs.forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                document.querySelector('.faq-nav-tab.active').classList.remove('active');
+                tab.classList.add('active');
+                var tabContent = document.querySelector('.faq-tab-content .tab-pane.show.active');
+                tabContent.classList.remove('show', 'active');
+                var target = tab.getAttribute('href');
+                document.querySelector(target).classList.add('show', 'active');
             });
+        });
+    });
+</script>
 
-            updateCart();
+<!-- Pricing Data -->
+<script>
+    const productPricingRaw = {{ site.Data.pricing.tallow.pricing.balm | jsonify | safeJS }};
+    const country_code = getCountryCookie('country_code') || "NZ";
+    const rawData = "{{ .Site.Data.pricing | jsonify }}";
+    const pricingData = JSON.parse(rawData);
 
-            proceedToCheckoutButton.addEventListener('click', function () {
-                handleCheckout(cart);
+    // Pricing lookup
+    const pricing = {
+        '60ml': { 
+            single: 18.95, 
+            single_sub_monthly: 15.16,
+            single_sub_quarterly: 16.58,
+            pack: 36.95,
+            pack_sub_monthly: 29.56,
+            pack_sub_quarterly: 32.33
+        },
+        '120ml': { 
+            single: 24.95,
+            single_sub_monthly: 19.96,
+            single_sub_quarterly: 21.83,
+            pack: 47.95,
+            pack_sub_monthly: 38.36,
+            pack_sub_quarterly: 41.96
+        }
+    };
+
+    // State
+    let state = {
+        unitType: 'single',
+        size: '120ml',
+        scent: 'vanilla-rose',
+        packScent: 'trio-v-f-l',
+        quantity: 1,
+        isSubscription: false,
+        frequency: 'monthly'
+    };
+
+    function getPrice() {
+        const p = pricing[state.size];
+        if (state.unitType === 'single') {
+            if (!state.isSubscription) return p.single;
+            if (state.frequency === 'monthly') return p.single_sub_monthly;
+            return p.single_sub_quarterly;
+        } else {
+            if (!state.isSubscription) return p.pack;
+            if (state.frequency === 'monthly') return p.pack_sub_monthly;
+            return p.pack_sub_quarterly;
+        }
+    }
+
+    function getSizePrice(sizeOption) {
+        const p = pricing[sizeOption];
+        if (state.unitType === 'single') {
+            if (!state.isSubscription) return p.single;
+            if (state.frequency === 'monthly') return p.single_sub_monthly;
+            return p.single_sub_quarterly;
+        } else {
+            if (!state.isSubscription) return p.pack;
+            if (state.frequency === 'monthly') return p.pack_sub_monthly;
+            return p.pack_sub_quarterly;
+        }
+    }
+
+    function getOneTimePrice() {
+        const p = pricing[state.size];
+        return state.unitType === 'single' ? p.single : p.pack;
+    }
+
+    function updateUI() {
+        const price = getPrice();
+        const oneTimePrice = getOneTimePrice();
+        
+        // Update main price
+        document.getElementById('price').textContent = '$' + price.toFixed(2);
+        
+        // Update price suffix and compare
+        const suffix = document.getElementById('price-suffix');
+        const compare = document.getElementById('price-compare');
+        
+        if (state.isSubscription) {
+            suffix.textContent = state.frequency === 'monthly' ? '/mo' : '/3mo';
+            suffix.style.display = 'inline';
+            compare.textContent = '$' + oneTimePrice.toFixed(2);
+            compare.style.display = 'inline';
+        } else if (state.unitType === 'pack') {
+            suffix.style.display = 'none';
+            compare.textContent = '$' + (pricing[state.size].single * 3).toFixed(2);
+            compare.style.display = 'inline';
+        } else {
+            suffix.style.display = 'none';
+            compare.style.display = 'none';
+        }
+        
+        // Update badges
+        const badges = document.getElementById('price-badges');
+        let badgeHTML = '';
+        if (state.unitType === 'pack' && !state.isSubscription) {
+            badgeHTML += '<span class="badge-pink-solid">35% OFF + FREE GIFT</span>';
+        } else if (state.unitType === 'pack' && state.isSubscription) {
+            badgeHTML += '<span class="badge-pink-solid">35% OFF</span>';
+        }
+        if (state.isSubscription) {
+            badgeHTML += '<span class="badge-green">20% OFF</span>';
+        }
+        badges.innerHTML = badgeHTML;
+        
+        // Update size prices
+        document.getElementById('price-120ml').textContent = '$' + getSizePrice('120ml').toFixed(2);
+        document.getElementById('price-60ml').textContent = '$' + getSizePrice('60ml').toFixed(2);
+        
+        // Update afterpay
+        const afterpayLine = document.getElementById('afterpay-line');
+        if (state.isSubscription) {
+            afterpayLine.style.display = 'none';
+        } else {
+            afterpayLine.style.display = 'block';
+            document.getElementById('afterpay_price').textContent = (price / 4).toFixed(2);
+        }
+        
+        // Update savings amount
+        const savings = (oneTimePrice - (state.frequency === 'monthly' ? 
+            (state.unitType === 'single' ? pricing[state.size].single_sub_monthly : pricing[state.size].pack_sub_monthly) :
+            (state.unitType === 'single' ? pricing[state.size].single_sub_quarterly : pricing[state.size].pack_sub_quarterly)
+        )).toFixed(2);
+        document.getElementById('savings-amount').textContent = '$' + savings;
+        
+        // Update pack badge
+        document.getElementById('pack-badge').textContent = state.isSubscription ? '-35%' : '-35% +GIFT';
+        
+        // Update scent rows
+        document.getElementById('scent-single-row').style.display = state.unitType === 'single' ? 'flex' : 'none';
+        document.getElementById('scent-pack-row').style.display = state.unitType === 'pack' ? 'flex' : 'none';
+        
+        // Update subscribe box
+        const subBox = document.getElementById('subscribe-box');
+        const freqBtns = document.getElementById('frequency-buttons');
+        if (state.isSubscription) {
+            subBox.classList.add('active');
+            freqBtns.classList.add('show');
+        } else {
+            subBox.classList.remove('active');
+            freqBtns.classList.remove('show');
+        }
+        
+        // Update button text
+        const btn = document.getElementById('add-to-cart-btn');
+        if (state.isSubscription) {
+            btn.textContent = 'Subscribe — $' + price.toFixed(2) + (state.frequency === 'monthly' ? '/mo' : '/3mo');
+        } else {
+            btn.textContent = 'Add To Cart';
+        }
+        
+        // Update shipping text
+        const shipText = document.getElementById('shipping-text');
+        if (state.isSubscription) {
+            shipText.textContent = '🚚 FREE Shipping • Cancel anytime';
+        } else {
+            shipText.textContent = '🚚 Speedy Shipping NZ Wide | Money back guarantee';
+        }
+        
+        // Sync hidden inputs
+        document.getElementById('single_purchase').checked = state.unitType === 'single' && !state.isSubscription;
+        document.getElementById('three_pack').checked = state.unitType === 'pack' && !state.isSubscription;
+        document.getElementById('recurring_monthly').checked = state.isSubscription && state.frequency === 'monthly';
+        document.getElementById('recurring_quarterly').checked = state.isSubscription && state.frequency === 'quarterly';
+        document.getElementById('size60ml').checked = state.size === '60ml';
+        document.getElementById('size120ml').checked = state.size === '120ml';
+        document.getElementById('vanilla-rose').checked = state.scent === 'vanilla-rose';
+        document.getElementById('lavender').checked = state.scent === 'lavender';
+        document.getElementById('frankincense').checked = state.scent === 'frankincense';
+        document.getElementById('neutral').checked = state.scent === 'neutral';
+        document.getElementById('pack-flavor-hidden').value = state.packScent;
+        
+        // Trigger original price ID update
+        if (typeof updatePriceId === 'function') {
+            updatePriceId();
+        }
+    }
+
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+        // Unit type buttons
+        document.getElementById('btn-single').addEventListener('click', function() {
+            state.unitType = 'single';
+            document.getElementById('btn-single').classList.add('active');
+            document.getElementById('btn-pack').classList.remove('active');
+            updateUI();
+        });
+        document.getElementById('btn-pack').addEventListener('click', function() {
+            state.unitType = 'pack';
+            document.getElementById('btn-pack').classList.add('active');
+            document.getElementById('btn-single').classList.remove('active');
+            updateUI();
+        });
+        
+        // Size buttons
+        document.getElementById('btn-120ml').addEventListener('click', function() {
+            state.size = '120ml';
+            document.getElementById('btn-120ml').classList.add('active');
+            document.getElementById('btn-60ml').classList.remove('active');
+            updateUI();
+        });
+        document.getElementById('btn-60ml').addEventListener('click', function() {
+            state.size = '60ml';
+            document.getElementById('btn-60ml').classList.add('active');
+            document.getElementById('btn-120ml').classList.remove('active');
+            updateUI();
+        });
+        
+        // Scent buttons
+        ['vanilla', 'lavender', 'frank', 'natural'].forEach(function(s) {
+            document.getElementById('btn-' + s).addEventListener('click', function() {
+                const value = this.getAttribute('data-value');
+                state.scent = value;
+                document.querySelectorAll('#scent-single-row .product-radio-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                updateUI();
             });
-
-            function handleCheckout(cart) {
-                cart = cart.map(item => {
-                    return { ...item, quantity: parseInt(item.quantity, 10) };
-                });
-
-                fetch('/.netlify/functions/create-checkout-session', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ cart, countryCode }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.sessionId) {
-                        localStorage.setItem('previouscart', JSON.stringify(cart));
-                        stripe.redirectToCheckout({ sessionId: data.sessionId });
-                    } else {
-                        alert('Failed to create checkout session. Please try again.');
-                    }
-                })
-                .catch(() => {
-                    alert('Failed to create checkout session. Please try again.');
-                });
+        });
+        
+        // Pack scent select
+        document.getElementById('pack-scent-select').addEventListener('change', function() {
+            state.packScent = this.value;
+            updateUI();
+        });
+        
+        // Quantity
+        document.getElementById('qty-increase').addEventListener('click', function() {
+            state.quantity++;
+            document.getElementById('qty-display').textContent = state.quantity;
+            document.getElementById('quantityAll').value = state.quantity;
+        });
+        document.getElementById('qty-decrease').addEventListener('click', function() {
+            if (state.quantity > 1) {
+                state.quantity--;
+                document.getElementById('qty-display').textContent = state.quantity;
+                document.getElementById('quantityAll').value = state.quantity;
             }
         });
-    </script>
-    
-    <style>
-        :root {
-            --cream: #FAF7F2;
-            --warm-brown: #8B7355;
-            --deep-brown: #4A3728;
-            --sage: #9CAF88;
-            --sage-dark: #7A9168;
-            --charcoal: #2D2A26;
-            --soft-white: #FFFFFF;
-            --border-light: rgba(139, 115, 85, 0.15);
-        }
-
-        .cart-page-wrapper {
-            background: var(--cream);
-            min-height: 80vh;
-            font-family: 'DM Sans', sans-serif;
-        }
-
-        .cart-page-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.75rem;
-            font-weight: 400;
-            color: var(--deep-brown);
-            margin-bottom: 16px;
-        }
-
-        .cart-layout {
-            display: grid;
-            grid-template-columns: 1fr 340px;
-            gap: 32px;
-        }
-
-        /* Cart Items */
-        .cart-items-container {
-            background: var(--soft-white);
-            border: 1px solid var(--border-light);
-            border-radius: 6px;
-        }
-
-        .cart-item {
-            display: grid;
-            grid-template-columns: 2fr 80px 100px 100px;
-            padding: 14px 18px;
-            border-bottom: 1px solid var(--border-light);
-            align-items: center;
-            gap: 12px;
-        }
-
-        .cart-item:last-child { border-bottom: none; }
-
-        .item-product {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .item-details { flex: 1; }
-
-        .item-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.55rem;
-            font-weight: 500;
-            color: var(--deep-brown);
-            margin: 0 0 4px 0;
-        }
-
-        .item-meta {
-            font-size: 1.2rem;
-            color: var(--warm-brown);
-            margin: 0;
-        }
-
-        .savings-text {
-            color: var(--sage-dark);
-            font-weight: 600;
-        }
-
-        .item-price {
-            font-weight: 500;
-            color: var(--charcoal);
-            font-size: 1.35rem;
-        }
-
-        .item-quantity {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            justify-content: center;
-        }
-
-        .qty-btn {
-            width: 24px;
-            height: 24px;
-            border: 1px solid var(--border-light);
-            background: var(--soft-white);
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            color: var(--charcoal);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .qty-btn:hover {
-            border-color: var(--sage);
-            color: var(--sage-dark);
-        }
-
-        .qty-value {
-            min-width: 20px;
-            text-align: center;
-            font-weight: 500;
-            font-size: 0.85rem;
-        }
-
-        .item-total {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-        }
-
-        .item-total-price {
-            font-weight: 600;
-            color: var(--charcoal);
-            font-size: 1.4rem;
-        }
-
-        .remove-item {
-            background: none;
-            border: none;
-            color: var(--warm-brown);
-            cursor: pointer;
-            opacity: 0.5;
-            padding: 2px;
-        }
-
-        .remove-item:hover {
-            opacity: 1;
-            color: #c44;
-        }
-
-        /* Free Gift Row */
-        .free-gift-item {
-            background: rgba(156, 175, 136, 0.08);
-        }
-
-        .free-gift-badge {
-            display: inline-block;
-            font-size: 0.65rem;
-            font-weight: 600;
-            color: var(--sage-dark);
-            background: rgba(156, 175, 136, 0.25);
-            padding: 3px 8px;
-            border-radius: 3px;
-            margin-left: 8px;
-            vertical-align: middle;
-            letter-spacing: 0.03em;
-        }
-
-        .free-gift-price {
-            color: var(--sage-dark);
-            font-weight: 600;
-        }
-
-        /* Inline Item Upsell */
-        .item-upsell {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 6px;
-            padding: 6px 10px;
-            background: rgba(156, 175, 136, 0.1);
-            border-radius: 4px;
-            flex-wrap: wrap;
-        }
-
-        .upsell-text {
-            font-size: 1.1rem;
-            color: var(--charcoal);
-            flex: 1;
-        }
-
-        .upsell-label {
-            font-weight: 600;
-            color: var(--sage-dark);
-        }
-
-        .btn-item-upsell {
-            background: var(--sage);
-            color: var(--soft-white);
-            border: none;
-            padding: 8px 16px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            border-radius: 4px;
-            white-space: nowrap;
-        }
-
-        .btn-item-upsell:hover {
-            background: var(--sage-dark);
-        }
-
-        /* 3-Pack Upsell */
-        .pack-upsell-module {
-            background: linear-gradient(135deg, #F5EFE6 0%, #EDE5D8 100%);
-            border-radius: 6px;
-            margin-top: 10px;
-            border: 1px solid var(--border-light);
-        }
-
-        .pack-upsell-inner {
-            padding: 12px 14px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .pack-upsell-content {
-            flex: 1;
-            font-size: 0.85rem;
-            color: var(--charcoal);
-            line-height: 1.4;
-        }
-
-        .pack-upsell-label {
-            font-weight: 600;
-            color: var(--sage-dark);
-        }
-
-        .btn-pack-upsell {
-            background: var(--sage);
-            color: var(--soft-white);
-            border: none;
-            padding: 8px 14px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            cursor: pointer;
-            border-radius: 4px;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-
-        .btn-pack-upsell:hover { background: var(--sage-dark); }
-
-        .upsell-success-message {
-            background: rgba(156, 175, 136, 0.15);
-            border: 1px solid var(--sage);
-            border-radius: 6px;
-            padding: 10px 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 10px;
-            font-size: 0.8rem;
-        }
-
-        .success-icon { font-size: 1rem; }
-
-        /* Shipping Upsell */
-        .shipping-upsell-module {
-            background: linear-gradient(135deg, #F5EFE6 0%, #EDE5D8 100%);
-            border-radius: 6px;
-            overflow: hidden;
-            margin-top: 10px;
-        }
-
-        .shipping-progress-bar {
-            height: 4px;
-            background: #DDD5C8;
-        }
-
-        .shipping-progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--sage) 0%, var(--sage-dark) 100%);
-            width: 0%;
-            transition: width 0.4s ease;
-        }
-
-        .shipping-upsell-inner {
-            padding: 10px 14px;
-        }
-
-        .shipping-upsell-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--deep-brown);
-            margin-bottom: 8px;
-        }
-
-        .shipping-upsell-content {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .shipping-product-details { flex: 1; }
-
-        .shipping-product-name {
-            font-size: 1.15rem;
-            color: var(--deep-brown);
-            margin-bottom: 2px;
-        }
-
-        .recommended-label {
-            font-weight: 600;
-            color: var(--sage-dark);
-        }
-
-        .shipping-product-price {
-            font-weight: 600;
-            color: var(--charcoal);
-        }
-
-        .effective-price {
-            font-weight: 500;
-            color: var(--sage-dark);
-            font-size: 1.1rem;
-        }
-
-        .shipping-product-pitch {
-            font-size: 1.05rem;
-            color: var(--warm-brown);
-        }
-
-        .btn-shipping-upsell {
-            background: var(--sage);
-            color: var(--soft-white);
-            border: none;
-            padding: 8px 16px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            border-radius: 4px;
-            white-space: nowrap;
-        }
-
-        .btn-shipping-upsell:hover { background: var(--sage-dark); }
-
-        /* Order Summary */
-        .cart-summary-column {
-            position: sticky;
-            top: 100px;
-            align-self: start;
-        }
-
-        .summary-box {
-            background: var(--soft-white);
-            border-radius: 6px;
-            border: 1px solid var(--border-light);
-            padding: 20px;
-        }
-
-        .summary-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: var(--deep-brown);
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 0.85rem;
-            color: var(--charcoal);
-        }
-
-        .summary-row.d-none { display: none !important; }
-
-        .free-shipping-text {
-            color: var(--sage-dark);
-            font-weight: 600;
-        }
-
-        .total-row {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-top: 16px;
-            padding-top: 16px;
-            border-top: 1px solid var(--border-light);
-        }
-
-        .checkout-btn {
-            width: 100%;
-            background: var(--charcoal);
-            color: var(--soft-white);
-            border: none;
-            padding: 14px 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            cursor: pointer;
-            border-radius: 4px;
-            margin-top: 16px;
-        }
-
-        .checkout-btn:hover:not(:disabled) { background: var(--deep-brown); }
-        .checkout-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-        .trust-signals {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            margin-top: 14px;
-            padding-top: 14px;
-            border-top: 1px solid var(--border-light);
-        }
-
-        .trust-item {
-            font-size: 0.7rem;
-            color: var(--warm-brown);
-        }
-
-        .trust-item-separator {
-            font-size: 0.7rem;
-            color: var(--warm-brown);
-            opacity: 0.5;
-        }
-
-        .payment-icons {
-            display: flex;
-            justify-content: center;
-            margin-top: 12px;
-        }
-
-        .payment-icons .badges {
-            max-width: 100%;
-            height: auto;
-        }
-
-        /* Empty Cart */
-        .empty-cart-container {
-            min-height: 60vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .empty-cart-container.d-none { display: none !important; }
-
-        .empty-cart-content { text-align: center; }
-
-        .empty-cart-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.6rem;
-            color: var(--deep-brown);
-            margin-bottom: 20px;
-        }
-
-        .btn-continue-shopping {
-            display: inline-block;
-            background: var(--charcoal);
-            color: var(--soft-white);
-            padding: 12px 24px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            border-radius: 4px;
-            text-decoration: none;
-        }
-
-        .btn-continue-shopping:hover {
-            background: var(--deep-brown);
-            color: var(--soft-white);
-            text-decoration: none;
-        }
-
-        .price-suffix {
-            font-size: 0.75em;
-            color: var(--warm-brown);
-        }
-
-        /* Responsive */
-        @media (max-width: 900px) {
-            .cart-layout {
-                grid-template-columns: 1fr;
-                gap: 20px;
+        
+        // Subscribe checkbox
+        document.getElementById('subscribe-check').addEventListener('change', function() {
+            state.isSubscription = this.checked;
+            updateUI();
+        });
+        
+        // Frequency buttons
+        document.getElementById('btn-monthly').addEventListener('click', function() {
+            state.frequency = 'monthly';
+            document.getElementById('btn-monthly').classList.add('active');
+            document.getElementById('btn-quarterly').classList.remove('active');
+            updateUI();
+        });
+        document.getElementById('btn-quarterly').addEventListener('click', function() {
+            state.frequency = 'quarterly';
+            document.getElementById('btn-quarterly').classList.add('active');
+            document.getElementById('btn-monthly').classList.remove('active');
+            updateUI();
+        });
+        
+        // Initial UI update
+        updateUI();
+    });
+</script>
+
+<!-- Original pricing scripts for cart compatibility -->
+<script>
+    function updatePriceId() {
+        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase();
+        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
+
+        try {
+            let priceId;
+            if (orderType === 'single_purchase') {
+                const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+                priceId = pricingData.tallow.ids.balm.single[flavor][size][country_code];
+            } else if (orderType === 'recurring_monthly') {
+                const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+                priceId = pricingData.tallow.ids.balm.monthly[flavor][size][country_code];
+            } else if (orderType === 'recurring_quarterly') {
+                const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+                priceId = pricingData.tallow.ids.balm.quarterly[flavor][size][country_code];
+            } else if (orderType === 'three_pack') {
+                const flavor = document.getElementById('pack-scent-select').value.trim().toLowerCase();
+                priceId = pricingData.tallow.ids.balm.pack[flavor][size][country_code];
             }
 
-            .cart-summary-column { position: static; }
-
-            .cart-item {
-                grid-template-columns: 1fr auto;
-                grid-template-rows: auto auto;
-                gap: 6px 12px;
+            const buyNowButton = document.querySelector(".buy-now");
+            if (buyNowButton) {
+                buyNowButton.setAttribute("data-price-id", priceId || "");
             }
+        } catch (error) {
+            console.error('Error fetching Price ID:', error);
+        }
+    }
+</script>
 
-            .item-product { grid-column: 1 / -1; }
-            .item-price { display: none; }
-            .item-quantity { justify-content: flex-start; }
-            .item-total { justify-content: flex-end; }
+<!-- Add to Cart Handler -->
+<script>
+    function handleAddToCart(event) {
+        event.preventDefault();
+        const button = event.target;
+        
+        const selectedSize = document.querySelector('input[name="size"]:checked');
+        const size = document.querySelector(`label[for="${selectedSize.id}"]`) ? 
+            document.querySelector(`label[for="${selectedSize.id}"]`).textContent.trim() : 
+            selectedSize.value;
 
-            .pack-upsell-inner {
-                flex-direction: column;
-                text-align: center;
-                gap: 8px;
-            }
-
-            .btn-pack-upsell { width: 100%; }
-
-            .shipping-upsell-content {
-                flex-direction: column;
-                text-align: center;
-                gap: 8px;
-            }
-
-            .btn-shipping-upsell { width: 100%; }
+        let flavor;
+        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
+        
+        if (orderType === 'single_purchase' || orderType === 'recurring_monthly' || orderType === 'recurring_quarterly') {
+            const selectedFlavor = document.querySelector('input[name="flavor"]:checked');
+            flavor = selectedFlavor.value;
+        } else if (orderType === 'three_pack') {
+            flavor = document.getElementById('pack-scent-select').selectedOptions[0].text.trim();
         }
 
-        @media (max-width: 480px) {
-            .item-title { font-size: 1.4rem; }
-            .item-meta { font-size: 1.05rem; }
-            .item-total-price { font-size: 1.25rem; }
-            .upsell-text { font-size: 1rem; }
-            .btn-item-upsell { font-size: 0.9rem; }
-            .shipping-upsell-title { font-size: 1rem; }
-            .shipping-product-name { font-size: 1rem; }
-            .summary-box { padding: 16px; }
+        const unitPrice = parseFloat(document.getElementById('price').textContent.replace('$', '').trim()) || 0;
+        const priceId = button.getAttribute('data-price-id') || 'N/A';
+        const title = document.querySelector('h1').innerText;
+        const quantity = parseInt(document.getElementById('quantityAll').value, 10) || 1;
+
+        if (!priceId || priceId === 'N/A') {
+            alert('Please select valid options before adding to cart.');
+            return;
         }
-    </style>
+
+        const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+        cart.push({
+            priceId,
+            title,
+            size: state.size,
+            flavor,
+            orderType: state.isSubscription ? (state.frequency === 'monthly' ? 'Subscribe Monthly' : 'Subscribe Quarterly') : (state.unitType === 'pack' ? '3 pack' : 'Single jar'),
+            quantity,
+            unitPrice,
+            eligibleForDiscount: false,
+            isSubscription: state.isSubscription,
+            subscriptionInterval: state.isSubscription ? state.frequency : null
+        });
+        localStorage.setItem('cartV2', JSON.stringify(cart));
+
+        const modal = document.getElementById('addedToCartModal');
+        if (modal) {
+            $('#addedToCartModal').modal('show');
+        } else {
+            alert('Item added to cart successfully!');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const addToCartButton = document.querySelector('.buy-now');
+        if (addToCartButton) {
+            addToCartButton.addEventListener('click', handleAddToCart);
+        }
+    });
+</script>
+
+<!-- Modal for Add to Cart Confirmation -->
+<div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Your item has been successfully added to the cart. What would you like to do next?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
+                <a href="/cart" class="btn btn-black">Go to Cart</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+{{- partial "footer.html" . }}
+
 </body>
 </html>
