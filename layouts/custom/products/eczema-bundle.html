@@ -372,7 +372,7 @@
                                     <img src="/img/radio/balm/3.webp" alt="">
                                     3-Pack
                                 </span>
-                                <span class="btn-sub"><span class="highlight" id="pack-badge">-35% +GIFT</span></span>
+                                <span class="btn-sub"><span class="highlight" id="pack-badge">-20% +GIFT</span></span>
                             </button>
                         </div>
                     </div>
@@ -463,15 +463,15 @@
                             <input type="checkbox" class="subscribe-checkbox" id="subscribe-check">
                             <div style="flex:1">
                                 <span style="font-weight:600;color:#333;font-size:15px">Subscribe & Save <span id="savings-amount">$4.99</span></span>
-                                <span class="badge-green">20% OFF + FREE SHIP</span>
+                                <span class="badge-green">UP TO 15% OFF + FREE SHIP</span>
                             </div>
                         </label>
                         <div class="frequency-buttons" id="frequency-buttons">
                             <button type="button" class="frequency-btn active" data-value="monthly" id="btn-monthly">
-                                Monthly <span>(-20%)</span>
+                                Monthly <span>(-15%)</span>
                             </button>
                             <button type="button" class="frequency-btn" data-value="quarterly" id="btn-quarterly">
-                                3 months <span>(-12.5%)</span>
+                                3 months <span>(-5%)</span>
                             </button>
                         </div>
                     </div>
@@ -612,22 +612,26 @@
     const pricingData = JSON.parse(rawData);
 
     // Pricing lookup
+    // Single: $18.95 (60ml), $24.95 (120ml)
+    // 3-Pack: 20% off = $45.48 (60ml 3x), $59.88 (120ml 3x) 
+    // Subscribe monthly: +15% off
+    // Subscribe quarterly: +5% off
     const pricing = {
         '60ml': { 
-            single: 18.95, 
-            single_sub_monthly: 15.16,
-            single_sub_quarterly: 16.58,
-            pack: 36.95,
-            pack_sub_monthly: 29.56,
-            pack_sub_quarterly: 32.33
+            single: 18.95,
+            single_sub_monthly: 16.11,      // 15% off single
+            single_sub_quarterly: 18.00,    // 5% off single
+            pack: 45.48,                    // 20% off (3 x 18.95 x 0.8)
+            pack_sub_monthly: 38.66,        // 20% + 15% off
+            pack_sub_quarterly: 43.21       // 20% + 5% off
         },
         '120ml': { 
             single: 24.95,
-            single_sub_monthly: 19.96,
-            single_sub_quarterly: 21.83,
-            pack: 47.95,
-            pack_sub_monthly: 38.36,
-            pack_sub_quarterly: 41.96
+            single_sub_monthly: 21.21,      // 15% off single
+            single_sub_quarterly: 23.70,    // 5% off single
+            pack: 59.88,                    // 20% off (3 x 24.95 x 0.8)
+            pack_sub_monthly: 50.90,        // 20% + 15% off
+            pack_sub_quarterly: 56.89       // 20% + 5% off
         }
     };
 
@@ -702,12 +706,13 @@
         const badges = document.getElementById('price-badges');
         let badgeHTML = '';
         if (state.unitType === 'pack' && !state.isSubscription) {
-            badgeHTML += '<span class="badge-pink-solid">35% OFF + FREE GIFT</span>';
+            badgeHTML += '<span class="badge-pink-solid">20% OFF + FREE GIFT</span>';
         } else if (state.unitType === 'pack' && state.isSubscription) {
-            badgeHTML += '<span class="badge-pink-solid">35% OFF</span>';
+            badgeHTML += '<span class="badge-pink-solid">20% OFF</span>';
         }
         if (state.isSubscription) {
-            badgeHTML += '<span class="badge-green">20% OFF</span>';
+            const subDiscount = state.frequency === 'monthly' ? '15%' : '5%';
+            badgeHTML += '<span class="badge-green">+' + subDiscount + ' OFF</span>';
         }
         badges.innerHTML = badgeHTML;
         
@@ -732,7 +737,7 @@
         document.getElementById('savings-amount').textContent = '$' + savings;
         
         // Update pack badge
-        document.getElementById('pack-badge').textContent = state.isSubscription ? '-35%' : '-35% +GIFT';
+        document.getElementById('pack-badge').textContent = state.isSubscription ? '-20%' : '-20% +GIFT';
         
         // Update scent rows
         document.getElementById('scent-single-row').style.display = state.unitType === 'single' ? 'flex' : 'none';
@@ -752,7 +757,8 @@
         // Update button text
         const btn = document.getElementById('add-to-cart-btn');
         if (state.isSubscription) {
-            btn.textContent = 'Subscribe — $' + price.toFixed(2) + (state.frequency === 'monthly' ? '/mo' : '/3mo');
+            const freqLabel = state.frequency === 'monthly' ? '/mo' : '/3mo';
+            btn.textContent = 'Subscribe — $' + price.toFixed(2) + freqLabel;
         } else {
             btn.textContent = 'Add To Cart';
         }
