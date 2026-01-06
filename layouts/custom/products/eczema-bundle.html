@@ -13,6 +13,16 @@
     <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
+        /* Product subtitle */
+        .product-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            color: #666;
+            margin: 0;
+            font-style: italic;
+            font-weight: 300;
+        }
+        
         /* New Product Form Styles */
         .product-form-row {
             display: flex;
@@ -45,10 +55,21 @@
             font-weight: 400;
             color: #666;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 2px;
             transition: all 0.15s ease;
+        }
+        .product-radio-btn .btn-main {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .product-radio-btn .btn-sub {
+            font-size: 10px;
+            color: #E91E8C;
+            font-weight: 600;
         }
         .product-radio-btn.active {
             background-color: white;
@@ -58,6 +79,10 @@
         }
         .product-radio-btn img {
             height: 22px;
+        }
+        .product-radio-btn.scent-btn {
+            flex-direction: row;
+            padding: 10px 8px;
         }
         .badge-pink {
             color: #E91E8C;
@@ -263,11 +288,14 @@
         <div class="col-12 col-lg-6">
             <p class="fw-bold mt-2"><img class="stars pe-2" src="/img/stars/5.webp" alt="">Used by 20000+ kiwis.</p>
             
-            <!-- Title + Price Row -->
-            <div class="product-header-row">
+            <!-- Title on its own line -->
+            <h1 class="fw-bold mt-2 mb-0">Whipped Tallow Balm</h1>
+            
+            <!-- Subtitle + Price Row -->
+            <div class="d-flex justify-content-between align-items-start mb-2">
                 <div>
-                    <h1 class="fw-bold mt-2">Whipped Tallow Balm</h1>
-                    <p class="product-subtitle">Naturally Perfect Skin ~ By PrimalCare</p>
+                    <p class="product-subtitle mb-0">Naturally Perfect Skin</p>
+                    <p class="text-muted mb-0" style="font-size: 14px;">PrimalCare</p>
                 </div>
                 <div style="text-align: right;">
                     <div class="price-display-new">
@@ -331,12 +359,17 @@
                         <span class="product-form-label">Unit</span>
                         <div class="product-radio-group">
                             <button type="button" class="product-radio-btn active" data-value="single" id="btn-single">
-                                <img src="/img/radio/balm/1.webp" alt="">
-                                Single jar
+                                <span class="btn-main">
+                                    <img src="/img/radio/balm/1.webp" alt="">
+                                    Single jar
+                                </span>
                             </button>
                             <button type="button" class="product-radio-btn" data-value="pack" id="btn-pack">
-                                <img src="/img/radio/balm/3.webp" alt="">
-                                3-Pack <span class="badge-pink" id="pack-badge">-35% +GIFT</span>
+                                <span class="btn-main">
+                                    <img src="/img/radio/balm/3.webp" alt="">
+                                    3-Pack
+                                </span>
+                                <span class="btn-sub" id="pack-badge">-35% +GIFT</span>
                             </button>
                         </div>
                     </div>
@@ -346,13 +379,17 @@
                         <span class="product-form-label">Size</span>
                         <div class="product-radio-group">
                             <button type="button" class="product-radio-btn active" data-value="120ml" id="btn-120ml">
-                                <img src="/img/radio/balm/175.webp" alt="">
-                                120ml <span style="color:#888;font-size:11px" id="price-120ml">$24.95</span>
-                                <span class="badge-pink">best value</span>
+                                <span class="btn-main">
+                                    <img src="/img/radio/balm/175.webp" alt="">
+                                    120ml <span style="color:#888;font-size:11px" id="price-120ml">$24.95</span>
+                                </span>
+                                <span class="btn-sub">best value</span>
                             </button>
                             <button type="button" class="product-radio-btn" data-value="60ml" id="btn-60ml">
-                                <img src="/img/radio/balm/1.webp" alt="" style="height:18px">
-                                60ml <span style="color:#888;font-size:11px" id="price-60ml">$18.95</span>
+                                <span class="btn-main">
+                                    <img src="/img/radio/balm/1.webp" alt="" style="height:18px">
+                                    60ml <span style="color:#888;font-size:11px" id="price-60ml">$18.95</span>
+                                </span>
                             </button>
                         </div>
                     </div>
@@ -361,10 +398,10 @@
                     <div class="product-form-row" id="scent-single-row">
                         <span class="product-form-label">Scent</span>
                         <div class="product-radio-group">
-                            <button type="button" class="product-radio-btn active" data-value="vanilla-rose" id="btn-vanilla">Vanilla rose</button>
-                            <button type="button" class="product-radio-btn" data-value="lavender" id="btn-lavender">Lavender</button>
-                            <button type="button" class="product-radio-btn" data-value="frankincense" id="btn-frank">Frankincense</button>
-                            <button type="button" class="product-radio-btn" data-value="neutral" id="btn-natural">Natural</button>
+                            <button type="button" class="product-radio-btn scent-btn active" data-value="vanilla-rose" id="btn-vanilla">Vanilla rose</button>
+                            <button type="button" class="product-radio-btn scent-btn" data-value="lavender" id="btn-lavender">Lavender</button>
+                            <button type="button" class="product-radio-btn scent-btn" data-value="frankincense" id="btn-frank">Frankincense</button>
+                            <button type="button" class="product-radio-btn scent-btn" data-value="neutral" id="btn-natural">Natural</button>
                         </div>
                     </div>
 
