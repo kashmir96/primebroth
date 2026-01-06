@@ -46,7 +46,7 @@
         }
         .product-radio-btn {
             flex: 1;
-            padding: 10px 12px;
+            padding: 8px 12px;
             border: none;
             border-radius: 6px;
             background-color: transparent;
@@ -58,7 +58,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 2px;
+            gap: 0px;
             transition: all 0.15s ease;
         }
         .product-radio-btn .btn-main {
@@ -68,6 +68,11 @@
         }
         .product-radio-btn .btn-sub {
             font-size: 10px;
+            color: #888;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+        .product-radio-btn .btn-sub .highlight {
             color: #E91E8C;
             font-weight: 600;
         }
@@ -369,27 +374,7 @@
                                     <img src="/img/radio/balm/3.webp" alt="">
                                     3-Pack
                                 </span>
-                                <span class="btn-sub" id="pack-badge">-35% +GIFT</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Size -->
-                    <div class="product-form-row">
-                        <span class="product-form-label">Size</span>
-                        <div class="product-radio-group">
-                            <button type="button" class="product-radio-btn active" data-value="120ml" id="btn-120ml">
-                                <span class="btn-main">
-                                    <img src="/img/radio/balm/175.webp" alt="">
-                                    120ml <span style="color:#888;font-size:11px" id="price-120ml">$24.95</span>
-                                </span>
-                                <span class="btn-sub">best value</span>
-                            </button>
-                            <button type="button" class="product-radio-btn" data-value="60ml" id="btn-60ml">
-                                <span class="btn-main">
-                                    <img src="/img/radio/balm/1.webp" alt="" style="height:18px">
-                                    60ml <span style="color:#888;font-size:11px" id="price-60ml">$18.95</span>
-                                </span>
+                                <span class="btn-sub"><span class="highlight" id="pack-badge">-35% +GIFT</span></span>
                             </button>
                         </div>
                     </div>
@@ -436,6 +421,27 @@
                                 <option value="trio-n-n-n">Natural ×3</option>
                             </optgroup>
                         </select>
+                    </div>
+
+                    <!-- Size -->
+                    <div class="product-form-row">
+                        <span class="product-form-label">Size</span>
+                        <div class="product-radio-group">
+                            <button type="button" class="product-radio-btn active" data-value="120ml" id="btn-120ml">
+                                <span class="btn-main">
+                                    <img src="/img/radio/balm/175.webp" alt="">
+                                    120ml
+                                </span>
+                                <span class="btn-sub"><span id="price-120ml">$24.95</span> <span class="highlight">· best value</span></span>
+                            </button>
+                            <button type="button" class="product-radio-btn" data-value="60ml" id="btn-60ml">
+                                <span class="btn-main">
+                                    <img src="/img/radio/balm/1.webp" alt="" style="height:18px">
+                                    60ml
+                                </span>
+                                <span class="btn-sub" id="price-60ml">$18.95</span>
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Quantity -->
