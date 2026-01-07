@@ -89,17 +89,15 @@
             flex-direction: row;
             padding: 10px 8px;
         }
+        @media (max-width: 390px) {
+            .product-radio-btn.scent-btn {
+                font-size: 11px;
+                padding: 8px 4px;
+            }
+        }
         .badge-pink {
             color: #E91E8C;
             font-size: 10px;
-            font-weight: 600;
-        }
-        .badge-green {
-            background-color: #4CAF50;
-            color: white;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 11px;
             font-weight: 600;
         }
         .badge-pink-solid {
@@ -163,57 +161,6 @@
             font-weight: 600;
             font-size: 13px;
         }
-        .subscribe-box {
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 14px;
-            margin-bottom: 16px;
-            background-color: white;
-            transition: all 0.2s ease;
-        }
-        .subscribe-box.active {
-            border: 2px solid #4CAF50;
-            background-color: rgba(76,175,80,0.03);
-        }
-        .subscribe-checkbox {
-            width: 20px;
-            height: 20px;
-            accent-color: #4CAF50;
-        }
-        .subscribe-label {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-        }
-        .frequency-buttons {
-            display: none;
-            gap: 8px;
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid #eee;
-        }
-        .frequency-buttons.show {
-            display: flex;
-        }
-        .frequency-btn {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            background-color: white;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 500;
-            text-align: center;
-        }
-        .frequency-btn.active {
-            border: 2px solid #4CAF50;
-            background-color: rgba(76,175,80,0.08);
-        }
-        .frequency-btn span {
-            color: #4CAF50;
-        }
         .price-display-new {
             display: flex;
             align-items: baseline;
@@ -224,10 +171,6 @@
             font-size: 28px;
             font-weight: 700;
             color: #2D2A26;
-        }
-        .price-suffix {
-            font-size: 14px;
-            color: #888;
         }
         .price-compare {
             font-size: 14px;
@@ -306,7 +249,6 @@
             <div class="mb-2">
                 <div class="price-display-new" style="justify-content: flex-start;">
                     <span class="price-main" id="price">$24.95</span>
-                    <span class="price-suffix" id="price-suffix" style="display:none">/mo</span>
                     <span class="price-compare" id="price-compare" style="display:none">$24.95</span>
                 </div>
                 <div class="price-badges" id="price-badges" style="justify-content: flex-start;">
@@ -323,8 +265,6 @@
                 <!-- Hidden original inputs for compatibility -->
                 <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked style="display:none">
                 <input type="radio" id="three_pack" name="orderType" value="three_pack" style="display:none">
-                <input type="radio" id="recurring_monthly" name="orderType" value="recurring_monthly" style="display:none">
-                <input type="radio" id="recurring_quarterly" name="orderType" value="recurring_quarterly" style="display:none">
                 <input type="radio" id="vanilla-rose" name="flavor" value="vanilla-rose" checked style="display:none">
                 <input type="radio" id="lavender" name="flavor" value="lavender" style="display:none">
                 <input type="radio" id="frankincense" name="flavor" value="frankincense" style="display:none">
@@ -372,7 +312,7 @@
                                     <img src="/img/radio/balm/3.webp" alt="">
                                     3-Pack
                                 </span>
-                                <span class="btn-sub"><span class="highlight" id="pack-badge">-35% +GIFT</span></span>
+                                <span class="btn-sub"><span class="highlight">-35% +GIFT</span></span>
                             </button>
                         </div>
                     </div>
@@ -454,25 +394,6 @@
                         <div class="stock-indicator">
                             <span class="stock-dot"></span>
                             <span class="stock-text">In Stock</span>
-                        </div>
-                    </div>
-
-                    <!-- Subscribe Box -->
-                    <div class="subscribe-box" id="subscribe-box">
-                        <label class="subscribe-label">
-                            <input type="checkbox" class="subscribe-checkbox" id="subscribe-check">
-                            <div style="flex:1">
-                                <span style="font-weight:600;color:#333;font-size:15px">Subscribe & Save <span id="savings-amount">$4.99</span></span>
-                                <span class="badge-green">20% OFF + FREE SHIP</span>
-                            </div>
-                        </label>
-                        <div class="frequency-buttons" id="frequency-buttons">
-                            <button type="button" class="frequency-btn active" data-value="monthly" id="btn-monthly">
-                                Monthly <span>(-20%)</span>
-                            </button>
-                            <button type="button" class="frequency-btn" data-value="quarterly" id="btn-quarterly">
-                                3 months <span>(-12.5%)</span>
-                            </button>
                         </div>
                     </div>
 
@@ -611,23 +532,15 @@
     const rawData = "{{ .Site.Data.pricing | jsonify }}";
     const pricingData = JSON.parse(rawData);
 
-    // Pricing lookup
+    // Pricing lookup (one-time purchases only)
     const pricing = {
         '60ml': { 
             single: 18.95, 
-            single_sub_monthly: 15.16,
-            single_sub_quarterly: 16.58,
-            pack: 36.95,
-            pack_sub_monthly: 29.56,
-            pack_sub_quarterly: 32.33
+            pack: 36.95
         },
         '120ml': { 
             single: 24.95,
-            single_sub_monthly: 19.96,
-            single_sub_quarterly: 21.83,
-            pack: 47.95,
-            pack_sub_monthly: 38.36,
-            pack_sub_quarterly: 41.96
+            pack: 47.95
         }
     };
 
@@ -637,139 +550,56 @@
         size: '120ml',
         scent: 'vanilla-rose',
         packScent: 'trio-v-f-l',
-        quantity: 1,
-        isSubscription: false,
-        frequency: 'monthly'
+        quantity: 1
     };
 
     function getPrice() {
         const p = pricing[state.size];
-        if (state.unitType === 'single') {
-            if (!state.isSubscription) return p.single;
-            if (state.frequency === 'monthly') return p.single_sub_monthly;
-            return p.single_sub_quarterly;
-        } else {
-            if (!state.isSubscription) return p.pack;
-            if (state.frequency === 'monthly') return p.pack_sub_monthly;
-            return p.pack_sub_quarterly;
-        }
+        return state.unitType === 'single' ? p.single : p.pack;
     }
 
     function getSizePrice(sizeOption) {
         const p = pricing[sizeOption];
-        if (state.unitType === 'single') {
-            if (!state.isSubscription) return p.single;
-            if (state.frequency === 'monthly') return p.single_sub_monthly;
-            return p.single_sub_quarterly;
-        } else {
-            if (!state.isSubscription) return p.pack;
-            if (state.frequency === 'monthly') return p.pack_sub_monthly;
-            return p.pack_sub_quarterly;
-        }
-    }
-
-    function getOneTimePrice() {
-        const p = pricing[state.size];
         return state.unitType === 'single' ? p.single : p.pack;
     }
 
     function updateUI() {
         const price = getPrice();
-        const oneTimePrice = getOneTimePrice();
         
         // Update main price
         document.getElementById('price').textContent = '$' + price.toFixed(2);
         
-        // Update price suffix and compare
-        const suffix = document.getElementById('price-suffix');
+        // Update price compare (only for pack)
         const compare = document.getElementById('price-compare');
-        
-        if (state.isSubscription) {
-            suffix.textContent = state.frequency === 'monthly' ? '/mo' : '/3mo';
-            suffix.style.display = 'inline';
-            compare.textContent = '$' + oneTimePrice.toFixed(2);
-            compare.style.display = 'inline';
-        } else if (state.unitType === 'pack') {
-            suffix.style.display = 'none';
+        if (state.unitType === 'pack') {
             compare.textContent = '$' + (pricing[state.size].single * 3).toFixed(2);
             compare.style.display = 'inline';
         } else {
-            suffix.style.display = 'none';
             compare.style.display = 'none';
         }
         
         // Update badges
         const badges = document.getElementById('price-badges');
-        let badgeHTML = '';
-        if (state.unitType === 'pack' && !state.isSubscription) {
-            badgeHTML += '<span class="badge-pink-solid">35% OFF + FREE GIFT</span>';
-        } else if (state.unitType === 'pack' && state.isSubscription) {
-            badgeHTML += '<span class="badge-pink-solid">35% OFF</span>';
+        if (state.unitType === 'pack') {
+            badges.innerHTML = '<span class="badge-pink-solid">35% OFF + FREE GIFT</span>';
+        } else {
+            badges.innerHTML = '';
         }
-        if (state.isSubscription) {
-            badgeHTML += '<span class="badge-green">20% OFF</span>';
-        }
-        badges.innerHTML = badgeHTML;
         
         // Update size prices
         document.getElementById('price-120ml').textContent = '$' + getSizePrice('120ml').toFixed(2);
         document.getElementById('price-60ml').textContent = '$' + getSizePrice('60ml').toFixed(2);
         
         // Update afterpay
-        const afterpayLine = document.getElementById('afterpay-line');
-        if (state.isSubscription) {
-            afterpayLine.style.display = 'none';
-        } else {
-            afterpayLine.style.display = 'block';
-            document.getElementById('afterpay_price').textContent = (price / 4).toFixed(2);
-        }
-        
-        // Update savings amount
-        const savings = (oneTimePrice - (state.frequency === 'monthly' ? 
-            (state.unitType === 'single' ? pricing[state.size].single_sub_monthly : pricing[state.size].pack_sub_monthly) :
-            (state.unitType === 'single' ? pricing[state.size].single_sub_quarterly : pricing[state.size].pack_sub_quarterly)
-        )).toFixed(2);
-        document.getElementById('savings-amount').textContent = '$' + savings;
-        
-        // Update pack badge
-        document.getElementById('pack-badge').textContent = state.isSubscription ? '-35%' : '-35% +GIFT';
+        document.getElementById('afterpay_price').textContent = (price / 4).toFixed(2);
         
         // Update scent rows
         document.getElementById('scent-single-row').style.display = state.unitType === 'single' ? 'flex' : 'none';
         document.getElementById('scent-pack-row').style.display = state.unitType === 'pack' ? 'flex' : 'none';
         
-        // Update subscribe box
-        const subBox = document.getElementById('subscribe-box');
-        const freqBtns = document.getElementById('frequency-buttons');
-        if (state.isSubscription) {
-            subBox.classList.add('active');
-            freqBtns.classList.add('show');
-        } else {
-            subBox.classList.remove('active');
-            freqBtns.classList.remove('show');
-        }
-        
-        // Update button text
-        const btn = document.getElementById('add-to-cart-btn');
-        if (state.isSubscription) {
-            btn.textContent = 'Subscribe — $' + price.toFixed(2) + (state.frequency === 'monthly' ? '/mo' : '/3mo');
-        } else {
-            btn.textContent = 'Add To Cart';
-        }
-        
-        // Update shipping text
-        const shipText = document.getElementById('shipping-text');
-        if (state.isSubscription) {
-            shipText.textContent = '🚚 FREE Shipping • Cancel anytime';
-        } else {
-            shipText.textContent = '🚚 Speedy Shipping NZ Wide | Money back guarantee';
-        }
-        
         // Sync hidden inputs
-        document.getElementById('single_purchase').checked = state.unitType === 'single' && !state.isSubscription;
-        document.getElementById('three_pack').checked = state.unitType === 'pack' && !state.isSubscription;
-        document.getElementById('recurring_monthly').checked = state.isSubscription && state.frequency === 'monthly';
-        document.getElementById('recurring_quarterly').checked = state.isSubscription && state.frequency === 'quarterly';
+        document.getElementById('single_purchase').checked = state.unitType === 'single';
+        document.getElementById('three_pack').checked = state.unitType === 'pack';
         document.getElementById('size60ml').checked = state.size === '60ml';
         document.getElementById('size120ml').checked = state.size === '120ml';
         document.getElementById('vanilla-rose').checked = state.scent === 'vanilla-rose';
@@ -845,26 +675,6 @@
             }
         });
         
-        // Subscribe checkbox
-        document.getElementById('subscribe-check').addEventListener('change', function() {
-            state.isSubscription = this.checked;
-            updateUI();
-        });
-        
-        // Frequency buttons
-        document.getElementById('btn-monthly').addEventListener('click', function() {
-            state.frequency = 'monthly';
-            document.getElementById('btn-monthly').classList.add('active');
-            document.getElementById('btn-quarterly').classList.remove('active');
-            updateUI();
-        });
-        document.getElementById('btn-quarterly').addEventListener('click', function() {
-            state.frequency = 'quarterly';
-            document.getElementById('btn-quarterly').classList.add('active');
-            document.getElementById('btn-monthly').classList.remove('active');
-            updateUI();
-        });
-        
         // Initial UI update
         updateUI();
     });
@@ -881,12 +691,6 @@
             if (orderType === 'single_purchase') {
                 const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
                 priceId = pricingData.tallow.ids.balm.single[flavor][size][country_code];
-            } else if (orderType === 'recurring_monthly') {
-                const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
-                priceId = pricingData.tallow.ids.balm.monthly[flavor][size][country_code];
-            } else if (orderType === 'recurring_quarterly') {
-                const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
-                priceId = pricingData.tallow.ids.balm.quarterly[flavor][size][country_code];
             } else if (orderType === 'three_pack') {
                 const flavor = document.getElementById('pack-scent-select').value.trim().toLowerCase();
                 priceId = pricingData.tallow.ids.balm.pack[flavor][size][country_code];
@@ -916,7 +720,7 @@
         let flavor;
         const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
         
-        if (orderType === 'single_purchase' || orderType === 'recurring_monthly' || orderType === 'recurring_quarterly') {
+        if (orderType === 'single_purchase') {
             const selectedFlavor = document.querySelector('input[name="flavor"]:checked');
             flavor = selectedFlavor.value;
         } else if (orderType === 'three_pack') {
@@ -939,12 +743,12 @@
             title,
             size: state.size,
             flavor,
-            orderType: state.isSubscription ? (state.frequency === 'monthly' ? 'Subscribe Monthly' : 'Subscribe Quarterly') : (state.unitType === 'pack' ? '3 pack' : 'Single jar'),
+            orderType: state.unitType === 'pack' ? '3 pack' : 'Single jar',
             quantity,
             unitPrice,
             eligibleForDiscount: false,
-            isSubscription: state.isSubscription,
-            subscriptionInterval: state.isSubscription ? state.frequency : null
+            isSubscription: false,
+            subscriptionInterval: null
         });
         localStorage.setItem('cartV2', JSON.stringify(cart));
 
