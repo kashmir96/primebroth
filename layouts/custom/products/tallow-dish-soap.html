@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{- partial "head.html" . -}}
+    <meta name="description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta property="og:title" content="{{ .Site.Params.homepage_meta_tags.meta_og_title }}" />
+    <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
+    <meta property="og:url" content="{{ .Site.Params.homepage_meta_tags.meta_og_url }}" />
+    <meta property="og:image" content="{{ .Site.Params.homepage_meta_tags.meta_og_image }}" />
+    <meta property="og:description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
+    <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
+    <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- <script src="https://js.stripe.com/v3/"></script> Stripe script -->
+</head>
+<body>
+<style>
+.custom-radio.out-of-stock input[type="radio"]:checked + .custom-radio-label::before {
+    background-color: red;
+}
+
+.custom-radio.in-stock input[type="radio"]:checked + .custom-radio-label::before {
+    background-color: green;
+}
+
+.custom-radio-label {
+    color: inherit; /* Uses parent color for easy updates */
+}
+</style>
+{{- partial "alert.html" . -}}
+    {{- partial "header_new.html" . -}}
+    
+    <div class="container product-page">
+        <div class="row topbanner rel">
+            <p class="text-dark col-12 ninety mt-1"><a href="/shop" class="text-dark text-decoration-underline">Shop</a> > Tallow Eye Cream</p>
+            <div class="col-12 col-lg-6 product-photos mb-3">
+                {{- partial "tallow-eye-images.html" . -}}
+            </div>
+            <div class="col-12 col-lg-6">
+                <p class="fw-bold mt-2"><img class="stars pe-2" src="/img/stars/5.webp" alt="">Used by 8000+ kiwis. <br>Online Only! - Not in Stores</p>
+                <h1 class="fw-bold mt-2">Tallow Eye Cream </h1>
+                <h2 class="fw-lighter h1 h1big">Sensitive safe anti-aging</h2>
+                <p class="graytxt fw-bold">From <span class="fst-italic" style="color: rgb(177, 152, 9)">PrimalCare Gold Edition</span></p>
+                <p class="fw-lighter">Fade fine lines, and brighten beneath your eyes naturally</span></p>
+ 
+                
+    <!-- YAML FORM STARTS -->
+
+<!-- Product Form Options with Bootstrap Styling -->
+                <div class="price-display fw-bold">
+                    <p class="mb-2"><span id="price">-</span></p>   
+                    <p class="fw-lighter">or 4 interest free payments of $<span id="afterpay_price"></span> with <img src="/img/afterpay.webp" class="d-inline" height="28" alt="afterpay"></p>            
+                </div>
+                <form id="productForm" class="form-group mb-4" autocomplete="off">
+                    <div class="text-left mb-3 mb-lg-4">
+                        <label class="mob-ninety">Select unit type:</label>
+                    
+                        <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
+                        <label for="single_purchase" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/balm/1.webp" alt="single jar">Single jar</label>
+
+                         <input type="radio" id="three_pack" name="orderType" value="three_pack">
+                        <label for="three_pack" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/balm/3.webp" alt="3 pack jar">3 pack <span class="attention-primalcare small"> (Save 33% + GIFT)</span></label>
+                    
+                        <!-- Uncomment to enable subscription options -->
+                        <!-- 
+                        <input type="radio" id="recurring_monthly" name="orderType" value="recurring_monthly">
+                        <label for="recurring_monthly" class="product-form-radio">Subscribe Monthly (save 20%)</label>
+                    
+                        <input type="radio" id="recurring_quarterly" name="orderType" value="recurring_quarterly">
+                        <label for="recurring_quarterly" class="product-form-radio">Subscribe Quarterly (save 12.5%)</label>
+                        -->
+                    </div>
+                  
+                    <div class="text-left mb-3 mb-lg-4" id="single_unit_fragnance">
+                        <label class="mob-ninety">Select scent:</label>
+                    
+                       
+                        
+                        <input type="radio" id="manukahoney_vitc" name="flavor" value="manukahoney_vitc" checked>
+                        <label for="manukahoney_vitc" class="product-form-radio">Manuka Honey & Vitamin C</label>
+                        <!--
+                        <input type="radio" id="frankincense" name="flavor" value="frankincense" >
+                        <label for="frankincense" class="product-form-radio">Frankincense</label>
+
+                        <input type="radio" id="neutral" name="flavor" value="neutral">
+                        <label for="neutral" class="product-form-radio">Natural</label> -->
+                    </div> 
+                    <div class="text-left  mb-3 mb-lg-4">
+                        <label class="float-left mob-ninety mr-2 mt-2">Select size:</label>
+                      <div class="product-form-radio">
+                            <input type="radio" id="size10ml" name="size" value="10ml" checked>
+                            <label for="size10ml" class="product-form-radio float-left"><img class="prod-radio-img" src="/img/radio/balm/1.webp" alt="balm">15ml</label>
+                        </div>
+
+                    </div>
+                    
+
+                    <!-- Quantity Selector -->
+                    <div class="form-group mb-3 mb-lg-4">
+                        <div class="mt-4 custom-radio float-end">
+                            <input type="radio" id="inStock" name="stockStatus" checked>
+                            <label class="custom-radio-label mb-0" for="inStock">In Stock</label>
+                        </div>
+                        <label for="quantityAll" class="form-label">Quantity of units:</label>
+                        <div class="quantity-container">
+                            <button type="button" class="btn-decrease">-</button>
+                            <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+                            <button type="button" class="btn-increase">+</button>
+                        </div>
+                    </div>
+                    <!-- Add to Cart Button -->
+                    <div class="add-to-cart text-center mb-4">
+                        <button type="button" class="btn btn-black btn-lg buy-now mb-2" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
+                        <p>Speedy Shipping NZ Wide | Money back guarantee</p>
+                        <img class="badges middle" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
+
+                    </div>
+
+                </form>
+
+    <!-- YAML FORM ENDS -->
+
+
+            </div>
+        </div>
+        <div class="row mt-4 py-0  d-flex  justify-content-center">
+            <div class="col-12 col-md-6 text-center">
+                <div class="col-12 text-center">
+                    <h2>As Featured on</h2>
+                    <div class="col-12 d-none d-md-block">
+                        <img src="/img/shop/desktop-product-logos.webp" class="img-fluid">
+                    </div>
+                    <div class="col-12 d-block d-md-none">
+                        <img src="/img/shop/mobile-logos.webp" class="img-fluid">
+                    </div>
+                </div>
+                <!-- <div class="row mt-4 mb-0 py-0">
+                    <h2>Delivering life changing results time and time again</h2>
+                    <div class="col-12">
+                        <img src="/img/shop/before-after.webp" alt="eczema">
+                    </div>
+                 
+                    <p>With oils closely mimicking those produced by our bodies, our tallow <span class="attention-primalcare">soothes dry and irritated skin</span></p>
+                </div> -->
+            </div>
+            <div class="faq-tab-container col-12 col-md-6">
+                <!-- Nav tabs -->
+                <div class="faq-nav-tabs">
+                    <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Fast facts</div>
+                    <div class="faq-nav-tab" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</div>
+                    <div class="faq-nav-tab" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</div>
+                    <div class="faq-nav-tab" id="directions-tab" data-toggle="tab" href="#directions" role="tab" aria-controls="directions" aria-selected="false">Directions</div>
+                    <div class="faq-nav-tab" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</div>
+                </div>
+
+                <!-- Tab panes -->
+                <div class="tab-content faq-tab-content">
+            <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">        
+                <p>Don’t waste another dollar on expensive moisturisers and serums that don’t work and are filled with chemical nasties!</p>
+                <p>Watch as our eyecream seeps into your skin and works to hydrate, brighten and smooth your undereye area for a well rested, youthful look.
+                </p>    
+            </div>
+            <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                <h4>See what our customers say online</h4>
+                <img class="eighty middle" src="/img/prod/balm/balmreviews.webp" alt="reviews">
+            </div>
+            <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
+                    <h4> Ingredients</h4>
+                    <ul>
+                        <li>Grass fed tallow</li>
+                        <li>
+                            Manuka honey 
+                        </li>
+                        <li>Borage seed oil </li>
+                        <li>Vitamin e </li>
+                        <li>Calendula infused oil </li>
+                        <li>Vitamin C</li>
+                    </ul> 
+            
+                        <div class="row text-center">
+                            <div class="col-6">
+                                <h5 class="fw-bold">Grass fed tallow</h5>
+                                <p>We use high grade grass-fed suet, which we wet render and filter 6 times.</p>
+                            </div>
+                            <div class="col-6">
+                              <h5 class="fw-bold">Manuka honey</h5>
+                                <p>It is highly beneficial for skin due to its natural antibacterial and anti-inflammatory properties, which help soothe irritation 
+</p>
+                            </div>
+                            <div class="col-6">
+                               <h5 class="fw-bold">Borage seed oil</h5>
+                                <p>Borage seed oil is rich in gamma-linolenic acid (GLA), making it excellent for soothing inflammation, restoring moisture, and supporting the skin’s natural barrier—especially beneficial for dry or eczema-prone skin.
+</p>    
+                            </div>
+                            <div class="col-6">
+                             <h5 class="fw-bold">Vitamin E</h5>
+                                <p>Vitamin E is a powerful antioxidant that helps protect the skin from free radical damage, supports healing, and deeply nourishes to improve skin texture and hydration.</p>
+                            </div>
+                            <div class="col-6">
+                             <h5 class="fw-bold">Calendula-infused oil</h5>
+                                <p>Calendula-infused oil is known for its soothing and anti-inflammatory properties, helping to calm irritated skin, promote healing, and reduce redness and dryness.
+</p>
+                            </div>
+                            <div class="col-6"><h5 class="fw-bold">Vitamin C</h5><p> Vitamin C helps brighten skin and reduce hyperpigmentation. 
+</p></div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
+                        <h4>Directions</h4>
+                        <p>use a small amount and rub on the undereye area before bed. 
+</p>
+                    </div>
+
+                    <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
+                        <h4>Shipping</h4>
+                        <p><strong>Processing time:</strong> Your order will be processed within 3 business days after which you can expect usual courier times to your area (generally 3-5 business days) </p>
+                        <p><strong>Shipping rates:</strong> We usually charge between $4.95 and $6.95 for shipping. You can view the shipping costs at the checkout before completing your purchase.</p>
+                        <p><strong>International shipping:</strong> Currently, we only offer shipping within New Zealand. We apologize for any inconvenience this may cause.</p>
+                        <p>If you have any questions or concerns regarding shipping, please don't hesitate to <a href="/contact/">contact us</a>.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+        {{- partial "irritation-routine.html" . -}}
+
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var tabs = document.querySelectorAll('.faq-nav-tab');
+            tabs.forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    document.querySelector('.faq-nav-tab.active').classList.remove('active');
+                    tab.classList.add('active');
+                    var tabContent = document.querySelector('.faq-tab-content .tab-pane.show.active');
+                    tabContent.classList.remove('show', 'active');
+                    var target = tab.getAttribute('href');
+                    document.querySelector(target).classList.add('show', 'active');
+                });
+            });
+        });
+    </script>
+    <script>
+        const productPricingRaw = {{ site.Data.pricing.tallow.pricing.eyecream | jsonify | safeJS }};
+        console.log("Raw product Pricing from Hugo:", productPricingRaw);
+        const country_code = getCountryCookie('country_code') || "NZ";
+
+        const productPricing = Array.isArray(productPricingRaw) ? productPricingRaw : [];
+        if (!Array.isArray(productPricing)) {
+            console.error("productPricing is not an array. Ensure your YAML structure and Hugo data access.");
+        } else {
+            console.log("Parsed product Pricing:", productPricing);
+        }
+
+         function updatePrice() {
+        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
+        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
+
+        console.log("Selected size:", size);
+        console.log("Selected order type:", orderType);
+
+        const pricingEntry = productPricing.find(entry => entry.size.toLowerCase() === size);
+        if (pricingEntry && pricingEntry.prices[country_code][orderType]) {
+            const price = pricingEntry.prices[country_code][orderType];
+            document.getElementById("price").textContent = `$${price.toFixed(2)}`;
+            document.getElementById("afterpay_price").textContent = `${(price/4).toFixed(2)}`;
+        } else {
+            document.getElementById("price").textContent = "N/A";
+            document.getElementById("afterpay_price").textContent = "N/A";
+        }
+    }
+
+
+
+        // Attach event listener for changes
+        document.getElementById("productForm").addEventListener("change", updatePrice);
+
+        // Initialize the price on page load
+        document.addEventListener("DOMContentLoaded", updatePrice);
+    </script>
+
+
+    <script>
+        // Function to update the price ID display
+        function updatePriceID() {
+        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
+        const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
+        
+
+
+        // Default value for price ID
+        let priceID = "N/A";
+
+        // Debug: Check the loaded data and selected values
+        console.log("Loaded Data:", productPricingRaw);
+        console.log("Selected - Size:", size, "Flavor:", flavor, "Order Type:", orderType);
+
+        // Traverse the pricing structure for the selected combination
+        if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.eyecream) {
+            const balmData = productPricingRaw.ids.eyecream;
+            console.log("balm Data:", balmData);
+
+            const orderTypeData = balmData[orderType];
+            console.log("Order Type Data:", orderTypeData);
+
+            if (orderTypeData && orderTypeData[flavor]) {
+                const flavorData = orderTypeData[flavor];
+                console.log("Flavor Data:", flavorData);
+
+                const sizeData = flavorData[size];
+                console.log("Size Data:", sizeData);
+
+                if (sizeData) {
+                    priceID = sizeData[country_code]; // Assign the resolved price ID
+                }
+            }
+        }
+
+        // Update the DOM element with the resolved price ID
+        document.getElementById("price-id").textContent = priceID !== "N/A" ? priceID : "Price ID Not Available";
+
+        // Log final result
+        console.log("Resolved Price ID:", priceID);
+
+    };
+    </script>
+    <script>
+        // Parse the JSON string into an object
+        const rawData = "{{ .Site.Data.pricing | jsonify }}"; // Embedded JSON string from Hugo
+        const pricingData = JSON.parse(rawData); // Parse into a JavaScript object
+        console.log('Parsed Pricing Data:', pricingData); // Debugging output
+
+        function updatePriceId() {
+        // Get the selected values
+        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
+        const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
+      
+        try {
+            let priceId;
+
+            // Access the correct price ID based on the order type
+            if (orderType === 'single_purchase') {
+                priceId = pricingData.tallow.ids.eyecream.single[flavor][size][country_code];
+            } else if (orderType === 'recurring_monthly') {
+                priceId = pricingData.tallow.ids.eyecream.monthly[flavor][size][country_code];
+            } else if (orderType === 'recurring_quarterly') {
+                priceId = pricingData.tallow.ids.eyecream.quarterly[flavor][size][country_code];
+            } else if (orderType === 'three_pack') {
+                priceId = pricingData.tallow.ids.eyecream.pack[flavor][size][country_code];
+            }
+
+            console.log('Price ID:', priceId);
+
+            // Update the DOM element with the resolved price ID, if it exists
+            const priceIdElement = document.getElementById('price-id');
+            if (priceIdElement) {
+                priceIdElement.textContent = priceId || 'Price ID not found';
+            }
+
+            // Update the button's data-price-id attribute
+            const buyNowButton = document.querySelector(".buy-now");
+            if (buyNowButton) {
+                buyNowButton.setAttribute("data-price-id", priceId || "");
+                console.log('Button updated with Price ID:', priceId);
+            }
+        } catch (error) {
+            console.error('Error fetching Price ID:', error);
+
+            // Clear the button's data-price-id attribute on error
+            const buyNowButton = document.querySelector(".buy-now");
+            if (buyNowButton) {
+                buyNowButton.setAttribute("data-price-id", "");
+            }
+        }
+    }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add event listener for form changes
+            document.getElementById('productForm').addEventListener('change', updatePriceId);
+
+            // Trigger the update function on page load
+            updatePriceId();
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        // Convert the ids structure to a simplified format
+        function preprocessproductData(rawData) {
+            const simplified = {};
+
+            // Iterate over balm (or pets, if needed)
+            if (rawData.ids && rawData.ids.balm) {
+                const categories = rawData.ids.balm;
+
+                for (const [orderType, flavors] of Object.entries(categories)) {
+                    for (const [flavor, sizes] of Object.entries(flavors)) {
+                        for (const [size, priceId] of Object.entries(sizes)) {
+                            if (!simplified[size]) {
+                                simplified[size] = {};
+                            }
+                            if (!simplified[size][flavor]) {
+                                simplified[size][flavor] = {};
+                            }
+                            simplified[size][flavor][orderType] = priceId;
+                        }
+                    }
+                }
+            }
+            return simplified;
+        }
+
+        // Example: Assume productPricingRaw is available globally or passed here
+        const normalizedproductData = preprocessproductData(productPricingRaw);
+        console.log('Normalized product Data:', normalizedproductData);
+
+        // Use normalizedproductData for price ID lookups
+        function getPriceID(size, flavor, orderType) {
+            return (
+                normalizedproductData[size]?.[flavor]?.[orderType] ||
+                "Price ID not found"
+            );
+        }
+
+    });
+
+    </script>
+
+
+    <script>
+        // Add to Cart Handler Function
+        function handleAddToCart(event) {
+        event.preventDefault();
+
+        console.log('Add to Cart button clicked!'); // Debugging
+
+        const button = event.target;
+
+        
+
+        // Retrieve values from the dropdowns
+        const selectedSize = document.querySelector('input[name="size"]:checked');
+        const size = document.querySelector(`label[for="${selectedSize.id}"]`).textContent.trim(); // Updated to get label text
+
+    // Use the text content of the selected option
+    const selectedFlavor = document.querySelector('input[name="flavor"]:checked');
+    const flavor = document.querySelector(`label[for="${selectedFlavor.id}"]`).textContent.trim();
+
+    // Use the text content of the selected option
+        const selectedOrderType = document.querySelector('input[name="orderType"]:checked');
+        const orderTypeSelect = document.querySelector(`label[for="${selectedOrderType.id}"]`).textContent.trim();
+    
+        const unitPriceElement = document.getElementById('price');
+        const unitPrice = unitPriceElement 
+            ? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00
+            : 0.00;
+
+        // Retrieve the price ID
+        const priceId = button.getAttribute('data-price-id') || 'N/A';
+        const title = document.querySelector('h1').innerText;
+
+        // Retrieve quantity
+        const quantityField = document.getElementById('quantityAll');
+        const quantity = quantityField ? parseInt(quantityField.value, 10) || 1 : 1;
+
+        // Debugging
+        console.log('Size:', size); // Updated to show label
+        console.log('Flavor:', flavor);
+        console.log('Order Type:', orderTypeSelect); // Updated to show label
+        console.log('Quantity:', quantity);
+        console.log('Price ID:', priceId);
+
+        // Check if price ID is valid
+        if (!priceId || priceId === 'N/A') {
+            alert('Please select valid options before adding to cart.');
+            return;
+        }
+
+        // Add to cart
+        const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+        cart.push({
+            priceId,
+            title,
+            size,
+            flavor,
+            orderType: orderTypeSelect,
+            quantity,
+            unitPrice,
+            eligibleForDiscount: false // Set this directly to true or false
+        });
+        localStorage.setItem('cartV2', JSON.stringify(cart));
+
+        console.log('Cart updated:', cart); // Debugging
+
+        // Trigger success modal or alert
+        const modal = document.getElementById('addedToCartModal');
+        if (modal) {
+            $('#addedToCartModal').modal('show');
+        } else {
+            alert('Item added to cart successfully!');
+        }
+    }
+
+    // Attach the event listener to the Add to Cart button
+    document.addEventListener('DOMContentLoaded', function () {
+        const addToCartButton = document.querySelector('.buy-now');
+        if (addToCartButton) {
+            addToCartButton.addEventListener('click', handleAddToCart);
+            console.log('Add to Cart button is ready.');
+        } else {
+            console.error('Add to Cart button not found!');
+        }
+    });
+
+    </script>
+
+
+
+
+
+
+<!-- Modal for Add to Cart Confirmation -->
+<div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                Your item has been successfully added to the cart. What would you like to do next?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
+                <a href="/cart" class="btn btn-black">Go to Cart</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- YAML SCRIPT ENDS -->
+
+
+    <script>
+        const quantityInput = document.getElementById('quantityAll');
+        const btnIncrease = document.querySelector('.btn-increase');
+        const btnDecrease = document.querySelector('.btn-decrease');
+        
+        // Increase quantity
+        btnIncrease.addEventListener('click', () => {
+          quantityInput.value = parseInt(quantityInput.value) + 1;
+        });
+        
+        // Decrease quantity (minimum value = 1)
+        btnDecrease.addEventListener('click', () => {
+          const currentValue = parseInt(quantityInput.value);
+          if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+          }
+        });
+        
+            </script>
+            
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const flavorOptions = document.querySelectorAll('input[name="flavor"]');
+                    const sizeOptions = document.querySelectorAll('input[name="size"]');
+                    const stockLabel = document.querySelector('label[for="inStock"]');
+                    const customRadio = document.querySelector('.custom-radio');
+                    const addToCartButton = document.querySelector('.buy-now');
+            
+                    // Define out-of-stock combinations
+                    const outOfStockCombinations = [
+                    ];
+            
+                    function updateStockLabel() {
+                        const selectedFlavor = document.querySelector('input[name="flavor"]:checked').value;
+                        const selectedSize = document.querySelector('input[name="size"]:checked').value;
+            
+                        // Check if the selected combination is out of stock
+                        const isOutOfStock = outOfStockCombinations.some(combo =>
+                            combo.flavor === selectedFlavor && combo.size === selectedSize
+                        );
+            
+                        document.querySelectorAll('.custom-radio').forEach(radio => {
+                            radio.classList.remove('out-of-stock', 'in-stock'); // Clear existing classes
+                        });
+            
+                        if (isOutOfStock) {
+                            stockLabel.textContent = "Temporarily of Stock";
+                            stockLabel.style.color = "red"; // Apply red color for out of stock
+            
+                            // Disable the Add to Cart button
+                            addToCartButton.disabled = true;
+                            addToCartButton.style.backgroundColor = "gray"; // Gray out the button
+                            addToCartButton.style.cursor = "not-allowed"; // Change cursor style
+            
+                            // Apply out-of-stock class to all relevant elements
+                            document.querySelectorAll('.custom-radio').forEach(radio => {
+                                radio.classList.add('out-of-stock');
+                            });
+                        } else {
+                            stockLabel.textContent = "In Stock";
+                            stockLabel.style.color = "green"; // Apply green color for in stock
+            
+                            // Enable the Add to Cart button
+                            addToCartButton.disabled = false;
+                            addToCartButton.style.backgroundColor = ""; // Reset to default color
+                            addToCartButton.style.cursor = "pointer"; // Reset cursor style
+            
+                            // Apply in-stock class to all relevant elements
+                            document.querySelectorAll('.custom-radio').forEach(radio => {
+                                radio.classList.add('in-stock');
+                            });
+                        }
+                    }
+            
+                    flavorOptions.forEach(option => {
+                        option.addEventListener('change', updateStockLabel);
+                    });
+            
+                    sizeOptions.forEach(option => {
+                        option.addEventListener('change', updateStockLabel);
+                    });
+            
+                    // Initialize on page load
+                    updateStockLabel();
+                });
+            </script>
+            
+            
+            
+
+
+
+    {{- partial "footer.html" . }}
+
+</body>
+</html>
+
+
+
+
