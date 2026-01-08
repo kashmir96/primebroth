@@ -1,0 +1,26 @@
+<!-- Dish Block single product card -->
+<div class="product-card grow col-xxl-3 col-lg-4 col-md-4 " data-category="household" id="prodcard-dish-block">
+  <a href="/shop/products/tallow-dish-soap">
+    <div class="product-card-inner">
+      <p class="stamp">Online Exclusive</p>
+        <img src="/img/shop/dish-shop.webp" alt="tallow dish block photo" class="d-block m-auto" max-height="400">
+        <div class="product-details">
+          <p class="h5"><span class="nz-content" style="display:inline;">{{ with index site.Data.pricing.tallow.pricing.dish_soap 0 }}
+            {{ with .prices.NZ }}
+                ${{ .single_purchase }}
+            {{ end }}
+        {{ end }}
+        </span>
+        <span class="au-content" style="display:none;">
+            {{ with index site.Data.pricing.tallow.pricing.dish_soap 0 }}
+            {{ with .prices.AU }}
+              ${{ .single_purchase }}
+            {{ end }}
+        {{ end }}
+        </span></p>
+        <p class="h5 fw-bold">Tallow Dish Block</p>
+        <p>New</p>
+      </div>
+    </div>
+  </a>
+</div>
