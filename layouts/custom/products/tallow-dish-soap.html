@@ -383,7 +383,7 @@
 
 <!-- Pricing Data -->
 <script>
-    const productPricingRaw = {{ site.Data.pricing.tallow.pricing.dish_soap | jsonify | safeJS }};
+    const productPricingRaw = {{ site.Data.pricing.tallow.pricing.dish | jsonify | safeJS }};
     const country_code = getCountryCookie('country_code') || "NZ";
     const rawData = "{{ .Site.Data.pricing | jsonify }}";
     const pricingData = JSON.parse(rawData);
@@ -452,7 +452,7 @@
             let priceId;
 
             if (orderType === 'single_purchase') {
-                priceId = pricingData.tallow.ids.dish_soap.single[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.dish.single[flavor][size][country_code];
             }
 
             const buyNowButton = document.querySelector(".buy-now");
