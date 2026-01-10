@@ -257,7 +257,7 @@
     </style>
 </head>
 <body>
-{{- partial "alert-promo.html" . -}}
+{{- partial "alert.html" . -}}
 {{- partial "header_new.html" . -}}
 
 <div class="container product-page">
@@ -281,6 +281,9 @@
             <p class="text-muted mb-2" style="font-size: 14px;">PrimalCare</p>
             
             <p class="fw-lighter mb-2">Your friends will ask what's the secret to your <span class="attention-primalcare">glow up!</span></p>
+            
+            <!-- Promo legal disclaimer -->
+            <p class="promo-disclaimer" id="promo-disclaimer" style="display:none; font-size: 11px; color: #888; margin-bottom: 10px;">35% off <span id="promo-scent-name">Frankincense</span> until <span id="promo-end-date">20 Jan 2026</span> only.</p>
 
 
             
@@ -584,6 +587,7 @@
     // ============================================
     const PROMO_SCENT = 'frankincense'; // <-- CHANGE THIS EACH WEEK (or null to disable)
     const PROMO_DISCOUNT = 0.35; // 35% off
+    const PROMO_END_DATE = '20 Jan 2026'; // <-- UPDATE THIS EACH WEEK
     
     // Scent display names for hero section
     const SCENT_NAMES = {
@@ -659,6 +663,16 @@
         const price = getPrice();
         const originalPrice = getOriginalPrice();
         const promoActive = isPromoActive();
+        
+        // Update promo disclaimer
+        const disclaimer = document.getElementById('promo-disclaimer');
+        if (PROMO_SCENT && disclaimer) {
+            disclaimer.style.display = 'block';
+            document.getElementById('promo-scent-name').textContent = SCENT_NAMES[PROMO_SCENT];
+            document.getElementById('promo-end-date').textContent = PROMO_END_DATE;
+        } else if (disclaimer) {
+            disclaimer.style.display = 'none';
+        }
         
         // Update main price
         const priceEl = document.getElementById('price');
