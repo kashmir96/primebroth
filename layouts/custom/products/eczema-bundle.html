@@ -252,6 +252,16 @@
             font-weight: 700;
             line-height: 1;
         }
+        
+        /* Pink badge style for inline use */
+        .badge-sale {
+            background: #E91E8C;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 9px;
+            font-weight: 700;
+        }
 
 
     </style>
@@ -311,8 +321,8 @@
                 <input type="radio" id="lavender" name="flavor" value="lavender" style="display:none">
                 <input type="radio" id="frankincense" name="flavor" value="frankincense" style="display:none">
                 <input type="radio" id="neutral" name="flavor" value="neutral" style="display:none">
-                <input type="radio" id="size60ml" name="size" value="60ml" style="display:none">
-                <input type="radio" id="size120ml" name="size" value="120ml" checked style="display:none">
+                <input type="radio" id="size60ml" name="size" value="60ml" checked style="display:none">
+                <input type="radio" id="size120ml" name="size" value="120ml" style="display:none">
                 
                 <!-- Hidden pack scent select -->
                 <select class="product-select" name="flavor" id="pack-flavor-hidden" style="display:none">
@@ -357,7 +367,7 @@
                                     <img src="/img/radio/balm/3.webp" alt="">
                                     3-Pack
                                 </span>
-                                <span class="btn-sub"><span class="highlight">-35% +GIFT</span></span>
+                                <span class="btn-sub"><span class="badge-sale">-35% +GIFT</span></span>
                             </button>
                         </div>
                     </div>
@@ -410,20 +420,20 @@
                     <div class="product-form-row" id="size-row">
                         <span class="product-form-label">Size</span>
                         <div class="product-radio-group">
-                            <button type="button" class="product-radio-btn active" data-value="120ml" id="btn-120ml">
-                                <span class="btn-main">
-                                    <img src="/img/radio/balm/175.webp" alt="">
-                                    120ml
-                                </span>
-                                <span class="btn-sub"><span id="price-120ml">$24.95</span> <span class="highlight">· best value</span></span>
-                            </button>
                             <!-- 60ml button - hidden during promo for single jars -->
-                            <button type="button" class="product-radio-btn" data-value="60ml" id="btn-60ml">
+                            <button type="button" class="product-radio-btn active" data-value="60ml" id="btn-60ml">
                                 <span class="btn-main">
                                     <img src="/img/radio/balm/1.webp" alt="" style="height:18px">
                                     60ml
                                 </span>
                                 <span class="btn-sub" id="price-60ml">$18.95</span>
+                            </button>
+                            <button type="button" class="product-radio-btn" data-value="120ml" id="btn-120ml">
+                                <span class="btn-main">
+                                    <img src="/img/radio/balm/175.webp" alt="">
+                                    120ml
+                                </span>
+                                <span class="btn-sub"><span id="price-120ml">$24.95</span> <span class="highlight">· best value</span></span>
                             </button>
                         </div>
                     </div>
@@ -619,7 +629,7 @@
     // State
     let state = {
         unitType: 'single',
-        size: '120ml',
+        size: '60ml',
         scent: 'vanilla-rose',
         packScent: 'trio-v-f-l',
         quantity: 1
