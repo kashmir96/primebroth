@@ -234,37 +234,33 @@
         #productForm .add-to-cart { display: none; }
         .new-product-form { display: block; }
 
-        /* Promo Hero Section */
+        /* Promo Hero Section - Minimalist */
         .promo-hero {
-            background: linear-gradient(135deg, #2D2A26 0%, #4a4540 100%);
+            background: #2D2A26;
             color: white;
-            padding: 16px 20px;
-            border-radius: 10px;
-            margin-bottom: 16px;
-            text-align: center;
+            padding: 10px 16px;
+            border-radius: 6px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         .promo-hero-badge {
-            display: inline-block;
             background: #E91E8C;
             color: white;
-            padding: 3px 10px;
-            border-radius: 4px;
-            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 9px;
             font-weight: 700;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
+            letter-spacing: 0.3px;
         }
         .promo-hero-title {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 4px;
+            font-size: 14px;
+            font-weight: 600;
         }
         .promo-hero-title span {
             color: #E91E8C;
-        }
-        .promo-hero-subtitle {
-            font-size: 13px;
-            opacity: 0.85;
         }
         
         /* Scent button on sale indicator */
@@ -315,9 +311,8 @@
 
             <!-- Promo Hero Section - shows current week's sale scent -->
             <div class="promo-hero" id="promo-hero" style="display:none;">
-                <div class="promo-hero-badge">THIS WEEK ONLY</div>
-                <div class="promo-hero-title">35% OFF <span id="promo-hero-scent">Natural</span></div>
-                <div class="promo-hero-subtitle">Limited time offer on 120ml jars</div>
+                <div class="promo-hero-badge">THIS WEEK</div>
+                <div class="promo-hero-title">35% off <span id="promo-hero-scent">Vanilla Rose</span></div>
             </div>
 
 
@@ -620,7 +615,7 @@
     // Week 3: 'lavender'
     // Week 4: 'frankincense'
     // ============================================
-    const PROMO_SCENT = 'neutral'; // <-- CHANGE THIS EACH WEEK (or null to disable)
+    const PROMO_SCENT = 'vanilla-rose'; // <-- CHANGE THIS EACH WEEK (or null to disable)
     const PROMO_DISCOUNT = 0.35; // 35% off
     
     // Scent display names for hero section
