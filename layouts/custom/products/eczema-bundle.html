@@ -1,3 +1,17 @@
+<!-- ============================================
+     PROMOTION TOGGLE INSTRUCTIONS
+     ============================================
+     
+     To switch between REGULAR pricing and 35% OFF SINGLE JAR promo:
+     
+     1. Set PROMO_ACTIVE to true or false in the script below (~line 380)
+     2. Comment/uncomment the promo banner (~line 95)
+     3. Comment/uncomment the Unit button labels (~line 145)
+     
+     Currently: [REGULAR PRICING ACTIVE]
+     
+     ============================================ -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -180,7 +194,7 @@
         .price-badges {
             display: flex;
             gap: 4px;
-            justify-content: flex-end;
+            justify-content: flex-start;
             margin-top: 4px;
         }
         .btn-add-cart {
@@ -217,6 +231,29 @@
         #productForm .form-group { display: none; }
         #productForm .add-to-cart { display: none; }
         .new-product-form { display: block; }
+
+        /* ============================================
+           PROMO STYLES
+           ============================================ */
+        .promo-banner {
+            background: linear-gradient(135deg, #E91E8C 0%, #ff6b6b 100%);
+            color: white;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 15px;
+        }
+        .promo-banner .countdown {
+            font-size: 0.85em;
+            opacity: 0.9;
+            font-weight: 400;
+            margin-top: 4px;
+        }
+        .price-main.promo-price {
+            color: #E91E8C;
+        }
     </style>
 </head>
 <body>
@@ -244,6 +281,16 @@
             <p class="text-muted mb-2" style="font-size: 14px;">PrimalCare</p>
             
             <p class="fw-lighter mb-2">Your friends will ask what's the secret to your <span class="attention-primalcare">glow up!</span></p>
+
+            <!-- ============================================
+                 PROMO BANNER - Uncomment during promo week
+                 ============================================ -->
+            <!-- PROMO BANNER START
+            <div class="promo-banner">
+                🔥 LIMITED TIME: 35% OFF Single Jars! 🔥
+                <div class="countdown">Sale ends Sunday midnight</div>
+            </div>
+            PROMO BANNER END -->
             
             <!-- Price -->
             <div class="mb-2">
@@ -251,7 +298,7 @@
                     <span class="price-main" id="price">$24.95</span>
                     <span class="price-compare" id="price-compare" style="display:none">$24.95</span>
                 </div>
-                <div class="price-badges" id="price-badges" style="justify-content: flex-start;">
+                <div class="price-badges" id="price-badges">
                     <!-- Badges inserted by JS -->
                 </div>
             </div>
@@ -301,12 +348,32 @@
                     <div class="product-form-row">
                         <span class="product-form-label">Unit</span>
                         <div class="product-radio-group">
+                            
+                            <!-- ============================================
+                                 REGULAR SINGLE BUTTON - Comment out during promo
+                                 ============================================ -->
+                            <!-- REGULAR SINGLE START -->
                             <button type="button" class="product-radio-btn active" data-value="single" id="btn-single">
                                 <span class="btn-main">
                                     <img src="/img/radio/balm/1.webp" alt="">
                                     Single jar
                                 </span>
                             </button>
+                            <!-- REGULAR SINGLE END -->
+
+                            <!-- ============================================
+                                 PROMO SINGLE BUTTON - Uncomment during promo
+                                 ============================================ -->
+                            <!-- PROMO SINGLE START
+                            <button type="button" class="product-radio-btn active" data-value="single" id="btn-single">
+                                <span class="btn-main">
+                                    <img src="/img/radio/balm/1.webp" alt="">
+                                    Single jar
+                                </span>
+                                <span class="btn-sub"><span class="highlight">35% OFF!</span></span>
+                            </button>
+                            PROMO SINGLE END -->
+
                             <button type="button" class="product-radio-btn" data-value="pack" id="btn-pack">
                                 <span class="btn-main">
                                     <img src="/img/radio/balm/3.webp" alt="">
@@ -464,17 +531,13 @@
                     <img class="eighty middle" src="/img/prod/balm/balmreviews.webp" alt="reviews">
                 </div>
                 <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
-                    <h4>4 Nourishing Ingredients</h4>
+                    <h4>3 Nourishing Ingredients</h4>
                     <p>A harmonic combination that soaks in for immediate hydration</p>
-                    <p>Grass-fed purified NZ beef tallow (98%), organic olive oil, organic jojoba oil, essential oil.</p>
+                    <p>Grass-fed purified NZ beef tallow (98%), organic jojoba oil, essential oil.</p>
                     <div class="row text-center">
                         <div class="col-6">
                             <img src="/img/prod/balm/tallowwhite.webp" class="w-50 mb-2 middle" alt="Grass-fed beef tallow">
                             <p>We use high grade grass-fed suet, which we wet render and filter 6 times.</p>
-                        </div>
-                        <div class="col-6">
-                            <img src="/img/prod/balm/oliveoil.webp" class="w-50 mb-2 middle" alt="Organic cold pressed olive oil">
-                            <p>Important for providing a light and whipped texture to our unique whipped balm.</p>
                         </div>
                         <div class="col-6">
                             <img src="/img/prod/balm/jojobaoil.webp" class="w-50 mb-2 middle" alt="Organic cold pressed jojoba oil">
@@ -532,7 +595,14 @@
     const rawData = "{{ .Site.Data.pricing | jsonify }}";
     const pricingData = JSON.parse(rawData);
 
-    // Pricing lookup (one-time purchases only)
+    // ============================================
+    // PROMO CONFIGURATION
+    // Set this to true during promo week, false otherwise
+    // ============================================
+    const PROMO_ACTIVE = false; // <-- TOGGLE THIS FOR PROMO
+    const PROMO_DISCOUNT = 0.35; // 35% off
+
+    // Base pricing (regular prices)
     const pricing = {
         '60ml': { 
             single: 18.95, 
@@ -555,24 +625,57 @@
 
     function getPrice() {
         const p = pricing[state.size];
+        let price = state.unitType === 'single' ? p.single : p.pack;
+        
+        // Apply promo discount for single jars
+        if (PROMO_ACTIVE && state.unitType === 'single') {
+            price = price * (1 - PROMO_DISCOUNT);
+        }
+        
+        return price;
+    }
+
+    function getOriginalPrice() {
+        const p = pricing[state.size];
         return state.unitType === 'single' ? p.single : p.pack;
     }
 
     function getSizePrice(sizeOption) {
         const p = pricing[sizeOption];
-        return state.unitType === 'single' ? p.single : p.pack;
+        let price = state.unitType === 'single' ? p.single : p.pack;
+        
+        // Apply promo discount for single jars
+        if (PROMO_ACTIVE && state.unitType === 'single') {
+            price = price * (1 - PROMO_DISCOUNT);
+        }
+        
+        return price;
     }
 
     function updateUI() {
         const price = getPrice();
+        const originalPrice = getOriginalPrice();
         
         // Update main price
-        document.getElementById('price').textContent = '$' + price.toFixed(2);
+        const priceEl = document.getElementById('price');
+        priceEl.textContent = '$' + price.toFixed(2);
         
-        // Update price compare (only for pack)
+        // Add promo styling to price if applicable
+        if (PROMO_ACTIVE && state.unitType === 'single') {
+            priceEl.classList.add('promo-price');
+        } else {
+            priceEl.classList.remove('promo-price');
+        }
+        
+        // Update price compare (strikethrough)
         const compare = document.getElementById('price-compare');
         if (state.unitType === 'pack') {
+            // For pack: show what 3 singles would cost
             compare.textContent = '$' + (pricing[state.size].single * 3).toFixed(2);
+            compare.style.display = 'inline';
+        } else if (PROMO_ACTIVE && state.unitType === 'single') {
+            // For promo single: show original price
+            compare.textContent = '$' + originalPrice.toFixed(2);
             compare.style.display = 'inline';
         } else {
             compare.style.display = 'none';
@@ -582,11 +685,13 @@
         const badges = document.getElementById('price-badges');
         if (state.unitType === 'pack') {
             badges.innerHTML = '<span class="badge-pink-solid">35% OFF + FREE GIFT</span>';
+        } else if (PROMO_ACTIVE && state.unitType === 'single') {
+            badges.innerHTML = '<span class="badge-pink-solid">35% OFF - LIMITED TIME</span>';
         } else {
             badges.innerHTML = '';
         }
         
-        // Update size prices
+        // Update size prices (with promo if applicable)
         document.getElementById('price-120ml').textContent = '$' + getSizePrice('120ml').toFixed(2);
         document.getElementById('price-60ml').textContent = '$' + getSizePrice('60ml').toFixed(2);
         
@@ -737,15 +842,22 @@
             return;
         }
 
+        // Determine order type label (with promo indicator if applicable)
+        let orderTypeLabel = state.unitType === 'pack' ? '3 pack' : 'Single jar';
+        if (PROMO_ACTIVE && state.unitType === 'single') {
+            orderTypeLabel = 'Single jar (35% OFF)';
+        }
+
         const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
         cart.push({
             priceId,
             title,
             size: state.size,
             flavor,
-            orderType: state.unitType === 'pack' ? '3 pack' : 'Single jar',
+            orderType: orderTypeLabel,
             quantity,
             unitPrice,
+            isPromo: PROMO_ACTIVE && state.unitType === 'single', // Track promo purchases
             eligibleForDiscount: false,
             isSubscription: false,
             subscriptionInterval: null
