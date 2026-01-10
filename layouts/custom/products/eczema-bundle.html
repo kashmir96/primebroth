@@ -234,16 +234,23 @@
         #productForm .add-to-cart { display: none; }
         .new-product-form { display: block; }
 
-        /* Scent button on sale indicator - badge style */
+        /* Scent button on sale indicator - pink badge overlay */
         .product-radio-btn.scent-btn.on-sale {
             position: relative;
+            overflow: visible;
         }
         .product-radio-btn.scent-btn.on-sale::after {
-            content: '35% off';
-            color: #E91E8C;
-            font-size: 10px;
+            content: '35% OFF';
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #E91E8C;
+            color: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 8px;
             font-weight: 700;
-            margin-left: 4px;
+            line-height: 1;
         }
 
 
