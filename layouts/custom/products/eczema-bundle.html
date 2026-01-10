@@ -1,14 +1,16 @@
 <!-- ============================================
-     PROMOTION TOGGLE INSTRUCTIONS
+     ROTATING SCENT PROMO - CONFIGURATION
      ============================================
      
-     To switch between REGULAR pricing and 35% OFF SINGLE JAR promo:
+     To change which scent is on sale, update PROMO_SCENT (~line 380):
      
-     1. Set PROMO_ACTIVE to true or false in the script below (~line 380)
-     2. Comment/uncomment the promo banner (~line 95)
-     3. Comment/uncomment the Unit button labels (~line 145)
+     ROTATION SCHEDULE:
+     Week 1: const PROMO_SCENT = 'neutral';
+     Week 2: const PROMO_SCENT = 'vanilla-rose';
+     Week 3: const PROMO_SCENT = 'lavender';
+     Week 4: const PROMO_SCENT = 'frankincense';
      
-     Currently: [REGULAR PRICING ACTIVE]
+     To disable promo entirely: const PROMO_SCENT = null;
      
      ============================================ -->
 
@@ -232,6 +234,56 @@
         #productForm .add-to-cart { display: none; }
         .new-product-form { display: block; }
 
+        /* Promo Hero Section */
+        .promo-hero {
+            background: linear-gradient(135deg, #2D2A26 0%, #4a4540 100%);
+            color: white;
+            padding: 16px 20px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .promo-hero-badge {
+            display: inline-block;
+            background: #E91E8C;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        .promo-hero-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .promo-hero-title span {
+            color: #E91E8C;
+        }
+        .promo-hero-subtitle {
+            font-size: 13px;
+            opacity: 0.85;
+        }
+        
+        /* Scent button on sale indicator */
+        .product-radio-btn.scent-btn.on-sale {
+            position: relative;
+        }
+        .product-radio-btn.scent-btn.on-sale::after {
+            content: '35% OFF';
+            position: absolute;
+            top: -8px;
+            right: -4px;
+            background: #E91E8C;
+            color: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 8px;
+            font-weight: 700;
+        }
+
 
     </style>
 </head>
@@ -260,6 +312,13 @@
             <p class="text-muted mb-2" style="font-size: 14px;">PrimalCare</p>
             
             <p class="fw-lighter mb-2">Your friends will ask what's the secret to your <span class="attention-primalcare">glow up!</span></p>
+
+            <!-- Promo Hero Section - shows current week's sale scent -->
+            <div class="promo-hero" id="promo-hero" style="display:none;">
+                <div class="promo-hero-badge">THIS WEEK ONLY</div>
+                <div class="promo-hero-title">35% OFF <span id="promo-hero-scent">Natural</span></div>
+                <div class="promo-hero-subtitle">Limited time offer on 120ml jars</div>
+            </div>
 
 
             
@@ -320,30 +379,13 @@
                         <span class="product-form-label">Unit</span>
                         <div class="product-radio-group">
                             
-                            <!-- ============================================
-                                 REGULAR SINGLE BUTTON - Comment out during promo
-                                 ============================================ -->
-                            <!-- REGULAR SINGLE START -->
+                            <!-- Single jar button -->
                             <button type="button" class="product-radio-btn active" data-value="single" id="btn-single">
                                 <span class="btn-main">
                                     <img src="/img/radio/balm/1.webp" alt="">
                                     Single jar
                                 </span>
                             </button>
-                            <!-- REGULAR SINGLE END -->
-
-                            <!-- ============================================
-                                 PROMO SINGLE BUTTON - Uncomment during promo
-                                 ============================================ -->
-                            <!-- PROMO SINGLE START
-                            <button type="button" class="product-radio-btn active" data-value="single" id="btn-single">
-                                <span class="btn-main">
-                                    <img src="/img/radio/balm/1.webp" alt="">
-                                    Single jar
-                                </span>
-                                <span class="btn-sub"><span class="highlight">35% OFF!</span></span>
-                            </button>
-                            PROMO SINGLE END -->
 
                             <button type="button" class="product-radio-btn" data-value="pack" id="btn-pack">
                                 <span class="btn-main">
@@ -569,10 +611,25 @@
 
     // ============================================
     // PROMO CONFIGURATION
-    // Set this to true during promo week, false otherwise
+    // Change PROMO_SCENT to rotate the sale each week
+    // Options: 'neutral', 'vanilla-rose', 'lavender', 'frankincense', or null (no promo)
+    // 
+    // ROTATION SCHEDULE:
+    // Week 1: 'neutral'
+    // Week 2: 'vanilla-rose'
+    // Week 3: 'lavender'
+    // Week 4: 'frankincense'
     // ============================================
-    const PROMO_ACTIVE = true; // <-- TOGGLE THIS FOR PROMO
+    const PROMO_SCENT = 'neutral'; // <-- CHANGE THIS EACH WEEK (or null to disable)
     const PROMO_DISCOUNT = 0.35; // 35% off
+    
+    // Scent display names for hero section
+    const SCENT_NAMES = {
+        'neutral': 'Natural',
+        'vanilla-rose': 'Vanilla Rose',
+        'lavender': 'Lavender',
+        'frankincense': 'Frankincense'
+    };
 
     // Base pricing (regular prices)
     const pricing = {
@@ -599,8 +656,8 @@
         const p = pricing[state.size];
         let price = state.unitType === 'single' ? p.single : p.pack;
         
-        // Apply promo discount for single jars
-        if (PROMO_ACTIVE && state.unitType === 'single') {
+        // Apply promo discount only if this scent is on sale
+        if (PROMO_SCENT && state.unitType === 'single' && state.scent === PROMO_SCENT) {
             price = price * (1 - PROMO_DISCOUNT);
         }
         
@@ -616,17 +673,32 @@
         const p = pricing[sizeOption];
         let price = state.unitType === 'single' ? p.single : p.pack;
         
-        // Apply promo discount for single jars
-        if (PROMO_ACTIVE && state.unitType === 'single') {
+        // Apply promo discount only if this scent is on sale
+        if (PROMO_SCENT && state.unitType === 'single' && state.scent === PROMO_SCENT) {
             price = price * (1 - PROMO_DISCOUNT);
         }
         
         return price;
     }
+    
+    // Check if current selection is the promo scent
+    function isPromoActive() {
+        return PROMO_SCENT && state.unitType === 'single' && state.scent === PROMO_SCENT;
+    }
 
     function updateUI() {
         const price = getPrice();
         const originalPrice = getOriginalPrice();
+        const promoActive = isPromoActive();
+        
+        // Update promo hero section
+        const promoHero = document.getElementById('promo-hero');
+        if (PROMO_SCENT) {
+            promoHero.style.display = 'block';
+            document.getElementById('promo-hero-scent').textContent = SCENT_NAMES[PROMO_SCENT];
+        } else {
+            promoHero.style.display = 'none';
+        }
         
         // Update main price
         const priceEl = document.getElementById('price');
@@ -638,7 +710,7 @@
             // For pack: show what 3 singles would cost
             compare.textContent = '$' + (pricing[state.size].single * 3).toFixed(2);
             compare.style.display = 'inline';
-        } else if (PROMO_ACTIVE && state.unitType === 'single') {
+        } else if (promoActive) {
             // For promo single: show original price
             compare.textContent = '$' + originalPrice.toFixed(2);
             compare.style.display = 'inline';
@@ -650,16 +722,24 @@
         const badges = document.getElementById('price-badges');
         if (state.unitType === 'pack') {
             badges.innerHTML = '<span class="badge-pink-solid">35% OFF + FREE GIFT</span>';
-        } else if (PROMO_ACTIVE && state.unitType === 'single') {
+        } else if (promoActive) {
             badges.innerHTML = '<span class="badge-pink-solid">35% OFF - LIMITED TIME</span>';
         } else {
             badges.innerHTML = '';
         }
         
-        // Hide/show 60ml button based on promo and unit type
+        // Mark the promo scent button with sale indicator
+        document.querySelectorAll('#scent-single-row .product-radio-btn').forEach(btn => {
+            btn.classList.remove('on-sale');
+            if (PROMO_SCENT && btn.getAttribute('data-value') === PROMO_SCENT) {
+                btn.classList.add('on-sale');
+            }
+        });
+        
+        // Hide/show 60ml button - only hide when promo scent is selected
         const btn60ml = document.getElementById('btn-60ml');
-        if (PROMO_ACTIVE && state.unitType === 'single') {
-            // Hide 60ml during promo for single jars
+        if (promoActive) {
+            // Hide 60ml when promo scent is selected
             btn60ml.style.display = 'none';
             // Force 120ml selection if currently on 60ml
             if (state.size === '60ml') {
@@ -668,11 +748,11 @@
                 document.getElementById('btn-60ml').classList.remove('active');
             }
         } else {
-            // Show 60ml for packs or when promo is off
+            // Show 60ml for non-promo scents and packs
             btn60ml.style.display = '';
         }
         
-        // Update size prices (with promo if applicable)
+        // Update size prices
         document.getElementById('price-120ml').textContent = '$' + getSizePrice('120ml').toFixed(2);
         document.getElementById('price-60ml').textContent = '$' + getSizePrice('60ml').toFixed(2);
         
@@ -777,8 +857,8 @@
             if (orderType === 'single_purchase') {
                 const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
                 
-                // Use promo price IDs when promo is active (120ml only)
-                if (PROMO_ACTIVE && size === '120ml' && pricingData.tallow.ids.balm.promo && pricingData.tallow.ids.balm.promo[flavor]) {
+                // Use promo price ID only if this scent is on sale (120ml only)
+                if (PROMO_SCENT && flavor === PROMO_SCENT && size === '120ml' && pricingData.tallow.ids.balm.promo && pricingData.tallow.ids.balm.promo[flavor]) {
                     priceId = pricingData.tallow.ids.balm.promo[flavor][size][country_code];
                 } else {
                     priceId = pricingData.tallow.ids.balm.single[flavor][size][country_code];
@@ -830,8 +910,9 @@
         }
 
         // Determine order type label (with promo indicator if applicable)
+        const isPromo = PROMO_SCENT && state.unitType === 'single' && state.scent === PROMO_SCENT;
         let orderTypeLabel = state.unitType === 'pack' ? '3 pack' : 'Single jar';
-        if (PROMO_ACTIVE && state.unitType === 'single') {
+        if (isPromo) {
             orderTypeLabel = 'Single jar (35% OFF)';
         }
 
@@ -844,7 +925,7 @@
             orderType: orderTypeLabel,
             quantity,
             unitPrice,
-            isPromo: PROMO_ACTIVE && state.unitType === 'single', // Track promo purchases
+            isPromo: isPromo,
             eligibleForDiscount: false,
             isSubscription: false,
             subscriptionInterval: null
