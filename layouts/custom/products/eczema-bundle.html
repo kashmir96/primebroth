@@ -283,7 +283,7 @@
             <p class="fw-lighter mb-2">Your friends will ask what's the secret to your <span class="attention-primalcare">glow up!</span></p>
             
             <!-- Promo legal disclaimer -->
-            <p class="promo-disclaimer" id="promo-disclaimer" style="display:none; font-size: 11px; color: #888; margin-bottom: 10px;">35% off all <span id="promo-scent-name">Frankincense</span> until <span id="promo-end-date">20 Jan 2026</span>.</p>
+            <p class="promo-disclaimer" id="promo-disclaimer" style="display:none; font-size: 11px; color: #888; margin-bottom: 10px;">35% off <span id="promo-scent-name">Frankincense</span> until <span id="promo-end-date">20 Jan 2026</span> only.</p>
 
 
             
@@ -862,21 +862,27 @@
 
 <!-- Add to Cart Handler -->
 <script>
+    // Display name mappings for cart
+    const FLAVOR_DISPLAY_NAMES = {
+        'vanilla-rose': 'Vanilla Rose',
+        'lavender': 'Lavender',
+        'frankincense': 'Frankincense',
+        'neutral': 'Natural'
+    };
+
     function handleAddToCart(event) {
         event.preventDefault();
         const button = event.target;
         
-        const selectedSize = document.querySelector('input[name="size"]:checked');
-        const size = document.querySelector(`label[for="${selectedSize.id}"]`) ? 
-            document.querySelector(`label[for="${selectedSize.id}"]`).textContent.trim() : 
-            selectedSize.value;
+        // Format size with capital letter (e.g., "60ml" -> "60ml", but ensures consistency)
+        const size = state.size;
 
         let flavor;
         const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
         
         if (orderType === 'single_purchase') {
-            const selectedFlavor = document.querySelector('input[name="flavor"]:checked');
-            flavor = selectedFlavor.value;
+            // Use display name for single scents
+            flavor = FLAVOR_DISPLAY_NAMES[state.scent] || state.scent;
         } else if (orderType === 'three_pack') {
             flavor = document.getElementById('pack-scent-select').selectedOptions[0].text.trim();
         }
@@ -902,7 +908,7 @@
         cart.push({
             priceId,
             title,
-            size: state.size,
+            size: size,
             flavor,
             orderType: orderTypeLabel,
             quantity,
