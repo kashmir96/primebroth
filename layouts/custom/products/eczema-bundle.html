@@ -776,7 +776,13 @@
             let priceId;
             if (orderType === 'single_purchase') {
                 const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
-                priceId = pricingData.tallow.ids.balm.single[flavor][size][country_code];
+                
+                // Use promo price IDs when promo is active (120ml only)
+                if (PROMO_ACTIVE && size === '120ml' && pricingData.tallow.ids.balm.promo && pricingData.tallow.ids.balm.promo[flavor]) {
+                    priceId = pricingData.tallow.ids.balm.promo[flavor][size][country_code];
+                } else {
+                    priceId = pricingData.tallow.ids.balm.single[flavor][size][country_code];
+                }
             } else if (orderType === 'three_pack') {
                 const flavor = document.getElementById('pack-scent-select').value.trim().toLowerCase();
                 priceId = pricingData.tallow.ids.balm.pack[flavor][size][country_code];
