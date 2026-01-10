@@ -234,50 +234,16 @@
         #productForm .add-to-cart { display: none; }
         .new-product-form { display: block; }
 
-        /* Promo Hero Section - Minimalist */
-        .promo-hero {
-            background: #2D2A26;
-            color: white;
-            padding: 10px 16px;
-            border-radius: 6px;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .promo-hero-badge {
-            background: #E91E8C;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 3px;
-            font-size: 9px;
-            font-weight: 700;
-            letter-spacing: 0.3px;
-        }
-        .promo-hero-title {
-            font-size: 14px;
-            font-weight: 600;
-        }
-        .promo-hero-title span {
-            color: #E91E8C;
-        }
-        
         /* Scent button on sale indicator */
         .product-radio-btn.scent-btn.on-sale {
             position: relative;
         }
-        .product-radio-btn.scent-btn.on-sale::after {
-            content: '35% OFF';
-            position: absolute;
-            top: -8px;
-            right: -4px;
-            background: #E91E8C;
-            color: white;
-            padding: 2px 5px;
-            border-radius: 3px;
-            font-size: 8px;
+        .sale-text {
+            display: block;
+            color: #E91E8C;
+            font-size: 11px;
             font-weight: 700;
+            margin-top: 2px;
         }
 
 
@@ -308,12 +274,6 @@
             <p class="text-muted mb-2" style="font-size: 14px;">PrimalCare</p>
             
             <p class="fw-lighter mb-2">Your friends will ask what's the secret to your <span class="attention-primalcare">glow up!</span></p>
-
-            <!-- Promo Hero Section - shows current week's sale scent -->
-            <div class="promo-hero" id="promo-hero" style="display:none;">
-                <div class="promo-hero-badge">THIS WEEK</div>
-                <div class="promo-hero-title">35% off <span id="promo-hero-scent">Vanilla Rose</span></div>
-            </div>
 
 
             
@@ -396,10 +356,10 @@
                     <div class="product-form-row" id="scent-single-row">
                         <span class="product-form-label">Scent</span>
                         <div class="product-radio-group">
-                            <button type="button" class="product-radio-btn scent-btn active" data-value="vanilla-rose" id="btn-vanilla">Vanilla rose</button>
-                            <button type="button" class="product-radio-btn scent-btn" data-value="lavender" id="btn-lavender">Lavender</button>
-                            <button type="button" class="product-radio-btn scent-btn" data-value="frankincense" id="btn-frank">Frankincense</button>
-                            <button type="button" class="product-radio-btn scent-btn" data-value="neutral" id="btn-natural">Natural</button>
+                            <button type="button" class="product-radio-btn scent-btn active" data-value="vanilla-rose" id="btn-vanilla">Vanilla rose<span class="sale-text" id="sale-vanilla" style="display:none">35% off</span></button>
+                            <button type="button" class="product-radio-btn scent-btn" data-value="lavender" id="btn-lavender">Lavender<span class="sale-text" id="sale-lavender" style="display:none">35% off</span></button>
+                            <button type="button" class="product-radio-btn scent-btn" data-value="frankincense" id="btn-frank">Frankincense<span class="sale-text" id="sale-frank" style="display:none">35% off</span></button>
+                            <button type="button" class="product-radio-btn scent-btn" data-value="neutral" id="btn-natural">Natural<span class="sale-text" id="sale-natural" style="display:none">35% off</span></button>
                         </div>
                     </div>
 
@@ -686,15 +646,6 @@
         const originalPrice = getOriginalPrice();
         const promoActive = isPromoActive();
         
-        // Update promo hero section
-        const promoHero = document.getElementById('promo-hero');
-        if (PROMO_SCENT) {
-            promoHero.style.display = 'block';
-            document.getElementById('promo-hero-scent').textContent = SCENT_NAMES[PROMO_SCENT];
-        } else {
-            promoHero.style.display = 'none';
-        }
-        
         // Update main price
         const priceEl = document.getElementById('price');
         priceEl.textContent = '$' + price.toFixed(2);
@@ -723,11 +674,17 @@
             badges.innerHTML = '';
         }
         
-        // Mark the promo scent button with sale indicator
-        document.querySelectorAll('#scent-single-row .product-radio-btn').forEach(btn => {
-            btn.classList.remove('on-sale');
-            if (PROMO_SCENT && btn.getAttribute('data-value') === PROMO_SCENT) {
-                btn.classList.add('on-sale');
+        // Mark the promo scent button with sale text
+        const scentMap = {
+            'vanilla-rose': 'vanilla',
+            'lavender': 'lavender',
+            'frankincense': 'frank',
+            'neutral': 'natural'
+        };
+        Object.keys(scentMap).forEach(scent => {
+            const saleText = document.getElementById('sale-' + scentMap[scent]);
+            if (saleText) {
+                saleText.style.display = (PROMO_SCENT === scent) ? 'block' : 'none';
             }
         });
         
