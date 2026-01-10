@@ -234,16 +234,16 @@
         #productForm .add-to-cart { display: none; }
         .new-product-form { display: block; }
 
-        /* Scent button on sale indicator */
+        /* Scent button on sale indicator - badge style */
         .product-radio-btn.scent-btn.on-sale {
             position: relative;
         }
-        .sale-text {
-            display: block;
+        .product-radio-btn.scent-btn.on-sale::after {
+            content: '35% off';
             color: #E91E8C;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
-            margin-top: 2px;
+            margin-left: 4px;
         }
 
 
@@ -356,10 +356,10 @@
                     <div class="product-form-row" id="scent-single-row">
                         <span class="product-form-label">Scent</span>
                         <div class="product-radio-group">
-                            <button type="button" class="product-radio-btn scent-btn active" data-value="vanilla-rose" id="btn-vanilla">Vanilla rose<span class="sale-text" id="sale-vanilla" style="display:none">35% off</span></button>
-                            <button type="button" class="product-radio-btn scent-btn" data-value="lavender" id="btn-lavender">Lavender<span class="sale-text" id="sale-lavender" style="display:none">35% off</span></button>
-                            <button type="button" class="product-radio-btn scent-btn" data-value="frankincense" id="btn-frank">Frankincense<span class="sale-text" id="sale-frank" style="display:none">35% off</span></button>
-                            <button type="button" class="product-radio-btn scent-btn" data-value="neutral" id="btn-natural">Natural<span class="sale-text" id="sale-natural" style="display:none">35% off</span></button>
+                            <button type="button" class="product-radio-btn scent-btn active" data-value="vanilla-rose" id="btn-vanilla">Vanilla rose</button>
+                            <button type="button" class="product-radio-btn scent-btn" data-value="lavender" id="btn-lavender">Lavender</button>
+                            <button type="button" class="product-radio-btn scent-btn" data-value="frankincense" id="btn-frank">Frankincense</button>
+                            <button type="button" class="product-radio-btn scent-btn" data-value="neutral" id="btn-natural">Natural</button>
                         </div>
                     </div>
 
@@ -575,7 +575,7 @@
     // Week 3: 'lavender'
     // Week 4: 'frankincense'
     // ============================================
-    const PROMO_SCENT = 'vanilla-rose'; // <-- CHANGE THIS EACH WEEK (or null to disable)
+    const PROMO_SCENT = 'frankincense'; // <-- CHANGE THIS EACH WEEK (or null to disable)
     const PROMO_DISCOUNT = 0.35; // 35% off
     
     // Scent display names for hero section
@@ -674,17 +674,11 @@
             badges.innerHTML = '';
         }
         
-        // Mark the promo scent button with sale text
-        const scentMap = {
-            'vanilla-rose': 'vanilla',
-            'lavender': 'lavender',
-            'frankincense': 'frank',
-            'neutral': 'natural'
-        };
-        Object.keys(scentMap).forEach(scent => {
-            const saleText = document.getElementById('sale-' + scentMap[scent]);
-            if (saleText) {
-                saleText.style.display = (PROMO_SCENT === scent) ? 'block' : 'none';
+        // Mark the promo scent button with sale indicator
+        document.querySelectorAll('#scent-single-row .product-radio-btn').forEach(btn => {
+            btn.classList.remove('on-sale');
+            if (PROMO_SCENT && btn.getAttribute('data-value') === PROMO_SCENT) {
+                btn.classList.add('on-sale');
             }
         });
         
@@ -698,6 +692,14 @@
                 state.size = '120ml';
                 document.getElementById('btn-120ml').classList.add('active');
                 document.getElementById('btn-60ml').classList.remove('active');
+                // Recalculate price with correct size
+                const newPrice = getPrice();
+                priceEl.textContent = '$' + newPrice.toFixed(2);
+                document.getElementById('afterpay_price').textContent = (newPrice / 4).toFixed(2);
+                // Update compare price too
+                if (promoActive) {
+                    compare.textContent = '$' + getOriginalPrice().toFixed(2);
+                }
             }
         } else {
             // Show 60ml for non-promo scents and packs
