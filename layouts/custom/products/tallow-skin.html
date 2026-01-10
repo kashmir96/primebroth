@@ -1,19 +1,3 @@
-<!-- ============================================
-     ROTATING SCENT PROMO - CONFIGURATION
-     ============================================
-     
-     To change which scent is on sale, update PROMO_SCENT (~line 380):
-     
-     ROTATION SCHEDULE:
-     Week 1: const PROMO_SCENT = 'neutral';
-     Week 2: const PROMO_SCENT = 'vanilla-rose';
-     Week 3: const PROMO_SCENT = 'lavender';
-     Week 4: const PROMO_SCENT = 'frankincense';
-     
-     To disable promo entirely: const PROMO_SCENT = null;
-     
-     ============================================ -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,925 +12,622 @@
     <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
     <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        /* Product subtitle */
-        .product-subtitle {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 36px;
-            color: #666;
-            margin: 0;
-            font-style: italic;
-            font-weight: 300;
-        }
-        
-        /* New Product Form Styles */
-        .product-form-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-        .product-form-label {
-            font-size: 13px;
-            font-weight: 600;
-            color: #555;
-            width: 44px;
-            flex-shrink: 0;
-        }
-        .product-radio-group {
-            display: flex;
-            flex: 1;
-            background-color: #f0f0f0;
-            border-radius: 8px;
-            padding: 4px;
-        }
-        .product-radio-btn {
-            flex: 1;
-            padding: 8px 12px;
-            border: none;
-            border-radius: 6px;
-            background-color: transparent;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 400;
-            color: #666;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 0px;
-            transition: all 0.15s ease;
-        }
-        .product-radio-btn .btn-main {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .product-radio-btn .btn-sub {
-            font-size: 10px;
-            color: #888;
-            font-weight: 500;
-            margin-top: 2px;
-        }
-        .product-radio-btn .btn-sub .highlight {
-            color: #E91E8C;
-            font-weight: 600;
-        }
-        .product-radio-btn.active {
-            background-color: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            font-weight: 600;
-            color: #333;
-        }
-        .product-radio-btn img {
-            height: 22px;
-        }
-        .product-radio-btn.scent-btn {
-            flex-direction: row;
-            padding: 10px 8px;
-        }
-        @media (max-width: 390px) {
-            .product-radio-btn.scent-btn {
-                font-size: 11px;
-                padding: 8px 4px;
-            }
-        }
-        .badge-pink {
-            color: #E91E8C;
-            font-size: 10px;
-            font-weight: 600;
-        }
-        .badge-pink-solid {
-            background-color: #E91E8C;
-            color: white;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-        .product-select-styled {
-            flex: 1;
-            padding: 12px 14px;
-            border-radius: 8px;
-            border: none;
-            font-size: 12px;
-            font-weight: 500;
-            background-color: #f0f0f0;
-            color: #333;
-            cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 14px center;
-        }
-        .qty-container {
-            display: flex;
-            align-items: center;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        .qty-btn {
-            width: 40px;
-            height: 40px;
-            border: none;
-            background-color: #f5f5f5;
-            font-size: 18px;
-            cursor: pointer;
-        }
-        .qty-value {
-            width: 44px;
-            text-align: center;
-            font-size: 15px;
-            font-weight: 600;
-        }
-        .stock-indicator {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-left: auto;
-        }
-        .stock-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: #4CAF50;
-        }
-        .stock-text {
-            color: #4CAF50;
-            font-weight: 600;
-            font-size: 13px;
-        }
-        .price-display-new {
-            display: flex;
-            align-items: baseline;
-            gap: 6px;
-            justify-content: flex-end;
-        }
-        .price-main {
-            font-size: 28px;
-            font-weight: 700;
-            color: #2D2A26;
-        }
-        .price-compare {
-            font-size: 14px;
-            color: #999;
-            text-decoration: line-through;
-        }
-        .price-badges {
-            display: flex;
-            gap: 4px;
-            justify-content: flex-start;
-            margin-top: 4px;
-        }
-        .btn-add-cart {
-            width: 100%;
-            padding: 18px;
-            background-color: #2D2A26;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 10px;
-        }
-        .btn-add-cart:hover {
-            background-color: #1a1816;
-        }
-        .product-header-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 10px;
-        }
-        .product-subtitle {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 20px;
-            color: #666;
-            margin: 4px 0 0 0;
-            font-style: italic;
-        }
-
-        /* Hide original form elements, show new ones */
-        #productForm .text-left { display: none; }
-        #productForm .form-group { display: none; }
-        #productForm .add-to-cart { display: none; }
-        .new-product-form { display: block; }
-
-        /* Scent button on sale indicator - pink badge overlay */
-        .product-radio-btn.scent-btn.on-sale {
-            position: relative;
-            overflow: visible;
-        }
-        .product-radio-btn.scent-btn.on-sale::after {
-            content: '35% OFF';
-            position: absolute;
-            top: -6px;
-            right: -6px;
-            background: #E91E8C;
-            color: white;
-            padding: 2px 5px;
-            border-radius: 3px;
-            font-size: 8px;
-            font-weight: 700;
-            line-height: 1;
-        }
-        
-        /* Pink badge style for inline use */
-        .badge-sale {
-            background: #E91E8C;
-            color: white;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-size: 9px;
-            font-weight: 700;
-        }
-
-
-    </style>
+    <!-- <script src="https://js.stripe.com/v3/"></script> Stripe script -->
 </head>
 <body>
+<style>
+.custom-radio.out-of-stock input[type="radio"]:checked + .custom-radio-label::before {
+    background-color: red;
+}
+
+.custom-radio.in-stock input[type="radio"]:checked + .custom-radio-label::before {
+    background-color: green;
+}
+
+.custom-radio-label {
+    color: inherit; /* Uses parent color for easy updates */
+}
+</style>
 {{- partial "alert.html" . -}}
-{{- partial "header_new.html" . -}}
-
-<div class="container product-page">
-    <div class="row topbanner rel">
-        <p class="text-dark col-12 ninety mt-1"><a href="/shop" class="text-dark text-decoration-underline">Shop</a> > Tallow balm</p>
-        
-        <!-- Product Images - Using existing partial -->
-        <div class="col-12 col-lg-6 product-photos mb-3">
-            {{- partial "tallowskinimages.html" . -}}
-        </div>
-        
-        <!-- Product Form -->
-        <div class="col-12 col-lg-6">
-            <p class="fw-bold mt-2"><img class="stars pe-2" src="/img/stars/5.webp" alt="">Used by 20000+ kiwis.</p>
-            
-            <!-- Title on its own line -->
-            <h1 class="fw-bold mt-2 mb-0">Whipped Tallow Balm</h1>
-            
-            <!-- Subtitle -->
-            <p class="fw-lighter h1 h1big mb-0">Naturally Perfect Skin</p>
-            <p class="text-muted mb-2" style="font-size: 14px;">PrimalCare</p>
-            
-            <p class="fw-lighter mb-2">Your friends will ask what's the secret to your <span class="attention-primalcare">glow up!</span></p>
-            
-            <!-- Promo legal disclaimer 
-            <p class="promo-disclaimer" id="promo-disclaimer" style="display:none; font-size: 11px; color: #888; margin-bottom: 10px;">35% off <span id="promo-scent-name">Frankincense</span> until <span id="promo-end-date">20 Jan 2026</span> only.</p>
--->
-
-            
-            <!-- Price -->
-            <div class="mb-2">
-                <div class="price-display-new" style="justify-content: flex-start;">
-                    <span class="price-main" id="price">$18.95</span>
-                    <span class="price-compare" id="price-compare" style="display:none">$18.95</span>
-                </div>
-                <div class="price-badges" id="price-badges">
-                    <!-- Badges inserted by JS -->
-                </div>
+    {{- partial "header_new.html" . -}}
+    
+    <div class="container product-page">
+        <div class="row topbanner rel">
+            <p class="text-dark col-12 ninety mt-1"><a href="/shop" class="text-dark text-decoration-underline">Shop</a> > Tallow balm</p>
+            <div class="col-12 col-lg-6 product-photos mb-3">
+                {{- partial "tallowskinimages.html" . -}}
             </div>
-            
-            <!-- Afterpay -->
-            <p class="fw-lighter mb-3" id="afterpay-line">or 4 interest free payments of $<span id="afterpay_price">4.74</span> with <img src="/img/afterpay.webp" class="d-inline" height="28" alt="afterpay"></p>
-
-            <!-- New Styled Form -->
-            <form id="productForm" class="form-group mb-4" autocomplete="off">
+            <div class="col-12 col-lg-6">
+                <p class="fw-bold mt-2"><img class="stars pe-2" src="/img/stars/5.webp" alt="">Used by 20000+ kiwis.</p>
+                <h1 class="fw-bold mt-2">Whipped Tallow Balm </h1>
+                <p class="fw-lighter h1 h1big">Naturally Perfect Skin</p>
+                <p class="text-muted">From PrimalCare</p>
+                <p class="fw-lighter">Your friends will ask what’s the secret to your <span class="attention-primalcare">glow up!</span></p>
+ 
                 
-                <!-- Hidden original inputs for compatibility -->
-                <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked style="display:none">
-                <input type="radio" id="three_pack" name="orderType" value="three_pack" style="display:none">
-                <input type="radio" id="vanilla-rose" name="flavor" value="vanilla-rose" checked style="display:none">
-                <input type="radio" id="lavender" name="flavor" value="lavender" style="display:none">
-                <input type="radio" id="frankincense" name="flavor" value="frankincense" style="display:none">
-                <input type="radio" id="neutral" name="flavor" value="neutral" style="display:none">
-                <input type="radio" id="size60ml" name="size" value="60ml" checked style="display:none">
-                <input type="radio" id="size120ml" name="size" value="120ml" style="display:none">
-                
-                <!-- Hidden pack scent select -->
-                <select class="product-select" name="flavor" id="pack-flavor-hidden" style="display:none">
-                    <option value="trio-v-f-l">Vanilla & rose, Frankincense, Lavender</option>
-                    <option value="trio-v-f-n">Vanilla & rose, Frankincense, Natural</option>
-                    <option value="trio-v-l-n">Vanilla & rose, Lavender, Natural</option>
-                    <option value="trio-f-l-n">Frankincense, Lavender, Natural</option>
-                    <option value="trio-v-v-f">Vanilla & rose, Vanilla & rose, Frankincense</option>
-                    <option value="trio-v-v-l">Vanilla & rose, Vanilla & rose, Lavender</option>
-                    <option value="trio-v-v-n">Vanilla & rose, Vanilla & rose, Natural</option>
-                    <option value="trio-f-f-v">Frankincense, Frankincense, Vanilla & rose</option>
-                    <option value="trio-f-f-l">Frankincense, Frankincense, Lavender</option>
-                    <option value="trio-f-f-n">Frankincense, Frankincense, Natural</option>
-                    <option value="trio-l-l-v">Lavender, Lavender, Vanilla & rose</option>
-                    <option value="trio-l-l-f">Lavender, Lavender, Frankincense</option>
-                    <option value="trio-l-l-n">Lavender, Lavender, Natural</option>
-                    <option value="trio-n-n-v">Natural, Natural, Vanilla & rose</option>
-                    <option value="trio-n-n-f">Natural, Natural, Frankincense</option>
-                    <option value="trio-n-n-l">Natural, Natural, Lavender</option>
-                    <option value="trio-v-v-v">Vanilla & rose, Vanilla & rose, Vanilla & rose</option>
-                    <option value="trio-f-f-f">Frankincense, Frankincense, Frankincense</option>
-                    <option value="trio-l-l-l">Lavender, Lavender, Lavender</option>
-                    <option value="trio-n-n-n">Natural, Natural, Natural</option>
-                </select>
+    <!-- YAML FORM STARTS -->
 
-                <div class="new-product-form">
-                    <!-- Unit Type -->
-                    <div class="product-form-row">
-                        <span class="product-form-label">Unit</span>
-                        <div class="product-radio-group">
+<!-- Product Form Options with Bootstrap Styling -->
+                <div class="price-display fw-bold">
+                    <p class="mb-2"><span id="price">-</span> <span class="special" id="special" style="display:none">This price is 35% off!</p>    
+                    <p class="fw-lighter">or 4 interest free payments of $<span id="afterpay_price"></span> with <img src="/img/afterpay.webp" class="d-inline" height="28" alt="afterpay"></p>            
+                </div>
+                <form id="productForm" class="form-group mb-4" autocomplete="off">
+                    <div class="text-left mb-3 mb-lg-4">
+                        <label class="mob-ninety">Select unit type:</label>
+                    
+                        <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
+                        <label for="single_purchase" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/balm/1.webp" alt="single jar">Single jar</label>
+                    
+                        <input type="radio" id="three_pack" name="orderType" value="three_pack">
+                        <label for="three_pack" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/balm/3.webp" alt="3 pack jar">3 pack <span class="attention-primalcare small">(save 35% + GIFT)</span></label>
+                    
+                        <!-- Uncomment to enable subscription options -->
+                        <!-- 
+                        <input type="radio" id="recurring_monthly" name="orderType" value="recurring_monthly">
+                        <label for="recurring_monthly" class="product-form-radio">Subscribe Monthly (save 20%)</label>
+                    
+                        <input type="radio" id="recurring_quarterly" name="orderType" value="recurring_quarterly">
+                        <label for="recurring_quarterly" class="product-form-radio">Subscribe Quarterly (save 12.5%)</label>
+                        -->
+                    </div>
+                    <div class="text-left mb-3 mb-lg-4 " id="pack_unit_fragnance">
+                        <label class="mob-ninety">Select scent:</label>
+                        <select class="product-select form-select" name="flavor">
+                            <!-- Vanilla & rose, Frankincense, Lavender combinations -->
+                            <option value="trio-v-f-l">Vanilla & rose, Frankincense, Lavender</option>
+                            <option value="trio-v-f-n">Vanilla & rose, Frankincense, Natural</option>
+                            <option value="trio-v-l-n">Vanilla & rose, Lavender, Natural</option>
+                            <option value="trio-f-l-n">Frankincense, Lavender, Natural</option>
+                            <option value="trio-v-v-f">Vanilla & rose, Vanilla & rose, Frankincense</option>
+                            <option value="trio-v-v-l">Vanilla & rose, Vanilla & rose, Lavender</option>
+                            <option value="trio-v-v-n">Vanilla & rose, Vanilla & rose, Natural</option>
                             
-                            <!-- Single jar button -->
-                            <button type="button" class="product-radio-btn active" data-value="single" id="btn-single">
-                                <span class="btn-main">
-                                    <img src="/img/radio/balm/1.webp" alt="">
-                                    Single jar
-                                </span>
-                            </button>
-
-                            <button type="button" class="product-radio-btn" data-value="pack" id="btn-pack">
-                                <span class="btn-main">
-                                    <img src="/img/radio/balm/3.webp" alt="">
-                                    3-Pack
-                                </span>
-                                <span class="btn-sub"><span class="badge-sale">-35% +GIFT</span></span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Scent - Single -->
-                    <div class="product-form-row" id="scent-single-row">
-                        <span class="product-form-label">Scent</span>
-                        <div class="product-radio-group">
-                            <button type="button" class="product-radio-btn scent-btn active" data-value="vanilla-rose" id="btn-vanilla">Vanilla rose</button>
-                            <button type="button" class="product-radio-btn scent-btn" data-value="lavender" id="btn-lavender">Lavender</button>
-                            <button type="button" class="product-radio-btn scent-btn" data-value="frankincense" id="btn-frank">Frankincense</button>
-                            <button type="button" class="product-radio-btn scent-btn" data-value="neutral" id="btn-natural">Natural</button>
-                        </div>
-                    </div>
-
-                    <!-- Scent - Pack -->
-                    <div class="product-form-row" id="scent-pack-row" style="display:none">
-                        <span class="product-form-label">Scent</span>
-                        <select class="product-select-styled" id="pack-scent-select">
-                            <optgroup label="Mix of all scents">
-                                <option value="trio-v-f-l">Vanilla & rose, Frankincense, Lavender</option>
-                                <option value="trio-v-f-n">Vanilla & rose, Frankincense, Natural</option>
-                                <option value="trio-v-l-n">Vanilla & rose, Lavender, Natural</option>
-                                <option value="trio-f-l-n">Frankincense, Lavender, Natural</option>
-                            </optgroup>
-                            <optgroup label="2 of one + 1 of another">
-                                <option value="trio-v-v-f">Vanilla & rose ×2, Frankincense</option>
-                                <option value="trio-v-v-l">Vanilla & rose ×2, Lavender</option>
-                                <option value="trio-v-v-n">Vanilla & rose ×2, Natural</option>
-                                <option value="trio-f-f-v">Frankincense ×2, Vanilla & rose</option>
-                                <option value="trio-f-f-l">Frankincense ×2, Lavender</option>
-                                <option value="trio-f-f-n">Frankincense ×2, Natural</option>
-                                <option value="trio-l-l-v">Lavender ×2, Vanilla & rose</option>
-                                <option value="trio-l-l-f">Lavender ×2, Frankincense</option>
-                                <option value="trio-l-l-n">Lavender ×2, Natural</option>
-                                <option value="trio-n-n-v">Natural ×2, Vanilla & rose</option>
-                                <option value="trio-n-n-f">Natural ×2, Frankincense</option>
-                                <option value="trio-n-n-l">Natural ×2, Lavender</option>
-                            </optgroup>
-                            <optgroup label="All same scent">
-                                <option value="trio-v-v-v">Vanilla & rose ×3</option>
-                                <option value="trio-f-f-f">Frankincense ×3</option>
-                                <option value="trio-l-l-l">Lavender ×3</option>
-                                <option value="trio-n-n-n">Natural ×3</option>
-                            </optgroup>
+                            <!-- Frankincense, Frankincense, Vanilla & rose combinations -->
+                            <option value="trio-f-f-v">Frankincense, Frankincense, Vanilla & rose</option>
+                            <option value="trio-f-f-l">Frankincense, Frankincense, Lavender</option>
+                            <option value="trio-f-f-n">Frankincense, Frankincense, Natural</option>
+                            
+                            <!-- Lavender, Lavender, Vanilla & rose combinations -->
+                            <option value="trio-l-l-v">Lavender, Lavender, Vanilla & rose</option>
+                            <option value="trio-l-l-f">Lavender, Lavender, Frankincense</option>
+                            <option value="trio-l-l-n">Lavender, Lavender, Natural</option>
+                            
+                            <!-- Natural, Natural, Vanilla & rose combinations -->
+                            <option value="trio-n-n-v">Natural, Natural, Vanilla & rose</option>
+                            <option value="trio-n-n-f">Natural, Natural, Frankincense</option>
+                            <option value="trio-n-n-l">Natural, Natural, Lavender</option>
+                            
+                            <!-- Vanilla & rose, Vanilla & rose, Vanilla & rose combinations -->
+                            <option value="trio-v-v-v">Vanilla & rose, Vanilla & rose, Vanilla & rose</option>
+                            
+                            <!-- Frankincense, Frankincense, Frankincense combinations -->
+                            <option value="trio-f-f-f">Frankincense, Frankincense, Frankincense</option>
+                            
+                            <!-- Lavender, Lavender, Lavender combinations -->
+                            <option value="trio-l-l-l">Lavender, Lavender, Lavender</option>
+                            
+                            <!-- Natural, Natural, Natural combinations -->
+                            <option value="trio-n-n-n">Natural, Natural, Natural</option>
                         </select>
                     </div>
+                    <div class="text-left mb-3 mb-lg-4" id="single_unit_fragnance">
+                        <label class="mob-ninety">Select scent:</label>
+                    
+                        <input type="radio" id="vanilla-rose" name="flavor" value="vanilla-rose" checked>
+                        <label for="vanilla-rose" class="product-form-radio">Vanilla rose</label>
+                        
+                        <input type="radio" id="lavender" name="flavor" value="lavender" >
+                        <label for="lavender" class="product-form-radio">Lavender</label>
 
-                    <!-- Size -->
-                    <div class="product-form-row" id="size-row">
-                        <span class="product-form-label">Size</span>
-                        <div class="product-radio-group">
-                            <!-- 60ml button - hidden during promo for single jars -->
-                            
-                            
-                             <button type="button" class="product-radio-btn active" data-value="60ml" id="btn-60ml">
-                                <span class="btn-main">
-                                    <img src="/img/radio/balm/1.webp" alt="" style="height:18px">
-                                    60ml
-                                </span>
-                                <span class="btn-sub" id="price-60ml">$18.95</span>
-                            </button>
-                             <button type="button" class="product-radio-btn" data-value="120ml" id="btn-120ml">
-                                <span class="btn-main">
-                                    <img src="/img/radio/balm/175.webp" alt="">
-                                    120ml
-                                </span>
-                                <span class="btn-sub"><span id="price-120ml">$24.95</span> <span class="highlight">· best value</span></span>
-                            </button>
+                        <input type="radio" id="frankincense" name="flavor" value="frankincense" >
+                        <label for="frankincense" class="product-form-radio">Frankincense</label>
+
+                        <input type="radio" id="neutral" name="flavor" value="neutral">
+                        <label for="neutral" class="product-form-radio">Natural</label>
+                    </div> 
+                    <div class="text-left  mb-3 mb-lg-4">
+                        <label class="float-left mob-ninety mr-2 mt-2">Select size:</label>
+                      <div class="product-form-radio">
+                            <input type="radio" id="size60ml" name="size" value="60ml" checked>
+                            <label for="size60ml" class="product-form-radio float-left"><img class="prod-radio-img" src="/img/radio/balm/1.webp" alt="balm">60ml</label>
+                        </div>
+                        <div class="product-form-radio">
+                            <input type="radio" id="size120ml" name="size" value="120ml" >
+                            <label for="size120ml" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/balm/175.webp" alt="balm">120ml <span class="attention-primalcare small">(cheaper per ml)</span></label>
                         </div>
                     </div>
+                    
 
-                    <!-- Quantity -->
-                    <div class="product-form-row">
-                        <span class="product-form-label">Qty</span>
-                        <div class="qty-container">
-                            <button type="button" class="qty-btn" id="qty-decrease">−</button>
-                            <span class="qty-value" id="qty-display">1</span>
-                            <button type="button" class="qty-btn" id="qty-increase">+</button>
-                        </div>
-                        <input type="hidden" id="quantityAll" name="quantity" value="1">
-                        <div class="stock-indicator">
-                            <span class="stock-dot"></span>
-                            <span class="stock-text">In Stock</span>
-                        </div>
-                    </div>
-
-                    <!-- Add to Cart -->
-                    <button type="button" class="btn-add-cart buy-now" id="add-to-cart-btn" data-price-id="" data-quantity-id="quantityAll">
-                        Add To Cart
-                    </button>
-                    <p class="text-center text-muted small" id="shipping-text">🚚 Speedy Shipping NZ Wide | Money back guarantee</p>
-                    <div class="text-center">
-                        <img class="badges middle" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
-                    </div>
-                </div>
-            </form>
-        </div>
+ <!-- Quantity Selector -->
+ <div class="form-group mb-3 mb-lg-4">
+    <div class="mt-4 custom-radio float-end">
+        <input type="radio" id="inStock" name="stockStatus" checked>
+        <label class="custom-radio-label mb-0" for="inStock">In Stock</label>
     </div>
+    <label for="quantityAll" class="form-label">Quantity of units:</label>
+    <div class="quantity-container">
+        <button type="button" class="btn-decrease">-</button>
+        <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+        <button type="button" class="btn-increase">+</button>
+      </div>
+</div>
 
-    <!-- Rest of page content -->
-    <div class="row mt-4 py-0 d-flex justify-content-center">
-        <div class="col-12 col-md-6 text-center">
-            <div class="col-12 text-center">
-                <h2>As Featured on</h2>
-                <div class="col-12 d-none d-md-block">
-                    <img src="/img/shop/desktop-product-logos.webp" class="img-fluid">
+
+
+
+                    
+
+
+
+                <!-- Add to Cart Button -->
+                <div class="add-to-cart text-center mb-4">
+                    <button type="button" class="btn btn-black btn-lg buy-now mb-2" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
+                    <p>Speedy Shipping NZ Wide | Money back guarantee</p>
+                    <img class="badges middle" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
+
                 </div>
-                <div class="col-12 d-block d-md-none">
-                    <img src="/img/shop/mobile-logos.webp" class="img-fluid">
-                </div>
-            </div>
-            <div class="row mt-4 mb-0 py-0">
-                <div class="col-6">
-                    <img src="/img/prod/balm/eczema.webp" alt="eczema">
-                </div>
-                <div class="col-6">
-                    <img src="/img/prod/balm/baby-eczema.webp" alt="baby eczema">
-                </div>
-                <p>With oils closely mimicking those produced by our bodies, our tallow <span class="attention-primalcare">soothes dry and irritated skin</span></p>
+
+                </form>
+
+    <!-- YAML FORM ENDS -->
+
+
             </div>
         </div>
-        
-        <div class="faq-tab-container col-12 col-md-6">
-            <!-- Nav tabs -->
-            <div class="faq-nav-tabs">
-                <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Fast facts</div>
-                <div class="faq-nav-tab" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</div>
-                <div class="faq-nav-tab" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</div>
-                <div class="faq-nav-tab" id="directions-tab" data-toggle="tab" href="#directions" role="tab" aria-controls="directions" aria-selected="false">Directions</div>
-                <div class="faq-nav-tab" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</div>
-            </div>
-
-            <!-- Tab panes -->
-            <div class="tab-content faq-tab-content">
-                <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">        
-                    <p>Don't waste another dollar on expensive moisturisers and steroid creams that often <span class="attention-primalcare">don't work</span> and are filled with <span class="attention-primalcare">chemical nasties!</span></p>
-                    <p>Watch as light and fluffy balm soaks deeply into your skin, going to work giving rapid <span class="attention-primalcare">hydrating and rejuvenating relief</span> to dry, cracked and itchy skin.</p>
-                    <p class="mt-4 h6">What makes Primalcare tallow balm different? </p>
-                    <ul>
-                        <li>It's a whipped tallow balm, most others aren't. Meaning it soaks in much better.</li>
-                        <li>We offer the best value tallow on the NZ market–get more, at better quality, for less.</li>
-                    </ul>
-                    <div class="row text-center justify-content-around mt-0 mb-0">
-                        <h3 class="h4">Meet your moisturiser match</h3>
-                        <p>See why <span class="attention-primalcare">20000+ kiwis just like you</span> switched to Primalcare</p>
-                        <img class="seventy" src="/img/comparison-card-primalcare-balm.svg" alt="balm">
+        <div class="row mt-4 py-0  d-flex  justify-content-center">
+            <div class="col-12 col-md-6 text-center">
+                <div class="col-12 text-center">
+                    <h2>As Featured on</h2>
+                    <div class="col-12 d-none d-md-block">
+                        <img src="/img/shop/desktop-product-logos.webp" class="img-fluid">
+                    </div>
+                    <div class="col-12 d-block d-md-none">
+                        <img src="/img/shop/mobile-logos.webp" class="img-fluid">
                     </div>
                 </div>
-                <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                    <h4>See what our customers say online</h4>
-                    <img class="eighty middle" src="/img/prod/balm/balmreviews.webp" alt="reviews">
+                <div class="row mt-4 mb-0 py-0">
+                    <div class="col-6">
+                        <img src="/img/prod/balm/eczema.webp" alt="eczema">
+                    </div>
+                    <div class="col-6">
+                        <img src="/img/prod/balm/baby-eczema.webp" alt="baby eczema">
+                    </div>
+                    <p>With oils closely mimicking those produced by our bodies, our tallow <span class="attention-primalcare">soothes dry and irritated skin</span></p>
                 </div>
-                <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
-                    <h4>3 Nourishing Ingredients</h4>
+
+            </div>
+            <div class="faq-tab-container col-12 col-md-6">
+                <!-- Nav tabs -->
+                <div class="faq-nav-tabs">
+                    <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Fast facts</div>
+                    <div class="faq-nav-tab" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</div>
+                    <div class="faq-nav-tab" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</div>
+                    <div class="faq-nav-tab" id="directions-tab" data-toggle="tab" href="#directions" role="tab" aria-controls="directions" aria-selected="false">Directions</div>
+                    <div class="faq-nav-tab" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</div>
+                </div>
+
+                <!-- Tab panes -->
+                <div class="tab-content faq-tab-content">
+            <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">        
+                <p>Don’t waste another dollar on expensive moisturisers and steroid creams that often <span class="attention-primalcare">don’t work</span> and are filled with <span class="attention-primalcare">chemical nasties!</span></p>
+                <p>Watch as light and fluffy balm soaks deeply into your skin, going to work giving rapid <span class="attention-primalcare">hydrating and rejuvenating relief</span> to dry, cracked and itchy skin.</p>
+                <p class="mt-4 h6">What makes Primalcare tallow balm different? </p>
+                <ul>
+                    <li>It’s a whipped tallow balm, most others aren’t. Meaning it soaks in much better.</li>
+                    <li>We offer the best value tallow on the NZ market–get more, at better quality, for less.</li>
+                </ul>
+                
+            <div class="row text-center justify-content-around mt-0 mb-0">
+                <h3 class="h4">Meet your moisturiser match</h3>
+            <p>See why <span class="attention-primalcare">20000+ kiwis just like you</span> switched to Primalcare</p>
+                            <img class="seventy" src="/img/comparison-card-primalcare-balm.svg" alt="balm">
+                </div>
+                
+            
+                
+            </div>
+            <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                <h4>See what our customers say online</h4>
+                <img class="eighty middle" src="/img/prod/balm/balmreviews.webp" alt="reviews">
+            </div>
+            <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
+                    <h4>4 Nourishing Ingredients</h4>
                     <p>A harmonic combination that soaks in for immediate hydration</p>
-                    <p>Grass-fed purified NZ beef tallow (98%), organic jojoba oil, essential oil.</p>
-                    <div class="row text-center">
-                        <div class="col-6">
-                            <img src="/img/prod/balm/tallowwhite.webp" class="w-50 mb-2 middle" alt="Grass-fed beef tallow">
-                            <p>We use high grade grass-fed suet, which we wet render and filter 6 times.</p>
-                        </div>
-                        <div class="col-6">
-                            <img src="/img/prod/balm/jojobaoil.webp" class="w-50 mb-2 middle" alt="Organic cold pressed jojoba oil">
-                            <p>Adding extra lift to the whip while providing smoothing and benefits to your skin.</p>    
-                        </div>
-                        <div class="col-6">
-                            <img src="/img/prod/balm/essentialoil.webp" class="w-50 mb-2 middle" alt="Natural essential oils">
-                            <p>These add the aroma and additional health benefits to your balms.</p>
+                    <p>Grass-fed purified NZ beef tallow (98%), organic olive oil, organic jojoba oil, essential oil. </p>
+            
+                        <div class="row text-center">
+                            <div class="col-6">
+                                <img src="/img/prod/balm/tallowwhite.webp" class="w-50 mb-2 middle" alt="Grass-fed beef tallow">
+                                <p>We use high grade grass-fed suet, which we wet render and filter 6 times.</p>
+                            </div>
+                            <div class="col-6">
+                                <img src="/img/prod/balm/oliveoil.webp" class="w-50 mb-2 middle" alt="Organic cold pressed olive oil">
+                                <p>Important for providing a light and whipped texture to our unique whipped balm.</p>
+                            </div>
+                            <div class="col-6">
+                                <img src="/img/prod/balm/jojobaoil.webp" class="w-50 mb-2 middle" alt="Organic cold pressed jojoba oil">
+                                <p>Adding extra lift to the whip while providing smoothing and benefits to your skin.</p>    
+                            </div>
+                            <div class="col-6">
+                                <img src="/img/prod/balm/essentialoil.webp" class="w-50 mb-2 middle" alt="Natural essential oils">
+                                <p>These add the aroma and additional health benefits to your balms.</p>
+                            </div>
                         </div>
                     </div>
+                    
+                    <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
+                        <h4>Directions</h4>
+                        <p>Apply a small amount on the face, neck, hands or feet daily in the morning as a moisturiser or evening as a night cream. Best used on slightly damp skin.</p>
+                        <p>Body and facial moisturizer. Eczema cream, monthly hair conditioner.</p>
+
+                        <p>For best texture and consistency when using, keep in temperatures between 18 and 25 degrees celsius and out of direct sunlight.</p>
+                    </div>
+
+                    <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
+                        <h4>Shipping</h4>
+                        <p><strong>Processing time:</strong> Your order will be processed within 3 business days after which you can expect usual courier times to your area (generally 3-5 business days) </p>
+                        <p><strong>Shipping rates:</strong> We usually charge between $4.95 and $6.95 for shipping. You can view the shipping costs at the checkout before completing your purchase.</p>
+                        <p><strong>International shipping:</strong> Currently, we only offer shipping within New Zealand. We apologize for any inconvenience this may cause.</p>
+                        <p>If you have any questions or concerns regarding shipping, please don't hesitate to <a href="/contact/">contact us</a>.</p>
+                    </div>
                 </div>
-                <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
-                    <h4>Directions</h4>
-                    <p>Apply a small amount on the face, neck, hands or feet daily in the morning as a moisturiser or evening as a night cream. Best used on slightly damp skin.</p>
-                    <p>Body and facial moisturizer. Eczema cream, monthly hair conditioner.</p>
-                    <p>For best texture and consistency when using, keep in temperatures between 18 and 25 degrees celsius and out of direct sunlight.</p>
-                </div>
-                <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
-                    <h4>Shipping</h4>
-                    <p><strong>Processing time:</strong> Your order will be processed within 3 business days after which you can expect usual courier times to your area (generally 3-5 business days)</p>
-                    <p><strong>Shipping rates:</strong> We usually charge between $4.95 and $6.95 for shipping. You can view the shipping costs at the checkout before completing your purchase.</p>
-                    <p><strong>International shipping:</strong> Currently, we only offer shipping within New Zealand. We apologize for any inconvenience this may cause.</p>
-                    <p>If you have any questions or concerns regarding shipping, please don't hesitate to <a href="/contact/">contact us</a>.</p>
-                </div>
+
             </div>
         </div>
     </div>
-</div>
+    <div class="section light-peach py-80 mt-5">
+            {{- partial "irritation-routine.html" . -}}
 
-<div class="section light-peach py-80 mt-5">
-    {{- partial "irritation-routine.html" . -}}
-</div>
-
-<!-- Tab switching script -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var tabs = document.querySelectorAll('.faq-nav-tab');
-        tabs.forEach(function(tab) {
-            tab.addEventListener('click', function() {
-                document.querySelector('.faq-nav-tab.active').classList.remove('active');
-                tab.classList.add('active');
-                var tabContent = document.querySelector('.faq-tab-content .tab-pane.show.active');
-                tabContent.classList.remove('show', 'active');
-                var target = tab.getAttribute('href');
-                document.querySelector(target).classList.add('show', 'active');
+    </div> 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var tabs = document.querySelectorAll('.faq-nav-tab');
+            tabs.forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    document.querySelector('.faq-nav-tab.active').classList.remove('active');
+                    tab.classList.add('active');
+                    var tabContent = document.querySelector('.faq-tab-content .tab-pane.show.active');
+                    tabContent.classList.remove('show', 'active');
+                    var target = tab.getAttribute('href');
+                    document.querySelector(target).classList.add('show', 'active');
+                });
             });
         });
-    });
-</script>
+    </script>
 
-<!-- Pricing Data -->
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="https://player.vimeo.com/api/player.js"></script>
+    <script>
+       document.querySelectorAll('.image-container img').forEach(function(image) {
+            image.addEventListener('click', function() {
+                // Hide the image container
+                this.parentElement.style.display = 'none';
+                // Show the corresponding video container
+                var videoId = this.getAttribute('data-video-id');
+                document.getElementById(videoId).style.display = 'block';
+            });
+        });
+  </script> -->
+
+    <!-- YAML SCRIPT STARTS -->
+
+
+
 <script>
     const productPricingRaw = {{ site.Data.pricing.tallow.pricing.balm | jsonify | safeJS }};
+    console.log("Raw product Pricing from Hugo:", productPricingRaw);
     const country_code = getCountryCookie('country_code') || "NZ";
-    const rawData = "{{ .Site.Data.pricing | jsonify }}";
-    const pricingData = JSON.parse(rawData);
 
-    // ============================================
-    // PROMO CONFIGURATION
-    // Change PROMO_SCENT to rotate the sale each week
-    // Options: 'neutral', 'vanilla-rose', 'lavender', 'frankincense', or null (no promo)
-    // 
-    // ROTATION SCHEDULE:
-    // Week 1: 'neutral'
-    // Week 2: 'vanilla-rose'
-    // Week 3: 'lavender'
-    // Week 4: 'frankincense'
-    // ============================================
-    const PROMO_SCENT = 'null'; // <-- CHANGE THIS EACH WEEK (or null to disable)
-    const PROMO_DISCOUNT = 0.35; // 35% off
-    const PROMO_END_DATE = '20 Jan 2026'; // <-- UPDATE THIS EACH WEEK
-    
-    // Scent display names for hero section
-    const SCENT_NAMES = {
-        'neutral': 'Natural',
-        'vanilla-rose': 'Vanilla Rose',
-        'lavender': 'Lavender',
-        'frankincense': 'Frankincense'
-    };
-
-    // Build pricing object from YAML data
-    function buildPricingFromYaml() {
-        const pricing = {};
-        const productPricing = Array.isArray(productPricingRaw) ? productPricingRaw : [];
-        
-        productPricing.forEach(entry => {
-            const size = entry.size.toLowerCase();
-            pricing[size] = {
-                single: entry.prices[country_code]?.single_purchase || 0,
-                pack: entry.prices[country_code]?.three_pack || 0
-            };
-        });
-        
-        return pricing;
-    }
-    
-    const pricing = buildPricingFromYaml();
-    console.log('Pricing from YAML:', pricing);
-
-    // State
-    let state = {
-        unitType: 'single',
-        size: '60ml',
-        scent: 'vanilla-rose',
-        packScent: 'trio-v-f-l',
-        quantity: 1
-    };
-
-    function getPrice() {
-        const p = pricing[state.size];
-        let price = state.unitType === 'single' ? p.single : p.pack;
-        
-        // Apply promo discount only if this scent is on sale
-        if (PROMO_SCENT && state.unitType === 'single' && state.scent === PROMO_SCENT) {
-            price = price * (1 - PROMO_DISCOUNT);
-        }
-        
-        return price;
+    const productPricing = Array.isArray(productPricingRaw) ? productPricingRaw : [];
+    if (!Array.isArray(productPricing)) {
+        console.error("productPricing is not an array. Ensure your YAML structure and Hugo data access.");
+    } else {
+        console.log("Parsed product Pricing:", productPricing);
     }
 
-    function getOriginalPrice() {
-        const p = pricing[state.size];
-        return state.unitType === 'single' ? p.single : p.pack;
-    }
+    function updatePrice() {
+        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
+        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
 
-    function getSizePrice(sizeOption) {
-        const p = pricing[sizeOption];
-        let price = state.unitType === 'single' ? p.single : p.pack;
-        
-        // Apply promo discount only if this scent is on sale
-        if (PROMO_SCENT && state.unitType === 'single' && state.scent === PROMO_SCENT) {
-            price = price * (1 - PROMO_DISCOUNT);
-        }
-        
-        return price;
-    }
-    
-    // Check if current selection is the promo scent
-    function isPromoActive() {
-        return PROMO_SCENT && state.unitType === 'single' && state.scent === PROMO_SCENT;
-    }
+        console.log("Selected size:", size);
+        console.log("Selected order type:", orderType);
 
-    function updateUI() {
-        const price = getPrice();
-        const originalPrice = getOriginalPrice();
-        const promoActive = isPromoActive();
-        
-        // Update promo disclaimer
-        const disclaimer = document.getElementById('promo-disclaimer');
-        if (PROMO_SCENT && disclaimer) {
-            disclaimer.style.display = 'block';
-            document.getElementById('promo-scent-name').textContent = SCENT_NAMES[PROMO_SCENT];
-            document.getElementById('promo-end-date').textContent = PROMO_END_DATE;
-        } else if (disclaimer) {
-            disclaimer.style.display = 'none';
-        }
-        
-        // Update main price
-        const priceEl = document.getElementById('price');
-        priceEl.textContent = '$' + price.toFixed(2);
-        
-        // Update price compare (strikethrough)
-        const compare = document.getElementById('price-compare');
-        if (state.unitType === 'pack') {
-            // For pack: show what 3 singles would cost
-            compare.textContent = '$' + (pricing[state.size].single * 3).toFixed(2);
-            compare.style.display = 'inline';
-        } else if (promoActive) {
-            // For promo single: show original price
-            compare.textContent = '$' + originalPrice.toFixed(2);
-            compare.style.display = 'inline';
+        const pricingEntry = productPricing.find(entry => entry.size.toLowerCase() === size);
+        if (pricingEntry && pricingEntry.prices[country_code][orderType]) {
+            const price = pricingEntry.prices[country_code][orderType];
+            document.getElementById("price").textContent = `$${price.toFixed(2)}`;
+            document.getElementById("afterpay_price").textContent = `${(price/4).toFixed(2)}`;
         } else {
-            compare.style.display = 'none';
-        }
-        
-        // Update badges
-        const badges = document.getElementById('price-badges');
-        if (state.unitType === 'pack') {
-            badges.innerHTML = '<span class="badge-pink-solid">35% OFF + FREE GIFT</span>';
-        } else if (promoActive) {
-            badges.innerHTML = '<span class="badge-pink-solid">35% OFF - LIMITED TIME</span>';
-        } else {
-            badges.innerHTML = '';
-        }
-        
-        // Mark the promo scent button with sale indicator
-        document.querySelectorAll('#scent-single-row .product-radio-btn').forEach(btn => {
-            btn.classList.remove('on-sale');
-            if (PROMO_SCENT && btn.getAttribute('data-value') === PROMO_SCENT) {
-                btn.classList.add('on-sale');
-            }
-        });
-        
-        // Hide/show 60ml button - only hide when promo scent is selected
-        const btn60ml = document.getElementById('btn-60ml');
-        if (promoActive) {
-            // Hide 60ml when promo scent is selected
-            btn60ml.style.display = 'none';
-            // Force 120ml selection if currently on 60ml
-            if (state.size === '60ml') {
-                state.size = '120ml';
-                document.getElementById('btn-120ml').classList.add('active');
-                document.getElementById('btn-60ml').classList.remove('active');
-                // Recalculate price with correct size
-                const newPrice = getPrice();
-                priceEl.textContent = '$' + newPrice.toFixed(2);
-                document.getElementById('afterpay_price').textContent = (newPrice / 4).toFixed(2);
-                // Update compare price too
-                if (promoActive) {
-                    compare.textContent = '$' + getOriginalPrice().toFixed(2);
-                }
-            }
-        } else {
-            // Show 60ml for non-promo scents and packs
-            btn60ml.style.display = '';
-        }
-        
-        // Update size prices
-        document.getElementById('price-120ml').textContent = '$' + getSizePrice('120ml').toFixed(2);
-        document.getElementById('price-60ml').textContent = '$' + getSizePrice('60ml').toFixed(2);
-        
-        // Update afterpay
-        document.getElementById('afterpay_price').textContent = (price / 4).toFixed(2);
-        
-        // Update scent rows
-        document.getElementById('scent-single-row').style.display = state.unitType === 'single' ? 'flex' : 'none';
-        document.getElementById('scent-pack-row').style.display = state.unitType === 'pack' ? 'flex' : 'none';
-        
-        // Sync hidden inputs
-        document.getElementById('single_purchase').checked = state.unitType === 'single';
-        document.getElementById('three_pack').checked = state.unitType === 'pack';
-        document.getElementById('size60ml').checked = state.size === '60ml';
-        document.getElementById('size120ml').checked = state.size === '120ml';
-        document.getElementById('vanilla-rose').checked = state.scent === 'vanilla-rose';
-        document.getElementById('lavender').checked = state.scent === 'lavender';
-        document.getElementById('frankincense').checked = state.scent === 'frankincense';
-        document.getElementById('neutral').checked = state.scent === 'neutral';
-        document.getElementById('pack-flavor-hidden').value = state.packScent;
-        
-        // Trigger original price ID update
-        if (typeof updatePriceId === 'function') {
-            updatePriceId();
+            document.getElementById("price").textContent = "N/A";
+            document.getElementById("afterpay_price").textContent = "N/A";
         }
     }
 
-    // Event listeners
-    document.addEventListener('DOMContentLoaded', function() {
-        // Unit type buttons
-        document.getElementById('btn-single').addEventListener('click', function() {
-            state.unitType = 'single';
-            document.getElementById('btn-single').classList.add('active');
-            document.getElementById('btn-pack').classList.remove('active');
-            updateUI();
-        });
-        document.getElementById('btn-pack').addEventListener('click', function() {
-            state.unitType = 'pack';
-            document.getElementById('btn-pack').classList.add('active');
-            document.getElementById('btn-single').classList.remove('active');
-            updateUI();
-        });
-        
-        // Size buttons
-        document.getElementById('btn-120ml').addEventListener('click', function() {
-            state.size = '120ml';
-            document.getElementById('btn-120ml').classList.add('active');
-            document.getElementById('btn-60ml').classList.remove('active');
-            updateUI();
-        });
-        document.getElementById('btn-60ml').addEventListener('click', function() {
-            state.size = '60ml';
-            document.getElementById('btn-60ml').classList.add('active');
-            document.getElementById('btn-120ml').classList.remove('active');
-            updateUI();
-        });
-        
-        // Scent buttons
-        ['vanilla', 'lavender', 'frank', 'natural'].forEach(function(s) {
-            document.getElementById('btn-' + s).addEventListener('click', function() {
-                const value = this.getAttribute('data-value');
-                state.scent = value;
-                document.querySelectorAll('#scent-single-row .product-radio-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                updateUI();
-            });
-        });
-        
-        // Pack scent select
-        document.getElementById('pack-scent-select').addEventListener('change', function() {
-            state.packScent = this.value;
-            updateUI();
-        });
-        
-        // Quantity
-        document.getElementById('qty-increase').addEventListener('click', function() {
-            state.quantity++;
-            document.getElementById('qty-display').textContent = state.quantity;
-            document.getElementById('quantityAll').value = state.quantity;
-        });
-        document.getElementById('qty-decrease').addEventListener('click', function() {
-            if (state.quantity > 1) {
-                state.quantity--;
-                document.getElementById('qty-display').textContent = state.quantity;
-                document.getElementById('quantityAll').value = state.quantity;
-            }
-        });
-        
-        // Initial UI update
-        updateUI();
-    });
+
+
+    // Attach event listener for changes
+    document.getElementById("productForm").addEventListener("change", updatePrice);
+
+    // Initialize the price on page load
+    document.addEventListener("DOMContentLoaded", updatePrice);
 </script>
 
-<!-- Original pricing scripts for cart compatibility -->
+
 <script>
+    // Function to update the price ID display
+    function updatePriceID() {
+    const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
+    const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+    const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
+    
+
+
+    // Default value for price ID
+    let priceID = "N/A";
+
+    // Debug: Check the loaded data and selected values
+    console.log("Loaded Data:", productPricingRaw);
+    console.log("Selected - Size:", size, "Flavor:", flavor, "Order Type:", orderType);
+
+    // Traverse the pricing structure for the selected combination
+    if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.balm) {
+        const balmData = productPricingRaw.ids.balm;
+        console.log("balm Data:", balmData);
+
+        const orderTypeData = balmData[orderType];
+        console.log("Order Type Data:", orderTypeData);
+
+        if (orderTypeData && orderTypeData[flavor]) {
+            const flavorData = orderTypeData[flavor];
+            console.log("Flavor Data:", flavorData);
+
+            const sizeData = flavorData[size];
+            console.log("Size Data:", sizeData);
+
+            if (sizeData) {
+                priceID = sizeData[country_code]; // Assign the resolved price ID
+            }
+        }
+    }
+
+    // Update the DOM element with the resolved price ID
+    document.getElementById("price-id").textContent = priceID !== "N/A" ? priceID : "Price ID Not Available";
+
+    // Log final result
+    console.log("Resolved Price ID:", priceID);
+
+};
+</script>
+<script>
+    // Parse the JSON string into an object
+    const rawData = "{{ .Site.Data.pricing | jsonify }}"; // Embedded JSON string from Hugo
+    const pricingData = JSON.parse(rawData); // Parse into a JavaScript object
+    console.log('Parsed Pricing Data:', pricingData); // Debugging output
+
     function updatePriceId() {
-        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase();
-        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
-
-        try {
-            let priceId;
-            if (orderType === 'single_purchase') {
-                const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
-                
-                // Use promo price ID only if this scent is on sale (120ml only)
-                if (PROMO_SCENT && flavor === PROMO_SCENT && size === '120ml' && pricingData.tallow.ids.balm.promo && pricingData.tallow.ids.balm.promo[flavor]) {
-                    priceId = pricingData.tallow.ids.balm.promo[flavor][size][country_code];
-                } else {
-                    priceId = pricingData.tallow.ids.balm.single[flavor][size][country_code];
-                }
-            } else if (orderType === 'three_pack') {
-                const flavor = document.getElementById('pack-scent-select').value.trim().toLowerCase();
-                priceId = pricingData.tallow.ids.balm.pack[flavor][size][country_code];
-            }
-
-            const buyNowButton = document.querySelector(".buy-now");
-            if (buyNowButton) {
-                buyNowButton.setAttribute("data-price-id", priceId || "");
-            }
-        } catch (error) {
-            console.error('Error fetching Price ID:', error);
-        }
+    // Get the selected values
+    const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
+    const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
+    console.log(size);
+    if((size=="120ml" || size == "60ml") && orderType == "three_pack")
+    {
+        document.getElementById("special").style.display="inline";
     }
-</script>
+    else{
+        document.getElementById("special").style.display="none";
+    }
 
-<!-- Add to Cart Handler -->
-<script>
-    // Display name mappings for cart
-    const FLAVOR_DISPLAY_NAMES = {
-        'vanilla-rose': 'Vanilla Rose',
-        'lavender': 'Lavender',
-        'frankincense': 'Frankincense',
-        'neutral': 'Natural'
-    };
+    try {
+        let priceId;
 
-    function handleAddToCart(event) {
-        event.preventDefault();
-        const button = event.target;
-        
-        // Format size with capital letter (e.g., "60ml" -> "60ml", but ensures consistency)
-        const size = state.size;
-
-        let flavor;
-        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
-        
+        // Access the correct price ID based on the order type
         if (orderType === 'single_purchase') {
-            // Use display name for single scents
-            flavor = FLAVOR_DISPLAY_NAMES[state.scent] || state.scent;
+            const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+            document.getElementById("single_unit_fragnance").style.display = 'block';
+            document.getElementById("pack_unit_fragnance").style.display = 'none';
+            priceId = pricingData.tallow.ids.balm.single[flavor][size][country_code];
+        } else if (orderType === 'recurring_monthly') {
+            const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+            priceId = pricingData.tallow.ids.balm.monthly[flavor][size][country_code];
+        } else if (orderType === 'recurring_quarterly') {
+            const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+            priceId = pricingData.tallow.ids.balm.quarterly[flavor][size][country_code];
         } else if (orderType === 'three_pack') {
-            flavor = document.getElementById('pack-scent-select').selectedOptions[0].text.trim();
+            const flavor = document.querySelector('.product-select').value.trim().toLowerCase();
+            document.getElementById("single_unit_fragnance").style.display = 'none';
+            document.getElementById("pack_unit_fragnance").style.display = 'block';
+            priceId = pricingData.tallow.ids.balm.pack[flavor][size][country_code];
         }
 
-        const unitPrice = parseFloat(document.getElementById('price').textContent.replace('$', '').trim()) || 0;
-        const priceId = button.getAttribute('data-price-id') || 'N/A';
-        const title = document.querySelector('h1').innerText;
-        const quantity = parseInt(document.getElementById('quantityAll').value, 10) || 1;
+        console.log('Price ID:', priceId);
 
-        if (!priceId || priceId === 'N/A') {
-            alert('Please select valid options before adding to cart.');
-            return;
+        // Update the DOM element with the resolved price ID, if it exists
+        const priceIdElement = document.getElementById('price-id');
+        if (priceIdElement) {
+            priceIdElement.textContent = priceId || 'Price ID not found';
         }
 
-        // Determine order type label (with promo indicator if applicable)
-        const isPromo = PROMO_SCENT && state.unitType === 'single' && state.scent === PROMO_SCENT;
-        let orderTypeLabel = state.unitType === 'pack' ? '3 pack' : 'Single jar';
-        if (isPromo) {
-            orderTypeLabel = 'Single jar (35% OFF)';
+        // Update the button's data-price-id attribute
+        const buyNowButton = document.querySelector(".buy-now");
+        if (buyNowButton) {
+            buyNowButton.setAttribute("data-price-id", priceId || "");
+            console.log('Button updated with Price ID:', priceId);
         }
+    } catch (error) {
+        console.error('Error fetching Price ID:', error);
 
-        const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
-        cart.push({
-            priceId,
-            title,
-            size: size,
-            flavor,
-            orderType: orderTypeLabel,
-            quantity,
-            unitPrice,
-            isPromo: isPromo,
-            eligibleForDiscount: false,
-            isSubscription: false,
-            subscriptionInterval: null
-        });
-        localStorage.setItem('cartV2', JSON.stringify(cart));
-
-        const modal = document.getElementById('addedToCartModal');
-        if (modal) {
-            $('#addedToCartModal').modal('show');
-        } else {
-            alert('Item added to cart successfully!');
+        // Clear the button's data-price-id attribute on error
+        const buyNowButton = document.querySelector(".buy-now");
+        if (buyNowButton) {
+            buyNowButton.setAttribute("data-price-id", "");
         }
     }
+}
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const addToCartButton = document.querySelector('.buy-now');
-        if (addToCartButton) {
-            addToCartButton.addEventListener('click', handleAddToCart);
+    document.addEventListener('DOMContentLoaded', function () {
+        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
+        console.log('hiiii',orderType);
+        if (orderType === 'single_purchase') {
+            document.getElementById("single_unit_fragnance").style.display = 'block';
+            document.getElementById("pack_unit_fragnance").style.display = 'none';
+        } else if (orderType === 'three_pack') {
+            document.getElementById("single_unit_fragnance").style.display = 'none';
+            document.getElementById("pack_unit_fragnance").style.display = 'block';
         }
+        // Add event listener for form changes
+        document.getElementById('productForm').addEventListener('change', updatePriceId);
+
+        // Trigger the update function on page load
+        updatePriceId();
     });
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    // Convert the ids structure to a simplified format
+    function preprocessproductData(rawData) {
+        const simplified = {};
+
+        // Iterate over balm (or pets, if needed)
+        if (rawData.ids && rawData.ids.balm) {
+            const categories = rawData.ids.balm;
+
+            for (const [orderType, flavors] of Object.entries(categories)) {
+                for (const [flavor, sizes] of Object.entries(flavors)) {
+                    for (const [size, priceId] of Object.entries(sizes)) {
+                        if (!simplified[size]) {
+                            simplified[size] = {};
+                        }
+                        if (!simplified[size][flavor]) {
+                            simplified[size][flavor] = {};
+                        }
+                        simplified[size][flavor][orderType] = priceId;
+                    }
+                }
+            }
+        }
+        return simplified;
+    }
+
+    // Example: Assume productPricingRaw is available globally or passed here
+    const normalizedproductData = preprocessproductData(productPricingRaw);
+    console.log('Normalized product Data:', normalizedproductData);
+
+    // Use normalizedproductData for price ID lookups
+    function getPriceID(size, flavor, orderType) {
+        return (
+            normalizedproductData[size]?.[flavor]?.[orderType] ||
+            "Price ID not found"
+        );
+    }
+
+});
+
+</script>
+
+
+<script>
+    // Add to Cart Handler Function
+    function handleAddToCart(event) {
+    event.preventDefault();
+
+    console.log('Add to Cart button clicked!'); // Debugging
+
+    const button = event.target;
+
+    
+
+    // Retrieve values from the dropdowns
+    const selectedSize = document.querySelector('input[name="size"]:checked');
+    const size = document.querySelector(`label[for="${selectedSize.id}"]`).textContent.trim(); // Updated to get label text
+
+// Use the text content of the selected option
+let flavor;
+
+
+// Use the text content of the selected option
+    const selectedOrderType = document.querySelector('input[name="orderType"]:checked');
+    const orderTypeSelect = document.querySelector(`label[for="${selectedOrderType.id}"]`).textContent.trim();
+    const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
+
+    if (orderType === 'single_purchase') {
+        const selectedFlavor = document.querySelector('input[name="flavor"]:checked');
+        flavor = document.querySelector(`label[for="${selectedFlavor.id}"]`).textContent.trim();
+        } else if (orderType === 'three_pack') {
+        flavor = document.querySelector('.product-select').selectedOptions[0].text.trim();
+        }
+   
+    const unitPriceElement = document.getElementById('price');
+    const unitPrice = unitPriceElement 
+        ? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00
+        : 0.00;
+
+    // Retrieve the price ID
+    const priceId = button.getAttribute('data-price-id') || 'N/A';
+    const title = document.querySelector('h1').innerText;
+
+    // Retrieve quantity
+    const quantityField = document.getElementById('quantityAll');
+    const quantity = quantityField ? parseInt(quantityField.value, 10) || 1 : 1;
+
+    // Debugging
+    console.log('Size:', size); // Updated to show label
+    console.log('Flavor:', flavor);
+    console.log('Order Type:', orderTypeSelect); // Updated to show label
+    console.log('Quantity:', quantity);
+    console.log('Price ID:', priceId);
+
+    // Check if price ID is valid
+    if (!priceId || priceId === 'N/A') {
+        alert('Please select valid options before adding to cart.');
+        return;
+    }
+
+    // Add to cart
+    const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+    cart.push({
+        priceId,
+        title,
+        size,
+        flavor,
+        orderType: orderTypeSelect,
+        quantity,
+        unitPrice,
+        eligibleForDiscount: false // Set this directly to true or false
+    });
+    localStorage.setItem('cartV2', JSON.stringify(cart));
+
+    console.log('Cart updated:', cart); // Debugging
+
+    // Trigger success modal or alert
+    const modal = document.getElementById('addedToCartModal');
+    if (modal) {
+        $('#addedToCartModal').modal('show');
+    } else {
+        alert('Item added to cart successfully!');
+    }
+}
+
+// Attach the event listener to the Add to Cart button
+document.addEventListener('DOMContentLoaded', function () {
+    const addToCartButton = document.querySelector('.buy-now');
+    if (addToCartButton) {
+        addToCartButton.addEventListener('click', handleAddToCart);
+        console.log('Add to Cart button is ready.');
+    } else {
+        console.error('Add to Cart button not found!');
+    }
+});
+
+</script>
+
+
+
+
+
 
 <!-- Modal for Add to Cart Confirmation -->
 <div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
@@ -954,7 +635,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                </button>
             </div>
             <div class="modal-body">
                 Your item has been successfully added to the cart. What would you like to do next?
@@ -967,9 +649,107 @@
     </div>
 </div>
 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <!-- YAML SCRIPT ENDS -->
 
-{{- partial "footer.html" . }}
+
+    <script>
+        const quantityInput = document.getElementById('quantityAll');
+        const btnIncrease = document.querySelector('.btn-increase');
+        const btnDecrease = document.querySelector('.btn-decrease');
+        
+        // Increase quantity
+        btnIncrease.addEventListener('click', () => {
+          quantityInput.value = parseInt(quantityInput.value) + 1;
+        });
+        
+        // Decrease quantity (minimum value = 1)
+        btnDecrease.addEventListener('click', () => {
+          const currentValue = parseInt(quantityInput.value);
+          if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+          }
+        });
+        
+            </script>
+            
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const flavorOptions = document.querySelectorAll('input[name="flavor"]');
+                    const sizeOptions = document.querySelectorAll('input[name="size"]');
+                    const stockLabel = document.querySelector('label[for="inStock"]');
+                    const customRadio = document.querySelector('.custom-radio');
+                    const addToCartButton = document.querySelector('.buy-now');
+            
+                    // Define out-of-stock combinations
+                    const outOfStockCombinations = [
+                    ];
+            
+                    function updateStockLabel() {
+                        const selectedFlavor = document.querySelector('input[name="flavor"]:checked').value;
+                        const selectedSize = document.querySelector('input[name="size"]:checked').value;
+            
+                        // Check if the selected combination is out of stock
+                        const isOutOfStock = outOfStockCombinations.some(combo =>
+                            combo.flavor === selectedFlavor && combo.size === selectedSize
+                        );
+            
+                        document.querySelectorAll('.custom-radio').forEach(radio => {
+                            radio.classList.remove('out-of-stock', 'in-stock'); // Clear existing classes
+                        });
+            
+                        if (isOutOfStock) {
+                            stockLabel.textContent = "Temporarily of Stock";
+                            stockLabel.style.color = "red"; // Apply red color for out of stock
+            
+                            // Disable the Add to Cart button
+                            addToCartButton.disabled = true;
+                            addToCartButton.style.backgroundColor = "gray"; // Gray out the button
+                            addToCartButton.style.cursor = "not-allowed"; // Change cursor style
+            
+                            // Apply out-of-stock class to all relevant elements
+                            document.querySelectorAll('.custom-radio').forEach(radio => {
+                                radio.classList.add('out-of-stock');
+                            });
+                        } else {
+                            stockLabel.textContent = "In Stock";
+                            stockLabel.style.color = "green"; // Apply green color for in stock
+            
+                            // Enable the Add to Cart button
+                            addToCartButton.disabled = false;
+                            addToCartButton.style.backgroundColor = ""; // Reset to default color
+                            addToCartButton.style.cursor = "pointer"; // Reset cursor style
+            
+                            // Apply in-stock class to all relevant elements
+                            document.querySelectorAll('.custom-radio').forEach(radio => {
+                                radio.classList.add('in-stock');
+                            });
+                        }
+                    }
+            
+                    flavorOptions.forEach(option => {
+                        option.addEventListener('change', updateStockLabel);
+                    });
+            
+                    sizeOptions.forEach(option => {
+                        option.addEventListener('change', updateStockLabel);
+                    });
+            
+                    // Initialize on page load
+                    updateStockLabel();
+                });
+            </script>
+            
+            
+            
+
+
+
+    {{- partial "footer.html" . }}
 
 </body>
 </html>
+
+
+
+
+
