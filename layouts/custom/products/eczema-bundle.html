@@ -593,17 +593,24 @@
         'frankincense': 'Frankincense'
     };
 
-    // Base pricing (regular prices)
-    const pricing = {
-        '60ml': { 
-            single: 18.95, 
-            pack: 36.95
-        },
-        '120ml': { 
-            single: 24.95,
-            pack: 47.95
-        }
-    };
+    // Build pricing object from YAML data
+    function buildPricingFromYaml() {
+        const pricing = {};
+        const productPricing = Array.isArray(productPricingRaw) ? productPricingRaw : [];
+        
+        productPricing.forEach(entry => {
+            const size = entry.size.toLowerCase();
+            pricing[size] = {
+                single: entry.prices[country_code]?.single_purchase || 0,
+                pack: entry.prices[country_code]?.three_pack || 0
+            };
+        });
+        
+        return pricing;
+    }
+    
+    const pricing = buildPricingFromYaml();
+    console.log('Pricing from YAML:', pricing);
 
     // State
     let state = {
