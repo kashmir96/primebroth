@@ -2,6 +2,6 @@
 title: "Tallow shampoo bars - PrimalPantry"
 description: "Tallow shampoo bar from NaturalCare"
 type: custom
-layout: products/shampoo
+layout: products/eczema-bundle
 wipe: true
 ---  
