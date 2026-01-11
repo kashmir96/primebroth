@@ -67,7 +67,7 @@ input.is-disabled + label img {
 
             <!-- Product Form Options with Bootstrap Styling -->
             <div class="price-display thic">
-                <p class="mb-2"><span id="price">-</span></p><span class="attention-primalcare"> (This is 30% off)</span>
+                <p class="mb-2"><span id="price">-</span> <span id="discount-badge" class="badge" style="background-color: #e91e63; color: white; padding: 4px 10px; border-radius: 4px; font-size: 14px;">30% off</span></p>
                 <p class="thin">or 4 interest free payments of $<span id="afterpay_price"></span> with <img src="/img/afterpay.webp" class="d-inline" height="28"></p>                
             </div>
 
@@ -279,6 +279,21 @@ input.is-disabled + label img {
 
     document.getElementById("productForm").addEventListener("change", updatePrice);
     document.addEventListener("DOMContentLoaded", updatePrice);
+
+    // Update discount badge based on order type
+    function updateDiscountBadge() {
+        const orderType = document.querySelector('input[name="orderType"]:checked').value;
+        const badge = document.getElementById('discount-badge');
+        
+        if (orderType === 'three_pack') {
+            badge.textContent = '33% off + Free Gift';
+        } else {
+            badge.textContent = '30% off';
+        }
+    }
+
+    document.getElementById("productForm").addEventListener("change", updateDiscountBadge);
+    document.addEventListener("DOMContentLoaded", updateDiscountBadge);
 </script>
 
 <script>
