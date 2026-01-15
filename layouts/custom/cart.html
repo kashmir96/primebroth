@@ -891,10 +891,15 @@
                 handleCheckout(cart);
             });
 
-            function handleCheckout(cart) {
+            function handleCheckout(cart, isRetry = false) {
                 cart = cart.map(item => {
                     return { ...item, quantity: parseInt(item.quantity, 10) };
                 });
+
+                // Show loading state
+                proceedToCheckoutButton.disabled = true;
+                const originalButtonText = proceedToCheckoutButton.textContent;
+                proceedToCheckoutButton.textContent = isRetry ? 'Retrying...' : 'Loading...';
 
                 fetch('/.netlify/functions/create-checkout-session', {
                     method: 'POST',
@@ -907,12 +912,27 @@
                         localStorage.setItem('previouscart', JSON.stringify(cart));
                         stripe.redirectToCheckout({ sessionId: data.sessionId });
                     } else {
-                        alert('Please try again, if this persists please contact us');
+                        handleCheckoutError(cart, isRetry, originalButtonText);
                     }
                 })
                 .catch(() => {
-                    alert('Please try again, if this persists please contact us');
+                    handleCheckoutError(cart, isRetry, originalButtonText);
                 });
+            }
+
+            function handleCheckoutError(cart, wasRetry, originalButtonText) {
+                if (!wasRetry) {
+                    // First failure - show loading and retry after 1.5 seconds
+                    proceedToCheckoutButton.textContent = 'Loading...';
+                    setTimeout(() => {
+                        handleCheckout(cart, true);
+                    }, 1500);
+                } else {
+                    // Second failure - show alert and reset button
+                    proceedToCheckoutButton.disabled = false;
+                    proceedToCheckoutButton.textContent = originalButtonText;
+                    alert('Please try again, if this persists please contact us');
+                }
             }
         });
     </script>
