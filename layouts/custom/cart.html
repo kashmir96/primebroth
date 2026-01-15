@@ -37,17 +37,18 @@
                         </div>
 
                         <!-- Free Shipping Upsell Module - Compact -->
-                    <div id="shipping-upsell" class="shipping-upsell-module d-none">
+                        <!-- COMMENTED OUT: Free shipping upsell functionality
+                        <div id="shipping-upsell" class="shipping-upsell-module d-none">
                             <div class="shipping-progress-bar">
                                 <div class="shipping-progress-fill" id="shipping-progress-fill"></div>
                             </div>
                             <div class="shipping-upsell-inner">
                                 <div class="shipping-upsell-title" id="shipping-upsell-title">You're $X.XX from free shipping</div>
                                 <div class="shipping-upsell-content" id="shipping-upsell-content">
-                                    <!-- Product suggestion injected here -->
-                               </div>
+                                </div>
                             </div>
                         </div>
+                        -->
                         
                     </div>
 
@@ -215,7 +216,8 @@
             }
         ];
 
-        // Shipping upsell products with country-specific pricing
+        // COMMENTED OUT: Shipping upsell products with country-specific pricing
+        /*
         const shippingUpsellProducts = [
             {
                 name: 'Tallow Soap',
@@ -302,6 +304,7 @@
                 }
             }
         ];
+        */
 
         document.addEventListener('DOMContentLoaded', function() {
             let cart = JSON.parse(localStorage.getItem('cartV2')) || [];
@@ -321,7 +324,7 @@
             const subtotalCostElement = document.getElementById('subtotal-cost');
             const proceedToCheckoutButton = document.getElementById('proceed-to-checkout');
             const upsellBanner = document.getElementById('upsell-banner');
-            const shippingUpsellModule = document.getElementById('shipping-upsell');
+            // COMMENTED OUT: const shippingUpsellModule = document.getElementById('shipping-upsell');
 
             function isThreePack(item) {
                 if (!item.orderType) return false;
@@ -521,6 +524,8 @@
                 setTimeout(() => { renderUpsellBanner(); }, 3000);
             }
 
+            // COMMENTED OUT: renderShippingUpsell function
+            /*
             function renderShippingUpsell(subtotal) {
                 const amountToFreeShipping = freeShippingThreshold - subtotal;
                 
@@ -623,6 +628,7 @@
                     });
                 }
             }
+            */
 
             function updateCart() {
                 cartItemsContainer.innerHTML = '';
@@ -820,8 +826,8 @@
                     }
                 }
 
-                // Only show shipping upsell if not at free shipping threshold
-                renderShippingUpsell(subtotal);
+                // COMMENTED OUT: Only show shipping upsell if not at free shipping threshold
+                // renderShippingUpsell(subtotal);
 
                 document.querySelectorAll('.qty-minus').forEach(btn => {
                     btn.addEventListener('click', function() {
@@ -1173,7 +1179,7 @@
 
         .success-icon { font-size: 1rem; }
 
-        /* Shipping Upsell */
+        /* Shipping Upsell - STYLES KEPT FOR FUTURE USE */
         .shipping-upsell-module {
             background: linear-gradient(135deg, #F5EFE6 0%, #EDE5D8 100%);
             border-radius: 6px;
