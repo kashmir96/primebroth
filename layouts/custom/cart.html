@@ -907,11 +907,11 @@
                         localStorage.setItem('previouscart', JSON.stringify(cart));
                         stripe.redirectToCheckout({ sessionId: data.sessionId });
                     } else {
-                        alert('Failed to create checkout session. Please try again.');
+                        alert('Please try again, if this persists please contact us');
                     }
                 })
                 .catch(() => {
-                    alert('Failed to create checkout session. Please try again.');
+                    alert('Please try again, if this persists please contact us');
                 });
             }
         });
