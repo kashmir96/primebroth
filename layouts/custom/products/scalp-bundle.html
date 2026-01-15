@@ -27,24 +27,52 @@
 .custom-radio-label {
     color: inherit; /* Uses parent color for easy updates */
 }
+
+.bundle-includes {
+    background: #f8f5f0;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.bundle-includes h5 {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.bundle-includes ul {
+    margin-bottom: 0;
+    padding-left: 1.2rem;
+}
+
+.bundle-includes li {
+    margin-bottom: 0.25rem;
+}
 </style>
 {{- partial "alert.html" . -}}
     {{- partial "header_new.html" . -}}
     
     <div class="container product-page">
         <div class="row topbanner rel">
-            <p class="text-dark col-12 ninety mt-1"><a href="/shop" class="text-dark text-decoration-underline">Shop</a> > Tallow Liquid Shampoo</p>
+            <p class="text-dark col-12 ninety mt-1"><a href="/shop" class="text-dark text-decoration-underline">Shop</a> > Scalp Health Bundle</p>
             <div class="col-12 col-lg-6 product-photos mb-3">
                 {{- partial "images-scalpbundle.html" . -}}
             </div>
             <div class="col-12 col-lg-6">
-                <p class="fw-bold mt-2">NEW <br>Online Only! - Not in Stores</p>
-                <h1 class="fw-bold mt-2">Tallow Liquid Shampoo </h1>
-                <h2 class="fw-lighter h1 h1big">Soothe the scalp, cleanse your hair</h2>
+                <p class="fw-bold mt-2"><img class="stars pe-2" src="/img/stars/5.webp" alt="">BUNDLE & SAVE <br>Online Only! - Not in Stores</p>
+                <h1 class="fw-bold mt-2">Scalp Health Bundle</h1>
+                <h2 class="fw-lighter h1 h1big">Tallow Shampoo & Tallow Conditioner for healthy hair</h2>
                 <p class="graytxt fw-bold">From <span class="fst-italic" style="color: rgb(177, 152, 9)">PrimalCare Gold Edition</span></p>
-                <p class="fw-lighter">A gentle cleansing hair shampoo that also hydrates your scalp.</span></p>
+                <p class="fw-lighter">Get our tallow shampoo and conditioner together for the ultimate scalp-soothing, hair-nourishing routine.</p>
  
-                
+                <div class="bundle-includes">
+                    <h5>This bundle includes:</h5>
+                    <ul>
+                        <li><strong>Tallow Shampoo (500ml)</strong> — Gently cleanses while soothing sensitive scalps</li>
+                        <li><strong>Tallow Conditioner (500ml)</strong> — Deeply hydrates for silky, frizz-free hair</li>
+                    </ul>
+                </div>
+
     <!-- YAML FORM STARTS -->
 
 <!-- Product Form Options with Bootstrap Styling -->
@@ -57,7 +85,7 @@
                         <label class="mob-ninety">Select unit type:</label>
                     
                         <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
-                        <label for="single_purchase" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/balm/1.webp" alt="single jar">Single bottle</label>
+                        <label for="single_purchase" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/balm/1.webp" alt="single jar">Single Bundle (1 Shampoo + 1 Conditioner)</label>
                     
                         <!-- Uncomment to enable subscription options -->
                         <!-- 
@@ -99,7 +127,7 @@
                             <input type="radio" id="inStock" name="stockStatus" checked>
                             <label class="custom-radio-label mb-0" for="inStock">Pre-order: Launches Mid Jan</label>
                         </div>
-                        <label for="quantityAll" class="form-label">Quantity of units:</label>
+                        <label for="quantityAll" class="form-label">Quantity of bundles:</label>
                         <div class="quantity-container">
                             <button type="button" class="btn-decrease">-</button>
                             <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
@@ -132,14 +160,6 @@
                         <img src="/img/shop/mobile-logos.webp" class="img-fluid">
                     </div>
                 </div>
-                <!-- <div class="row mt-4 mb-0 py-0">
-                    <h2>Delivering life changing results time and time again</h2>
-                    <div class="col-12">
-                        <img src="/img/shop/before-after.webp" alt="eczema">
-                    </div>
-                 
-                    <p>With oils closely mimicking those produced by our bodies, our tallow <span class="attention-primalcare">soothes dry and irritated skin</span></p>
-                </div> -->
             </div>
             <div class="faq-tab-container col-12 col-md-6">
                 <!-- Nav tabs -->
@@ -154,16 +174,19 @@
                 <!-- Tab panes -->
                 <div class="tab-content faq-tab-content">
            <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">        
-    <p>Cleanse your hair and scalp with our tallow liquid shampoo, perfect for sensitive or itchy skin. Made with soothing aloe vera and tallow, watch as your scalp feels less irritated than using other shampoos while strengthening your hair health.</p>
-    <p>Pair with our tallow conditioner for a perfect hair wash routine.</p>    
+    <p>Transform your haircare routine with our Scalp Health Bundle featuring our Tallow Shampoo and Tallow Conditioner. This complete tallow haircare system pairs our gentle cleansing shampoo with our deeply hydrating conditioner — both formulated with soothing aloe vera and nourishing tallow to calm sensitive scalps while leaving hair silky smooth.</p>
+    
+    <p>Perfect for those with dry, itchy, or irritated scalps who want to ditch harsh chemicals without sacrificing results.</p>    
 
-    <h4>Benefits</h4>
+    <h4>Bundle Benefits</h4>
     <ul>
-        <li>Cleans scalp</li>
-        <li>Hydrates hair</li>
-        <li>Helps maintain hair health</li>
-        <li>Made in NZ</li>
-        <li>Natural ingredients</li>
+        <li>Complete tallow haircare routine in one purchase</li>
+        <li>Soothes sensitive and itchy scalps</li>
+        <li>Cleanses without stripping natural oils</li>
+        <li>Deeply hydrates and reduces frizz</li>
+        <li>Strengthens and nourishes hair</li>
+        <li>100% natural ingredients</li>
+        <li>Made in New Zealand</li>
     </ul>
 </div>
 
@@ -175,65 +198,90 @@
             </div>
             <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
             
-                        <div class="row text-center">
-    <div class="col-6">
-        <h5 class="fw-bold">Aqua (Water) - Water</h5>
-        <p>Hydrates and forms the base of the shampoo.</p>
-    </div>
+                <h4>Tallow Shampoo Ingredients</h4>
+                <div class="row text-center mb-4">
+                    <div class="col-6">
+                        <h5 class="fw-bold">Aqua (Water)</h5>
+                        <p>Hydrates and forms the base of the shampoo.</p>
+                    </div>
 
-    <div class="col-6">
-        <h5 class="fw-bold">Stepanol DCFAS-N (Sodium Coco-Sulfate) - Coconut</h5>
-        <p>Removes dirt and oil from the hair and scalp.</p>
-    </div>
+                    <div class="col-6">
+                        <h5 class="fw-bold">Sodium Coco-Sulfate</h5>
+                        <p>Removes dirt and oil from the hair and scalp.</p>
+                    </div>
 
-    <div class="col-6">
-        <h5 class="fw-bold">Glycerin (Molkem) - Plant</h5>
-        <p>Adds moisture to the scalp and helps prevent dryness.</p>
-    </div>
+                    <div class="col-6">
+                        <h5 class="fw-bold">Glycerin</h5>
+                        <p>Adds moisture to the scalp and helps prevent dryness.</p>
+                    </div>
 
-    <div class="col-6">
-        <h5 class="fw-bold">Aloe Vera Powder x200 - Aloe</h5>
-        <p>Soothes the scalp and helps reduce irritation.</p>
-    </div>
+                    <div class="col-6">
+                        <h5 class="fw-bold">Aloe Vera Powder</h5>
+                        <p>Soothes the scalp and helps reduce irritation.</p>
+                    </div>
 
-    <div class="col-6">
-        <h5 class="fw-bold">Tallow - Beef</h5>
-        <p>Provides deep hydration and adds a protective layer to the hair and scalp.</p>
-    </div>
+                    <div class="col-6">
+                        <h5 class="fw-bold">Tallow</h5>
+                        <p>Provides deep hydration and adds a protective layer.</p>
+                    </div>
 
-    <div class="col-6">
-        <h5 class="fw-bold">Lauryl Glucoside - Coconut</h5>
-        <p>Cleans hair gently without stripping its natural oils.</p>
-    </div>
+                    <div class="col-6">
+                        <h5 class="fw-bold">Lauryl Glucoside</h5>
+                        <p>Cleans hair gently without stripping natural oils.</p>
+                    </div>
+                </div>
 
-    <div class="col-6">
-        <h5 class="fw-bold">Spectrastat G2 - Plant</h5>
-        <p>Natural preservative to ensure product safety.</p>
-    </div>
+                <h4>Tallow Conditioner Ingredients</h4>
+                <div class="row text-center">
+                    <div class="col-6">
+                        <h5 class="fw-bold">Water</h5>
+                        <p>Hydrates and forms the base of the conditioner.</p>
+                    </div>
 
-    <div class="col-6">
-        <h5 class="fw-bold">Dermofeel® Toco 70 non-GMO (Vitamin E) - Sunflower</h5>
-        <p>Helps maintain hair health, shine, and protects from environmental stressors.</p>
-    </div>
+                    <div class="col-6">
+                        <h5 class="fw-bold">Aloe Vera Powder</h5>
+                        <p>Soothes the scalp and helps reduce irritation.</p>
+                    </div>
 
-    <div class="col-6">
-        <h5 class="fw-bold">Citric Acid - Citrus</h5>
-        <p>Adjusts the pH of the shampoo to match the scalp’s natural acidity, keeping hair cuticles smooth and shiny.</p>
-    </div>
+                    <div class="col-6">
+                        <h5 class="fw-bold">Glycerine</h5>
+                        <p>Adds moisture to hair and keeps it soft and hydrated.</p>
+                    </div>
 
-    <div class="col-6">
-        <h5 class="fw-bold">Sodium Chloride - Mineral</h5>
-        <p>Thickens the shampoo and helps with mild cleansing.</p>
-    </div>
-</div>
+                    <div class="col-6">
+                        <h5 class="fw-bold">Sweet Almond Oil</h5>
+                        <p>Nourishes, softens, and adds shine to hair.</p>
+                    </div>
+
+                    <div class="col-6">
+                        <h5 class="fw-bold">Tallow</h5>
+                        <p>Provides deep hydration and adds a protective layer to hair.</p>
+                    </div>
+
+                    <div class="col-6">
+                        <h5 class="fw-bold">Coconut Oil</h5>
+                        <p>Moisturizes, smooths, and protects hair from damage.</p>
+                    </div>
+
+                    <div class="col-6">
+                        <h5 class="fw-bold">Vitamin E</h5>
+                        <p>Protects hair from environmental stress and supports shine.</p>
+                    </div>
+
+                    <div class="col-6">
+                        <h5 class="fw-bold">Rose Geranium Essential Oil</h5>
+                        <p>Provides a gentle floral scent.</p>
+                    </div>
+                </div>
 
 
                     </div>
                     
                     <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
                         <h4>Directions</h4>
-                        <p>Use a drop or two on a clean face either in the morning or night. 
-</p>
+                        <p><strong>Step 1 — Shampoo:</strong> Wet hair thoroughly. Apply a small amount of shampoo to your scalp and massage gently. Rinse well.</p>
+                        <p><strong>Step 2 — Conditioner:</strong> After shampooing, apply conditioner from mid-lengths to ends. Leave on for 1-2 minutes, then rinse thoroughly.</p>
+                        <p><strong>Tip:</strong> For best results, use 2-3 times per week or as needed.</p>
                     </div>
 
                     <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
@@ -667,6 +715,3 @@
 
 </body>
 </html>
-
-
-
