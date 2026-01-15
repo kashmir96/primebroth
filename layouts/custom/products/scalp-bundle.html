@@ -35,7 +35,7 @@
         <div class="row topbanner rel">
             <p class="text-dark col-12 ninety mt-1"><a href="/shop" class="text-dark text-decoration-underline">Shop</a> > Tallow Liquid Shampoo</p>
             <div class="col-12 col-lg-6 product-photos mb-3">
-                {{- partial "images-liqshampoo.html" . -}}
+                {{- partial "images-scalpbundle.html" . -}}
             </div>
             <div class="col-12 col-lg-6">
                 <p class="fw-bold mt-2">NEW <br>Online Only! - Not in Stores</p>
@@ -268,7 +268,7 @@
         });
     </script>
     <script>
-        const productPricingRaw = {{ site.Data.pricing.tallow.pricing.liqshampoo | jsonify | safeJS }};
+        const productPricingRaw = {{ site.Data.pricing.tallow.pricing.scalpbundle | jsonify | safeJS }};
         console.log("Raw product Pricing from Hugo:", productPricingRaw);
         const country_code = getCountryCookie('country_code') || "NZ";
 
@@ -324,8 +324,8 @@
         console.log("Selected - Size:", size, "Flavor:", flavor, "Order Type:", orderType);
 
         // Traverse the pricing structure for the selected combination
-        if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.liqshampoo) {
-            const balmData = productPricingRaw.ids.liqshampoo;
+        if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.scalpbundle) {
+            const balmData = productPricingRaw.ids.scalpbundle;
             console.log("balm Data:", balmData);
 
             const orderTypeData = balmData[orderType];
@@ -369,13 +369,13 @@
 
             // Access the correct price ID based on the order type
             if (orderType === 'single_purchase') {
-                priceId = pricingData.tallow.ids.liqshampoo.single[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.scalpbundle.single[flavor][size][country_code];
             } else if (orderType === 'recurring_monthly') {
-                priceId = pricingData.tallow.ids.liqshampoo.monthly[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.scalpbundle.monthly[flavor][size][country_code];
             } else if (orderType === 'recurring_quarterly') {
-                priceId = pricingData.tallow.ids.liqshampoo.quarterly[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.scalpbundle.quarterly[flavor][size][country_code];
             } else if (orderType === 'three_pack') {
-                priceId = pricingData.tallow.ids.liqshampoo.pack[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.scalpbundle.pack[flavor][size][country_code];
             }
 
             console.log('Price ID:', priceId);
