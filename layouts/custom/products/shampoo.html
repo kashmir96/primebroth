@@ -29,7 +29,31 @@
 
         .custom-radio-label {
             color: green;
-        } 
+        }
+
+        /* Button styles for routine partial */
+        .btn-pink {
+            background-color: #ffb6c1 !important;
+            color: #000 !important;
+            border: none !important;
+            padding: 10px 20px !important;
+            border-radius: 5px !important;
+            font-weight: 500 !important;
+            transition: all 0.3s ease !important;
+            display: inline-block !important;
+        }
+
+        .btn-pink:hover {
+            background-color: #ff9eb0 !important;
+            color: #000 !important;
+        }
+
+        .btn-pink:disabled,
+        .btn-pink.added {
+            background-color: #98fb98 !important;
+            color: #000 !important;
+            cursor: default !important;
+        }
     </style>
     
     {{ if .Params.charity }}
