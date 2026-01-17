@@ -12,7 +12,6 @@
     <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
     <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 </head>
 <body>
 
@@ -24,27 +23,25 @@
             color: red;
         }
 
-.custom-radio input[type="radio"]:checked + .custom-radio-label::before {
-  background-color: green;
-}
+        .custom-radio input[type="radio"]:checked + .custom-radio-label::before {
+            background-color: green;
+        }
 
-.custom-radio-label {
-    color: green;
-} 
+        .custom-radio-label {
+            color: green;
+        } 
     </style>
     
     {{ if .Params.charity }}
-<div class="announcement full-width black text-center">
-    <ul>
-        <li>Proceeds from this page are donated to {{ .Params.charity }}.</li>
-    </ul>
-</div>
-{{ else }}
-{{- partial "alert.html" . -}}
-{{ end }}
+    <div class="announcement full-width black text-center">
+        <ul>
+            <li>Proceeds from this page are donated to {{ .Params.charity }}.</li>
+        </ul>
+    </div>
+    {{ else }}
+    {{- partial "alert.html" . -}}
+    {{ end }}
 
- 
- 
     {{- partial "header_new.html" . -}}
     <div class="scroll-top rounded-full">
         <span class="icon-keyboard_arrow_up text-2xl"></span>
@@ -56,32 +53,31 @@
     <div class="container product-page">
         <div class="row topbanner rel">
             <p class="text-muted ninety position-absolute mt-1 "><a href="/shop" class="darktext-muted front pl-2 text-decoration-underline">Shop</a> > Tallow Shampoo Bar</p>
-           <div class="col-12 col-lg-6 product-photos mb-3">
-            <div class="row">
-                 <img class="main-image" fetchpriority="high" src="/img/shampoobar/shampoo-bar.webp" alt="Main Product Image">
-                <div class="product-images">
-                    <img class="product-image" src="/img/shampoobar/tallow-shampoo-bar-product-benifitswebp.webp" alt="Shampoo bar benefits">
-                    <img class="product-image" src="/img/shampoo-hands.webp" alt="Shampoo bar in hands">
-                    <img class="product-image" src="/img/shampoo-shop.webp" alt="Shampoo bar product">
+            <div class="col-12 col-lg-6 product-photos mb-3">
+                <div class="row">
+                    <img class="main-image" fetchpriority="high" src="/img/shampoobar/shampoo-bar.webp" alt="Main Product Image">
+                    <div class="product-images">
+                        <img class="product-image" src="/img/shampoobar/tallow-shampoo-bar-product-benifitswebp.webp" alt="Shampoo bar benefits">
+                        <img class="product-image" src="/img/shampoo-hands.webp" alt="Shampoo bar in hands">
+                        <img class="product-image" src="/img/shampoo-shop.webp" alt="Shampoo bar product">
+                    </div>
                 </div>
-            </div>
-        </div>         
+            </div>         
         
             <div class="col-xs-12 col-lg-6">
                 <img class="stars float-left mr-2" src="/img/stars/5.webp" alt=""><p class="thic">Used by 6000+ kiwis <br>Online Only, Not in Stores</p>
                 <h1 class="thic mt-2">Tallow Shampoo Bar</h1><p class="thin h1big">Scalp Health Natural Shampoo</p>
                 <p class="thin">Glowing hair, healthy scalp—your friends will <span class="attention-primalcare">beg for your secret! </span></p>
 
-    <!-- YAML FORM STARTS -->
+                <!-- YAML FORM STARTS -->
 
                 <div class="price-display thic">
                     <p class="mb-2"><span id="price">-</span> <span class="special" id="special">30% off!</span></p>    
                     <p class="thin">or 4 interest free payments of $<span id="afterpay_price"></span> with <img src="/img/afterpay.webp" class="d-inline" height="28"></p>                
                 </div>
 
-
                 <form id="productForm" class="form-group mb-4">          
-                     <div class="text-left mb-3 mb-lg-4">
+                    <div class="text-left mb-3 mb-lg-4">
                         <label class="mob-ninety mr-2">Select unit type:</label>
                     
                         <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
@@ -89,11 +85,10 @@
 
                         <input type="radio" id="three_pack" name="orderType" value="three_pack">
                         <label for="three_pack" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/resell/Shampoo.webp" alt="3 pack shampoo">3 pack <span class="attention-primalcare small">(Save 33% + GIFT)</span></label>
-                    
                     </div>
-                    <div class="text-left  mb-3 mb-lg-4" style="display:none;">
+
+                    <div class="text-left mb-3 mb-lg-4" style="display:none;">
                         <label class="float-left mr-2">Select flavor:</label>
-                        
                         <div class="product-form-radio">
                             <input type="radio" id="peppermintrosemary" name="flavor" value="peppermintrosemary" checked>
                             <label for="peppermintrosemary" class="product-form-radio">Natural</label>
@@ -102,130 +97,99 @@
 
                     <div class="text-left mb-3 mb-lg-4" style="display:none;">
                         <label class="float-left mr-2">Select size:</label>
-                    
                         <div class="product-form-radio">
                             <input type="radio" id="size120g" name="size" value="120g" checked>
-                            <label for="size120g" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/resell/Shampoo.webp">100g</label></p>
+                            <label for="size120g" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/resell/Shampoo.webp">100g</label>
                         </div>
                     </div>
-                   
 
-                    
+                    <!-- Quantity Selector -->
+                    <div class="form-group mb-3 mb-lg-4">
+                        <div class="mt-4 custom-radio float-right">
+                            <input type="radio" id="inStock" name="stockStatus" checked>
+                            <label class="custom-radio-label mb-0" for="inStock">In stock</label>
+                        </div>
+                        <label for="quantityAll" class="form-label">Quantity of units:</label>
+                        <div class="quantity-container">
+                            <button type="button" class="btn-decrease">-</button>
+                            <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
+                            <button type="button" class="btn-increase">+</button>
+                        </div>
+                    </div>
 
- <!-- Quantity Selector -->
- <div class="form-group mb-3 mb-lg-4">
-    <div class="mt-4 custom-radio  float-right">
-        <input type="radio" id="inStock" name="stockStatus" checked>
-        <label class="custom-radio-label mb-0" for="inStock">In stock</label>
-    </div>
-    <label for="quantityAll"  class="form-label">Quantity of units:</label>
-    <div class="quantity-container">
-        <button type="button" class="btn-decrease">-</button>
-        <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
-        <button type="button" class="btn-increase">+</button>
-      </div>
-</div>
-
-                    
-
-
-
-                <!-- Add to Cart Button -->
-                <div class="add-to-cart text-center mb-4">
-                    <button type="button" class="btn btn-primary btn-lg buy-now mb-1" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
-                    <p>Speedy Shipping NZ Wide | Money back guarantee</p>
-                    <img class="badges middle" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
-
-                </div>
-
+                    <!-- Add to Cart Button -->
+                    <div class="add-to-cart text-center mb-4">
+                        <button type="button" class="btn btn-primary btn-lg buy-now mb-1" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
+                        <p>Speedy Shipping NZ Wide | Money back guarantee</p>
+                        <img class="badges middle" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
+                    </div>
                 </form>
 
-                
-                    <!-- YAML FORM ENDS -->
-
+                <!-- YAML FORM ENDS -->
             </div>
 
             <div class="row mt-0">
                 <div class="col-12 col-md-6 text-center">
-  <div class="col-12 text-center">
-                    <h2>As Featured on</h2>
-                    <div class="col-12 d-none d-md-block">
-                        <img src="/img/shop/desktop-product-logos.webp" class="img-fluid">
+                    <div class="col-12 text-center">
+                        <h2>As Featured on</h2>
+                        <div class="col-12 d-none d-md-block">
+                            <img src="/img/shop/desktop-product-logos.webp" class="img-fluid">
+                        </div>
+                        <div class="col-12 d-block d-md-none">
+                            <img src="/img/shop/mobile-logos.webp" class="img-fluid">
+                        </div>
                     </div>
-                    <div class="col-12 d-block d-md-none">
-                        <img src="/img/shop/mobile-logos.webp" class="img-fluid">
+                </div>
+
+                <div class="faq-tab-container col-12 col-md-6">
+                    <!-- Nav tabs -->
+                    <div class="faq-nav-tabs">
+                        <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Fast facts</div>
+                        <div class="faq-nav-tab" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</div>
+                        <div class="faq-nav-tab" id="directions-tab" data-toggle="tab" href="#directions" role="tab" aria-controls="directions" aria-selected="false">Directions</div>
+                        <div class="faq-nav-tab" id="storage-tab" data-toggle="tab" href="#storage" role="tab" aria-controls="storage" aria-selected="false">Storage</div>
+                        <div class="faq-nav-tab" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</div>
                     </div>
-                </div></div>
-
-
                     
-         
-            
-            <div class="faq-tab-container col-12 col-md-6">
-                <!-- Nav tabs -->
-                <div class="faq-nav-tabs">
-                    <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Fast facts</div>
-                    <div class="faq-nav-tab" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</div>
-                    <div class="faq-nav-tab" id="directions-tab" data-toggle="tab" href="#directions" role="tab" aria-controls="directions" aria-selected="false">Directions</div>
-                    <div class="faq-nav-tab" id="storage-tab" data-toggle="tab" href="#storage" role="tab" aria-controls="storage" aria-selected="false">Storage</div>
-                    <div class="faq-nav-tab" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</div>
-                </div>
-                
-                <!-- Tab panes -->
-                <div class="tab-content faq-tab-content">
-                    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">  
-                        <h4>Why use a tallow shampoo bar?</h4>      
-                        <p>Don't waste another dollar on chemical-laden shampoos that strip your hair and irritate your scalp!</p>
-
-                        <p>Cleanse, moisturize, and nourish your hair with a tallow shampoo bar—hydrating and soothing dry, itchy, and rashy prone skin on the scalp.</p>
-                        
-                        <p>Gentle yet effective, it leaves your hair clean, soft, and conditioned—all without the plastic waste of traditional bottles.</p>
-                        
-                        <p>Give your hair and scalp the love they deserve with a shampoo bar gifted straight from Mother Nature!</p>
-                    </div>
-                
-                    <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
-                        <h4>Ingredients</h4>
-                        <p>Grass-Fed Beef Tallow, Olive Oil, Coconut Oil, Castor Oil Lye (none remains in product after 4 weeks of curing), Peppermint & Rosemary Essential Oils.</p>
-                    </div>
-                
-                    <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
-                        <h4>Directions</h4>
-                        <p>Lather in your hands before running them through your hair. Rinse after washing hair. Try to keep the block dry to avoid it decaying prematurely</p>
-                    </div>
-                
-                    <div class="tab-pane fade" id="storage" role="tabpanel" aria-labelledby="storage-tab">
-                        <h4>Storage</h4>
-                        <p>Store in a dry, cool place away from direct sunlight to extend the shelf life of the soap.</p>
-                    </div>
-                
-                    <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
-                        <h4>Shipping</h4>
-                        <p><strong>Processing time:</strong> Your order will be processed within 3 business days after which you can expect usual courier times to your area (generally 3-5 business days) </p>
-                        <p><strong>Shipping rates:</strong> Shipping is available for $6.95 to most areas of NZ.</p>
-                        <p><strong>International shipping:</strong> Currently, we only offer shipping within New Zealand. We apologize for any inconvenience this may cause.</p>
-                        <p>If you have any questions or concerns regarding shipping, please don't hesitate to <a href="/contact/">contact us</a>.</p>
+                    <!-- Tab panes -->
+                    <div class="tab-content faq-tab-content">
+                        <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">  
+                            <h4>Why use a tallow shampoo bar?</h4>      
+                            <p>Don't waste another dollar on chemical-laden shampoos that strip your hair and irritate your scalp!</p>
+                            <p>Cleanse, moisturize, and nourish your hair with a tallow shampoo bar—hydrating and soothing dry, itchy, and rashy prone skin on the scalp.</p>
+                            <p>Gentle yet effective, it leaves your hair clean, soft, and conditioned—all without the plastic waste of traditional bottles.</p>
+                            <p>Give your hair and scalp the love they deserve with a shampoo bar gifted straight from Mother Nature!</p>
+                        </div>
+                    
+                        <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
+                            <h4>Ingredients</h4>
+                            <p>Grass-Fed Beef Tallow, Olive Oil, Coconut Oil, Castor Oil Lye (none remains in product after 4 weeks of curing), Peppermint & Rosemary Essential Oils.</p>
+                        </div>
+                    
+                        <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
+                            <h4>Directions</h4>
+                            <p>Lather in your hands before running them through your hair. Rinse after washing hair. Try to keep the block dry to avoid it decaying prematurely</p>
+                        </div>
+                    
+                        <div class="tab-pane fade" id="storage" role="tabpanel" aria-labelledby="storage-tab">
+                            <h4>Storage</h4>
+                            <p>Store in a dry, cool place away from direct sunlight to extend the shelf life of the soap.</p>
+                        </div>
+                    
+                        <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
+                            <h4>Shipping</h4>
+                            <p><strong>Processing time:</strong> Your order will be processed within 3 business days after which you can expect usual courier times to your area (generally 3-5 business days) </p>
+                            <p><strong>Shipping rates:</strong> Shipping is available for $6.95 to most areas of NZ.</p>
+                            <p><strong>International shipping:</strong> Currently, we only offer shipping within New Zealand. We apologize for any inconvenience this may cause.</p>
+                            <p>If you have any questions or concerns regarding shipping, please don't hesitate to <a href="/contact/">contact us</a>.</p>
+                        </div>
                     </div>
                 </div>
-                
-                
-                </div>
-                
             </div>
-                
-            </div>
-            
-                
-                </div>
-        \
+        </div>
+    </div>
 
-
-</div>
-    
-  </div>
-  
-          {{- partial "irritation-routine.html" . -}}
-
+    {{- partial "irritation-routine.html" . -}}
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -242,357 +206,331 @@
             });
         });
     </script>
-    </div>
 
-  
+    {{- partial "stripe.html" . -}}    
 
+    <!-- Include Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
-</div>
+    <!-- YAML SCRIPT STARTS -->
 
-</div>
-</div>    
-{{- partial "stripe.html" . -}}    
+    <script>
+    const productPricingRaw = {{ site.Data.pricing.tallow.pricing.shampoo | jsonify | safeJS }};
+    console.log("Raw product Pricing from Hugo:", productPricingRaw);
+    const country_code = getCountryCookie('country_code') || "NZ";
 
-<!-- Include Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-
-<!-- YAML SCRIPT STARTS -->
-
-
-
-<script>
-const productPricingRaw = {{ site.Data.pricing.tallow.pricing.shampoo | jsonify | safeJS }};
-console.log("Raw product Pricing from Hugo:", productPricingRaw);
-const country_code = getCountryCookie('country_code') || "NZ";
-
-const productPricing = Array.isArray(productPricingRaw) ? productPricingRaw : [];
-if (!Array.isArray(productPricing)) {
-console.error("productPricing is not an array. Ensure your YAML structure and Hugo data access.");
-} else {
-console.log("Parsed product Pricing:", productPricing);
-}
-
-function updatePrice() {
-const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
-const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
-
-console.log("Selected size:", size);
-console.log("Selected order type:", orderType);
-
-const pricingEntry = productPricing.find(entry => entry.size.toLowerCase() === size);
-if (pricingEntry && pricingEntry.prices[country_code][orderType]) {
-    const price = pricingEntry.prices[country_code][orderType];
-    document.getElementById("price").textContent = `$${price.toFixed(2)}`;
-    document.getElementById("afterpay_price").textContent = `${(price/4).toFixed(2)}`;
-} else {
-    document.getElementById("price").textContent = "N/A";
-    document.getElementById("afterpay_price").textContent = "N/A";
-}
-
-// Update the special badge text based on order type
-const specialBadge = document.getElementById("special");
-if (specialBadge) {
-    if (orderType === 'three_pack') {
-        specialBadge.textContent = "33% off + Free Gift!";
+    const productPricing = Array.isArray(productPricingRaw) ? productPricingRaw : [];
+    if (!Array.isArray(productPricing)) {
+        console.error("productPricing is not an array. Ensure your YAML structure and Hugo data access.");
     } else {
-        specialBadge.textContent = "30% off!";
+        console.log("Parsed product Pricing:", productPricing);
     }
-}
-}
 
+    function updatePrice() {
+        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase();
+        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
 
+        console.log("Selected size:", size);
+        console.log("Selected order type:", orderType);
 
-// Attach event listener for changes
-document.getElementById("productForm").addEventListener("change", updatePrice);
+        const pricingEntry = productPricing.find(entry => entry.size.toLowerCase() === size);
+        if (pricingEntry && pricingEntry.prices[country_code][orderType]) {
+            const price = pricingEntry.prices[country_code][orderType];
+            document.getElementById("price").textContent = `$${price.toFixed(2)}`;
+            document.getElementById("afterpay_price").textContent = `${(price/4).toFixed(2)}`;
+        } else {
+            document.getElementById("price").textContent = "N/A";
+            document.getElementById("afterpay_price").textContent = "N/A";
+        }
 
-// Initialize the price on page load
-document.addEventListener("DOMContentLoaded", updatePrice);
-</script>
-
-
-<script>
-// Function to update the price ID display
-function updatePriceID() {
-const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
-const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
-const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
-
-
-
-// Default value for price ID
-let priceID = "N/A";
-
-// Debug: Check the loaded data and selected values
-console.log("Loaded Data:", productPricingRaw);
-console.log("Selected - Size:", size, "Flavor:", flavor, "Order Type:", orderType);
-
-// Traverse the pricing structure for the selected combination
-if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.shampoo) {
-const shampooData = productPricingRaw.ids.shampoo;
-console.log("Shampoo Data:", shampooData);
-
-const orderTypeData = shampooData[orderType];
-console.log("Order Type Data:", orderTypeData);
-
-if (orderTypeData && orderTypeData[flavor]) {
-    const flavorData = orderTypeData[flavor];
-    console.log("Flavor Data:", flavorData);
-
-    const sizeData = flavorData[size];
-    console.log("Size Data:", sizeData);
-
-    if (sizeData) {
-        priceID = sizeData[country_code]; // Assign the resolved price ID
-    }
-}
-}
-
-// Update the DOM element with the resolved price ID
-document.getElementById("price-id").textContent = priceID !== "N/A" ? priceID : "Price ID Not Available";
-
-// Log final result
-console.log("Resolved Price ID:", priceID);
-
-};
-</script>
-<script>
-// Parse the JSON string into an object
-const rawData = "{{ .Site.Data.pricing | jsonify }}"; // Embedded JSON string from Hugo
-const pricingData = JSON.parse(rawData); // Parse into a JavaScript object
-console.log('Parsed Pricing Data:', pricingData); // Debugging output
-
-function updatePriceId() {
-// Get the selected values
-const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
-const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
-const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
-
-try {
-let priceId;
-
-// Access the correct price ID based on the order type
-if (orderType === 'single_purchase') {
-    priceId = pricingData.tallow.ids.shampoo.single[flavor][size][country_code];
-} else if (orderType === 'recurring_monthly') {
-    priceId = pricingData.tallow.ids.shampoo.monthly[flavor][size][country_code];
-} else if (orderType === 'recurring_quarterly') {
-    priceId = pricingData.tallow.ids.shampoo.quarterly[flavor][size][country_code];
-} else if (orderType === 'three_pack') {
-    priceId = pricingData.tallow.ids.shampoo.pack[flavor][size][country_code];
-}
-
-console.log('Price ID:', priceId);
-
-// Update the DOM element with the resolved price ID, if it exists
-const priceIdElement = document.getElementById('price-id');
-if (priceIdElement) {
-    priceIdElement.textContent = priceId || 'Price ID not found';
-}
-
-// Update the button's data-price-id attribute
-const buyNowButton = document.querySelector(".buy-now");
-if (buyNowButton) {
-    buyNowButton.setAttribute("data-price-id", priceId || "");
-    console.log('Button updated with Price ID:', priceId);
-}
-} catch (error) {
-console.error('Error fetching Price ID:', error);
-
-// Clear the button's data-price-id attribute on error
-const buyNowButton = document.querySelector(".buy-now");
-if (buyNowButton) {
-    buyNowButton.setAttribute("data-price-id", "");
-}
-}
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-// Add event listener for form changes
-document.getElementById('productForm').addEventListener('change', updatePriceId);
-
-// Trigger the update function on page load
-updatePriceId();
-});
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-// Convert the ids structure to a simplified format
-function preprocessproductData(rawData) {
-const simplified = {};
-
-// Iterate over shampoo (or pets, if needed)
-if (rawData.ids && rawData.ids.shampoo) {
-    const categories = rawData.ids.shampoo;
-
-    for (const [orderType, flavors] of Object.entries(categories)) {
-        for (const [flavor, sizes] of Object.entries(flavors)) {
-            for (const [size, priceId] of Object.entries(sizes)) {
-                if (!simplified[size]) {
-                    simplified[size] = {};
-                }
-                if (!simplified[size][flavor]) {
-                    simplified[size][flavor] = {};
-                }
-                simplified[size][flavor][orderType] = priceId;
+        // Update the special badge text based on order type
+        const specialBadge = document.getElementById("special");
+        if (specialBadge) {
+            if (orderType === 'three_pack') {
+                specialBadge.textContent = "33% off + Free Gift!";
+            } else {
+                specialBadge.textContent = "30% off!";
             }
         }
     }
-}
-return simplified;
-}
 
-// Example: Assume productPricingRaw is available globally or passed here
-const normalizedproductData = preprocessproductData(productPricingRaw);
-console.log('Normalized product Data:', normalizedproductData);
+    // Attach event listener for changes
+    document.getElementById("productForm").addEventListener("change", updatePrice);
 
-// Use normalizedproductData for price ID lookups
-function getPriceID(size, flavor, orderType) {
-return (
-    normalizedproductData[size]?.[flavor]?.[orderType] ||
-    "Price ID not found"
-);
-}
-
-});
-
-</script>
-
-
-<script>
-// Add to Cart Handler Function
-function handleAddToCart(event) {
-event.preventDefault();
-
-console.log('Add to Cart button clicked!'); // Debugging
-
-const button = event.target;
-
-
-
-// Retrieve values from the dropdowns
-const selectedSize = document.querySelector('input[name="size"]:checked');
-const size = document.querySelector(`label[for="${selectedSize.id}"]`).textContent.trim(); // Updated to get label text
-
-// Use the text content of the selected option
-const selectedFlavor = document.querySelector('input[name="flavor"]:checked');
-const flavor = document.querySelector(`label[for="${selectedFlavor.id}"]`).textContent.trim();
-
-// Use the text content of the selected option
-const selectedOrderType = document.querySelector('input[name="orderType"]:checked');
-const orderTypeSelect = document.querySelector(`label[for="${selectedOrderType.id}"]`).textContent.trim();
-
-const unitPriceElement = document.getElementById('price');
-const unitPrice = unitPriceElement 
-? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00
-: 0.00;
-
-// Retrieve the price ID
-const priceId = button.getAttribute('data-price-id') || 'N/A';
-const title = document.querySelector('h1').innerText;
-
-// Retrieve quantity
-const quantityField = document.getElementById('quantityAll');
-const quantity = quantityField ? parseInt(quantityField.value, 10) || 1 : 1;
-
-// Debugging
-console.log('Size:', size); // Updated to show label
-console.log('Flavor:', flavor);
-console.log('Order Type:', orderTypeSelect); // Updated to show label
-console.log('Quantity:', quantity);
-console.log('Price ID:', priceId);
-
-// Check if price ID is valid
-if (!priceId || priceId === 'N/A') {
-alert('Please select valid options before adding to cart.');
-return;
-}
-
-// Add to cart
-const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
-cart.push({
-priceId,
-title,
-size,
-flavor,
-orderType: orderTypeSelect,
-quantity,
-unitPrice,
-});
-localStorage.setItem('cartV2', JSON.stringify(cart));
-
-console.log('Cart updated:', cart); // Debugging
-
-// Trigger success modal or alert
-const modal = document.getElementById('addedToCartModal');
-if (modal) {
-$('#addedToCartModal').modal('show');
-} else {
-alert('Item added to cart successfully!');
-}
-}
-
-// Attach the event listener to the Add to Cart button
-document.addEventListener('DOMContentLoaded', function () {
-const addToCartButton = document.querySelector('.buy-now');
-if (addToCartButton) {
-addToCartButton.addEventListener('click', handleAddToCart);
-console.log('Add to Cart button is ready.');
-} else {
-console.error('Add to Cart button not found!');
-}
-});
-
-</script>
-
-
-
-
-
-
-<!-- Modal for Add to Cart Confirmation -->
-<div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-<div class="modal-content">
-    <div class="modal-header">
-        <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
-        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
-        </button>
-    </div>
-    <div class="modal-body">
-        Your item has been successfully added to the cart. What would you like to do next?
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
-        <a href="/cart" class="btn btn-primary">Go to Cart</a>
-    </div>
-</div>
-</div>
-</div>
-
-<!-- YAML SCRIPT ENDS -->
-
-
-<script>
-const quantityInput = document.getElementById('quantityAll');
-const btnIncrease = document.querySelector('.btn-increase');
-const btnDecrease = document.querySelector('.btn-decrease');
-
-// Increase quantity
-btnIncrease.addEventListener('click', () => {
-  quantityInput.value = parseInt(quantityInput.value) + 1;
-});
-
-// Decrease quantity (minimum value = 1)
-btnDecrease.addEventListener('click', () => {
-  const currentValue = parseInt(quantityInput.value);
-  if (currentValue > 1) {
-    quantityInput.value = currentValue - 1;
-  }
-});
-
+    // Initialize the price on page load
+    document.addEventListener("DOMContentLoaded", updatePrice);
     </script>
 
-{{- partial "footer.html" . -}}
+    <script>
+    // Function to update the price ID display
+    function updatePriceID() {
+        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase();
+        const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
+
+        // Default value for price ID
+        let priceID = "N/A";
+
+        // Debug: Check the loaded data and selected values
+        console.log("Loaded Data:", productPricingRaw);
+        console.log("Selected - Size:", size, "Flavor:", flavor, "Order Type:", orderType);
+
+        // Traverse the pricing structure for the selected combination
+        if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.shampoo) {
+            const shampooData = productPricingRaw.ids.shampoo;
+            console.log("Shampoo Data:", shampooData);
+
+            const orderTypeData = shampooData[orderType];
+            console.log("Order Type Data:", orderTypeData);
+
+            if (orderTypeData && orderTypeData[flavor]) {
+                const flavorData = orderTypeData[flavor];
+                console.log("Flavor Data:", flavorData);
+
+                const sizeData = flavorData[size];
+                console.log("Size Data:", sizeData);
+
+                if (sizeData) {
+                    priceID = sizeData[country_code];
+                }
+            }
+        }
+
+        // Update the DOM element with the resolved price ID
+        const priceIdElement = document.getElementById("price-id");
+        if (priceIdElement) {
+            priceIdElement.textContent = priceID !== "N/A" ? priceID : "Price ID Not Available";
+        }
+
+        // Log final result
+        console.log("Resolved Price ID:", priceID);
+    };
+    </script>
+
+    <script>
+    // Parse the JSON string into an object
+    const rawData = "{{ .Site.Data.pricing | jsonify }}";
+    const pricingData = JSON.parse(rawData);
+    console.log('Parsed Pricing Data:', pricingData);
+
+    function updatePriceId() {
+        // Get the selected values
+        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase();
+        const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
+
+        try {
+            let priceId;
+
+            // Access the correct price ID based on the order type
+            if (orderType === 'single_purchase') {
+                priceId = pricingData.tallow.ids.shampoo.single[flavor][size][country_code];
+            } else if (orderType === 'recurring_monthly') {
+                priceId = pricingData.tallow.ids.shampoo.monthly[flavor][size][country_code];
+            } else if (orderType === 'recurring_quarterly') {
+                priceId = pricingData.tallow.ids.shampoo.quarterly[flavor][size][country_code];
+            } else if (orderType === 'three_pack') {
+                priceId = pricingData.tallow.ids.shampoo.pack[flavor][size][country_code];
+            }
+
+            console.log('Price ID:', priceId);
+
+            // Update the DOM element with the resolved price ID, if it exists
+            const priceIdElement = document.getElementById('price-id');
+            if (priceIdElement) {
+                priceIdElement.textContent = priceId || 'Price ID not found';
+            }
+
+            // Update the button's data-price-id attribute
+            const buyNowButton = document.querySelector(".buy-now");
+            if (buyNowButton) {
+                buyNowButton.setAttribute("data-price-id", priceId || "");
+                console.log('Button updated with Price ID:', priceId);
+            }
+        } catch (error) {
+            console.error('Error fetching Price ID:', error);
+
+            // Clear the button's data-price-id attribute on error
+            const buyNowButton = document.querySelector(".buy-now");
+            if (buyNowButton) {
+                buyNowButton.setAttribute("data-price-id", "");
+            }
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Add event listener for form changes
+        document.getElementById('productForm').addEventListener('change', updatePriceId);
+
+        // Trigger the update function on page load
+        updatePriceId();
+    });
+    </script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Convert the ids structure to a simplified format
+        function preprocessproductData(rawData) {
+            const simplified = {};
+
+            // Iterate over shampoo (or pets, if needed)
+            if (rawData.ids && rawData.ids.shampoo) {
+                const categories = rawData.ids.shampoo;
+
+                for (const [orderType, flavors] of Object.entries(categories)) {
+                    for (const [flavor, sizes] of Object.entries(flavors)) {
+                        for (const [size, priceId] of Object.entries(sizes)) {
+                            if (!simplified[size]) {
+                                simplified[size] = {};
+                            }
+                            if (!simplified[size][flavor]) {
+                                simplified[size][flavor] = {};
+                            }
+                            simplified[size][flavor][orderType] = priceId;
+                        }
+                    }
+                }
+            }
+            return simplified;
+        }
+
+        // Example: Assume productPricingRaw is available globally or passed here
+        const normalizedproductData = preprocessproductData(productPricingRaw);
+        console.log('Normalized product Data:', normalizedproductData);
+
+        // Use normalizedproductData for price ID lookups
+        function getPriceID(size, flavor, orderType) {
+            return (
+                normalizedproductData[size]?.[flavor]?.[orderType] ||
+                "Price ID not found"
+            );
+        }
+    });
+    </script>
+
+    <script>
+    // Add to Cart Handler Function
+    function handleAddToCart(event) {
+        event.preventDefault();
+
+        console.log('Add to Cart button clicked!');
+
+        const button = event.target;
+
+        // Retrieve values from the dropdowns
+        const selectedSize = document.querySelector('input[name="size"]:checked');
+        const size = document.querySelector(`label[for="${selectedSize.id}"]`).textContent.trim();
+
+        // Use the text content of the selected option
+        const selectedFlavor = document.querySelector('input[name="flavor"]:checked');
+        const flavor = document.querySelector(`label[for="${selectedFlavor.id}"]`).textContent.trim();
+
+        // Use the text content of the selected option
+        const selectedOrderType = document.querySelector('input[name="orderType"]:checked');
+        const orderTypeSelect = document.querySelector(`label[for="${selectedOrderType.id}"]`).textContent.trim();
+
+        const unitPriceElement = document.getElementById('price');
+        const unitPrice = unitPriceElement 
+            ? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00
+            : 0.00;
+
+        // Retrieve the price ID
+        const priceId = button.getAttribute('data-price-id') || 'N/A';
+        const title = document.querySelector('h1').innerText;
+
+        // Retrieve quantity
+        const quantityField = document.getElementById('quantityAll');
+        const quantity = quantityField ? parseInt(quantityField.value, 10) || 1 : 1;
+
+        // Debugging
+        console.log('Size:', size);
+        console.log('Flavor:', flavor);
+        console.log('Order Type:', orderTypeSelect);
+        console.log('Quantity:', quantity);
+        console.log('Price ID:', priceId);
+
+        // Check if price ID is valid
+        if (!priceId || priceId === 'N/A') {
+            alert('Please select valid options before adding to cart.');
+            return;
+        }
+
+        // Add to cart
+        const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+        cart.push({
+            priceId,
+            title,
+            size,
+            flavor,
+            orderType: orderTypeSelect,
+            quantity,
+            unitPrice,
+        });
+        localStorage.setItem('cartV2', JSON.stringify(cart));
+
+        console.log('Cart updated:', cart);
+
+        // Trigger success modal or alert
+        const modal = document.getElementById('addedToCartModal');
+        if (modal) {
+            $('#addedToCartModal').modal('show');
+        } else {
+            alert('Item added to cart successfully!');
+        }
+    }
+
+    // Attach the event listener to the Add to Cart button
+    document.addEventListener('DOMContentLoaded', function () {
+        const addToCartButton = document.querySelector('.buy-now');
+        if (addToCartButton) {
+            addToCartButton.addEventListener('click', handleAddToCart);
+            console.log('Add to Cart button is ready.');
+        } else {
+            console.error('Add to Cart button not found!');
+        }
+    });
+    </script>
+
+    <!-- Modal for Add to Cart Confirmation -->
+    <div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Your item has been successfully added to the cart. What would you like to do next?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
+                    <a href="/cart" class="btn btn-primary">Go to Cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- YAML SCRIPT ENDS -->
+
+    <script>
+    const quantityInput = document.getElementById('quantityAll');
+    const btnIncrease = document.querySelector('.btn-increase');
+    const btnDecrease = document.querySelector('.btn-decrease');
+
+    // Increase quantity
+    btnIncrease.addEventListener('click', () => {
+        quantityInput.value = parseInt(quantityInput.value) + 1;
+    });
+
+    // Decrease quantity (minimum value = 1)
+    btnDecrease.addEventListener('click', () => {
+        const currentValue = parseInt(quantityInput.value);
+        if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+        }
+    });
+    </script>
+
+    {{- partial "footer.html" . -}}
 </body>
 </html>
