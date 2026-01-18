@@ -54,6 +54,119 @@
             color: #000 !important;
             cursor: default !important;
         }
+
+        /* Pair With Section Styles */
+        .pair-with-section .card {
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pair-with-section .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1) !important;
+        }
+
+        .pair-with-image img {
+            transition: transform 0.3s ease;
+        }
+
+        .pair-with-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .pair-with-section .btn-pink {
+            padding: 6px 14px !important;
+            font-size: 13px !important;
+        }
+
+        /* Toast Notification for Pair With */
+        .pair-with-toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: white;
+            border-radius: 12px;
+            padding: 16px 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+            z-index: 999999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            max-width: 90vw;
+            width: auto;
+        }
+
+        .pair-with-toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .pair-with-toast-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pair-with-toast-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .pair-with-toast-text strong {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .pair-with-toast-text span {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .pair-with-toast-btn {
+            background: #000;
+            color: #fff !important;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none !important;
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            margin-left: 8px;
+        }
+
+        .pair-with-toast-btn:hover {
+            background: #333;
+        }
+
+        @media (max-width: 767px) {
+            .pair-with-toast {
+                bottom: 80px;
+                left: 10px;
+                right: 10px;
+                transform: translateX(0) translateY(100px);
+                max-width: none;
+                width: auto;
+            }
+            
+            .pair-with-toast.show {
+                transform: translateX(0) translateY(0);
+            }
+
+            .pair-with-section .d-flex {
+                flex-direction: row;
+            }
+
+            .pair-with-image {
+                min-width: 80px;
+            }
+
+            .pair-with-image img {
+                max-width: 80px !important;
+            }
+        }
     </style>
     
     {{ if .Params.charity }}
@@ -149,6 +262,49 @@
                     </div>
                 </form>
 
+                <!-- Pair With Section -->
+                <div class="pair-with-section">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-3">
+                            <p class="text-muted small mb-2 fw-bold" style="font-weight: 600; letter-spacing: 0.5px;">PAIR WITH</p>
+                            <div class="d-flex align-items-center">
+                                <div class="pair-with-image mr-3">
+                                    <a href="/shop/products/tallow-conditioner/">
+                                        <img src="/img/conditioner-shop.webp" alt="Tallow Conditioner" class="img-fluid" style="max-width: 100px; border-radius: 8px;">
+                                    </a>
+                                </div>
+                                <div class="pair-with-details flex-grow-1">
+                                    <h6 class="mb-1 fw-bold" style="font-weight: 600;">
+                                        <a href="/shop/products/tallow-conditioner/" class="text-decoration-none text-dark">
+                                            Tallow Conditioner 500ml - Hair Repair
+                                        </a>
+                                    </h6>
+                                    <p class="small text-muted mb-2">Nature's answer to dull, damaged and frizzy hair</p>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <span class="h6 fw-bold mb-0 pair-with-price" 
+                                              data-product="conditioner"
+                                              data-size="500ml"
+                                              data-order-type="single_purchase"
+                                              style="font-weight: 600;">$34.95</span>
+                                        <button 
+                                            class="btn btn-pink btn-sm pair-with-quick-add" 
+                                            data-product="conditioner"
+                                            data-order-type="single"
+                                            data-flavor="geranium"
+                                            data-size="500ml"
+                                            data-title="Nourishing Tallow Conditioner"
+                                            data-display-size="500ml"
+                                            data-display-flavor="Fresh Geranium"
+                                            data-display-order-type="Single bottle">
+                                            Quick Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- YAML FORM ENDS -->
             </div>
 
@@ -210,6 +366,20 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification for Pair With -->
+    <div id="pairWithToast" class="pair-with-toast">
+        <div class="pair-with-toast-content">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#98fb98" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+            </svg>
+            <div class="pair-with-toast-text">
+                <strong>Added to Cart!</strong>
+                <span id="pairWithToastProduct"></span>
+            </div>
+            <a href="/cart" class="pair-with-toast-btn">View Cart</a>
         </div>
     </div>
 
@@ -535,6 +705,161 @@
     </div>
 
     <!-- YAML SCRIPT ENDS -->
+
+    <!-- Pair With Quick Add Script -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Show toast notification for Pair With
+        function showPairWithToast(productName) {
+            var toast = document.getElementById('pairWithToast');
+            var productEl = document.getElementById('pairWithToastProduct');
+            
+            if (toast) {
+                if (productEl) {
+                    productEl.textContent = productName;
+                }
+                
+                toast.classList.remove('show');
+                void toast.offsetWidth;
+                toast.classList.add('show');
+                
+                setTimeout(function() {
+                    toast.classList.remove('show');
+                }, 4000);
+            }
+            
+            // Also try the header notification
+            if (typeof triggerCartBounce === 'function') {
+                triggerCartBounce(productName);
+            }
+        }
+        
+        // Update Pair With price from YAML data
+        function updatePairWithPrice() {
+            if (typeof pricingData === 'undefined') return;
+            
+            var priceElements = document.querySelectorAll('.pair-with-price');
+            
+            priceElements.forEach(function(element) {
+                var product = element.getAttribute('data-product');
+                var size = element.getAttribute('data-size');
+                var orderType = element.getAttribute('data-order-type');
+                
+                try {
+                    var productPricingData = pricingData.tallow.pricing[product];
+                    
+                    if (Array.isArray(productPricingData)) {
+                        var pricingEntry = productPricingData.find(function(entry) {
+                            return entry.size.toLowerCase() === size.toLowerCase();
+                        });
+                        
+                        if (pricingEntry && pricingEntry.prices[country_code] && pricingEntry.prices[country_code][orderType]) {
+                            var price = pricingEntry.prices[country_code][orderType];
+                            element.textContent = '$' + price.toFixed(2);
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error updating pair-with price:', error);
+                }
+            });
+        }
+        
+        // Wait for pricingData to be available then update price
+        setTimeout(updatePairWithPrice, 100);
+        
+        // Handle Pair With quick add button
+        var pairWithButtons = document.querySelectorAll('.pair-with-quick-add');
+        
+        pairWithButtons.forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                var btn = this;
+                
+                // Check if already added
+                if (btn.classList.contains('added')) {
+                    return;
+                }
+                
+                var product = btn.getAttribute('data-product');
+                var orderType = btn.getAttribute('data-order-type');
+                var flavor = btn.getAttribute('data-flavor');
+                var size = btn.getAttribute('data-size');
+                
+                var title = btn.getAttribute('data-title');
+                var displaySize = btn.getAttribute('data-display-size');
+                var displayFlavor = btn.getAttribute('data-display-flavor');
+                var displayOrderType = btn.getAttribute('data-display-order-type');
+                var quantity = 1;
+                
+                if (typeof pricingData === 'undefined') {
+                    alert('Unable to add product to cart. Pricing data not available.');
+                    return;
+                }
+                
+                var priceId = null;
+                var unitPrice = 0;
+                
+                try {
+                    priceId = pricingData.tallow.ids[product][orderType][flavor][size][country_code];
+                    
+                    var productPricingData = pricingData.tallow.pricing[product];
+                    
+                    if (Array.isArray(productPricingData)) {
+                        var pricingEntry = productPricingData.find(function(entry) {
+                            return entry.size.toLowerCase() === size.toLowerCase();
+                        });
+                        
+                        if (pricingEntry && pricingEntry.prices[country_code]) {
+                            var pricingOrderType = orderType === 'single' ? 'single_purchase' : 
+                                                  orderType === 'pack' ? 'three_pack' : orderType;
+                            
+                            unitPrice = pricingEntry.prices[country_code][pricingOrderType] || 0;
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error fetching data from YAML:', error);
+                }
+                
+                if (!priceId || unitPrice === 0) {
+                    console.error('Invalid price data for product:', title);
+                    alert('Unable to add this product to cart. Please visit the product page.');
+                    return;
+                }
+                
+                var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+                
+                cart.push({
+                    priceId: priceId,
+                    title: title,
+                    size: displaySize,
+                    flavor: displayFlavor,
+                    orderType: displayOrderType,
+                    quantity: quantity,
+                    unitPrice: unitPrice,
+                    eligibleForDiscount: false
+                });
+                
+                localStorage.setItem('cartV2', JSON.stringify(cart));
+                
+                // Update button
+                btn.textContent = 'Added ✓';
+                btn.classList.add('added');
+                btn.disabled = true;
+                
+                // Update cart badge
+                if (typeof updateCartBadge === 'function') {
+                    updateCartBadge();
+                }
+                
+                // Show toast notification
+                showPairWithToast(title);
+                
+                console.log('Added to cart:', title);
+            });
+        });
+    });
+    </script>
 
     <script>
     const quantityInput = document.getElementById('quantityAll');
