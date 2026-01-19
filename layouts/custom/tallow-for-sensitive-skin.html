@@ -1,1 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{- partial "head.html" . -}}
+    <meta name="description" content="Gentle tallow skincare for soothing itchy and irritated skin. Gold partners of the Eczema Association of New Zealand." />
+    <meta property="og:title" content="Tallow for Sensitive Skin | Primal Pantry NZ" />
+    <meta property="og:description" content="Gentle tallow skincare for soothing itchy and irritated skin." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-peach: #fef5f1;
+            --primary-pink: #ffb6c1;
+            --primary-pink-hover: #ff9eb0;
+            --text-dark: #2c2c2c;
+            --text-muted: #6c757d;
+            --accent-gold: rgb(177, 152, 9);
+            --success-green: #98fb98;
+        }
 
+        .landing-page {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+        }
+
+        .landing-page h1, 
+        .landing-page h2, 
+        .landing-page h3 {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #fef9f6 0%, #fdf2ed 50%, #fce8e0 100%);
+            padding: 80px 0 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,182,193,0.2) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-section h1 {
+            font-size: 3.2rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .hero-section .subtitle {
+            font-size: 1.35rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            max-width: 550px;
+            margin: 0 auto 30px;
+        }
+
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .hero-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.8);
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+
+        .hero-badge svg {
+            color: #28a745;
+        }
+
+        /* Products Section */
+        .products-section {
+            padding: 70px 0;
+            background-color: var(--primary-peach);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        /* Product Cards */
+        .product-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: none;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        }
+
+        .product-image-wrapper {
+            position: relative;
+            padding: 25px;
+            background: linear-gradient(180deg, #fdfbfa 0%, #fff 100%);
+            text-align: center;
+        }
+
+        .product-image-wrapper img {
+            max-height: 200px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-bestseller {
+            background: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
+            color: #333;
+        }
+
+        .badge-popular {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .badge-gentle {
+            background: linear-gradient(135deg, #a8e6cf 0%, #88d8b0 100%);
+            color: #333;
+        }
+
+        .badge-scalp {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #333;
+        }
+
+        .product-content {
+            padding: 20px 25px 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-subtitle {
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+
+        .product-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .product-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .product-title a:hover {
+            color: var(--primary-pink-hover);
+        }
+
+        .product-benefit {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .btn-pink {
+            background-color: var(--primary-pink);
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-pink:hover {
+            background-color: var(--primary-pink-hover);
+            color: #000;
+            transform: translateY(-2px);
+        }
+
+        .btn-pink:disabled,
+        .btn-pink.added {
+            background-color: var(--success-green);
+            color: #000;
+            cursor: default;
+            transform: none;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            text-align: center;
+            color: #fff;
+        }
+
+        .cta-section h2 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 25px;
+        }
+
+        .btn-cta {
+            background: #fff;
+            color: #667eea;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            background: #f8f8f8;
+            color: #764ba2;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .savings-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        /* Toast Notification */
+        .landing-toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: white;
+            border-radius: 12px;
+            padding: 16px 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+            z-index: 999999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            max-width: 90vw;
+        }
+
+        .landing-toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .landing-toast-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .landing-toast-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .landing-toast-text strong {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .landing-toast-text span {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .landing-toast-btn {
+            background: #000;
+            color: #fff !important;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none !important;
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            margin-left: 8px;
+        }
+
+        /* Responsive */
+        @media (max-width: 991px) {
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-section .subtitle {
+                font-size: 1.15rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .hero-section {
+                padding: 60px 0 40px;
+            }
+
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+
+            .hero-section .subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-badges {
+                gap: 15px;
+            }
+
+            .hero-badge {
+                padding: 10px 15px;
+                font-size: 0.8rem;
+            }
+
+            .products-section {
+                padding: 50px 0;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .cta-section h2 {
+                font-size: 1.6rem;
+            }
+
+            .landing-toast {
+                bottom: 80px;
+                left: 10px;
+                right: 10px;
+                transform: translateX(0) translateY(100px);
+                max-width: none;
+            }
+
+            .landing-toast.show {
+                transform: translateX(0) translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    {{- partial "alert.html" . -}}
+    {{- partial "header_new.html" . -}}
+
+    <div class="landing-page">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <h1>Tallow for Sensitive Skin</h1>
+                <p class="subtitle">Gentle tallow skincare for soothing itchy and irritated skin</p>
+                
+                <div class="hero-badges">
+                    <div class="hero-badge">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                        </svg>
+                        Eczema Association Gold Partner
+                    </div>
+                    <div class="hero-badge">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                        </svg>
+                        100% Natural Ingredients
+                    </div>
+                    <div class="hero-badge">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                        </svg>
+                        NZ Made
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="products-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Build Your Sensitive Skin Routine</h2>
+                    <p>Carefully formulated to calm and nourish even the most delicate skin</p>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Product 1: Tallow & Honey Balm -->
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="product-card">
+                            <div class="product-image-wrapper">
+                                <span class="product-badge badge-bestseller">Best Seller</span>
+                                <a href="/shop/products/tallow-honey-balm/">
+                                    <img src="/img/honeysmol.webp" alt="Tallow & Manuka Honey Balm" class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="product-content">
+                                <span class="product-subtitle">PrimalCare Gold Edition</span>
+                                <h3 class="product-title">
+                                    <a href="/shop/products/tallow-honey-balm/">Tallow & Manuka Honey Balm</a>
+                                </h3>
+                                <p class="product-benefit">Our most popular natural gentle skincare for irritated & sensitive skin</p>
+                                <p class="product-price" 
+                                   data-product="honeybalm"
+                                   data-size="120ml"
+                                   data-order-type="single_purchase">
+                                    Loading...
+                                </p>
+                                <button 
+                                    class="btn btn-pink quick-add-to-cart" 
+                                    data-product="honeybalm"
+                                    data-order-type="single"
+                                    data-flavor="vanilla"
+                                    data-size="120ml"
+                                    data-title="Tallow & Manuka Honey Balm 120ml"
+                                    data-display-size="120ml"
+                                    data-display-flavor="Vanilla & Manuka"
+                                    data-display-order-type="Single jar">
+                                    Quick Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 2: Tallow Eye Cream -->
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="product-card">
+                            <div class="product-image-wrapper">
+                                <span class="product-badge badge-popular">Popular</span>
+                                <a href="/shop/products/tallow-eye-cream/">
+                                    <img src="/img/eyesmol.webp" alt="Tallow Eye Cream" class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="product-content">
+                                <span class="product-subtitle">PrimalCare Gold Edition</span>
+                                <h3 class="product-title">
+                                    <a href="/shop/products/tallow-eye-cream/">Tallow Eye Cream</a>
+                                </h3>
+                                <p class="product-benefit">For dry, rashy eyelids and sensitive undereye area</p>
+                                <p class="product-price" 
+                                   data-product="eyecream"
+                                   data-size="10ml"
+                                   data-order-type="single_purchase">
+                                    Loading...
+                                </p>
+                                <button 
+                                    class="btn btn-pink quick-add-to-cart" 
+                                    data-product="eyecream"
+                                    data-order-type="single"
+                                    data-flavor="manukahoney_vitc"
+                                    data-size="10ml"
+                                    data-title="Tallow Eye Cream"
+                                    data-display-size="15ml"
+                                    data-display-flavor="Manuka Honey & Vitamin C"
+                                    data-display-order-type="Single jar">
+                                    Quick Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 3: Tallow Soap -->
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="product-card">
+                            <div class="product-image-wrapper">
+                                <span class="product-badge badge-gentle">Gentle</span>
+                                <a href="/shop/products/tallow-soap/">
+                                    <img src="/img/soapsmol.webp" alt="Tallow Soap" class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="product-content">
+                                <span class="product-subtitle">Naturally Nourishing</span>
+                                <h3 class="product-title">
+                                    <a href="/shop/products/tallow-soap/">Tallow & Manuka Honey Soap</a>
+                                </h3>
+                                <p class="product-benefit">Gentle cleansing soap that won't strip your skin's natural oils</p>
+                                <p class="product-price" 
+                                   data-product="soap"
+                                   data-size="120g"
+                                   data-order-type="single_purchase">
+                                    Loading...
+                                </p>
+                                <button 
+                                    class="btn btn-pink quick-add-to-cart" 
+                                    data-product="soap"
+                                    data-order-type="single"
+                                    data-flavor="manuka"
+                                    data-size="120g"
+                                    data-title="Tallow & Manuka Honey Soap"
+                                    data-display-size="120g"
+                                    data-display-flavor="Manuka Honey"
+                                    data-display-order-type="Single block">
+                                    Quick Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 4: Tallow Shampoo & Conditioner -->
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="product-card">
+                            <div class="product-image-wrapper">
+                                <span class="product-badge badge-scalp">Scalp Health</span>
+                                <a href="/shop/products/scalp-health-bundle/">
+                                    <img src="/img/scalpbundle-shop.webp" alt="Tallow Shampoo & Conditioner" class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="product-content">
+                                <span class="product-subtitle">PrimalCare Gold Edition</span>
+                                <h3 class="product-title">
+                                    <a href="/shop/products/scalp-health-bundle/">Tallow Shampoo & Conditioner</a>
+                                </h3>
+                                <p class="product-benefit">Supporting scalp health for itchy, flaky, or irritated scalps</p>
+                                <p class="product-price" 
+                                   data-product="scalpbundle"
+                                   data-size="500ml"
+                                   data-order-type="single_purchase">
+                                    Loading...
+                                </p>
+                                <button 
+                                    class="btn btn-pink quick-add-to-cart" 
+                                    data-product="scalpbundle"
+                                    data-order-type="single"
+                                    data-flavor="geranium"
+                                    data-size="500ml"
+                                    data-title="Tallow Haircare Bundle"
+                                    data-display-size="500ml each"
+                                    data-display-flavor="Fresh Geranium"
+                                    data-display-order-type="Single Bundle">
+                                    Quick Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <span class="savings-badge">💰 Save 20% with the full set</span>
+                <h2>Get the Complete Sensitive Skin Kit</h2>
+                <p>Everything you need for a gentle, soothing skincare routine - bundled together at a special price</p>
+                <a href="/shop/products/tallow-for-sensitive-skin-kit/" class="btn-cta">
+                    Shop the Kit →
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="landingToast" class="landing-toast">
+        <div class="landing-toast-content">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#98fb98" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+            </svg>
+            <div class="landing-toast-text">
+                <strong>Added to Cart!</strong>
+                <span id="landingToastProduct"></span>
+            </div>
+            <a href="/cart" class="landing-toast-btn">View Cart</a>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var pricingDataExists = typeof pricingData !== 'undefined';
+        var countryCodeExists = typeof country_code !== 'undefined';
+        
+        if (!pricingDataExists || !countryCodeExists) {
+            console.warn('Pricing data not available on this page');
+        }
+        
+        // Show toast notification
+        function showLandingToast(productName) {
+            var toast = document.getElementById('landingToast');
+            var productEl = document.getElementById('landingToastProduct');
+            
+            if (toast) {
+                if (productEl) {
+                    productEl.textContent = productName;
+                }
+                
+                toast.classList.remove('show');
+                void toast.offsetWidth;
+                toast.classList.add('show');
+                
+                setTimeout(function() {
+                    toast.classList.remove('show');
+                }, 4000);
+            }
+            
+            if (typeof triggerCartBounce === 'function') {
+                triggerCartBounce(productName);
+            }
+        }
+        
+        // Update all product prices from YAML data
+        function updateProductPrices() {
+            if (!pricingDataExists) return;
+            
+            var priceElements = document.querySelectorAll('.product-price');
+            
+            priceElements.forEach(function(element) {
+                var product = element.getAttribute('data-product');
+                var size = element.getAttribute('data-size');
+                var orderType = element.getAttribute('data-order-type');
+                
+                try {
+                    var productPricingData = pricingData.tallow.pricing[product];
+                    
+                    if (Array.isArray(productPricingData)) {
+                        var pricingEntry = productPricingData.find(function(entry) {
+                            return entry.size.toLowerCase() === size.toLowerCase();
+                        });
+                        
+                        if (pricingEntry && pricingEntry.prices[country_code] && pricingEntry.prices[country_code][orderType]) {
+                            var price = pricingEntry.prices[country_code][orderType];
+                            element.textContent = '$' + price.toFixed(2);
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error updating price:', error);
+                }
+            });
+        }
+        
+        updateProductPrices();
+        
+        // Handle all quick add to cart buttons
+        var quickAddButtons = document.querySelectorAll('.quick-add-to-cart');
+        
+        quickAddButtons.forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                var btn = this;
+                
+                if (btn.classList.contains('added')) {
+                    return;
+                }
+                
+                var product = btn.getAttribute('data-product');
+                var orderType = btn.getAttribute('data-order-type');
+                var flavor = btn.getAttribute('data-flavor');
+                var size = btn.getAttribute('data-size');
+                
+                var title = btn.getAttribute('data-title');
+                var displaySize = btn.getAttribute('data-display-size');
+                var displayFlavor = btn.getAttribute('data-display-flavor');
+                var displayOrderType = btn.getAttribute('data-display-order-type');
+                var quantity = 1;
+                
+                if (!pricingDataExists) {
+                    alert('Unable to add product to cart. Pricing data not available.');
+                    return;
+                }
+                
+                var priceId = null;
+                var unitPrice = 0;
+                
+                try {
+                    priceId = pricingData.tallow.ids[product][orderType][flavor][size][country_code];
+                    
+                    var productPricingData = pricingData.tallow.pricing[product];
+                    
+                    if (Array.isArray(productPricingData)) {
+                        var pricingEntry = productPricingData.find(function(entry) {
+                            return entry.size.toLowerCase() === size.toLowerCase();
+                        });
+                        
+                        if (pricingEntry && pricingEntry.prices[country_code]) {
+                            var pricingOrderType = orderType === 'single' ? 'single_purchase' : 
+                                                  orderType === 'pack' ? 'three_pack' : orderType;
+                            
+                            unitPrice = pricingEntry.prices[country_code][pricingOrderType] || 0;
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error fetching data from YAML:', error);
+                }
+                
+                if (!priceId || unitPrice === 0) {
+                    console.error('Invalid price data for product:', title);
+                    alert('Unable to add this product to cart. Please visit the product page.');
+                    return;
+                }
+                
+                var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+                
+                cart.push({
+                    priceId: priceId,
+                    title: title,
+                    size: displaySize,
+                    flavor: displayFlavor,
+                    orderType: displayOrderType,
+                    quantity: quantity,
+                    unitPrice: unitPrice,
+                    eligibleForDiscount: false
+                });
+                
+                localStorage.setItem('cartV2', JSON.stringify(cart));
+                
+                btn.textContent = 'Added ✓';
+                btn.classList.add('added');
+                btn.disabled = true;
+                
+                if (typeof updateCartBadge === 'function') {
+                    updateCartBadge();
+                }
+                
+                showLandingToast(title);
+                
+                console.log('Added to cart:', title);
+            });
+        });
+    });
+    </script>
+
+    {{- partial "footer.html" . -}}
+</body>
+</html>
