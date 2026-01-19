@@ -479,7 +479,10 @@
                 const opp = opportunities[0];
                 const flavorText = opp.flavor ? ` - ${opp.flavor}` : '';
                 const alreadyHasThreePack = cartHasThreePack();
+                /* COMMENTED OUT: Free lip balm text
                 const lipBalmText = alreadyHasThreePack ? '' : ' + FREE Lip Balm valued at $12.95';
+                */
+                const lipBalmText = '';
                 
                 upsellBanner.classList.remove('d-none');
                 upsellBanner.innerHTML = `
@@ -512,7 +515,10 @@
                     eligibleForDiscount: false
                 };
                 localStorage.setItem('cartV2', JSON.stringify(cart));
+                /* COMMENTED OUT: Free lip balm message
                 const lipBalmMessage = hadThreePackBefore ? '' : ' + FREE Lip Balm!';
+                */
+                const lipBalmMessage = '';
                 
                 upsellBanner.innerHTML = `
                     <div class="upsell-success-message">
@@ -719,7 +725,10 @@
                                     const totalSavings = (currentPrice * 3) - packPrice;
                                     const savingsPerUnit = totalSavings / 3;
                                     const alreadyHasThreePack = cartHasThreePack();
+                                    /* COMMENTED OUT: Free lip balm text in upsell
                                     const lipBalmText = alreadyHasThreePack ? '' : ' + 🎁 FREE Lip Balm';
+                                    */
+                                    const lipBalmText = '';
                                     
                                     upsellHtml = `
                                         <div class="item-upsell">
@@ -759,6 +768,7 @@
                     cartItemsContainer.appendChild(cartItem);
                 });
 
+                /* COMMENTED OUT: Free lip balm row display
                 // Add free lip balm row if cart has a 3-pack
                 if (hasThreePack) {
                     const freeGiftItem = document.createElement('div');
@@ -778,6 +788,7 @@
                     `;
                     cartItemsContainer.appendChild(freeGiftItem);
                 }
+                */
 
                 let totalCost = subtotal;
                 const shippingRow = document.getElementById('shipping-row');
