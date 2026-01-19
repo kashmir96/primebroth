@@ -5,132 +5,88 @@
     <meta name="description" content="Anti-aging tallow skincare to enhance your natural beauty. Natural solutions for wrinkles, fine lines, and radiant skin." />
     <meta property="og:title" content="Tallow Skincare for Wrinkles & Fine Lines | Primal Pantry NZ" />
     <meta property="og:description" content="Anti-aging tallow skincare to enhance your natural beauty." />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    {{- partial "alert.html" . -}}
+    {{- partial "header_new.html" . -}}
+
     <style>
-        :root {
-            --primary-peach: #fef5f1;
-            --primary-pink: #ffb6c1;
-            --primary-pink-hover: #ff9eb0;
-            --text-dark: #2c2c2c;
-            --text-muted: #6c757d;
-            --accent-gold: rgb(177, 152, 9);
-            --success-green: #98fb98;
-            --luxe-gold: #c9a050;
-            --luxe-cream: #fdfaf5;
-        }
-
-        .landing-page {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--text-dark);
-        }
-
-        .landing-page h1, 
-        .landing-page h2, 
-        .landing-page h3 {
-            font-family: 'Cormorant Garamond', serif;
-        }
-
-        /* Hero Section - Luxe Anti-Aging Theme */
+        /* Hero Section */
         .hero-section {
-            background: linear-gradient(135deg, #fdfaf5 0%, #f9f3eb 50%, #f5ece0 100%);
-            padding: 80px 0 60px;
+            background: linear-gradient(135deg, #fdfaf5 0%, #f9f3eb 100%);
+            padding: 60px 0 50px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: -30%;
-            right: -5%;
-            width: 350px;
-            height: 350px;
-            background: radial-gradient(circle, rgba(201,160,80,0.15) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        .hero-section::after {
-            content: '';
-            position: absolute;
-            bottom: -20%;
-            left: -5%;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(255,182,193,0.15) 0%, transparent 70%);
-            border-radius: 50%;
         }
 
         .hero-section h1 {
-            font-size: 3.2rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 1rem;
-            position: relative;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #2c2c2c;
+            margin-bottom: 0.75rem;
         }
 
         .hero-section .subtitle {
-            font-size: 1.35rem;
-            font-weight: 300;
-            color: var(--text-muted);
-            max-width: 550px;
-            margin: 0 auto 30px;
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: #6c757d;
+            max-width: 500px;
+            margin: 0 auto;
         }
 
         .hero-badges {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 20px;
             flex-wrap: wrap;
-            margin-top: 30px;
+            margin-top: 25px;
         }
 
         .hero-badge {
             display: flex;
             align-items: center;
-            gap: 10px;
-            background: rgba(255,255,255,0.9);
-            padding: 12px 20px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            color: var(--text-dark);
-            border: 1px solid rgba(201,160,80,0.2);
+            gap: 8px;
+            background: #fff;
+            padding: 10px 16px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            color: #2c2c2c;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
 
         .hero-badge svg {
-            color: var(--luxe-gold);
+            color: #c9a050;
+            width: 18px;
+            height: 18px;
         }
 
         /* Products Section */
         .products-section {
-            padding: 70px 0;
-            background: linear-gradient(180deg, var(--luxe-cream) 0%, #fff 100%);
+            padding: 60px 0;
+            background-color: #fef5f1;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
         .section-header h2 {
-            font-size: 2.4rem;
-            font-weight: 600;
+            font-size: 2rem;
+            font-weight: 700;
             margin-bottom: 0.5rem;
         }
 
         .section-header p {
-            font-size: 1.1rem;
-            color: var(--text-muted);
+            font-size: 1rem;
+            color: #6c757d;
         }
 
         /* Product Cards */
         .product-card {
             background: #fff;
-            border-radius: 16px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             height: 100%;
             display: flex;
@@ -139,79 +95,72 @@
         }
 
         .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
         }
 
         .product-image-wrapper {
             position: relative;
-            padding: 25px;
-            background: linear-gradient(180deg, #fdfbfa 0%, #fff 100%);
+            padding: 20px;
+            background: #fdfbfa;
             text-align: center;
         }
 
         .product-image-wrapper img {
-            max-height: 200px;
+            max-height: 180px;
             width: auto;
-            transition: transform 0.3s ease;
-        }
-
-        .product-card:hover .product-image-wrapper img {
-            transform: scale(1.05);
         }
 
         .product-badge {
             position: absolute;
-            top: 15px;
-            left: 15px;
-            padding: 6px 14px;
-            border-radius: 20px;
+            top: 12px;
+            left: 12px;
+            padding: 5px 12px;
+            border-radius: 15px;
             font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         .badge-antiaging {
-            background: linear-gradient(135deg, #c9a050 0%, #e8c678 100%);
+            background: #c9a050;
             color: #fff;
         }
 
         .badge-brightening {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            background: #ff9eb0;
             color: #333;
         }
 
         .badge-smoothing {
-            background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+            background: #a18cd1;
             color: #fff;
         }
 
         .badge-protection {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            background: #fcb69f;
             color: #333;
         }
 
         .product-content {
-            padding: 20px 25px 25px;
+            padding: 20px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
 
         .product-subtitle {
-            font-size: 0.8rem;
-            color: var(--accent-gold);
+            font-size: 0.75rem;
+            color: rgb(177, 152, 9);
             font-style: italic;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .product-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.4rem;
+            font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 8px;
-            color: var(--text-dark);
+            color: #2c2c2c;
         }
 
         .product-title a {
@@ -220,78 +169,67 @@
         }
 
         .product-title a:hover {
-            color: var(--luxe-gold);
+            text-decoration: underline;
         }
 
         .product-benefit {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 15px;
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-bottom: 12px;
             flex-grow: 1;
         }
 
-        .product-price {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 15px;
-        }
-
-        .btn-gold {
-            background: linear-gradient(135deg, #c9a050 0%, #dbb565 100%);
-            color: #fff;
+        .btn-pink {
+            background-color: #ffb6c1;
+            color: #000;
             border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 10px 20px;
+            border-radius: 6px;
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
             width: 100%;
         }
 
-        .btn-gold:hover {
-            background: linear-gradient(135deg, #b8923f 0%, #c9a050 100%);
-            color: #fff;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(201,160,80,0.3);
+        .btn-pink:hover {
+            background-color: #ff9eb0;
+            color: #000;
         }
 
-        .btn-gold:disabled,
-        .btn-gold.added {
-            background: var(--success-green);
+        .btn-pink:disabled,
+        .btn-pink.added {
+            background-color: #98fb98;
             color: #000;
             cursor: default;
-            transform: none;
-            box-shadow: none;
         }
 
         /* CTA Section */
         .cta-section {
-            padding: 60px 0;
+            padding: 50px 0;
             background: linear-gradient(135deg, #c9a050 0%, #a07830 100%);
             text-align: center;
             color: #fff;
         }
 
         .cta-section h2 {
-            font-size: 2.2rem;
-            font-weight: 600;
-            margin-bottom: 15px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
         }
 
         .cta-section p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             opacity: 0.95;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .btn-cta {
             background: #fff;
             color: #a07830;
-            padding: 15px 40px;
-            border-radius: 30px;
+            padding: 12px 30px;
+            border-radius: 25px;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1rem;
             text-decoration: none;
             display: inline-block;
             transition: all 0.3s ease;
@@ -300,17 +238,16 @@
         .btn-cta:hover {
             background: #f8f8f8;
             color: #8a6820;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: translateY(-2px);
         }
 
         .savings-badge {
             display: inline-block;
             background: rgba(255,255,255,0.2);
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
+            padding: 6px 16px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
         }
 
         /* Toast Notification */
@@ -359,7 +296,7 @@
         }
 
         .landing-toast-btn {
-            background: var(--luxe-gold);
+            background: #000;
             color: #fff !important;
             padding: 8px 16px;
             border-radius: 6px;
@@ -370,24 +307,10 @@
             margin-left: 8px;
         }
 
-        .landing-toast-btn:hover {
-            background: #b8923f;
-        }
-
         /* Responsive */
-        @media (max-width: 991px) {
-            .hero-section h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-section .subtitle {
-                font-size: 1.15rem;
-            }
-        }
-
         @media (max-width: 767px) {
             .hero-section {
-                padding: 60px 0 40px;
+                padding: 40px 0 30px;
             }
 
             .hero-section h1 {
@@ -399,24 +322,24 @@
             }
 
             .hero-badges {
-                gap: 15px;
+                gap: 10px;
             }
 
             .hero-badge {
-                padding: 10px 15px;
-                font-size: 0.8rem;
+                padding: 8px 12px;
+                font-size: 0.75rem;
             }
 
             .products-section {
-                padding: 50px 0;
+                padding: 40px 0;
             }
 
             .section-header h2 {
-                font-size: 1.8rem;
+                font-size: 1.6rem;
             }
 
             .cta-section h2 {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
             }
 
             .landing-toast {
@@ -432,214 +355,208 @@
             }
         }
     </style>
-</head>
-<body>
-    {{- partial "alert.html" . -}}
-    {{- partial "header_new.html" . -}}
 
-    <div class="landing-page">
-        <!-- Hero Section -->
-        <section class="hero-section">
-            <div class="container">
-                <h1>Tallow Skincare for Wrinkles & Fine Lines</h1>
-                <p class="subtitle">Anti-aging tallow skincare to enhance your natural beauty</p>
-                
-                <div class="hero-badges">
-                    <div class="hero-badge">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                            <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.613 6l-.248-1.506 1.086-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
-                            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
-                        </svg>
-                        Collagen Boosting
-                    </div>
-                    <div class="hero-badge">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zM4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8z"/>
-                        </svg>
-                        Vitamin Rich
-                    </div>
-                    <div class="hero-badge">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                        </svg>
-                        100% Natural
-                    </div>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1>Tallow Skincare for Wrinkles & Fine Lines</h1>
+            <p class="subtitle">Anti-aging tallow skincare to enhance your natural beauty</p>
+            
+            <div class="hero-badges">
+                <div class="hero-badge">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.613 6l-.248-1.506 1.086-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
+                        <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                    </svg>
+                    Collagen Boosting
+                </div>
+                <div class="hero-badge">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                    </svg>
+                    Vitamin Rich
+                </div>
+                <div class="hero-badge">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                    </svg>
+                    100% Natural
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Products Section -->
-        <section class="products-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Your Anti-Aging Routine</h2>
-                    <p>Luxurious natural skincare to reveal your most radiant, youthful skin</p>
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Your Anti-Aging Routine</h2>
+                <p>Luxurious natural skincare to reveal your most radiant, youthful skin</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Product 1: Tallow & Manuka Honey Balm -->
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="product-card">
+                        <div class="product-image-wrapper">
+                            <span class="product-badge badge-antiaging">Anti-Wrinkle</span>
+                            <a href="/shop/products/tallow-honey-balm/">
+                                <img src="/img/honeysmol.webp" alt="Tallow & Manuka Honey Balm" class="img-fluid">
+                            </a>
+                        </div>
+                        <div class="product-content">
+                            <p class="product-subtitle">PrimalCare Gold Edition</p>
+                            <h3 class="product-title">
+                                <a href="/shop/products/tallow-honey-balm/">Tallow & Manuka Honey Balm</a>
+                            </h3>
+                            <p class="product-benefit">For face and body wrinkles - Our most popular anti-wrinkle skincare</p>
+                            <p class="h5 fw-bold product-price" 
+                               data-product="honeybalm"
+                               data-size="120ml"
+                               data-order-type="single_purchase">
+                                Loading...
+                            </p>
+                            <button 
+                                class="btn btn-pink quick-add-to-cart" 
+                                data-product="honeybalm"
+                                data-order-type="single"
+                                data-flavor="vanilla"
+                                data-size="120ml"
+                                data-title="Tallow & Manuka Honey Balm 120ml"
+                                data-display-size="120ml"
+                                data-display-flavor="Vanilla & Manuka"
+                                data-display-order-type="Single jar">
+                                Quick Add
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="row g-4">
-                    <!-- Product 1: Tallow & Manuka Honey Balm -->
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <div class="product-card">
-                            <div class="product-image-wrapper">
-                                <span class="product-badge badge-antiaging">Anti-Wrinkle</span>
-                                <a href="/shop/products/tallow-honey-balm/">
-                                    <img src="/img/honeysmol.webp" alt="Tallow & Manuka Honey Balm" class="img-fluid">
-                                </a>
-                            </div>
-                            <div class="product-content">
-                                <span class="product-subtitle">PrimalCare Gold Edition</span>
-                                <h3 class="product-title">
-                                    <a href="/shop/products/tallow-honey-balm/">Tallow & Manuka Honey Balm</a>
-                                </h3>
-                                <p class="product-benefit">For face and body wrinkles - Our most popular anti-wrinkle skincare</p>
-                                <p class="product-price" 
-                                   data-product="honeybalm"
-                                   data-size="120ml"
-                                   data-order-type="single_purchase">
-                                    Loading...
-                                </p>
-                                <button 
-                                    class="btn btn-gold quick-add-to-cart" 
-                                    data-product="honeybalm"
-                                    data-order-type="single"
-                                    data-flavor="vanilla"
-                                    data-size="120ml"
-                                    data-title="Tallow & Manuka Honey Balm 120ml"
-                                    data-display-size="120ml"
-                                    data-display-flavor="Vanilla & Manuka"
-                                    data-display-order-type="Single jar">
-                                    Quick Add
-                                </button>
-                            </div>
+                <!-- Product 2: Tallow Eye Cream -->
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="product-card">
+                        <div class="product-image-wrapper">
+                            <span class="product-badge badge-brightening">Brightening</span>
+                            <a href="/shop/products/tallow-eye-cream/">
+                                <img src="/img/eyesmol.webp" alt="Tallow Eye Cream" class="img-fluid">
+                            </a>
+                        </div>
+                        <div class="product-content">
+                            <p class="product-subtitle">PrimalCare Gold Edition</p>
+                            <h3 class="product-title">
+                                <a href="/shop/products/tallow-eye-cream/">Tallow Eye Cream</a>
+                            </h3>
+                            <p class="product-benefit">Brightening & anti-wrinkle care for undereyes and crow's feet</p>
+                            <p class="h5 fw-bold product-price" 
+                               data-product="eyecream"
+                               data-size="10ml"
+                               data-order-type="single_purchase">
+                                Loading...
+                            </p>
+                            <button 
+                                class="btn btn-pink quick-add-to-cart" 
+                                data-product="eyecream"
+                                data-order-type="single"
+                                data-flavor="manukahoney_vitc"
+                                data-size="10ml"
+                                data-title="Tallow Eye Cream"
+                                data-display-size="15ml"
+                                data-display-flavor="Manuka Honey & Vitamin C"
+                                data-display-order-type="Single jar">
+                                Quick Add
+                            </button>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Product 2: Tallow Eye Cream -->
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <div class="product-card">
-                            <div class="product-image-wrapper">
-                                <span class="product-badge badge-brightening">Brightening</span>
-                                <a href="/shop/products/tallow-eye-cream/">
-                                    <img src="/img/eyesmol.webp" alt="Tallow Eye Cream" class="img-fluid">
-                                </a>
-                            </div>
-                            <div class="product-content">
-                                <span class="product-subtitle">PrimalCare Gold Edition</span>
-                                <h3 class="product-title">
-                                    <a href="/shop/products/tallow-eye-cream/">Tallow Eye Cream</a>
-                                </h3>
-                                <p class="product-benefit">Brightening & anti-wrinkle care for undereyes and crow's feet</p>
-                                <p class="product-price" 
-                                   data-product="eyecream"
-                                   data-size="10ml"
-                                   data-order-type="single_purchase">
-                                    Loading...
-                                </p>
-                                <button 
-                                    class="btn btn-gold quick-add-to-cart" 
-                                    data-product="eyecream"
-                                    data-order-type="single"
-                                    data-flavor="manukahoney_vitc"
-                                    data-size="10ml"
-                                    data-title="Tallow Eye Cream"
-                                    data-display-size="15ml"
-                                    data-display-flavor="Manuka Honey & Vitamin C"
-                                    data-display-order-type="Single jar">
-                                    Quick Add
-                                </button>
-                            </div>
+                <!-- Product 3: Tallow Serum -->
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="product-card">
+                        <div class="product-image-wrapper">
+                            <span class="product-badge badge-smoothing">Smoothing</span>
+                            <a href="/shop/products/tallow-serum/">
+                                <img src="/img/serum-shop.webp" alt="Tallow Glow Serum" class="img-fluid">
+                            </a>
+                        </div>
+                        <div class="product-content">
+                            <p class="product-subtitle">PrimalCare Gold Edition</p>
+                            <h3 class="product-title">
+                                <a href="/shop/products/tallow-serum/">Tallow Glow Serum</a>
+                            </h3>
+                            <p class="product-benefit">Smoothing complexion and reducing dark spots with Vitamin C</p>
+                            <p class="h5 fw-bold product-price" 
+                               data-product="serum"
+                               data-size="30ml"
+                               data-order-type="single_purchase">
+                                Loading...
+                            </p>
+                            <button 
+                                class="btn btn-pink quick-add-to-cart" 
+                                data-product="serum"
+                                data-order-type="single"
+                                data-flavor="vitc"
+                                data-size="30ml"
+                                data-title="Tallow Glow Serum"
+                                data-display-size="30ml"
+                                data-display-flavor="Vitamin C & Hyaluronic Acid"
+                                data-display-order-type="Single bottle">
+                                Quick Add
+                            </button>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Product 3: Tallow Serum -->
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <div class="product-card">
-                            <div class="product-image-wrapper">
-                                <span class="product-badge badge-smoothing">Smoothing</span>
-                                <a href="/shop/products/tallow-serum/">
-                                    <img src="/img/serum-shop.webp" alt="Tallow Glow Serum" class="img-fluid">
-                                </a>
-                            </div>
-                            <div class="product-content">
-                                <span class="product-subtitle">PrimalCare Gold Edition</span>
-                                <h3 class="product-title">
-                                    <a href="/shop/products/tallow-serum/">Tallow Glow Serum</a>
-                                </h3>
-                                <p class="product-benefit">Smoothing complexion and reducing dark spots with Vitamin C</p>
-                                <p class="product-price" 
-                                   data-product="serum"
-                                   data-size="30ml"
-                                   data-order-type="single_purchase">
-                                    Loading...
-                                </p>
-                                <button 
-                                    class="btn btn-gold quick-add-to-cart" 
-                                    data-product="serum"
-                                    data-order-type="single"
-                                    data-flavor="vitc"
-                                    data-size="30ml"
-                                    data-title="Tallow Glow Serum"
-                                    data-display-size="30ml"
-                                    data-display-flavor="Vitamin C & Hyaluronic Acid"
-                                    data-display-order-type="Single bottle">
-                                    Quick Add
-                                </button>
-                            </div>
+                <!-- Product 4: Tallow Summer Balm -->
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="product-card">
+                        <div class="product-image-wrapper">
+                            <span class="product-badge badge-protection">UV Protection</span>
+                            <a href="/shop/products/tallow-summer-balm/">
+                                <img src="/img/summersmol.webp" alt="Tallow Summer Balm" class="img-fluid">
+                            </a>
                         </div>
-                    </div>
-
-                    <!-- Product 4: Tallow Summer Balm -->
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <div class="product-card">
-                            <div class="product-image-wrapper">
-                                <span class="product-badge badge-protection">UV Protection</span>
-                                <a href="/shop/products/tallow-summer-balm/">
-                                    <img src="/img/summersmol.webp" alt="Tallow Summer Balm" class="img-fluid">
-                                </a>
-                            </div>
-                            <div class="product-content">
-                                <span class="product-subtitle">Seasonal Essential</span>
-                                <h3 class="product-title">
-                                    <a href="/shop/products/tallow-summer-balm/">Tallow Summer Balm</a>
-                                </h3>
-                                <p class="product-benefit">Avoid sun spots and lock in moisture before going outside</p>
-                                <p class="product-price" 
-                                   data-product="summerbalm"
-                                   data-size="60ml"
-                                   data-order-type="single_purchase">
-                                    Loading...
-                                </p>
-                                <button 
-                                    class="btn btn-gold quick-add-to-cart" 
-                                    data-product="summerbalm"
-                                    data-order-type="single"
-                                    data-flavor="coconut"
-                                    data-size="60ml"
-                                    data-title="Tallow Summer Balm"
-                                    data-display-size="60ml"
-                                    data-display-flavor="Coconut"
-                                    data-display-order-type="Single jar">
-                                    Quick Add
-                                </button>
-                            </div>
+                        <div class="product-content">
+                            <p class="product-subtitle">Seasonal Essential</p>
+                            <h3 class="product-title">
+                                <a href="/shop/products/tallow-summer-balm/">Tallow Summer Balm</a>
+                            </h3>
+                            <p class="product-benefit">Avoid sun spots and lock in moisture before going outside</p>
+                            <p class="h5 fw-bold product-price" 
+                               data-product="summerbalm"
+                               data-size="60ml"
+                               data-order-type="single_purchase">
+                                Loading...
+                            </p>
+                            <button 
+                                class="btn btn-pink quick-add-to-cart" 
+                                data-product="summerbalm"
+                                data-order-type="single"
+                                data-flavor="coconut"
+                                data-size="60ml"
+                                data-title="Tallow Summer Balm"
+                                data-display-size="60ml"
+                                data-display-flavor="Coconut"
+                                data-display-order-type="Single jar">
+                                Quick Add
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- CTA Section -->
-        <section class="cta-section">
-            <div class="container">
-                <span class="savings-badge">✨ Save 20% with the full set</span>
-                <h2>Get the Complete Anti-Aging Kit</h2>
-                <p>Your complete anti-wrinkle routine - all four products bundled at a special price</p>
-                <a href="/shop/products/tallow-for-wrinkles-kit/" class="btn-cta">
-                    Shop the Kit →
-                </a>
-            </div>
-        </section>
-    </div>
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <span class="savings-badge">✨ Save 20% with the full set</span>
+            <h2>Get the Complete Anti-Aging Kit</h2>
+            <p>Your complete anti-wrinkle routine - all four products bundled at a special price</p>
+            <a href="/shop/products/tallow-for-wrinkles-kit/" class="btn-cta">
+                Shop the Kit →
+            </a>
+        </div>
+    </section>
 
     <!-- Toast Notification -->
     <div id="landingToast" class="landing-toast">
@@ -654,6 +571,12 @@
             <a href="/cart" class="landing-toast-btn">View Cart</a>
         </div>
     </div>
+
+    <script>
+        // Parse pricing data from Hugo - same as irritation partial
+        const pricingData = JSON.parse('{{ .Site.Data.pricing | jsonify }}');
+        const country_code = getCountryCookie('country_code') || "NZ";
+    </script>
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
