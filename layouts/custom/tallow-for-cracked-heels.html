@@ -92,6 +92,8 @@
             display: flex;
             flex-direction: column;
             border: none;
+            max-width: 350px;
+            margin: 0 auto;
         }
 
         .product-card:hover {
@@ -125,11 +127,6 @@
         .badge-healing {
             background: #c9a050;
             color: #fff;
-        }
-
-        .badge-softening {
-            background: #fcb69f;
-            color: #333;
         }
 
         .product-content {
@@ -191,53 +188,6 @@
             background-color: #98fb98;
             color: #000;
             cursor: default;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            padding: 50px 0;
-            background: linear-gradient(135deg, #c9a050 0%, #a07830 100%);
-            text-align: center;
-            color: #fff;
-        }
-
-        .cta-section h2 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .cta-section p {
-            font-size: 1rem;
-            opacity: 0.95;
-            margin-bottom: 20px;
-        }
-
-        .btn-cta {
-            background: #fff;
-            color: #a07830;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 1rem;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s ease;
-        }
-
-        .btn-cta:hover {
-            background: #f8f8f8;
-            color: #8a6820;
-            transform: translateY(-2px);
-        }
-
-        .savings-badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
-            padding: 6px 16px;
-            border-radius: 15px;
-            font-size: 0.85rem;
-            margin-bottom: 15px;
         }
 
         /* Bundle Section */
@@ -412,10 +362,6 @@
                 font-size: 1.6rem;
             }
 
-            .cta-section h2 {
-                font-size: 1.5rem;
-            }
-
             .landing-toast {
                 bottom: 80px;
                 left: 10px;
@@ -434,7 +380,7 @@
     <section class="hero-section">
         <div class="container">
             <h1>Tallow for Cracked Heels</h1>
-            <p class="subtitle">Deeply nourishing balms to heal and soften dry, cracked feet</p>
+            <p class="subtitle">Deeply nourishing balm to soften dry, cracked feet</p>
             
             <div class="hero-badges">
                 <div class="hero-badge">
@@ -442,7 +388,7 @@
                         <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.613 6l-.248-1.506 1.086-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
                         <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
                     </svg>
-                    Deep Healing
+                    Deeply Nourishing
                 </div>
                 <div class="hero-badge">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
@@ -464,8 +410,8 @@
     <section class="products-section">
         <div class="container">
             <div class="section-header">
-                <h2>Your Cracked Heel Repair Routine</h2>
-                <p>Rich, nourishing balms that penetrate deep to soften and heal even the roughest, driest skin</p>
+                <h2>Nourish Your Cracked Heels</h2>
+                <p>Rich, nourishing balm that penetrates deep to soften even the roughest, driest skin</p>
             </div>
 
             <div class="row g-4 justify-content-center">
@@ -473,7 +419,7 @@
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="product-card">
                         <div class="product-image-wrapper">
-                            <span class="product-badge badge-healing">Deep Healing</span>
+                            <span class="product-badge badge-healing">Deeply Nourishing</span>
                             <a href="/shop/products/tallow-honey-balm/">
                                 <img src="/img/honeysmol.webp" alt="Tallow & Manuka Honey Balm" class="img-fluid">
                             </a>
@@ -505,43 +451,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Product 2: Tallow Summer Balm -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="product-card">
-                        <div class="product-image-wrapper">
-                            <span class="product-badge badge-softening">Softening</span>
-                            <a href="/shop/products/tallow-summer-balm/">
-                                <img src="/img/summersmol.webp" alt="Tallow Summer Balm" class="img-fluid">
-                            </a>
-                        </div>
-                        <div class="product-content">
-                            <p class="product-subtitle">Seasonal Essential</p>
-                            <h3 class="product-title">
-                                <a href="/shop/products/tallow-summer-balm/">Tallow Summer Balm</a>
-                            </h3>
-                            <p class="product-benefit">Lighter daytime formula to keep heels soft and protected throughout the day</p>
-                            <p class="h5 fw-bold product-price" 
-                               data-product="summerbalm"
-                               data-size="60ml"
-                               data-order-type="single_purchase">
-                                Loading...
-                            </p>
-                            <button 
-                                class="btn btn-pink quick-add-to-cart" 
-                                data-product="summerbalm"
-                                data-order-type="single"
-                                data-flavor="coconut"
-                                data-size="60ml"
-                                data-title="Tallow Summer Balm"
-                                data-display-size="60ml"
-                                data-display-flavor="Coconut"
-                                data-display-order-type="Single jar">
-                                Quick Add
-                            </button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -551,12 +460,12 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-12 col-lg-6 mb-4 mb-lg-0">
-                    <img src="/img/wrinkleskinnew.webp" alt="Tallow for Cracked Heels Bundle" class="img-fluid rounded-3">
+                    <img src="/img/wrinkleskinnew.webp" alt="Skin Nourishing Kit" class="img-fluid rounded-3">
                 </div>
                 <div class="col-12 col-lg-6">
                     <div class="bundle-content">
-                        <h2>Get the Complete Heel Repair Kit</h2>
-                        <p class="bundle-description">Everything you need for softer, healthier heels - intensive night treatment plus daily protection bundled at a special price</p>
+                        <h2>Get the Skin Nourishing Kit</h2>
+                        <p class="bundle-description">Our complete collection of deeply nourishing tallow balms bundled at a special price - perfect for dry skin anywhere on the body</p>
                         
                         <div class="bundle-pricing">
                             <div class="price-comparison">
@@ -573,7 +482,7 @@
                         
                         <button 
                             class="btn btn-bundle bundle-add-to-cart"
-                            data-title="Heel Repair Kit"
+                            data-title="Skin Nourishing Kit"
                             data-display-order-type="Bundle">
                             Claim Special Deal
                         </button>
@@ -602,7 +511,7 @@
         const pricingData = JSON.parse('{{ .Site.Data.pricing | jsonify }}');
         const country_code = getCountryCookie('country_code') || "NZ";
         
-        // Heel Repair Bundle pricing (using Anti-Aging Kit)
+        // Skin Nourishing Kit pricing
         const bundleUsualPrice = 129.80;
         const bundleSalePrice = 103.84;
         const bundlePriceId = 'price_1SrGF0FZRwx5tlYmGM7QedjY';
@@ -696,8 +605,8 @@
                 
                 cart.push({
                     priceId: bundlePriceId,
-                    title: 'Heel Repair Kit',
-                    size: '2 Products',
+                    title: 'Skin Nourishing Kit',
+                    size: '4 Products',
                     flavor: 'Complete Set',
                     orderType: 'Bundle - 20% Off',
                     quantity: 1,
@@ -715,7 +624,7 @@
                     updateCartBadge();
                 }
                 
-                showLandingToast('Heel Repair Kit');
+                showLandingToast('Skin Nourishing Kit');
             });
         }
         
