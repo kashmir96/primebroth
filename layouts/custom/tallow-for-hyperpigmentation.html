@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tallow for Hyperpigmentation | Primal Pantry NZ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: #2c2c2c;
+            line-height: 1.7;
+            background-color: #fffcf8;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #fdf6ef 0%, #f9efe4 100%);
+            padding: 60px 24px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            color: #5c4a3d;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.1rem;
+            color: #7a6958;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Bundle Section */
+        .bundle-section {
+            padding: 60px 24px;
+            background: #fff;
+        }
+        
+        .bundle-card {
+            background: linear-gradient(145deg, #fdfbf8 0%, #f9f5f0 100%);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(92, 74, 61, 0.08);
+            border: 1px solid rgba(92, 74, 61, 0.06);
+        }
+        
+        .bundle-badge {
+            display: inline-block;
+            background: #5c4a3d;
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+        }
+        
+        .bundle-image {
+            max-width: 350px;
+            margin: 0 auto 30px;
+        }
+        
+        .bundle-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+        }
+        
+        .bundle-title {
+            font-size: 1.8rem;
+            color: #5c4a3d;
+            margin-bottom: 12px;
+        }
+        
+        .bundle-description {
+            color: #7a6958;
+            margin-bottom: 24px;
+            font-size: 1rem;
+        }
+        
+        .bundle-includes {
+            text-align: left;
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .bundle-includes h4 {
+            font-family: 'Playfair Display', serif;
+            color: #5c4a3d;
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+        }
+        
+        .bundle-includes ul {
+            list-style: none;
+        }
+        
+        .bundle-includes li {
+            padding: 8px 0;
+            color: #5c4a3d;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .bundle-includes li::before {
+            content: "✓";
+            color: #a08060;
+            font-weight: 600;
+        }
+        
+        .price-container {
+            margin-bottom: 24px;
+        }
+        
+        .original-price {
+            font-size: 1.1rem;
+            color: #999;
+            text-decoration: line-through;
+            margin-bottom: 4px;
+        }
+        
+        .sale-price {
+            font-size: 2.2rem;
+            color: #5c4a3d;
+            font-weight: 600;
+        }
+        
+        .savings {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 8px;
+        }
+        
+        .buy-button {
+            display: inline-block;
+            background: #5c4a3d;
+            color: #fff;
+            padding: 18px 48px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .buy-button:hover {
+            background: #4a3c31;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(92, 74, 61, 0.25);
+        }
+        
+        /* Content Section */
+        .content-section {
+            padding: 60px 24px;
+        }
+        
+        .content-section h2 {
+            font-size: 1.8rem;
+            color: #5c4a3d;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        
+        .content-section p {
+            color: #5c4a3d;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+        
+        .content-section h3 {
+            font-size: 1.3rem;
+            color: #5c4a3d;
+            margin: 32px 0 16px;
+        }
+        
+        /* Benefits Grid */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+        
+        .benefit-card {
+            background: #fff;
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(92, 74, 61, 0.06);
+            border: 1px solid rgba(92, 74, 61, 0.06);
+        }
+        
+        .benefit-card h4 {
+            font-family: 'Playfair Display', serif;
+            color: #5c4a3d;
+            margin-bottom: 12px;
+            font-size: 1.15rem;
+        }
+        
+        .benefit-card p {
+            color: #7a6958;
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+        
+        /* Trust Section */
+        .trust-section {
+            background: #f9f5f0;
+            padding: 40px 24px;
+            text-align: center;
+        }
+        
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 32px;
+            margin-top: 24px;
+        }
+        
+        .trust-badge {
+            color: #5c4a3d;
+            font-size: 0.95rem;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            padding: 60px 24px;
+            background: #fff;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid #eee;
+            padding: 24px 0;
+        }
+        
+        .faq-item h4 {
+            font-family: 'Playfair Display', serif;
+            color: #5c4a3d;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        
+        .faq-item p {
+            color: #7a6958;
+            font-size: 0.95rem;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #5c4a3d 0%, #4a3c31 100%);
+            padding: 60px 24px;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            color: #fff;
+            margin-bottom: 16px;
+        }
+        
+        .cta-section p {
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 24px;
+        }
+        
+        .cta-section .buy-button {
+            background: #fff;
+            color: #5c4a3d;
+        }
+        
+        .cta-section .buy-button:hover {
+            background: #f9f5f0;
+        }
+        
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 1.9rem;
+            }
+            
+            .bundle-card {
+                padding: 28px 20px;
+            }
+            
+            .bundle-title {
+                font-size: 1.5rem;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="container">
+            <h1>Tallow for Hyperpigmentation</h1>
+            <p class="subtitle">Naturally fade dark patches and even skin tone with nutrient-rich tallow skincare</p>
+        </div>
+    </section>
+
+    <section class="bundle-section">
+        <div class="container">
+            <div class="bundle-card">
+                <span class="bundle-badge">COMPLETE SOLUTION</span>
+                <div class="bundle-image">
+                    <img src="https://primalpantry.co.nz/cdn/shop/files/wrinklesbundle.png?v=1736907781" alt="Hyperpigmentation Bundle">
+                </div>
+                <h2 class="bundle-title">Hyperpigmentation Correction Bundle</h2>
+                <p class="bundle-description">Three targeted products working together to fade dark patches and restore even skin tone</p>
+                
+                <div class="bundle-includes">
+                    <h4>This Bundle Includes:</h4>
+                    <ul>
+                        <li><strong>Manuka Honey Tallow Balm</strong> – Deep nourishment with antibacterial healing properties</li>
+                        <li><strong>Tallow Glow Serum</strong> – Vitamin C & Hyaluronic Acid to brighten and even tone</li>
+                        <li><strong>Restore Eye Cream</strong> – Targeted treatment for delicate areas prone to discolouration</li>
+                    </ul>
+                </div>
+                
+                <div class="price-container">
+                    <div class="original-price">$167.00</div>
+                    <div class="sale-price">$139.00</div>
+                    <div class="savings">Save $28</div>
+                </div>
+                
+                <a href="https://primalpantry.co.nz/cart/47456033906982:1" class="buy-button">Add to Cart – $139</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>Why Tallow Works for Hyperpigmentation</h2>
+            
+            <p>Hyperpigmentation occurs when excess melanin creates dark patches, age spots, or uneven skin tone. While many treatments use harsh chemicals that can irritate and further damage skin, tallow offers a gentle yet effective approach through deep cellular nourishment.</p>
+            
+            <p>Grass-fed beef tallow is remarkably similar to human sebum and contains the fat-soluble vitamins A, D, E, and K that support healthy skin cell turnover. This means your skin can actually absorb and use these nutrients to gradually fade discolouration while strengthening the skin barrier.</p>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h4>Natural Vitamin A</h4>
+                    <p>Promotes healthy cell turnover to gradually fade dark patches and reveal fresh, evenly-toned skin beneath.</p>
+                </div>
+                <div class="benefit-card">
+                    <h4>Vitamin E Protection</h4>
+                    <p>Powerful antioxidant that helps prevent further sun damage and supports the skin's natural healing process.</p>
+                </div>
+                <div class="benefit-card">
+                    <h4>Deep Cellular Nourishment</h4>
+                    <p>Penetrates beyond the surface to deliver nutrients where pigmentation actually forms.</p>
+                </div>
+                <div class="benefit-card">
+                    <h4>Gentle Yet Effective</h4>
+                    <p>No harsh chemicals or acids – just pure nutrition that works with your skin's natural processes.</p>
+                </div>
+            </div>
+
+            <h3>How to Use This Bundle for Best Results</h3>
+            
+            <p><strong>Morning Routine:</strong> After cleansing, apply a few drops of the Tallow Glow Serum to damp skin. The Vitamin C works to brighten and inhibit melanin production throughout the day. Follow with a thin layer of the Summer Balm for light, non-greasy protection.</p>
+            
+            <p><strong>Evening Routine:</strong> Apply the Manuka Honey Tallow Balm to clean skin, focusing on areas of hyperpigmentation. The manuka honey's antibacterial properties combined with tallow's nutrients work overnight to support skin healing and renewal.</p>
+            
+            <p><strong>Eye Area:</strong> Gently pat the Restore Eye Cream around the orbital bone morning and night. This area is often prone to dark circles and discolouration, and the eye cream's concentrated formula addresses these concerns without irritating delicate skin.</p>
+
+            <h3>What Causes Hyperpigmentation?</h3>
+            
+            <p>Understanding the root causes helps you address them effectively. Common triggers include sun exposure (which stimulates melanin production), hormonal changes during pregnancy or from contraceptives, post-inflammatory marks from acne or injuries, and natural aging. Tallow's nutrient profile addresses multiple pathways – supporting cell turnover, providing antioxidant protection, and deeply nourishing the skin barrier.</p>
+        </div>
+    </section>
+
+    <section class="trust-section">
+        <div class="container">
+            <h2>Why 70,000+ Kiwis Trust Primal Pantry</h2>
+            <div class="trust-badges">
+                <span class="trust-badge">🌿 100% Grass-Fed NZ Tallow</span>
+                <span class="trust-badge">🏆 EANZ Gold Partner</span>
+                <span class="trust-badge">✨ As Seen on Seven Sharp</span>
+                <span class="trust-badge">🇳🇿 Made in New Zealand</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="container">
+            <h2>Common Questions</h2>
+            
+            <div class="faq-item">
+                <h4>How long until I see results?</h4>
+                <p>Most customers notice improved skin texture and radiance within 2-3 weeks. Visible fading of hyperpigmentation typically takes 6-12 weeks of consistent use, as this requires multiple cycles of cell turnover. Patience and consistency are key.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h4>Is this safe to use during pregnancy?</h4>
+                <p>Yes! Our tallow products contain no retinoids, harsh chemicals, or ingredients of concern during pregnancy. Many women use tallow specifically for pregnancy-related melasma as it's both safe and effective.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h4>Can I use this alongside other treatments?</h4>
+                <p>Tallow works beautifully alongside most skincare. However, if using prescription treatments like hydroquinone or tretinoin, we recommend consulting your dermatologist about how to incorporate tallow into your routine.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h4>Will this work on old hyperpigmentation?</h4>
+                <p>Yes, though older, more established pigmentation may take longer to fade. The key is consistent application and protecting skin from further sun damage. Many customers see improvement even on spots they've had for years.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready for More Even, Radiant Skin?</h2>
+            <p>Join thousands of New Zealanders who've discovered the power of tallow for natural skin transformation</p>
+            <a href="https://primalpantry.co.nz/cart/47456033906982:1" class="buy-button">Get Your Bundle – $139</a>
+        </div>
+    </section>
+</body>
+</html>
