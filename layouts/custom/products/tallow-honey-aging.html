@@ -249,7 +249,6 @@ Watch as light and fluffy balm soaks deeply into your skin, going to work giving
     <script>
         const productPricingRaw = {{ site.Data.pricing.tallow.pricing.honeybalm | jsonify | safeJS }};
         console.log("Raw product Pricing from Hugo:", productPricingRaw);
-        const country_code = getCountryCookie('country_code') || "NZ";
 
         const productPricing = Array.isArray(productPricingRaw) ? productPricingRaw : [];
         if (!Array.isArray(productPricing)) {
