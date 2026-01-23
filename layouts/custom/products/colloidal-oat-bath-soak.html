@@ -197,7 +197,6 @@ Whether you’re looking to relax and unwind with a skin-replenishing soak or ad
     <script>
         const productPricingRaw = {{ site.Data.pricing.tallow.pricing.colloidal_oat | jsonify | safeJS }};
         console.log("Raw product Pricing from Hugo:", productPricingRaw);
-        const country_code = getCountryCookie('country_code') || "NZ";
 
         const productPricing = Array.isArray(productPricingRaw) ? productPricingRaw : [];
         if (!Array.isArray(productPricing)) {
