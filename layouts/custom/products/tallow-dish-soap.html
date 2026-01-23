@@ -406,7 +406,6 @@
 <!-- Pricing Data -->
 <script>
     const productPricingRaw = {{ site.Data.pricing.tallow.pricing.dish | jsonify | safeJS }};
-    const country_code = getCountryCookie('country_code') || "NZ";
     const rawData = "{{ .Site.Data.pricing | jsonify }}";
     const pricingData = JSON.parse(rawData);
 
