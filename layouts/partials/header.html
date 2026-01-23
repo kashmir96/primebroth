@@ -295,27 +295,29 @@
 
 <script type="application/javascript">
    function geoip(json){
-    const expires = new Date();
-    expires.setTime(expires.getTime() + (30 * 24 * 60 * 60 * 1000));
-    if(json.country_code){
-        document.cookie = `country_code=${json.country_code}; expires=${expires.toUTCString()}; path=/`;
+        const expires = new Date();
+        expires.setTime(expires.getTime() + (30 * 24 * 60 * 60 * 1000));
+        if(json.country_code){
+            document.cookie = `country_code=${json.country_code}; expires=${expires.toUTCString()}; path=/`;
+        }
+        else{
+            document.cookie = `country_code=NZ; expires=${expires.toUTCString()}; path=/`;
+        }
     }
-    else{
-        document.cookie = `country_code=NZ; expires=${expires.toUTCString()}; path=/`;
-    }
-}
 
     function getCountryCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) {
-        let result = parts.pop().split(';').shift();
-        // Remove any accidental quotes
-        result = result.replace(/"/g, '');
-        return result;
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
     }
-    return null;
-}
+
+    // Global country code - set site-wide
+    var country_code = (function() {
+        const cookie = getCountryCookie('country_code');
+        if (cookie === 'AU') return 'AU';
+        return 'NZ';
+    })();
 
     // Disable link for out of stock 
     var outOfStockLinks = document.querySelectorAll('.outOfStock a');
@@ -360,5 +362,6 @@
         }
     };
 </script>
+
 
 
