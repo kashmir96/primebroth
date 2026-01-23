@@ -294,16 +294,16 @@
 </script>
 
 <script type="application/javascript">
-    function geoip(json){
-        const expires = new Date();
-        expires.setTime(expires.getTime() + (30 * 24 * 60 * 60 * 1000));
-        if(json.country_code){
-            document.cookie = `country_code=${json.country_code}; expires=${expires.toUTCString()}; path=/`;
-        }
-        else{
-            document.cookie = `country_code="NZ"; expires=${expires.toUTCString()}; path=/`;
-        }
+   function geoip(json){
+    const expires = new Date();
+    expires.setTime(expires.getTime() + (30 * 24 * 60 * 60 * 1000));
+    if(json.country_code){
+        document.cookie = `country_code=${json.country_code}; expires=${expires.toUTCString()}; path=/`;
     }
+    else{
+        document.cookie = `country_code=NZ; expires=${expires.toUTCString()}; path=/`;
+    }
+}
 
     function getCountryCookie(name) {
         const value = `; ${document.cookie}`;
@@ -355,3 +355,4 @@
         }
     };
 </script>
+
