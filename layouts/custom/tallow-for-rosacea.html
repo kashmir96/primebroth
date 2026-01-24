@@ -165,7 +165,6 @@
 
     <script>
         const pricingData = JSON.parse('{{ .Site.Data.pricing | jsonify }}');
-        const country_code = getCountryCookie('country_code') || "NZ";
         const bundleUsualPrice = 129.80; const bundleSalePrice = 103.84; const bundlePriceId = 'price_1SrGF0FZRwx5tlYmGM7QedjY';
         function calculateBundlePrices() { document.getElementById('bundleUsualPrice').textContent = '$' + bundleUsualPrice.toFixed(2); document.getElementById('bundleSalePrice').textContent = '$' + bundleSalePrice.toFixed(2); }
     </script>
