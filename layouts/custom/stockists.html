@@ -24,7 +24,30 @@
         
         .hero-section {
             padding: 60px 0 40px;
-            text-align: center;
+        }
+        
+        .hero-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        
+        .hero-content {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .hero-image {
+            flex: 0 0 30%;
+            max-width: 30%;
+            text-align: right;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
         }
         
         .hero-section h1 {
@@ -37,8 +60,25 @@
         .hero-section .subtitle {
             color: #666;
             font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-row {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-content {
+                text-align: center;
+                order: 2;
+            }
+            
+            .hero-image {
+                order: 1;
+                flex: 0 0 50%;
+                max-width: 50%;
+                text-align: center;
+            }
         }
         
         /* Search and Filter Section */
@@ -292,9 +332,16 @@
 <body>
     <!-- Hero Section -->
     <section class="hero-section">
-        <div class="container">
-            <h1>Find Primalcare Near You</h1>
-            <p class="subtitle">Stocked at 100+ retailers across New Zealand. Most stockists carry our balms — for our full range, order online.</p>
+        <div class="container" style="max-width: 800px;">
+            <div class="hero-row">
+                <div class="hero-content">
+                    <h1>Find Primalcare Near You</h1>
+                    <p class="subtitle">Stocked at 100+ retailers across New Zealand. Most stockists carry our balms — for our full range, order online.</p>
+                </div>
+                <div class="hero-image">
+                    <img src="/img/stockistimg.webp" alt="Primalcare Tallow Balm">
+                </div>
+            </div>
         </div>
     </section>
 
