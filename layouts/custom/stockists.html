@@ -1,289 +1,1609 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {{- partial "head.html" . -}}
-    <meta name="description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
-    <meta property="og:title" content="{{ .Site.Params.homepage_meta_tags.meta_og_title }}" />
-    <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
-    <meta property="og:url" content="{{ .Site.Params.homepage_meta_tags.meta_og_url }}" />
-    <meta property="og:image" content="{{ .Site.Params.homepage_meta_tags.meta_og_image }}" />
-    <meta property="og:description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
-    <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
-    <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
-    <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Stockist - Primalcare Tallow Skincare</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
     <style>
-        /* General styling for dates */
-        .market-date {
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            list-style-type: none; /* Remove bullet points */
+        :root {
+            --primal-peach: #FDF5F0;
+            --primal-dark: #2D2D2D;
+            --primal-accent: #C4A484;
         }
-        .market-name {
-            font-weight: bold;
-            color: #007bff;
+        
+        body {
+            background-color: var(--primal-peach);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
-        /* Styling for mobile */
-        @media (max-width: 768px) {
-            .market-box {
-                padding: 5px;
-                margin-bottom: 10px;
-            }
+        
+        .hero-section {
+            padding: 60px 0 40px;
+            text-align: center;
         }
-        /* Styling for list removal and date containers */
-        .market-box ul {
+        
+        .hero-section h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--primal-dark);
+            margin-bottom: 1rem;
+        }
+        
+        .hero-section .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Search and Filter Section */
+        .filter-section {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            margin-bottom: 32px;
+        }
+        
+        .search-input {
+            border: 2px solid #e9e9e9;
+            border-radius: 12px;
+            padding: 14px 20px 14px 48px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        
+        .search-input:focus {
+            border-color: var(--primal-accent);
+            box-shadow: 0 0 0 3px rgba(196, 164, 132, 0.15);
+        }
+        
+        .search-wrapper {
+            position: relative;
+        }
+        
+        .search-wrapper i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 1.1rem;
+        }
+        
+        /* Retailer Filter Buttons */
+        .retailer-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+        
+        .filter-btn {
+            border: 2px solid #e9e9e9;
+            background: white;
+            border-radius: 50px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #666;
+        }
+        
+        .filter-btn:hover {
+            border-color: var(--primal-accent);
+            color: var(--primal-dark);
+        }
+        
+        .filter-btn.active {
+            background: var(--primal-dark);
+            border-color: var(--primal-dark);
+            color: white;
+        }
+        
+        /* Results Count */
+        .results-count {
+            color: #888;
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+        }
+        
+        /* Accordion Styling */
+        .accordion-item {
+            border: none;
+            background: white;
+            border-radius: 12px !important;
+            margin-bottom: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        
+        .accordion-button {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--primal-dark);
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px !important;
+        }
+        
+        .accordion-button:not(.collapsed) {
+            background: white;
+            color: var(--primal-dark);
+            box-shadow: none;
+        }
+        
+        .accordion-button:focus {
+            box-shadow: none;
+            border-color: transparent;
+        }
+        
+        .accordion-button::after {
+            background-size: 1rem;
+        }
+        
+        .region-count {
+            background: var(--primal-peach);
+            color: var(--primal-accent);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 50px;
+            margin-left: 12px;
+        }
+        
+        .accordion-body {
+            padding: 0 24px 20px;
+        }
+        
+        /* Store List */
+        .store-list {
+            list-style: none;
             padding: 0;
+            margin: 0;
         }
-        /* Scrollable box for market dates */
-        .market-box {
-            border: 1px solid #ccc;
-            padding: 10px;
+        
+        .store-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .store-item:last-child {
+            border-bottom: none;
+        }
+        
+        .store-location {
+            font-weight: 500;
+            color: var(--primal-dark);
+        }
+        
+        .store-retailer {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 2px;
+        }
+        
+        .store-link {
+            color: var(--primal-accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        
+        .store-link:hover {
+            opacity: 1;
+            color: var(--primal-dark);
+        }
+        
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #888;
+        }
+        
+        .no-results i {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 48px 0 60px;
+        }
+        
+        .cta-section h3 {
+            font-size: 1.3rem;
+            color: var(--primal-dark);
             margin-bottom: 20px;
         }
         
+        .btn-primal {
+            background: var(--primal-dark);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 14px 32px;
+            font-weight: 500;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .btn-primal:hover {
+            background: var(--primal-dark);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        /* Region hidden state */
+        .region-hidden {
+            display: none !important;
+        }
+        
+        .store-hidden {
+            display: none !important;
+        }
+        
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 40px 0 30px;
+            }
+            
+            .hero-section h1 {
+                font-size: 1.6rem;
+            }
+            
+            .filter-section {
+                padding: 16px;
+            }
+            
+            .retailer-filters {
+                gap: 6px;
+            }
+            
+            .filter-btn {
+                padding: 6px 12px;
+                font-size: 0.85rem;
+            }
+            
+            .store-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
     </style>
 </head>
 <body>
-    {{- partial "header_new.html" . -}}
-    <div class="scroll-top rounded-full">
-        <span class="icon-keyboard_arrow_up text-2xl"></span>
-    </div>
-
-<section class="py-80 light-peach px-80">
-
-    <div class="container-fluid">
-        <div class="row light-peach max-width text-center">
-            <h1 class="fade-in-element mb-4 heading-title">Primalcare Tallow Skincare Stocked at 100+ Major Retailers Around New Zealand</h1>
-                        <h3 class="fade-in-element mb-4">Most stockists only carry our balms, for our full range order via our online shop.</h3>
-
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1>Find Primalcare Near You</h1>
+            <p class="subtitle">Stocked at 100+ retailers across New Zealand. Most stockists carry our balms — for our full range, order online.</p>
         </div>
-        <div class="justify-content-around">
-            <div id="faq-section" class="faq">
-                <div class="market-box p-3">
-                    <ul id="market-dates" class="list-unstyled">
+    </section>
 
-<h2>Auckland</h2>
-<li><h3>* Albany - Chemist Warehouse</h3></li>
-<li><h3>* Botany - Chemist Warehouse</h3></li>
-<li><h3>* Flat Bush - Chemist Warehouse</h3></li>
-<li><h3>* Glen Innes - Chemist Warehouse</h3></li>
-<li><h3>* Glenfield Mall - Chemist Warehouse</h3></li>
-<li><h3>* Henderson - Chemist Warehouse</h3></li>
-<li><h3>* Highbury - Health2000</h3></li>
-<li><h3>* LynnMall - Chemist Warehouse</h3></li>
-<li><h3>* Westfield Manukau - Chemist Warehouse</h3></li>
-<li><h3>* Manukau - Bargain Chemist</h3></li>
-<li><h3>* Lower Queen Street (CBD) - Chemist Warehouse</h3></li>
-<li><h3>* Mt Roskill - Bargain Chemist</h3></li>
-<li><h3>* Mt Wellington - Bargain Chemist</h3></li>
-<li><h3>* Pakuranga - Bargain Chemist</h3></li>
-<li><h3>* Pine Hill - Bargain Chemist</h3></li>
-<li><h3>* Pukekohe - Bargain Chemist</h3></li>
-<li><h3>* The Zone (Pukekohe) - Chemist Warehouse</h3></li>
-<li><h3>* Royal Oak - Health2000</h3></li>
-<li><h3>* Sylvia Park - Chemist Warehouse</h3></li>
-<li><h3>* Whangaparoa - Bargain Chemist</h3></li>
-<li><h3>* Westgate - Bargain Chemist</h3></li>
-<li><h3>* Westfield Manukau City - Chemist Warehouse</h3></li>
-
-<br>
-
-                        <h2>Christchurch</h2>
-<li><h3>* Barrington - Health2000</h3></li>
-<li><h3>* Central City - New World</h3></li>
-<li><h3>* Central City - Chemist Warehouse South City</h3></li>
-<li><h3>* Central City - Modern Man Barbershop (Hair clay only)</h3></li>
-<li><h3>* Eastgate - Bargain Chemist</h3></li>
-<li><h3>* Harewood - Unichem Spitfire Square</h3></li>
-<li><h3>* Hornby - Bargain Chemist</h3></li>
-<li><h3>* Hornby - Pak n Save</h3></li>
-<li><h3>* Kaiapoi (Waimakariri Junction) - Chemist Warehouse</h3></li>
-<li><h3>* Lincoln - New World</h3></li>
-<li><h3>* Merivale - Fresh Choice</h3></li>
-<li><h3>* Northlands - Health2000</h3></li>
-<li><h3>* Northwood - Bargain Chemist</h3></li>
-<li><h3>* Northwood (Belfast) - Chemist Warehouse</h3></li>
-<li><h3>* Papanui - Bargain Chemist</h3></li>
-<li><h3>* Papanui - Chemist Warehouse</h3></li>
-<li><h3>* Rangiora - Bargain Chemist</h3></li>
-<li><h3>* Rangiora - Health2000</h3></li>
-<li><h3>* Rangiora - Pak n Save</h3></li>
-<li><h3>* Riccarton - Bargain Chemist</h3></li>
-<li><h3>* Riccarton (Blenheim Road) - Chemist Warehouse</h3></li>
-<li><h3>* Riccarton Mall - Chemist Warehouse</h3></li>
-<li><h3>* Riccarton Mall - Health2000</h3></li>
-<li><h3>* Rolleston - Bargain Chemist</h3></li>
-<li><h3>* Rolleston - Chemist Warehouse</h3></li>
-<li><h3>* Shirley - Bargain Chemist</h3></li>
-<li><h3>* St Martins - New World</h3></li>
-<li><h3>* Tower Junction - Bargain Chemist</h3></li>
-<li><h3>* Wigram - New World</h3></li>
-<li><h3>* Unichem Spitfire Square, Harewood</h3></li>
-<li><h3>* Fresh Choice, Merivale</h3></li>
-<br>
-
-<h2>Wellington</h2>
-<li><h3>* Kilbirnie - Chemist Warehouse</h3></li>
-<li><h3>* Lyall Bay - Bargain Chemist</h3></li>
-<li><h3>* Manners - Bargain Chemist</h3></li>
-<li><h3>* Porirua - Bargain Chemist</h3></li>
-<li><h3>* Porirua - Chemist Warehouse</h3></li>
-<li><h3>* Upper Hutt - Bargain Chemist</h3></li>
-<li><h3>* Willis St - Health2000</h3></li>
-<br><br>
-
-<h2>Mt Maunganui</h2>
-<li><h3>* Health2000</h3></li>
-<br><br>
-
-<h2>Taupo</h2>
-<li><h3>* Health2000</h3></li>
-<br>
-
-<h2>Palmerston North</h2>
-<li><h3>* Broadtop - Health2000</h3></li>
-<li><h3>* Pioneer - New World</h3></li>
-<br>
-
-<h2>New Plymouth</h2>
-<li><h3>* Centre City - Chemist Warehouse</h3></li>
-<li><h3>* New Plymouth Central - Bargain Chemist</h3></li>
-<li><h3>* Health2000</h3></li>
-<br>
-
-<h2>Hastings</h2>
-<li><h3>* Bin Inn</h3></li>
-<br>                     
-
-<h2>Cambridge</h2>
-<li><h3>* Health2000</h3></li>
-<br>
-
-<h2>Napier</h2>
-<li><h3>* Greenmeadows - New World</h3></li>
-<li><h3>* Taradale - Health2000</h3></li>
-<li><h3>* Bin Inn</h3></li>
-<br>
-
-<h2>Hamilton</h2>
-<li><h3>* Chartwell - Chemist Warehouse</h3></li>
-<li><h3>* Centre Place - Chemist Warehouse</h3></li>
-<li><h3>* The Base - Chemist Warehouse</h3></li>
-<li><h3>* Wholeheart</h3></li>
-<li><h3>* Health2000</h3></li>
-<br>
-
-<h2>Whanganui</h2>
-<li><h3>* Whanganui - Bargain Chemist</h3></li>
-<li><h3>* Whanganui - Chemist Warehouse</h3></li>
-<li><h3>* Whanganui - Health2000</h3></li>
-<br>
-
-<h2>Masterton</h2>
-<li><h3>* Health2000</h3></li>
-<br>
-
-
-
-<h2>Dunedin</h2>
-<li><h3>* Central City - Chemist Warehouse</h3></li>
-<li><h3>* Central City - Bargain Chemist </h3></li>
-<li><h3>* Central City - Bin Inn</h3></li>
-<li><h3>* Central City - Health2000 Sunray</h3></li>
-<li><h3>* Central City - New World Great King Street</h3></li>
-<li><h3>* South Dunedin - Bargain Chemist</h3></li>
-<br>
-
-<h2>Nelson</h2>
-<li><h3>* Nelson Junction - Chemist Warehouse</h3></li>
-<li><h3>* New World - Stoke</h3></li>
-<li><h3>* Central City - Health2000</h3></li>
-<li><h3>* Richmond - Health2000</h3></li>
-<br>
-
-<h2>Blenheim</h2>
-<li><h3>* Springlands - Chemist Warehouse</h3></li>
-<li><h3>* New World</h3></li>
-<br>
-
-<h2>Kaikōura</h2>
-<li><h3>* New World</h3></li>
-<br>
-
-<h2>Timaru</h2>
-<li><h3>* Chemist Warehouse</h3></li>
-<li><h3>* Pak n Save</h3></li>
-<li><h3>* New World</h3></li>
-<li><h3>* Health2000</h3></li>
-<br>
-
-<h2>Queenstown</h2>
-<li><h3>* Chemist Warehouse</h3></li>
-<li><h3>* New World</h3></li>
-<li><h3>* Fresh Choice</h3></li>
-<br>
-
-<h2>Wanaka</h2>
-<li><h3>* New World (Three Parks)</h3></li>
-<li><h3>* Health2000</h3></li>
-<br>
-
-<h2>Cromwell</h2>
-<li><h3>* New World</h3></li>
-<br>
-
-<h2>Oamaru</h2>
-<li><h3>* Health2000</h3></li>
-<br>
-
-<h2>Ashburton</h2>
-<li><h3>* New World</h3></li>
-<br>
-
-<h2>Te Awamutu</h2>
-<li><h3>* Te Awamutu - Bargain Chemist</h3></li>
-
-            </ul>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-
-                        
-
-
-
-
-
-
-
-
-
-
-
-                        
-                    </ul>
+    <!-- Main Content -->
+    <section class="pb-5">
+        <div class="container" style="max-width: 800px;">
+            
+            <!-- Search & Filter -->
+            <div class="filter-section">
+                <div class="search-wrapper">
+                    <i class="bi bi-search"></i>
+                    <input type="text" id="searchInput" class="form-control search-input" placeholder="Search by location or store name...">
+                </div>
+                
+                <div class="retailer-filters">
+                    <button class="filter-btn active" data-filter="all">All Stores</button>
+                    <button class="filter-btn" data-filter="chemist-warehouse">Chemist Warehouse</button>
+                    <button class="filter-btn" data-filter="bargain-chemist">Bargain Chemist</button>
+                    <button class="filter-btn" data-filter="health2000">Health2000</button>
+                    <button class="filter-btn" data-filter="new-world">New World</button>
+                    <button class="filter-btn" data-filter="other">Other</button>
                 </div>
             </div>
+            
+            <!-- Results Count -->
+            <p class="results-count"><span id="storeCount">120</span> stores found</p>
+            
+            <!-- No Results Message -->
+            <div class="no-results" id="noResults" style="display: none;">
+                <i class="bi bi-geo-alt"></i>
+                <h4>No stores found</h4>
+                <p>Try adjusting your search or filter</p>
+            </div>
+            
+            <!-- Accordion -->
+            <div class="accordion" id="stockistsAccordion">
+                
+                <!-- Auckland -->
+                <div class="accordion-item" data-region="auckland">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#auckland">
+                            Auckland
+                            <span class="region-count" data-count>22</span>
+                        </button>
+                    </h2>
+                    <div id="auckland" class="accordion-collapse collapse show">
+                        <div class="accordion-body">
+                            <ul class="store-list">
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="albany chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Albany</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Albany+Auckland" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="botany chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Botany</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Botany+Auckland" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="flat bush chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Flat Bush</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Flat+Bush+Auckland" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="glen innes chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Glen Innes</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Glen+Innes+Auckland" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="glenfield mall chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Glenfield Mall</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Glenfield+Auckland" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="henderson chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Henderson</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Henderson+Auckland" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="health2000" data-search="highbury health2000">
+                                    <div>
+                                        <div class="store-location">Highbury</div>
+                                        <div class="store-retailer">Health2000</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Health2000+Highbury+Auckland" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="lynnmall chemist warehouse">
+                                    <div>
+                                        <div class="store-location">LynnMall</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+LynnMall+Auckland" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="westfield manukau chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Westfield Manukau</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Manukau+Auckland" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="manukau bargain chemist">
+                                    <div>
+                                        <div class="store-location">Manukau</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+Manukau+Auckland" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="queen street cbd chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Lower Queen Street (CBD)</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Queen+Street+Auckland" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="mt roskill bargain chemist">
+                                    <div>
+                                        <div class="store-location">Mt Roskill</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+Mt+Roskill+Auckland" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="mt wellington bargain chemist">
+                                    <div>
+                                        <div class="store-location">Mt Wellington</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+Mt+Wellington+Auckland" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="pakuranga bargain chemist">
+                                    <div>
+                                        <div class="store-location">Pakuranga</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+Pakuranga+Auckland" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="pine hill bargain chemist">
+                                    <div>
+                                        <div class="store-location">Pine Hill</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+Pine+Hill+Auckland" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="pukekohe bargain chemist">
+                                    <div>
+                                        <div class="store-location">Pukekohe</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+Pukekohe+Auckland" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="the zone pukekohe chemist warehouse">
+                                    <div>
+                                        <div class="store-location">The Zone (Pukekohe)</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Pukekohe+Auckland" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="health2000" data-search="royal oak health2000">
+                                    <div>
+                                        <div class="store-location">Royal Oak</div>
+                                        <div class="store-retailer">Health2000</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Health2000+Royal+Oak+Auckland" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="sylvia park chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Sylvia Park</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Sylvia+Park+Auckland" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="whangaparoa bargain chemist">
+                                    <div>
+                                        <div class="store-location">Whangaparoa</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+Whangaparoa+Auckland" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="westgate bargain chemist">
+                                    <div>
+                                        <div class="store-location">Westgate</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+Westgate+Auckland" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Christchurch -->
+                <div class="accordion-item" data-region="christchurch">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#christchurch">
+                            Christchurch
+                            <span class="region-count" data-count>30</span>
+                        </button>
+                    </h2>
+                    <div id="christchurch" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul class="store-list">
+                                <li class="store-item" data-retailer="health2000" data-search="barrington health2000">
+                                    <div>
+                                        <div class="store-location">Barrington</div>
+                                        <div class="store-retailer">Health2000</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Health2000+Barrington+Christchurch" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="new-world" data-search="central city new world">
+                                    <div>
+                                        <div class="store-location">Central City</div>
+                                        <div class="store-retailer">New World</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/New+World+Central+Christchurch" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="south city central chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Central City - South City</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+South+City+Christchurch" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="other" data-search="modern man barbershop hair clay">
+                                    <div>
+                                        <div class="store-location">Central City</div>
+                                        <div class="store-retailer">Modern Man Barbershop (Hair clay only)</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Modern+Man+Barbershop+Christchurch" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="eastgate bargain chemist">
+                                    <div>
+                                        <div class="store-location">Eastgate</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+Eastgate+Christchurch" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="other" data-search="harewood unichem spitfire square">
+                                    <div>
+                                        <div class="store-location">Harewood - Spitfire Square</div>
+                                        <div class="store-retailer">Unichem</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Unichem+Spitfire+Square+Christchurch" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="hornby bargain chemist">
+                                    <div>
+                                        <div class="store-location">Hornby</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+Hornby+Christchurch" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="other" data-search="hornby pak n save">
+                                    <div>
+                                        <div class="store-location">Hornby</div>
+                                        <div class="store-retailer">Pak n Save</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Pak+n+Save+Hornby+Christchurch" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="kaiapoi waimakariri junction chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Kaiapoi (Waimakariri Junction)</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Kaiapoi+Christchurch" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="new-world" data-search="lincoln new world">
+                                    <div>
+                                        <div class="store-location">Lincoln</div>
+                                        <div class="store-retailer">New World</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/New+World+Lincoln+Christchurch" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="other" data-search="merivale fresh choice">
+                                    <div>
+                                        <div class="store-location">Merivale</div>
+                                        <div class="store-retailer">Fresh Choice</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Fresh+Choice+Merivale+Christchurch" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="health2000" data-search="northlands health2000">
+                                    <div>
+                                        <div class="store-location">Northlands</div>
+                                        <div class="store-retailer">Health2000</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Health2000+Northlands+Christchurch" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="northwood bargain chemist">
+                                    <div>
+                                        <div class="store-location">Northwood</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+Northwood+Christchurch" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="northwood belfast chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Northwood (Belfast)</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Belfast+Christchurch" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="papanui bargain chemist">
+                                    <div>
+                                        <div class="store-location">Papanui</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+Papanui+Christchurch" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="papanui chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Papanui</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Papanui+Christchurch" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="rangiora bargain chemist">
+                                    <div>
+                                        <div class="store-location">Rangiora</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+Rangiora" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="health2000" data-search="rangiora health2000">
+                                    <div>
+                                        <div class="store-location">Rangiora</div>
+                                        <div class="store-retailer">Health2000</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Health2000+Rangiora" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="other" data-search="rangiora pak n save">
+                                    <div>
+                                        <div class="store-location">Rangiora</div>
+                                        <div class="store-retailer">Pak n Save</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Pak+n+Save+Rangiora" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="riccarton bargain chemist">
+                                    <div>
+                                        <div class="store-location">Riccarton</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+Riccarton+Christchurch" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="riccarton blenheim road chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Riccarton (Blenheim Road)</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Blenheim+Road+Christchurch" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="riccarton mall chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Riccarton Mall</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Riccarton+Mall+Christchurch" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="health2000" data-search="riccarton mall health2000">
+                                    <div>
+                                        <div class="store-location">Riccarton Mall</div>
+                                        <div class="store-retailer">Health2000</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Health2000+Riccarton+Mall+Christchurch" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="rolleston bargain chemist">
+                                    <div>
+                                        <div class="store-location">Rolleston</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+Rolleston" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="rolleston chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Rolleston</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Rolleston" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="shirley bargain chemist">
+                                    <div>
+                                        <div class="store-location">Shirley</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+Shirley+Christchurch" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="new-world" data-search="st martins new world">
+                                    <div>
+                                        <div class="store-location">St Martins</div>
+                                        <div class="store-retailer">New World</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/New+World+St+Martins+Christchurch" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="tower junction bargain chemist">
+                                    <div>
+                                        <div class="store-location">Tower Junction</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+Tower+Junction+Christchurch" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="new-world" data-search="wigram new world">
+                                    <div>
+                                        <div class="store-location">Wigram</div>
+                                        <div class="store-retailer">New World</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/New+World+Wigram+Christchurch" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Wellington -->
+                <div class="accordion-item" data-region="wellington">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#wellington">
+                            Wellington
+                            <span class="region-count" data-count>7</span>
+                        </button>
+                    </h2>
+                    <div id="wellington" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul class="store-list">
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="kilbirnie chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Kilbirnie</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Kilbirnie+Wellington" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="lyall bay bargain chemist">
+                                    <div>
+                                        <div class="store-location">Lyall Bay</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+Lyall+Bay+Wellington" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="manners bargain chemist">
+                                    <div>
+                                        <div class="store-location">Manners Street</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+Manners+Wellington" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="porirua bargain chemist">
+                                    <div>
+                                        <div class="store-location">Porirua</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+Porirua+Wellington" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="porirua chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Porirua</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Porirua+Wellington" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="upper hutt bargain chemist">
+                                    <div>
+                                        <div class="store-location">Upper Hutt</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+Upper+Hutt+Wellington" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="health2000" data-search="willis street health2000">
+                                    <div>
+                                        <div class="store-location">Willis Street</div>
+                                        <div class="store-retailer">Health2000</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Health2000+Willis+Street+Wellington" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hamilton -->
+                <div class="accordion-item" data-region="hamilton">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#hamilton">
+                            Hamilton
+                            <span class="region-count" data-count>5</span>
+                        </button>
+                    </h2>
+                    <div id="hamilton" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul class="store-list">
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="chartwell chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Chartwell</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Chartwell+Hamilton" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="centre place chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Centre Place</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Centre+Place+Hamilton" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="the base chemist warehouse">
+                                    <div>
+                                        <div class="store-location">The Base</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+The+Base+Hamilton" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="other" data-search="wholeheart hamilton">
+                                    <div>
+                                        <div class="store-location">Hamilton</div>
+                                        <div class="store-retailer">Wholeheart</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Wholeheart+Hamilton" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="health2000" data-search="hamilton health2000">
+                                    <div>
+                                        <div class="store-location">Hamilton</div>
+                                        <div class="store-retailer">Health2000</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Health2000+Hamilton" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dunedin -->
+                <div class="accordion-item" data-region="dunedin">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dunedin">
+                            Dunedin
+                            <span class="region-count" data-count>6</span>
+                        </button>
+                    </h2>
+                    <div id="dunedin" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul class="store-list">
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="central city dunedin chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Central City</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Dunedin" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="central city dunedin bargain chemist">
+                                    <div>
+                                        <div class="store-location">Central City</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+Dunedin" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="other" data-search="central city dunedin bin inn">
+                                    <div>
+                                        <div class="store-location">Central City</div>
+                                        <div class="store-retailer">Bin Inn</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bin+Inn+Dunedin" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="health2000" data-search="central city dunedin health2000 sunray">
+                                    <div>
+                                        <div class="store-location">Central City - Sunray</div>
+                                        <div class="store-retailer">Health2000</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Health2000+Sunray+Dunedin" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="new-world" data-search="central city dunedin new world great king street">
+                                    <div>
+                                        <div class="store-location">Central City - Great King Street</div>
+                                        <div class="store-retailer">New World</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/New+World+Great+King+Street+Dunedin" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="south dunedin bargain chemist">
+                                    <div>
+                                        <div class="store-location">South Dunedin</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+South+Dunedin" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Nelson -->
+                <div class="accordion-item" data-region="nelson">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#nelson">
+                            Nelson
+                            <span class="region-count" data-count>4</span>
+                        </button>
+                    </h2>
+                    <div id="nelson" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul class="store-list">
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="nelson junction chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Nelson Junction</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Nelson" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="new-world" data-search="stoke new world nelson">
+                                    <div>
+                                        <div class="store-location">Stoke</div>
+                                        <div class="store-retailer">New World</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/New+World+Stoke+Nelson" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="health2000" data-search="central city nelson health2000">
+                                    <div>
+                                        <div class="store-location">Central City</div>
+                                        <div class="store-retailer">Health2000</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Health2000+Nelson" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="health2000" data-search="richmond health2000 nelson">
+                                    <div>
+                                        <div class="store-location">Richmond</div>
+                                        <div class="store-retailer">Health2000</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Health2000+Richmond+Nelson" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Queenstown -->
+                <div class="accordion-item" data-region="queenstown">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#queenstown">
+                            Queenstown
+                            <span class="region-count" data-count>3</span>
+                        </button>
+                    </h2>
+                    <div id="queenstown" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul class="store-list">
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="queenstown chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Queenstown</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Queenstown" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="new-world" data-search="queenstown new world">
+                                    <div>
+                                        <div class="store-location">Queenstown</div>
+                                        <div class="store-retailer">New World</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/New+World+Queenstown" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="other" data-search="queenstown fresh choice">
+                                    <div>
+                                        <div class="store-location">Queenstown</div>
+                                        <div class="store-retailer">Fresh Choice</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Fresh+Choice+Queenstown" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- New Plymouth -->
+                <div class="accordion-item" data-region="new-plymouth">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#new-plymouth">
+                            New Plymouth
+                            <span class="region-count" data-count>3</span>
+                        </button>
+                    </h2>
+                    <div id="new-plymouth" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul class="store-list">
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="centre city new plymouth chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Centre City</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+New+Plymouth" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="new plymouth central bargain chemist">
+                                    <div>
+                                        <div class="store-location">New Plymouth Central</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+New+Plymouth" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="health2000" data-search="new plymouth health2000">
+                                    <div>
+                                        <div class="store-location">New Plymouth</div>
+                                        <div class="store-retailer">Health2000</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Health2000+New+Plymouth" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Whanganui -->
+                <div class="accordion-item" data-region="whanganui">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#whanganui">
+                            Whanganui
+                            <span class="region-count" data-count>3</span>
+                        </button>
+                    </h2>
+                    <div id="whanganui" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul class="store-list">
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="whanganui bargain chemist">
+                                    <div>
+                                        <div class="store-location">Whanganui</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+Whanganui" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="whanganui chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Whanganui</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Whanganui" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="health2000" data-search="whanganui health2000">
+                                    <div>
+                                        <div class="store-location">Whanganui</div>
+                                        <div class="store-retailer">Health2000</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Health2000+Whanganui" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Napier -->
+                <div class="accordion-item" data-region="napier">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#napier">
+                            Napier
+                            <span class="region-count" data-count>3</span>
+                        </button>
+                    </h2>
+                    <div id="napier" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul class="store-list">
+                                <li class="store-item" data-retailer="new-world" data-search="greenmeadows napier new world">
+                                    <div>
+                                        <div class="store-location">Greenmeadows</div>
+                                        <div class="store-retailer">New World</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/New+World+Greenmeadows+Napier" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="health2000" data-search="taradale napier health2000">
+                                    <div>
+                                        <div class="store-location">Taradale</div>
+                                        <div class="store-retailer">Health2000</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Health2000+Taradale+Napier" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="other" data-search="napier bin inn">
+                                    <div>
+                                        <div class="store-location">Napier</div>
+                                        <div class="store-retailer">Bin Inn</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bin+Inn+Napier" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Timaru -->
+                <div class="accordion-item" data-region="timaru">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#timaru">
+                            Timaru
+                            <span class="region-count" data-count>4</span>
+                        </button>
+                    </h2>
+                    <div id="timaru" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul class="store-list">
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="timaru chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Timaru</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Timaru" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="other" data-search="timaru pak n save">
+                                    <div>
+                                        <div class="store-location">Timaru</div>
+                                        <div class="store-retailer">Pak n Save</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Pak+n+Save+Timaru" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="new-world" data-search="timaru new world">
+                                    <div>
+                                        <div class="store-location">Timaru</div>
+                                        <div class="store-retailer">New World</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/New+World+Timaru" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="health2000" data-search="timaru health2000">
+                                    <div>
+                                        <div class="store-location">Timaru</div>
+                                        <div class="store-retailer">Health2000</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Health2000+Timaru" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Blenheim -->
+                <div class="accordion-item" data-region="blenheim">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#blenheim">
+                            Blenheim
+                            <span class="region-count" data-count>2</span>
+                        </button>
+                    </h2>
+                    <div id="blenheim" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul class="store-list">
+                                <li class="store-item" data-retailer="chemist-warehouse" data-search="springlands blenheim chemist warehouse">
+                                    <div>
+                                        <div class="store-location">Springlands</div>
+                                        <div class="store-retailer">Chemist Warehouse</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Chemist+Warehouse+Blenheim" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="new-world" data-search="blenheim new world">
+                                    <div>
+                                        <div class="store-location">Blenheim</div>
+                                        <div class="store-retailer">New World</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/New+World+Blenheim" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Palmerston North -->
+                <div class="accordion-item" data-region="palmerston-north">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#palmerston-north">
+                            Palmerston North
+                            <span class="region-count" data-count>2</span>
+                        </button>
+                    </h2>
+                    <div id="palmerston-north" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul class="store-list">
+                                <li class="store-item" data-retailer="health2000" data-search="broadtop palmerston north health2000">
+                                    <div>
+                                        <div class="store-location">Broadtop</div>
+                                        <div class="store-retailer">Health2000</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Health2000+Palmerston+North" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="new-world" data-search="pioneer palmerston north new world">
+                                    <div>
+                                        <div class="store-location">Pioneer</div>
+                                        <div class="store-retailer">New World</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/New+World+Pioneer+Palmerston+North" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Wanaka -->
+                <div class="accordion-item" data-region="wanaka">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#wanaka">
+                            Wanaka
+                            <span class="region-count" data-count>2</span>
+                        </button>
+                    </h2>
+                    <div id="wanaka" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul class="store-list">
+                                <li class="store-item" data-retailer="new-world" data-search="three parks wanaka new world">
+                                    <div>
+                                        <div class="store-location">Three Parks</div>
+                                        <div class="store-retailer">New World</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/New+World+Three+Parks+Wanaka" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="health2000" data-search="wanaka health2000">
+                                    <div>
+                                        <div class="store-location">Wanaka</div>
+                                        <div class="store-retailer">Health2000</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Health2000+Wanaka" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Single-store locations -->
+                <div class="accordion-item" data-region="other-locations">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#other-locations">
+                            Other Locations
+                            <span class="region-count" data-count>11</span>
+                        </button>
+                    </h2>
+                    <div id="other-locations" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul class="store-list">
+                                <li class="store-item" data-retailer="health2000" data-search="mt maunganui health2000">
+                                    <div>
+                                        <div class="store-location">Mt Maunganui</div>
+                                        <div class="store-retailer">Health2000</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Health2000+Mt+Maunganui" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="health2000" data-search="taupo health2000">
+                                    <div>
+                                        <div class="store-location">Taupo</div>
+                                        <div class="store-retailer">Health2000</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Health2000+Taupo" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="other" data-search="hastings bin inn">
+                                    <div>
+                                        <div class="store-location">Hastings</div>
+                                        <div class="store-retailer">Bin Inn</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bin+Inn+Hastings" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="health2000" data-search="cambridge health2000">
+                                    <div>
+                                        <div class="store-location">Cambridge</div>
+                                        <div class="store-retailer">Health2000</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Health2000+Cambridge" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="health2000" data-search="masterton health2000">
+                                    <div>
+                                        <div class="store-location">Masterton</div>
+                                        <div class="store-retailer">Health2000</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Health2000+Masterton" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="new-world" data-search="kaikoura new world">
+                                    <div>
+                                        <div class="store-location">Kaikōura</div>
+                                        <div class="store-retailer">New World</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/New+World+Kaikoura" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="new-world" data-search="cromwell new world">
+                                    <div>
+                                        <div class="store-location">Cromwell</div>
+                                        <div class="store-retailer">New World</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/New+World+Cromwell" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="health2000" data-search="oamaru health2000">
+                                    <div>
+                                        <div class="store-location">Oamaru</div>
+                                        <div class="store-retailer">Health2000</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Health2000+Oamaru" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="new-world" data-search="ashburton new world">
+                                    <div>
+                                        <div class="store-location">Ashburton</div>
+                                        <div class="store-retailer">New World</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/New+World+Ashburton" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                                <li class="store-item" data-retailer="bargain-chemist" data-search="te awamutu bargain chemist">
+                                    <div>
+                                        <div class="store-location">Te Awamutu</div>
+                                        <div class="store-retailer">Bargain Chemist</div>
+                                    </div>
+                                    <a href="https://www.google.com/maps/search/Bargain+Chemist+Te+Awamutu" target="_blank" class="store-link">
+                                        <i class="bi bi-geo-alt"></i> Map
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- CTA Section -->
+            <div class="cta-section">
+                <h3>Can't find one near you?</h3>
+                <p class="text-muted mb-4">Enquire at your local New World or order online for our full range.</p>
+                <a href="/shop" class="btn btn-primal">Shop Online</a>
+            </div>
+            
         </div>
+    </section>
 
-        <!-- CTA Section -->
-        <div class="col-12 text-center">
-            <h3>Can't find one near you? Enquire at your local New World or Order online!</h3>
-            <a href="/shop" class="btn btn-black mt-3">Shop now</a>
-        </div>
-    </div>
-</section>
-    {{- partial "footer.html" . -}}
-
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const storeItems = document.querySelectorAll('.store-item');
+            const accordionItems = document.querySelectorAll('.accordion-item');
+            const storeCountEl = document.getElementById('storeCount');
+            const noResultsEl = document.getElementById('noResults');
+            const accordion = document.getElementById('stockistsAccordion');
+            
+            let activeFilter = 'all';
+            let searchTerm = '';
+            
+            // Filter button click handler
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    activeFilter = this.dataset.filter;
+                    filterStores();
+                });
+            });
+            
+            // Search input handler
+            searchInput.addEventListener('input', function() {
+                searchTerm = this.value.toLowerCase().trim();
+                filterStores();
+            });
+            
+            function filterStores() {
+                let visibleCount = 0;
+                
+                accordionItems.forEach(region => {
+                    const stores = region.querySelectorAll('.store-item');
+                    let regionHasVisible = false;
+                    
+                    stores.forEach(store => {
+                        const retailer = store.dataset.retailer;
+                        const searchData = store.dataset.search;
+                        
+                        const matchesFilter = activeFilter === 'all' || retailer === activeFilter;
+                        const matchesSearch = searchTerm === '' || searchData.includes(searchTerm);
+                        
+                        if (matchesFilter && matchesSearch) {
+                            store.classList.remove('store-hidden');
+                            regionHasVisible = true;
+                            visibleCount++;
+                        } else {
+                            store.classList.add('store-hidden');
+                        }
+                    });
+                    
+                    // Update region count
+                    const countBadge = region.querySelector('.region-count');
+                    const visibleInRegion = region.querySelectorAll('.store-item:not(.store-hidden)').length;
+                    countBadge.textContent = visibleInRegion;
+                    
+                    // Hide/show entire region
+                    if (regionHasVisible) {
+                        region.classList.remove('region-hidden');
+                    } else {
+                        region.classList.add('region-hidden');
+                    }
+                });
+                
+                // Update total count
+                storeCountEl.textContent = visibleCount;
+                
+                // Show/hide no results message
+                if (visibleCount === 0) {
+                    noResultsEl.style.display = 'block';
+                    accordion.style.display = 'none';
+                } else {
+                    noResultsEl.style.display = 'none';
+                    accordion.style.display = 'block';
+                }
+            }
+            
+            // Initialize count
+            storeCountEl.textContent = storeItems.length;
+        });
+    </script>
 </body>
 </html>
