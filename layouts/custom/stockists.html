@@ -1559,12 +1559,19 @@
                     const stores = region.querySelectorAll('.store-item');
                     let regionHasVisible = false;
                     
+                    // Get region name from the accordion button text
+                    const regionButton = region.querySelector('.accordion-button');
+                    const regionName = regionButton ? regionButton.textContent.toLowerCase().trim() : '';
+                    
                     stores.forEach(store => {
                         const retailer = store.dataset.retailer;
                         const searchData = store.dataset.search;
                         
                         const matchesFilter = activeFilter === 'all' || retailer === activeFilter;
-                        const matchesSearch = searchTerm === '' || searchData.includes(searchTerm);
+                        // Search matches if term is in store data OR in region name
+                        const matchesSearch = searchTerm === '' || 
+                            searchData.includes(searchTerm) || 
+                            regionName.includes(searchTerm);
                         
                         if (matchesFilter && matchesSearch) {
                             store.classList.remove('store-hidden');
@@ -1583,6 +1590,13 @@
                     // Hide/show entire region
                     if (regionHasVisible) {
                         region.classList.remove('region-hidden');
+                        // Auto-expand region if searching
+                        if (searchTerm !== '') {
+                            const collapseEl = region.querySelector('.accordion-collapse');
+                            if (collapseEl && !collapseEl.classList.contains('show')) {
+                                new bootstrap.Collapse(collapseEl, { show: true });
+                            }
+                        }
                     } else {
                         region.classList.add('region-hidden');
                     }
