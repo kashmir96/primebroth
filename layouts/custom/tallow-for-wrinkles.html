@@ -5,6 +5,7 @@
     <meta name="description" content="Anti-aging tallow skincare to enhance your natural beauty. Natural solutions for wrinkles, fine lines, and radiant skin." />
     <meta property="og:title" content="Tallow Skincare for Wrinkles & Fine Lines | Primal Pantry NZ" />
     <meta property="og:description" content="Anti-aging tallow skincare to enhance your natural beauty." />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     {{- partial "alert.html" . -}}
@@ -203,53 +204,6 @@
             cursor: default;
         }
 
-        /* CTA Section */
-        .cta-section {
-            padding: 50px 0;
-            background: linear-gradient(135deg, #c9a050 0%, #a07830 100%);
-            text-align: center;
-            color: #fff;
-        }
-
-        .cta-section h2 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .cta-section p {
-            font-size: 1rem;
-            opacity: 0.95;
-            margin-bottom: 20px;
-        }
-
-        .btn-cta {
-            background: #fff;
-            color: #a07830;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 1rem;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s ease;
-        }
-
-        .btn-cta:hover {
-            background: #f8f8f8;
-            color: #8a6820;
-            transform: translateY(-2px);
-        }
-
-        .savings-badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
-            padding: 6px 16px;
-            border-radius: 15px;
-            font-size: 0.85rem;
-            margin-bottom: 15px;
-        }
-
         /* Bundle Section */
         .bundle-section {
             padding: 60px 0;
@@ -334,30 +288,6 @@
             box-shadow: none;
         }
 
-        /* Modal Styles */
-        .modal-content {
-            border-radius: 12px;
-        }
-
-        .modal-header {
-            border-bottom: 1px solid #eee;
-        }
-
-        .modal-footer {
-            border-top: 1px solid #eee;
-        }
-
-        .btn-black {
-            background-color: #000;
-            color: #fff;
-            border: none;
-        }
-
-        .btn-black:hover {
-            background-color: #333;
-            color: #fff;
-        }
-
         /* Responsive */
         @media (max-width: 767px) {
             .hero-section {
@@ -387,10 +317,6 @@
 
             .section-header h2 {
                 font-size: 1.6rem;
-            }
-
-            .cta-section h2 {
-                font-size: 1.5rem;
             }
         }
     </style>
@@ -625,25 +551,28 @@
 
     <!-- Modal for Add to Cart Confirmation -->
     <div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <span id="modalProductName"></span> has been successfully added to your cart. What would you like to do next?
+                    Your item has been successfully added to the cart. What would you like to do next?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continue Shopping</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
                     <a href="/cart" class="btn btn-black">Go to Cart</a>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Include Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
     <script>
-        // Parse pricing data from Hugo - same as irritation partial
+        // Parse pricing data from Hugo
         const pricingData = JSON.parse('{{ .Site.Data.pricing | jsonify }}');
         
         // Anti-Aging Bundle pricing
@@ -651,7 +580,6 @@
         const bundleSalePrice = 103.84;
         const bundlePriceId = 'price_1SrGF0FZRwx5tlYmGM7QedjY';
         
-        // Set bundle prices on page load
         function calculateBundlePrices() {
             document.getElementById('bundleUsualPrice').textContent = '$' + bundleUsualPrice.toFixed(2);
             document.getElementById('bundleSalePrice').textContent = '$' + bundleSalePrice.toFixed(2);
@@ -665,21 +593,6 @@
         
         if (!pricingDataExists || !countryCodeExists) {
             console.warn('Pricing data not available on this page');
-        }
-        
-        // Show modal notification
-        function showAddedToCartModal(productName) {
-            var modalProductName = document.getElementById('modalProductName');
-            if (modalProductName) {
-                modalProductName.textContent = productName;
-            }
-            
-            var modal = new bootstrap.Modal(document.getElementById('addedToCartModal'));
-            modal.show();
-            
-            if (typeof triggerCartBounce === 'function') {
-                triggerCartBounce(productName);
-            }
         }
         
         // Update all product prices from YAML data
@@ -750,7 +663,7 @@
                     updateCartBadge();
                 }
                 
-                showAddedToCartModal('Anti-Aging Kit');
+                $('#addedToCartModal').modal('show');
             });
         }
         
@@ -836,7 +749,7 @@
                     updateCartBadge();
                 }
                 
-                showAddedToCartModal(title);
+                $('#addedToCartModal').modal('show');
                 
                 console.log('Added to cart:', title);
             });
