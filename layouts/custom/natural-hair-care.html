@@ -6,6 +6,7 @@
     <meta property="og:title" content="Natural Hair Care | Tallow Shampoo & Conditioner Christchurch Made - PrimalCare NZ" />
     <meta property="og:description" content="Natural care for your hair and scalp, Christchurch made. 100% natural tallow-based haircare products." />
     <title>Natural Hair Care | Tallow Shampoo & Conditioner - PrimalCare NZ</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     {{- partial "alert.html" . -}}
@@ -28,7 +29,6 @@
         .product-image-wrapper img { max-height: 180px; width: auto; }
         .product-badge { position: absolute; top: 12px; left: 12px; padding: 5px 12px; border-radius: 15px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; }
         .badge-cleanse { background: #b3e5fc; color: #1a5276; }
-        .badge-nourish { background: #c8e6c9; color: #2e7d32; }
         .badge-hydrate { background: #e1bee7; color: #4a235a; }
         .badge-style { background: #ffe0b2; color: #e65100; }
         .product-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
@@ -63,26 +63,9 @@
         .why-section { padding: 50px 0; background: #fff; }
         .why-section h2 { text-align: center; font-size: 1.8rem; font-weight: 700; margin-bottom: 30px; }
         .why-card { text-align: center; padding: 20px; }
-        .why-card img { width: 60px; height: 60px; margin-bottom: 15px; }
         .why-card h4 { font-size: 1.1rem; font-weight: 600; margin-bottom: 10px; }
         .why-card p { font-size: 0.9rem; color: #6c757d; }
-        /* Modal Styles */
-        .modal-content { border-radius: 12px; }
-        .modal-header { border-bottom: 1px solid #eee; }
-        .modal-footer { border-top: 1px solid #eee; }
-        .btn-black { background-color: #000; color: #fff; border: none; }
-        .btn-black:hover { background-color: #333; color: #fff; }
-        @media (max-width: 767px) { 
-            .hero-section { padding: 40px 0 30px; } 
-            .hero-section h1 { font-size: 2rem; } 
-            .hero-section .subtitle { font-size: 1rem; } 
-            .hero-badges { gap: 10px; } 
-            .hero-badge { padding: 8px 12px; font-size: 0.75rem; } 
-            .products-section { padding: 40px 0; } 
-            .section-header h2 { font-size: 1.6rem; } 
-            .bundle-content { padding: 20px; }
-            .bundle-content h2 { font-size: 1.5rem; }
-        }
+        @media (max-width: 767px) { .hero-section { padding: 40px 0 30px; } .hero-section h1 { font-size: 2rem; } .hero-section .subtitle { font-size: 1rem; } .hero-badges { gap: 10px; } .hero-badge { padding: 8px 12px; font-size: 0.75rem; } .products-section { padding: 40px 0; } .section-header h2 { font-size: 1.6rem; } .bundle-content { padding: 20px; } .bundle-content h2 { font-size: 1.5rem; } }
     </style>
 
     <section class="hero-section">
@@ -104,7 +87,6 @@
                 <p>Natural care for your hair and scalp — cleanse, nourish, and style with Christchurch made products</p>
             </div>
             <div class="row g-4">
-                <!-- Tallow Shampoo Bar -->
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="product-card">
                         <div class="product-image-wrapper">
@@ -120,8 +102,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Tallow Liquid Shampoo -->
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="product-card">
                         <div class="product-image-wrapper">
@@ -137,8 +117,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Tallow Conditioner -->
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="product-card">
                         <div class="product-image-wrapper">
@@ -154,8 +132,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Tallow Hair Clay -->
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="product-card">
                         <div class="product-image-wrapper">
@@ -175,56 +151,29 @@
         </div>
     </section>
 
-    <!-- Why Natural Hair Care Section -->
     <section class="why-section">
         <div class="container">
             <h2>Why Choose Natural Hair Care?</h2>
             <div class="row">
-                <div class="col-6 col-md-3">
-                    <div class="why-card">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#c9a050" viewBox="0 0 16 16"><path d="M8 16c3.314 0 6-2 6-5.5 0-1.5-.5-4-2.5-6 .25 1.5-1.25 2-1.25 2C11 4 9 .5 6 0c.357 2 .5 4-2 6-1.25 1-2 2.729-2 4.5C2 14 4.686 16 8 16Zm0-1c-1.657 0-3-1-3-2.75 0-.75.25-2 1.25-3C6.125 10 7 10.5 7 10.5c-.375-1.25.5-3.25 2-3.5-.179 1-.25 2 1 3 .625.5 1 1.364 1 2.25C11 14 9.657 15 8 15Z"/></svg>
-                        <h4>Gentle Formula</h4>
-                        <p>No harsh chemicals that strip your hair and irritate your scalp</p>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3">
-                    <div class="why-card">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#c9a050" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
-                        <h4>NZ Made</h4>
-                        <p>Handcrafted in Christchurch using locally sourced ingredients</p>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3">
-                    <div class="why-card">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#c9a050" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/></svg>
-                        <h4>Scalp-Friendly</h4>
-                        <p>Approved by EANZ Gold Partners for sensitive skin</p>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3">
-                    <div class="why-card">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#c9a050" viewBox="0 0 16 16"><path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/></svg>
-                        <h4>Tallow-Based</h4>
-                        <p>Rich in vitamins A, D, E, K for deep nourishment</p>
-                    </div>
-                </div>
+                <div class="col-6 col-md-3"><div class="why-card"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#c9a050" viewBox="0 0 16 16"><path d="M8 16c3.314 0 6-2 6-5.5 0-1.5-.5-4-2.5-6 .25 1.5-1.25 2-1.25 2C11 4 9 .5 6 0c.357 2 .5 4-2 6-1.25 1-2 2.729-2 4.5C2 14 4.686 16 8 16Zm0-1c-1.657 0-3-1-3-2.75 0-.75.25-2 1.25-3C6.125 10 7 10.5 7 10.5c-.375-1.25.5-3.25 2-3.5-.179 1-.25 2 1 3 .625.5 1 1.364 1 2.25C11 14 9.657 15 8 15Z"/></svg><h4>Gentle Formula</h4><p>No harsh chemicals that strip your hair and irritate your scalp</p></div></div>
+                <div class="col-6 col-md-3"><div class="why-card"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#c9a050" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg><h4>NZ Made</h4><p>Handcrafted in Christchurch using locally sourced ingredients</p></div></div>
+                <div class="col-6 col-md-3"><div class="why-card"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#c9a050" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/></svg><h4>Scalp-Friendly</h4><p>Approved by EANZ Gold Partners for sensitive skin</p></div></div>
+                <div class="col-6 col-md-3"><div class="why-card"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#c9a050" viewBox="0 0 16 16"><path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/></svg><h4>Tallow-Based</h4><p>Rich in vitamins A, D, E, K for deep nourishment</p></div></div>
             </div>
         </div>
     </section>
 
-    <!-- Bundle Section -->
     <section class="bundle-section">
         <div class="container">
             <div class="bundle-card">
                 <div class="row align-items-center g-0">
                     <div class="col-12 col-lg-5 bundle-image-col">
-                        <img src="/img/scalpbundle-shop.webp" alt="Tallow Haircare Bundle - Shampoo and Conditioner" class="img-fluid rounded-3" style="max-height: 350px;">
+                        <img src="/img/scalpbundle-shop.webp" alt="Tallow Haircare Bundle" class="img-fluid rounded-3" style="max-height: 350px;">
                     </div>
                     <div class="col-12 col-lg-7">
                         <div class="bundle-content">
                             <h2>Save 20% with the Haircare Bundle</h2>
-                            <p class="bundle-description">Get the complete tallow haircare system — our liquid shampoo and conditioner together at a special price. Everything you need for healthy hair and a happy scalp.</p>
-                            
+                            <p class="bundle-description">Get the complete tallow haircare system — our liquid shampoo and conditioner together at a special price.</p>
                             <div class="bundle-includes">
                                 <h5>Bundle Includes:</h5>
                                 <ul>
@@ -232,21 +181,13 @@
                                     <li><strong>Nourishing Tallow Conditioner (500ml)</strong> — Hydrate & smooth</li>
                                 </ul>
                             </div>
-
                             <div class="bundle-pricing">
                                 <div class="price-comparison">
-                                    <div class="usual-price">
-                                        <span class="price-label">Buy Separately</span>
-                                        <span class="price-value" id="bundleUsualPrice">$69.90</span>
-                                    </div>
-                                    <div class="sale-price">
-                                        <span class="price-label">Bundle Price</span>
-                                        <span class="price-value" id="bundleSalePrice">$55.95</span>
-                                        <span class="savings-badge">Save 20%</span>
-                                    </div>
+                                    <div class="usual-price"><span class="price-label">Buy Separately</span><span class="price-value" id="bundleUsualPrice">$69.90</span></div>
+                                    <div class="sale-price"><span class="price-label">Bundle Price</span><span class="price-value" id="bundleSalePrice">$55.95</span><span class="savings-badge">Save 20%</span></div>
                                 </div>
                             </div>
-                            <button class="btn btn-bundle bundle-add-to-cart" data-title="Tallow Haircare Bundle" data-display-order-type="Bundle - 20% Off">Get the Bundle</button>
+                            <button class="btn btn-bundle bundle-add-to-cart" data-title="Tallow Haircare Bundle">Get the Bundle</button>
                         </div>
                     </div>
                 </div>
@@ -254,217 +195,113 @@
         </div>
     </section>
 
-    <!-- Modal for Add to Cart Confirmation -->
     <div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <span id="modalProductName"></span> has been successfully added to your cart. What would you like to do next?
-                </div>
+                <div class="modal-body">Your item has been successfully added to the cart. What would you like to do next?</div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continue Shopping</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
                     <a href="/cart" class="btn btn-black">Go to Cart</a>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script>
         const pricingData = JSON.parse('{{ .Site.Data.pricing | jsonify }}');
-        
-        // Bundle pricing - Shampoo $34.95 + Conditioner $34.95 = $69.90, Bundle = $55.95 (20% off)
         const bundleUsualPrice = 69.90;
         const bundleSalePrice = 55.95;
-        const bundlePriceId = 'price_1SpfJWFZRwx5tlYmOyNjrKQT'; // scalpbundle single geranium 500ml NZ
-        
+        const bundlePriceId = 'price_1SpfJWFZRwx5tlYmOyNjrKQT';
         function calculateBundlePrices() {
             document.getElementById('bundleUsualPrice').textContent = '$' + bundleUsualPrice.toFixed(2);
             document.getElementById('bundleSalePrice').textContent = '$' + bundleSalePrice.toFixed(2);
         }
     </script>
-
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         var pricingDataExists = typeof pricingData !== 'undefined';
         var countryCodeExists = typeof country_code !== 'undefined';
-
-        // Show modal notification
-        function showAddedToCartModal(productName) {
-            var modalProductName = document.getElementById('modalProductName');
-            if (modalProductName) {
-                modalProductName.textContent = productName;
-            }
-            
-            var modal = new bootstrap.Modal(document.getElementById('addedToCartModal'));
-            modal.show();
-            
-            if (typeof triggerCartBounce === 'function') {
-                triggerCartBounce(productName);
-            }
-        }
-
         function updateProductPrices() {
             if (!pricingDataExists) return;
-            
             var priceElements = document.querySelectorAll('.product-price');
-            
             priceElements.forEach(function(element) {
                 var product = element.getAttribute('data-product');
                 var size = element.getAttribute('data-size');
                 var orderType = element.getAttribute('data-order-type');
-                
                 try {
                     var productPricingData = pricingData.tallow.pricing[product];
-                    
                     if (Array.isArray(productPricingData)) {
-                        var pricingEntry = productPricingData.find(function(entry) {
-                            return entry.size.toLowerCase() === size.toLowerCase();
-                        });
-                        
+                        var pricingEntry = productPricingData.find(function(entry) { return entry.size.toLowerCase() === size.toLowerCase(); });
                         if (pricingEntry && pricingEntry.prices[country_code] && pricingEntry.prices[country_code][orderType]) {
-                            var price = pricingEntry.prices[country_code][orderType];
-                            element.textContent = '$' + price.toFixed(2);
+                            element.textContent = '$' + pricingEntry.prices[country_code][orderType].toFixed(2);
                         }
                     }
-                } catch (error) {
-                    console.error('Error updating price:', error);
-                }
+                } catch (error) { console.error('Error updating price:', error); }
             });
         }
-
         updateProductPrices();
         calculateBundlePrices();
-
-        // Bundle button handler
         var bundleButton = document.querySelector('.bundle-add-to-cart');
         if (bundleButton) {
             bundleButton.addEventListener('click', function(e) {
                 e.preventDefault();
-                
                 var btn = this;
-                
-                if (btn.classList.contains('added')) {
-                    return;
-                }
-                
+                if (btn.classList.contains('added')) return;
                 var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
-                
-                cart.push({
-                    priceId: bundlePriceId,
-                    title: 'Tallow Haircare Bundle',
-                    size: '2 x 500ml',
-                    flavor: 'Fresh Geranium',
-                    orderType: 'Bundle - 20% Off',
-                    quantity: 1,
-                    unitPrice: bundleSalePrice,
-                    eligibleForDiscount: false
-                });
-                
+                cart.push({ priceId: bundlePriceId, title: 'Tallow Haircare Bundle', size: '2 x 500ml', flavor: 'Fresh Geranium', orderType: 'Bundle - 20% Off', quantity: 1, unitPrice: bundleSalePrice, eligibleForDiscount: false });
                 localStorage.setItem('cartV2', JSON.stringify(cart));
-                
                 btn.textContent = 'Added to Cart ✓';
                 btn.classList.add('added');
                 btn.disabled = true;
-                
-                if (typeof updateCartBadge === 'function') {
-                    updateCartBadge();
-                }
-                
-                showAddedToCartModal('Tallow Haircare Bundle');
+                if (typeof updateCartBadge === 'function') updateCartBadge();
+                $('#addedToCartModal').modal('show');
             });
         }
-
-        // Quick add buttons handler
         var quickAddButtons = document.querySelectorAll('.quick-add-to-cart');
-        
         quickAddButtons.forEach(function(button) {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
-                
                 var btn = this;
-                
-                if (btn.classList.contains('added')) {
-                    return;
-                }
-                
+                if (btn.classList.contains('added')) return;
                 var product = btn.getAttribute('data-product');
                 var orderType = btn.getAttribute('data-order-type');
                 var flavor = btn.getAttribute('data-flavor');
                 var size = btn.getAttribute('data-size');
-                
                 var title = btn.getAttribute('data-title');
                 var displaySize = btn.getAttribute('data-display-size');
                 var displayFlavor = btn.getAttribute('data-display-flavor');
                 var displayOrderType = btn.getAttribute('data-display-order-type');
-                var quantity = 1;
-                
-                if (!pricingDataExists) {
-                    alert('Unable to add product to cart.');
-                    return;
-                }
-                
-                var priceId = null;
-                var unitPrice = 0;
-                
+                if (!pricingDataExists) { alert('Unable to add product to cart.'); return; }
+                var priceId = null, unitPrice = 0;
                 try {
                     priceId = pricingData.tallow.ids[product][orderType][flavor][size][country_code];
-                    
                     var productPricingData = pricingData.tallow.pricing[product];
-                    
                     if (Array.isArray(productPricingData)) {
-                        var pricingEntry = productPricingData.find(function(entry) {
-                            return entry.size.toLowerCase() === size.toLowerCase();
-                        });
-                        
+                        var pricingEntry = productPricingData.find(function(entry) { return entry.size.toLowerCase() === size.toLowerCase(); });
                         if (pricingEntry && pricingEntry.prices[country_code]) {
-                            var pricingOrderType = orderType === 'single' ? 'single_purchase' : 
-                                                  orderType === 'pack' ? 'three_pack' : orderType;
-                            
+                            var pricingOrderType = orderType === 'single' ? 'single_purchase' : orderType === 'pack' ? 'three_pack' : orderType;
                             unitPrice = pricingEntry.prices[country_code][pricingOrderType] || 0;
                         }
                     }
-                } catch (error) {
-                    console.error('Error:', error);
-                }
-                
-                if (!priceId || unitPrice === 0) {
-                    alert('Unable to add this product to cart.');
-                    return;
-                }
-                
+                } catch (error) { console.error('Error:', error); }
+                if (!priceId || unitPrice === 0) { alert('Unable to add this product to cart.'); return; }
                 var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
-                
-                cart.push({
-                    priceId: priceId,
-                    title: title,
-                    size: displaySize,
-                    flavor: displayFlavor,
-                    orderType: displayOrderType,
-                    quantity: quantity,
-                    unitPrice: unitPrice,
-                    eligibleForDiscount: false
-                });
-                
+                cart.push({ priceId: priceId, title: title, size: displaySize, flavor: displayFlavor, orderType: displayOrderType, quantity: 1, unitPrice: unitPrice, eligibleForDiscount: false });
                 localStorage.setItem('cartV2', JSON.stringify(cart));
-                
                 btn.textContent = 'Added ✓';
                 btn.classList.add('added');
                 btn.disabled = true;
-                
-                if (typeof updateCartBadge === 'function') {
-                    updateCartBadge();
-                }
-                
-                showAddedToCartModal(title);
+                if (typeof updateCartBadge === 'function') updateCartBadge();
+                $('#addedToCartModal').modal('show');
             });
         });
     });
     </script>
-
     {{- partial "footer.html" . -}}
 </body>
 </html>
