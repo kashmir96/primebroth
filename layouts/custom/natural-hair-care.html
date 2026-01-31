@@ -19,27 +19,42 @@
         .hero-badges { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 25px; }
         .hero-badge { display: flex; align-items: center; gap: 8px; background: #fff; padding: 10px 16px; border-radius: 25px; font-size: 0.85rem; color: #2c2c2c; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
         .hero-badge svg { color: #c9a050; width: 18px; height: 18px; }
+        
         .products-section { padding: 60px 0; background-color: #fef9f6; }
         .section-header { text-align: center; margin-bottom: 40px; }
         .section-header h2 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
         .section-header p { font-size: 1rem; color: #6c757d; }
+        
         .product-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); transition: transform 0.3s ease, box-shadow 0.3s ease; height: 100%; display: flex; flex-direction: column; border: none; }
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
-        .product-image-wrapper { position: relative; padding: 20px; background: #fdfbfa; text-align: center; }
-        .product-image-wrapper img { max-height: 180px; width: auto; }
+        
+        .product-image-wrapper { position: relative; padding: 20px; background: #fdfbfa; text-align: center; display: block; text-decoration: none; }
+        .product-image-wrapper img { max-height: 180px; width: auto; transition: transform 0.3s ease; }
+        .product-card:hover .product-image-wrapper img { transform: scale(1.05); }
+        
         .product-badge { position: absolute; top: 12px; left: 12px; padding: 5px 12px; border-radius: 15px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; }
         .badge-cleanse { background: #b3e5fc; color: #1a5276; }
         .badge-hydrate { background: #e1bee7; color: #4a235a; }
         .badge-style { background: #ffe0b2; color: #e65100; }
+        
         .product-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
         .product-subtitle { font-size: 0.75rem; color: rgb(177, 152, 9); font-style: italic; margin-bottom: 6px; }
         .product-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; color: #2c2c2c; }
         .product-title a { color: inherit; text-decoration: none; }
-        .product-title a:hover { text-decoration: underline; }
+        .product-title a:hover { color: #c9a050; }
         .product-benefit { font-size: 0.85rem; color: #6c757d; margin-bottom: 12px; flex-grow: 1; }
+        
+        .product-footer { margin-top: auto; }
+        .price-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .product-price { margin: 0; }
+        .learn-more-link { font-size: 0.85rem; color: #c9a050; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 4px; }
+        .learn-more-link:hover { color: #a07830; text-decoration: underline; }
+        .learn-more-link svg { width: 14px; height: 14px; }
+        
         .btn-pink { background-color: #ffb6c1; color: #000; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 500; font-size: 0.9rem; transition: all 0.3s ease; width: 100%; }
         .btn-pink:hover { background-color: #ff9eb0; color: #000; }
         .btn-pink:disabled, .btn-pink.added { background-color: #98fb98; color: #000; cursor: default; }
+        
         .bundle-section { padding: 60px 0; background: linear-gradient(135deg, #f8f5f0 0%, #fff 100%); }
         .bundle-card { background: #fff; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); overflow: hidden; }
         .bundle-image-col { background: #fdfbfa; display: flex; align-items: center; justify-content: center; padding: 30px; }
@@ -60,12 +75,24 @@
         .btn-bundle { background: linear-gradient(135deg, #c9a050 0%, #a07830 100%); color: #fff; border: none; padding: 15px 40px; border-radius: 8px; font-weight: 600; font-size: 1.1rem; transition: all 0.3s ease; cursor: pointer; }
         .btn-bundle:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(201, 160, 80, 0.4); color: #fff; }
         .btn-bundle:disabled, .btn-bundle.added { background: #98fb98; color: #000; cursor: default; transform: none; box-shadow: none; }
+        
         .why-section { padding: 50px 0; background: #fff; }
         .why-section h2 { text-align: center; font-size: 1.8rem; font-weight: 700; margin-bottom: 30px; }
         .why-card { text-align: center; padding: 20px; }
         .why-card h4 { font-size: 1.1rem; font-weight: 600; margin-bottom: 10px; }
         .why-card p { font-size: 0.9rem; color: #6c757d; }
-        @media (max-width: 767px) { .hero-section { padding: 40px 0 30px; } .hero-section h1 { font-size: 2rem; } .hero-section .subtitle { font-size: 1rem; } .hero-badges { gap: 10px; } .hero-badge { padding: 8px 12px; font-size: 0.75rem; } .products-section { padding: 40px 0; } .section-header h2 { font-size: 1.6rem; } .bundle-content { padding: 20px; } .bundle-content h2 { font-size: 1.5rem; } }
+        
+        @media (max-width: 767px) {
+            .hero-section { padding: 40px 0 30px; }
+            .hero-section h1 { font-size: 2rem; }
+            .hero-section .subtitle { font-size: 1rem; }
+            .hero-badges { gap: 10px; }
+            .hero-badge { padding: 8px 12px; font-size: 0.75rem; }
+            .products-section { padding: 40px 0; }
+            .section-header h2 { font-size: 1.6rem; }
+            .bundle-content { padding: 20px; }
+            .bundle-content h2 { font-size: 1.5rem; }
+        }
     </style>
 
     <section class="hero-section">
@@ -87,63 +114,102 @@
                 <p>Natural care for your hair and scalp — cleanse, nourish, and style with Christchurch made products</p>
             </div>
             <div class="row g-4">
+                <!-- Product 1: Tallow Shampoo Bar -->
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="product-card">
-                        <div class="product-image-wrapper">
+                        <a href="/shop/products/tallow-shampoo/" class="product-image-wrapper">
                             <span class="product-badge badge-cleanse">Cleanse</span>
-                            <a href="/shop/products/tallow-shampoo/"><img src="/img/shampoobar/shampoo-bar.webp" alt="Tallow Shampoo Bar" class="img-fluid"></a>
-                        </div>
+                            <img src="/img/shampoobar/shampoo-bar.webp" alt="Tallow Shampoo Bar" class="img-fluid">
+                        </a>
                         <div class="product-content">
                             <p class="product-subtitle">Zero Waste Option</p>
                             <h3 class="product-title"><a href="/shop/products/tallow-shampoo/">Tallow Shampoo Bar</a></h3>
                             <p class="product-benefit">Natural cleansing bar for healthy scalp and hair — no plastic waste</p>
-                            <p class="h5 fw-bold product-price" data-product="shampoo" data-size="120g" data-order-type="single_purchase">Loading...</p>
-                            <button class="btn btn-pink quick-add-to-cart" data-product="shampoo" data-order-type="single" data-flavor="peppermintrosemary" data-size="120g" data-title="Tallow Shampoo Bar" data-display-size="120g" data-display-flavor="Natural" data-display-order-type="Single block">Quick Add</button>
+                            <div class="product-footer">
+                                <div class="price-row">
+                                    <p class="h5 fw-bold product-price" data-product="shampoo" data-size="120g" data-order-type="single_purchase">Loading...</p>
+                                    <a href="/shop/products/tallow-shampoo/" class="learn-more-link">
+                                        Learn More
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                    </a>
+                                </div>
+                                <button class="btn btn-pink quick-add-to-cart" data-product="shampoo" data-order-type="single" data-flavor="peppermintrosemary" data-size="120g" data-title="Tallow Shampoo Bar" data-display-size="120g" data-display-flavor="Natural" data-display-order-type="Single block">Quick Add to Cart</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Product 2: Tallow Liquid Shampoo -->
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="product-card">
-                        <div class="product-image-wrapper">
+                        <a href="/shop/products/tallow-liquid-shampoo/" class="product-image-wrapper">
                             <span class="product-badge badge-cleanse">Cleanse</span>
-                            <a href="/shop/products/tallow-liquid-shampoo/"><img src="/img/liqshampoo-shop.webp" alt="Tallow Liquid Shampoo" class="img-fluid"></a>
-                        </div>
+                            <img src="/img/liqshampoo-shop.webp" alt="Tallow Liquid Shampoo" class="img-fluid">
+                        </a>
                         <div class="product-content">
                             <p class="product-subtitle">PrimalCare Gold Edition</p>
                             <h3 class="product-title"><a href="/shop/products/tallow-liquid-shampoo/">Tallow Scalp Shampoo</a></h3>
                             <p class="product-benefit">Gentle liquid shampoo with aloe vera for sensitive, itchy scalps</p>
-                            <p class="h5 fw-bold product-price" data-product="liqshampoo" data-size="500ml" data-order-type="single_purchase">Loading...</p>
-                            <button class="btn btn-pink quick-add-to-cart" data-product="liqshampoo" data-order-type="single" data-flavor="geranium" data-size="500ml" data-title="Tallow Scalp Shampoo 500ml" data-display-size="500ml" data-display-flavor="Fresh Geranium" data-display-order-type="Single bottle">Quick Add</button>
+                            <div class="product-footer">
+                                <div class="price-row">
+                                    <p class="h5 fw-bold product-price" data-product="liqshampoo" data-size="500ml" data-order-type="single_purchase">Loading...</p>
+                                    <a href="/shop/products/tallow-liquid-shampoo/" class="learn-more-link">
+                                        Learn More
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                    </a>
+                                </div>
+                                <button class="btn btn-pink quick-add-to-cart" data-product="liqshampoo" data-order-type="single" data-flavor="geranium" data-size="500ml" data-title="Tallow Scalp Shampoo 500ml" data-display-size="500ml" data-display-flavor="Fresh Geranium" data-display-order-type="Single bottle">Quick Add to Cart</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Product 3: Tallow Conditioner -->
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="product-card">
-                        <div class="product-image-wrapper">
+                        <a href="/shop/products/tallow-conditioner/" class="product-image-wrapper">
                             <span class="product-badge badge-hydrate">Hydrate</span>
-                            <a href="/shop/products/tallow-conditioner/"><img src="/img/conditioner-shop.webp" alt="Tallow Conditioner" class="img-fluid"></a>
-                        </div>
+                            <img src="/img/conditioner-shop.webp" alt="Tallow Conditioner" class="img-fluid">
+                        </a>
                         <div class="product-content">
                             <p class="product-subtitle">PrimalCare Gold Edition</p>
                             <h3 class="product-title"><a href="/shop/products/tallow-conditioner/">Nourishing Tallow Conditioner</a></h3>
                             <p class="product-benefit">Deep hydration for frizz-free, silky smooth hair</p>
-                            <p class="h5 fw-bold product-price" data-product="conditioner" data-size="500ml" data-order-type="single_purchase">Loading...</p>
-                            <button class="btn btn-pink quick-add-to-cart" data-product="conditioner" data-order-type="single" data-flavor="geranium" data-size="500ml" data-title="Nourishing Tallow Conditioner 500ml" data-display-size="500ml" data-display-flavor="Fresh Geranium" data-display-order-type="Single bottle">Quick Add</button>
+                            <div class="product-footer">
+                                <div class="price-row">
+                                    <p class="h5 fw-bold product-price" data-product="conditioner" data-size="500ml" data-order-type="single_purchase">Loading...</p>
+                                    <a href="/shop/products/tallow-conditioner/" class="learn-more-link">
+                                        Learn More
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                    </a>
+                                </div>
+                                <button class="btn btn-pink quick-add-to-cart" data-product="conditioner" data-order-type="single" data-flavor="geranium" data-size="500ml" data-title="Nourishing Tallow Conditioner 500ml" data-display-size="500ml" data-display-flavor="Fresh Geranium" data-display-order-type="Single bottle">Quick Add to Cart</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Product 4: Tallow Hair Clay -->
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="product-card">
-                        <div class="product-image-wrapper">
+                        <a href="/shop/products/tallow-hair-clay/" class="product-image-wrapper">
                             <span class="product-badge badge-style">Style</span>
-                            <a href="/shop/products/tallow-hair-clay/"><img src="/img/shop/hair-clay-shop.webp" alt="Tallow Hair Clay" class="img-fluid"></a>
-                        </div>
+                            <img src="/img/shop/hair-clay-shop.webp" alt="Tallow Hair Clay" class="img-fluid">
+                        </a>
                         <div class="product-content">
                             <p class="product-subtitle">PrimalCare</p>
                             <h3 class="product-title"><a href="/shop/products/tallow-hair-clay/">Tallow Hair Clay</a></h3>
                             <p class="product-benefit">Natural styling with medium hold and matte finish — scalp-friendly</p>
-                            <p class="h5 fw-bold product-price" data-product="hairclay" data-size="60ml" data-order-type="single_purchase">Loading...</p>
-                            <button class="btn btn-pink quick-add-to-cart" data-product="hairclay" data-order-type="single" data-flavor="medium-hold" data-size="60ml" data-title="Tallow Hair Clay 60ml" data-display-size="60ml" data-display-flavor="Medium Hold" data-display-order-type="Single jar">Quick Add</button>
+                            <div class="product-footer">
+                                <div class="price-row">
+                                    <p class="h5 fw-bold product-price" data-product="hairclay" data-size="60ml" data-order-type="single_purchase">Loading...</p>
+                                    <a href="/shop/products/tallow-hair-clay/" class="learn-more-link">
+                                        Learn More
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                    </a>
+                                </div>
+                                <button class="btn btn-pink quick-add-to-cart" data-product="hairclay" data-order-type="single" data-flavor="medium-hold" data-size="60ml" data-title="Tallow Hair Clay 60ml" data-display-size="60ml" data-display-flavor="Medium Hold" data-display-order-type="Single jar">Quick Add to Cart</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -214,9 +280,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script>
         const pricingData = JSON.parse('{{ .Site.Data.pricing | jsonify }}');
-        const bundleUsualPrice = 69.90;
-        const bundleSalePrice = 55.95;
-        const bundlePriceId = 'price_1SpfJWFZRwx5tlYmOyNjrKQT';
+        const bundleUsualPrice = 69.90, bundleSalePrice = 55.95, bundlePriceId = 'price_1SpfJWFZRwx5tlYmOyNjrKQT';
         function calculateBundlePrices() {
             document.getElementById('bundleUsualPrice').textContent = '$' + bundleUsualPrice.toFixed(2);
             document.getElementById('bundleSalePrice').textContent = '$' + bundleSalePrice.toFixed(2);
@@ -225,73 +289,53 @@
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         var pricingDataExists = typeof pricingData !== 'undefined';
-        var countryCodeExists = typeof country_code !== 'undefined';
+        
         function updateProductPrices() {
             if (!pricingDataExists) return;
-            var priceElements = document.querySelectorAll('.product-price');
-            priceElements.forEach(function(element) {
-                var product = element.getAttribute('data-product');
-                var size = element.getAttribute('data-size');
-                var orderType = element.getAttribute('data-order-type');
+            document.querySelectorAll('.product-price').forEach(function(el) {
+                var product = el.getAttribute('data-product'), size = el.getAttribute('data-size'), orderType = el.getAttribute('data-order-type');
                 try {
-                    var productPricingData = pricingData.tallow.pricing[product];
-                    if (Array.isArray(productPricingData)) {
-                        var pricingEntry = productPricingData.find(function(entry) { return entry.size.toLowerCase() === size.toLowerCase(); });
-                        if (pricingEntry && pricingEntry.prices[country_code] && pricingEntry.prices[country_code][orderType]) {
-                            element.textContent = '$' + pricingEntry.prices[country_code][orderType].toFixed(2);
-                        }
+                    var data = pricingData.tallow.pricing[product];
+                    if (Array.isArray(data)) {
+                        var entry = data.find(function(e) { return e.size.toLowerCase() === size.toLowerCase(); });
+                        if (entry && entry.prices[country_code] && entry.prices[country_code][orderType]) el.textContent = '$' + entry.prices[country_code][orderType].toFixed(2);
                     }
-                } catch (error) { console.error('Error updating price:', error); }
+                } catch (e) {}
             });
         }
         updateProductPrices();
         calculateBundlePrices();
-        var bundleButton = document.querySelector('.bundle-add-to-cart');
-        if (bundleButton) {
-            bundleButton.addEventListener('click', function(e) {
+        
+        document.querySelector('.bundle-add-to-cart').addEventListener('click', function(e) {
+            e.preventDefault();
+            var btn = this;
+            if (btn.classList.contains('added')) return;
+            var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+            cart.push({ priceId: bundlePriceId, title: 'Tallow Haircare Bundle', size: '2 x 500ml', flavor: 'Fresh Geranium', orderType: 'Bundle - 20% Off', quantity: 1, unitPrice: bundleSalePrice, eligibleForDiscount: false });
+            localStorage.setItem('cartV2', JSON.stringify(cart));
+            btn.textContent = 'Added to Cart ✓';
+            btn.classList.add('added');
+            btn.disabled = true;
+            if (typeof updateCartBadge === 'function') updateCartBadge();
+            $('#addedToCartModal').modal('show');
+        });
+        
+        document.querySelectorAll('.quick-add-to-cart').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
                 e.preventDefault();
-                var btn = this;
                 if (btn.classList.contains('added')) return;
-                var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
-                cart.push({ priceId: bundlePriceId, title: 'Tallow Haircare Bundle', size: '2 x 500ml', flavor: 'Fresh Geranium', orderType: 'Bundle - 20% Off', quantity: 1, unitPrice: bundleSalePrice, eligibleForDiscount: false });
-                localStorage.setItem('cartV2', JSON.stringify(cart));
-                btn.textContent = 'Added to Cart ✓';
-                btn.classList.add('added');
-                btn.disabled = true;
-                if (typeof updateCartBadge === 'function') updateCartBadge();
-                $('#addedToCartModal').modal('show');
-            });
-        }
-        var quickAddButtons = document.querySelectorAll('.quick-add-to-cart');
-        quickAddButtons.forEach(function(button) {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                var btn = this;
-                if (btn.classList.contains('added')) return;
-                var product = btn.getAttribute('data-product');
-                var orderType = btn.getAttribute('data-order-type');
-                var flavor = btn.getAttribute('data-flavor');
-                var size = btn.getAttribute('data-size');
-                var title = btn.getAttribute('data-title');
-                var displaySize = btn.getAttribute('data-display-size');
-                var displayFlavor = btn.getAttribute('data-display-flavor');
-                var displayOrderType = btn.getAttribute('data-display-order-type');
-                if (!pricingDataExists) { alert('Unable to add product to cart.'); return; }
-                var priceId = null, unitPrice = 0;
+                var priceId, unitPrice = 0;
                 try {
-                    priceId = pricingData.tallow.ids[product][orderType][flavor][size][country_code];
-                    var productPricingData = pricingData.tallow.pricing[product];
-                    if (Array.isArray(productPricingData)) {
-                        var pricingEntry = productPricingData.find(function(entry) { return entry.size.toLowerCase() === size.toLowerCase(); });
-                        if (pricingEntry && pricingEntry.prices[country_code]) {
-                            var pricingOrderType = orderType === 'single' ? 'single_purchase' : orderType === 'pack' ? 'three_pack' : orderType;
-                            unitPrice = pricingEntry.prices[country_code][pricingOrderType] || 0;
-                        }
+                    priceId = pricingData.tallow.ids[btn.getAttribute('data-product')][btn.getAttribute('data-order-type')][btn.getAttribute('data-flavor')][btn.getAttribute('data-size')][country_code];
+                    var data = pricingData.tallow.pricing[btn.getAttribute('data-product')];
+                    if (Array.isArray(data)) {
+                        var entry = data.find(function(e) { return e.size.toLowerCase() === btn.getAttribute('data-size').toLowerCase(); });
+                        if (entry && entry.prices[country_code]) unitPrice = entry.prices[country_code][btn.getAttribute('data-order-type') === 'single' ? 'single_purchase' : btn.getAttribute('data-order-type')] || 0;
                     }
-                } catch (error) { console.error('Error:', error); }
-                if (!priceId || unitPrice === 0) { alert('Unable to add this product to cart.'); return; }
+                } catch (e) {}
+                if (!priceId || unitPrice === 0) { alert('Unable to add to cart.'); return; }
                 var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
-                cart.push({ priceId: priceId, title: title, size: displaySize, flavor: displayFlavor, orderType: displayOrderType, quantity: 1, unitPrice: unitPrice, eligibleForDiscount: false });
+                cart.push({ priceId: priceId, title: btn.getAttribute('data-title'), size: btn.getAttribute('data-display-size'), flavor: btn.getAttribute('data-display-flavor'), orderType: btn.getAttribute('data-display-order-type'), quantity: 1, unitPrice: unitPrice, eligibleForDiscount: false });
                 localStorage.setItem('cartV2', JSON.stringify(cart));
                 btn.textContent = 'Added ✓';
                 btn.classList.add('added');
