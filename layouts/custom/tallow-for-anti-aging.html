@@ -5,6 +5,7 @@
     <meta name="description" content="Natural tallow skincare for anti-aging. Nourish and protect mature skin with 100% natural, NZ-made tallow balms, serums and eye cream. EANZ Gold Partner." />
     <meta property="og:title" content="Tallow for Anti-Aging | Natural Anti-Wrinkle Skincare - PrimalCare NZ" />
     <meta property="og:description" content="Natural tallow skincare for anti-aging. Nourish and protect mature skin. 100% natural, NZ-made." />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     {{- partial "alert.html" . -}}
@@ -52,21 +53,7 @@
         .btn-bundle { background: linear-gradient(135deg, #c9a050 0%, #a07830 100%); color: #fff; border: none; padding: 15px 40px; border-radius: 8px; font-weight: 600; font-size: 1.1rem; transition: all 0.3s ease; cursor: pointer; }
         .btn-bundle:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(201, 160, 80, 0.4); color: #fff; }
         .btn-bundle:disabled, .btn-bundle.added { background: #98fb98; color: #000; cursor: default; transform: none; box-shadow: none; }
-        /* Modal Styles */
-        .modal-content { border-radius: 12px; }
-        .modal-header { border-bottom: 1px solid #eee; }
-        .modal-footer { border-top: 1px solid #eee; }
-        .btn-black { background-color: #000; color: #fff; border: none; }
-        .btn-black:hover { background-color: #333; color: #fff; }
-        @media (max-width: 767px) {
-            .hero-section { padding: 40px 0 30px; }
-            .hero-section h1 { font-size: 2rem; }
-            .hero-section .subtitle { font-size: 1rem; }
-            .hero-badges { gap: 10px; }
-            .hero-badge { padding: 8px 12px; font-size: 0.75rem; }
-            .products-section { padding: 40px 0; }
-            .section-header h2 { font-size: 1.6rem; }
-        }
+        @media (max-width: 767px) { .hero-section { padding: 40px 0 30px; } .hero-section h1 { font-size: 2rem; } .hero-section .subtitle { font-size: 1rem; } .hero-badges { gap: 10px; } .hero-badge { padding: 8px 12px; font-size: 0.75rem; } .products-section { padding: 40px 0; } .section-header h2 { font-size: 1.6rem; } }
     </style>
 
     <section class="hero-section">
@@ -74,18 +61,9 @@
             <h1>Tallow for Anti-Aging</h1>
             <p class="subtitle">Natural tallow skincare to nourish and protect mature skin</p>
             <div class="hero-badges">
-                <div class="hero-badge">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.613 6l-.248-1.506 1.086-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/><path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/></svg>
-                    Deeply Nourishing
-                </div>
-                <div class="hero-badge">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
-                    100% Natural
-                </div>
-                <div class="hero-badge">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
-                    NZ Made
-                </div>
+                <div class="hero-badge"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.613 6l-.248-1.506 1.086-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/><path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/></svg>Deeply Nourishing</div>
+                <div class="hero-badge"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>100% Natural</div>
+                <div class="hero-badge"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>NZ Made</div>
             </div>
         </div>
     </section>
@@ -174,42 +152,34 @@
                         <p class="bundle-description">Your complete anti-aging routine - all four products bundled at a special price</p>
                         <div class="bundle-pricing">
                             <div class="price-comparison">
-                                <div class="usual-price">
-                                    <span class="price-label">Combined Usual Price</span>
-                                    <span class="price-value" id="bundleUsualPrice">Loading...</span>
-                                </div>
-                                <div class="sale-price">
-                                    <span class="price-label">Save 20%</span>
-                                    <span class="price-value" id="bundleSalePrice">Loading...</span>
-                                </div>
+                                <div class="usual-price"><span class="price-label">Combined Usual Price</span><span class="price-value" id="bundleUsualPrice">Loading...</span></div>
+                                <div class="sale-price"><span class="price-label">Save 20%</span><span class="price-value" id="bundleSalePrice">Loading...</span></div>
                             </div>
                         </div>
-                        <button class="btn btn-bundle bundle-add-to-cart" data-title="Anti-Aging Kit" data-display-order-type="Bundle">Claim Special Deal</button>
+                        <button class="btn btn-bundle bundle-add-to-cart" data-title="Anti-Aging Kit">Claim Special Deal</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Modal for Add to Cart Confirmation -->
     <div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <span id="modalProductName"></span> has been successfully added to your cart. What would you like to do next?
-                </div>
+                <div class="modal-body">Your item has been successfully added to the cart. What would you like to do next?</div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continue Shopping</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
                     <a href="/cart" class="btn btn-black">Go to Cart</a>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script>
         const pricingData = JSON.parse('{{ .Site.Data.pricing | jsonify }}');
         const bundleUsualPrice = 129.80;
@@ -224,22 +194,6 @@
     document.addEventListener('DOMContentLoaded', function() {
         var pricingDataExists = typeof pricingData !== 'undefined';
         var countryCodeExists = typeof country_code !== 'undefined';
-        
-        // Show modal notification
-        function showAddedToCartModal(productName) {
-            var modalProductName = document.getElementById('modalProductName');
-            if (modalProductName) {
-                modalProductName.textContent = productName;
-            }
-            
-            var modal = new bootstrap.Modal(document.getElementById('addedToCartModal'));
-            modal.show();
-            
-            if (typeof triggerCartBounce === 'function') {
-                triggerCartBounce(productName);
-            }
-        }
-        
         function updateProductPrices() {
             if (!pricingDataExists) return;
             var priceElements = document.querySelectorAll('.product-price');
@@ -252,8 +206,7 @@
                     if (Array.isArray(productPricingData)) {
                         var pricingEntry = productPricingData.find(function(entry) { return entry.size.toLowerCase() === size.toLowerCase(); });
                         if (pricingEntry && pricingEntry.prices[country_code] && pricingEntry.prices[country_code][orderType]) {
-                            var price = pricingEntry.prices[country_code][orderType];
-                            element.textContent = '$' + price.toFixed(2);
+                            element.textContent = '$' + pricingEntry.prices[country_code][orderType].toFixed(2);
                         }
                     }
                 } catch (error) { console.error('Error updating price:', error); }
@@ -261,30 +214,28 @@
         }
         updateProductPrices();
         calculateBundlePrices();
-        
         var bundleButton = document.querySelector('.bundle-add-to-cart');
         if (bundleButton) {
             bundleButton.addEventListener('click', function(e) {
                 e.preventDefault();
                 var btn = this;
-                if (btn.classList.contains('added')) { return; }
+                if (btn.classList.contains('added')) return;
                 var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
                 cart.push({ priceId: bundlePriceId, title: 'Anti-Aging Kit', size: '4 Products', flavor: 'Complete Set', orderType: 'Bundle - 20% Off', quantity: 1, unitPrice: bundleSalePrice, eligibleForDiscount: false });
                 localStorage.setItem('cartV2', JSON.stringify(cart));
                 btn.textContent = 'Added to Cart ✓';
                 btn.classList.add('added');
                 btn.disabled = true;
-                if (typeof updateCartBadge === 'function') { updateCartBadge(); }
-                showAddedToCartModal('Anti-Aging Kit');
+                if (typeof updateCartBadge === 'function') updateCartBadge();
+                $('#addedToCartModal').modal('show');
             });
         }
-        
         var quickAddButtons = document.querySelectorAll('.quick-add-to-cart');
         quickAddButtons.forEach(function(button) {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
                 var btn = this;
-                if (btn.classList.contains('added')) { return; }
+                if (btn.classList.contains('added')) return;
                 var product = btn.getAttribute('data-product');
                 var orderType = btn.getAttribute('data-order-type');
                 var flavor = btn.getAttribute('data-flavor');
@@ -293,10 +244,8 @@
                 var displaySize = btn.getAttribute('data-display-size');
                 var displayFlavor = btn.getAttribute('data-display-flavor');
                 var displayOrderType = btn.getAttribute('data-display-order-type');
-                var quantity = 1;
-                if (!pricingDataExists) { alert('Unable to add product to cart. Pricing data not available.'); return; }
-                var priceId = null;
-                var unitPrice = 0;
+                if (!pricingDataExists) { alert('Unable to add product to cart.'); return; }
+                var priceId = null, unitPrice = 0;
                 try {
                     priceId = pricingData.tallow.ids[product][orderType][flavor][size][country_code];
                     var productPricingData = pricingData.tallow.pricing[product];
@@ -307,16 +256,16 @@
                             unitPrice = pricingEntry.prices[country_code][pricingOrderType] || 0;
                         }
                     }
-                } catch (error) { console.error('Error fetching data from YAML:', error); }
-                if (!priceId || unitPrice === 0) { console.error('Invalid price data for product:', title); alert('Unable to add this product to cart. Please visit the product page.'); return; }
+                } catch (error) { console.error('Error:', error); }
+                if (!priceId || unitPrice === 0) { alert('Unable to add this product to cart.'); return; }
                 var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
-                cart.push({ priceId: priceId, title: title, size: displaySize, flavor: displayFlavor, orderType: displayOrderType, quantity: quantity, unitPrice: unitPrice, eligibleForDiscount: false });
+                cart.push({ priceId: priceId, title: title, size: displaySize, flavor: displayFlavor, orderType: displayOrderType, quantity: 1, unitPrice: unitPrice, eligibleForDiscount: false });
                 localStorage.setItem('cartV2', JSON.stringify(cart));
                 btn.textContent = 'Added ✓';
                 btn.classList.add('added');
                 btn.disabled = true;
-                if (typeof updateCartBadge === 'function') { updateCartBadge(); }
-                showAddedToCartModal(title);
+                if (typeof updateCartBadge === 'function') updateCartBadge();
+                $('#addedToCartModal').modal('show');
             });
         });
     });
