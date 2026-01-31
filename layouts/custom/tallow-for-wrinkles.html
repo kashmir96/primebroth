@@ -334,61 +334,28 @@
             box-shadow: none;
         }
 
-        /* Toast Notification */
-        .landing-toast {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: white;
+        /* Modal Styles */
+        .modal-content {
             border-radius: 12px;
-            padding: 16px 20px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-            z-index: 999999;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            max-width: 90vw;
         }
 
-        .landing-toast.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-            visibility: visible;
+        .modal-header {
+            border-bottom: 1px solid #eee;
         }
 
-        .landing-toast-content {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .modal-footer {
+            border-top: 1px solid #eee;
         }
 
-        .landing-toast-text {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
+        .btn-black {
+            background-color: #000;
+            color: #fff;
+            border: none;
         }
 
-        .landing-toast-text strong {
-            font-size: 14px;
-            color: #333;
-        }
-
-        .landing-toast-text span {
-            font-size: 12px;
-            color: #666;
-        }
-
-        .landing-toast-btn {
-            background: #000;
-            color: #fff !important;
-            padding: 8px 16px;
-            border-radius: 6px;
-            text-decoration: none !important;
-            font-size: 13px;
-            font-weight: 500;
-            white-space: nowrap;
-            margin-left: 8px;
+        .btn-black:hover {
+            background-color: #333;
+            color: #fff;
         }
 
         /* Responsive */
@@ -424,18 +391,6 @@
 
             .cta-section h2 {
                 font-size: 1.5rem;
-            }
-
-            .landing-toast {
-                bottom: 80px;
-                left: 10px;
-                right: 10px;
-                transform: translateX(0) translateY(100px);
-                max-width: none;
-            }
-
-            .landing-toast.show {
-                transform: translateX(0) translateY(0);
             }
         }
     </style>
@@ -668,17 +623,22 @@
         </div>
     </section>
 
-    <!-- Toast Notification -->
-    <div id="landingToast" class="landing-toast">
-        <div class="landing-toast-content">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#98fb98" viewBox="0 0 16 16">
-                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-            </svg>
-            <div class="landing-toast-text">
-                <strong>Added to Cart!</strong>
-                <span id="landingToastProduct"></span>
+    <!-- Modal for Add to Cart Confirmation -->
+    <div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <span id="modalProductName"></span> has been successfully added to your cart. What would you like to do next?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continue Shopping</button>
+                    <a href="/cart" class="btn btn-black">Go to Cart</a>
+                </div>
             </div>
-            <a href="/cart" class="landing-toast-btn">View Cart</a>
         </div>
     </div>
 
@@ -707,24 +667,15 @@
             console.warn('Pricing data not available on this page');
         }
         
-        // Show toast notification
-        function showLandingToast(productName) {
-            var toast = document.getElementById('landingToast');
-            var productEl = document.getElementById('landingToastProduct');
-            
-            if (toast) {
-                if (productEl) {
-                    productEl.textContent = productName;
-                }
-                
-                toast.classList.remove('show');
-                void toast.offsetWidth;
-                toast.classList.add('show');
-                
-                setTimeout(function() {
-                    toast.classList.remove('show');
-                }, 4000);
+        // Show modal notification
+        function showAddedToCartModal(productName) {
+            var modalProductName = document.getElementById('modalProductName');
+            if (modalProductName) {
+                modalProductName.textContent = productName;
             }
+            
+            var modal = new bootstrap.Modal(document.getElementById('addedToCartModal'));
+            modal.show();
             
             if (typeof triggerCartBounce === 'function') {
                 triggerCartBounce(productName);
@@ -799,7 +750,7 @@
                     updateCartBadge();
                 }
                 
-                showLandingToast('Anti-Aging Kit');
+                showAddedToCartModal('Anti-Aging Kit');
             });
         }
         
@@ -885,7 +836,7 @@
                     updateCartBadge();
                 }
                 
-                showLandingToast(title);
+                showAddedToCartModal(title);
                 
                 console.log('Added to cart:', title);
             });
