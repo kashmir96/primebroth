@@ -52,13 +52,12 @@
         .btn-bundle { background: linear-gradient(135deg, #c9a050 0%, #a07830 100%); color: #fff; border: none; padding: 15px 40px; border-radius: 8px; font-weight: 600; font-size: 1.1rem; transition: all 0.3s ease; cursor: pointer; }
         .btn-bundle:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(201, 160, 80, 0.4); color: #fff; }
         .btn-bundle:disabled, .btn-bundle.added { background: #98fb98; color: #000; cursor: default; transform: none; box-shadow: none; }
-        .landing-toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: white; border-radius: 12px; padding: 16px 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.25); z-index: 999999; opacity: 0; visibility: hidden; transition: all 0.3s ease; max-width: 90vw; }
-        .landing-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; visibility: visible; }
-        .landing-toast-content { display: flex; align-items: center; gap: 12px; }
-        .landing-toast-text { display: flex; flex-direction: column; gap: 2px; }
-        .landing-toast-text strong { font-size: 14px; color: #333; }
-        .landing-toast-text span { font-size: 12px; color: #666; }
-        .landing-toast-btn { background: #000; color: #fff !important; padding: 8px 16px; border-radius: 6px; text-decoration: none !important; font-size: 13px; font-weight: 500; white-space: nowrap; margin-left: 8px; }
+        /* Modal Styles */
+        .modal-content { border-radius: 12px; }
+        .modal-header { border-bottom: 1px solid #eee; }
+        .modal-footer { border-top: 1px solid #eee; }
+        .btn-black { background-color: #000; color: #fff; border: none; }
+        .btn-black:hover { background-color: #333; color: #fff; }
         @media (max-width: 767px) {
             .hero-section { padding: 40px 0 30px; }
             .hero-section h1 { font-size: 2rem; }
@@ -67,8 +66,6 @@
             .hero-badge { padding: 8px 12px; font-size: 0.75rem; }
             .products-section { padding: 40px 0; }
             .section-header h2 { font-size: 1.6rem; }
-            .landing-toast { bottom: 80px; left: 10px; right: 10px; transform: translateX(0) translateY(100px); max-width: none; }
-            .landing-toast.show { transform: translateX(0) translateY(0); }
         }
     </style>
 
@@ -194,14 +191,22 @@
         </div>
     </section>
 
-    <div id="landingToast" class="landing-toast">
-        <div class="landing-toast-content">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#98fb98" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
-            <div class="landing-toast-text">
-                <strong>Added to Cart!</strong>
-                <span id="landingToastProduct"></span>
+    <!-- Modal for Add to Cart Confirmation -->
+    <div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <span id="modalProductName"></span> has been successfully added to your cart. What would you like to do next?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continue Shopping</button>
+                    <a href="/cart" class="btn btn-black">Go to Cart</a>
+                </div>
             </div>
-            <a href="/cart" class="landing-toast-btn">View Cart</a>
         </div>
     </div>
 
@@ -219,12 +224,22 @@
     document.addEventListener('DOMContentLoaded', function() {
         var pricingDataExists = typeof pricingData !== 'undefined';
         var countryCodeExists = typeof country_code !== 'undefined';
-        function showLandingToast(productName) {
-            var toast = document.getElementById('landingToast');
-            var productEl = document.getElementById('landingToastProduct');
-            if (toast) { if (productEl) { productEl.textContent = productName; } toast.classList.remove('show'); void toast.offsetWidth; toast.classList.add('show'); setTimeout(function() { toast.classList.remove('show'); }, 4000); }
-            if (typeof triggerCartBounce === 'function') { triggerCartBounce(productName); }
+        
+        // Show modal notification
+        function showAddedToCartModal(productName) {
+            var modalProductName = document.getElementById('modalProductName');
+            if (modalProductName) {
+                modalProductName.textContent = productName;
+            }
+            
+            var modal = new bootstrap.Modal(document.getElementById('addedToCartModal'));
+            modal.show();
+            
+            if (typeof triggerCartBounce === 'function') {
+                triggerCartBounce(productName);
+            }
         }
+        
         function updateProductPrices() {
             if (!pricingDataExists) return;
             var priceElements = document.querySelectorAll('.product-price');
@@ -246,6 +261,7 @@
         }
         updateProductPrices();
         calculateBundlePrices();
+        
         var bundleButton = document.querySelector('.bundle-add-to-cart');
         if (bundleButton) {
             bundleButton.addEventListener('click', function(e) {
@@ -259,9 +275,10 @@
                 btn.classList.add('added');
                 btn.disabled = true;
                 if (typeof updateCartBadge === 'function') { updateCartBadge(); }
-                showLandingToast('Anti-Aging Kit');
+                showAddedToCartModal('Anti-Aging Kit');
             });
         }
+        
         var quickAddButtons = document.querySelectorAll('.quick-add-to-cart');
         quickAddButtons.forEach(function(button) {
             button.addEventListener('click', function(e) {
@@ -299,7 +316,7 @@
                 btn.classList.add('added');
                 btn.disabled = true;
                 if (typeof updateCartBadge === 'function') { updateCartBadge(); }
-                showLandingToast(title);
+                showAddedToCartModal(title);
             });
         });
     });
