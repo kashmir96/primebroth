@@ -1,0 +1,33 @@
+<!-- Pet single product card -->
+<div class="product-card grow col-xxl-3 col-lg-4 col-md-4 " data-category="skincare" id="prodcard-lipbalmstick">
+  <a href="/shop/products/tallow-lip-balm-stick">
+    <div class="product-card-inner">
+            <p class="stamp">Online Exclusive</p>
+        <img src="/img/lip-balm-stick.webp" alt="lip balm" class="d-block m-auto" max-height="400">
+        <div class="product-details">
+          <p class="h5"><span class="nz-content" style="display:inline;">{{ with index site.Data.pricing.tallow.pricing.lipbalmstick 0 }}
+            {{ with .prices.NZ }}
+                ${{ .single_purchase }}
+            {{ end }}
+        {{ end }}
+        </span>
+        <span class="au-content" style="display:none;">
+            {{ with index site.Data.pricing.tallow.pricing.lipbalmstick 0 }}
+            {{ with .prices.AU }}
+              ${{ .single_purchase }}
+            {{ end }}
+        {{ end }}
+        </span></p>
+        <p class="h5 fw-bold">Tallow Lip Balm Stick</h6>
+        <p>15,000+ kiwis</p>
+      </div>
+    </div>
+  </a>
+</div>
+
+
+
+
+
+
+
