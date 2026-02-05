@@ -3,52 +3,67 @@
 <head>
     {{- partial "head.html" . -}}
     <meta name="description" content="{{ .Params.description }}" />
+    <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
 <style>
-.sub-scent-card {
+/* ===== PRODUCT CARDS ===== */
+.sub-product-card {
     border: 2px solid #e0d5c7;
     border-radius: 12px;
-    padding: 16px 20px;
-    margin-bottom: 12px;
+    padding: 14px;
+    margin-bottom: 14px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 16px;
     transition: border-color 0.2s, background-color 0.2s;
-    flex-wrap: wrap;
-    gap: 10px;
 }
 
-.sub-scent-card.has-quantity {
+.sub-product-card.has-quantity {
     border-color: #2d6a4f;
     background-color: #f6faf7;
 }
 
-.sub-scent-info {
+.sub-product-img {
+    width: 72px;
+    height: 72px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.sub-product-info {
     flex: 1;
-    min-width: 160px;
+    min-width: 0;
 }
 
-.sub-scent-name {
+.sub-product-name {
     font-weight: 700;
-    font-size: 1.05rem;
+    font-size: 1rem;
     margin: 0;
+    line-height: 1.3;
 }
 
-.sub-scent-price {
-    color: #2d6a4f;
-    font-weight: 600;
-    font-size: 0.95rem;
+.sub-product-meta {
+    color: #888;
+    font-size: 0.82rem;
     margin: 2px 0 0 0;
 }
 
-.sub-scent-tag {
+.sub-product-price {
+    color: #2d6a4f;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin: 3px 0 0 0;
+}
+
+.sub-product-tag {
     display: inline-block;
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     font-weight: 600;
-    padding: 2px 8px;
+    padding: 1px 7px;
     border-radius: 10px;
-    margin-left: 6px;
+    margin-left: 5px;
     vertical-align: middle;
     background: #e8c547;
     color: #333;
@@ -61,11 +76,11 @@
 }
 
 .sub-qty-controls button {
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
     border: 2px solid #ccc;
     background: #fff;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
     display: flex;
@@ -80,78 +95,189 @@
     color: #2d6a4f;
 }
 
-.sub-qty-controls button.sub-qty-minus {
-    border-radius: 8px 0 0 8px;
-    border-right: none;
-}
-
-.sub-qty-controls button.sub-qty-plus {
-    border-radius: 0 8px 8px 0;
-    border-left: none;
-}
+.sub-qty-controls .sub-qty-minus { border-radius: 8px 0 0 8px; border-right: none; }
+.sub-qty-controls .sub-qty-plus { border-radius: 0 8px 8px 0; border-left: none; }
 
 .sub-qty-controls input {
-    width: 44px;
-    height: 36px;
+    width: 40px;
+    height: 34px;
     text-align: center;
     border: 2px solid #ccc;
     border-left: none;
     border-right: none;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 600;
     -moz-appearance: textfield;
     appearance: textfield;
 }
 
 .sub-qty-controls input::-webkit-outer-spin-button,
-.sub-qty-controls input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+.sub-qty-controls input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+/* ===== SECTION HEADERS ===== */
+.sub-section-header {
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin: 28px 0 12px 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e0d5c7;
+    color: #333;
 }
 
+.sub-section-header:first-of-type { margin-top: 0; }
+
+/* ===== STICKY BOTTOM BAR ===== */
 .sub-checkout-bar {
     position: sticky;
     bottom: 0;
     background: #fff;
     border-top: 2px solid #e0d5c7;
-    padding: 16px 0;
+    padding: 14px 0;
     z-index: 100;
     box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
+    transition: border-color 0.2s;
 }
 
-.sub-checkout-bar.has-items {
-    border-top-color: #2d6a4f;
-}
+.sub-checkout-bar.has-items { border-top-color: #2d6a4f; }
 
 .sub-checkout-summary {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 10px;
 }
 
-.sub-checkout-details {
-    font-size: 0.95rem;
-    color: #666;
-}
+.sub-checkout-details { font-size: 0.95rem; color: #666; }
+.sub-checkout-details strong { color: #111; font-size: 1.1rem; }
 
-.sub-checkout-details strong {
-    color: #111;
-    font-size: 1.1rem;
-}
-
-.sub-checkout-btn {
+.sub-bar-btn {
     opacity: 0.4;
     pointer-events: none;
     transition: opacity 0.2s;
 }
 
-.sub-checkout-btn.active {
-    opacity: 1;
-    pointer-events: auto;
+.sub-bar-btn.active { opacity: 1; pointer-events: auto; }
+
+/* ===== CART OVERLAY ===== */
+.sub-overlay-bg {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.25s;
 }
 
+.sub-overlay-bg.open { display: block; opacity: 1; }
+
+.sub-cart-panel {
+    position: fixed;
+    top: 0;
+    right: -420px;
+    width: 400px;
+    max-width: 92vw;
+    height: 100%;
+    background: #fff;
+    z-index: 1000;
+    box-shadow: -4px 0 24px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    transition: right 0.3s ease;
+}
+
+.sub-cart-panel.open { right: 0; }
+
+.sub-cart-header {
+    padding: 20px 20px 16px;
+    border-bottom: 1px solid #e0d5c7;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.sub-cart-header h3 { margin: 0; font-size: 1.15rem; font-weight: 700; }
+
+.sub-cart-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+    padding: 0 4px;
+    line-height: 1;
+}
+
+.sub-cart-close:hover { color: #111; }
+
+.sub-cart-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 20px;
+}
+
+.sub-cart-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0ebe4;
+}
+
+.sub-cart-item:last-child { border-bottom: none; }
+
+.sub-cart-item-img {
+    width: 48px;
+    height: 48px;
+    border-radius: 6px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.sub-cart-item-info { flex: 1; min-width: 0; }
+.sub-cart-item-name { font-weight: 600; font-size: 0.9rem; margin: 0; }
+.sub-cart-item-meta { font-size: 0.78rem; color: #888; margin: 1px 0 0 0; }
+.sub-cart-item-line { font-weight: 700; font-size: 0.9rem; color: #2d6a4f; white-space: nowrap; }
+
+.sub-cart-empty {
+    text-align: center;
+    color: #aaa;
+    padding: 40px 0;
+    font-size: 0.95rem;
+}
+
+.sub-cart-footer {
+    padding: 16px 20px 20px;
+    border-top: 2px solid #e0d5c7;
+    flex-shrink: 0;
+}
+
+.sub-cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    font-size: 1.05rem;
+}
+
+.sub-cart-total strong { font-size: 1.15rem; color: #2d6a4f; }
+
+.sub-cart-checkout-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+}
+
+.sub-cart-note {
+    text-align: center;
+    font-size: 0.78rem;
+    color: #999;
+    margin-top: 10px;
+}
+
+/* ===== BENEFITS BOX ===== */
 .subscription-benefits {
     background: #fdf6ee;
     border-radius: 12px;
@@ -159,16 +285,13 @@
     margin-bottom: 1.5rem;
 }
 
-.subscription-benefits ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
+.subscription-benefits ul { list-style: none; padding: 0; margin: 0; }
 
 .subscription-benefits ul li {
-    padding: 6px 0;
+    padding: 5px 0;
     position: relative;
-    padding-left: 28px;
+    padding-left: 26px;
+    font-size: 0.92rem;
 }
 
 .subscription-benefits ul li::before {
@@ -193,156 +316,219 @@
 {{- partial "alert.html" . -}}
 {{- partial "header_new.html" . -}}
 
+<!-- Hero Banner -->
+<div class="sub-hero" style="
+    background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.35)), url(/img/home/hero.webp) center/cover no-repeat;
+    padding: 80px 0;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 2rem;
+">
+    <div class="container">
+        <span class="subscription-badge mb-3" style="background-color: rgba(255,255,255,0.2); backdrop-filter: blur(4px);">Monthly Subscription</span>
+        <h1 class="fw-bold mt-2" style="font-size: 2.4rem;">Build Your Tallow Subscription</h1>
+        <p class="fw-lighter h5 mb-0" style="opacity: 0.92;">Pick your products, choose your quantities — delivered every month.</p>
+    </div>
+</div>
+
 <div class="container product-page">
     <div class="row topbanner rel">
         <p class="text-dark col-12 ninety mt-1">
             <a href="/shop" class="text-dark text-decoration-underline">Shop</a> >
             <a href="/subscribe" class="text-dark text-decoration-underline">Subscribe</a> >
-            Tallow Balm
+            Build Your Box
         </p>
     </div>
 
     <div class="row justify-content-center">
         <div class="col-12 col-lg-8">
-            <span class="subscription-badge mb-2">Monthly Subscription</span>
-            <h1 class="fw-bold mt-2">Whipped Tallow Balm</h1>
-            <p class="fw-lighter h5">Build your monthly box — pick your scents and quantities.</p>
-            <p class="text-muted">Delivered monthly | Cancel anytime</p>
 
             <div class="subscription-benefits mt-3">
                 <ul>
-                    <li>Fresh 120ml jars delivered to your door every month</li>
+                    <li>Delivered to your door every month</li>
                     <li>Cancel or pause anytime — no lock-in</li>
                     <li>Free shipping on every delivery</li>
-                    <li>Change your scents anytime</li>
+                    <li>Change your products anytime</li>
                 </ul>
             </div>
 
-            <hr class="my-4">
-            <h5 class="fw-bold mb-3">Select your scents & quantities</h5>
-
-            <!-- ============================================
-                 SCENT CARDS
+            <!-- ==============================================
+                 PRODUCT LIST
                  
-                 To update: change data-price and data-price-id
-                 on each card. That's it — everything else is 
-                 driven from those two attributes.
-                 ============================================ -->
-            <div id="scentList">
+                 To add/edit products:
+                 - data-price    = monthly price
+                 - data-price-id = Stripe recurring price ID
+                 - data-size     = jar size (for cart)
+                 - data-img      = product image path
+                 ============================================== -->
 
-                <div class="sub-scent-card" data-scent="vanilla-rose" data-price="19.95" data-price-id="price_1SxJSpFZRwx5tlYm3WpElJHH">
-                    <div class="sub-scent-info">
-                        <p class="sub-scent-name">Vanilla & Rose</p>
-                        <p class="sub-scent-price">$19.95/month</p>
-                    </div>
-                    <div class="sub-qty-controls">
-                        <button type="button" class="sub-qty-minus">−</button>
-                        <input type="number" class="sub-qty-input" value="0" min="0">
-                        <button type="button" class="sub-qty-plus">+</button>
-                    </div>
+            <!-- WHIPPED TALLOW BALM — 120ml -->
+            <p class="sub-section-header">Whipped Tallow Balm — 120ml</p>
+
+            <div class="sub-product-card" data-scent="vanilla-rose" data-price="19.95" data-price-id="price_1SxJSpFZRwx5tlYm3WpElJHH" data-size="120ml" data-img="/img/prod/balm/vanilla-rose.webp" data-title="Whipped Tallow Balm">
+                <img class="sub-product-img" src="/img/prod/balm/vanilla-rose.webp" alt="Vanilla & Rose">
+                <div class="sub-product-info">
+                    <p class="sub-product-name">Vanilla & Rose</p>
+                    <p class="sub-product-meta">120ml · Whipped</p>
+                    <p class="sub-product-price">$19.95/mo</p>
                 </div>
-
-                <div class="sub-scent-card" data-scent="lavender" data-price="19.95" data-price-id="price_1SxJT2FZRwx5tlYmVeY4rdQu">
-                    <div class="sub-scent-info">
-                        <p class="sub-scent-name">Lavender</p>
-                        <p class="sub-scent-price">$19.95/month</p>
-                    </div>
-                    <div class="sub-qty-controls">
-                        <button type="button" class="sub-qty-minus">−</button>
-                        <input type="number" class="sub-qty-input" value="0" min="0">
-                        <button type="button" class="sub-qty-plus">+</button>
-                    </div>
+                <div class="sub-qty-controls">
+                    <button type="button" class="sub-qty-minus">−</button>
+                    <input type="number" class="sub-qty-input" value="0" min="0">
+                    <button type="button" class="sub-qty-plus">+</button>
                 </div>
-
-                <div class="sub-scent-card" data-scent="frankincense" data-price="19.95" data-price-id="price_1SxJTFFZRwx5tlYm0AtUpzph">
-                    <div class="sub-scent-info">
-                        <p class="sub-scent-name">Frankincense</p>
-                        <p class="sub-scent-price">$19.95/month</p>
-                    </div>
-                    <div class="sub-qty-controls">
-                        <button type="button" class="sub-qty-minus">−</button>
-                        <input type="number" class="sub-qty-input" value="0" min="0">
-                        <button type="button" class="sub-qty-plus">+</button>
-                    </div>
-                </div>
-
-                <div class="sub-scent-card" data-scent="neutral" data-price="19.95" data-price-id="price_1SxJSYFZRwx5tlYmIntDkWUz">
-                    <div class="sub-scent-info">
-                        <p class="sub-scent-name">Natural (Unscented)</p>
-                        <p class="sub-scent-price">$19.95/month</p>
-                    </div>
-                    <div class="sub-qty-controls">
-                        <button type="button" class="sub-qty-minus">−</button>
-                        <input type="number" class="sub-qty-input" value="0" min="0">
-                        <button type="button" class="sub-qty-plus">+</button>
-                    </div>
-                </div>
-
-                <div class="sub-scent-card" data-scent="manuka-vanilla" data-price="24.95" data-price-id="price_1SxJTRFZRwx5tlYmPgN0cZ0F">
-                    <div class="sub-scent-info">
-                        <p class="sub-scent-name">Mānuka & Vanilla <span class="sub-scent-tag">Premium</span></p>
-                        <p class="sub-scent-price">$24.95/month</p>
-                    </div>
-                    <div class="sub-qty-controls">
-                        <button type="button" class="sub-qty-minus">−</button>
-                        <input type="number" class="sub-qty-input" value="0" min="0">
-                        <button type="button" class="sub-qty-plus">+</button>
-                    </div>
-                </div>
-
-                <div class="sub-scent-card" data-scent="manuka-blue-tansy" data-price="24.95" data-price-id="price_1SxJTgFZRwx5tlYmln0EdQ4f">
-                    <div class="sub-scent-info">
-                        <p class="sub-scent-name">Mānuka & Blue Tansy <span class="sub-scent-tag">Premium</span></p>
-                        <p class="sub-scent-price">$24.95/month</p>
-                    </div>
-                    <div class="sub-qty-controls">
-                        <button type="button" class="sub-qty-minus">−</button>
-                        <input type="number" class="sub-qty-input" value="0" min="0">
-                        <button type="button" class="sub-qty-plus">+</button>
-                    </div>
-                </div>
-
-                <div class="sub-scent-card" data-scent="unwhipped-natural" data-price="16.95" data-price-id="price_1SxJXyFZRwx5tlYmcT5d19zw">
-                    <div class="sub-scent-info">
-                        <p class="sub-scent-name">Unwhipped — Natural</p>
-                        <p class="sub-scent-price">$16.95/month <span class="text-muted" style="font-size:0.8rem;">(60ml)</span></p>
-                    </div>
-                    <div class="sub-qty-controls">
-                        <button type="button" class="sub-qty-minus">−</button>
-                        <input type="number" class="sub-qty-input" value="0" min="0">
-                        <button type="button" class="sub-qty-plus">+</button>
-                    </div>
-                </div>
-
-                <div class="sub-scent-card" data-scent="unwhipped-vanilla-rose" data-price="16.95" data-price-id="price_1SxJYkFZRwx5tlYmnCK1Re9T">
-                    <div class="sub-scent-info">
-                        <p class="sub-scent-name">Unwhipped — Vanilla & Rose</p>
-                        <p class="sub-scent-price">$16.95/month <span class="text-muted" style="font-size:0.8rem;">(60ml)</span></p>
-                    </div>
-                    <div class="sub-qty-controls">
-                        <button type="button" class="sub-qty-minus">−</button>
-                        <input type="number" class="sub-qty-input" value="0" min="0">
-                        <button type="button" class="sub-qty-plus">+</button>
-                    </div>
-                </div>
-
             </div>
+
+            <div class="sub-product-card" data-scent="lavender" data-price="19.95" data-price-id="price_1SxJT2FZRwx5tlYmVeY4rdQu" data-size="120ml" data-img="/img/prod/balm/lavender.webp" data-title="Whipped Tallow Balm">
+                <img class="sub-product-img" src="/img/prod/balm/lavender.webp" alt="Lavender">
+                <div class="sub-product-info">
+                    <p class="sub-product-name">Lavender</p>
+                    <p class="sub-product-meta">120ml · Whipped</p>
+                    <p class="sub-product-price">$19.95/mo</p>
+                </div>
+                <div class="sub-qty-controls">
+                    <button type="button" class="sub-qty-minus">−</button>
+                    <input type="number" class="sub-qty-input" value="0" min="0">
+                    <button type="button" class="sub-qty-plus">+</button>
+                </div>
+            </div>
+
+            <div class="sub-product-card" data-scent="frankincense" data-price="19.95" data-price-id="price_1SxJTFFZRwx5tlYm0AtUpzph" data-size="120ml" data-img="/img/prod/balm/frankincense.webp" data-title="Whipped Tallow Balm">
+                <img class="sub-product-img" src="/img/prod/balm/frankincense.webp" alt="Frankincense">
+                <div class="sub-product-info">
+                    <p class="sub-product-name">Frankincense</p>
+                    <p class="sub-product-meta">120ml · Whipped</p>
+                    <p class="sub-product-price">$19.95/mo</p>
+                </div>
+                <div class="sub-qty-controls">
+                    <button type="button" class="sub-qty-minus">−</button>
+                    <input type="number" class="sub-qty-input" value="0" min="0">
+                    <button type="button" class="sub-qty-plus">+</button>
+                </div>
+            </div>
+
+            <div class="sub-product-card" data-scent="neutral" data-price="19.95" data-price-id="price_1SxJSYFZRwx5tlYmIntDkWUz" data-size="120ml" data-img="/img/prod/balm/natural.webp" data-title="Whipped Tallow Balm">
+                <img class="sub-product-img" src="/img/prod/balm/natural.webp" alt="Natural">
+                <div class="sub-product-info">
+                    <p class="sub-product-name">Natural (Unscented)</p>
+                    <p class="sub-product-meta">120ml · Whipped</p>
+                    <p class="sub-product-price">$19.95/mo</p>
+                </div>
+                <div class="sub-qty-controls">
+                    <button type="button" class="sub-qty-minus">−</button>
+                    <input type="number" class="sub-qty-input" value="0" min="0">
+                    <button type="button" class="sub-qty-plus">+</button>
+                </div>
+            </div>
+
+            <!-- PREMIUM — MĀNUKA BLENDS 120ml -->
+            <p class="sub-section-header">Premium Mānuka Blends — 120ml</p>
+
+            <div class="sub-product-card" data-scent="manuka-vanilla" data-price="24.95" data-price-id="price_1SxJTRFZRwx5tlYmPgN0cZ0F" data-size="120ml" data-img="/img/prod/balm/manuka-vanilla.webp" data-title="Whipped Tallow Balm">
+                <img class="sub-product-img" src="/img/prod/balm/manuka-vanilla.webp" alt="Mānuka & Vanilla">
+                <div class="sub-product-info">
+                    <p class="sub-product-name">Mānuka & Vanilla <span class="sub-product-tag">Premium</span></p>
+                    <p class="sub-product-meta">120ml · Whipped</p>
+                    <p class="sub-product-price">$24.95/mo</p>
+                </div>
+                <div class="sub-qty-controls">
+                    <button type="button" class="sub-qty-minus">−</button>
+                    <input type="number" class="sub-qty-input" value="0" min="0">
+                    <button type="button" class="sub-qty-plus">+</button>
+                </div>
+            </div>
+
+            <div class="sub-product-card" data-scent="manuka-blue-tansy" data-price="24.95" data-price-id="price_1SxJTgFZRwx5tlYmln0EdQ4f" data-size="120ml" data-img="/img/prod/balm/manuka-blue-tansy.webp" data-title="Whipped Tallow Balm">
+                <img class="sub-product-img" src="/img/prod/balm/manuka-blue-tansy.webp" alt="Mānuka & Blue Tansy">
+                <div class="sub-product-info">
+                    <p class="sub-product-name">Mānuka & Blue Tansy <span class="sub-product-tag">Premium</span></p>
+                    <p class="sub-product-meta">120ml · Whipped</p>
+                    <p class="sub-product-price">$24.95/mo</p>
+                </div>
+                <div class="sub-qty-controls">
+                    <button type="button" class="sub-qty-minus">−</button>
+                    <input type="number" class="sub-qty-input" value="0" min="0">
+                    <button type="button" class="sub-qty-plus">+</button>
+                </div>
+            </div>
+
+            <!-- UNWHIPPED TALLOW BALM — 60ml -->
+            <p class="sub-section-header">Unwhipped Tallow Balm — 60ml</p>
+
+            <div class="sub-product-card" data-scent="unwhipped-natural" data-price="16.95" data-price-id="price_1SxJXyFZRwx5tlYmcT5d19zw" data-size="60ml" data-img="/img/prod/balm/unwhipped-natural.webp" data-title="Unwhipped Tallow Balm">
+                <img class="sub-product-img" src="/img/prod/balm/unwhipped-natural.webp" alt="Unwhipped Natural">
+                <div class="sub-product-info">
+                    <p class="sub-product-name">Unwhipped — Natural</p>
+                    <p class="sub-product-meta">60ml · Unwhipped</p>
+                    <p class="sub-product-price">$16.95/mo</p>
+                </div>
+                <div class="sub-qty-controls">
+                    <button type="button" class="sub-qty-minus">−</button>
+                    <input type="number" class="sub-qty-input" value="0" min="0">
+                    <button type="button" class="sub-qty-plus">+</button>
+                </div>
+            </div>
+
+            <div class="sub-product-card" data-scent="unwhipped-vanilla-rose" data-price="16.95" data-price-id="price_1SxJYkFZRwx5tlYmnCK1Re9T" data-size="60ml" data-img="/img/prod/balm/unwhipped-vanilla-rose.webp" data-title="Unwhipped Tallow Balm">
+                <img class="sub-product-img" src="/img/prod/balm/unwhipped-vanilla-rose.webp" alt="Unwhipped Vanilla & Rose">
+                <div class="sub-product-info">
+                    <p class="sub-product-name">Unwhipped — Vanilla & Rose</p>
+                    <p class="sub-product-meta">60ml · Unwhipped</p>
+                    <p class="sub-product-price">$16.95/mo</p>
+                </div>
+                <div class="sub-qty-controls">
+                    <button type="button" class="sub-qty-minus">−</button>
+                    <input type="number" class="sub-qty-input" value="0" min="0">
+                    <button type="button" class="sub-qty-plus">+</button>
+                </div>
+            </div>
+
+            <!-- 
+            ==========================================
+            ADD MORE PRODUCT SECTIONS HERE
+            e.g. Eye Cream, Serum, Shampoo Bar, etc.
+            Just copy a section header + product cards
+            ==========================================
+            -->
+
         </div>
     </div>
 </div>
 
-<!-- Sticky Checkout Bar -->
+<!-- ===== STICKY BOTTOM BAR ===== -->
 <div class="sub-checkout-bar" id="checkoutBar">
     <div class="container">
         <div class="sub-checkout-summary">
             <div class="sub-checkout-details">
-                <span id="checkoutItemCount">0 jars</span> &bull;
+                <span id="checkoutItemCount">0 items</span> &bull;
                 <strong id="checkoutTotal">$0.00/month</strong>
             </div>
-            <button type="button" class="btn btn-black btn-lg sub-checkout-btn" id="checkoutBtn">
-                Proceed to Checkout
+            <button type="button" class="btn btn-black btn-lg sub-bar-btn" id="reviewCartBtn">
+                Review Subscription
             </button>
         </div>
+    </div>
+</div>
+
+<!-- ===== CART OVERLAY ===== -->
+<div class="sub-overlay-bg" id="overlayBg"></div>
+<div class="sub-cart-panel" id="cartPanel">
+    <div class="sub-cart-header">
+        <h3>Your Subscription</h3>
+        <button class="sub-cart-close" id="cartClose">&times;</button>
+    </div>
+    <div class="sub-cart-items" id="cartItems">
+        <div class="sub-cart-empty">Select some products to get started</div>
+    </div>
+    <div class="sub-cart-footer">
+        <div class="sub-cart-total">
+            <span>Monthly total</span>
+            <strong id="cartTotal">$0.00</strong>
+        </div>
+        <button type="button" class="btn btn-black sub-cart-checkout-btn" id="stripeCheckoutBtn" disabled>
+            Proceed to Checkout
+        </button>
+        <p class="sub-cart-note">Secure checkout via Stripe · Cancel anytime</p>
     </div>
 </div>
 
@@ -356,111 +542,168 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
-    const scentCards = document.querySelectorAll('.sub-scent-card');
+    /* ===== ELEMENTS ===== */
+    const productCards = document.querySelectorAll('.sub-product-card');
     const checkoutBar = document.getElementById('checkoutBar');
-    const checkoutBtn = document.getElementById('checkoutBtn');
+    const reviewCartBtn = document.getElementById('reviewCartBtn');
     const checkoutItemCount = document.getElementById('checkoutItemCount');
     const checkoutTotal = document.getElementById('checkoutTotal');
+    const overlayBg = document.getElementById('overlayBg');
+    const cartPanel = document.getElementById('cartPanel');
+    const cartClose = document.getElementById('cartClose');
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    const stripeCheckoutBtn = document.getElementById('stripeCheckoutBtn');
 
-    // Quantity buttons
-    scentCards.forEach(function (card) {
+    /* ===== QUANTITY BUTTONS ===== */
+    productCards.forEach(function (card) {
         const minusBtn = card.querySelector('.sub-qty-minus');
         const plusBtn = card.querySelector('.sub-qty-plus');
         const input = card.querySelector('.sub-qty-input');
 
         plusBtn.addEventListener('click', function () {
             input.value = parseInt(input.value) + 1;
-            updateCard(card);
-            updateCheckoutBar();
+            refreshUI();
         });
 
         minusBtn.addEventListener('click', function () {
             const val = parseInt(input.value);
             if (val > 0) input.value = val - 1;
-            updateCard(card);
-            updateCheckoutBar();
+            refreshUI();
         });
 
         input.addEventListener('change', function () {
             let val = parseInt(input.value);
             if (isNaN(val) || val < 0) val = 0;
             input.value = val;
-            updateCard(card);
-            updateCheckoutBar();
+            refreshUI();
         });
     });
 
-    function updateCard(card) {
-        const qty = parseInt(card.querySelector('.sub-qty-input').value);
-        card.classList.toggle('has-quantity', qty > 0);
+    /* ===== GATHER SELECTIONS ===== */
+    function getSelections() {
+        const items = [];
+        productCards.forEach(function (card) {
+            const qty = parseInt(card.querySelector('.sub-qty-input').value);
+            if (qty > 0) {
+                items.push({
+                    name: card.querySelector('.sub-product-name').textContent.trim(),
+                    meta: card.querySelector('.sub-product-meta').textContent.trim(),
+                    price: parseFloat(card.getAttribute('data-price')),
+                    priceId: card.getAttribute('data-price-id'),
+                    size: card.getAttribute('data-size'),
+                    title: card.getAttribute('data-title'),
+                    img: card.getAttribute('data-img'),
+                    qty: qty
+                });
+            }
+        });
+        return items;
     }
 
-    function updateCheckoutBar() {
-        let totalJars = 0;
+    /* ===== REFRESH ALL UI ===== */
+    function refreshUI() {
+        const items = getSelections();
+        let totalItems = 0;
         let totalPrice = 0;
 
-        scentCards.forEach(function (card) {
-            const qty = parseInt(card.querySelector('.sub-qty-input').value);
-            const price = parseFloat(card.getAttribute('data-price'));
-            if (qty > 0) {
-                totalJars += qty;
-                totalPrice += qty * price;
-            }
+        items.forEach(function (item) {
+            totalItems += item.qty;
+            totalPrice += item.qty * item.price;
         });
 
-        checkoutItemCount.textContent = totalJars === 1 ? '1 jar' : totalJars + ' jars';
+        // Update cards
+        productCards.forEach(function (card) {
+            const qty = parseInt(card.querySelector('.sub-qty-input').value);
+            card.classList.toggle('has-quantity', qty > 0);
+        });
+
+        // Update bottom bar
+        checkoutItemCount.textContent = totalItems === 1 ? '1 item' : totalItems + ' items';
         checkoutTotal.textContent = '$' + totalPrice.toFixed(2) + '/month';
-        checkoutBar.classList.toggle('has-items', totalJars > 0);
-        checkoutBtn.classList.toggle('active', totalJars > 0);
+        checkoutBar.classList.toggle('has-items', totalItems > 0);
+        reviewCartBtn.classList.toggle('active', totalItems > 0);
+
+        // Update cart overlay
+        renderCart(items, totalPrice);
+
+        // Enable/disable checkout
+        stripeCheckoutBtn.disabled = totalItems === 0;
     }
 
-    // Checkout — adds all selected scents to cart, then redirects
-    checkoutBtn.addEventListener('click', function () {
-        const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
-        let addedAny = false;
-
-        scentCards.forEach(function (card) {
-            const qty = parseInt(card.querySelector('.sub-qty-input').value);
-            if (qty <= 0) return;
-
-            const priceId = card.getAttribute('data-price-id');
-            const price = parseFloat(card.getAttribute('data-price'));
-            const scent = card.getAttribute('data-scent');
-            const scentName = card.querySelector('.sub-scent-name').textContent.trim();
-            const size = scent.startsWith('unwhipped') ? '60ml' : '120ml';
-
-            if (!priceId || priceId.startsWith('PRICE_ID_')) {
-                console.warn('Missing Stripe price ID for: ' + scentName);
-                // Still allow adding during dev — remove this fallback in production
-            }
-
-            cart.push({
-                priceId: priceId,
-                title: 'Whipped Tallow Balm',
-                size: size,
-                flavor: scentName,
-                orderType: 'Monthly Subscription',
-                quantity: qty,
-                unitPrice: price,
-                isSubscription: true,
-                eligibleForDiscount: false
-            });
-
-            addedAny = true;
-        });
-
-        if (!addedAny) {
-            alert('Please select at least one jar to continue.');
+    /* ===== RENDER CART OVERLAY ===== */
+    function renderCart(items, totalPrice) {
+        if (items.length === 0) {
+            cartItems.innerHTML = '<div class="sub-cart-empty">Select some products to get started</div>';
+            cartTotal.textContent = '$0.00';
             return;
         }
 
-        localStorage.setItem('cartV2', JSON.stringify(cart));
-        console.log('Cart updated:', cart);
-        window.location.href = '/cart';
+        let html = '';
+        items.forEach(function (item) {
+            const lineTotal = (item.qty * item.price).toFixed(2);
+            html += `
+                <div class="sub-cart-item">
+                    <img class="sub-cart-item-img" src="${item.img}" alt="${item.name}">
+                    <div class="sub-cart-item-info">
+                        <p class="sub-cart-item-name">${item.name}</p>
+                        <p class="sub-cart-item-meta">${item.meta} · Qty: ${item.qty}</p>
+                    </div>
+                    <span class="sub-cart-item-line">$${lineTotal}</span>
+                </div>
+            `;
+        });
+
+        cartItems.innerHTML = html;
+        cartTotal.textContent = '$' + totalPrice.toFixed(2) + '/mo';
+    }
+
+    /* ===== OPEN / CLOSE CART ===== */
+    function openCart() {
+        overlayBg.classList.add('open');
+        cartPanel.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeCart() {
+        overlayBg.classList.remove('open');
+        cartPanel.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    reviewCartBtn.addEventListener('click', openCart);
+    cartClose.addEventListener('click', closeCart);
+    overlayBg.addEventListener('click', closeCart);
+
+    /* ===== STRIPE CHECKOUT ===== */
+    const stripe = Stripe('{{ site.Params.stripe_public_key }}');
+
+    stripeCheckoutBtn.addEventListener('click', function () {
+        const items = getSelections();
+        if (items.length === 0) return;
+
+        // Build Stripe line items
+        const lineItems = items.map(function (item) {
+            return {
+                price: item.priceId,
+                quantity: item.qty
+            };
+        });
+
+        stripe.redirectToCheckout({
+            lineItems: lineItems,
+            mode: 'subscription',
+            successUrl: window.location.origin + '/subscribe/success?session_id={CHECKOUT_SESSION_ID}',
+            cancelUrl: window.location.origin + '/subscribe/tallow-skin',
+        }).then(function (result) {
+            if (result.error) {
+                alert(result.error.message);
+            }
+        });
     });
 
-    // Init
-    updateCheckoutBar();
+    /* ===== INIT ===== */
+    refreshUI();
 });
 </script>
 
