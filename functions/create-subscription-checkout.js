@@ -9,7 +9,7 @@ exports.handler = async (event, context) => {
       throw new Error('Cart is empty or not provided.');
     }
 
-    // Validate all items have recurring price IDs
+    // Validate all items
     for (const item of cart) {
       if (!item.priceId || typeof item.quantity !== 'number' || item.quantity <= 0) {
         throw new Error(`Invalid cart item: ${JSON.stringify(item)}`);
@@ -47,9 +47,10 @@ exports.handler = async (event, context) => {
 
     console.log(`Subscription checkout session created: ${session.id}`);
 
+    // Return both sessionId and url so frontend can redirect without Stripe.js
     return {
       statusCode: 200,
-      body: JSON.stringify({ sessionId: session.id }),
+      body: JSON.stringify({ sessionId: session.id, url: session.url }),
     };
   } catch (error) {
     console.error('Error creating subscription checkout session:', error.message);
