@@ -13,7 +13,30 @@
     <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
     <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
   
-  <link rel="preload" href="/img/home/hero.webp"  fetchpriority="high" as="image" type="image/webp"></head>
+  <link rel="preload" href="/img/home/hero.webp"  fetchpriority="high" as="image" type="image/webp">
+  <style>
+    .mission-pill {
+      background-color: #f5e6d3;
+      color: #4a2c2a;
+      font-size: 1.25rem;
+      font-weight: 600;
+      padding: 10px 28px;
+      border-radius: 50px;
+      display: inline-block;
+      font-style: italic;
+    }
+    .mission-check {
+      background-color: #4a2c2a;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
 <body>
   
      {{- partial "alert.html" . -}}
@@ -77,23 +100,37 @@
         <div class="container-fluid">
           <div class="row  py-80">
             <div class="col-lg-6 text-center d-none d-lg-flex"><img src="/img/home/team1.webp" height="490" width="633"  alt="team image"></div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 d-flex align-items-center">
               <div class="p-md-5 p-2 col-12">
-                <h3 class="heading-title">Our Mission</h3>
-                <p class="fs-2">“To help as many kiwis with dry
-                & irritated skin as possible.”</p>
-                <ul class="list-inline mt-3 mt-md-5 fs-4 d-flex justify-content-between w-100 fw-bold">
-                  <li class="list-inline-item">
-                  All natural
-                  </li>
-                  <li  class="list-inline-item" >
-                    No nasties
-                  </li>
-                  <li  class="list-inline-item">
-                    Affordable
-                  </li>
-                
-                </ul>
+                <h3 class="heading-title fw-bold">Our mission</h3>
+                <p class="fs-2">To help as many kiwis with dry
+                &amp; irritated skin as possible</p>
+                <div class="d-flex flex-column gap-3 mt-4">
+                  <div class="d-flex align-items-center gap-3">
+                    <span class="mission-pill">All natural</span>
+                    <span class="mission-check">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 16 16">
+                        <path d="M13.485 3.515a1 1 0 0 1 0 1.414l-7.07 7.07a1 1 0 0 1-1.415 0L2.515 9.515a1 1 0 1 1 1.414-1.414L6 10.172l6.071-6.071a1 1 0 0 1 1.414 0z"/>
+                      </svg>
+                    </span>
+                  </div>
+                  <div class="d-flex align-items-center gap-3">
+                    <span class="mission-pill">No nasties</span>
+                    <span class="mission-check">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 16 16">
+                        <path d="M13.485 3.515a1 1 0 0 1 0 1.414l-7.07 7.07a1 1 0 0 1-1.415 0L2.515 9.515a1 1 0 1 1 1.414-1.414L6 10.172l6.071-6.071a1 1 0 0 1 1.414 0z"/>
+                      </svg>
+                    </span>
+                  </div>
+                  <div class="d-flex align-items-center gap-3">
+                    <span class="mission-pill">Affordable</span>
+                    <span class="mission-check">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 16 16">
+                        <path d="M13.485 3.515a1 1 0 0 1 0 1.414l-7.07 7.07a1 1 0 0 1-1.415 0L2.515 9.515a1 1 0 1 1 1.414-1.414L6 10.172l6.071-6.071a1 1 0 0 1 1.414 0z"/>
+                      </svg>
+                    </span>
+                  </div>
+                </div>
            </div>
             
           </div>
@@ -103,7 +140,7 @@
       <div class="section py-80 lower-banner">
         <div class="container-fluid">
           <div class="row px-lg-5 justify-content-center align-items-center">
-            <div class="col-lg-5 pt-md-5 text-center"><h3 class="heading-title fw-bold mb-2 mb-md-4">…and we’re well on our way</h3>
+            <div class="col-lg-5 pt-md-5 text-center"><h3 class="heading-title fw-bold mb-2 mb-md-4">…and we're well on our way</h3>
               <p class="fs-3 mb-md-5 mb-2">  Our progress so far: <br>
                85,000+ Kiwis helped <br>
               </p>
@@ -120,16 +157,16 @@
           <div class="row ">
             <div class="col-lg-6 text-center col-12"><img src="/img/talbaby.webp" alt="baby before and after image"  width="400" height="710"></div>
             <div class="col-lg-6 col-12">
-              <h2 class="fw-bold heading-title mb-5">“Best on the market & the best price”</h2>
+              <h2 class="fw-bold heading-title mb-5">"Best on the market & the best price"</h2>
               <div class="bg-gray-200 rounded-20 p-md-5 p-3 fs-5 position-relative mb-5">
                 <div class="floated-jar"><img src="/img/home/minijar.webp" width="200" alt="minijar"></div>
                 <span class="h4 fw-bold">Margaret</span>
-                <p class="mt-3">“I’ve looked at quite a few different brands that are popping up on my
+                <p class="mt-3">"I've looked at quite a few different brands that are popping up on my
                   phone and they all seem to be quite orientated about making money and
                   all seem to be quite highly priced.
                   </p><p>
                   Your product is the <span style="color:#AD10BA">best product on the market and is also at the best
-                    price.</span> Thank you for looking after us and not being greedy. “
+                    price.</span> Thank you for looking after us and not being greedy. "
                   </p>
                 
                 </div>
@@ -211,51 +248,6 @@
       </section>
 
     <!-- Add html for homepage above -->
-    <!-- <script src="https://player.vimeo.com/api/player.js"></script>
-    <script>
-       document.querySelectorAll('.image-container img').forEach(function(image) {
-            image.addEventListener('click', function() {
-                // Hide the image container
-                this.parentElement.style.display = 'none';
-                // Show the corresponding video container
-                var videoId = this.getAttribute('data-video-id');
-                document.getElementById(videoId).style.display = 'block';
-            });
-        });
-  </script> -->
-  <!-- Filtering script -->
-
-  <!-- <script>
-    $(document).ready(function() {
-        function updateVisibility() {
-            // Get the selected filter value
-            var selectedFilter = $('input[name="product-filter"]:checked').val();
-
-            // Hide all sections
-            $('#bundles, #broth, #tallow').hide();
-
-            // Show the appropriate section
-            if (selectedFilter === 'bundles') {
-                $('#bundles').show();
-            } else if (selectedFilter === 'broth') {
-                $('#broth').show();
-            } else if (selectedFilter === 'tallow') {
-                $('#tallow').show();
-            }
-        }
-
-        // Listen for changes on the radio buttons
-        $('input[name="product-filter"]').on('change', function() {
-            updateVisibility();
-        });
-
-        // Initialize visibility on page load
-        updateVisibility();
-    });
-</script> -->
-
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script> -->
-
 
     {{- partial "footer.html" . -}}
 
