@@ -3,7 +3,7 @@
 <head>
     {{- partial "head.html" . -}}
     <meta name="description" content="{{ .Params.description }}" />
-    <script src="https://js.stripe.com/v3/"></script>
+    <!-- Stripe checkout handled server-side via Netlify Function -->
 </head>
 <body>
 <style>
@@ -1074,7 +1074,7 @@ document.addEventListener('DOMContentLoaded', function () {
     cartClose.addEventListener('click', closeCart);
     overlayBg.addEventListener('click', closeCart);
 
-    /* ===== STRIPE CHECKOUT (via Netlify Function — required for subscriptions) ===== */
+    /* ===== STRIPE CHECKOUT (via Netlify Function) ===== */
     stripeCheckoutBtn.addEventListener('click', async function () {
         const items = getSelections();
         if (items.length === 0) return;
@@ -1107,13 +1107,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 throw new Error(data.error);
             }
 
-            // Redirect to Stripe hosted checkout
-            const stripe = Stripe('{{ site.Params.stripe_public_key }}');
-            const result = await stripe.redirectToCheckout({ sessionId: data.sessionId });
+            // Redirect directly to Stripe checkout URL (no Stripe.js needed)
+            window.location.href = data.url;
 
-            if (result.error) {
-                throw new Error(result.error.message);
-            }
         } catch (error) {
             console.error('Checkout error:', error);
             alert('Checkout error: ' + error.message);
