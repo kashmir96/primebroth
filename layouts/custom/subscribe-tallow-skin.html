@@ -2,40 +2,154 @@
 <html lang="en">
 <head>
     {{- partial "head.html" . -}}
-    <meta name="description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
-    <meta property="og:title" content="Subscribe & Save - Whipped Tallow Balm | PrimalCare" />
-    <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
-    <meta property="og:url" content="{{ .Site.Params.homepage_meta_tags.meta_og_url }}" />
-    <meta property="og:image" content="{{ .Site.Params.homepage_meta_tags.meta_og_image }}" />
-    <meta property="og:description" content="Subscribe monthly and never run out of your favourite tallow balm. From $19.95/month." />
-    <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
-    <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
-    <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta name="description" content="{{ .Params.description }}" />
 </head>
 <body>
 <style>
-.custom-radio.out-of-stock input[type="radio"]:checked + .custom-radio-label::before {
-    background-color: red;
+.sub-scent-card {
+    border: 2px solid #e0d5c7;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: border-color 0.2s, background-color 0.2s;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-.custom-radio.in-stock input[type="radio"]:checked + .custom-radio-label::before {
-    background-color: green;
+.sub-scent-card.has-quantity {
+    border-color: #2d6a4f;
+    background-color: #f6faf7;
 }
 
-.custom-radio-label {
-    color: inherit;
+.sub-scent-info {
+    flex: 1;
+    min-width: 160px;
 }
 
-.subscription-badge {
-    display: inline-block;
-    background-color: #2d6a4f;
-    color: #fff;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.85rem;
+.sub-scent-name {
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin: 0;
+}
+
+.sub-scent-price {
+    color: #2d6a4f;
     font-weight: 600;
-    letter-spacing: 0.02em;
+    font-size: 0.95rem;
+    margin: 2px 0 0 0;
+}
+
+.sub-scent-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 6px;
+    vertical-align: middle;
+    background: #e8c547;
+    color: #333;
+}
+
+.sub-qty-controls {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.sub-qty-controls button {
+    width: 36px;
+    height: 36px;
+    border: 2px solid #ccc;
+    background: #fff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    color: #333;
+}
+
+.sub-qty-controls button:hover {
+    border-color: #2d6a4f;
+    color: #2d6a4f;
+}
+
+.sub-qty-controls button.sub-qty-minus {
+    border-radius: 8px 0 0 8px;
+    border-right: none;
+}
+
+.sub-qty-controls button.sub-qty-plus {
+    border-radius: 0 8px 8px 0;
+    border-left: none;
+}
+
+.sub-qty-controls input {
+    width: 44px;
+    height: 36px;
+    text-align: center;
+    border: 2px solid #ccc;
+    border-left: none;
+    border-right: none;
+    font-size: 1rem;
+    font-weight: 600;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.sub-qty-controls input::-webkit-outer-spin-button,
+.sub-qty-controls input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.sub-checkout-bar {
+    position: sticky;
+    bottom: 0;
+    background: #fff;
+    border-top: 2px solid #e0d5c7;
+    padding: 16px 0;
+    z-index: 100;
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
+}
+
+.sub-checkout-bar.has-items {
+    border-top-color: #2d6a4f;
+}
+
+.sub-checkout-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.sub-checkout-details {
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.sub-checkout-details strong {
+    color: #111;
+    font-size: 1.1rem;
+}
+
+.sub-checkout-btn {
+    opacity: 0.4;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.sub-checkout-btn.active {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .subscription-benefits {
@@ -65,51 +179,14 @@
     font-weight: bold;
 }
 
-.scent-option-card {
-    border: 2px solid #e0d5c7;
-    border-radius: 10px;
-    padding: 14px 16px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    transition: border-color 0.2s, background-color 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.scent-option-card:hover {
-    border-color: #b8a89a;
-}
-
-.scent-option-card.selected {
-    border-color: #2d6a4f;
-    background-color: #f6faf7;
-}
-
-.scent-option-card input[type="radio"] {
-    display: none;
-}
-
-.scent-option-card .scent-name {
-    font-weight: 600;
-    font-size: 1.05rem;
-}
-
-.scent-option-card .scent-price {
-    font-weight: 700;
-    font-size: 1.1rem;
-    color: #2d6a4f;
-}
-
-.scent-option-card .scent-tag {
+.subscription-badge {
     display: inline-block;
-    background: #e8c547;
-    color: #333;
-    font-size: 0.75rem;
+    background-color: #2d6a4f;
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
     font-weight: 600;
-    padding: 2px 8px;
-    border-radius: 10px;
-    margin-left: 8px;
 }
 </style>
 
@@ -118,474 +195,276 @@
 
 <div class="container product-page">
     <div class="row topbanner rel">
-        <p class="text-dark col-12 ninety mt-1"><a href="/shop" class="text-dark text-decoration-underline">Shop</a> > <a href="/shop/tallow-balm" class="text-dark text-decoration-underline">Tallow balm</a> > Subscribe</p>
-        <div class="col-12 col-lg-6 product-photos mb-3">
-            {{- partial "tallowskinimages.html" . -}}
-        </div>
-        <div class="col-12 col-lg-6">
-            <span class="subscription-badge mb-2">Subscribe & Save</span>
-            <p class="fw-bold mt-2"><img class="stars pe-2" src="/img/stars/5.webp" alt="">Used by 20000+ kiwis.</p>
-            <h1 class="fw-bold mt-2">Whipped Tallow Balm</h1>
-            <p class="fw-lighter h1 h1big">Monthly Subscription</p>
-            <p class="text-muted">120ml | From PrimalCare</p>
-            <p class="fw-lighter">Never run out of your favourite balm — delivered to your door <span class="attention-primalcare">every month.</span></p>
+        <p class="text-dark col-12 ninety mt-1">
+            <a href="/shop" class="text-dark text-decoration-underline">Shop</a> >
+            <a href="/subscribe" class="text-dark text-decoration-underline">Subscribe</a> >
+            Tallow Balm
+        </p>
+    </div>
 
-            <!-- Subscription Benefits Box -->
-            <div class="subscription-benefits">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+            <span class="subscription-badge mb-2">Monthly Subscription</span>
+            <h1 class="fw-bold mt-2">Whipped Tallow Balm</h1>
+            <p class="fw-lighter h5">Build your monthly box — pick your scents and quantities.</p>
+            <p class="text-muted">Delivered monthly | Cancel anytime</p>
+
+            <div class="subscription-benefits mt-3">
                 <ul>
-                    <li>Fresh 120ml jar delivered monthly</li>
+                    <li>Fresh 120ml jars delivered to your door every month</li>
                     <li>Cancel or pause anytime — no lock-in</li>
                     <li>Free shipping on every delivery</li>
-                    <li>Manage your subscription online</li>
+                    <li>Change your scents anytime</li>
                 </ul>
             </div>
 
-            <!-- SUBSCRIPTION FORM STARTS -->
+            <hr class="my-4">
+            <h5 class="fw-bold mb-3">Select your scents & quantities</h5>
 
-            <div class="price-display fw-bold">
-                <p class="mb-2"><span id="price">-</span>/month</p>
-                <p class="fw-lighter">or 4 interest free payments of $<span id="afterpay_price"></span> with <img src="/img/afterpay.webp" class="d-inline" height="28" alt="afterpay"></p>
-            </div>
+            <!-- ============================================
+                 SCENT CARDS
+                 
+                 To update: change data-price and data-price-id
+                 on each card. That's it — everything else is 
+                 driven from those two attributes.
+                 ============================================ -->
+            <div id="scentList">
 
-            <form id="productForm" class="form-group mb-4" autocomplete="off">
-                <!-- Hidden fields for fixed values -->
-                <input type="hidden" name="orderType" value="monthly">
-                <input type="hidden" name="size" value="120ml">
-
-                <div class="text-left mb-3 mb-lg-4">
-                    <label class="mob-ninety mb-2 fw-bold">Select your scent:</label>
-
-                    <div class="scent-option-card selected" data-scent="vanilla-rose">
-                        <div>
-                            <input type="radio" id="vanilla-rose" name="flavor" value="vanilla-rose" checked>
-                            <span class="scent-name">Vanilla & Rose</span>
-                        </div>
-                        <span class="scent-price">$19.95</span>
+                <div class="sub-scent-card" data-scent="vanilla-rose" data-price="19.95" data-price-id="price_1SxJSpFZRwx5tlYm3WpElJHH">
+                    <div class="sub-scent-info">
+                        <p class="sub-scent-name">Vanilla & Rose</p>
+                        <p class="sub-scent-price">$19.95/month</p>
                     </div>
-
-                    <div class="scent-option-card" data-scent="lavender">
-                        <div>
-                            <input type="radio" id="lavender" name="flavor" value="lavender">
-                            <span class="scent-name">Lavender</span>
-                        </div>
-                        <span class="scent-price">$19.95</span>
-                    </div>
-
-                    <div class="scent-option-card" data-scent="frankincense">
-                        <div>
-                            <input type="radio" id="frankincense" name="flavor" value="frankincense">
-                            <span class="scent-name">Frankincense</span>
-                        </div>
-                        <span class="scent-price">$19.95</span>
-                    </div>
-
-                    <div class="scent-option-card" data-scent="neutral">
-                        <div>
-                            <input type="radio" id="neutral" name="flavor" value="neutral">
-                            <span class="scent-name">Natural (Unscented)</span>
-                        </div>
-                        <span class="scent-price">$19.95</span>
-                    </div>
-
-                    <div class="scent-option-card" data-scent="manuka">
-                        <div>
-                            <input type="radio" id="manuka" name="flavor" value="manuka">
-                            <span class="scent-name">Mānuka</span>
-                            <span class="scent-tag">Premium</span>
-                        </div>
-                        <span class="scent-price">$24.95</span>
+                    <div class="sub-qty-controls">
+                        <button type="button" class="sub-qty-minus">−</button>
+                        <input type="number" class="sub-qty-input" value="0" min="0">
+                        <button type="button" class="sub-qty-plus">+</button>
                     </div>
                 </div>
 
-                <!-- Quantity Selector -->
-                <div class="form-group mb-3 mb-lg-4">
-                    <div class="mt-4 custom-radio float-end">
-                        <input type="radio" id="inStock" name="stockStatus" checked>
-                        <label class="custom-radio-label mb-0" for="inStock">In Stock</label>
+                <div class="sub-scent-card" data-scent="lavender" data-price="19.95" data-price-id="price_1SxJT2FZRwx5tlYmVeY4rdQu">
+                    <div class="sub-scent-info">
+                        <p class="sub-scent-name">Lavender</p>
+                        <p class="sub-scent-price">$19.95/month</p>
                     </div>
-                    <label for="quantityAll" class="form-label">Number of jars per month:</label>
-                    <div class="quantity-container">
-                        <button type="button" class="btn-decrease">-</button>
-                        <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
-                        <button type="button" class="btn-increase">+</button>
+                    <div class="sub-qty-controls">
+                        <button type="button" class="sub-qty-minus">−</button>
+                        <input type="number" class="sub-qty-input" value="0" min="0">
+                        <button type="button" class="sub-qty-plus">+</button>
                     </div>
                 </div>
 
-                <!-- Subscribe Button -->
-                <div class="add-to-cart text-center mb-4">
-                    <button type="button" class="btn btn-black btn-lg buy-now mb-2" data-price-id="" data-quantity-id="quantityAll">Subscribe Now</button>
-                    <p>Cancel anytime | Free shipping | Money back guarantee</p>
-                    <img class="badges middle" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
-                </div>
-            </form>
-
-            <!-- SUBSCRIPTION FORM ENDS -->
-
-        </div>
-    </div>
-
-    <div class="row mt-4 py-0 d-flex justify-content-center">
-        <div class="col-12 col-md-6 text-center">
-            <div class="col-12 text-center">
-                <h2>As Featured on</h2>
-                <div class="col-12 d-none d-md-block">
-                    <img src="/img/shop/desktop-product-logos.webp" class="img-fluid">
-                </div>
-                <div class="col-12 d-block d-md-none">
-                    <img src="/img/shop/mobile-logos.webp" class="img-fluid">
-                </div>
-            </div>
-            <div class="row mt-4 mb-0 py-0">
-                <div class="col-6">
-                    <img src="/img/prod/balm/eczema.webp" alt="eczema">
-                </div>
-                <div class="col-6">
-                    <img src="/img/prod/balm/baby-eczema.webp" alt="baby eczema">
-                </div>
-                <p>With oils closely mimicking those produced by our bodies, our tallow <span class="attention-primalcare">soothes dry and irritated skin</span></p>
-            </div>
-        </div>
-
-        <div class="faq-tab-container col-12 col-md-6">
-            <!-- Nav tabs -->
-            <div class="faq-nav-tabs">
-                <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Fast facts</div>
-                <div class="faq-nav-tab" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</div>
-                <div class="faq-nav-tab" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</div>
-                <div class="faq-nav-tab" id="directions-tab" data-toggle="tab" href="#directions" role="tab" aria-controls="directions" aria-selected="false">Directions</div>
-                <div class="faq-nav-tab" id="subscription-tab" data-toggle="tab" href="#subscription" role="tab" aria-controls="subscription" aria-selected="false">Subscription</div>
-            </div>
-
-            <!-- Tab panes -->
-            <div class="tab-content faq-tab-content">
-                <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-                    <p>Don't waste another dollar on expensive moisturisers and steroid creams that often <span class="attention-primalcare">don't work</span> and are filled with <span class="attention-primalcare">chemical nasties!</span></p>
-                    <p>Watch as light and fluffy balm soaks deeply into your skin, going to work giving rapid <span class="attention-primalcare">hydrating and rejuvenating relief</span> to dry, cracked and itchy skin.</p>
-                    <p class="mt-4 h6">What makes Primalcare tallow balm different?</p>
-                    <ul>
-                        <li>It's a whipped tallow balm, most others aren't. Meaning it soaks in much better.</li>
-                        <li>We offer the best value tallow on the NZ market–get more, at better quality, for less.</li>
-                    </ul>
-                    <div class="row text-center justify-content-around mt-0 mb-0">
-                        <h3 class="h4">Meet your moisturiser match</h3>
-                        <p>See why <span class="attention-primalcare">20000+ kiwis just like you</span> switched to Primalcare</p>
-                        <img class="seventy" src="/img/comparison-card-primalcare-balm.svg" alt="balm">
+                <div class="sub-scent-card" data-scent="frankincense" data-price="19.95" data-price-id="price_1SxJTFFZRwx5tlYm0AtUpzph">
+                    <div class="sub-scent-info">
+                        <p class="sub-scent-name">Frankincense</p>
+                        <p class="sub-scent-price">$19.95/month</p>
+                    </div>
+                    <div class="sub-qty-controls">
+                        <button type="button" class="sub-qty-minus">−</button>
+                        <input type="number" class="sub-qty-input" value="0" min="0">
+                        <button type="button" class="sub-qty-plus">+</button>
                     </div>
                 </div>
 
-                <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                    <h4>See what our customers say online</h4>
-                    <img class="eighty middle" src="/img/prod/balm/balmreviews.webp" alt="reviews">
-                </div>
-
-                <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
-                    <h4>3 Nourishing Ingredients</h4>
-                    <p>A harmonic combination that soaks in for immediate hydration</p>
-                    <p>Grass-fed purified NZ beef tallow (98%), organic jojoba oil, essential oil.</p>
-                    <div class="row text-center">
-                        <div class="col-6">
-                            <img src="/img/prod/balm/tallowwhite.webp" class="w-50 mb-2 middle" alt="Grass-fed beef tallow">
-                            <p>We use high grade grass-fed suet, which we wet render and filter 6 times.</p>
-                        </div>
-                        <div class="col-6">
-                            <img src="/img/prod/balm/jojobaoil.webp" class="w-50 mb-2 middle" alt="Organic cold pressed jojoba oil">
-                            <p>Adding extra lift to the whip while providing smoothing and benefits to your skin.</p>
-                        </div>
-                        <div class="col-6">
-                            <img src="/img/prod/balm/essentialoil.webp" class="w-50 mb-2 middle" alt="Natural essential oils">
-                            <p>These add the aroma and additional health benefits to your balms.</p>
-                        </div>
+                <div class="sub-scent-card" data-scent="neutral" data-price="19.95" data-price-id="price_1SxJSYFZRwx5tlYmIntDkWUz">
+                    <div class="sub-scent-info">
+                        <p class="sub-scent-name">Natural (Unscented)</p>
+                        <p class="sub-scent-price">$19.95/month</p>
+                    </div>
+                    <div class="sub-qty-controls">
+                        <button type="button" class="sub-qty-minus">−</button>
+                        <input type="number" class="sub-qty-input" value="0" min="0">
+                        <button type="button" class="sub-qty-plus">+</button>
                     </div>
                 </div>
 
-                <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
-                    <h4>Directions</h4>
-                    <p>Apply a small amount on the face, neck, hands or feet daily in the morning as a moisturiser or evening as a night cream. Best used on slightly damp skin.</p>
-                    <p>Body and facial moisturizer. Eczema cream, monthly hair conditioner.</p>
-                    <p>For best texture and consistency when using, keep in temperatures between 18 and 25 degrees celsius and out of direct sunlight.</p>
+                <div class="sub-scent-card" data-scent="manuka-vanilla" data-price="24.95" data-price-id="price_1SxJTRFZRwx5tlYmPgN0cZ0F">
+                    <div class="sub-scent-info">
+                        <p class="sub-scent-name">Mānuka & Vanilla <span class="sub-scent-tag">Premium</span></p>
+                        <p class="sub-scent-price">$24.95/month</p>
+                    </div>
+                    <div class="sub-qty-controls">
+                        <button type="button" class="sub-qty-minus">−</button>
+                        <input type="number" class="sub-qty-input" value="0" min="0">
+                        <button type="button" class="sub-qty-plus">+</button>
+                    </div>
                 </div>
 
-                <div class="tab-pane fade" id="subscription" role="tabpanel" aria-labelledby="subscription-tab">
-                    <h4>How Subscriptions Work</h4>
-                    <p><strong>Monthly delivery:</strong> Your 120ml jar(s) will be shipped automatically each month. Your first order ships immediately.</p>
-                    <p><strong>Easy management:</strong> Log in to your account to pause, skip a month, change your scent, or update your delivery address at any time.</p>
-                    <p><strong>Cancel anytime:</strong> No lock-in contracts. Cancel your subscription whenever you like — no questions asked.</p>
-                    <p><strong>Free shipping:</strong> All subscription orders ship free within New Zealand.</p>
-                    <p><strong>Billing:</strong> You'll be charged on the same date each month. We'll send you a reminder email 3 days before each renewal.</p>
-                    <p>If you have any questions about subscriptions, please don't hesitate to <a href="/contact/">contact us</a>.</p>
+                <div class="sub-scent-card" data-scent="manuka-blue-tansy" data-price="24.95" data-price-id="price_1SxJTgFZRwx5tlYmln0EdQ4f">
+                    <div class="sub-scent-info">
+                        <p class="sub-scent-name">Mānuka & Blue Tansy <span class="sub-scent-tag">Premium</span></p>
+                        <p class="sub-scent-price">$24.95/month</p>
+                    </div>
+                    <div class="sub-qty-controls">
+                        <button type="button" class="sub-qty-minus">−</button>
+                        <input type="number" class="sub-qty-input" value="0" min="0">
+                        <button type="button" class="sub-qty-plus">+</button>
+                    </div>
                 </div>
+
+                <div class="sub-scent-card" data-scent="unwhipped-natural" data-price="16.95" data-price-id="price_1SxJXyFZRwx5tlYmcT5d19zw">
+                    <div class="sub-scent-info">
+                        <p class="sub-scent-name">Unwhipped — Natural</p>
+                        <p class="sub-scent-price">$16.95/month <span class="text-muted" style="font-size:0.8rem;">(60ml)</span></p>
+                    </div>
+                    <div class="sub-qty-controls">
+                        <button type="button" class="sub-qty-minus">−</button>
+                        <input type="number" class="sub-qty-input" value="0" min="0">
+                        <button type="button" class="sub-qty-plus">+</button>
+                    </div>
+                </div>
+
+                <div class="sub-scent-card" data-scent="unwhipped-vanilla-rose" data-price="16.95" data-price-id="price_1SxJYkFZRwx5tlYmnCK1Re9T">
+                    <div class="sub-scent-info">
+                        <p class="sub-scent-name">Unwhipped — Vanilla & Rose</p>
+                        <p class="sub-scent-price">$16.95/month <span class="text-muted" style="font-size:0.8rem;">(60ml)</span></p>
+                    </div>
+                    <div class="sub-qty-controls">
+                        <button type="button" class="sub-qty-minus">−</button>
+                        <input type="number" class="sub-qty-input" value="0" min="0">
+                        <button type="button" class="sub-qty-plus">+</button>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 </div>
 
-<div class="section light-peach py-80 mt-5">
+<!-- Sticky Checkout Bar -->
+<div class="sub-checkout-bar" id="checkoutBar">
+    <div class="container">
+        <div class="sub-checkout-summary">
+            <div class="sub-checkout-details">
+                <span id="checkoutItemCount">0 jars</span> &bull;
+                <strong id="checkoutTotal">$0.00/month</strong>
+            </div>
+            <button type="button" class="btn btn-black btn-lg sub-checkout-btn" id="checkoutBtn">
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="section light-peach py-80 mt-5" style="margin-bottom: 70px;">
     {{- partial "irritation-routine.html" . -}}
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var tabs = document.querySelectorAll('.faq-nav-tab');
-        tabs.forEach(function(tab) {
-            tab.addEventListener('click', function() {
-                document.querySelector('.faq-nav-tab.active').classList.remove('active');
-                tab.classList.add('active');
-                var tabContent = document.querySelector('.faq-tab-content .tab-pane.show.active');
-                tabContent.classList.remove('show', 'active');
-                var target = tab.getAttribute('href');
-                document.querySelector(target).classList.add('show', 'active');
-            });
-        });
-    });
-</script>
-
-<!-- Include Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
-<!-- SUBSCRIPTION PRICING SCRIPT -->
 <script>
-    // Load subscription pricing from Hugo data file
-    const subscriptionPricingRaw = {{ site.Data.subscriptions | jsonify | safeJS }};
-    console.log("Subscription Pricing Data:", subscriptionPricingRaw);
+document.addEventListener('DOMContentLoaded', function () {
 
-    // Scent card selection UI
-    document.addEventListener('DOMContentLoaded', function () {
-        const scentCards = document.querySelectorAll('.scent-option-card');
+    const scentCards = document.querySelectorAll('.sub-scent-card');
+    const checkoutBar = document.getElementById('checkoutBar');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    const checkoutItemCount = document.getElementById('checkoutItemCount');
+    const checkoutTotal = document.getElementById('checkoutTotal');
+
+    // Quantity buttons
+    scentCards.forEach(function (card) {
+        const minusBtn = card.querySelector('.sub-qty-minus');
+        const plusBtn = card.querySelector('.sub-qty-plus');
+        const input = card.querySelector('.sub-qty-input');
+
+        plusBtn.addEventListener('click', function () {
+            input.value = parseInt(input.value) + 1;
+            updateCard(card);
+            updateCheckoutBar();
+        });
+
+        minusBtn.addEventListener('click', function () {
+            const val = parseInt(input.value);
+            if (val > 0) input.value = val - 1;
+            updateCard(card);
+            updateCheckoutBar();
+        });
+
+        input.addEventListener('change', function () {
+            let val = parseInt(input.value);
+            if (isNaN(val) || val < 0) val = 0;
+            input.value = val;
+            updateCard(card);
+            updateCheckoutBar();
+        });
+    });
+
+    function updateCard(card) {
+        const qty = parseInt(card.querySelector('.sub-qty-input').value);
+        card.classList.toggle('has-quantity', qty > 0);
+    }
+
+    function updateCheckoutBar() {
+        let totalJars = 0;
+        let totalPrice = 0;
 
         scentCards.forEach(function (card) {
-            card.addEventListener('click', function () {
-                // Remove selected class from all cards
-                scentCards.forEach(c => c.classList.remove('selected'));
-                // Add selected to clicked card
-                card.classList.add('selected');
-                // Check the radio inside
-                const radio = card.querySelector('input[type="radio"]');
-                if (radio) {
-                    radio.checked = true;
-                    // Trigger change event so price updates
-                    radio.dispatchEvent(new Event('change', { bubbles: true }));
-                }
+            const qty = parseInt(card.querySelector('.sub-qty-input').value);
+            const price = parseFloat(card.getAttribute('data-price'));
+            if (qty > 0) {
+                totalJars += qty;
+                totalPrice += qty * price;
+            }
+        });
+
+        checkoutItemCount.textContent = totalJars === 1 ? '1 jar' : totalJars + ' jars';
+        checkoutTotal.textContent = '$' + totalPrice.toFixed(2) + '/month';
+        checkoutBar.classList.toggle('has-items', totalJars > 0);
+        checkoutBtn.classList.toggle('active', totalJars > 0);
+    }
+
+    // Checkout — adds all selected scents to cart, then redirects
+    checkoutBtn.addEventListener('click', function () {
+        const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+        let addedAny = false;
+
+        scentCards.forEach(function (card) {
+            const qty = parseInt(card.querySelector('.sub-qty-input').value);
+            if (qty <= 0) return;
+
+            const priceId = card.getAttribute('data-price-id');
+            const price = parseFloat(card.getAttribute('data-price'));
+            const scent = card.getAttribute('data-scent');
+            const scentName = card.querySelector('.sub-scent-name').textContent.trim();
+            const size = scent.startsWith('unwhipped') ? '60ml' : '120ml';
+
+            if (!priceId || priceId.startsWith('PRICE_ID_')) {
+                console.warn('Missing Stripe price ID for: ' + scentName);
+                // Still allow adding during dev — remove this fallback in production
+            }
+
+            cart.push({
+                priceId: priceId,
+                title: 'Whipped Tallow Balm',
+                size: size,
+                flavor: scentName,
+                orderType: 'Monthly Subscription',
+                quantity: qty,
+                unitPrice: price,
+                isSubscription: true,
+                eligibleForDiscount: false
             });
-        });
-    });
 
-    // Price update function
-    function updatePrice() {
-        const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
-        console.log("Selected scent:", flavor);
-
-        let price = null;
-
-        // Look up price from subscriptions.yaml data
-        if (subscriptionPricingRaw && subscriptionPricingRaw.balm && subscriptionPricingRaw.balm.monthly) {
-            const flavorData = subscriptionPricingRaw.balm.monthly[flavor];
-            if (flavorData && flavorData["120ml"]) {
-                price = flavorData["120ml"][country_code] || flavorData["120ml"]["nz"];
-            }
-        }
-
-        if (price !== null) {
-            document.getElementById("price").textContent = `$${price.toFixed(2)}`;
-            document.getElementById("afterpay_price").textContent = `${(price / 4).toFixed(2)}`;
-        } else {
-            document.getElementById("price").textContent = "N/A";
-            document.getElementById("afterpay_price").textContent = "N/A";
-        }
-    }
-
-    // Price ID update function
-    function updatePriceId() {
-        const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
-
-        let priceId = "";
-
-        try {
-            if (subscriptionPricingRaw && subscriptionPricingRaw.ids && subscriptionPricingRaw.ids.balm && subscriptionPricingRaw.ids.balm.monthly) {
-                priceId = subscriptionPricingRaw.ids.balm.monthly[flavor]["120ml"][country_code] || "";
-            }
-        } catch (error) {
-            console.error('Error fetching subscription Price ID:', error);
-        }
-
-        // Update the button's data-price-id attribute
-        const buyNowButton = document.querySelector(".buy-now");
-        if (buyNowButton) {
-            buyNowButton.setAttribute("data-price-id", priceId);
-            console.log('Button updated with Price ID:', priceId);
-        }
-    }
-
-    // Attach event listeners
-    document.addEventListener('DOMContentLoaded', function () {
-        document.getElementById('productForm').addEventListener('change', function () {
-            updatePrice();
-            updatePriceId();
+            addedAny = true;
         });
 
-        // Initialize on page load
-        updatePrice();
-        updatePriceId();
-    });
-</script>
-
-<!-- ADD TO CART / SUBSCRIBE HANDLER -->
-<script>
-    function handleSubscribe(event) {
-        event.preventDefault();
-        console.log('Subscribe button clicked!');
-
-        const button = event.target;
-        const selectedFlavor = document.querySelector('input[name="flavor"]:checked');
-        const flavor = document.querySelector(`label .scent-name`, document.querySelector(`.scent-option-card[data-scent="${selectedFlavor.value}"]`));
-
-        // Get flavor display name from the selected card
-        const selectedCard = document.querySelector('.scent-option-card.selected');
-        const flavorName = selectedCard ? selectedCard.querySelector('.scent-name').textContent.trim() : selectedFlavor.value;
-
-        const unitPriceElement = document.getElementById('price');
-        const unitPrice = unitPriceElement
-            ? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00
-            : 0.00;
-
-        const priceId = button.getAttribute('data-price-id') || 'N/A';
-        const title = document.querySelector('h1').innerText;
-
-        const quantityField = document.getElementById('quantityAll');
-        const quantity = quantityField ? parseInt(quantityField.value, 10) || 1 : 1;
-
-        console.log('Flavor:', flavorName);
-        console.log('Quantity:', quantity);
-        console.log('Price ID:', priceId);
-        console.log('Unit Price:', unitPrice);
-
-        if (!priceId || priceId === 'N/A' || priceId === '') {
-            alert('Please select a valid scent before subscribing.');
+        if (!addedAny) {
+            alert('Please select at least one jar to continue.');
             return;
         }
 
-        // Add to cart with subscription flag
-        const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
-        cart.push({
-            priceId,
-            title,
-            size: '120ml',
-            flavor: flavorName,
-            orderType: 'Monthly Subscription',
-            quantity,
-            unitPrice,
-            isSubscription: true,
-            eligibleForDiscount: false
-        });
         localStorage.setItem('cartV2', JSON.stringify(cart));
-
         console.log('Cart updated:', cart);
-
-        const modal = document.getElementById('addedToCartModal');
-        if (modal) {
-            $('#addedToCartModal').modal('show');
-        } else {
-            alert('Subscription added to cart!');
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const subscribeButton = document.querySelector('.buy-now');
-        if (subscribeButton) {
-            subscribeButton.addEventListener('click', handleSubscribe);
-            console.log('Subscribe button is ready.');
-        } else {
-            console.error('Subscribe button not found!');
-        }
+        window.location.href = '/cart';
     });
+
+    // Init
+    updateCheckoutBar();
+});
 </script>
 
-<!-- Modal for Add to Cart Confirmation -->
-<div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addedToCartModalLabel">Subscription Added to Cart</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Your monthly subscription has been added to the cart. What would you like to do next?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
-                <a href="/cart" class="btn btn-black">Go to Cart</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Quantity buttons -->
-<script>
-    const quantityInput = document.getElementById('quantityAll');
-    const btnIncrease = document.querySelector('.btn-increase');
-    const btnDecrease = document.querySelector('.btn-decrease');
-
-    btnIncrease.addEventListener('click', () => {
-        quantityInput.value = parseInt(quantityInput.value) + 1;
-    });
-
-    btnDecrease.addEventListener('click', () => {
-        const currentValue = parseInt(quantityInput.value);
-        if (currentValue > 1) {
-            quantityInput.value = currentValue - 1;
-        }
-    });
-</script>
-
-<!-- Stock status (simplified for subscription - no out-of-stock combos needed currently) -->
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const flavorOptions = document.querySelectorAll('input[name="flavor"]');
-        const stockLabel = document.querySelector('label[for="inStock"]');
-        const addToCartButton = document.querySelector('.buy-now');
-
-        // Define out-of-stock scents if needed
-        const outOfStockFlavors = [
-        ];
-
-        function updateStockLabel() {
-            const selectedFlavor = document.querySelector('input[name="flavor"]:checked').value;
-
-            const isOutOfStock = outOfStockFlavors.includes(selectedFlavor);
-
-            document.querySelectorAll('.custom-radio').forEach(radio => {
-                radio.classList.remove('out-of-stock', 'in-stock');
-            });
-
-            if (isOutOfStock) {
-                stockLabel.textContent = "Temporarily out of Stock";
-                stockLabel.style.color = "red";
-                addToCartButton.disabled = true;
-                addToCartButton.style.backgroundColor = "gray";
-                addToCartButton.style.cursor = "not-allowed";
-                document.querySelectorAll('.custom-radio').forEach(radio => {
-                    radio.classList.add('out-of-stock');
-                });
-            } else {
-                stockLabel.textContent = "In Stock";
-                stockLabel.style.color = "green";
-                addToCartButton.disabled = false;
-                addToCartButton.style.backgroundColor = "";
-                addToCartButton.style.cursor = "pointer";
-                document.querySelectorAll('.custom-radio').forEach(radio => {
-                    radio.classList.add('in-stock');
-                });
-            }
-        }
-
-        flavorOptions.forEach(option => {
-            option.addEventListener('change', updateStockLabel);
-        });
-
-        updateStockLabel();
-    });
-</script>
-
-{{- partial "footer.html" . }}
+{{- partial "footer.html" . -}}
 
 </body>
 </html>
