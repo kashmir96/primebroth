@@ -1074,7 +1074,7 @@ document.addEventListener('DOMContentLoaded', function () {
     cartClose.addEventListener('click', closeCart);
     overlayBg.addEventListener('click', closeCart);
 
-    /* ===== STRIPE CHECKOUT VIA NETLIFY FUNCTION ===== */
+    /* ===== STRIPE CHECKOUT (via Netlify Function — required for subscriptions) ===== */
     stripeCheckoutBtn.addEventListener('click', async function () {
         const items = getSelections();
         if (items.length === 0) return;
@@ -1083,7 +1083,7 @@ document.addEventListener('DOMContentLoaded', function () {
         stripeCheckoutBtn.disabled = true;
         stripeCheckoutBtn.textContent = 'Processing...';
 
-        // Build cart in the same format your existing checkout function expects
+        // Build cart
         const cart = items.map(function (item) {
             return {
                 priceId: item.priceId,
@@ -1107,7 +1107,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 throw new Error(data.error);
             }
 
-            // Redirect to Stripe Checkout
+            // Redirect to Stripe hosted checkout
             const stripe = Stripe('{{ site.Params.stripe_public_key }}');
             const result = await stripe.redirectToCheckout({ sessionId: data.sessionId });
 
@@ -1116,7 +1116,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         } catch (error) {
             console.error('Checkout error:', error);
-            alert('Something went wrong. Please try again.');
+            alert('Checkout error: ' + error.message);
             stripeCheckoutBtn.disabled = false;
             stripeCheckoutBtn.textContent = 'Proceed to Checkout';
         }
