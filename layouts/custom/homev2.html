@@ -10,8 +10,6 @@
 <link rel="preconnect" href="https://www.primalpantry.co.nz">
 <link rel="preload" as="image" href="https://www.primalpantry.co.nz/img/home/hero.webp">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400;1,9..144,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://www.primalpantry.co.nz/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://www.primalpantry.co.nz/css/style_new.min.7b0abd1c3059f15b6da0b0ed1af6b371.css" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -652,62 +650,8 @@ footer {
 </head>
 <body>
 
-<!-- TOPBAR -->
-<div class="pp-topbar" style="background:#2E1A0E;color:#FAF4EB;text-align:center;padding:9px 20px;font-size:0.8rem;font-weight:600;letter-spacing:0.02em;font-family:'DM Sans',sans-serif;">Buy 2 get 1 free on select 3pk bundles · Free shipping over $80</div>
-
-<!-- HEADER -->
-<header>
-    <div id="overlay">
-        <ul class="text-center list-unstyled text-white fs-5">
-            <li class="p-2"><a href="/shop/"><span>Shop Tallow</span></a></li>
-            <li class="p-2"><a href="/pages/reviews/"><span>Customer Reviews</span></a></li>
-            <li class="p-2"><a href="/stockists/"><span>Stockists</span></a></li>
-            <li class="p-2"><a href="/contact/"><span>Contact</span></a></li>
-            <li class="p-2"><a href="/pages/about/"><span>About</span></a></li>
-        </ul>
-    </div>
-
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container-fluid">
-            <div class="d-block d-lg-none">
-                <div id="hamburgerbtn" class="flex cursor-pointer items-center w-14 h-10 py-2 rounded mopen">
-                    <span class="top"></span>
-                    <span class="middle"></span>
-                    <span class="bottom"></span>
-                </div>
-            </div>
-            
-            <div class="d-flex align-items-center flex-shrink-0 text-xl text-grey-900">
-                <a href="https://www.primalpantry.co.nz/" aria-label="PrimalPantry">
-                    <img alt="PrimalPantry Logo" class="sitelogo mr-3" src="https://www.primalpantry.co.nz/img/logo/logo.webp" width="120" height="36">
-                </a>
-            </div>
-
-            <a class="iglink d-lg-none" href="/cart">
-                <div class="cart-icon-container" style="position: relative; display: inline-block;">
-                    <img src="https://www.primalpantry.co.nz/img/cart.webp" alt="Cart for PrimalPantry" width="24" height="24">
-                    <span class="cart-badge" style="display: none; position: absolute; top: 0; right: 0; background-color: red; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px;">1</span>
-                </div>
-            </a>
-
-            <div class="d-none w-full block flex-grow d-lg-flex align-items-center w-lg-auto" id="mobileMenu">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="/shop/">Shop Tallow</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/pages/reviews/">Customer Reviews</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/stockists/">Stockists</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/contact/">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/pages/about/">About</a></li>
-                </ul>
-                <a class="iglink mob-hide me-6" href="/cart">
-                    <div class="cart-icon-container" style="position: relative; display: inline-block;">
-                        <img src="https://www.primalpantry.co.nz/img/cart.webp" alt="Cart for PrimalPantry" width="24" height="24">
-                        <span class="cart-badge" style="display: none; position: absolute; top: 0; right: 0; background-color: red; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px;">1</span>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </nav>
-</header>
+{{- partial "alert.html" . -}}
+{{- partial "header_new.html" . -}}
 
 <!-- ===== HERO ===== -->
 <section class="hero">
