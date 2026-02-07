@@ -14,7 +14,9 @@
     </div>
   </div>
 </div>-->
-<footer class="bg-tlgray-100">
+
+<footer class="pp-footer">
+  <!-- ===== SCRIPTS (unchanged) ===== -->
   <script src='{{ "/js/custom.js" | relURL }}?v=1'></script>
 
   {{ if not .IsHome }}
@@ -38,7 +40,6 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-    // Function to set a cookie
     function setCookie(name, value, days) {
         const d = new Date();
         d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
@@ -46,7 +47,6 @@
         document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/";
     }
 
-    // Function to get a cookie
     function getCookie(name) {
         const nameEQ = name + "=";
         const ca = document.cookie.split(';');
@@ -58,9 +58,8 @@
         return null;
     }
 
-    // Store the full URL if not already stored
     if (!getCookie('landingURL')) {
-        setCookie('landingURL', window.location.href, 30); // Stores the URL for 30 days
+        setCookie('landingURL', window.location.href, 30);
         console.log('Landing URL stored:', window.location.href);
     } else {
         console.log('Landing URL already exists:', getCookie('landingURL'));
@@ -68,6 +67,7 @@
 });
   </script>
   {{ end }}
+
   <script>
     function toggleNav() {
       var hamburger = document.getElementById("hamburgerbtn");
@@ -81,37 +81,21 @@
       });
     }
     toggleNav();
-
-    // document.querySelector('.scroll-top').addEventListener('click', () => {
-    //   document.documentElement.scrollTop = 0;
-    // });
   </script>
 
-<!-- Fathom 
-<script>
-  window.addEventListener('load', (event) => {
-    document.querySelectorAll('.buy-now').forEach(item => {
-      item.addEventListener('click', event => {
-        fathom.trackEvent('initiate checkout');
-      });
-    });
-  });
-  </script> -->
-<script>
-  window.addEventListener('load', (event) => {
-    document.querySelectorAll('.buy-now').forEach(item => {
-      item.addEventListener('click', event => {
-        gtag('event', 'click', {
-          'event_category': 'ecommerce',
-          'event_label': 'buy-now',
-          'value': 1
+  <script>
+    window.addEventListener('load', (event) => {
+      document.querySelectorAll('.buy-now').forEach(item => {
+        item.addEventListener('click', event => {
+          gtag('event', 'click', {
+            'event_category': 'ecommerce',
+            'event_label': 'buy-now',
+            'value': 1
+          });
         });
       });
     });
-  });
-</script>
-
-
+  </script>
 
   {{ if .Site.Params.googleFonts }}
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Open+Sans&display=swap" rel="stylesheet" />
@@ -124,49 +108,102 @@
     <link rel="stylesheet" href="{{ $webfonts.RelPermalink }}" />
     {{ end }}
   {{ end }}
-  <div class="flex items-center justify-between flex-wrap bg-gray-800 p-3 p-md-5 text-white">
-    <div class="items-center text-xl text-grey-900 me-5">
-      {{ .Site.Params.site.name }}
+
+  <!-- ===== NEW FOOTER LAYOUT ===== -->
+  <style>
+    .pp-footer-inner {
+      background: #2E1A0E;
+      color: #FAF4EB;
+      padding: 64px 80px 32px;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .pp-footer-inner a { text-decoration: none; color: inherit; }
+    .pp-f-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    .pp-f-brand h3 { font-family: 'Fraunces', serif; font-size: 1.3rem; color: #FAF4EB; margin-bottom: 10px; font-weight: 400; }
+    .pp-f-brand p { font-size: 0.82rem; opacity: 0.55; line-height: 1.6; max-width: 280px; margin-bottom: 16px; }
+    .pp-f-social { display: flex; gap: 10px; }
+    .pp-f-social a {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.3s;
+    }
+    .pp-f-social a:hover { background: rgba(255,255,255,0.12); }
+    .pp-f-social svg { width: 15px; height: 15px; fill: #FAF4EB; }
+    .pp-f-col h4 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em;
+      font-weight: 700; margin-bottom: 16px; opacity: 0.4;
+    }
+    .pp-f-col a { display: block; font-size: 0.82rem; opacity: 0.6; margin-bottom: 10px; transition: opacity 0.2s; }
+    .pp-f-col a:hover { opacity: 1; }
+    .pp-f-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 24px;
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;
+    }
+    .pp-f-bottom p { font-size: 0.7rem; opacity: 0.3; margin: 0; }
+    .pp-f-disc { font-size: 0.6rem; opacity: 0.2; max-width: 560px; line-height: 1.5; }
+    .pp-f-badges { float: right; padding-right: 20px; max-height: 28px; }
+
+    @media (max-width: 1024px) {
+      .pp-f-grid { grid-template-columns: 1fr 1fr; }
+      .pp-footer-inner { padding: 48px 24px 24px; }
+      .pp-f-bottom { flex-direction: column; }
+    }
+    @media (max-width: 640px) {
+      .pp-f-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+  </style>
+
+  <div class="pp-footer-inner">
+    <div class="pp-f-grid">
+      <div class="pp-f-brand">
+        <h3>PrimalPantry</h3>
+        <p>Skincare that soothes, hydrates & moisturises sensitive skin. NZ made tallow balm, tallow cream & more — all natural, honestly affordable.</p>
+        <div class="pp-f-social">
+          <a href="https://www.facebook.com/profile.php?id=61560358912834" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/primalpantry.nz/" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="#FAF4EB" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="#FAF4EB" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="pp-f-col">
+        <h4>Shop</h4>
+        <a href="/shop/">All Tallow Products</a>
+        <a href="/tallow-for-sensitive-skin/">Tallow for Eczema-Prone Skin</a>
+        <a href="/tallow-for-babies/">Tallow for Babies</a>
+        <a href="/tallow-for-wrinkles/">Tallow Cream & Anti-Aging</a>
+        <a href="/shop/">Tallow Shampoo & Haircare</a>
+        <a href="/shop/">Tallow Lip Balm</a>
+      </div>
+      <div class="pp-f-col">
+        <h4>Help</h4>
+        <a href="/support/">Customer Support</a>
+        <a href="/faq/">FAQs</a>
+        <a href="/pages/refund-policy/">Refund Policy</a>
+        <a href="/stockists/">Where to Buy — Stockists</a>
+      </div>
+      <div class="pp-f-col">
+        <h4>Company</h4>
+        <a href="/pages/about/">Our Story — Christchurch NZ</a>
+        <a href="/pages/reviews/">Primal Pantry Reviews</a>
+        <a href="/posts/">Blog</a>
+        <a href="/contact/">Contact</a>
+      </div>
     </div>
-    <div class="w-full d-block flex-grow d-lg-flex align-items-center w-lg-auto" id="mobileMenu">
-      <div class="text-lg flex-grow-1 d-flex">
-        <div class="socialmobnav">
-          <a class="iglink" href="https://www.facebook.com/profile.php?id=61560358912834"><img src="/img/fbw.png" alt="instagram for PrimalPantry"></a>
-          <a class="iglink" href="https://www.instagram.com/primalpantry.nz/"><img src="/img/instw.png" alt="instagram for PrimalPantry"></a>
-      </div>
-      </div>
-      <div class="flex flex-row align-items-center text-lg d-none d-md-block">
-        {{ range .Site.Menus.footer }}
-        <a href="{{ .URL }}" class=" mt-4 d-inline-block  text-gray-300  me-5">
-
-          {{ if not .Pre }}
-          {{ .Name }}
-          {{ else }}
-          {{ .Pre }}
-          
-          {{ end }}
-        </a>
-        {{ end }}
-      </div>
+    <div class="pp-f-bottom">
+      <p>&copy; {{ site.Title }} {{ now.Year }} All Rights Reserved.</p>
+      <img class="pp-f-badges" src="/img/stripe-badge-transparent.webp" alt="Stripe secure payment badges">
+      <p class="pp-f-disc">Primal Pantry is a corporate partner of the Eczema Association of New Zealand (EANZ), a charitable patient support organisation. Partnership indicates support of EANZ's work; it is not a medical endorsement and does not mean EANZ has tested or approved this product. As with any new skincare on sensitive skin, please ensure you patch test when trying a new product.</p>
     </div>
-
-  </div>
-   
-  <div class="copy ps-md-5 ps-3 py-5 bg-tlgray-700 text-white text-md">
-    &copy; {{site.Title}} {{ now.Year }} All Rights Reserved. 
-    <img style="float:right;padding-right:20px;"class="badges" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
-
-        <p class="copy text-white text-md" style="font-size:50%;">Primal Pantry is a corporate partner of the Eczema Association of New Zealand (EANZ), a charitable patient support organisation. Partnership indicates support of EANZ's work; <br>it is not a medical endorsement and does not mean EANZ has tested or approved this product. As with any new skincare on sensitive skin, please ensure you patch test when trying a new product.</p>
-
-
   </div>
 
-
-
-  
 </footer>
-
-
-
-
-
