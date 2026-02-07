@@ -4,1262 +4,966 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PrimalPantry — NZ Tallow Skincare for Sensitive Skin</title>
-<meta name="description" content="Simple, affordable & soothing NZ tallow skincare. Trusted by 85,000+ Kiwis, 120+ of NZ's favourite retailers. Official Gold Partners of the Eczema Association NZ.">
+<meta name="description" content="Simple, affordable & soothing NZ tallow skincare. Trusted by 85,000+ Kiwis, 120+ retailers. Official Gold Partners of the Eczema Association NZ.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400;1,9..144,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --cream: #FBF5EC;
-  --cream-dark: #F0E6D6;
-  --espresso: #3A2518;
-  --espresso-mid: #4D3425;
-  --espresso-light: #5C3D2E;
-  --sage: #7E9B6E;
-  --sage-light: #A8C098;
-  --sage-pale: #E8F0E2;
-  --blush: #E8D0BC;
-  --rose: #D4A38C;
-  --charcoal: #2A2A2A;
+  --cream: #FAF4EB;
+  --cream-deep: #EEDED0;
+  --bark: #2E1A0E;
+  --bark-mid: #442A16;
+  --bark-light: #6B4D38;
+  --sage: #6B8F5B;
+  --sage-light: #8CB47A;
+  --sage-muted: #A3B898;
+  --sage-pale: #E5EDDF;
+  --honey: #D4A84B;
+  --blush: #DBBFA8;
+  --charcoal: #1E1E1E;
+  --warm-gray: #877B71;
+  --off-white: #FEFCF8;
   --white: #FFFFFF;
-  --warm-gray: #8A7E76;
-  --light-gray: #F7F3EF;
-  --gold: #C8962D;
 }
 
 html { scroll-behavior: smooth; }
-
 body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   color: var(--charcoal);
-  background: var(--white);
+  background: var(--off-white);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
-
-h1, h2, h3, h4 {
-  font-family: 'DM Serif Display', serif;
+h1, h2, h3 {
+  font-family: 'Fraunces', serif;
   font-weight: 400;
-  line-height: 1.15;
+  line-height: 1.12;
 }
-
 a { text-decoration: none; color: inherit; }
 img { max-width: 100%; display: block; }
-button { cursor: pointer; border: none; font-family: inherit; }
 
-/* ===== ANNOUNCEMENT BAR ===== */
-.announcement-bar {
-  background: var(--espresso);
+/* ===== GRAIN OVERLAY ===== */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px;
+}
+
+/* ===== ANNOUNCEMENT ===== */
+.topbar {
+  background: var(--bark);
   color: var(--cream);
   text-align: center;
-  padding: 10px 20px;
-  font-size: 0.82rem;
+  padding: 9px 20px;
+  font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.03em;
-  position: relative;
-  overflow: hidden;
+  letter-spacing: 0.02em;
 }
-.announcement-bar::before {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 300%; height: 100%;
-  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.04) 50%, transparent 100%);
-  animation: shimmer 8s infinite linear;
-}
-@keyframes shimmer { 0% { transform: translateX(-33%); } 100% { transform: translateX(33%); } }
 
 /* ===== NAV ===== */
 nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 48px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  padding: 14px 56px;
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(254,252,248,0.9);
   backdrop-filter: blur(16px);
-  background: rgba(255,255,255,0.92);
+  border-bottom: 1px solid rgba(0,0,0,0.04);
 }
-.nav-logo img { height: 38px; width: auto; }
-.nav-links { display: flex; gap: 32px; align-items: center; }
-.nav-links a {
-  font-size: 0.87rem;
-  font-weight: 600;
-  color: var(--espresso);
-  transition: color 0.2s;
-}
+.logo img { height: 36px; }
+.nav-links { display: flex; gap: 28px; align-items: center; }
+.nav-links a { font-size: 0.85rem; font-weight: 600; color: var(--bark); transition: color 0.2s; }
 .nav-links a:hover { color: var(--sage); }
-.nav-cta {
-  background: var(--espresso);
-  color: var(--cream) !important;
-  padding: 10px 24px;
-  border-radius: 100px;
-  font-weight: 700;
-  font-size: 0.85rem !important;
+.nav-shop {
+  background: var(--bark); color: var(--cream) !important;
+  padding: 10px 22px; border-radius: 100px; font-weight: 700; font-size: 0.83rem !important;
   transition: all 0.25s;
 }
-.nav-cta:hover { background: var(--espresso-light); transform: translateY(-1px); }
-.mobile-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
-.mobile-toggle span { display: block; width: 22px; height: 2px; background: var(--espresso); border-radius: 2px; }
+.nav-shop:hover { background: var(--bark-mid); }
+.burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
+.burger span { display: block; width: 22px; height: 2px; background: var(--bark); border-radius: 2px; }
 
 /* ===== HERO ===== */
 .hero {
+  min-height: 92vh;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 88vh;
+  grid-template-columns: 1.1fr 1fr;
   background: var(--cream);
   position: relative;
   overflow: hidden;
 }
-.hero-content {
+.hero-left {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 60px 56px 60px 80px;
+  padding: 72px 48px 72px 80px;
   position: relative;
-  z-index: 3;
+  z-index: 2;
 }
-.hero-badge {
+/* organic blob shape behind text */
+.hero-left::before {
+  content: '';
+  position: absolute;
+  width: 480px; height: 480px;
+  border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%;
+  background: radial-gradient(ellipse, rgba(107,143,91,0.08) 0%, transparent 70%);
+  top: 10%; left: -10%;
+  z-index: -1;
+  animation: blobFloat 20s ease-in-out infinite alternate;
+}
+@keyframes blobFloat {
+  0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  100% { transform: translate(20px, -15px) rotate(8deg) scale(1.05); }
+}
+
+.hero-eanz {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: var(--white);
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(8px);
   border: 1px solid var(--blush);
   border-radius: 100px;
-  padding: 6px 18px 6px 6px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--espresso);
+  padding: 5px 16px 5px 5px;
+  font-size: 0.75rem; font-weight: 700;
+  color: var(--bark);
   width: fit-content;
-  margin-bottom: 28px;
-  animation: fadeUp 0.7s ease both;
+  margin-bottom: 24px;
+  animation: riseIn 0.7s ease both;
 }
-.hero-badge img { height: 32px; width: auto; border-radius: 50%; }
+.hero-eanz img { height: 30px; border-radius: 50%; }
 
 .hero h1 {
-  font-size: clamp(2.4rem, 3.8vw, 3.4rem);
-  color: var(--espresso);
-  margin-bottom: 20px;
-  max-width: 560px;
-  animation: fadeUp 0.7s ease 0.08s both;
+  font-size: clamp(2.6rem, 4.2vw, 3.8rem);
+  color: var(--bark);
+  margin-bottom: 18px;
+  max-width: 540px;
+  animation: riseIn 0.7s ease 0.06s both;
 }
 .hero h1 em { color: var(--sage); font-style: italic; }
 
-.hero-sub {
-  font-size: 1.08rem;
+.hero-p {
+  font-size: 1.06rem;
   color: var(--warm-gray);
   line-height: 1.65;
-  max-width: 460px;
-  margin-bottom: 36px;
-  animation: fadeUp 0.7s ease 0.16s both;
+  max-width: 440px;
+  margin-bottom: 32px;
+  animation: riseIn 0.7s ease 0.12s both;
 }
-.hero-actions {
-  display: flex;
-  gap: 14px;
-  margin-bottom: 48px;
-  animation: fadeUp 0.7s ease 0.24s both;
-  flex-wrap: wrap;
+.hero-btns {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  margin-bottom: 40px;
+  animation: riseIn 0.7s ease 0.18s both;
 }
-.btn-primary {
-  background: var(--espresso);
-  color: var(--cream);
-  padding: 16px 36px;
-  border-radius: 100px;
-  font-weight: 700;
-  font-size: 0.95rem;
-  transition: all 0.3s;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-.btn-primary:hover { background: var(--espresso-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(58,37,24,0.18); }
-.btn-primary svg { width: 18px; height: 18px; transition: transform 0.3s; }
-.btn-primary:hover svg { transform: translateX(3px); }
-.btn-outline {
-  background: transparent;
-  color: var(--espresso);
-  padding: 16px 36px;
-  border-radius: 100px;
-  font-weight: 700;
-  font-size: 0.95rem;
-  border: 2px solid var(--espresso);
+.btn-dark {
+  background: var(--bark); color: var(--cream);
+  padding: 15px 32px; border-radius: 100px;
+  font-weight: 700; font-size: 0.92rem;
+  display: inline-flex; align-items: center; gap: 8px;
   transition: all 0.3s;
 }
-.btn-outline:hover { background: var(--espresso); color: var(--cream); }
+.btn-dark:hover { background: var(--bark-mid); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(46,26,14,0.16); }
+.btn-dark svg { width: 16px; height: 16px; transition: transform 0.3s; }
+.btn-dark:hover svg { transform: translateX(3px); }
+.btn-ghost {
+  background: transparent; color: var(--bark);
+  padding: 15px 32px; border-radius: 100px;
+  font-weight: 700; font-size: 0.92rem;
+  border: 2px solid var(--bark);
+  transition: all 0.3s;
+}
+.btn-ghost:hover { background: var(--bark); color: var(--cream); }
 
-.hero-trust {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  animation: fadeUp 0.7s ease 0.32s both;
-  flex-wrap: wrap;
+.hero-proof {
+  display: flex; gap: 28px; align-items: center; flex-wrap: wrap;
+  animation: riseIn 0.7s ease 0.24s both;
 }
-.hero-trust-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--espresso);
+.hero-proof-item { display: flex; flex-direction: column; }
+.hero-proof-num {
+  font-family: 'Fraunces', serif;
+  font-size: 1.5rem; color: var(--bark); font-weight: 700;
 }
-.hero-trust-icon {
-  width: 36px; height: 36px;
-  background: var(--white);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-}
-.hero-trust-icon svg { width: 16px; height: 16px; }
-.hero-trust-divider { width: 1px; height: 28px; background: var(--blush); }
+.hero-proof-label { font-size: 0.73rem; color: var(--warm-gray); font-weight: 500; }
+.hero-proof-div { width: 1px; height: 36px; background: var(--blush); }
 
-.hero-image {
-  position: relative;
-  overflow: hidden;
+.hero-right {
+  position: relative; overflow: hidden;
 }
-.hero-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.hero-right img {
+  width: 100%; height: 100%; object-fit: cover;
 }
-/* Gradient fade on left edge so products blend into cream */
-.hero-image::before {
+.hero-right::before {
   content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 100px;
+  position: absolute; left: 0; top: 0; bottom: 0; width: 100px;
   background: linear-gradient(to right, var(--cream), transparent);
   z-index: 2;
 }
-.hero-image::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 120px;
-  background: linear-gradient(to top, var(--white), transparent);
-  z-index: 2;
-}
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(18px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ===== SOCIAL PROOF BAR ===== */
-.proof-bar {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  background: var(--white);
-  border-bottom: 1px solid var(--cream-dark);
-}
-.proof-item {
-  padding: 28px 20px;
-  text-align: center;
-  border-right: 1px solid var(--cream-dark);
-  transition: background 0.3s;
-}
-.proof-item:last-child { border-right: none; }
-.proof-item:hover { background: var(--cream); }
-.proof-number {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.7rem;
-  color: var(--espresso);
-  margin-bottom: 2px;
-}
-.proof-label { font-size: 0.78rem; color: var(--warm-gray); font-weight: 500; }
-
-/* ===== FEATURED IN ===== */
-.featured-in {
-  padding: 44px 80px;
-  text-align: center;
-  background: var(--white);
-  border-bottom: 1px solid var(--cream-dark);
-}
-.featured-label {
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.22em;
-  color: var(--warm-gray);
-  margin-bottom: 24px;
-  font-weight: 600;
-}
-.featured-logos {
+/* ===== MEDIA LOGOS ===== */
+.logos {
+  padding: 36px 80px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 12px;
+  border-bottom: 1px solid var(--cream-deep);
 }
-.featured-logos img {
-  height: 28px;
-  width: auto;
-  opacity: 0.55;
-  transition: opacity 0.3s;
+.logos-label {
+  font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.2em;
+  color: var(--warm-gray); font-weight: 700; margin-right: 16px; white-space: nowrap;
 }
-.featured-logos img:hover { opacity: 0.85; }
+.logos img { height: 30px; opacity: 0.45; }
 
-/* ===== SHOP BY CONCERN ===== */
-.concern-section { padding: 96px 80px; background: var(--white); }
-.section-eyebrow {
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.22em;
-  color: var(--sage);
-  font-weight: 800;
-  margin-bottom: 12px;
-}
-.section-title {
-  font-size: clamp(1.9rem, 2.8vw, 2.6rem);
-  color: var(--espresso);
-  margin-bottom: 12px;
-}
-.section-subtitle {
-  font-size: 1.02rem;
-  color: var(--warm-gray);
-  max-width: 520px;
-  line-height: 1.65;
-  margin-bottom: 48px;
-}
-.concern-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
-.concern-card {
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  aspect-ratio: 3/4;
-  cursor: pointer;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  display: block;
-}
-.concern-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(58,37,24,0.12); }
-.concern-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-.concern-card:hover img { transform: scale(1.06); }
-.concern-card-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(42,28,18,0.88) 0%, rgba(42,28,18,0.15) 50%, transparent 100%);
-  z-index: 2;
-}
-.concern-card-content {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  padding: 28px 24px;
-  color: white;
-  z-index: 3;
-}
-.concern-card-tag {
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-weight: 700;
-  opacity: 0.8;
-  margin-bottom: 6px;
-}
-.concern-card h3 { font-size: 1.25rem; margin-bottom: 4px; color: white; }
-.concern-card p { font-size: 0.8rem; opacity: 0.8; line-height: 1.5; }
-.concern-card-arrow {
-  position: absolute;
-  top: 16px; right: 16px;
-  width: 38px; height: 38px;
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(8px);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  z-index: 3;
-  transition: all 0.3s;
-}
-.concern-card:hover .concern-card-arrow { background: rgba(255,255,255,0.35); transform: translate(2px, -2px); }
-.concern-card-arrow svg { width: 16px; height: 16px; }
-
-/* ===== BEST SELLERS ===== */
-.bestsellers { padding: 96px 80px; background: var(--cream); }
-.bestsellers-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 48px;
-}
-.view-all {
-  font-weight: 700;
-  font-size: 0.88rem;
-  color: var(--espresso);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: gap 0.3s;
-  white-space: nowrap;
-}
-.view-all:hover { gap: 10px; }
-.view-all svg { width: 18px; height: 18px; }
-
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
-.product-card {
-  background: var(--white);
-  border-radius: 18px;
-  overflow: hidden;
-  transition: all 0.35s ease;
-  position: relative;
-  display: block;
-}
-.product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 16px 40px rgba(58,37,24,0.1);
-}
-.product-badge {
-  position: absolute;
-  top: 14px; left: 14px;
-  background: var(--espresso);
-  color: var(--cream);
-  font-size: 0.68rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 5px 12px;
-  border-radius: 100px;
-  z-index: 3;
-}
-.product-badge.online { background: var(--sage); }
-.product-badge.sale { background: var(--gold); }
-.product-image {
-  aspect-ratio: 1;
-  background: var(--cream);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-}
-.product-image img {
-  width: 85%;
-  height: 85%;
-  object-fit: contain;
-  transition: transform 0.4s ease;
-}
-.product-card:hover .product-image img { transform: scale(1.06); }
-.product-quick-add {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  background: var(--espresso);
-  color: var(--cream);
-  text-align: center;
-  padding: 13px;
-  font-weight: 700;
-  font-size: 0.82rem;
-  letter-spacing: 0.04em;
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
-}
-.product-card:hover .product-quick-add { transform: translateY(0); }
-.product-info { padding: 18px 20px 20px; }
-.product-name {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.05rem;
-  color: var(--espresso);
-  margin-bottom: 4px;
-}
-.product-desc {
-  font-size: 0.8rem;
-  color: var(--warm-gray);
-  margin-bottom: 10px;
-  line-height: 1.5;
-}
-.product-bottom { display: flex; justify-content: space-between; align-items: center; }
-.product-price { font-weight: 700; font-size: 0.95rem; color: var(--espresso); }
-.product-price .old { text-decoration: line-through; color: var(--warm-gray); font-weight: 500; font-size: 0.82rem; margin-left: 6px; }
-.product-social {
-  font-size: 0.75rem;
-  color: var(--warm-gray);
-  font-weight: 500;
-}
-.product-stars { color: #D4950A; font-size: 0.8rem; letter-spacing: 1px; }
-
-/* ===== REVIEWS ===== */
-.reviews-section { padding: 96px 80px; background: var(--white); }
-.reviews-header { text-align: center; margin-bottom: 48px; }
-.reviews-stats {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 8px;
-}
-.reviews-stars { font-size: 1.3rem; color: #D4950A; letter-spacing: 2px; }
-.reviews-count { font-size: 0.88rem; color: var(--warm-gray); font-weight: 500; }
-.reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.review-card {
-  background: var(--cream);
-  border-radius: 18px;
-  padding: 32px 28px;
-  transition: all 0.3s;
-}
-.review-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.06); }
-.review-stars { color: #D4950A; font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 14px; }
-.review-text {
-  font-size: 0.92rem;
-  line-height: 1.7;
-  color: var(--charcoal);
-  margin-bottom: 20px;
-}
-.review-text strong { color: var(--sage); font-weight: 700; }
-.review-author { display: flex; align-items: center; gap: 12px; }
-.review-avatar {
-  width: 38px; height: 38px;
-  border-radius: 50%;
-  background: var(--blush);
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: 0.82rem; color: var(--espresso);
-}
-.review-meta .review-name { font-weight: 700; font-size: 0.85rem; color: var(--espresso); }
-.review-meta .review-verified {
-  font-size: 0.72rem;
-  color: var(--sage);
-  font-weight: 600;
-  display: flex; align-items: center; gap: 4px; margin-top: 1px;
-}
-.review-meta .review-verified svg { width: 11px; height: 11px; fill: var(--sage); }
-
-/* ===== EANZ PARTNERSHIP ===== */
-.partnership {
+/* ===== TWO RANGES ===== */
+.ranges {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 440px;
+  min-height: 560px;
+}
+.range-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: 56px;
+  cursor: pointer;
+}
+.range-card img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.8s ease;
+}
+.range-card:hover img { transform: scale(1.04); }
+.range-overlay {
+  position: absolute; inset: 0;
+  z-index: 2;
+  transition: opacity 0.4s;
+}
+.range-soothing .range-overlay {
+  background: linear-gradient(to top, rgba(46,26,14,0.92) 0%, rgba(46,26,14,0.35) 45%, rgba(46,26,14,0.1) 100%);
+}
+.range-beauty .range-overlay {
+  background: linear-gradient(to top, rgba(46,26,14,0.92) 0%, rgba(46,26,14,0.35) 45%, rgba(46,26,14,0.1) 100%);
+}
+.range-content {
+  position: relative; z-index: 3; color: white; max-width: 400px;
+}
+.range-tag {
+  display: inline-block;
+  font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.18em;
+  font-weight: 700; padding: 5px 14px; border-radius: 100px;
+  margin-bottom: 14px;
+}
+.range-soothing .range-tag { background: rgba(107,143,91,0.7); }
+.range-beauty .range-tag { background: rgba(212,168,75,0.7); }
+.range-content h2 { font-size: 2rem; color: white; margin-bottom: 8px; }
+.range-content p { font-size: 0.9rem; opacity: 0.8; line-height: 1.55; margin-bottom: 20px; }
+.range-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-weight: 700; font-size: 0.88rem; color: white;
+  border-bottom: 2px solid rgba(255,255,255,0.4);
+  padding-bottom: 2px;
+  transition: all 0.3s;
+}
+.range-card:hover .range-link { gap: 12px; border-color: white; }
+.range-link svg { width: 16px; height: 16px; }
+
+/* ===== BEST SELLERS ===== */
+.sellers { padding: 88px 80px; background: var(--off-white); }
+.sellers-top {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 44px;
+}
+.sellers-top h2 { font-size: 2.2rem; color: var(--bark); }
+.sellers-top a {
+  font-weight: 700; font-size: 0.85rem; color: var(--bark);
+  display: flex; align-items: center; gap: 6px; transition: gap 0.3s;
+}
+.sellers-top a:hover { gap: 10px; }
+.sellers-top a svg { width: 16px; height: 16px; }
+
+.p-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.p-card {
+  background: var(--white); border-radius: 16px; overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative; display: block;
+}
+.p-card:hover { box-shadow: 0 20px 48px rgba(46,26,14,0.09); }
+/* different hover per card to avoid the identical-lift problem */
+.p-card:nth-child(1):hover { transform: translateY(-6px) rotate(-0.3deg); }
+.p-card:nth-child(2):hover { transform: translateY(-5px) rotate(0.2deg); }
+.p-card:nth-child(3):hover { transform: translateY(-7px) rotate(-0.15deg); }
+.p-card:nth-child(4):hover { transform: translateY(-4px) rotate(0.25deg); }
+
+.p-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: var(--bark); color: var(--cream);
+  font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; padding: 4px 11px; border-radius: 100px; z-index: 3;
+}
+.p-badge.online { background: var(--sage); }
+.p-img {
+  aspect-ratio: 1; background: var(--cream);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.p-img img { width: 82%; height: 82%; object-fit: contain; transition: transform 0.5s ease; }
+.p-card:hover .p-img img { transform: scale(1.07); }
+.p-info { padding: 16px 18px 18px; }
+.p-name {
+  font-family: 'Fraunces', serif; font-size: 1rem; color: var(--bark);
+  margin-bottom: 3px;
+}
+.p-sub { font-size: 0.78rem; color: var(--warm-gray); margin-bottom: 10px; line-height: 1.45; }
+.p-row { display: flex; justify-content: space-between; align-items: baseline; }
+.p-price { font-weight: 700; font-size: 0.92rem; color: var(--bark); }
+.p-kiwis { font-size: 0.72rem; color: var(--warm-gray); }
+.p-stars { color: #C89520; font-size: 0.75rem; letter-spacing: 1px; margin-top: 5px; }
+
+/* ===== MARQUEE INTERRUPT ===== */
+.marquee-wrap {
+  background: var(--bark);
+  padding: 28px 0;
+  overflow: hidden;
+  position: relative;
+}
+.marquee {
+  display: flex;
+  gap: 64px;
+  animation: scroll 28s linear infinite;
+  width: max-content;
+}
+.marquee span {
+  font-family: 'Fraunces', serif;
+  font-size: 1.35rem;
+  color: var(--cream);
+  white-space: nowrap;
+  opacity: 0.85;
+  font-style: italic;
+}
+.marquee .dot {
+  font-style: normal;
+  color: var(--sage-light);
+  opacity: 0.5;
+}
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ===== RESULTS / BEFORE-AFTER ===== */
+.results {
+  padding: 88px 80px;
+  background: var(--cream);
+  position: relative;
   overflow: hidden;
 }
-.partnership-visual {
-  background: var(--espresso);
+/* organic shape in background */
+.results::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 55% 45% 60% 40% / 45% 55% 45% 55%;
+  background: radial-gradient(ellipse, rgba(107,143,91,0.06) 0%, transparent 70%);
+  top: -10%; right: -5%;
+  z-index: 0;
+}
+.results-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 64px;
+  align-items: center;
+  position: relative; z-index: 1;
+}
+.results-img {
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+}
+.results-img img { width: 100%; }
+.results-img-label {
+  position: absolute;
+  bottom: 16px; left: 16px;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(8px);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--bark);
+}
+.results-content h2 {
+  font-size: clamp(1.8rem, 2.6vw, 2.3rem);
+  color: var(--bark);
+  margin-bottom: 20px;
+}
+.results-featured {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 24px;
+  position: relative;
+  border-left: 4px solid var(--sage);
+}
+.results-stars { color: #C89520; font-size: 0.88rem; letter-spacing: 2px; margin-bottom: 12px; }
+.results-quote {
+  font-family: 'Fraunces', serif;
+  font-size: 1.12rem;
+  line-height: 1.6;
+  color: var(--bark);
+  margin-bottom: 16px;
+  font-style: italic;
+}
+.results-quote mark {
+  background: none;
+  color: var(--sage);
+  font-weight: 700;
+  font-style: italic;
+}
+.results-author {
+  display: flex; align-items: center; gap: 10px;
+}
+.results-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--blush);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.82rem; color: var(--bark);
+}
+.results-author-name { font-weight: 700; font-size: 0.85rem; }
+.results-verified { font-size: 0.7rem; color: var(--sage); font-weight: 600; }
+
+.results-mini-reviews { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.mini-review {
+  background: var(--white);
+  border-radius: 14px;
+  padding: 18px;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--charcoal);
+}
+.mini-review strong { color: var(--sage); }
+.mini-review-foot {
+  margin-top: 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--warm-gray);
+}
+.mini-stars { color: #C89520; font-size: 0.7rem; margin-bottom: 8px; }
+
+/* ===== EANZ BANNER ===== */
+.eanz {
+  padding: 72px 80px;
+  background: var(--sage-pale);
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  overflow: hidden;
-  padding: 48px;
-}
-.partnership-visual::before,
-.partnership-visual::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.06);
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-}
-.partnership-visual::before { width: 360px; height: 360px; }
-.partnership-visual::after { width: 520px; height: 520px; }
-.eanz-badge {
-  position: relative;
-  z-index: 2;
+  gap: 48px;
   text-align: center;
+  position: relative;
 }
-.eanz-badge img {
-  height: 140px;
-  width: auto;
-  margin: 0 auto 16px;
-  filter: brightness(0) invert(1);
-  opacity: 0.85;
+.eanz-logo { height: 100px; width: auto; }
+.eanz-text { max-width: 480px; text-align: left; }
+.eanz-text h3 {
+  font-size: 1.6rem; color: var(--bark); margin-bottom: 10px;
 }
-.eanz-badge-text {
-  color: var(--cream);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-weight: 700;
-  opacity: 0.6;
-}
-
-.partnership-content {
-  background: var(--espresso-mid);
-  color: var(--cream);
-  display: flex;
-  align-items: center;
-  padding: 56px 64px;
-}
-.partnership-inner { max-width: 460px; }
-.partnership-tag {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-weight: 800;
-  color: var(--sage-light);
-  margin-bottom: 18px;
-}
-.partnership-inner h2 {
-  font-size: 2rem;
-  color: var(--cream);
-  margin-bottom: 16px;
-}
-.partnership-inner p {
-  font-size: 0.95rem;
-  line-height: 1.7;
-  opacity: 0.75;
-  margin-bottom: 32px;
-}
-.partnership-stats { display: flex; gap: 40px; }
-.partnership-stat-number {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.8rem;
-  color: var(--sage-light);
-}
-.partnership-stat-label {
-  font-size: 0.76rem;
-  opacity: 0.55;
-  margin-top: 2px;
+.eanz-text p { font-size: 0.9rem; color: var(--bark-light); line-height: 1.6; }
+.eanz-disclaimer {
+  font-size: 0.65rem; color: var(--warm-gray); margin-top: 10px; line-height: 1.5;
+  max-width: 480px;
 }
 
 /* ===== FIND IN STORE ===== */
-.store-section {
-  padding: 96px 80px;
-  background: var(--light-gray);
-  text-align: center;
-}
-.store-section .section-subtitle { margin-left: auto; margin-right: auto; max-width: 560px; }
-.store-grid {
-  display: flex;
+.stores {
+  padding: 88px 80px;
+  background: var(--off-white);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
   align-items: center;
-  justify-content: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-bottom: 36px;
 }
-.store-chip {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 24px;
+.stores-left h2 { font-size: 2.2rem; color: var(--bark); margin-bottom: 12px; }
+.stores-left > p { font-size: 0.95rem; color: var(--warm-gray); line-height: 1.65; margin-bottom: 28px; max-width: 440px; }
+.stores-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-weight: 700; color: var(--bark); font-size: 0.9rem;
+  border-bottom: 2px solid var(--bark);
+  padding-bottom: 2px;
+  transition: gap 0.3s;
+}
+.stores-cta:hover { gap: 12px; }
+.stores-cta svg { width: 16px; height: 16px; }
+
+.store-brands {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.store-brand {
   background: var(--white);
   border-radius: 14px;
-  font-weight: 700;
-  font-size: 0.88rem;
-  color: var(--espresso);
+  padding: 20px 16px;
+  text-align: center;
   transition: all 0.3s;
   border: 1px solid transparent;
 }
-.store-chip:hover { border-color: var(--blush); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.04); }
-.store-chip .count {
-  background: var(--cream);
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 100px;
-  color: var(--warm-gray);
-}
-.store-regions {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 32px;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.store-region {
-  font-size: 0.78rem;
-  color: var(--warm-gray);
-  font-weight: 500;
-  padding: 6px 14px;
-  background: rgba(255,255,255,0.7);
-  border-radius: 100px;
-}
-.store-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 700;
-  color: var(--espresso);
-  font-size: 0.92rem;
-  transition: gap 0.3s;
-}
-.store-cta:hover { gap: 12px; }
-.store-cta svg { width: 18px; height: 18px; }
+.store-brand:hover { border-color: var(--blush); transform: translateY(-2px); }
+.store-brand-name { font-weight: 700; font-size: 0.85rem; color: var(--bark); margin-bottom: 2px; }
+.store-brand-count { font-size: 0.72rem; color: var(--warm-gray); }
 
-/* ===== MISSION ===== */
-.mission-section { padding: 96px 80px; background: var(--white); }
-.mission-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 72px;
-  align-items: center;
-}
-.mission-visual { position: relative; }
-.mission-img {
-  width: 100%;
-  aspect-ratio: 4/5;
-  border-radius: 28px;
-  overflow: hidden;
+/* ===== ORIGIN STORY ===== */
+.origin {
+  padding: 88px 80px;
+  background: var(--cream);
   position: relative;
+  overflow: hidden;
 }
-.mission-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.mission-floating {
+.origin::after {
+  content: '';
   position: absolute;
-  bottom: -20px; right: -20px;
-  background: var(--white);
-  border-radius: 18px;
-  padding: 20px 24px;
-  box-shadow: 0 12px 36px rgba(0,0,0,0.1);
-  display: flex;
+  width: 500px; height: 500px;
+  border-radius: 50% 50% 45% 55% / 55% 45% 55% 45%;
+  background: radial-gradient(ellipse, rgba(212,168,75,0.06) 0%, transparent 70%);
+  bottom: -10%; left: -5%;
+  z-index: 0;
+}
+.origin-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 56px;
   align-items: center;
-  gap: 14px;
-  max-width: 260px;
+  position: relative;
+  z-index: 1;
 }
-.mission-floating-icon {
-  width: 44px; height: 44px;
-  background: var(--sage);
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
+.origin-photos { position: relative; }
+.origin-main-img {
+  width: 100%;
+  aspect-ratio: 5/6;
+  border-radius: 20px;
+  overflow: hidden;
 }
-.mission-floating-icon svg { width: 20px; height: 20px; fill: white; }
-.mission-floating h4 {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.85rem; font-weight: 700;
+.origin-main-img img { width: 100%; height: 100%; object-fit: cover; }
+.origin-inset {
+  position: absolute;
+  bottom: -16px; right: -16px;
+  width: 160px; height: 160px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 4px solid var(--cream);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.1);
 }
-.mission-floating p { font-size: 0.75rem; color: var(--warm-gray); margin-top: 2px; }
+.origin-inset img { width: 100%; height: 100%; object-fit: cover; }
+.origin-tag {
+  position: absolute;
+  top: 14px; left: 14px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(6px);
+  border-radius: 100px;
+  padding: 5px 14px;
+  font-size: 0.68rem; font-weight: 700; color: var(--warm-gray);
+  z-index: 3;
+}
 
-.mission-content h2 { font-size: 2.4rem; color: var(--espresso); margin-bottom: 16px; }
-.mission-content > p { font-size: 1rem; color: var(--warm-gray); line-height: 1.7; margin-bottom: 32px; }
-.mission-values { display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; }
-.mission-value {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px 18px;
-  background: var(--cream);
+.origin-text h2 { font-size: 2rem; color: var(--bark); margin-bottom: 16px; }
+.origin-text h2 em { color: var(--sage); font-style: italic; }
+.origin-blockquote {
+  font-family: 'Fraunces', serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--bark);
+  padding: 16px 20px;
+  border-left: 3px solid var(--sage);
+  background: var(--white);
+  border-radius: 0 12px 12px 0;
+  margin-bottom: 18px;
+  line-height: 1.55;
+}
+.origin-p { font-size: 0.9rem; color: var(--warm-gray); line-height: 1.7; margin-bottom: 12px; }
+
+.origin-milestones {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 40px;
+}
+.milestone {
+  background: var(--white);
   border-radius: 14px;
+  padding: 20px 16px;
+  text-align: center;
   transition: all 0.3s;
 }
-.mission-value:hover { background: var(--cream-dark); transform: translateX(4px); }
-.mission-value-icon {
-  width: 42px; height: 42px;
-  background: var(--white);
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  font-size: 1.1rem;
+.milestone:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.05); }
+.milestone-yr {
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem; color: var(--sage); margin-bottom: 3px;
 }
-.mission-value-text h4 {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.88rem; font-weight: 700; color: var(--espresso);
-}
-.mission-value-text p { font-size: 0.8rem; color: var(--warm-gray); margin-top: 1px; }
+.milestone-t { font-weight: 700; font-size: 0.78rem; color: var(--bark); margin-bottom: 2px; }
+.milestone-d { font-size: 0.7rem; color: var(--warm-gray); line-height: 1.4; }
 
 /* ===== FOOTER ===== */
 footer {
-  background: var(--espresso);
+  background: var(--bark);
   color: var(--cream);
-  padding: 72px 80px 36px;
+  padding: 64px 80px 32px;
 }
-.footer-grid {
+.f-grid {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 40px;
-  margin-bottom: 56px;
+  margin-bottom: 48px;
 }
-.footer-brand p {
-  font-size: 0.85rem;
-  opacity: 0.6;
-  line-height: 1.6;
-  max-width: 300px;
-  margin: 12px 0 20px;
-}
-.footer-brand h3 { font-size: 1.4rem; color: var(--cream); }
-.footer-social { display: flex; gap: 10px; }
-.footer-social a {
-  width: 38px; height: 38px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.07);
+.f-brand h3 { font-family: 'Fraunces', serif; font-size: 1.3rem; color: var(--cream); margin-bottom: 10px; }
+.f-brand p { font-size: 0.82rem; opacity: 0.55; line-height: 1.6; max-width: 280px; margin-bottom: 16px; }
+.f-social { display: flex; gap: 10px; }
+.f-social a {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,0.06);
   display: flex; align-items: center; justify-content: center;
   transition: background 0.3s;
 }
-.footer-social a:hover { background: rgba(255,255,255,0.14); }
-.footer-social svg { width: 16px; height: 16px; fill: var(--cream); }
-.footer-col h4 {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-weight: 700;
-  margin-bottom: 18px;
-  opacity: 0.45;
+.f-social a:hover { background: rgba(255,255,255,0.12); }
+.f-social svg { width: 15px; height: 15px; fill: var(--cream); }
+.f-col h4 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em;
+  font-weight: 700; margin-bottom: 16px; opacity: 0.4;
 }
-.footer-col a { display: block; font-size: 0.85rem; opacity: 0.7; margin-bottom: 11px; transition: opacity 0.2s; }
-.footer-col a:hover { opacity: 1; }
-.footer-bottom {
-  border-top: 1px solid rgba(255,255,255,0.07);
-  padding-top: 28px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 24px;
+.f-col a { display: block; font-size: 0.82rem; opacity: 0.6; margin-bottom: 10px; transition: opacity 0.2s; }
+.f-col a:hover { opacity: 1; }
+.f-bottom {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 24px;
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;
 }
-.footer-bottom p { font-size: 0.75rem; opacity: 0.35; }
-.footer-disclaimer { font-size: 0.65rem; opacity: 0.25; max-width: 640px; line-height: 1.5; }
+.f-bottom p { font-size: 0.7rem; opacity: 0.3; }
+.f-disc { font-size: 0.6rem; opacity: 0.2; max-width: 560px; line-height: 1.5; }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
   nav { padding: 12px 24px; }
   .nav-links { display: none; }
-  .mobile-toggle { display: flex; }
+  .burger { display: flex; }
   .hero { grid-template-columns: 1fr; min-height: auto; }
-  .hero-content { padding: 48px 24px 32px; }
-  .hero-image { height: 380px; }
-  .hero-image::before { width: 60px; }
-  .proof-bar { grid-template-columns: repeat(2, 1fr); }
-  .featured-in { padding: 36px 24px; }
-  .concern-section, .bestsellers, .reviews-section, .store-section, .mission-section { padding: 64px 24px; }
-  .concern-grid { grid-template-columns: repeat(2, 1fr); }
-  .products-grid { grid-template-columns: repeat(2, 1fr); }
-  .reviews-grid { grid-template-columns: 1fr; }
-  .partnership { grid-template-columns: 1fr; }
-  .partnership-visual { min-height: 260px; }
-  .partnership-content { padding: 40px 24px; }
-  .mission-grid { grid-template-columns: 1fr; gap: 40px; }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
-  footer { padding: 48px 24px 28px; }
-  .footer-bottom { flex-direction: column; }
-  .bestsellers-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .hero-left { padding: 48px 24px 32px; }
+  .hero-right { height: 380px; }
+  .hero-right::before { width: 60px; }
+  .logos { padding: 28px 24px; flex-wrap: wrap; }
+  .ranges { grid-template-columns: 1fr; }
+  .range-card { min-height: 360px; }
+  .sellers, .results, .stores, .origin { padding: 64px 24px; }
+  .p-grid { grid-template-columns: repeat(2, 1fr); }
+  .results-grid { grid-template-columns: 1fr; gap: 40px; }
+  .stores { grid-template-columns: 1fr; gap: 40px; }
+  .origin-inner { grid-template-columns: 1fr; gap: 36px; }
+  .origin-milestones { grid-template-columns: repeat(2, 1fr); }
+  .eanz { flex-direction: column; padding: 56px 24px; text-align: center; }
+  .eanz-text { text-align: center; }
+  .f-grid { grid-template-columns: 1fr 1fr; }
+  footer { padding: 48px 24px 24px; }
+  .f-bottom { flex-direction: column; }
+  .sellers-top { flex-direction: column; align-items: flex-start; gap: 10px; }
 }
 @media (max-width: 640px) {
-  .concern-grid { grid-template-columns: 1fr 1fr; }
-  .concern-card { aspect-ratio: 2/3; }
-  .products-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-  .product-info { padding: 14px 16px 16px; }
-  .product-name { font-size: 0.92rem; }
-  .hero-actions { flex-direction: column; }
-  .partnership-stats { flex-direction: column; gap: 16px; }
-  .store-grid { gap: 10px; }
-  .store-chip { padding: 10px 16px; font-size: 0.8rem; }
-  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
-  .hero h1 { font-size: 2rem; }
+  .p-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .p-info { padding: 12px 14px 14px; }
+  .p-name { font-size: 0.9rem; }
+  .hero-btns { flex-direction: column; }
+  .hero-proof { gap: 16px; }
+  .store-brands { grid-template-columns: repeat(2, 1fr); }
+  .results-mini-reviews { grid-template-columns: 1fr; }
+  .origin-milestones { grid-template-columns: 1fr 1fr; }
+  .f-grid { grid-template-columns: 1fr; gap: 24px; }
+  .hero h1 { font-size: 2.1rem; }
 }
 </style>
 </head>
 <body>
 
-<!-- ======== ANNOUNCEMENT BAR ======== -->
-<div class="announcement-bar">
-  <span>Buy 2 get 1 free on select 3pk bundles · Free shipping over $80</span>
-</div>
+<!-- ===== ANNOUNCEMENT ===== -->
+<div class="topbar">Buy 2 get 1 free on select 3pk bundles · Free shipping over $80</div>
 
-<!-- ======== NAV ======== -->
+<!-- ===== NAV ===== -->
 <nav>
-  <a href="/" class="nav-logo">
-    <img src="https://www.primalpantry.co.nz/img/logo/logo.webp" alt="PrimalPantry">
-  </a>
+  <a href="/" class="logo"><img src="https://www.primalpantry.co.nz/img/logo/logo.webp" alt="PrimalPantry"></a>
   <div class="nav-links">
     <a href="/shop/">Shop Tallow</a>
     <a href="/pages/reviews/">Reviews</a>
     <a href="/stockists/">Stockists</a>
     <a href="/pages/about/">Our Story</a>
     <a href="/contact/">Contact</a>
-    <a href="/shop/" class="nav-cta">Shop Now</a>
+    <a href="/shop/" class="nav-shop">Shop Now</a>
   </div>
-  <div class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">
-    <span></span><span></span><span></span>
-  </div>
+  <div class="burger"><span></span><span></span><span></span></div>
 </nav>
 
-<!-- ======== HERO ======== -->
+<!-- ===== HERO ===== -->
 <section class="hero">
-  <div class="hero-content">
-    <div class="hero-badge">
+  <div class="hero-left">
+    <a href="#eanz-section" class="hero-eanz">
       <img src="https://www.primalpantry.co.nz/img/home/eanz.webp" alt="EANZ">
-      Official Gold Partners — Eczema Association NZ
-    </div>
-    <h1>NZ tallow skincare for <em>sensitive skin</em></h1>
-    <p class="hero-sub">Simple, affordable & soothing tallow skincare. Trusted by 85,000+ Kiwis and stocked in 120+ of NZ's favourite retailers.</p>
-    <div class="hero-actions">
-      <a href="/shop/" class="btn-primary">
+      Gold Partners — Eczema Association NZ
+    </a>
+    <h1>Soothing tallow skincare for <em>sensitive skin</em></h1>
+    <p class="hero-p">NZ made, all natural, and honestly affordable. The skincare your skin's been waiting for — now in 120+ stores nationwide.</p>
+    <div class="hero-btns">
+      <a href="/shop/" class="btn-dark">
         Shop Skincare
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
-      <a href="/stockists/" class="btn-outline">Find a Store</a>
+      <a href="/stockists/" class="btn-ghost">Find a Store</a>
     </div>
-    <div class="hero-trust">
-      <div class="hero-trust-item">
-        <span class="hero-trust-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </span>
-        All Natural
+    <div class="hero-proof">
+      <div class="hero-proof-item">
+        <span class="hero-proof-num">85,000+</span>
+        <span class="hero-proof-label">Kiwis Helped</span>
       </div>
-      <div class="hero-trust-divider"></div>
-      <div class="hero-trust-item">
-        <span class="hero-trust-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        </span>
-        No Nasties
+      <div class="hero-proof-div"></div>
+      <div class="hero-proof-item">
+        <span class="hero-proof-num">120+</span>
+        <span class="hero-proof-label">Retailers</span>
       </div>
-      <div class="hero-trust-divider"></div>
-      <div class="hero-trust-item">
-        <span class="hero-trust-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-        </span>
-        Made in NZ
+      <div class="hero-proof-div"></div>
+      <div class="hero-proof-item">
+        <span class="hero-proof-num">4.8★</span>
+        <span class="hero-proof-label">Avg Rating</span>
       </div>
     </div>
   </div>
-  <div class="hero-image">
-    <img src="https://www.primalpantry.co.nz/img/home/hero.webp" alt="Primal Pantry tallow skincare products" loading="eager">
+  <div class="hero-right">
+    <img src="https://www.primalpantry.co.nz/img/home/hero.webp" alt="Primal Pantry tallow skincare range" loading="eager">
   </div>
 </section>
 
-<!-- ======== PROOF BAR ======== -->
-<div class="proof-bar">
-  <div class="proof-item">
-    <div class="proof-number">85,000+</div>
-    <div class="proof-label">Happy Kiwis</div>
-  </div>
-  <div class="proof-item">
-    <div class="proof-number">120+</div>
-    <div class="proof-label">Retail Stockists</div>
-  </div>
-  <div class="proof-item">
-    <div class="proof-number">4.8 ★</div>
-    <div class="proof-label">Average Rating</div>
-  </div>
-  <div class="proof-item">
-    <div class="proof-number">1 Jar</div>
-    <div class="proof-label">Every 3 Minutes</div>
-  </div>
+<!-- ===== MEDIA LOGOS ===== -->
+<div class="logos">
+  <span class="logos-label">As Featured In</span>
+  <img src="https://www.primalpantry.co.nz/img/shop/desktop-home-logos.webp" alt="Stuff, The Breeze, More FM, The Edge, The Press, The Post, Waikato Times">
 </div>
 
-<!-- ======== AS FEATURED IN ======== -->
-<div class="featured-in">
-  <div class="featured-label">As Featured In</div>
-  <div class="featured-logos">
-    <img src="https://www.primalpantry.co.nz/img/shop/desktop-home-logos.webp" alt="Stuff, Moī, The Breeze, More FM, The Edge, The Press, The Post, Waikato Times" style="height:36px;">
-  </div>
-</div>
-
-<!-- ======== SHOP BY CONCERN ======== -->
-<section class="concern-section">
-  <div class="section-eyebrow">Shop by Concern</div>
-  <h2 class="section-title">Find your solution</h2>
-  <p class="section-subtitle">Whether you're soothing eczema or looking for sensitive-safe beauty without the sting — we've got you covered.</p>
-  <div class="concern-grid">
-    <a href="/tallow-for-sensitive-skin/" class="concern-card">
-      <img src="https://www.primalpantry.co.nz/img/sensitiveskinnew.webp" alt="Tallow for Dry Irritation">
-      <div class="concern-card-overlay"></div>
-      <div class="concern-card-arrow">
-        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-      </div>
-      <div class="concern-card-content">
-        <div class="concern-card-tag">Soothing Range</div>
-        <h3>Eczema & Dry Skin</h3>
-        <p>Our original tallow balms — deep relief for irritated skin</p>
-      </div>
-    </a>
-    <a href="/tallow-for-babies/" class="concern-card">
-      <img src="https://www.primalpantry.co.nz/img/bundle-babies-skincare.webp" alt="Tallow for Babies">
-      <div class="concern-card-overlay"></div>
-      <div class="concern-card-arrow">
-        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-      </div>
-      <div class="concern-card-content">
-        <div class="concern-card-tag">Gentle Care</div>
-        <h3>Baby & Newborn</h3>
-        <p>Gentle enough for delicate skin from day one</p>
-      </div>
-    </a>
-    <a href="/tallow-for-wrinkles/" class="concern-card">
-      <img src="https://www.primalpantry.co.nz/img/wrinkleskinnew.webp" alt="Tallow for Wrinkles">
-      <div class="concern-card-overlay"></div>
-      <div class="concern-card-arrow">
-        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-      </div>
-      <div class="concern-card-content">
-        <div class="concern-card-tag">Beauty Range</div>
-        <h3>Wrinkles & Fine Lines</h3>
-        <p>Anti-aging tallow skincare — beauty without the sting</p>
-      </div>
-    </a>
-    <a href="/shop/" class="concern-card">
-      <img src="https://www.primalpantry.co.nz/img/scalpbundle-shop.webp" alt="Tallow Haircare">
-      <div class="concern-card-overlay"></div>
-      <div class="concern-card-arrow">
-        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-      </div>
-      <div class="concern-card-content">
-        <div class="concern-card-tag">NEW — Haircare</div>
-        <h3>Scalp & Hair Health</h3>
-        <p>Shampoo, conditioner & scalp treatments</p>
-      </div>
-    </a>
-  </div>
-</section>
-
-<!-- ======== BEST SELLERS ======== -->
-<section class="bestsellers">
-  <div class="bestsellers-header">
-    <div>
-      <div class="section-eyebrow">Customer Favourites</div>
-      <h2 class="section-title">Best Sellers</h2>
+<!-- ===== TWO RANGES ===== -->
+<section class="ranges">
+  <a href="/tallow-for-sensitive-skin/" class="range-card range-soothing">
+    <img src="https://www.primalpantry.co.nz/img/sensitiveskinnew.webp" alt="Soothing tallow skincare range">
+    <div class="range-overlay"></div>
+    <div class="range-content">
+      <span class="range-tag">Soothing Range</span>
+      <h2>Eczema & Dry Skin Relief</h2>
+      <p>Our original tallow balms — deep, lasting relief for eczema, irritation, and dry skin. The products that started it all.</p>
+      <span class="range-link">
+        Shop Soothing Range
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </span>
     </div>
-    <a href="/shop/" class="view-all">
-      View all products
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </a>
-  </div>
-  <div class="products-grid">
-    <!-- Tallow Balm -->
-    <a href="/shop/products/tallow-skin" class="product-card">
-      <span class="product-badge">Best Seller</span>
-      <div class="product-image">
-        <img src="https://www.primalpantry.co.nz/img/shop/balm.webp" alt="Tallow Balm - Whipped">
-        <div class="product-quick-add">+ Quick Add</div>
-      </div>
-      <div class="product-info">
-        <div class="product-name">Tallow Balm — Whipped</div>
-        <div class="product-desc">Our #1. Deep soothing relief for dry & irritated skin.</div>
-        <div class="product-bottom">
-          <span class="product-price">From $18.95</span>
-          <span class="product-social">20,000+ Kiwis</span>
-        </div>
-        <div class="product-stars" style="margin-top:6px;">★★★★★</div>
-      </div>
-    </a>
-    <!-- Honey Balm -->
-    <a href="/shop/products/tallow-honey-balm" class="product-card">
-      <span class="product-badge">Best Seller</span>
-      <div class="product-image">
-        <img src="https://www.primalpantry.co.nz/img/shop/honeyshop.webp" alt="Tallow & Honey Balm">
-        <div class="product-quick-add">+ Quick Add</div>
-      </div>
-      <div class="product-info">
-        <div class="product-name">Tallow & Honey Balm</div>
-        <div class="product-desc">NZ honey meets grass-fed tallow — extra nourishing.</div>
-        <div class="product-bottom">
-          <span class="product-price">From $21.95</span>
-          <span class="product-social">20,000+ Kiwis</span>
-        </div>
-        <div class="product-stars" style="margin-top:6px;">★★★★★</div>
-      </div>
-    </a>
-    <!-- Eye Cream -->
-    <a href="/shop/products/tallow-eye-cream" class="product-card">
-      <span class="product-badge online">Online Only</span>
-      <div class="product-image">
-        <img src="https://www.primalpantry.co.nz/img/shop/eyecream.webp" alt="Tallow Eye Cream">
-        <div class="product-quick-add">+ Quick Add</div>
-      </div>
-      <div class="product-info">
-        <div class="product-name">Tallow Eye Cream</div>
-        <div class="product-desc">Sensitive-safe eye cream for dark circles & fine lines.</div>
-        <div class="product-bottom">
-          <span class="product-price">$34.95</span>
-          <span class="product-social">8,000+ Kiwis</span>
-        </div>
-        <div class="product-stars" style="margin-top:6px;">★★★★★</div>
-      </div>
-    </a>
-    <!-- Serum -->
-    <a href="/shop/products/tallow-serum" class="product-card">
-      <span class="product-badge online">Online Only</span>
-      <div class="product-image">
-        <img src="https://www.primalpantry.co.nz/img/serum-shop.webp" alt="Tallow Glow Serum">
-        <div class="product-quick-add">+ Quick Add</div>
-      </div>
-      <div class="product-info">
-        <div class="product-name">Tallow Glow Serum</div>
-        <div class="product-desc">Lightweight serum for radiant, hydrated skin.</div>
-        <div class="product-bottom">
-          <span class="product-price">$38.20</span>
-          <span class="product-social">New Product!</span>
-        </div>
-        <div class="product-stars" style="margin-top:6px;">★★★★★</div>
-      </div>
-    </a>
-  </div>
-</section>
-
-<!-- ======== REVIEWS ======== -->
-<section class="reviews-section">
-  <div class="reviews-header">
-    <div class="section-eyebrow">What Kiwis Are Saying</div>
-    <h2 class="section-title">Real reviews from real skin</h2>
-    <div class="reviews-stats">
-      <span class="reviews-stars">★★★★★</span>
-      <span class="reviews-count">Based on 20,000+ reviews</span>
+  </a>
+  <a href="/tallow-for-wrinkles/" class="range-card range-beauty">
+    <img src="https://www.primalpantry.co.nz/img/wrinkleskinnew.webp" alt="Tallow beauty skincare range">
+    <div class="range-overlay"></div>
+    <div class="range-content">
+      <span class="range-tag">Beauty Range</span>
+      <h2>Sensitive-Safe Beauty</h2>
+      <p>Eye creams, serums & anti-aging skincare — all the beauty, none of the sting. For skin that reacts to everything else.</p>
+      <span class="range-link">
+        Shop Beauty Range
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </span>
     </div>
-  </div>
-  <div class="reviews-grid">
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text"><strong>Best product on the market</strong> and also at the best price. Thank you for looking after us and not being greedy.</p>
-      <div class="review-author">
-        <div class="review-avatar">M</div>
-        <div class="review-meta">
-          <div class="review-name">Margaret</div>
-          <div class="review-verified">
-            <svg viewBox="0 0 16 16"><path d="M13.485 3.515a1 1 0 0 1 0 1.414l-7.07 7.07a1 1 0 0 1-1.415 0L2.515 9.515a1 1 0 1 1 1.414-1.414L6 10.172l6.071-6.071a1 1 0 0 1 1.414 0z"/></svg>
-            Verified Buyer
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text">My daughter's eczema has <strong>never been this calm</strong>. We've tried everything — this is the only thing that actually works for her.</p>
-      <div class="review-author">
-        <div class="review-avatar">S</div>
-        <div class="review-meta">
-          <div class="review-name">Sarah</div>
-          <div class="review-verified">
-            <svg viewBox="0 0 16 16"><path d="M13.485 3.515a1 1 0 0 1 0 1.414l-7.07 7.07a1 1 0 0 1-1.415 0L2.515 9.515a1 1 0 1 1 1.414-1.414L6 10.172l6.071-6.071a1 1 0 0 1 1.414 0z"/></svg>
-            Verified Buyer
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text">Love that I can <strong>grab it from Chemist Warehouse</strong> now. The eye cream is amazing — sensitive safe beauty without the sting.</p>
-      <div class="review-author">
-        <div class="review-avatar">J</div>
-        <div class="review-meta">
-          <div class="review-name">Jess</div>
-          <div class="review-verified">
-            <svg viewBox="0 0 16 16"><path d="M13.485 3.515a1 1 0 0 1 0 1.414l-7.07 7.07a1 1 0 0 1-1.415 0L2.515 9.515a1 1 0 1 1 1.414-1.414L6 10.172l6.071-6.071a1 1 0 0 1 1.414 0z"/></svg>
-            Verified Buyer
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ======== EANZ PARTNERSHIP ======== -->
-<section class="partnership">
-  <div class="partnership-visual">
-    <div class="eanz-badge">
-      <img src="https://www.primalpantry.co.nz/img/home/eanz.webp" alt="Eczema Association of New Zealand">
-      <div class="eanz-badge-text">Official Gold Partners</div>
-    </div>
-  </div>
-  <div class="partnership-content">
-    <div class="partnership-inner">
-      <div class="partnership-tag">Official Gold Partnership</div>
-      <h2>Backed by NZ's eczema experts</h2>
-      <p>We're proud Official Gold Partners of the Eczema Association of New Zealand — supporting their mission to help Kiwis living with eczema and sensitive skin conditions.</p>
-      <div class="partnership-stats">
-        <div>
-          <div class="partnership-stat-number">85,000+</div>
-          <div class="partnership-stat-label">Kiwis helped so far</div>
-        </div>
-        <div>
-          <div class="partnership-stat-number">1 jar</div>
-          <div class="partnership-stat-label">Every 3 minutes</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ======== FIND IN STORE ======== -->
-<section class="store-section">
-  <div class="section-eyebrow">Available Nationwide</div>
-  <h2 class="section-title">Find us in-store</h2>
-  <p class="section-subtitle">Pick up our soothing tallow balms at 120+ retailers across NZ. Shop online for our full range including exclusive serums, eye creams & more.</p>
-  <div class="store-grid">
-    <div class="store-chip">Chemist Warehouse <span class="count">30+</span></div>
-    <div class="store-chip">Bargain Chemist <span class="count">20+</span></div>
-    <div class="store-chip">Health2000 <span class="count">20+</span></div>
-    <div class="store-chip">New World <span class="count">15+</span></div>
-    <div class="store-chip">Pak n Save</div>
-    <div class="store-chip">Unichem</div>
-  </div>
-  <div class="store-regions">
-    <span class="store-region">Auckland 22</span>
-    <span class="store-region">Christchurch 30</span>
-    <span class="store-region">Wellington 7</span>
-    <span class="store-region">Hamilton 5</span>
-    <span class="store-region">Dunedin 6</span>
-    <span class="store-region">Nelson 4</span>
-    <span class="store-region">Queenstown 3</span>
-    <span class="store-region">+ 10 more regions</span>
-  </div>
-  <a href="/stockists/" class="store-cta">
-    Find your nearest store
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
   </a>
 </section>
 
-<!-- ======== MISSION ======== -->
-<section class="mission-section">
-  <div class="mission-grid">
-    <div class="mission-visual">
-      <div class="mission-img">
-        <img src="https://www.primalpantry.co.nz/img/teamus.webp" alt="Primal Pantry team">
+<!-- ===== BEST SELLERS ===== -->
+<section class="sellers">
+  <div class="sellers-top">
+    <h2>Best Sellers</h2>
+    <a href="/shop/">
+      View all 27 products
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+  <div class="p-grid">
+    <a href="/shop/products/tallow-skin" class="p-card">
+      <span class="p-badge">Best Seller</span>
+      <div class="p-img"><img src="https://www.primalpantry.co.nz/img/shop/balm.webp" alt="Tallow Balm - Whipped"></div>
+      <div class="p-info">
+        <div class="p-name">Tallow Balm — Whipped</div>
+        <div class="p-sub">Deep soothing relief for dry & irritated skin</div>
+        <div class="p-row"><span class="p-price">From $18.95</span><span class="p-kiwis">20,000+ Kiwis</span></div>
+        <div class="p-stars">★★★★★</div>
       </div>
-      <div class="mission-floating">
-        <div class="mission-floating-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    </a>
+    <a href="/shop/products/tallow-honey-balm" class="p-card">
+      <span class="p-badge">Best Seller</span>
+      <div class="p-img"><img src="https://www.primalpantry.co.nz/img/shop/honeyshop.webp" alt="Tallow & Honey Balm"></div>
+      <div class="p-info">
+        <div class="p-name">Tallow & Honey Balm</div>
+        <div class="p-sub">NZ honey meets grass-fed tallow — extra nourishing</div>
+        <div class="p-row"><span class="p-price">From $21.95</span><span class="p-kiwis">20,000+ Kiwis</span></div>
+        <div class="p-stars">★★★★★</div>
+      </div>
+    </a>
+    <a href="/shop/products/tallow-eye-cream" class="p-card">
+      <span class="p-badge online">Online Only</span>
+      <div class="p-img"><img src="https://www.primalpantry.co.nz/img/shop/eyecream.webp" alt="Tallow Eye Cream"></div>
+      <div class="p-info">
+        <div class="p-name">Tallow Eye Cream</div>
+        <div class="p-sub">Sensitive-safe. Dark circles & fine lines.</div>
+        <div class="p-row"><span class="p-price">$34.95</span><span class="p-kiwis">8,000+ Kiwis</span></div>
+        <div class="p-stars">★★★★★</div>
+      </div>
+    </a>
+    <a href="/shop/products/tallow-serum" class="p-card">
+      <span class="p-badge online">Online Only</span>
+      <div class="p-img"><img src="https://www.primalpantry.co.nz/img/serum-shop.webp" alt="Tallow Glow Serum"></div>
+      <div class="p-info">
+        <div class="p-name">Tallow Glow Serum</div>
+        <div class="p-sub">Lightweight serum for radiant, hydrated skin</div>
+        <div class="p-row"><span class="p-price">$38.20</span><span class="p-kiwis">New!</span></div>
+        <div class="p-stars">★★★★★</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ===== MARQUEE ===== -->
+<div class="marquee-wrap">
+  <div class="marquee">
+    <span>A jar finds a new home every 3 minutes</span><span class="dot">✦</span>
+    <span>All natural, NZ made</span><span class="dot">✦</span>
+    <span>85,000+ Kiwis trust PrimalPantry</span><span class="dot">✦</span>
+    <span>No parabens, no synthetics, no nasties</span><span class="dot">✦</span>
+    <span>From $18.95 — honest pricing, always</span><span class="dot">✦</span>
+    <span>Official Gold Partners — Eczema Association NZ</span><span class="dot">✦</span>
+    <!-- duplicate for seamless loop -->
+    <span>A jar finds a new home every 3 minutes</span><span class="dot">✦</span>
+    <span>All natural, NZ made</span><span class="dot">✦</span>
+    <span>85,000+ Kiwis trust PrimalPantry</span><span class="dot">✦</span>
+    <span>No parabens, no synthetics, no nasties</span><span class="dot">✦</span>
+    <span>From $18.95 — honest pricing, always</span><span class="dot">✦</span>
+    <span>Official Gold Partners — Eczema Association NZ</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- ===== RESULTS + REVIEWS ===== -->
+<section class="results">
+  <div class="results-grid">
+    <div class="results-img">
+      <img src="https://www.primalpantry.co.nz/img/talbaby.webp" alt="Before and after tallow skincare results on baby">
+      <span class="results-img-label">Real results, real Kiwi families</span>
+    </div>
+    <div class="results-content">
+      <h2>Real results from 20,000+ reviews</h2>
+
+      <!-- Featured review -->
+      <div class="results-featured">
+        <div class="results-stars">★★★★★</div>
+        <p class="results-quote">"<mark>Best product on the market</mark> and also at the best price. Thank you for looking after us and not being greedy."</p>
+        <div class="results-author">
+          <div class="results-avatar">M</div>
+          <div>
+            <div class="results-author-name">Margaret</div>
+            <div class="results-verified">✓ Verified Buyer</div>
+          </div>
         </div>
-        <div>
-          <h4>Made in Christchurch</h4>
-          <p>Hand-poured by our team of young Kiwis</p>
+      </div>
+
+      <!-- Mini reviews -->
+      <div class="results-mini-reviews">
+        <div class="mini-review">
+          <div class="mini-stars">★★★★★</div>
+          My daughter's eczema has <strong>never been this calm</strong>. The only thing that actually works for her.
+          <div class="mini-review-foot">Sarah — Verified Buyer</div>
+        </div>
+        <div class="mini-review">
+          <div class="mini-stars">★★★★★</div>
+          Love that I can <strong>grab it from Chemist Warehouse</strong> now. The eye cream is my daily go-to.
+          <div class="mini-review-foot">Jess — Verified Buyer</div>
         </div>
       </div>
     </div>
-    <div class="mission-content">
-      <div class="section-eyebrow">Our Story</div>
-      <h2>To help as many Kiwis with dry & irritated skin as possible</h2>
-      <p>We're a small team of young Kiwis in Christchurch, dedicated to making simple, affordable, and all-natural tallow skincare. No nasties, no filler — just the good stuff your skin's been craving.</p>
-      <div class="mission-values">
-        <div class="mission-value">
-          <div class="mission-value-icon">🌿</div>
-          <div class="mission-value-text">
-            <h4>All Natural Ingredients</h4>
-            <p>NZ grass-fed tallow, the way nature intended</p>
-          </div>
-        </div>
-        <div class="mission-value">
-          <div class="mission-value-icon">🚫</div>
-          <div class="mission-value-text">
-            <h4>No Nasties</h4>
-            <p>Free from parabens, synthetics & harsh chemicals</p>
-          </div>
-        </div>
-        <div class="mission-value">
-          <div class="mission-value-icon">💛</div>
-          <div class="mission-value-text">
-            <h4>Honestly Affordable</h4>
-            <p>Premium skincare without the premium price tag</p>
-          </div>
-        </div>
+  </div>
+</section>
+
+<!-- ===== EANZ PARTNERSHIP ===== -->
+<section class="eanz" id="eanz-section">
+  <img src="https://www.primalpantry.co.nz/img/home/eanz.webp" alt="Eczema Association of New Zealand" class="eanz-logo">
+  <div class="eanz-text">
+    <h3>Official Gold Partners of the Eczema Association NZ</h3>
+    <p>We're proud to support EANZ's mission to help Kiwis living with eczema and sensitive skin conditions. This partnership reflects our commitment — not just to making great skincare, but to the community that needs it most.</p>
+    <p class="eanz-disclaimer">Partnership indicates support of EANZ's work; it is not a medical endorsement and does not mean EANZ has tested or approved this product.</p>
+  </div>
+</section>
+
+<!-- ===== FIND IN STORE ===== -->
+<section class="stores">
+  <div class="stores-left">
+    <h2>Find us in 120+ stores across NZ</h2>
+    <p>Pick up our soothing tallow balms at retailers nationwide. For our full range — including eye cream, serum, haircare & more — shop online.</p>
+    <a href="/stockists/" class="stores-cta">
+      Find your nearest store
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+  <div class="store-brands">
+    <div class="store-brand"><div class="store-brand-name">Chemist Warehouse</div><div class="store-brand-count">30+ stores</div></div>
+    <div class="store-brand"><div class="store-brand-name">Bargain Chemist</div><div class="store-brand-count">20+ stores</div></div>
+    <div class="store-brand"><div class="store-brand-name">Health2000</div><div class="store-brand-count">20+ stores</div></div>
+    <div class="store-brand"><div class="store-brand-name">New World</div><div class="store-brand-count">15+ stores</div></div>
+    <div class="store-brand"><div class="store-brand-name">Pak'n'Save</div><div class="store-brand-count">Select stores</div></div>
+    <div class="store-brand"><div class="store-brand-name">Unichem</div><div class="store-brand-count">Select stores</div></div>
+  </div>
+</section>
+
+<!-- ===== ORIGIN STORY ===== -->
+<section class="origin">
+  <div class="origin-inner">
+    <div class="origin-photos">
+      <div class="origin-tag">📰 Featured in The Press</div>
+      <div class="origin-main-img">
+        <img src="https://www.primalpantry.co.nz/img/about/header.webp" alt="Primal Pantry team making tallow">
       </div>
-      <a href="/pages/about/" class="btn-primary">
-        Learn Our Story
+      <div class="origin-inset">
+        <img src="https://www.primalpantry.co.nz/img/about/founder.webp" alt="Founder of Primal Pantry">
+      </div>
+    </div>
+    <div class="origin-text">
+      <h2>It started with a customer who put <em>beef fat on her hands</em></h2>
+      <div class="origin-blockquote">"We were selling bone broth at a farmers market. A regular kept coming back for the fat — she was using it to keep eczema away in the cold."</div>
+      <p class="origin-p">We wrote "Tallow balm coming next week" on a chalkboard. Within minutes, a crowd formed. The next week we sold out in an hour.</p>
+      <p class="origin-p">Every week we came back with more tallow and less broth. Now we're a team of 17+, shipping 50,000 products a year from Christchurch to Kiwis who've finally found something that works.</p>
+      <a href="/pages/about/" class="btn-dark" style="margin-top:8px;">
+        Read Our Full Story
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
     </div>
   </div>
+  <div class="origin-milestones">
+    <div class="milestone"><div class="milestone-yr">2023</div><div class="milestone-t">The Chalkboard</div><div class="milestone-d">Sold out first prototype in one hour</div></div>
+    <div class="milestone"><div class="milestone-yr">2024</div><div class="milestone-t">Going Viral</div><div class="milestone-d">Seven Sharp, Stuff, The Press. 20K+ customers</div></div>
+    <div class="milestone"><div class="milestone-yr">2025</div><div class="milestone-t">Hitting Shelves</div><div class="milestone-d">Launched into 120+ NZ retailers</div></div>
+    <div class="milestone"><div class="milestone-yr">2026</div><div class="milestone-t">85K+ Kiwis</div><div class="milestone-d">Full soothing & beauty range. EANZ Gold Partners</div></div>
+  </div>
 </section>
 
-<!-- ======== FOOTER ======== -->
+<!-- ===== FOOTER ===== -->
 <footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
+  <div class="f-grid">
+    <div class="f-brand">
       <h3>PrimalPantry</h3>
-      <p>NZ made tallow skincare for sensitive skin. Simple, affordable & soothing — trusted by 85,000+ Kiwis.</p>
-      <div class="footer-social">
+      <p>NZ made tallow skincare for sensitive skin. Simple, affordable & soothing.</p>
+      <div class="f-social">
         <a href="https://www.facebook.com/profile.php?id=61560358912834" aria-label="Facebook">
           <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
         </a>
@@ -1268,7 +972,7 @@ footer {
         </a>
       </div>
     </div>
-    <div class="footer-col">
+    <div class="f-col">
       <h4>Shop</h4>
       <a href="/shop/">All Products</a>
       <a href="/tallow-for-sensitive-skin/">Eczema & Dry Skin</a>
@@ -1276,57 +980,43 @@ footer {
       <a href="/tallow-for-wrinkles/">Anti-Aging</a>
       <a href="/shop/">Haircare</a>
     </div>
-    <div class="footer-col">
+    <div class="f-col">
       <h4>Help</h4>
       <a href="/support/">Customer Support</a>
       <a href="/faq/">FAQs</a>
       <a href="/pages/refund-policy/">Refund Policy</a>
-      <a href="/pages/terms-of-use/">Terms of Use</a>
       <a href="/stockists/">Find a Store</a>
     </div>
-    <div class="footer-col">
+    <div class="f-col">
       <h4>Company</h4>
       <a href="/pages/about/">Our Story</a>
       <a href="/pages/reviews/">Reviews</a>
       <a href="/posts/">Blog</a>
-      <a href="/contact/">Contact Us</a>
-      <a href="/pages/privacy-policy/">Privacy Policy</a>
+      <a href="/contact/">Contact</a>
     </div>
   </div>
-  <div class="footer-bottom">
+  <div class="f-bottom">
     <p>© PrimalPantry 2026 All Rights Reserved.</p>
-    <p class="footer-disclaimer">Primal Pantry is a corporate partner of the Eczema Association of New Zealand (EANZ), a charitable patient support organisation. Partnership indicates support of EANZ's work; it is not a medical endorsement and does not mean EANZ has tested or approved this product.</p>
+    <p class="f-disc">Primal Pantry is a corporate partner of the Eczema Association of New Zealand (EANZ). Partnership indicates support of EANZ's work; it is not a medical endorsement.</p>
   </div>
 </footer>
 
-<!-- ======== SCROLL ANIMATIONS ======== -->
+<!-- ===== SCROLL ANIMATIONS ===== -->
 <script>
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.06, rootMargin: '0px 0px -24px 0px' });
 
-document.querySelectorAll('.concern-card, .product-card, .review-card, .proof-item, .mission-value, .store-chip').forEach(el => {
+document.querySelectorAll('.p-card, .mini-review, .store-brand, .milestone, .range-card, .results-featured').forEach((el, i) => {
   el.style.opacity = '0';
-  el.style.transform = 'translateY(20px)';
-  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-  observer.observe(el);
+  el.style.transform = 'translateY(16px)';
+  el.style.transition = `opacity 0.5s ease ${i % 4 * 0.07}s, transform 0.5s ease ${i % 4 * 0.07}s`;
+  io.observe(el);
 });
 
-// Add visible class styles
-const style = document.createElement('style');
-style.textContent = '.visible { opacity: 1 !important; transform: translateY(0) !important; }';
-document.head.appendChild(style);
-
-// Stagger children in grids
-document.querySelectorAll('.concern-grid, .products-grid, .reviews-grid, .store-grid').forEach(grid => {
-  Array.from(grid.children).forEach((child, i) => {
-    child.style.transitionDelay = `${i * 0.08}s`;
-  });
-});
+const s = document.createElement('style');
+s.textContent = '.in{opacity:1!important;transform:translateY(0)!important}';
+document.head.appendChild(s);
 </script>
 
 </body>
