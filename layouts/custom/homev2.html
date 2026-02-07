@@ -109,38 +109,33 @@ nav {
   position: relative;
   z-index: 2;
 }
-/* organic blob shape behind text */
-.hero-left::before {
-  content: '';
-  position: absolute;
-  width: 480px; height: 480px;
-  border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%;
-  background: radial-gradient(ellipse, rgba(107,143,91,0.08) 0%, transparent 70%);
-  top: 10%; left: -10%;
-  z-index: -1;
-  animation: blobFloat 20s ease-in-out infinite alternate;
-}
-@keyframes blobFloat {
-  0% { transform: translate(0, 0) rotate(0deg) scale(1); }
-  100% { transform: translate(20px, -15px) rotate(8deg) scale(1.05); }
-}
+
 
 .hero-eanz {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  background: rgba(255,255,255,0.75);
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--blush);
-  border-radius: 100px;
-  padding: 5px 16px 5px 5px;
-  font-size: 0.75rem; font-weight: 700;
-  color: var(--bark);
+  gap: 16px;
+  background: var(--white);
+  border: 1px solid var(--cream-deep);
+  border-radius: 16px;
+  padding: 12px 20px;
   width: fit-content;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   animation: riseIn 0.7s ease both;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
 }
-.hero-eanz img { height: 30px; border-radius: 50%; }
+.hero-eanz img { height: 52px; width: auto; flex-shrink: 0; }
+.hero-eanz-text {
+  display: flex; flex-direction: column;
+}
+.hero-eanz-label {
+  font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.14em;
+  font-weight: 700; color: var(--sage); line-height: 1.3;
+}
+.hero-eanz-title {
+  font-family: 'Fraunces', serif;
+  font-size: 0.95rem; color: var(--bark); font-weight: 700; line-height: 1.25;
+}
 
 .hero h1 {
   font-size: clamp(2.6rem, 4.2vw, 3.8rem);
@@ -714,11 +709,14 @@ footer {
 <section class="hero">
   <div class="hero-left">
     <a href="#eanz-section" class="hero-eanz">
-      <img src="https://www.primalpantry.co.nz/img/home/eanz.webp" alt="EANZ">
-      Gold Partners — Eczema Association NZ
+      <img src="https://www.primalpantry.co.nz/img/home/eanz.webp" alt="Eczema Association of New Zealand">
+      <div class="hero-eanz-text">
+        <span class="hero-eanz-label">Official Gold Partners</span>
+        <span class="hero-eanz-title">Eczema Association of New Zealand</span>
+      </div>
     </a>
     <h1>Soothing tallow skincare for <em>sensitive skin</em></h1>
-    <p class="hero-p">NZ made, all natural, and honestly affordable. The skincare your skin's been waiting for — now in 120+ stores nationwide.</p>
+    <p class="hero-p">NZ made tallow that soothes, hydrates & moisturises — without the sting. All natural, honestly affordable, and now in 120+ stores nationwide.</p>
     <div class="hero-btns">
       <a href="/shop/" class="btn-dark">
         Shop Skincare
@@ -761,8 +759,8 @@ footer {
     <div class="range-overlay"></div>
     <div class="range-content">
       <span class="range-tag">Soothing Range</span>
-      <h2>Eczema & Dry Skin Relief</h2>
-      <p>Our original tallow balms — deep, lasting relief for eczema, irritation, and dry skin. The products that started it all.</p>
+      <h2>Eczema & Dry Skin</h2>
+      <p>Our original tallow balms — soothing, hydrating comfort for eczema, irritation, and dry skin. The products that started it all.</p>
       <span class="range-link">
         Shop Soothing Range
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -799,7 +797,7 @@ footer {
       <div class="p-img"><img src="https://www.primalpantry.co.nz/img/shop/balm.webp" alt="Tallow Balm - Whipped"></div>
       <div class="p-info">
         <div class="p-name">Tallow Balm — Whipped</div>
-        <div class="p-sub">Deep soothing relief for dry & irritated skin</div>
+        <div class="p-sub">Soothes, hydrates & moisturises dry & irritated skin</div>
         <div class="p-row"><span class="p-price">From $18.95</span><span class="p-kiwis">20,000+ Kiwis</span></div>
         <div class="p-stars">★★★★★</div>
       </div>
@@ -942,7 +940,7 @@ footer {
       <h2>It started with a customer who put <em>beef fat on her hands</em></h2>
       <div class="origin-blockquote">"We were selling bone broth at a farmers market. A regular kept coming back for the fat — she was using it to keep eczema away in the cold."</div>
       <p class="origin-p">We wrote "Tallow balm coming next week" on a chalkboard. Within minutes, a crowd formed. The next week we sold out in an hour.</p>
-      <p class="origin-p">Every week we came back with more tallow and less broth. Now we're a team of 17+, shipping 50,000 products a year from Christchurch to Kiwis who've finally found something that works.</p>
+      <p class="origin-p">Every week we came back with more tallow and less broth. Now we're a team of 23, shipping 50,000 products a year from Christchurch to Kiwis who've finally found skincare that soothes instead of stings.</p>
       <a href="/pages/about/" class="btn-dark" style="margin-top:8px;">
         Read Our Full Story
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -950,10 +948,10 @@ footer {
     </div>
   </div>
   <div class="origin-milestones">
-    <div class="milestone"><div class="milestone-yr">2023</div><div class="milestone-t">The Chalkboard</div><div class="milestone-d">Sold out first prototype in one hour</div></div>
-    <div class="milestone"><div class="milestone-yr">2024</div><div class="milestone-t">Going Viral</div><div class="milestone-d">Seven Sharp, Stuff, The Press. 20K+ customers</div></div>
-    <div class="milestone"><div class="milestone-yr">2025</div><div class="milestone-t">Hitting Shelves</div><div class="milestone-d">Launched into 120+ NZ retailers</div></div>
-    <div class="milestone"><div class="milestone-yr">2026</div><div class="milestone-t">85K+ Kiwis</div><div class="milestone-d">Full soothing & beauty range. EANZ Gold Partners</div></div>
+    <div class="milestone"><div class="milestone-yr">2024</div><div class="milestone-t">The Chalkboard</div><div class="milestone-d">First tallow prototype sells out in one hour at a Christchurch farmers market</div></div>
+    <div class="milestone"><div class="milestone-yr">2025</div><div class="milestone-t">Going Viral</div><div class="milestone-d">Featured on Seven Sharp, Stuff, The Press. 20K+ customers served online</div></div>
+    <div class="milestone"><div class="milestone-yr">2026</div><div class="milestone-t">Hitting Shelves</div><div class="milestone-d">Launched into Chemist Warehouse, Bargain Chemist, Health2000 & 120+ stores nationwide</div></div>
+    <div class="milestone"><div class="milestone-yr">Now</div><div class="milestone-t">23 Staff & Growing</div><div class="milestone-d">EANZ Gold Partners. Full soothing & beauty range. 85,000+ Kiwis helped</div></div>
   </div>
 </section>
 
