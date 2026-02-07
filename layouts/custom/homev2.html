@@ -210,18 +210,20 @@ nav {
 
 /* ===== MEDIA LOGOS ===== */
 .logos {
-  padding: 36px 80px;
+  padding: 52px 80px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 12px;
+  gap: 22px;
+  background: var(--white);
+  border-top: 1px solid var(--cream-deep);
   border-bottom: 1px solid var(--cream-deep);
 }
 .logos-label {
-  font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.2em;
-  color: var(--warm-gray); font-weight: 700; margin-right: 16px; white-space: nowrap;
+  font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.2em;
+  color: var(--bark-light); font-weight: 700;
 }
-.logos img { height: 30px; opacity: 0.45; }
+.logos img { height: 48px; opacity: 0.7; }
 
 /* ===== TWO RANGES ===== */
 .ranges {
@@ -312,9 +314,10 @@ nav {
 }
 .p-badge.online { background: var(--sage); }
 .p-img {
-  aspect-ratio: 1; background: var(--cream);
+  aspect-ratio: 1; background: var(--white);
   display: flex; align-items: center; justify-content: center;
   position: relative; overflow: hidden;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
 }
 .p-img img { width: 82%; height: 82%; object-fit: contain; transition: transform 0.5s ease; }
 .p-card:hover .p-img img { transform: scale(1.07); }
@@ -659,6 +662,8 @@ footer {
   .logos { padding: 28px 24px; flex-wrap: wrap; }
   .ranges { grid-template-columns: 1fr; }
   .range-card { min-height: 360px; }
+  .logos { padding: 28px 24px; flex-wrap: wrap; }
+  .logos img { height: 36px; }
   .sellers, .results, .stores, .origin { padding: 64px 24px; }
   .p-grid { grid-template-columns: repeat(2, 1fr); }
   .results-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -802,13 +807,13 @@ footer {
         <div class="p-stars">★★★★★</div>
       </div>
     </a>
-    <a href="/shop/products/tallow-honey-balm" class="p-card">
-      <span class="p-badge">Best Seller</span>
-      <div class="p-img"><img src="https://www.primalpantry.co.nz/img/shop/honeyshop.webp" alt="Tallow & Honey Balm"></div>
+    <a href="/shop/products/tallow-shampoo-bar" class="p-card">
+      <span class="p-badge" style="background:var(--honey);">30% Off</span>
+      <div class="p-img"><img src="https://www.primalpantry.co.nz/img/shampoobar/shampoo-bar-prodcutpage.webp" alt="Tallow Shampoo Bar"></div>
       <div class="p-info">
-        <div class="p-name">Tallow & Honey Balm</div>
-        <div class="p-sub">NZ honey meets grass-fed tallow — extra nourishing</div>
-        <div class="p-row"><span class="p-price">From $21.95</span><span class="p-kiwis">20,000+ Kiwis</span></div>
+        <div class="p-name">Tallow Shampoo Bar</div>
+        <div class="p-sub">Gentle, natural scalp care — no sulphates, no nasties</div>
+        <div class="p-row"><span class="p-price">$12.56 <span style="text-decoration:line-through;color:var(--warm-gray);font-weight:400;font-size:0.8rem;">$19.95</span></span><span class="p-kiwis">6,000+ Kiwis</span></div>
         <div class="p-stars">★★★★★</div>
       </div>
     </a>
@@ -862,7 +867,7 @@ footer {
       <span class="results-img-label">Real results, real Kiwi families</span>
     </div>
     <div class="results-content">
-      <h2>Real results from 20,000+ reviews</h2>
+      <h2>Trusted by 85,000+ Kiwis</h2>
 
       <!-- Featured review -->
       <div class="results-featured">
