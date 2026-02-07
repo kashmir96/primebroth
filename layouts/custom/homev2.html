@@ -172,6 +172,8 @@
   color: var(--bark-light); font-weight: 700;
 }
 .pp-v3 .logos img { height: 48px; opacity: 0.7; }
+.pp-v3 .logos-mobile { display: none; }
+.pp-v3 .logos-desktop { display: block; }
 
 /* ===== TWO RANGES ===== */
 .pp-v3 .ranges {
@@ -462,11 +464,21 @@
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
   .pp-v3 .hero { grid-template-columns: 1fr; min-height: auto; }
-  .pp-v3 .hero-left { padding: 48px 24px 32px; }
-  .pp-v3 .hero-right { height: 380px; }
-  .pp-v3 .hero-right::before { width: 60px; }
+  .pp-v3 .hero-left { padding: 36px 20px 24px; }
+  .pp-v3 .hero-right { height: auto; min-height: 55vh; }
+  .pp-v3 .hero-right::before { display: none; }
+  .pp-v3 .hero-right img { object-position: center top; }
+  .pp-v3 .hero-eanz { display: none; }
+  .pp-v3 .hero-desktop-only { display: none; }
+  .pp-v3 .hero h1 { font-size: clamp(1.8rem, 6vw, 2.4rem); margin-bottom: 12px; animation: none; opacity: 1; }
+  .pp-v3 .hero-p { font-size: 0.95rem; margin-bottom: 20px; animation: none; opacity: 1; }
+  .pp-v3 .hero-btns { margin-bottom: 0; animation: none; opacity: 1; }
+  .pp-v3 .hero-btns .pp-btn-outline { display: none; }
+  .pp-v3 .hero-proof { display: none; }
   .pp-v3 .logos { padding: 28px 24px; flex-wrap: wrap; }
   .pp-v3 .logos img { height: 36px; }
+  .pp-v3 .logos-desktop { display: none; }
+  .pp-v3 .logos-mobile { display: block; }
   .pp-v3 .ranges { grid-template-columns: 1fr; }
   .pp-v3 .range-card { min-height: 360px; }
   .pp-v3 .sellers, .pp-v3 .results, .pp-v3 .stores, .pp-v3 .origin { padding: 64px 24px; }
@@ -486,13 +498,10 @@
   .pp-v3 .p-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
   .pp-v3 .p-info { padding: 12px 14px 14px; }
   .pp-v3 .p-name { font-size: 0.9rem; }
-  .pp-v3 .hero-btns { flex-direction: column; }
-  .pp-v3 .hero-proof { gap: 16px; }
   .pp-v3 .store-brands { grid-template-columns: repeat(2, 1fr); }
   .pp-v3 .results-mini-reviews { grid-template-columns: 1fr; }
   .pp-v3 .origin-milestones { grid-template-columns: 1fr 1fr; }
   .pp-v3 .f-grid { grid-template-columns: 1fr; gap: 24px; }
-  .pp-v3 .hero h1 { font-size: 2.1rem; }
 }
 </style>
 
@@ -520,8 +529,8 @@
     </a>
     <h1>NZ tallow skincare for <em>sensitive skin</em></h1>
     <p class="hero-p">NZ made tallow balm, skincare and haircare crafted with grass-fed beef tallow. All natural, honestly affordable.</p>
-    <p style="font-size:0.88rem;color:var(--bark-light);margin-bottom:16px;line-height:1.5;">You've probably seen us online — <strong style="color:var(--bark);">133 million views</strong> and <strong style="color:var(--bark);">2.9 million Kiwis</strong> reached on social media last year.</p>
-    <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:20px;">
+    <p class="hero-desktop-only" style="font-size:0.88rem;color:var(--bark-light);margin-bottom:16px;line-height:1.5;">You've probably seen us online — <strong style="color:var(--bark);">133 million views</strong> and <strong style="color:var(--bark);">2.9 million Kiwis</strong> reached on social media last year.</p>
+    <div class="hero-desktop-only" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:20px;">
       <div class="hero-seen" style="display:inline-flex;align-items:center;gap:8px;font-size:0.78rem;font-weight:700;color:var(--bark-light);opacity:0.75;">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
         As seen on Seven Sharp
@@ -563,7 +572,8 @@
 <!-- ===== MEDIA LOGOS ===== -->
 <div class="logos">
   <span class="logos-label">As Featured In</span>
-  <img src="/img/shop/desktop-home-logos.webp" alt="PrimalPantry as seen on Seven Sharp, Stuff, The Breeze, More FM, The Press" loading="lazy" width="800" height="30">
+  <img src="/img/shop/desktop-home-logos.webp" alt="PrimalPantry as seen on Seven Sharp, Stuff, The Breeze, More FM, The Press" loading="lazy" width="800" height="30" class="logos-desktop">
+  <img src="/img/shop/mobile-logos.webp" alt="PrimalPantry as seen on Seven Sharp, Stuff, The Breeze, More FM, The Press" loading="lazy" class="logos-mobile">
 </div>
 
 <!-- ===== TWO RANGES ===== -->
