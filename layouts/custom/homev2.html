@@ -463,17 +463,26 @@
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
-  .pp-v3 .hero { grid-template-columns: 1fr; min-height: auto; }
-  .pp-v3 .hero-left { padding: 36px 20px 24px; }
-  .pp-v3 .hero-right { height: auto; min-height: 55vh; }
-  .pp-v3 .hero-right::before { display: none; }
-  .pp-v3 .hero-right img { object-position: center top; }
+  .pp-v3 .hero {
+    grid-template-columns: 1fr;
+    min-height: 100svh;
+    background-image: url('/img/home/hero.webp');
+    background-size: cover;
+    background-position: center bottom;
+  }
+  .pp-v3 .hero-left {
+    padding: 36px 20px 24px;
+    background: linear-gradient(to bottom, var(--cream) 55%, transparent 100%);
+    min-height: auto;
+  }
+  .pp-v3 .hero-right { display: none; }
   .pp-v3 .hero-eanz { display: none; }
   .pp-v3 .hero-desktop-only { display: none; }
   .pp-v3 .hero h1 { font-size: clamp(1.8rem, 6vw, 2.4rem); margin-bottom: 12px; animation: none; opacity: 1; }
   .pp-v3 .hero-p { font-size: 0.95rem; margin-bottom: 20px; animation: none; opacity: 1; }
   .pp-v3 .hero-btns { margin-bottom: 0; animation: none; opacity: 1; }
-  .pp-v3 .hero-btns .pp-btn-outline { display: none; }
+  .pp-v3 .pp-btn-primary, .pp-v3 a.pp-btn-primary { padding: 12px 26px; }
+  .pp-v3 .pp-btn-outline, .pp-v3 a.pp-btn-outline { padding: 12px 26px; }
   .pp-v3 .hero-proof { display: none; }
   .pp-v3 .logos { padding: 28px 24px; flex-wrap: wrap; }
   .pp-v3 .logos img { height: 36px; }
