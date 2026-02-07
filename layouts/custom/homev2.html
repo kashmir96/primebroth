@@ -10,6 +10,8 @@
 <link rel="preconnect" href="https://www.primalpantry.co.nz">
 <link rel="preload" as="image" href="https://www.primalpantry.co.nz/img/home/hero.webp">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400;1,9..144,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://www.primalpantry.co.nz/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://www.primalpantry.co.nz/css/style_new.min.7b0abd1c3059f15b6da0b0ed1af6b371.css" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -650,8 +652,59 @@ footer {
 </head>
 <body>
 
-<!-- ===== SITE HEADER (from Hugo partial) ===== -->
-<!-- {{ partial "header.html" . }} -->
+<!-- ===== SITE HEADER ===== -->
+<header>
+    <div id="overlay">
+        <ul class="text-center list-unstyled text-white fs-5">
+            <li class="p-2"><a href="/shop/"><span>Shop</span></a></li>
+            <li class="p-2"><a href="/pages/reviews/"><span>Reviews</span></a></li>
+            <li class="p-2"><a href="/stockists/"><span>Stockists</span></a></li>
+            <li class="p-2"><a href="/pages/about/"><span>Our Story</span></a></li>
+            <li class="p-2"><a href="/contact/"><span>Contact</span></a></li>
+        </ul>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <div class="d-block d-lg-none">
+                <div id="hamburgerbtn" class="flex cursor-pointer items-center w-14 h-10 py-2 rounded mopen">
+                    <span class="top"></span>
+                    <span class="middle"></span>
+                    <span class="bottom"></span>
+                </div>
+            </div>
+            
+            <div class="d-flex align-items-center flex-shrink-0 text-xl text-grey-900">
+                <a href="/" aria-label="PrimalPantry">
+                    <img alt="PrimalPantry Ancestral Wellness" class="sitelogo mr-3" src="/img/logo/logo.webp">
+                </a>
+            </div>
+
+            <a class="iglink d-lg-none" href="/cart">
+                <div class="cart-icon-container" style="position: relative; display: inline-block;">
+                    <img src="/img/cart.webp" alt="Cart for PrimalPantry" width="24" height="24">
+                    <span class="cart-badge" style="display: none; position: absolute; top: 0; right: 0; background-color: red; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px;">1</span>
+                </div>
+            </a>
+
+            <div class="d-none w-full block flex-grow d-lg-flex align-items-center w-lg-auto" id="mobileMenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/shop/">Shop</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/reviews/">Reviews</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/stockists/">Stockists</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/about/">Our Story</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact/">Contact</a></li>
+                </ul>
+                <a class="iglink mob-hide me-6" href="/cart">
+                    <div class="cart-icon-container" style="position: relative; display: inline-block;">
+                        <img src="/img/cart.webp" alt="Cart for PrimalPantry" width="24" height="24">
+                        <span class="cart-badge" style="display: none; position: absolute; top: 0; right: 0; background-color: red; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px;">1</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>
 
 <!-- ===== HERO ===== -->
 <section class="hero">
