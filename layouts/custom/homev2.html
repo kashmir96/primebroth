@@ -49,41 +49,6 @@ img { max-width: 100%; display: block; }
 
 
 
-/* ===== ANNOUNCEMENT ===== */
-.topbar {
-  background: var(--bark);
-  color: var(--cream);
-  text-align: center;
-  padding: 9px 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-}
-
-/* ===== NAV ===== */
-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 56px;
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(254,252,248,0.9);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(0,0,0,0.04);
-}
-.logo img { height: 36px; }
-.nav-links { display: flex; gap: 28px; align-items: center; }
-.nav-links a { font-size: 0.85rem; font-weight: 600; color: var(--bark); transition: color 0.2s; }
-.nav-links a:hover { color: var(--sage); }
-.nav-shop {
-  background: var(--bark); color: var(--cream) !important;
-  padding: 10px 22px; border-radius: 100px; font-weight: 700; font-size: 0.83rem !important;
-  transition: all 0.25s;
-}
-.nav-shop:hover { background: var(--bark-mid); }
-.burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
-.burger span { display: block; width: 22px; height: 2px; background: var(--bark); border-radius: 2px; }
-
 /* ===== HERO ===== */
 .hero {
   min-height: 92vh;
@@ -647,9 +612,6 @@ footer {
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
-  nav { padding: 12px 24px; }
-  .nav-links { display: none; }
-  .burger { display: flex; }
   .hero { grid-template-columns: 1fr; min-height: auto; }
   .hero-left { padding: 48px 24px 32px; }
   .hero-right { height: 380px; }
@@ -688,22 +650,8 @@ footer {
 </head>
 <body>
 
-<!-- ===== ANNOUNCEMENT ===== -->
-<div class="topbar">Buy 2 get 1 free on select 3pk bundles · Free shipping over $80</div>
-
-<!-- ===== NAV ===== -->
-<nav>
-  <a href="/" class="logo"><img src="https://www.primalpantry.co.nz/img/logo/logo.webp" alt="PrimalPantry" width="120" height="36"></a>
-  <div class="nav-links">
-    <a href="/shop/">Shop Tallow</a>
-    <a href="/pages/reviews/">Reviews</a>
-    <a href="/stockists/">Stockists</a>
-    <a href="/pages/about/">Our Story</a>
-    <a href="/contact/">Contact</a>
-    <a href="/shop/" class="nav-shop">Shop Now</a>
-  </div>
-  <div class="burger"><span></span><span></span><span></span></div>
-</nav>
+<!-- ===== SITE HEADER (from Hugo partial) ===== -->
+<!-- {{ partial "header.html" . }} -->
 
 <!-- ===== HERO ===== -->
 <section class="hero">
