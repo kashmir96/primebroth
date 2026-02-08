@@ -14,7 +14,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-/* ─── EYE CREAM PAGE STYLES ─── */
 :root {
     --pp-brown-900: #2C1810;
     --pp-brown-800: #3D2419;
@@ -166,6 +165,24 @@
 .pp-review-card .review-author { font-size: 13px; font-weight: 700; color: var(--pp-brown-900); }
 .pp-review-card .review-verified { font-size: 12px; color: var(--pp-green-600); font-weight: 600; }
 
+/* ─── ROUTINE CROSS-SELL ─── */
+.pp-routine-section { padding: 80px 48px; max-width: 1200px; margin: 0 auto; }
+.pp-routine-section h2 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; text-align: center; margin-bottom: 8px; color: var(--pp-brown-900); }
+.pp-routine-subtitle { text-align: center; font-size: 15px; color: var(--pp-text-muted); margin-bottom: 40px; }
+.pp-routine-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.pp-routine-card { background: #fff; border: 1px solid var(--pp-cream-200); border-radius: 16px; overflow: hidden; transition: all 0.25s ease; text-decoration: none; color: inherit; display: block; }
+.pp-routine-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(44,24,16,0.1); text-decoration: none; color: inherit; }
+.pp-routine-card-img { width: 100%; aspect-ratio: 1/1; background: var(--pp-cream-200); overflow: hidden; }
+.pp-routine-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
+.pp-routine-card:hover .pp-routine-card-img img { transform: scale(1.05); }
+.pp-routine-card-body { padding: 20px; }
+.pp-routine-step { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--pp-gold-500); margin-bottom: 6px; }
+.pp-routine-card-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--pp-brown-900); margin-bottom: 6px; }
+.pp-routine-card-desc { font-size: 13px; line-height: 1.5; color: var(--pp-text-secondary); margin-bottom: 12px; }
+.pp-routine-card-price { font-size: 15px; font-weight: 700; color: var(--pp-brown-900); }
+.pp-routine-card-link { font-size: 13px; font-weight: 600; color: var(--pp-gold-500); display: inline-flex; align-items: center; gap: 4px; }
+.pp-routine-card-link svg { width: 14px; height: 14px; }
+
 @keyframes ppFadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 .product-info > * { animation: ppFadeUp 0.5s ease-out both; }
 .product-info > *:nth-child(1) { animation-delay: 0.05s; }
@@ -194,9 +211,14 @@
     .pp-why-section { padding: 60px 20px; }
     .pp-reviews-section { padding: 60px 20px; }
     .pp-tabs-section { padding: 0 20px 40px; }
+    .pp-routine-section { padding: 60px 20px; }
+    .pp-routine-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
     .pp-product-title { font-size: 28px; }
     .pp-product-subtitle { font-size: 18px; }
     .ingredients-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 500px) {
+    .pp-routine-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -240,7 +262,6 @@
     <!-- Product Info -->
     <div class="product-info">
 
-        <!-- Trust Row -->
         <div class="trust-row">
             <div class="pp-stars">
                 <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
@@ -256,17 +277,14 @@
             </span>
         </div>
 
-        <!-- Title -->
         <h1 class="pp-product-title">Tallow Eye Cream</h1>
         <p class="pp-product-subtitle">Sensitive safe anti-aging</p>
         <p class="pp-product-edition">PrimalCare Gold Edition</p>
 
-        <!-- Benefit Strip -->
         <div class="benefit-strip">
             <p>Stop wasting money on eye creams full of chemical nasties that don't work. Our tallow eye cream <strong>seeps deep into your skin</strong> to hydrate, brighten, and smooth your undereye area for a <strong>well-rested, youthful look</strong> — naturally.</p>
         </div>
 
-        <!-- Review Snippet -->
         <div class="review-snippet">
             <span class="quote-mark">"</span>
             <div>
@@ -275,13 +293,11 @@
             </div>
         </div>
 
-        <!-- Pricing -->
         <div class="pp-pricing-section">
             <span class="pp-price-main"><span id="price">$34.95</span></span>
             <p class="afterpay-note">or 4 interest free payments of $<span id="afterpay_price">8.74</span> with <img src="/img/afterpay.webp" class="d-inline" height="18" alt="afterpay"></p>
         </div>
 
-        <!-- Purchase Option -->
         <div class="purchase-options">
             <label class="purchase-option selected">
                 <input type="radio" name="purchaseType" value="single_purchase" checked>
@@ -296,14 +312,12 @@
             </label>
         </div>
 
-        <!-- FORM (hidden radios for pricing JS) -->
         <form id="productForm" autocomplete="off" style="display:none;">
             <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
             <input type="radio" id="manukahoney_vitc" name="flavor" value="manukahoney_vitc" checked>
             <input type="radio" id="size10ml" name="size" value="10ml" checked>
         </form>
 
-        <!-- Scent -->
         <div class="pp-selector-group">
             <div class="pp-selector-label">Scent</div>
             <div class="scent-pills">
@@ -311,7 +325,6 @@
             </div>
         </div>
 
-        <!-- Stock + CTA -->
         <div class="stock-indicator">
             <span class="stock-dot"></span> In Stock · Ships within 1–3 business days
         </div>
@@ -330,7 +343,6 @@
 
         <p class="sub-cta">Money back guarantee · Speedy NZ-wide shipping</p>
 
-        <!-- Guarantee Bar -->
         <div class="guarantee-bar">
             <div class="guarantee-item">
                 <svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
@@ -464,24 +476,73 @@
     </div>
 </div>
 
-<!-- ─── ROUTINE CROSS-SELL ─── -->
-{{- partial "irritation-routine.html" . -}}
+<!-- ─── COMPLETE YOUR ROUTINE ─── -->
+<div class="pp-routine-section">
+    <h2>Complete your sensitive skin routine</h2>
+    <p class="pp-routine-subtitle">Pair your eye cream with these PrimalCare essentials for head-to-toe natural care</p>
+    <div class="pp-routine-grid">
+
+        <a href="/shop/products/tallow-balm/" class="pp-routine-card">
+            <div class="pp-routine-card-img">
+                <img src="/img/shop/balm-product.webp" alt="Tallow Balm">
+            </div>
+            <div class="pp-routine-card-body">
+                <div class="pp-routine-step">Step 1 — Moisturise</div>
+                <div class="pp-routine-card-title">Tallow Balm</div>
+                <p class="pp-routine-card-desc">Our original bestseller. Deep hydration for face &amp; body — perfect for sensitive &amp; eczema-prone skin.</p>
+                <span class="pp-routine-card-price">From $18.95</span>
+            </div>
+        </a>
+
+        <a href="/shop/products/tallow-serum/" class="pp-routine-card">
+            <div class="pp-routine-card-img">
+                <img src="/img/shop/serum-product.webp" alt="Vitamin C Serum">
+            </div>
+            <div class="pp-routine-card-body">
+                <div class="pp-routine-step">Step 2 — Brighten</div>
+                <div class="pp-routine-card-title">Vitamin C Serum</div>
+                <p class="pp-routine-card-desc">Lightweight tallow serum with Vitamin C to brighten, firm, and protect against free radicals.</p>
+                <span class="pp-routine-card-price">$38.20</span>
+            </div>
+        </a>
+
+        <a href="/shop/products/tallow-cleanser/" class="pp-routine-card">
+            <div class="pp-routine-card-img">
+                <img src="/img/shop/cleanser-product.webp" alt="Tallow Cleanser">
+            </div>
+            <div class="pp-routine-card-body">
+                <div class="pp-routine-step">Step 3 — Cleanse</div>
+                <div class="pp-routine-card-title">Tallow Cleanser</div>
+                <p class="pp-routine-card-desc">Gentle oil-based cleanser that removes impurities without stripping your skin's natural moisture.</p>
+                <span class="pp-routine-card-price">$24.95</span>
+            </div>
+        </a>
+
+        <a href="/shop/products/tallow-lip-balm/" class="pp-routine-card">
+            <div class="pp-routine-card-img">
+                <img src="/img/shop/lipbalm-product.webp" alt="Tallow Lip Balm">
+            </div>
+            <div class="pp-routine-card-body">
+                <div class="pp-routine-step">Step 4 — Protect</div>
+                <div class="pp-routine-card-title">Manuka Lip Balm</div>
+                <p class="pp-routine-card-desc">Nourish dry, cracked lips with Manuka honey and tallow. Long-lasting hydration in a handy stick.</p>
+                <span class="pp-routine-card-price">$12.95</span>
+            </div>
+        </a>
+
+    </div>
+</div>
 
 <!-- ─── PAGE SCRIPTS ─── -->
 <script>
-    // Image gallery
     function switchImage(src, thumbEl) {
         const main = document.getElementById('mainImage');
         main.style.opacity = '0';
-        setTimeout(() => {
-            main.src = src;
-            main.style.opacity = '1';
-        }, 150);
+        setTimeout(() => { main.src = src; main.style.opacity = '1'; }, 150);
         document.querySelectorAll('.gallery-thumbs .thumb').forEach(t => t.classList.remove('active'));
         thumbEl.classList.add('active');
     }
 
-    // Tabs
     function switchTab(tabId, btn) {
         document.querySelectorAll('.pp-tab-panel').forEach(p => p.classList.remove('active'));
         document.querySelectorAll('.pp-tab-btn').forEach(b => b.classList.remove('active'));
@@ -489,7 +550,6 @@
         btn.classList.add('active');
     }
 
-    // Quantity
     const quantityInput = document.getElementById('quantityAll');
     document.querySelector('.btn-increase').addEventListener('click', () => {
         quantityInput.value = parseInt(quantityInput.value) + 1;
@@ -500,7 +560,6 @@
     });
 </script>
 
-<!-- Pricing scripts -->
 <script>
     const productPricingRaw = {{ site.Data.pricing.tallow.pricing.eyecream | jsonify | safeJS }};
     const productPricing = Array.isArray(productPricingRaw) ? productPricingRaw : [];
