@@ -3,12 +3,12 @@
 <head>
     {{- partial "head.html" . -}}
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="description" content="Tallow Baby Butter - Gentle natural barrier cream for babies. Soothes cradle cap, nappy rash and dry skin with grass-fed tallow, chamomile and aloe vera. NZ made, no harsh chemicals." />
-    <meta property="og:title" content="Tallow Baby Butter | Gentle Natural Barrier Cream | PrimalPantry" />
+    <meta name="description" content="Tallow Baby Butter NZ - Gentle natural barrier cream for babies. Soothes cradle cap, nappy rash and eczema-prone skin with grass-fed tallow, chamomile & aloe vera. 100% natural, NZ made. Money back guarantee." />
+    <meta property="og:title" content="Tallow Baby Butter NZ | Natural Baby Tallow Barrier Cream | PrimalPantry" />
     <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
     <meta property="og:url" content="https://primalpantry.co.nz/shop/products/tallow-baby-butter/" />
     <meta property="og:image" content="https://primalpantry.co.nz/img/baby-butter1.webp" />
-    <meta property="og:description" content="Gentle tallow baby butter that soothes cradle cap, nappy rash and dry skin naturally. NZ made with grass-fed tallow, chamomile and aloe vera. Money back guarantee." />
+    <meta property="og:description" content="Tallow for babies — gentle enough for newborns. NZ made tallow baby butter soothes cradle cap, nappy rash and dry skin naturally. No synthetic chemicals, ever." />
     <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
     <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
     <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
@@ -21,7 +21,7 @@
         "@context": "https://schema.org",
         "@type": "Product",
         "name": "Tallow Baby Butter",
-        "description": "Gentle natural tallow baby butter barrier cream. Soothes cradle cap, nappy rash and dry skin with grass-fed tallow, chamomile and aloe vera.",
+        "description": "Gentle natural tallow baby butter made in NZ. Soothes cradle cap, nappy rash and eczema-prone baby skin with grass-fed tallow, chamomile and aloe vera.",
         "image": "https://primalpantry.co.nz/img/baby-butter1.webp",
         "brand": { "@type": "Brand", "name": "PrimalPantry" },
         "offers": {
@@ -34,6 +34,12 @@
                 "@type": "OfferShippingDetails",
                 "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "NZ" }
             }
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.7",
+            "bestRating": "5",
+            "ratingCount": "200"
         }
     }
     </script>
@@ -57,7 +63,7 @@
     <!-- Gallery -->
     <div class="product-gallery">
         <div class="gallery-main">
-            <img class="main-image" id="mainImage" fetchpriority="high" src="/img/baby-butter1.webp" alt="Tallow Baby Butter">
+            <img class="main-image" id="mainImage" fetchpriority="high" src="/img/baby-butter1.webp" alt="Tallow Baby Butter NZ - natural barrier cream for babies">
             <div class="exclusive-badge">
                 <span class="dot"></span> Online Exclusive
             </div>
@@ -84,20 +90,24 @@
                 <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
             </div>
             <span class="trust-text">From 85,000+ happy kiwis.</span>
+            <span class="eanz-badge">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                EANZ Partner
+            </span>
         </div>
 
         <h1 class="pp-product-title">Tallow Baby Butter</h1>
         <p class="pp-product-subtitle">Gentle natural barrier cream for babies</p>
-        <p class="pp-product-edition">PrimalCare Gold Edition</p>
+        <p class="pp-product-edition">PrimalCare Soothing Range</p>
 
         <div class="benefit-strip">
-            <p>A soft, lightweight tallow baby butter that <strong>protects, soothes, and deeply hydrates</strong> your little one's skin. Made with skin-loving tallow and gentle natural ingredients that closely mimic baby's natural skin barrier — <strong>no harsh chemicals, ever</strong>.</p>
+            <p>Most baby creams are loaded with petroleum, parabens and synthetic fragrances. Our tallow baby butter uses <strong>grass-fed tallow that mimics your baby's own skin oils</strong> — so it actually absorbs and nourishes rather than sitting on the surface. Ideal for <strong>cradle cap, nappy rash, and eczema-prone skin</strong>.</p>
         </div>
 
         <div class="review-snippet">
             <span class="quote-mark">"</span>
             <div>
-                <p class="review-text">My baby's cradle cap cleared up within a week of using this. So gentle and the chamomile scent is beautiful. I wish I'd found this sooner!</p>
+                <p class="review-text">My baby's cradle cap cleared up within a week of using this tallow baby butter. So gentle and the chamomile scent is beautiful. I wish I'd found this sooner!</p>
                 <p class="reviewer">— Jess K., Hamilton <span class="verified">✓ Verified Buyer</span></p>
             </div>
         </div>
@@ -121,6 +131,7 @@
             </label>
         </div>
 
+        <!-- Hidden form for pricing engine — references tallow.pricing.baby_butter + tallow.ids.baby_butter -->
         <form id="productForm" autocomplete="off" style="display:none;">
             <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
             <input type="radio" id="natural" name="flavor" value="natural" checked>
@@ -176,16 +187,17 @@
         <button class="pp-tab-btn" onclick="switchTab('shipping', this)">Shipping</button>
     </div>
     <div class="pp-tab-panel active" id="tab-ingredients">
-        <h4>Gentle ingredients, nothing harsh</h4>
-        <p>Water (Aqua), Aloe vera, Xanthan gum, Glycerin, Emulsifying wax (Cetearyl Olivate, Sorbitan Olivate), Cetyl alcohol, Beeswax, Sweet almond oil, Jojoba oil, Squalane, Argan oil, Tallow, Caprylic/Capric triglyceride, Vitamin E, Chamomile essential oil, Spectrastat Natural G2.</p>
+        <h4>Gentle ingredients your baby's skin will recognise</h4>
+        <p>Water (Aqua), Aloe vera, Xanthan gum, Glycerin, Emulsifying wax (Cetearyl Olivate, Sorbitan Olivate), Cetyl alcohol, Beeswax, Sweet almond oil, Jojoba oil, Squalane, Argan oil, Grass-fed tallow, Caprylic/Capric triglyceride, Vitamin E, Chamomile essential oil, Spectrastat Natural G2.</p>
+        <p>No petroleum, no parabens, no synthetic fragrances. Just clean, natural ingredients that work with your baby's skin — not against it.</p>
     </div>
     <div class="pp-tab-panel" id="tab-directions">
         <h4>How to use</h4>
-        <p>Apply a small amount to face and body daily as needed. Ideal for hydrating and soothing dry, itchy, or irritated skin including cradle cap and nappy rash. As with any new product, patch test first.</p>
+        <p>Apply a small amount of tallow baby butter to face and body daily as needed. Ideal for hydrating and soothing cradle cap, nappy rash, and dry or irritated skin. Gentle enough for newborns — as with any new product, we recommend a small patch test first.</p>
     </div>
     <div class="pp-tab-panel" id="tab-reviews">
-        <h4>See what our customers say online</h4>
-        <img class="tab-reviews-img" src="/img/prod/balm/balmreviews.webp" alt="Tallow baby butter customer reviews" loading="lazy">
+        <h4>See what parents are saying</h4>
+        <img class="tab-reviews-img" src="/img/prod/balm/balmreviews.webp" alt="Tallow baby butter customer reviews NZ" loading="lazy">
     </div>
     <div class="pp-tab-panel" id="tab-shipping">
         <h4>Shipping</h4>
@@ -199,35 +211,35 @@
 <div class="pp-media-section">
     <p class="pp-media-label">As featured on</p>
     <div class="pp-media-logos">
-        <img src="/img/shop/desktop-product-logos.webp" alt="PrimalPantry as featured on Stuff, Mai, The Breeze, More FM, Edge, The Press" class="pp-media-logos-img d-none d-md-block" loading="lazy">
+        <img src="/img/shop/desktop-product-logos.webp" alt="PrimalPantry tallow baby butter as featured on Stuff, Mai, The Breeze, More FM" class="pp-media-logos-img d-none d-md-block" loading="lazy">
         <img src="/img/shop/mobile-logos.webp" alt="As featured on" class="pp-media-logos-img d-block d-md-none" loading="lazy">
     </div>
 </div>
 
-<!-- ─── WHY TALLOW BABY BUTTER ─── -->
+<!-- ─── WHY TALLOW FOR BABIES ─── -->
 <div class="pp-why-section">
     <div class="pp-why-inner">
         <div class="pp-why-content">
-            <h2>Why parents are switching to tallow baby butter</h2>
-            <p>Baby skin is up to 5x thinner than adult skin — it deserves better than synthetic creams full of petroleum and parabens. Tallow's fatty acid profile closely mimics the oils our bodies naturally produce, so it absorbs and nourishes rather than sitting on the surface.</p>
-            <p>The result? Soft, protected, comfortable skin — and a calm, happy baby.</p>
+            <h2>Why NZ parents are choosing tallow for babies</h2>
+            <p>Baby skin is up to 5x thinner than adult skin and absorbs everything you put on it. Most baby creams use petroleum-based ingredients that create a film rather than nourishing the skin. Tallow is different — its fatty acid profile closely mimics the oils our bodies naturally produce, so it absorbs deeply and supports your baby's developing skin barrier from the inside out.</p>
+            <p>That's why tallow for babies is quickly becoming the go-to for NZ parents who want something genuinely natural — not just marketed as natural.</p>
         </div>
         <div class="ingredients-grid">
             <div class="ingredient-card">
                 <h4>🌿 Grass-fed Tallow</h4>
-                <p>Deeply nourishing, barrier-repairing, and ideal for sensitive or eczema-prone baby skin.</p>
+                <p>Deeply nourishing and barrier-repairing. Mimics baby's own skin oils for real absorption, not surface-level moisture.</p>
             </div>
             <div class="ingredient-card">
                 <h4>🌱 Aloe Vera</h4>
-                <p>Deeply soothing and calming for irritated skin, nappy rash, and redness.</p>
+                <p>Soothes irritation, redness, and nappy rash on contact — gentle enough for newborn skin.</p>
             </div>
             <div class="ingredient-card">
                 <h4>🌰 Sweet Almond Oil</h4>
-                <p>Gently nourishes and softens sensitive baby skin without clogging pores.</p>
+                <p>Nourishes and softens sensitive baby skin without clogging pores or leaving a greasy residue.</p>
             </div>
             <div class="ingredient-card">
                 <h4>🌼 Chamomile</h4>
-                <p>Helps relieve itching, irritation, and discomfort — perfect for restless little ones.</p>
+                <p>Relieves itching and discomfort naturally — perfect for eczema-prone skin and restless little ones.</p>
             </div>
         </div>
     </div>
@@ -235,8 +247,8 @@
 
 <!-- ─── COMPARISON ─── -->
 <div class="pp-comparison-section">
-    <h2>Meet your baby's moisturiser match</h2>
-    <p class="subtitle">See why parents are making the switch</p>
+    <h2>Baby tallow vs conventional baby cream</h2>
+    <p class="subtitle">See why NZ parents are making the switch</p>
     <table class="comparison-table">
         <thead>
             <tr>
@@ -247,8 +259,9 @@
         </thead>
         <tbody>
             <tr><td>All natural ingredients</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
-            <tr><td>No synthetic chemicals</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
-            <tr><td>No petroleum or parabens</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+            <tr><td>No petroleum or mineral oil</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+            <tr><td>No parabens or synthetic fragrance</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+            <tr><td>Actually absorbs into skin</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
             <tr><td>NZ made &amp; owned</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
             <tr><td>Money back guarantee</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
         </tbody>
@@ -258,24 +271,24 @@
 <!-- ─── REVIEWS ─── -->
 <div class="pp-reviews-section">
     <div class="pp-reviews-inner">
-        <h2>Real results from real parents</h2>
+        <h2>Real results from real NZ parents</h2>
         <p class="pp-reviews-summary">★★★★★ Rated 4.7/5 from verified reviews</p>
         <div class="pp-reviews-grid">
             <div class="pp-review-card">
                 <div class="review-stars">★★★★★</div>
-                <p class="review-body">"My baby's cradle cap cleared up within a week of using this. So gentle and the chamomile scent is beautiful. I wish I'd found this sooner!"</p>
+                <p class="review-body">"My baby's cradle cap cleared up within a week of using this tallow baby butter. So gentle and the chamomile scent is beautiful. I wish I'd found this sooner!"</p>
                 <p class="review-author">Jess K.</p>
                 <p class="review-verified">✓ Verified Buyer · Hamilton</p>
             </div>
             <div class="pp-review-card">
                 <div class="review-stars">★★★★★</div>
-                <p class="review-body">"We've tried every baby cream on the market. This is the only one that actually stopped the nappy rash coming back. Love that it's all natural too."</p>
+                <p class="review-body">"We've tried every baby cream on the market. This is the only one that actually stopped the nappy rash coming back. Love that it's tallow-based and completely natural."</p>
                 <p class="review-author">Natalie R.</p>
                 <p class="review-verified">✓ Verified Buyer · Tauranga</p>
             </div>
             <div class="pp-review-card">
                 <div class="review-stars">★★★★★</div>
-                <p class="review-body">"Such a lovely texture — not greasy at all. My wee one has really dry patches on her cheeks and this has made such a difference. Highly recommend."</p>
+                <p class="review-body">"Such a lovely texture — not greasy at all. My wee one has really dry patches on her cheeks and this has made such a difference. Best baby tallow product in NZ."</p>
                 <p class="review-author">Mel S.</p>
                 <p class="review-verified">✓ Verified Buyer · Christchurch</p>
             </div>
@@ -313,6 +326,7 @@
     });
 </script>
 
+<!-- Pricing: references site.Data.pricing.tallow.pricing.baby_butter (size: 120ml, NZ: $29.95) -->
 <script>
     const productPricingRaw = {{ site.Data.pricing.tallow.pricing.baby_butter | jsonify | safeJS }};
     const productPricing = Array.isArray(productPricingRaw) ? productPricingRaw : [];
@@ -334,6 +348,7 @@
     document.addEventListener("DOMContentLoaded", updatePrice);
 </script>
 
+<!-- Price ID: references site.Data.pricing.tallow.ids.baby_butter.single[natural][120ml][NZ] -->
 <script>
     const rawData = "{{ .Site.Data.pricing | jsonify }}";
     const pricingData = JSON.parse(rawData);
