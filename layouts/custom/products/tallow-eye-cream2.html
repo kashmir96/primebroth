@@ -840,16 +840,40 @@
     text-transform: uppercase;
     margin-bottom: 12px;
   }
-  .routine-card-img {
-    width: 100px;
-    height: 100px;
-    border-radius: 12px;
-    background: var(--cream-200);
+  .routine-card-img-link {
+    display: block;
+    width: 100%;
+    height: 160px;
     margin: 0 auto 16px;
+    text-align: center;
+  }
+  .routine-card-img-real {
+    max-height: 160px;
+    max-width: 100%;
+    object-fit: contain;
   }
   .routine-card-name {
     font-size: 15px;
     font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .routine-card-name a {
+    color: var(--brown-900);
+    text-decoration: none;
+  }
+  .routine-card-name a:hover {
+    text-decoration: underline;
+  }
+  .routine-card-edition {
+    font-size: 12px;
+    font-style: italic;
+    color: var(--gold-500);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .routine-card-subtitle {
+    font-size: 12px;
+    color: var(--text-muted);
     margin-bottom: 4px;
   }
   .routine-card-price {
@@ -863,6 +887,22 @@
     color: var(--text-muted);
     margin-bottom: 16px;
     line-height: 1.4;
+  }
+  .routine-card-deal {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--coral-500);
+    margin-bottom: 6px;
+  }
+  .routine-price-old {
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+  .btn-quick-add.added {
+    background: var(--green-600) !important;
+    color: #fff !important;
+    border-color: var(--green-600) !important;
+    cursor: default;
   }
   .btn-quick-add {
     width: 100%;
@@ -1359,29 +1399,40 @@
       <div class="routine-card">
         <span class="tag tag-new">NEW</span>
         <div class="routine-step">Step 1</div>
-        <div class="routine-card-img"></div>
-        <div class="routine-card-name">Tallow Haircare Bundle</div>
-        <div class="routine-card-price">$55.95</div>
-        <div class="routine-card-desc">Complete shampoo &amp; conditioner for healthy scalp</div>
-        <button class="btn-quick-add">Quick Add</button>
+        <a href="/shop/products/scalp-health-bundle/" class="routine-card-img-link">
+          <img src="/img/scalpbundle-shop.webp" alt="Tallow Haircare Bundle" class="routine-card-img-real">
+        </a>
+        <div class="routine-card-name"><a href="/shop/products/scalp-health-bundle/">Tallow Haircare Bundle</a></div>
+        <div class="routine-card-edition">PrimalCare Gold Edition</div>
+        <div class="routine-card-price"><s class="routine-price-old">$69.90</s> <span class="product-price" data-product="scalpbundle" data-size="500ml" data-order-type="single_purchase">$55.95</span></div>
+        <div class="routine-card-deal">Launch Deal – 20% off!</div>
+        <div class="routine-card-desc">Complete tallow haircare – shampoo &amp; conditioner for healthy scalp and silky hair.</div>
+        <button class="btn-quick-add quick-add-to-cart" data-product="scalpbundle" data-order-type="single" data-flavor="geranium" data-size="500ml" data-title="Tallow Haircare Bundle" data-display-size="500ml each" data-display-flavor="Fresh Geranium" data-display-order-type="Single Bundle">Quick Add</button>
       </div>
       <div class="routine-card">
         <span class="tag tag-new">NEW</span>
         <div class="routine-step">Step 2</div>
-        <div class="routine-card-img"></div>
-        <div class="routine-card-name">Tallow &amp; Aloe Body Lotion</div>
-        <div class="routine-card-price">$34.95</div>
-        <div class="routine-card-desc">Quick, easy hydration with no tallow smell</div>
-        <button class="btn-quick-add">Quick Add</button>
+        <a href="/shop/products/tallow-lotion/" class="routine-card-img-link">
+          <img src="/img/lotionsmol.webp" alt="Aloe Tallow Body Lotion" class="routine-card-img-real">
+        </a>
+        <div class="routine-card-name"><a href="/shop/products/tallow-lotion/">Tallow &amp; Aloe Body Lotion</a></div>
+        <div class="routine-card-edition">PrimalCare Gold Edition</div>
+        <div class="routine-card-price"><span class="product-price" data-product="liquid_lotion" data-size="220ml" data-order-type="single_purchase">$34.95</span></div>
+        <div class="routine-card-desc">Quick, easy all over hydration with no tallow smell.</div>
+        <button class="btn-quick-add quick-add-to-cart" data-product="liquid_lotion" data-order-type="single" data-flavor="geranium" data-size="220ml" data-title="Aloe Tallow Body Lotion 250ml" data-display-size="250ml" data-display-flavor="Geranium" data-display-order-type="Single bottle">Quick Add</button>
       </div>
       <div class="routine-card">
         <span class="tag tag-sale">15% OFF</span>
         <div class="routine-step">Step 3</div>
-        <div class="routine-card-img"></div>
-        <div class="routine-card-name">Tallow Glow Serum</div>
-        <div class="routine-card-price"><s style="color:var(--text-muted);font-weight:400;">$44.95</s> $38.20</div>
-        <div class="routine-card-desc">Brightening anti-aging with Vitamin C &amp; Hyaluronic Acid</div>
-        <button class="btn-quick-add">Quick Add</button>
+        <a href="/shop/products/tallow-serum/" class="routine-card-img-link">
+          <img src="/img/serum-shop.webp" alt="Tallow Glow Serum" class="routine-card-img-real">
+        </a>
+        <div class="routine-card-name"><a href="/shop/products/tallow-serum/">Tallow Glow Serum</a></div>
+        <div class="routine-card-edition">PrimalCare Gold Edition</div>
+        <div class="routine-card-price"><s class="routine-price-old">$44.95</s> $38.20</div>
+        <div class="routine-card-deal">Launch Deal – 15% off!</div>
+        <div class="routine-card-desc">Brightening anti-aging serum with Vitamin C &amp; Hyaluronic Acid.</div>
+        <button class="btn-quick-add quick-add-to-cart" data-product="serum" data-order-type="single" data-flavor="vitc" data-size="30ml" data-title="Tallow Glow Serum" data-display-size="30ml" data-display-flavor="Vitamin C & Hyaluronic Acid" data-display-order-type="Single bottle" data-price-id="price_1Sr9LFFZRwx5tlYm4AgXLWMP" data-unit-price="38.20">Quick Add</button>
       </div>
     </div>
   </div>
@@ -1392,29 +1443,37 @@
       <div class="routine-card">
         <span class="tag tag-exclusive">ONLINE ONLY</span>
         <div class="routine-step">Step 4</div>
-        <div class="routine-card-img"></div>
-        <div class="routine-card-name">Tallow Cleanser</div>
-        <div class="routine-card-price">$24.95</div>
-        <div class="routine-card-desc">Gently lifts makeup and dirt, leaving skin happy</div>
-        <button class="btn-quick-add">Quick Add</button>
+        <a href="/shop/products/tallow-cleanser/" class="routine-card-img-link">
+          <img src="/img/cleansersmol.webp" alt="Tallow Cleanser" class="routine-card-img-real">
+        </a>
+        <div class="routine-card-name"><a href="/shop/products/tallow-cleanser/">Tallow Cleanser</a></div>
+        <div class="routine-card-price"><span class="product-price" data-product="cleanser" data-size="100ml" data-order-type="single_purchase">$24.95</span></div>
+        <div class="routine-card-desc">A gentle cleanser to lift makeup and dirt while leaving the skin happy.</div>
+        <button class="btn-quick-add quick-add-to-cart" data-product="cleanser" data-order-type="single" data-flavor="geranium" data-size="100ml" data-title="Tallow Cleanser" data-display-size="100ml" data-display-flavor="Rose Geranium" data-display-order-type="Single bottle">Quick Add</button>
       </div>
       <div class="routine-card">
         <span class="tag tag-best">BEST SELLER</span>
         <div class="routine-step">Step 5</div>
-        <div class="routine-card-img"></div>
-        <div class="routine-card-name">Tallow &amp; Honey Balm 120ml</div>
-        <div class="routine-card-price">$29.95</div>
-        <div class="routine-card-desc">Nourishing balm to rebuild and repair after a long day</div>
-        <button class="btn-quick-add">Quick Add</button>
+        <a href="/shop/products/tallow-honey-balm/" class="routine-card-img-link">
+          <img src="/img/honeysmol.webp" alt="Tallow & Honey Balm" class="routine-card-img-real">
+        </a>
+        <div class="routine-card-name"><a href="/shop/products/tallow-honey-balm/">Tallow &amp; Honey Balm 120ml</a></div>
+        <div class="routine-card-subtitle">20,000+ Kiwis</div>
+        <div class="routine-card-price"><span class="product-price" data-product="honeybalm" data-size="120ml" data-order-type="single_purchase">$29.95</span></div>
+        <div class="routine-card-desc">A nourishing tallow balm to rebuild and repair after a long day.</div>
+        <button class="btn-quick-add quick-add-to-cart" data-product="honeybalm" data-order-type="single" data-flavor="vanilla" data-size="120ml" data-title="Tallow & Honey Balm 120ml" data-display-size="120ml" data-display-flavor="Vanilla & Manuka" data-display-order-type="Single jar">Quick Add</button>
       </div>
       <div class="routine-card current">
         <span class="tag tag-exclusive">ONLINE ONLY</span>
         <div class="routine-step">Step 6</div>
-        <div class="routine-card-img"></div>
-        <div class="routine-card-name">Tallow Eye Cream</div>
-        <div class="routine-card-price">$34.95</div>
-        <div class="routine-card-desc">You're viewing this product right now</div>
-        <button class="btn-quick-add" style="background:var(--brown-900);color:#fff;">✓ Viewing</button>
+        <a href="/shop/products/tallow-eye-cream/" class="routine-card-img-link">
+          <img src="/img/eyesmol.webp" alt="Tallow Eye Cream" class="routine-card-img-real">
+        </a>
+        <div class="routine-card-name"><a href="/shop/products/tallow-eye-cream/">Tallow Eye Cream</a></div>
+        <div class="routine-card-subtitle">8,000+ Kiwis</div>
+        <div class="routine-card-price"><span class="product-price" data-product="eyecream" data-size="10ml" data-order-type="single_purchase">$34.95</span></div>
+        <div class="routine-card-desc">You're viewing this product right now.</div>
+        <button class="btn-quick-add" style="background:var(--brown-900);color:#fff;cursor:default;" disabled>✓ Viewing</button>
       </div>
     </div>
   </div>
