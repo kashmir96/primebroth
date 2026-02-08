@@ -169,24 +169,6 @@ img { max-width: 100%; height: auto; }
 .pp-review-card .review-author { font-size: 13px; font-weight: 700; color: var(--pp-brown-900); }
 .pp-review-card .review-verified { font-size: 12px; color: var(--pp-green-600); font-weight: 600; }
 
-/* ─── ROUTINE CROSS-SELL ─── */
-.pp-routine-section { padding: 80px 48px; max-width: 1200px; margin: 0 auto; }
-.pp-routine-section h2 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; text-align: center; margin-bottom: 8px; color: var(--pp-brown-900); }
-.pp-routine-subtitle { text-align: center; font-size: 15px; color: var(--pp-text-muted); margin-bottom: 40px; }
-.pp-routine-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-.pp-routine-card { background: #fff; border: 1px solid var(--pp-cream-200); border-radius: 16px; overflow: hidden; transition: all 0.25s ease; text-decoration: none; color: inherit; display: block; }
-.pp-routine-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(44,24,16,0.1); text-decoration: none; color: inherit; }
-.pp-routine-card-img { width: 100%; aspect-ratio: 1/1; background: var(--pp-cream-200); overflow: hidden; }
-.pp-routine-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
-.pp-routine-card:hover .pp-routine-card-img img { transform: scale(1.05); }
-.pp-routine-card-body { padding: 20px; }
-.pp-routine-step { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--pp-gold-500); margin-bottom: 6px; }
-.pp-routine-card-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--pp-brown-900); margin-bottom: 6px; }
-.pp-routine-card-desc { font-size: 13px; line-height: 1.5; color: var(--pp-text-secondary); margin-bottom: 12px; }
-.pp-routine-card-price { font-size: 15px; font-weight: 700; color: var(--pp-brown-900); }
-.pp-routine-card-link { font-size: 13px; font-weight: 600; color: var(--pp-gold-500); display: inline-flex; align-items: center; gap: 4px; }
-.pp-routine-card-link svg { width: 14px; height: 14px; }
-
 @keyframes ppFadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 .product-info > * { animation: ppFadeUp 0.5s ease-out both; }
 .product-info > *:nth-child(1) { animation-delay: 0.05s; }
@@ -216,8 +198,6 @@ img { max-width: 100%; height: auto; }
     .pp-why-section { padding: 60px 20px; }
     .pp-reviews-section { padding: 60px 20px; }
     .pp-tabs-section { padding: 0 20px 40px; }
-    .pp-routine-section { padding: 60px 20px; }
-    .pp-routine-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
     .pp-product-title { font-size: 28px; }
     .pp-product-subtitle { font-size: 18px; }
     .ingredients-grid { grid-template-columns: 1fr; }
@@ -229,7 +209,6 @@ img { max-width: 100%; height: auto; }
     .gallery-thumbs { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 }
 @media (max-width: 500px) {
-    .pp-routine-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -487,62 +466,8 @@ img { max-width: 100%; height: auto; }
     </div>
 </div>
 
-<!-- ─── COMPLETE YOUR ROUTINE ─── -->
-<div class="pp-routine-section">
-    <h2>Complete your sensitive skin routine</h2>
-    <p class="pp-routine-subtitle">Pair your eye cream with these PrimalCare essentials for head-to-toe natural care</p>
-    <div class="pp-routine-grid">
-
-        <a href="/shop/products/tallow-balm/" class="pp-routine-card">
-            <div class="pp-routine-card-img">
-                <img src="/img/shop/balm-product.webp" alt="Tallow Balm">
-            </div>
-            <div class="pp-routine-card-body">
-                <div class="pp-routine-step">Step 1 — Moisturise</div>
-                <div class="pp-routine-card-title">Tallow Balm</div>
-                <p class="pp-routine-card-desc">Our original bestseller. Deep hydration for face &amp; body — perfect for sensitive &amp; eczema-prone skin.</p>
-                <span class="pp-routine-card-price">From $18.95</span>
-            </div>
-        </a>
-
-        <a href="/shop/products/tallow-serum/" class="pp-routine-card">
-            <div class="pp-routine-card-img">
-                <img src="/img/shop/serum-product.webp" alt="Vitamin C Serum">
-            </div>
-            <div class="pp-routine-card-body">
-                <div class="pp-routine-step">Step 2 — Brighten</div>
-                <div class="pp-routine-card-title">Vitamin C Serum</div>
-                <p class="pp-routine-card-desc">Lightweight tallow serum with Vitamin C to brighten, firm, and protect against free radicals.</p>
-                <span class="pp-routine-card-price">$38.20</span>
-            </div>
-        </a>
-
-        <a href="/shop/products/tallow-cleanser/" class="pp-routine-card">
-            <div class="pp-routine-card-img">
-                <img src="/img/shop/cleanser-product.webp" alt="Tallow Cleanser">
-            </div>
-            <div class="pp-routine-card-body">
-                <div class="pp-routine-step">Step 3 — Cleanse</div>
-                <div class="pp-routine-card-title">Tallow Cleanser</div>
-                <p class="pp-routine-card-desc">Gentle oil-based cleanser that removes impurities without stripping your skin's natural moisture.</p>
-                <span class="pp-routine-card-price">$24.95</span>
-            </div>
-        </a>
-
-        <a href="/shop/products/tallow-lip-balm/" class="pp-routine-card">
-            <div class="pp-routine-card-img">
-                <img src="/img/shop/lipbalm-product.webp" alt="Tallow Lip Balm">
-            </div>
-            <div class="pp-routine-card-body">
-                <div class="pp-routine-step">Step 4 — Protect</div>
-                <div class="pp-routine-card-title">Manuka Lip Balm</div>
-                <p class="pp-routine-card-desc">Nourish dry, cracked lips with Manuka honey and tallow. Long-lasting hydration in a handy stick.</p>
-                <span class="pp-routine-card-price">$12.95</span>
-            </div>
-        </a>
-
-    </div>
-</div>
+<!-- ─── ROUTINE CROSS-SELL ─── -->
+{{- partial "irritation-routine.html" . -}}
 
 <!-- ─── PAGE SCRIPTS ─── -->
 <script>
