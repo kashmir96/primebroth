@@ -3,16 +3,16 @@
 <head>
     {{- partial "head.html" . -}}
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="description" content="Tallow Serum NZ - Brightening anti-aging tallow serum with Vitamin C & Hyaluronic Acid. Made in Christchurch with grass-fed tallow. Natural ingredients only. As seen on Seven Sharp." />
-    <meta property="og:title" content="Tallow Glow Serum NZ | Brightening Anti-Aging Tallow Serum | PrimalPantry" />
+    <meta name="description" content="Tallow Shampoo Bar NZ - Natural shampoo bar for scalp health. Made in Christchurch with grass-fed tallow, olive oil & coconut oil. No plastic waste, no synthetic chemicals. As seen on Seven Sharp." />
+    <meta property="og:title" content="Tallow Shampoo Bar NZ | Natural Scalp Health Shampoo Bar | PrimalPantry" />
     <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
-    <meta property="og:url" content="https://primalpantry.co.nz/shop/products/tallow-serum/" />
-    <meta property="og:image" content="https://primalpantry.co.nz/img/serum.webp" />
-    <meta property="og:description" content="Brightening tallow serum with Vitamin C & Hyaluronic Acid. Made in Christchurch with grass-fed tallow. No synthetic chemicals, ever. As seen on Seven Sharp." />
+    <meta property="og:url" content="https://primalpantry.co.nz/shop/products/tallow-shampoo-bar/" />
+    <meta property="og:image" content="https://primalpantry.co.nz/img/shampoobar/shampoo-bar.webp" />
+    <meta property="og:description" content="Natural tallow shampoo bar for healthy scalp and hair. Made in Christchurch with grass-fed tallow. Zero plastic waste. As seen on Seven Sharp." />
     <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
     <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
     <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
-    <link rel="canonical" href="https://primalpantry.co.nz/shop/products/tallow-serum/" />
+    <link rel="canonical" href="https://primalpantry.co.nz/shop/products/tallow-shampoo-bar/" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -20,15 +20,15 @@
     {
         "@context": "https://schema.org",
         "@type": "Product",
-        "name": "Tallow Glow Serum",
-        "description": "Brightening anti-aging tallow serum made in NZ. Powered with grass-fed tallow, Vitamin C and Hyaluronic Acid for naturally glowing skin.",
-        "image": "https://primalpantry.co.nz/img/serum.webp",
+        "name": "Tallow Shampoo Bar",
+        "description": "Natural tallow shampoo bar for scalp health. Made in Christchurch with grass-fed tallow, olive oil and coconut oil. Zero plastic waste.",
+        "image": "https://primalpantry.co.nz/img/shampoobar/shampoo-bar.webp",
         "brand": { "@type": "Brand", "name": "PrimalPantry" },
         "offers": {
             "@type": "Offer",
-            "url": "https://primalpantry.co.nz/shop/products/tallow-serum/",
+            "url": "https://primalpantry.co.nz/shop/products/tallow-shampoo-bar/",
             "priceCurrency": "NZD",
-            "price": "38.20",
+            "price": "14.95",
             "availability": "https://schema.org/InStock",
             "shippingDetails": {
                 "@type": "OfferShippingDetails",
@@ -40,6 +40,33 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     {{ $styles := resources.Get "css/product-page.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+    <style>
+        /* Pair With Section */
+        .pp-pair-with { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        .pp-pair-card { display: flex; align-items: center; gap: 16px; background: var(--pp-warm-bg, #FDFBF7); border-radius: 12px; padding: 16px 20px; margin-top: 20px; }
+        .pp-pair-label { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: var(--pp-text-muted, #94918A); margin-bottom: 8px; text-transform: uppercase; }
+        .pp-pair-img { width: 80px; height: 80px; border-radius: 8px; object-fit: cover; }
+        .pp-pair-info { flex: 1; }
+        .pp-pair-title { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 14px; color: var(--pp-text-primary, #2C2925); margin: 0 0 2px; }
+        .pp-pair-title a { color: inherit; text-decoration: none; }
+        .pp-pair-title a:hover { text-decoration: underline; }
+        .pp-pair-desc { font-size: 12px; color: var(--pp-text-muted, #94918A); margin: 0 0 8px; }
+        .pp-pair-row { display: flex; align-items: center; justify-content: space-between; }
+        .pp-pair-price { font-weight: 700; font-size: 15px; }
+        .pp-pair-btn { background: #000; color: #fff; border: none; padding: 7px 16px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+        .pp-pair-btn:hover { background: #333; }
+        .pp-pair-btn.added { background: #4CAF50; cursor: default; }
+        /* Toast */
+        .pp-toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: #fff; border-radius: 12px; padding: 14px 18px; box-shadow: 0 8px 30px rgba(0,0,0,0.2); z-index: 999999; opacity: 0; visibility: hidden; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px; }
+        .pp-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; visibility: visible; }
+        .pp-toast-text { font-size: 14px; font-weight: 600; }
+        .pp-toast-link { background: #000; color: #fff; padding: 7px 14px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 500; white-space: nowrap; }
+        .pp-toast-link:hover { background: #333; color: #fff; }
+        @media (max-width: 767px) {
+            .pp-toast { left: 10px; right: 10px; bottom: 80px; transform: translateX(0) translateY(100px); max-width: none; }
+            .pp-toast.show { transform: translateX(0) translateY(0); }
+        }
+    </style>
 </head>
 <body>
 
@@ -48,7 +75,7 @@
 
 <!-- ─── BREADCRUMB ─── -->
 <div class="pp-breadcrumb">
-    <a href="/shop" class="text-dark">Shop</a> › Tallow Glow Serum
+    <a href="/shop" class="text-dark">Shop</a> › Tallow Shampoo Bar
 </div>
 
 <!-- ─── PRODUCT HERO ─── -->
@@ -57,20 +84,23 @@
     <!-- Gallery -->
     <div class="product-gallery">
         <div class="gallery-main">
-            <img class="main-image" id="mainImage" fetchpriority="high" src="/img/serum.webp" alt="Tallow Serum NZ - brightening anti-aging serum with Vitamin C and Hyaluronic Acid">
+            <img class="main-image" id="mainImage" fetchpriority="high" src="/img/shampoobar/shampoo-bar.webp" alt="Tallow Shampoo Bar NZ - natural shampoo bar for scalp health">
             <div class="exclusive-badge">
                 <span class="dot"></span> Online Exclusive
             </div>
         </div>
         <div class="gallery-thumbs">
-            <div class="thumb active" onclick="switchImage('/img/serum.webp', this)">
-                <img src="/img/serum.webp" alt="Tallow serum NZ">
+            <div class="thumb active" onclick="switchImage('/img/shampoobar/shampoo-bar.webp', this)">
+                <img src="/img/shampoobar/shampoo-bar.webp" alt="Tallow shampoo bar">
             </div>
-            <div class="thumb" onclick="switchImage('/img/serum2.webp', this)">
-                <img src="/img/serum2.webp" alt="Tallow glow serum texture" loading="lazy">
+            <div class="thumb" onclick="switchImage('/img/shampoobar/tallow-shampoo-bar-product-benifitswebp.webp', this)">
+                <img src="/img/shampoobar/tallow-shampoo-bar-product-benifitswebp.webp" alt="Tallow shampoo bar benefits" loading="lazy">
             </div>
-            <div class="thumb" onclick="switchImage('/img/serum3.webp', this)">
-                <img src="/img/serum3.webp" alt="Tallow serum customer reviews NZ" loading="lazy">
+            <div class="thumb" onclick="switchImage('/img/shampoo-hands.webp', this)">
+                <img src="/img/shampoo-hands.webp" alt="Tallow shampoo bar in hands" loading="lazy">
+            </div>
+            <div class="thumb" onclick="switchImage('/img/shampoo-reviews.webp', this)">
+                <img src="/img/shampoo-reviews.webp" alt="Tallow shampoo bar customer reviews NZ" loading="lazy">
             </div>
         </div>
     </div>
@@ -93,17 +123,17 @@
             </span>
         </div>
 
-        <h1 class="pp-product-title">Tallow Glow Serum</h1>
-        <p class="pp-product-subtitle">Brightening anti-aging for sensitive skin</p>
-        <p class="pp-product-edition">PrimalCare Gold Edition</p>
+        <h1 class="pp-product-title">Tallow Shampoo Bar</h1>
+        <p class="pp-product-subtitle">Natural shampoo for scalp health</p>
+        <p class="pp-product-edition">PrimalCare Haircare</p>
 
         <div class="benefit-strip">
-            <p>Many serums rely on synthetic actives that can irritate sensitive skin. Our tallow serum combines <strong>grass-fed tallow with Vitamin C & Hyaluronic Acid</strong> — a lightweight, fast-absorbing formula designed to brighten, hydrate, and support <strong>naturally glowing skin</strong> without the chemical overload.</p>
+            <p>Ditch the plastic bottles and synthetic detergents. Our tallow shampoo bar uses <strong>grass-fed tallow, olive oil & coconut oil</strong> to cleanse and nourish your hair naturally — leaving it <strong>soft, clean, and conditioned</strong> without stripping your scalp.</p>
         </div>
 
         <div class="pp-pricing-section">
-            <span class="pp-price-main"><span id="price">$38.20</span> <span style="font-size:18px; font-weight:400; color:var(--pp-text-muted); text-decoration:line-through;">$44.95</span> <span style="font-size:14px; font-weight:700; color:#D4553E; background:#FFF0EE; padding:3px 10px; border-radius:6px; margin-left:6px;">15% OFF</span></span>
-            <p class="afterpay-note">or 4 interest free payments of $<span id="afterpay_price">9.55</span> with <img src="/img/afterpay.webp" class="d-inline" height="18" alt="afterpay"></p>
+            <span class="pp-price-main"><span id="price">-</span> <span style="font-size:18px; font-weight:400; color:var(--pp-text-muted); text-decoration:line-through;" id="original-price"></span> <span style="font-size:14px; font-weight:700; color:#D4553E; background:#FFF0EE; padding:3px 10px; border-radius:6px; margin-left:6px;">30% OFF</span></span>
+            <p class="afterpay-note">or 4 interest free payments of $<span id="afterpay_price">-</span> with <img src="/img/afterpay.webp" class="d-inline" height="18" alt="afterpay"></p>
         </div>
 
         <div class="purchase-options">
@@ -112,25 +142,25 @@
                 <div class="option-left">
                     <div class="option-radio"><div class="dot-inner"></div></div>
                     <div>
-                        <div class="option-label">Single Bottle <span style="font-size:12px; font-weight:700; color:#D4553E;">— 15% OFF</span></div>
-                        <div class="option-sublabel">30ml · 2–3 months supply</div>
+                        <div class="option-label">Single Block <span style="font-size:12px; font-weight:700; color:#D4553E;">— 30% OFF</span></div>
+                        <div class="option-sublabel">120g · 2–3 months supply</div>
                     </div>
                 </div>
-                <div class="option-price">$<span id="option-price-display">38.20</span></div>
+                <div class="option-price">$<span id="option-price-display">-</span></div>
             </label>
         </div>
 
-        <!-- Hidden form for pricing engine — references tallow.pricing.serum + tallow.ids.serum -->
+        <!-- Hidden form for pricing engine — references tallow.pricing.shampoo + tallow.ids.shampoo -->
         <form id="productForm" autocomplete="off" style="display:none;">
             <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
-            <input type="radio" id="vitc" name="flavor" value="vitc" checked>
-            <input type="radio" id="size30ml" name="size" value="30ml" checked>
+            <input type="radio" id="peppermintrosemary" name="flavor" value="peppermintrosemary" checked>
+            <input type="radio" id="size120g" name="size" value="120g" checked>
         </form>
 
         <div class="pp-selector-group">
-            <div class="pp-selector-label">Formula</div>
+            <div class="pp-selector-label">Scent</div>
             <div class="scent-pills">
-                <div class="scent-pill active">Vitamin C & Hyaluronic Acid</div>
+                <div class="scent-pill active">Peppermint & Rosemary</div>
             </div>
         </div>
 
@@ -146,11 +176,11 @@
             </div>
             <button class="btn-add-to-cart buy-now" type="button" data-price-id="" data-quantity-id="quantityAll">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="position:relative;z-index:1;"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-                <span style="position:relative;z-index:1;">Add To Cart — $38.20</span>
+                <span style="position:relative;z-index:1;">Add To Cart</span>
             </button>
         </div>
 
-        <p class="sub-cta">Money back guarantee · Speedy NZ-wide shipping</p>
+        <p class="sub-cta">Money back guarantee · Speedy NZ-wide shipping · Zero plastic waste</p>
 
         <div class="guarantee-bar">
             <div class="guarantee-item">
@@ -163,11 +193,37 @@
             </div>
             <div class="guarantee-item">
                 <svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-                Sensitive Safe
+                Zero Plastic
             </div>
             <div class="guarantee-item">
                 <svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
                 Money Back
+            </div>
+        </div>
+
+        <!-- Pair With Conditioner -->
+        <div class="pp-pair-with">
+            <p class="pp-pair-label">Pair with</p>
+            <div class="pp-pair-card">
+                <a href="/shop/products/tallow-conditioner/">
+                    <img src="/img/conditioner-shop.webp" alt="Tallow Conditioner" class="pp-pair-img" loading="lazy">
+                </a>
+                <div class="pp-pair-info">
+                    <p class="pp-pair-title"><a href="/shop/products/tallow-conditioner/">Tallow Conditioner 500ml — Hair Repair</a></p>
+                    <p class="pp-pair-desc">Nature's answer to dull, damaged and frizzy hair</p>
+                    <div class="pp-pair-row">
+                        <span class="pp-pair-price" data-product="conditioner" data-size="500ml" data-order-type="single_purchase">$34.95</span>
+                        <button class="pp-pair-btn pair-with-quick-add"
+                            data-product="conditioner"
+                            data-order-type="single"
+                            data-flavor="geranium"
+                            data-size="500ml"
+                            data-title="Nourishing Tallow Conditioner"
+                            data-display-size="500ml"
+                            data-display-flavor="Fresh Geranium"
+                            data-display-order-type="Single bottle">Quick Add</button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -184,22 +240,24 @@
         <button class="pp-tab-btn" onclick="switchTab('shipping', this)">Shipping</button>
     </div>
     <div class="pp-tab-panel active" id="tab-fastfacts">
-        <h4>What makes this tallow serum different</h4>
-        <p>Many serums pack in synthetic actives that can irritate sensitive skin. Our tallow serum is built around a grass-fed tallow base — lightweight and fast-absorbing — combined with Hyaluronic Acid, Vitamin C, Pro-Vitamin B5, and Aloe Vera. These work together to brighten, hydrate, and support a healthy complexion without any harsh chemicals.</p>
-        <p>A refreshing, lightweight tallow serum designed for sensitive skin — smooth it on in the morning and start your day with a natural glow.</p>
+        <h4>Why use a tallow shampoo bar?</h4>
+        <p>Many shampoos are packed with synthetic detergents, sulphates, and artificial fragrances that strip your hair and can irritate your scalp. Our tallow shampoo bar takes a different approach — grass-fed tallow, olive oil, coconut oil, and castor oil work together to cleanse without stripping, leaving your hair naturally soft, clean, and conditioned.</p>
+        <p>No plastic bottles, no synthetic chemicals, no compromises. A tallow shampoo bar that's as good for the environment as it is for your hair.</p>
     </div>
     <div class="pp-tab-panel" id="tab-ingredients">
-        <h4>Purposeful ingredients, nothing else</h4>
-        <p>Water, Glycerine, Hyaluronic Acid, D-Panthenol (Pro-Vitamin B5), Aloe Vera, Sodium Ascorbyl Phosphate (Vitamin C), Vitamin C, Grass-fed Tallow, Squalane, Licorice Extract, Bisabolol, Vitamin E (Tocopherol), Spectrastat Natural G2, Essential Oil (low %).</p>
-        <p>No petroleum, no parabens, no synthetic fragrances. Just clean, natural ingredients that work with your skin — not against it.</p>
+        <h4>Simple, honest ingredients</h4>
+        <p>Grass-fed Beef Tallow, Olive Oil, Coconut Oil, Castor Oil, Lye (none remains in the finished product after 4 weeks of curing), Peppermint Essential Oil, Rosemary Essential Oil.</p>
+        <p>No sulphates, no parabens, no synthetic fragrances, no plastic packaging. Just clean, natural ingredients.</p>
     </div>
     <div class="pp-tab-panel" id="tab-directions">
         <h4>How to use</h4>
-        <p>Apply a drop or two to a clean face, morning or night. Gently press and smooth into the skin. Follow with your tallow balm or moisturiser if desired. As with any new skincare product, we recommend a small patch test first.</p>
+        <p>Lather the bar in your hands, then work the lather through wet hair from roots to tips. Rinse thoroughly. For best results, follow with our Tallow Conditioner.</p>
+        <h4>Storage</h4>
+        <p>Keep the bar dry between uses — store on a well-draining soap dish in a cool, dry place away from direct sunlight. This will extend the life of your bar significantly.</p>
     </div>
     <div class="pp-tab-panel" id="tab-reviews">
         <h4>See what our customers say</h4>
-        <img class="tab-reviews-img" src="/img/prod/balm/balmreviews.webp" alt="Tallow serum customer reviews NZ" loading="lazy">
+        <img class="tab-reviews-img" src="/img/shampoo-reviews.webp" alt="Tallow shampoo bar customer reviews NZ" loading="lazy">
     </div>
     <div class="pp-tab-panel" id="tab-shipping">
         <h4>Shipping</h4>
@@ -218,30 +276,30 @@
     </div>
 </div>
 
-<!-- ─── WHY TALLOW SERUM ─── -->
+<!-- ─── WHY TALLOW SHAMPOO BAR ─── -->
 <div class="pp-why-section">
     <div class="pp-why-inner">
         <div class="pp-why-content">
-            <h2>Why kiwis are choosing tallow serum for their skin</h2>
-            <p>Many serums are water-based with synthetic actives suspended in chemical emulsifiers. They sit on the surface, evaporate quickly, and can leave sensitive skin feeling tight or irritated. A tallow serum is different — tallow's fatty acid profile closely mimics our skin's own oils, so the Vitamin C and Hyaluronic Acid are carried deeper rather than just sitting on top.</p>
-            <p>That's why kiwis are making the switch to tallow serum — real, absorbable actives in a natural base, not a chemical cocktail. Made in small batches in Christchurch by the tallow skincare company featured on Seven Sharp.</p>
+            <h2>Why kiwis are switching to a tallow shampoo bar</h2>
+            <p>Many shampoos rely on harsh sulphates and synthetic detergents to create that foamy lather — but that lather comes at a cost. It strips your hair's natural oils, leaving your scalp dry and your hair dull. A tallow shampoo bar works differently — tallow's fatty acid profile closely mimics the oils your scalp naturally produces, so it cleanses without stripping.</p>
+            <p>That's why kiwis are ditching the plastic bottles and switching to a tallow shampoo bar — real cleansing from natural ingredients, with zero plastic waste. Made in small batches in Christchurch by the tallow skincare company featured on Seven Sharp.</p>
         </div>
         <div class="ingredients-grid">
             <div class="ingredient-card">
                 <h4>🌿 Grass-fed Tallow</h4>
-                <p>The natural base. Its fatty acid profile closely mimics your skin's own oils — designed to carry actives deeper, not just coat the surface.</p>
+                <p>The natural base. Its fatty acid profile closely mimics your scalp's own oils — designed to cleanse and nourish without stripping.</p>
             </div>
             <div class="ingredient-card">
-                <h4>✨ Vitamin C</h4>
-                <p>A natural brightening ingredient that supports an even skin tone and a healthy, radiant complexion.</p>
+                <h4>🫒 Olive Oil</h4>
+                <p>Rich in antioxidants and vitamins — traditionally valued for leaving hair soft, manageable, and naturally conditioned.</p>
             </div>
             <div class="ingredient-card">
-                <h4>💧 Hyaluronic Acid</h4>
-                <p>A powerful natural humectant that draws moisture into the skin, helping to plump and smooth fine lines.</p>
+                <h4>🥥 Coconut Oil</h4>
+                <p>A natural cleanser that creates a gentle lather while helping to nourish and strengthen hair from root to tip.</p>
             </div>
             <div class="ingredient-card">
-                <h4>🌱 Pro-Vitamin B5</h4>
-                <p>Known for its hydrating and calming properties — a gentle choice for sensitive or reactive skin.</p>
+                <h4>🌱 Peppermint & Rosemary</h4>
+                <p>A refreshing blend of essential oils traditionally known for their invigorating and scalp-friendly properties.</p>
             </div>
         </div>
     </div>
@@ -249,7 +307,7 @@
 
 <!-- ─── COMPARISON ─── -->
 <div class="pp-comparison-section">
-    <h2>Tallow serum vs synthetic serums</h2>
+    <h2>Tallow shampoo bar vs bottled shampoo</h2>
     <p class="subtitle">See why kiwis are making the switch</p>
     <table class="comparison-table">
         <thead>
@@ -261,9 +319,9 @@
         </thead>
         <tbody>
             <tr><td>All natural ingredients</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
-            <tr><td>No synthetic chemicals</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
-            <tr><td>Sensitive skin safe</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
-            <tr><td>Actually absorbs into skin</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+            <tr><td>No sulphates or synthetic detergents</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+            <tr><td>Zero plastic waste</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+            <tr><td>Cleanses without stripping</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
             <tr><td>Made in Christchurch, NZ</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
             <tr><td>Money back guarantee</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
         </tbody>
@@ -272,6 +330,13 @@
 
 <!-- ─── ROUTINE CROSS-SELL ─── -->
 {{- partial "irritation-routine.html" . -}}
+
+<!-- ─── TOAST ─── -->
+<div id="pairWithToast" class="pp-toast">
+    <svg width="24" height="24" fill="#4CAF50" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+    <span class="pp-toast-text" id="pairWithToastProduct">Added to Cart!</span>
+    <a href="/cart" class="pp-toast-link">View Cart</a>
+</div>
 
 <!-- ─── PAGE SCRIPTS ─── -->
 <script>
@@ -300,10 +365,10 @@
     });
 </script>
 
-<!-- Pricing: references site.Data.pricing.tallow.pricing.serum (size: 30ml) -->
-<!-- Price ID: references site.Data.pricing.tallow.ids.serum.single[vitc][30ml][country_code] -->
+<!-- Pricing: references site.Data.pricing.tallow.pricing.shampoo (size: 120g) -->
+<!-- Price ID: references site.Data.pricing.tallow.ids.shampoo.single[peppermintrosemary][120g][country_code] -->
 <script>
-    const productPricingRaw = {{ site.Data.pricing.tallow.pricing.serum | jsonify | safeJS }};
+    const productPricingRaw = {{ site.Data.pricing.tallow.pricing.shampoo | jsonify | safeJS }};
     const productPricing = Array.isArray(productPricingRaw) ? productPricingRaw : [];
 
     function updatePrice() {
@@ -330,7 +395,9 @@
         try {
             let priceId;
             if (orderType === 'single_purchase') {
-                priceId = pricingData.tallow.ids.serum.single[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.shampoo.single[flavor][size][country_code];
+            } else if (orderType === 'three_pack') {
+                priceId = pricingData.tallow.ids.shampoo.pack[flavor][size][country_code];
             }
             const buyNowButton = document.querySelector(".buy-now");
             if (buyNowButton) {
@@ -343,6 +410,25 @@
         }
     }
 
+    // Update pair-with price from YAML
+    function updatePairWithPrice() {
+        var priceElements = document.querySelectorAll('.pp-pair-price');
+        priceElements.forEach(function(el) {
+            var product = el.getAttribute('data-product');
+            var size = el.getAttribute('data-size');
+            var orderType = el.getAttribute('data-order-type');
+            try {
+                var productPricingData = pricingData.tallow.pricing[product];
+                if (Array.isArray(productPricingData)) {
+                    var entry = productPricingData.find(function(e) { return e.size.toLowerCase() === size.toLowerCase(); });
+                    if (entry && entry.prices[country_code] && entry.prices[country_code][orderType]) {
+                        el.textContent = '$' + entry.prices[country_code][orderType].toFixed(2);
+                    }
+                }
+            } catch (err) { console.error('Pair-with price error:', err); }
+        });
+    }
+
     document.getElementById("productForm").addEventListener("change", function() {
         updatePrice();
         updatePriceId();
@@ -351,6 +437,7 @@
     document.addEventListener("DOMContentLoaded", function() {
         updatePrice();
         updatePriceId();
+        setTimeout(updatePairWithPrice, 100);
     });
 </script>
 
@@ -358,14 +445,14 @@
     function handleAddToCart(event) {
         event.preventDefault();
         const button = event.target.closest('.buy-now');
-        const size = '30ml';
-        const flavor = 'Vitamin C & Hyaluronic Acid';
-        const orderTypeLabel = 'Single bottle';
+        const size = '120g';
+        const flavor = 'Peppermint & Rosemary';
+        const orderTypeLabel = 'Single block';
 
         const unitPriceElement = document.getElementById('price');
         const unitPrice = unitPriceElement ? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00 : 0.00;
         const priceId = button.getAttribute('data-price-id') || 'N/A';
-        const title = 'Tallow Glow Serum';
+        const title = 'Tallow Shampoo Bar';
         const quantityField = document.getElementById('quantityAll');
         const quantity = quantityField ? parseInt(quantityField.value, 10) || 1 : 1;
 
@@ -394,6 +481,65 @@
     document.addEventListener('DOMContentLoaded', function () {
         const addToCartButton = document.querySelector('.buy-now');
         if (addToCartButton) addToCartButton.addEventListener('click', handleAddToCart);
+
+        // Pair-with quick add
+        document.querySelectorAll('.pair-with-quick-add').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (this.classList.contains('added')) return;
+
+                var product = this.getAttribute('data-product');
+                var orderType = this.getAttribute('data-order-type');
+                var flavor = this.getAttribute('data-flavor');
+                var size = this.getAttribute('data-size');
+                var title = this.getAttribute('data-title');
+                var displaySize = this.getAttribute('data-display-size');
+                var displayFlavor = this.getAttribute('data-display-flavor');
+                var displayOrderType = this.getAttribute('data-display-order-type');
+
+                try {
+                    var priceId = pricingData.tallow.ids[product][orderType][flavor][size][country_code];
+                    var productPricingData = pricingData.tallow.pricing[product];
+                    var unitPrice = 0;
+                    if (Array.isArray(productPricingData)) {
+                        var entry = productPricingData.find(function(e) { return e.size.toLowerCase() === size.toLowerCase(); });
+                        if (entry && entry.prices[country_code]) {
+                            var pricingOrderType = orderType === 'single' ? 'single_purchase' : orderType;
+                            unitPrice = entry.prices[country_code][pricingOrderType] || 0;
+                        }
+                    }
+
+                    if (!priceId || unitPrice === 0) {
+                        alert('Unable to add this product. Please visit the product page.');
+                        return;
+                    }
+
+                    var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+                    cart.push({ priceId: priceId, title: title, size: displaySize, flavor: displayFlavor, orderType: displayOrderType, quantity: 1, unitPrice: unitPrice, eligibleForDiscount: false });
+                    localStorage.setItem('cartV2', JSON.stringify(cart));
+
+                    this.textContent = 'Added ✓';
+                    this.classList.add('added');
+                    this.disabled = true;
+
+                    // Toast
+                    var toast = document.getElementById('pairWithToast');
+                    var toastText = document.getElementById('pairWithToastProduct');
+                    if (toast && toastText) {
+                        toastText.textContent = title + ' added!';
+                        toast.classList.remove('show');
+                        void toast.offsetWidth;
+                        toast.classList.add('show');
+                        setTimeout(function() { toast.classList.remove('show'); }, 4000);
+                    }
+
+                    if (typeof updateCartBadge === 'function') updateCartBadge();
+                } catch (err) {
+                    console.error('Pair-with add error:', err);
+                    alert('Unable to add this product. Please visit the product page.');
+                }
+            });
+        });
     });
 </script>
 
