@@ -299,8 +299,9 @@
     function selectScent(value, pillEl) {
         document.querySelectorAll('.scent-pill').forEach(p => p.classList.remove('active'));
         pillEl.classList.add('active');
-        // Update hidden form
-        document.querySelectorAll('input[name="flavor"]').forEach(r => { r.checked = (r.value === value); });
+        // Uncheck all flavor radios, then check the selected one by ID
+        document.getElementById('geranium').checked = (value === 'geranium');
+        document.getElementById('natural').checked = (value === 'natural');
         // Trigger change event for pricing update
         document.getElementById('productForm').dispatchEvent(new Event('change'));
     }
@@ -376,7 +377,8 @@
         const selectedSize = document.querySelector('input[name="size"]:checked');
         const size = '250ml';
         const selectedFlavor = document.querySelector('input[name="flavor"]:checked');
-        const flavor = document.querySelector(`label[for="${selectedFlavor.id}"]`) ? document.querySelector(`label[for="${selectedFlavor.id}"]`).textContent.trim() : 'Geranium';
+        const activePill = document.querySelector('.scent-pill.active');
+        const flavor = activePill ? activePill.textContent.trim() : (selectedFlavor.value === 'natural' ? 'Natural' : 'Geranium');
         const orderTypeLabel = 'Single bottle';
 
         const unitPriceElement = document.getElementById('price');
