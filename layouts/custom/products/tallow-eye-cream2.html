@@ -3,17 +3,16 @@
 <head>
     {{- partial "head.html" . -}}
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="description" content="Tallow Eye Cream - Gentle anti-aging eye cream that won't sting. Fade fine lines and brighten beneath your eyes naturally with grass-fed tallow, Manuka honey & Vitamin C. Used by 8000+ kiwis. Online exclusive from PrimalCare Gold Edition." />
-    <meta property="og:title" content="Tallow Eye Cream | Gentle Anti-Aging That Won't Sting | PrimalPantry" />
+    <meta name="description" content="Tallow Baby Butter - Gentle natural barrier cream for babies. Soothes cradle cap, nappy rash and dry skin with grass-fed tallow, chamomile and aloe vera. NZ made, no harsh chemicals." />
+    <meta property="og:title" content="Tallow Baby Butter | Gentle Natural Barrier Cream | PrimalPantry" />
     <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
-    <meta property="og:url" content="https://primalpantry.co.nz/shop/products/tallow-eye-cream/" />
-    <meta property="og:image" content="https://primalpantry.co.nz/img/eyec.webp" />
-    <meta property="og:description" content="Fade fine lines and brighten beneath your eyes naturally. Gentle tallow eye cream with Manuka honey & Vitamin C — won't sting or irritate. Money back guarantee." />
+    <meta property="og:url" content="https://primalpantry.co.nz/shop/products/tallow-baby-butter/" />
+    <meta property="og:image" content="https://primalpantry.co.nz/img/baby-butter1.webp" />
+    <meta property="og:description" content="Gentle tallow baby butter that soothes cradle cap, nappy rash and dry skin naturally. NZ made with grass-fed tallow, chamomile and aloe vera. Money back guarantee." />
     <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
     <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
     <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="canonical" href="https://primalpantry.co.nz/shop/products/tallow-eye-cream/" />
+    <link rel="canonical" href="https://primalpantry.co.nz/shop/products/tallow-baby-butter/" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -21,29 +20,24 @@
     {
         "@context": "https://schema.org",
         "@type": "Product",
-        "name": "Tallow Eye Cream",
-        "description": "Gentle anti-aging tallow eye cream with Manuka honey and Vitamin C. Fade fine lines and brighten beneath your eyes naturally — soothing enough for sensitive skin.",
-        "image": "https://primalpantry.co.nz/img/eyec.webp",
+        "name": "Tallow Baby Butter",
+        "description": "Gentle natural tallow baby butter barrier cream. Soothes cradle cap, nappy rash and dry skin with grass-fed tallow, chamomile and aloe vera.",
+        "image": "https://primalpantry.co.nz/img/baby-butter1.webp",
         "brand": { "@type": "Brand", "name": "PrimalPantry" },
         "offers": {
             "@type": "Offer",
-            "url": "https://primalpantry.co.nz/shop/products/tallow-eye-cream/",
+            "url": "https://primalpantry.co.nz/shop/products/tallow-baby-butter/",
             "priceCurrency": "NZD",
-            "price": "34.95",
+            "price": "29.95",
             "availability": "https://schema.org/InStock",
             "shippingDetails": {
                 "@type": "OfferShippingDetails",
                 "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "NZ" }
             }
-        },
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.7",
-            "bestRating": "5",
-            "ratingCount": "200"
         }
     }
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     {{ $styles := resources.Get "css/product-page.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
 </head>
@@ -54,7 +48,7 @@
 
 <!-- ─── BREADCRUMB ─── -->
 <div class="pp-breadcrumb">
-    <a href="/shop" class="text-dark">Shop</a> › Tallow Eye Cream
+    <a href="/shop" class="text-dark">Shop</a> › Tallow Baby Butter
 </div>
 
 <!-- ─── PRODUCT HERO ─── -->
@@ -63,23 +57,17 @@
     <!-- Gallery -->
     <div class="product-gallery">
         <div class="gallery-main">
-            <img class="main-image" id="mainImage" fetchpriority="high" src="/img/eyec.webp" alt="Tallow Eye Cream">
+            <img class="main-image" id="mainImage" fetchpriority="high" src="/img/baby-butter1.webp" alt="Tallow Baby Butter">
             <div class="exclusive-badge">
                 <span class="dot"></span> Online Exclusive
             </div>
         </div>
         <div class="gallery-thumbs">
-            <div class="thumb active" onclick="switchImage('/img/eyec.webp', this)">
-                <img src="/img/eyec.webp" alt="Tallow eye cream">
+            <div class="thumb active" onclick="switchImage('/img/baby-butter1.webp', this)">
+                <img src="/img/baby-butter1.webp" alt="Tallow baby butter">
             </div>
-            <div class="thumb" onclick="switchImage('/img/shop/both-beforeafter.webp', this)">
-                <img src="/img/shop/both-beforeafter.webp" alt="Tallow eye cream before and after results" loading="lazy">
-            </div>
-            <div class="thumb" onclick="switchImage('/img/eyebox.webp', this)">
-                <img src="/img/eyebox.webp" alt="Tallow eye cream box" loading="lazy">
-            </div>
-            <div class="thumb" onclick="switchImage('/img/eyecream-reviews.webp', this)">
-                <img src="/img/eyecream-reviews.webp" alt="Tallow eye cream customer reviews" loading="lazy">
+            <div class="thumb" onclick="switchImage('/img/IMG_9483.webp', this)">
+                <img src="/img/IMG_9483.webp" alt="Tallow baby butter texture" loading="lazy">
             </div>
         </div>
     </div>
@@ -95,32 +83,28 @@
                 <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
                 <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
             </div>
-            <span class="trust-text">Used by 8,000+ kiwis.</span>
-            <span class="eanz-badge">
-                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-                EANZ Partner
-            </span>
+            <span class="trust-text">From 85,000+ happy kiwis.</span>
         </div>
 
-        <h1 class="pp-product-title">Tallow Eye Cream</h1>
-        <p class="pp-product-subtitle">Gentle anti-aging that won't sting</p>
+        <h1 class="pp-product-title">Tallow Baby Butter</h1>
+        <p class="pp-product-subtitle">Gentle natural barrier cream for babies</p>
         <p class="pp-product-edition">PrimalCare Gold Edition</p>
 
         <div class="benefit-strip">
-            <p>Stop wasting money on eye creams full of chemical nasties that don't work. Our tallow eye cream <strong>seeps deep into your skin</strong> to hydrate, brighten, and smooth your undereye area for a <strong>well-rested, youthful look</strong> — naturally.</p>
+            <p>A soft, lightweight tallow baby butter that <strong>protects, soothes, and deeply hydrates</strong> your little one's skin. Made with skin-loving tallow and gentle natural ingredients that closely mimic baby's natural skin barrier — <strong>no harsh chemicals, ever</strong>.</p>
         </div>
 
         <div class="review-snippet">
             <span class="quote-mark">"</span>
             <div>
-                <p class="review-text">I've tried everything for my dark circles and fine lines. This is the first eye cream that actually made a visible difference within 2 weeks. My skin feels amazing.</p>
-                <p class="reviewer">— Sarah M., Auckland <span class="verified">✓ Verified Buyer</span></p>
+                <p class="review-text">My baby's cradle cap cleared up within a week of using this. So gentle and the chamomile scent is beautiful. I wish I'd found this sooner!</p>
+                <p class="reviewer">— Jess K., Hamilton <span class="verified">✓ Verified Buyer</span></p>
             </div>
         </div>
 
         <div class="pp-pricing-section">
-            <span class="pp-price-main"><span id="price">$34.95</span></span>
-            <p class="afterpay-note">or 4 interest free payments of $<span id="afterpay_price">8.74</span> with <img src="/img/afterpay.webp" class="d-inline" height="18" alt="afterpay"></p>
+            <span class="pp-price-main"><span id="price">$29.95</span></span>
+            <p class="afterpay-note">or 4 interest free payments of $<span id="afterpay_price">7.49</span> with <img src="/img/afterpay.webp" class="d-inline" height="18" alt="afterpay"></p>
         </div>
 
         <div class="purchase-options">
@@ -129,26 +113,19 @@
                 <div class="option-left">
                     <div class="option-radio"><div class="dot-inner"></div></div>
                     <div>
-                        <div class="option-label">Single Jar</div>
-                        <div class="option-sublabel">15ml · 2–3 months supply</div>
+                        <div class="option-label">Single Tub</div>
+                        <div class="option-sublabel">120ml · Lasts 2–3 months</div>
                     </div>
                 </div>
-                <div class="option-price">$<span id="option-price-display">34.95</span></div>
+                <div class="option-price">$<span id="option-price-display">29.95</span></div>
             </label>
         </div>
 
         <form id="productForm" autocomplete="off" style="display:none;">
             <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
-            <input type="radio" id="manukahoney_vitc" name="flavor" value="manukahoney_vitc" checked>
-            <input type="radio" id="size10ml" name="size" value="10ml" checked>
+            <input type="radio" id="natural" name="flavor" value="natural" checked>
+            <input type="radio" id="size120ml" name="size" value="120ml" checked>
         </form>
-
-        <div class="pp-selector-group">
-            <div class="pp-selector-label">Scent</div>
-            <div class="scent-pills">
-                <div class="scent-pill active">Manuka Honey &amp; Vitamin C</div>
-            </div>
-        </div>
 
         <div class="stock-indicator">
             <span class="stock-dot"></span> In Stock · Ships within 1–3 business days
@@ -162,7 +139,7 @@
             </div>
             <button class="btn-add-to-cart buy-now" type="button" data-price-id="" data-quantity-id="quantityAll">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="position:relative;z-index:1;"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-                <span style="position:relative;z-index:1;">Add To Cart — $34.95</span>
+                <span style="position:relative;z-index:1;">Add To Cart — $29.95</span>
             </button>
         </div>
 
@@ -199,16 +176,16 @@
         <button class="pp-tab-btn" onclick="switchTab('shipping', this)">Shipping</button>
     </div>
     <div class="pp-tab-panel active" id="tab-ingredients">
-        <h4>Six purposeful ingredients. Nothing else.</h4>
-        <p>Grass-fed tallow, Manuka honey, Borage seed oil, Vitamin E, Calendula-infused oil, Vitamin C. Each chosen to nourish and brighten the delicate undereye area — no fillers, no synthetics, no nasties.</p>
+        <h4>Gentle ingredients, nothing harsh</h4>
+        <p>Water (Aqua), Aloe vera, Xanthan gum, Glycerin, Emulsifying wax (Cetearyl Olivate, Sorbitan Olivate), Cetyl alcohol, Beeswax, Sweet almond oil, Jojoba oil, Squalane, Argan oil, Tallow, Caprylic/Capric triglyceride, Vitamin E, Chamomile essential oil, Spectrastat Natural G2.</p>
     </div>
     <div class="pp-tab-panel" id="tab-directions">
         <h4>How to use</h4>
-        <p>Apply a small amount to the undereye area before bed. Gently pat (don't rub) into the skin using your ring finger. As with any new skincare, we recommend patch testing first.</p>
+        <p>Apply a small amount to face and body daily as needed. Ideal for hydrating and soothing dry, itchy, or irritated skin including cradle cap and nappy rash. As with any new product, patch test first.</p>
     </div>
     <div class="pp-tab-panel" id="tab-reviews">
         <h4>See what our customers say online</h4>
-        <img class="tab-reviews-img" src="/img/eyecream-reviews.webp" alt="Tallow eye cream verified customer reviews" loading="lazy">
+        <img class="tab-reviews-img" src="/img/prod/balm/balmreviews.webp" alt="Tallow baby butter customer reviews" loading="lazy">
     </div>
     <div class="pp-tab-panel" id="tab-shipping">
         <h4>Shipping</h4>
@@ -222,35 +199,35 @@
 <div class="pp-media-section">
     <p class="pp-media-label">As featured on</p>
     <div class="pp-media-logos">
-        <img src="/img/shop/desktop-product-logos.webp" alt="Tallow eye cream as featured on Stuff, Mai, The Breeze, More FM, Edge, The Press, The Post, Waikato Times" class="pp-media-logos-img d-none d-md-block" loading="lazy">
-        <img src="/img/shop/mobile-logos.webp" alt="Tallow eye cream as featured on" class="pp-media-logos-img d-block d-md-none" loading="lazy">
+        <img src="/img/shop/desktop-product-logos.webp" alt="PrimalPantry as featured on Stuff, Mai, The Breeze, More FM, Edge, The Press" class="pp-media-logos-img d-none d-md-block" loading="lazy">
+        <img src="/img/shop/mobile-logos.webp" alt="As featured on" class="pp-media-logos-img d-block d-md-none" loading="lazy">
     </div>
 </div>
 
-<!-- ─── WHY THIS EYE CREAM ─── -->
+<!-- ─── WHY TALLOW BABY BUTTER ─── -->
 <div class="pp-why-section">
     <div class="pp-why-inner">
         <div class="pp-why-content">
-            <h2>Why 8,500+ kiwis switched to tallow for their eyes</h2>
-            <p>The skin around your eyes is the thinnest on your body. Most eye creams sit on top, doing nothing. Tallow's fatty acid profile is remarkably close to our own skin's sebum — so it actually absorbs, delivering Vitamin C and Manuka honey where they can make a real difference.</p>
-            <p>The result? Visibly brighter, smoother, more hydrated undereyes — without a single synthetic chemical.</p>
+            <h2>Why parents are switching to tallow baby butter</h2>
+            <p>Baby skin is up to 5x thinner than adult skin — it deserves better than synthetic creams full of petroleum and parabens. Tallow's fatty acid profile closely mimics the oils our bodies naturally produce, so it absorbs and nourishes rather than sitting on the surface.</p>
+            <p>The result? Soft, protected, comfortable skin — and a calm, happy baby.</p>
         </div>
         <div class="ingredients-grid">
             <div class="ingredient-card">
                 <h4>🌿 Grass-fed Tallow</h4>
-                <p>High-grade suet, wet rendered and filtered 6 times for maximum purity.</p>
+                <p>Deeply nourishing, barrier-repairing, and ideal for sensitive or eczema-prone baby skin.</p>
             </div>
             <div class="ingredient-card">
-                <h4>🍯 Manuka Honey</h4>
-                <p>Natural antibacterial and anti-inflammatory properties to soothe irritation.</p>
+                <h4>🌱 Aloe Vera</h4>
+                <p>Deeply soothing and calming for irritated skin, nappy rash, and redness.</p>
             </div>
             <div class="ingredient-card">
-                <h4>🌸 Borage Seed Oil</h4>
-                <p>Rich in GLA — restores moisture and supports the skin's natural barrier.</p>
+                <h4>🌰 Sweet Almond Oil</h4>
+                <p>Gently nourishes and softens sensitive baby skin without clogging pores.</p>
             </div>
             <div class="ingredient-card">
-                <h4>✨ Vitamin C</h4>
-                <p>Brightens skin and reduces hyperpigmentation for a youthful glow.</p>
+                <h4>🌼 Chamomile</h4>
+                <p>Helps relieve itching, irritation, and discomfort — perfect for restless little ones.</p>
             </div>
         </div>
     </div>
@@ -258,8 +235,8 @@
 
 <!-- ─── COMPARISON ─── -->
 <div class="pp-comparison-section">
-    <h2>Meet your moisturiser match</h2>
-    <p class="subtitle">See why 85,000+ kiwis made the switch</p>
+    <h2>Meet your baby's moisturiser match</h2>
+    <p class="subtitle">See why parents are making the switch</p>
     <table class="comparison-table">
         <thead>
             <tr>
@@ -271,7 +248,7 @@
         <tbody>
             <tr><td>All natural ingredients</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
             <tr><td>No synthetic chemicals</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
-            <tr><td>Affordably priced</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+            <tr><td>No petroleum or parabens</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
             <tr><td>NZ made &amp; owned</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
             <tr><td>Money back guarantee</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
         </tbody>
@@ -281,25 +258,25 @@
 <!-- ─── REVIEWS ─── -->
 <div class="pp-reviews-section">
     <div class="pp-reviews-inner">
-        <h2>Real results from real kiwis</h2>
+        <h2>Real results from real parents</h2>
         <p class="pp-reviews-summary">★★★★★ Rated 4.7/5 from verified reviews</p>
         <div class="pp-reviews-grid">
             <div class="pp-review-card">
                 <div class="review-stars">★★★★★</div>
-                <p class="review-body">"I've tried everything for my dark circles and fine lines. This is the first eye cream that actually made a visible difference within 2 weeks."</p>
-                <p class="review-author">Sarah M.</p>
-                <p class="review-verified">✓ Verified Buyer · Auckland</p>
+                <p class="review-body">"My baby's cradle cap cleared up within a week of using this. So gentle and the chamomile scent is beautiful. I wish I'd found this sooner!"</p>
+                <p class="review-author">Jess K.</p>
+                <p class="review-verified">✓ Verified Buyer · Hamilton</p>
             </div>
             <div class="pp-review-card">
                 <div class="review-stars">★★★★★</div>
-                <p class="review-body">"So gentle on my sensitive skin — no stinging or redness. My undereyes look brighter and I actually look like I've slept 8 hours even when I haven't!"</p>
-                <p class="review-author">Emma T.</p>
-                <p class="review-verified">✓ Verified Buyer · Wellington</p>
+                <p class="review-body">"We've tried every baby cream on the market. This is the only one that actually stopped the nappy rash coming back. Love that it's all natural too."</p>
+                <p class="review-author">Natalie R.</p>
+                <p class="review-verified">✓ Verified Buyer · Tauranga</p>
             </div>
             <div class="pp-review-card">
                 <div class="review-stars">★★★★★</div>
-                <p class="review-body">"I was skeptical about tallow skincare but my eczema flares around my eyes have calmed right down. The Manuka honey scent is gorgeous too."</p>
-                <p class="review-author">Rachel W.</p>
+                <p class="review-body">"Such a lovely texture — not greasy at all. My wee one has really dry patches on her cheeks and this has made such a difference. Highly recommend."</p>
+                <p class="review-author">Mel S.</p>
                 <p class="review-verified">✓ Verified Buyer · Christchurch</p>
             </div>
         </div>
@@ -337,7 +314,7 @@
 </script>
 
 <script>
-    const productPricingRaw = {{ site.Data.pricing.tallow.pricing.eyecream | jsonify | safeJS }};
+    const productPricingRaw = {{ site.Data.pricing.tallow.pricing.baby_butter | jsonify | safeJS }};
     const productPricing = Array.isArray(productPricingRaw) ? productPricingRaw : [];
 
     function updatePrice() {
@@ -369,7 +346,7 @@
         try {
             let priceId;
             if (orderType === 'single_purchase') {
-                priceId = pricingData.tallow.ids.eyecream.single[flavor][size][country_code];
+                priceId = pricingData.tallow.ids.baby_butter.single[flavor][size][country_code];
             }
             const buyNowButton = document.querySelector(".buy-now");
             if (buyNowButton) {
@@ -393,15 +370,15 @@
         event.preventDefault();
         const button = event.target.closest('.buy-now');
         const selectedSize = document.querySelector('input[name="size"]:checked');
-        const size = document.querySelector(`label[for="${selectedSize.id}"]`) ? document.querySelector(`label[for="${selectedSize.id}"]`).textContent.trim() : '15ml';
+        const size = document.querySelector(`label[for="${selectedSize.id}"]`) ? document.querySelector(`label[for="${selectedSize.id}"]`).textContent.trim() : '120ml';
         const selectedFlavor = document.querySelector('input[name="flavor"]:checked');
-        const flavor = document.querySelector(`label[for="${selectedFlavor.id}"]`) ? document.querySelector(`label[for="${selectedFlavor.id}"]`).textContent.trim() : 'Manuka Honey & Vitamin C';
-        const orderTypeLabel = 'Single jar';
+        const flavor = document.querySelector(`label[for="${selectedFlavor.id}"]`) ? document.querySelector(`label[for="${selectedFlavor.id}"]`).textContent.trim() : 'Natural Chamomile';
+        const orderTypeLabel = 'Single tub';
 
         const unitPriceElement = document.getElementById('price');
         const unitPrice = unitPriceElement ? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00 : 0.00;
         const priceId = button.getAttribute('data-price-id') || 'N/A';
-        const title = 'Tallow Eye Cream';
+        const title = 'Tallow Baby Butter';
         const quantityField = document.getElementById('quantityAll');
         const quantity = quantityField ? parseInt(quantityField.value, 10) || 1 : 1;
 
