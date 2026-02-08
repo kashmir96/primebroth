@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tallow Eye Cream — PrimalPantry</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brown-900: #2C1810;
+    --brown-800: #3D2419;
+    --brown-700: #5C3A2E;
+    --cream-50: #FFFCF7;
+    --cream-100: #FFF9F2;
+    --cream-200: #F5EDE3;
+    --cream-300: #EDE0D1;
+    --gold-500: #B89830;
+    --gold-400: #C9A940;
+    --gold-300: #D4B85A;
+    --coral-500: #D4553E;
+    --green-600: #2E7D4F;
+    --green-100: #E8F5EE;
+    --text-primary: #2C1810;
+    --text-secondary: #6B5849;
+    --text-muted: #9A887A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text-primary);
+    background: var(--cream-50);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── ANNOUNCEMENT BAR ─── */
+  .announcement-bar {
+    background: var(--brown-900);
+    color: #fff;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  }
+  .announcement-bar span { color: var(--gold-300); font-weight: 700; }
+
+  /* ─── NAV ─── */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 48px;
+    background: var(--cream-50);
+    border-bottom: 1px solid var(--cream-200);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--brown-900);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .nav-logo small {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--brown-900); }
+  .nav-cart {
+    position: relative;
+    width: 20px; height: 20px;
+    color: var(--brown-900);
+  }
+
+  /* ─── BREADCRUMB ─── */
+  .breadcrumb {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 48px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .breadcrumb a { color: var(--text-secondary); text-decoration: underline; }
+
+  /* ─── HERO PRODUCT SECTION ─── */
+  .product-hero {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  /* Left: Images */
+  .product-gallery {
+    position: sticky;
+    top: 100px;
+  }
+  .gallery-main {
+    width: 100%;
+    aspect-ratio: 1;
+    background: var(--cream-200);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+  }
+  .gallery-main .exclusive-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: var(--brown-900);
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .exclusive-badge .dot {
+    width: 6px; height: 6px;
+    background: var(--gold-400);
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .gallery-thumbs {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .gallery-thumbs .thumb {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    background: var(--cream-200);
+    border: 2px solid transparent;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .gallery-thumbs .thumb.active,
+  .gallery-thumbs .thumb:hover {
+    border-color: var(--brown-900);
+  }
+  .placeholder-img {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 12px;
+    text-align: center;
+    padding: 8px;
+    background: linear-gradient(135deg, var(--cream-200) 0%, var(--cream-300) 100%);
+  }
+
+  /* Right: Product info */
+  .product-info {
+    padding-top: 8px;
+  }
+
+  .trust-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .stars {
+    display: flex;
+    gap: 2px;
+    color: var(--gold-500);
+  }
+  .stars svg { width: 16px; height: 16px; }
+  .trust-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+  .eanz-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--green-100);
+    color: var(--green-600);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .eanz-badge svg { width: 14px; height: 14px; }
+
+  .product-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 4px;
+    color: var(--brown-900);
+  }
+  .product-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+  }
+  .product-edition {
+    font-size: 13px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--gold-500);
+    margin-bottom: 16px;
+  }
+
+  /* ─── KEY BENEFIT STRIP ─── */
+  .benefit-strip {
+    background: linear-gradient(135deg, #FFF7ED 0%, #FEF3E2 100%);
+    border: 1px solid #F0E0C8;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+  }
+  .benefit-strip p {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--text-primary);
+    margin: 0;
+  }
+  .benefit-strip strong { color: var(--brown-900); }
+
+  /* ─── REVIEW SNIPPET ─── */
+  .review-snippet {
+    display: flex;
+    gap: 14px;
+    padding: 16px 0;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--cream-200);
+  }
+  .review-snippet .quote-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    line-height: 1;
+    color: var(--gold-400);
+    flex-shrink: 0;
+    margin-top: -6px;
+  }
+  .review-snippet .review-text {
+    font-size: 14px;
+    font-style: italic;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  .review-snippet .reviewer {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-style: normal;
+    margin-top: 4px;
+  }
+  .reviewer .verified {
+    color: var(--green-600);
+  }
+
+  /* ─── PRICING ─── */
+  .pricing-section {
+    margin-bottom: 20px;
+  }
+  .price-main {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--brown-900);
+  }
+  .afterpay-note {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* ─── PURCHASE OPTIONS ─── */
+  .purchase-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .purchase-option {
+    border: 2px solid var(--cream-300);
+    border-radius: 12px;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+  .purchase-option:hover {
+    border-color: var(--brown-700);
+  }
+  .purchase-option.selected {
+    border-color: var(--brown-900);
+    background: #FFFBF5;
+  }
+  .purchase-option input[type="radio"] {
+    display: none;
+  }
+  .option-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .option-radio {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--cream-300);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: border-color 0.2s;
+  }
+  .purchase-option.selected .option-radio {
+    border-color: var(--brown-900);
+  }
+  .option-radio .dot-inner {
+    width: 10px;
+    height: 10px;
+    background: var(--brown-900);
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 0.15s;
+  }
+  .purchase-option.selected .dot-inner {
+    transform: scale(1);
+  }
+  .option-label {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .option-sublabel {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 1px;
+  }
+  .option-price {
+    font-size: 16px;
+    font-weight: 700;
+    text-align: right;
+  }
+  .option-save {
+    background: var(--coral-500);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+  }
+  .option-best {
+    position: absolute;
+    top: -10px;
+    right: 16px;
+    background: var(--gold-500);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 10px;
+  }
+
+  /* ─── SCENT SELECTOR ─── */
+  .selector-group {
+    margin-bottom: 16px;
+  }
+  .selector-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+  .scent-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .scent-pill {
+    padding: 8px 18px;
+    border: 2px solid var(--cream-300);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #fff;
+  }
+  .scent-pill.active {
+    border-color: var(--brown-900);
+    background: var(--brown-900);
+    color: #fff;
+  }
+
+  /* ─── QUANTITY + CTA ─── */
+  .action-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+    align-items: stretch;
+  }
+  .qty-selector {
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--cream-300);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+  }
+  .qty-selector button {
+    width: 44px;
+    height: 52px;
+    border: none;
+    background: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-weight: 600;
+    transition: background 0.15s;
+  }
+  .qty-selector button:hover { background: var(--cream-100); }
+  .qty-selector input {
+    width: 40px;
+    text-align: center;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: inherit;
+    background: transparent;
+    color: var(--text-primary);
+  }
+  .qty-selector input:focus { outline: none; }
+
+  .btn-add-to-cart {
+    flex: 1;
+    background: var(--brown-900);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    letter-spacing: 0.3px;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-add-to-cart:hover {
+    background: var(--brown-800);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(44,24,16,0.25);
+  }
+  .btn-add-to-cart::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.08) 100%);
+  }
+
+  .stock-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--green-600);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .stock-dot {
+    width: 8px; height: 8px;
+    background: var(--green-600);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .sub-cta {
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  /* ─── GUARANTEE BAR ─── */
+  .guarantee-bar {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    padding: 14px 0;
+    border-top: 1px solid var(--cream-200);
+    border-bottom: 1px solid var(--cream-200);
+  }
+  .guarantee-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+  .guarantee-item svg {
+    width: 16px; height: 16px;
+    color: var(--green-600);
+    flex-shrink: 0;
+  }
+
+  /* ─── MEDIA LOGOS ─── */
+  .media-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 48px;
+    text-align: center;
+  }
+  .media-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+  .media-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    opacity: 0.5;
+  }
+  .media-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-secondary);
+  }
+  .media-logo.serif-italic { font-style: italic; }
+
+  /* ─── WHY SECTION ─── */
+  .why-section {
+    background: var(--cream-100);
+    padding: 80px 48px;
+  }
+  .why-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .why-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    line-height: 1.2;
+  }
+  .why-content p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+  }
+
+  .ingredients-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .ingredient-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid var(--cream-200);
+  }
+  .ingredient-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--brown-900);
+  }
+  .ingredient-card p {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  /* ─── COMPARISON TABLE ─── */
+  .comparison-section {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 80px 48px;
+    text-align: center;
+  }
+  .comparison-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    margin-bottom: 8px;
+  }
+  .comparison-section .subtitle {
+    color: var(--text-muted);
+    margin-bottom: 36px;
+    font-size: 15px;
+  }
+  .comparison-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    text-align: left;
+  }
+  .comparison-table thead th {
+    padding: 14px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .comparison-table thead th:first-child { background: none; }
+  .comparison-table thead th:nth-child(2) {
+    background: var(--brown-900);
+    color: #fff;
+    border-radius: 12px 12px 0 0;
+    text-align: center;
+  }
+  .comparison-table thead th:nth-child(3) {
+    text-align: center;
+    color: var(--text-muted);
+  }
+  .comparison-table td {
+    padding: 14px 20px;
+    font-size: 14px;
+    border-bottom: 1px solid var(--cream-200);
+    color: var(--text-secondary);
+  }
+  .comparison-table td:nth-child(2) {
+    background: #FFFBF5;
+    text-align: center;
+    font-weight: 600;
+    color: var(--green-600);
+  }
+  .comparison-table td:nth-child(3) {
+    text-align: center;
+    color: var(--text-muted);
+  }
+  .comparison-table tbody tr:last-child td:nth-child(2) {
+    border-radius: 0 0 12px 12px;
+  }
+  .check { color: var(--green-600); font-size: 18px; }
+  .cross { color: #ccc; font-size: 18px; }
+
+  /* ─── REVIEWS SECTION ─── */
+  .reviews-section {
+    background: var(--cream-100);
+    padding: 80px 48px;
+  }
+  .reviews-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .reviews-inner h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    margin-bottom: 12px;
+  }
+  .reviews-summary {
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+  }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    text-align: left;
+  }
+  .review-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px;
+    border: 1px solid var(--cream-200);
+  }
+  .review-card .review-stars {
+    color: var(--gold-500);
+    font-size: 14px;
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+  }
+  .review-card .review-body {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+  .review-card .review-author {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--brown-900);
+  }
+  .review-card .review-verified {
+    font-size: 12px;
+    color: var(--green-600);
+    font-weight: 600;
+  }
+
+  /* ─── ROUTINE SECTION ─── */
+  .routine-section {
+    padding: 80px 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .routine-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .routine-block { margin-bottom: 40px; }
+  .routine-header {
+    text-align: center;
+    padding: 14px 32px;
+    border-radius: 32px;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+  }
+  .routine-header.morning {
+    background: linear-gradient(135deg, #FFF0D1 0%, #FFE0A0 100%);
+    color: #8B6914;
+  }
+  .routine-header.evening {
+    background: linear-gradient(135deg, #E8E0F8 0%, #D0C0F0 100%);
+    color: #5B3E8A;
+  }
+  .routine-products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .routine-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid var(--cream-200);
+    text-align: center;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .routine-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(44,24,16,0.08);
+  }
+  .routine-card.current {
+    border: 2px solid var(--gold-500);
+    background: #FFFBF3;
+  }
+  .routine-card.current::after {
+    content: 'YOU ARE HERE';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold-500);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 3px 12px;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+  .routine-step {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .routine-card-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+    background: var(--cream-200);
+    margin: 0 auto 16px;
+  }
+  .routine-card-name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .routine-card-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--brown-900);
+    margin-bottom: 4px;
+  }
+  .routine-card-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+  .btn-quick-add {
+    width: 100%;
+    padding: 10px;
+    background: #fff;
+    border: 2px solid var(--brown-900);
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--brown-900);
+    font-family: inherit;
+  }
+  .btn-quick-add:hover {
+    background: var(--brown-900);
+    color: #fff;
+  }
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+  .tag-new { background: #E8F5EE; color: var(--green-600); }
+  .tag-best { background: #FFF0D1; color: #8B6914; }
+  .tag-exclusive { background: #F0E8F8; color: #6B3FA0; }
+  .tag-sale { background: #FFE8E6; color: var(--coral-500); }
+
+  /* ─── TAB CONTENT SECTION ─── */
+  .tabs-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px 60px;
+  }
+  .tabs-nav {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--cream-200);
+    margin-bottom: 28px;
+  }
+  .tab-btn {
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .tab-btn.active {
+    color: var(--brown-900);
+    border-bottom-color: var(--brown-900);
+  }
+  .tab-btn:hover { color: var(--text-secondary); }
+  .tab-panel {
+    display: none;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    max-width: 700px;
+  }
+  .tab-panel.active { display: block; }
+  .tab-panel h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--brown-900);
+    margin-bottom: 12px;
+  }
+  .tab-panel p { margin-bottom: 12px; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--brown-900);
+    color: #fff;
+    padding: 60px 48px 30px;
+  }
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .footer-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.6;
+  }
+  .footer-col h4 {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    color: rgba(255,255,255,0.4);
+  }
+  .footer-col a {
+    display: block;
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: #fff; }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 24px;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .product-hero {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding: 0 20px 40px;
+    }
+    .product-gallery { position: static; }
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .breadcrumb { padding: 12px 20px; }
+    .why-inner { grid-template-columns: 1fr; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .routine-products { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .guarantee-bar { flex-wrap: wrap; gap: 12px; justify-content: flex-start; padding: 14px 0; }
+    .comparison-section { padding: 60px 20px; }
+    .media-section { padding: 40px 20px; }
+    .why-section { padding: 60px 20px; }
+    .reviews-section { padding: 60px 20px; }
+    .routine-section { padding: 60px 20px; }
+    .tabs-section { padding: 0 20px 40px; }
+    footer { padding: 40px 20px 24px; }
+    .product-title { font-size: 28px; }
+    .product-subtitle { font-size: 18px; }
+    .ingredients-grid { grid-template-columns: 1fr; }
+    .option-save { display: block; margin-left: 0; margin-top: 4px; }
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .product-info > * {
+    animation: fadeUp 0.5s ease-out both;
+  }
+  .product-info > *:nth-child(1) { animation-delay: 0.05s; }
+  .product-info > *:nth-child(2) { animation-delay: 0.1s; }
+  .product-info > *:nth-child(3) { animation-delay: 0.15s; }
+  .product-info > *:nth-child(4) { animation-delay: 0.2s; }
+  .product-info > *:nth-child(5) { animation-delay: 0.25s; }
+  .product-info > *:nth-child(6) { animation-delay: 0.3s; }
+  .product-info > *:nth-child(7) { animation-delay: 0.35s; }
+  .product-info > *:nth-child(8) { animation-delay: 0.4s; }
+  .product-info > *:nth-child(9) { animation-delay: 0.45s; }
+  .product-info > *:nth-child(10) { animation-delay: 0.5s; }
+  .product-info > *:nth-child(11) { animation-delay: 0.55s; }
+  .product-info > *:nth-child(12) { animation-delay: 0.6s; }
+  .product-info > *:nth-child(13) { animation-delay: 0.65s; }
+</style>
+</head>
+<body>
+
+<!-- ─── ANNOUNCEMENT BAR ─── -->
+<div class="announcement-bar">
+  🚚 Free shipping over $80 · <span>Online exclusive</span> — not available in stores
+</div>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <a href="/" class="nav-logo">PrimalPantry<small>Ancestral Wellness</small></a>
+  <div class="nav-links">
+    <a href="/shop">Shop Tallow</a>
+    <a href="/reviews">Customer Reviews</a>
+    <a href="/stockists">Stockists</a>
+    <a href="/contact">Contact</a>
+    <a href="/about">About</a>
+    <a href="/cart" class="nav-cart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    </a>
+  </div>
+</nav>
+
+<!-- ─── BREADCRUMB ─── -->
+<div class="breadcrumb">
+  <a href="/shop">Shop</a> › Tallow Eye Cream
+</div>
+
+<!-- ─── PRODUCT HERO ─── -->
+<div class="product-hero">
+  <!-- Gallery -->
+  <div class="product-gallery">
+    <div class="gallery-main">
+      <div class="placeholder-img" style="font-size:15px; background: linear-gradient(180deg, #f5ebe0 0%, #e8d9c8 100%);">
+        <div style="text-align:center;">
+          <div style="font-size:60px; margin-bottom:12px;">🧴</div>
+          <div style="color: var(--text-muted);">Hero product image<br><small>Replace with your eye cream photo</small></div>
+        </div>
+      </div>
+      <div class="exclusive-badge">
+        <span class="dot"></span> Online Exclusive
+      </div>
+    </div>
+    <div class="gallery-thumbs">
+      <div class="thumb active"><div class="placeholder-img">Product</div></div>
+      <div class="thumb"><div class="placeholder-img">In use</div></div>
+      <div class="thumb"><div class="placeholder-img">Texture</div></div>
+      <div class="thumb"><div class="placeholder-img">EANZ</div></div>
+    </div>
+  </div>
+
+  <!-- Product Info -->
+  <div class="product-info">
+
+    <!-- Trust row -->
+    <div class="trust-row">
+      <div class="stars">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+      </div>
+      <span class="trust-text">8,000+ kiwis</span>
+      <span class="eanz-badge">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+        EANZ Partner
+      </span>
+    </div>
+
+    <!-- Title -->
+    <h1 class="product-title">Tallow Eye Cream</h1>
+    <p class="product-subtitle">Sensitive safe anti-aging</p>
+    <p class="product-edition">PrimalCare Gold Edition</p>
+
+    <!-- KEY CHANGE: Persuasive copy pulled ABOVE fold -->
+    <div class="benefit-strip">
+      <p>Stop wasting money on eye creams full of chemical nasties that don't work. Our tallow eye cream <strong>seeps deep into your skin</strong> to hydrate, brighten, and smooth your undereye area for a <strong>well-rested, youthful look</strong> — naturally.</p>
+    </div>
+
+    <!-- KEY CHANGE: Review snippet right near the CTA -->
+    <div class="review-snippet">
+      <span class="quote-mark">"</span>
+      <div>
+        <p class="review-text">I've tried everything for my dark circles and fine lines. This is the first eye cream that actually made a visible difference within 2 weeks. My skin feels amazing.</p>
+        <p class="reviewer">— Sarah M., Auckland <span class="verified">✓ Verified Buyer</span></p>
+      </div>
+    </div>
+
+    <!-- Pricing -->
+    <div class="pricing-section">
+      <span class="price-main">$34.95</span>
+      <p class="afterpay-note">or 4 interest-free payments of $8.74 with Afterpay</p>
+    </div>
+
+    <!-- KEY CHANGE: Purchase options with bundle upsell -->
+    <div class="purchase-options">
+      <label class="purchase-option selected" onclick="selectOption(this)">
+        <input type="radio" name="purchaseType" value="single" checked>
+        <div class="option-left">
+          <div class="option-radio"><div class="dot-inner"></div></div>
+          <div>
+            <div class="option-label">Single Jar</div>
+            <div class="option-sublabel">15ml · 2–3 months supply</div>
+          </div>
+        </div>
+        <div class="option-price">$34.95</div>
+      </label>
+
+      <label class="purchase-option" onclick="selectOption(this)" style="position:relative;">
+        <input type="radio" name="purchaseType" value="duo">
+        <div class="option-left">
+          <div class="option-radio"><div class="dot-inner"></div></div>
+          <div>
+            <div class="option-label">Eye Cream + Balm Duo</div>
+            <div class="option-sublabel">Complete day &amp; night eye care</div>
+          </div>
+        </div>
+        <div class="option-price">$54.95 <span class="option-save">SAVE 15%</span></div>
+        <div class="option-best">BEST VALUE</div>
+      </label>
+
+      <label class="purchase-option" onclick="selectOption(this)">
+        <input type="radio" name="purchaseType" value="subscribe">
+        <div class="option-left">
+          <div class="option-radio"><div class="dot-inner"></div></div>
+          <div>
+            <div class="option-label">Subscribe &amp; Save</div>
+            <div class="option-sublabel">Auto-ships every 3 months · cancel anytime</div>
+          </div>
+        </div>
+        <div class="option-price">$29.95 <span class="option-save">SAVE 14%</span></div>
+      </label>
+    </div>
+
+    <!-- Scent -->
+    <div class="selector-group">
+      <div class="selector-label">Scent</div>
+      <div class="scent-pills">
+        <div class="scent-pill active" onclick="selectScent(this)">Manuka Honey &amp; Vitamin C</div>
+      </div>
+    </div>
+
+    <!-- Stock + CTA -->
+    <div class="stock-indicator">
+      <span class="stock-dot"></span> In Stock · Ships within 1–3 business days
+    </div>
+
+    <div class="action-row">
+      <div class="qty-selector">
+        <button type="button" onclick="changeQty(-1)">−</button>
+        <input type="number" id="qty" value="1" min="1" readonly>
+        <button type="button" onclick="changeQty(1)">+</button>
+      </div>
+      <button class="btn-add-to-cart" type="button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="position:relative;z-index:1;"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span style="position:relative;z-index:1;">Add To Cart — $34.95</span>
+      </button>
+    </div>
+
+    <p class="sub-cta">
+      Money back guarantee · Speedy NZ-wide shipping
+    </p>
+
+    <!-- Guarantee bar -->
+    <div class="guarantee-bar">
+      <div class="guarantee-item">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+        100% Natural
+      </div>
+      <div class="guarantee-item">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+        NZ Made
+      </div>
+      <div class="guarantee-item">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+        Sensitive Safe
+      </div>
+      <div class="guarantee-item">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+        Money Back
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── TABS ─── -->
+<div class="tabs-section">
+  <div class="tabs-nav">
+    <button class="tab-btn active" onclick="switchTab('ingredients', this)">Ingredients</button>
+    <button class="tab-btn" onclick="switchTab('directions', this)">Directions</button>
+    <button class="tab-btn" onclick="switchTab('shipping', this)">Shipping</button>
+  </div>
+  <div class="tab-panel active" id="tab-ingredients">
+    <h4>Six purposeful ingredients. Nothing else.</h4>
+    <p>Grass-fed tallow, Manuka honey, Borage seed oil, Vitamin E, Calendula-infused oil, Vitamin C. Each chosen to nourish and brighten the delicate undereye area — no fillers, no synthetics, no nasties.</p>
+  </div>
+  <div class="tab-panel" id="tab-directions">
+    <h4>How to use</h4>
+    <p>Apply a small amount to the undereye area before bed. Gently pat (don't rub) into the skin using your ring finger. As with any new skincare, we recommend patch testing first.</p>
+  </div>
+  <div class="tab-panel" id="tab-shipping">
+    <h4>Shipping</h4>
+    <p><strong>Processing:</strong> 1–3 business days, then standard courier times (3–5 business days NZ-wide).</p>
+    <p><strong>Cost:</strong> $4.95–$6.95, or free on orders over $80.</p>
+    <p><strong>International:</strong> Currently NZ only. Australia shipping coming soon.</p>
+  </div>
+</div>
+
+<!-- ─── AS FEATURED ON ─── -->
+<div class="media-section">
+  <p class="media-label">As featured on</p>
+  <div class="media-logos">
+    <span class="media-logo">Stuff</span>
+    <span class="media-logo serif-italic">māi</span>
+    <span class="media-logo">THE BREEZE</span>
+    <span class="media-logo" style="font-family:'DM Sans',sans-serif;font-weight:800;">MORE<sup style="font-size:10px;">FM</sup></span>
+    <span class="media-logo">edge</span>
+    <span class="media-logo serif-italic">The Press</span>
+    <span class="media-logo">The Post</span>
+    <span class="media-logo serif-italic">Waikato Times</span>
+  </div>
+</div>
+
+<!-- ─── WHY THIS EYE CREAM ─── -->
+<div class="why-section">
+  <div class="why-inner">
+    <div class="why-content">
+      <h2>Why 8,000+ kiwis switched to tallow for their eyes</h2>
+      <p>The skin around your eyes is the thinnest on your body. Most eye creams sit on top, doing nothing. Tallow's fatty acid profile is remarkably close to our own skin's sebum — so it actually absorbs, delivering Vitamin C and Manuka honey where they can make a real difference.</p>
+      <p>The result? Visibly brighter, smoother, more hydrated undereyes — without a single synthetic chemical.</p>
+    </div>
+    <div class="ingredients-grid">
+      <div class="ingredient-card">
+        <h4>🌿 Grass-fed Tallow</h4>
+        <p>High-grade suet, wet rendered and filtered 6 times for maximum purity.</p>
+      </div>
+      <div class="ingredient-card">
+        <h4>🍯 Manuka Honey</h4>
+        <p>Natural antibacterial and anti-inflammatory properties to soothe irritation.</p>
+      </div>
+      <div class="ingredient-card">
+        <h4>🌸 Borage Seed Oil</h4>
+        <p>Rich in GLA — restores moisture and supports the skin's natural barrier.</p>
+      </div>
+      <div class="ingredient-card">
+        <h4>✨ Vitamin C</h4>
+        <p>Brightens skin and reduces hyperpigmentation for a youthful glow.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── COMPARISON ─── -->
+<div class="comparison-section">
+  <h2>Meet your moisturiser match</h2>
+  <p class="subtitle">See why 8,000+ kiwis made the switch</p>
+  <table class="comparison-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>PrimalCare</th>
+        <th>Other brands</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>All natural ingredients</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+      <tr><td>No synthetic chemicals</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+      <tr><td>Affordably priced</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+      <tr><td>NZ made &amp; owned</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+      <tr><td>Money back guarantee</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ─── REVIEWS ─── -->
+<div class="reviews-section">
+  <div class="reviews-inner">
+    <h2>Real results from real kiwis</h2>
+    <p class="reviews-summary">★★★★★ 4.9/5 from 200+ verified reviews</p>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-body">"I've tried everything for my dark circles and fine lines. This is the first eye cream that actually made a visible difference within 2 weeks."</p>
+        <p class="review-author">Sarah M.</p>
+        <p class="review-verified">✓ Verified Buyer · Auckland</p>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-body">"So gentle on my sensitive skin — no stinging or redness. My undereyes look brighter and I actually look like I've slept 8 hours even when I haven't!"</p>
+        <p class="review-author">Emma T.</p>
+        <p class="review-verified">✓ Verified Buyer · Wellington</p>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-body">"I was skeptical about tallow skincare but my eczema flares around my eyes have calmed right down. The Manuka honey scent is gorgeous too."</p>
+        <p class="review-author">Rachel W.</p>
+        <p class="review-verified">✓ Verified Buyer · Christchurch</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── ROUTINE CROSS-SELL ─── -->
+<div class="routine-section">
+  <h2>Build your complete routine</h2>
+
+  <div class="routine-block">
+    <div class="routine-header morning">☀️ Morning Routine</div>
+    <div class="routine-products">
+      <div class="routine-card">
+        <span class="tag tag-new">NEW</span>
+        <div class="routine-step">Step 1</div>
+        <div class="routine-card-img"></div>
+        <div class="routine-card-name">Tallow Haircare Bundle</div>
+        <div class="routine-card-price">$55.95</div>
+        <div class="routine-card-desc">Complete shampoo &amp; conditioner for healthy scalp</div>
+        <button class="btn-quick-add">Quick Add</button>
+      </div>
+      <div class="routine-card">
+        <span class="tag tag-new">NEW</span>
+        <div class="routine-step">Step 2</div>
+        <div class="routine-card-img"></div>
+        <div class="routine-card-name">Tallow &amp; Aloe Body Lotion</div>
+        <div class="routine-card-price">$34.95</div>
+        <div class="routine-card-desc">Quick, easy hydration with no tallow smell</div>
+        <button class="btn-quick-add">Quick Add</button>
+      </div>
+      <div class="routine-card">
+        <span class="tag tag-sale">15% OFF</span>
+        <div class="routine-step">Step 3</div>
+        <div class="routine-card-img"></div>
+        <div class="routine-card-name">Tallow Glow Serum</div>
+        <div class="routine-card-price"><s style="color:var(--text-muted);font-weight:400;">$44.95</s> $38.20</div>
+        <div class="routine-card-desc">Brightening anti-aging with Vitamin C &amp; Hyaluronic Acid</div>
+        <button class="btn-quick-add">Quick Add</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="routine-block">
+    <div class="routine-header evening">🌙 Evening Routine</div>
+    <div class="routine-products">
+      <div class="routine-card">
+        <span class="tag tag-exclusive">ONLINE ONLY</span>
+        <div class="routine-step">Step 4</div>
+        <div class="routine-card-img"></div>
+        <div class="routine-card-name">Tallow Cleanser</div>
+        <div class="routine-card-price">$24.95</div>
+        <div class="routine-card-desc">Gently lifts makeup and dirt, leaving skin happy</div>
+        <button class="btn-quick-add">Quick Add</button>
+      </div>
+      <div class="routine-card">
+        <span class="tag tag-best">BEST SELLER</span>
+        <div class="routine-step">Step 5</div>
+        <div class="routine-card-img"></div>
+        <div class="routine-card-name">Tallow &amp; Honey Balm 120ml</div>
+        <div class="routine-card-price">$29.95</div>
+        <div class="routine-card-desc">Nourishing balm to rebuild and repair after a long day</div>
+        <button class="btn-quick-add">Quick Add</button>
+      </div>
+      <div class="routine-card current">
+        <span class="tag tag-exclusive">ONLINE ONLY</span>
+        <div class="routine-step">Step 6</div>
+        <div class="routine-card-img"></div>
+        <div class="routine-card-name">Tallow Eye Cream</div>
+        <div class="routine-card-price">$34.95</div>
+        <div class="routine-card-desc">You're viewing this product right now</div>
+        <button class="btn-quick-add" style="background:var(--brown-900);color:#fff;">✓ Viewing</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">PrimalPantry</div>
+      <p class="footer-desc">Skincare that soothes, hydrates &amp; moisturises sensitive skin. NZ made tallow balm, tallow cream &amp; more — all natural, honestly affordable.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a href="#">All Tallow Products</a>
+      <a href="#">Tallow for Eczema-Prone Skin</a>
+      <a href="#">Tallow for Babies</a>
+      <a href="#">Tallow Cream &amp; Anti-Aging</a>
+      <a href="#">Tallow Shampoo &amp; Haircare</a>
+    </div>
+    <div class="footer-col">
+      <h4>Help</h4>
+      <a href="#">Customer Support</a>
+      <a href="#">FAQs</a>
+      <a href="#">Refund Policy</a>
+      <a href="#">Where to Buy — Stockists</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">Our Story — Christchurch NZ</a>
+      <a href="#">Primal Pantry Reviews</a>
+      <a href="#">Blog</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © PrimalPantry 2026. All Rights Reserved. · Primal Pantry is a corporate partner of the Eczema Association of New Zealand (EANZ).
+  </div>
+</footer>
+
+<script>
+  function selectOption(el) {
+    document.querySelectorAll('.purchase-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    el.querySelector('input').checked = true;
+    const prices = { single: '$34.95', duo: '$54.95', subscribe: '$29.95' };
+    const val = el.querySelector('input').value;
+    document.querySelector('.btn-add-to-cart span').textContent = 'Add To Cart — ' + prices[val];
+  }
+
+  function selectScent(el) {
+    document.querySelectorAll('.scent-pill').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  function changeQty(delta) {
+    const input = document.getElementById('qty');
+    const newVal = Math.max(1, parseInt(input.value) + delta);
+    input.value = newVal;
+  }
+
+  function switchTab(tabId, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tabId).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
