@@ -301,6 +301,7 @@
 </script>
 
 <!-- Pricing: references site.Data.pricing.tallow.pricing.serum (size: 30ml) -->
+<!-- Price ID: references site.Data.pricing.tallow.ids.serum.single[vitc][30ml][country_code] -->
 <script>
     const productPricingRaw = {{ site.Data.pricing.tallow.pricing.serum | jsonify | safeJS }};
     const productPricing = Array.isArray(productPricingRaw) ? productPricingRaw : [];
@@ -318,12 +319,6 @@
         }
     }
 
-    document.getElementById("productForm").addEventListener("change", updatePrice);
-    document.addEventListener("DOMContentLoaded", updatePrice);
-</script>
-
-<!-- Price ID: references site.Data.pricing.tallow.ids.serum.single[vitc][30ml][country_code] -->
-<script>
     const rawData = "{{ .Site.Data.pricing | jsonify }}";
     const pricingData = JSON.parse(rawData);
 
@@ -348,8 +343,13 @@
         }
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        document.getElementById('productForm').addEventListener('change', updatePriceId);
+    document.getElementById("productForm").addEventListener("change", function() {
+        updatePrice();
+        updatePriceId();
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        updatePrice();
         updatePriceId();
     });
 </script>
