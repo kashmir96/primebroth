@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     {{- partial "head.html" . -}}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta name="description" content="Tallow Eye Cream - Sensitive safe anti-aging eye cream. Fade fine lines and brighten beneath your eyes naturally with grass-fed tallow, Manuka honey & Vitamin C. Used by 8000+ kiwis. Online exclusive from PrimalCare Gold Edition." />
     <meta property="og:title" content="Tallow Eye Cream | Sensitive Safe Anti-Aging | PrimalPantry" />
     <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
@@ -15,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; }
-html, body { overflow-x: hidden; max-width: 100vw; }
+html, body { overflow-x: hidden; width: 100%; }
 img { max-width: 100%; height: auto; }
 
 :root {
@@ -40,9 +41,9 @@ img { max-width: 100%; height: auto; }
 .pp-breadcrumb { max-width: 1200px; margin: 0 auto; padding: 16px 48px; font-size: 13px; color: var(--pp-text-muted); }
 .pp-breadcrumb a { color: var(--pp-text-secondary); text-decoration: underline; }
 
-.product-hero { max-width: 1200px; margin: 0 auto; padding: 0 48px 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+.product-hero { max-width: 1200px; margin: 0 auto; padding: 0 48px 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; overflow: hidden; }
 
-.product-gallery { position: sticky; top: 100px; }
+.product-gallery { position: sticky; top: 100px; min-width: 0; }
 .gallery-main { width: 100%; aspect-ratio: 4/5; background: var(--pp-cream-200); border-radius: 16px; overflow: hidden; position: relative; }
 .gallery-main .main-image { width: 100%; height: 100%; object-fit: contain; display: block; transition: opacity 0.3s ease; }
 .gallery-main .exclusive-badge { position: absolute; top: 16px; left: 16px; background: var(--pp-brown-900); color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px; }
@@ -186,18 +187,20 @@ img { max-width: 100%; height: auto; }
 .product-info > *:nth-child(13) { animation-delay: 0.65s; }
 
 @media (max-width: 900px) {
-    .product-hero { grid-template-columns: 1fr; gap: 32px; padding: 0 20px 40px; }
-    .product-gallery { position: static; }
-    .gallery-main { aspect-ratio: 1/1; }
-    .pp-breadcrumb { padding: 12px 20px; }
+    .product-hero { grid-template-columns: 1fr; gap: 32px; padding: 0 16px 40px; max-width: 100vw; width: 100%; }
+    .product-gallery { position: static; width: 100%; min-width: 0; }
+    .gallery-main { aspect-ratio: 1/1; width: 100%; max-width: 100%; }
+    .gallery-main .main-image { width: 100%; height: 100%; object-fit: cover; }
+    .product-info { min-width: 0; width: 100%; overflow: hidden; }
+    .pp-breadcrumb { padding: 12px 16px; }
     .pp-why-inner { grid-template-columns: 1fr; }
     .pp-reviews-grid { grid-template-columns: 1fr; }
     .guarantee-bar { flex-wrap: wrap; gap: 12px; justify-content: flex-start; padding: 14px 0; }
-    .pp-comparison-section { padding: 60px 20px; overflow-x: auto; }
-    .pp-media-section { padding: 40px 20px; }
-    .pp-why-section { padding: 60px 20px; }
-    .pp-reviews-section { padding: 60px 20px; }
-    .pp-tabs-section { padding: 0 20px 40px; }
+    .pp-comparison-section { padding: 60px 16px; overflow-x: auto; }
+    .pp-media-section { padding: 40px 16px; }
+    .pp-why-section { padding: 60px 16px; }
+    .pp-reviews-section { padding: 60px 16px; }
+    .pp-tabs-section { padding: 0 16px 40px; }
     .pp-product-title { font-size: 28px; }
     .pp-product-subtitle { font-size: 18px; }
     .ingredients-grid { grid-template-columns: 1fr; }
