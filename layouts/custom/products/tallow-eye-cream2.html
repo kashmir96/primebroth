@@ -126,16 +126,16 @@
         <!-- Hidden form for pricing engine — references tallow.pricing.liquid_lotion + tallow.ids.liquid_lotion -->
         <form id="productForm" autocomplete="off" style="display:none;">
             <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
-            <input type="radio" id="geranium" name="flavor" value="geranium" checked>
-            <input type="radio" id="natural" name="flavor" value="natural">
             <input type="radio" id="size220ml" name="size" value="220ml" checked>
         </form>
 
         <div class="pp-selector-group">
             <div class="pp-selector-label">Scent</div>
             <div class="scent-pills">
-                <div class="scent-pill active" onclick="selectScent('geranium', this)">Geranium</div>
-                <div class="scent-pill" onclick="selectScent('natural', this)">Natural</div>
+                <input type="radio" id="geranium" name="flavor" value="geranium" form="productForm" checked style="display:none;">
+                <label for="geranium" class="scent-pill active" onclick="updatePills(this)">Geranium</label>
+                <input type="radio" id="natural" name="flavor" value="natural" form="productForm" style="display:none;">
+                <label for="natural" class="scent-pill" onclick="updatePills(this)">Natural</label>
             </div>
         </div>
 
@@ -296,15 +296,18 @@
         btn.classList.add('active');
     }
 
-    function selectScent(value, pillEl) {
+    function updatePills(labelEl) {
         document.querySelectorAll('.scent-pill').forEach(p => p.classList.remove('active'));
-        pillEl.classList.add('active');
-        // Uncheck all flavor radios, then check the selected one by ID
-        document.getElementById('geranium').checked = (value === 'geranium');
-        document.getElementById('natural').checked = (value === 'natural');
-        // Trigger change event for pricing update
-        document.getElementById('productForm').dispatchEvent(new Event('change'));
+        labelEl.classList.add('active');
     }
+
+    // Wire flavor radios to trigger pricing updates
+    document.querySelectorAll('input[name="flavor"]').forEach(r => {
+        r.addEventListener('change', function() {
+            updatePrice();
+            updatePriceId();
+        });
+    });
 
     const quantityInput = document.getElementById('quantityAll');
     document.querySelector('.btn-increase').addEventListener('click', () => {
@@ -377,8 +380,8 @@
         const selectedSize = document.querySelector('input[name="size"]:checked');
         const size = '250ml';
         const selectedFlavor = document.querySelector('input[name="flavor"]:checked');
-        const activePill = document.querySelector('.scent-pill.active');
-        const flavor = activePill ? activePill.textContent.trim() : (selectedFlavor.value === 'natural' ? 'Natural' : 'Geranium');
+        const flavorLabel = document.querySelector(`label[for="${selectedFlavor.id}"]`);
+        const flavor = flavorLabel ? flavorLabel.textContent.trim() : 'Geranium';
         const orderTypeLabel = 'Single bottle';
 
         const unitPriceElement = document.getElementById('price');
