@@ -44,7 +44,8 @@
         }
     }
     </script>
-    <link rel="stylesheet" href="/css/product-page.css">
+    {{ $styles := resources.Get "css/product-page.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
 </head>
 <body>
 
