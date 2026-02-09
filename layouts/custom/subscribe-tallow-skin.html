@@ -1159,6 +1159,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Hide error when cart changes
         checkoutError.style.display = 'none';
+
+        // Persist cart to sessionStorage
+        const cartState = {};
+        productCards.forEach(function (card) {
+            const qty = parseInt(card.querySelector('.sub-qty-input').value);
+            if (qty > 0) {
+                cartState[card.getAttribute('data-scent')] = qty;
+            }
+        });
+        sessionStorage.setItem('sub_cart', JSON.stringify(cartState));
     }
 
     /* ===== RENDER CART OVERLAY ===== */
@@ -1290,10 +1300,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             localStorage.setItem('previouscart', JSON.stringify(previousCart));
 
-            // Replace current history entry URL with /subscribe/
-            // so browser back from Stripe returns to /subscribe/ not /subscribe/tallow-skin/
-            history.replaceState(null, '', '/subscribe/');
-
             // Redirect directly to Stripe checkout URL
             window.location.href = data.url;
 
@@ -1323,6 +1329,20 @@ document.addEventListener('DOMContentLoaded', function () {
         checkoutAttempts = 0;
         attemptCheckout();
     });
+
+    /* ===== RESTORE CART FROM SESSION STORAGE ===== */
+    try {
+        const saved = sessionStorage.getItem('sub_cart');
+        if (saved) {
+            const cartState = JSON.parse(saved);
+            productCards.forEach(function (card) {
+                const scent = card.getAttribute('data-scent');
+                if (cartState[scent]) {
+                    card.querySelector('.sub-qty-input').value = cartState[scent];
+                }
+            });
+        }
+    } catch (e) { /* ignore parse errors */ }
 
     /* ===== INIT ===== */
     refreshUI();
