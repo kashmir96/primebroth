@@ -42,7 +42,7 @@ exports.handler = async (event, context) => {
       line_items: lineItems,
       mode: 'subscription',
       success_url: successUrl,
-      cancel_url: 'https://www.primalpantry.co.nz/subscribe/tallow-skin/',
+      cancel_url: 'https://www.primalpantry.co.nz/subscribe/',
     });
 
     console.log(`Subscription checkout session created: ${session.id}`);
