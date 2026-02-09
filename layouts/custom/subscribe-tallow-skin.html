@@ -571,12 +571,12 @@
             </div>
 
             <!-- ========== FACE & EYES ========== -->
-            <div class="sub-category">
+            <div class="sub-category" data-open="true">
                 <div class="sub-category-header">
                     <span>Face & Eyes</span>
-                    <span class="sub-category-toggle">▸</span>
+                    <span class="sub-category-toggle">▾</span>
                 </div>
-                <div class="sub-category-body" style="display:none;">
+                <div class="sub-category-body">
 
                     <div class="sub-product-card" data-scent="eye-cream" data-price="27.95" data-price-id="price_1SxKVnFZRwx5tlYmcEdLn6iO" data-size="15ml" data-img="/img/shop/eyecream.webp" data-title="Tallow Eye Cream">
                         <img class="sub-product-img" src="/img/shop/eyecream.webp" alt="Tallow Eye Cream">
@@ -624,12 +624,12 @@
             </div>
 
             <!-- ========== BODY ========== -->
-            <div class="sub-category">
+            <div class="sub-category" data-open="true">
                 <div class="sub-category-header">
                     <span>Body</span>
-                    <span class="sub-category-toggle">▸</span>
+                    <span class="sub-category-toggle">▾</span>
                 </div>
-                <div class="sub-category-body" style="display:none;">
+                <div class="sub-category-body">
 
                     <div class="sub-product-card" data-scent="lotion-geranium" data-price="27.95" data-price-id="price_1SxKXIFZRwx5tlYmIKj2i25i" data-size="250ml" data-img="/img/body-lotion-natural-cutout.webp" data-title="Aloe Tallow Body Lotion">
                         <img class="sub-product-img" src="/img/body-lotion-natural-cutout.webp" alt="Body Lotion Geranium">
@@ -831,12 +831,12 @@
             </div>
 
             <!-- ========== BABY ========== -->
-            <div class="sub-category">
+            <div class="sub-category" data-open="true">
                 <div class="sub-category-header">
                     <span>Baby</span>
-                    <span class="sub-category-toggle">▸</span>
+                    <span class="sub-category-toggle">▾</span>
                 </div>
-                <div class="sub-category-body" style="display:none;">
+                <div class="sub-category-body">
 
                     <div class="sub-product-card" data-scent="baby-butter" data-price="23.95" data-price-id="price_1SxKdYFZRwx5tlYm88rQeiAq" data-size="120ml" data-img="/img/baby-butter-shop.webp" data-title="Tallow Baby Butter">
                         <img class="sub-product-img" src="/img/baby-butter-shop.webp" alt="Tallow Baby Butter">
@@ -870,12 +870,12 @@
             </div>
 
             <!-- ========== HAIRCARE ========== -->
-            <div class="sub-category">
+            <div class="sub-category" data-open="true">
                 <div class="sub-category-header">
                     <span>Haircare</span>
-                    <span class="sub-category-toggle">▸</span>
+                    <span class="sub-category-toggle">▾</span>
                 </div>
-                <div class="sub-category-body" style="display:none;">
+                <div class="sub-category-body">
 
                     <div class="sub-product-card" data-scent="scalp-shampoo" data-price="27.95" data-price-id="price_1SxKeCFZRwx5tlYmcQaaL8Kr" data-size="250ml" data-img="/img/liqshampoo-shop.webp" data-title="Tallow Scalp Shampoo">
                         <img class="sub-product-img" src="/img/liqshampoo-shop.webp" alt="Tallow Scalp Shampoo">
@@ -951,12 +951,12 @@
             </div>
 
             <!-- ========== HOUSEHOLD ========== -->
-            <div class="sub-category">
+            <div class="sub-category" data-open="true">
                 <div class="sub-category-header">
                     <span>Household</span>
-                    <span class="sub-category-toggle">▸</span>
+                    <span class="sub-category-toggle">▾</span>
                 </div>
-                <div class="sub-category-body" style="display:none;">
+                <div class="sub-category-body">
 
                     <div class="sub-product-card" data-scent="dish-block" data-price="23.95" data-price-id="price_1SxKeqFZRwx5tlYmFZuVE0rE" data-size="350g" data-img="/img/dish-shop.webp" data-title="Non-Tox Tallow Dish Block">
                         <img class="sub-product-img" src="/img/dish-shop.webp" alt="Tallow Dish Block">
@@ -1290,11 +1290,9 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             localStorage.setItem('previouscart', JSON.stringify(previousCart));
 
-            // Clean up the cart history state before redirecting
+            // Replace current history entry URL with /subscribe/
             // so browser back from Stripe returns to /subscribe/ not /subscribe/tallow-skin/
-            if (history.state && history.state.cartOpen) {
-                history.replaceState(null, '');
-            }
+            history.replaceState(null, '', '/subscribe/');
 
             // Redirect directly to Stripe checkout URL
             window.location.href = data.url;
