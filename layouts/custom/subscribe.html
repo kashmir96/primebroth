@@ -398,20 +398,6 @@
                 </ul>
             </div>
 
-            <!-- ==============================================
-                 PRODUCT LIST
-                 
-                 To add/edit products:
-                 - data-price    = monthly price (set to 0 as placeholder)
-                 - data-price-id = Stripe recurring price ID
-                 - data-size     = product size (for cart)
-                 - data-img      = product image path
-                 - data-title    = product title (for cart)
-
-                 Categories are collapsible. Tallow balms open 
-                 by default, the rest are collapsed.
-                 ============================================== -->
-
             <!-- ========== WHIPPED TALLOW BALM — 120ml ========== -->
             <div class="sub-category" data-open="true">
                 <div class="sub-category-header">
@@ -1205,6 +1191,19 @@ document.addEventListener('DOMContentLoaded', function () {
             if (data.error) {
                 throw new Error(data.error);
             }
+
+            // Save selections so the thank-you page can display them
+            const previousCart = items.map(function (item) {
+                return {
+                    title: item.title,
+                    flavor: item.name,
+                    size: item.size,
+                    quantity: item.qty,
+                    unitPrice: item.price,
+                    orderType: 'subscription'
+                };
+            });
+            localStorage.setItem('previouscart', JSON.stringify(previousCart));
 
             // Redirect directly to Stripe checkout URL (no Stripe.js needed)
             window.location.href = data.url;
