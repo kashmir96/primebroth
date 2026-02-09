@@ -1290,6 +1290,12 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             localStorage.setItem('previouscart', JSON.stringify(previousCart));
 
+            // Clean up the cart history state before redirecting
+            // so browser back from Stripe returns to /subscribe/ not /subscribe/tallow-skin/
+            if (history.state && history.state.cartOpen) {
+                history.replaceState(null, '');
+            }
+
             // Redirect directly to Stripe checkout URL
             window.location.href = data.url;
 
