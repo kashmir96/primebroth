@@ -285,6 +285,23 @@
 .sub-cart-item-meta { font-size: 0.78rem; color: #888; margin: 1px 0 0 0; }
 .sub-cart-item-line { font-weight: 700; font-size: 0.9rem; color: #2d6a4f; white-space: nowrap; }
 
+/* ===== CART REMOVE BUTTON ===== */
+.sub-cart-item-remove {
+    background: none;
+    border: none;
+    color: #bbb;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 4px 6px;
+    line-height: 1;
+    flex-shrink: 0;
+    transition: color 0.15s;
+}
+
+.sub-cart-item-remove:hover {
+    color: #c0392b;
+}
+
 .sub-cart-empty {
     text-align: center;
     color: #aaa;
@@ -319,6 +336,21 @@
     font-size: 0.78rem;
     color: #999;
     margin-top: 10px;
+}
+
+/* ===== CHECKOUT ERROR MESSAGE ===== */
+.sub-checkout-error {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #c0392b;
+    margin-top: 10px;
+    display: none;
+}
+
+.sub-checkout-error a {
+    color: #2d6a4f;
+    font-weight: 600;
+    text-decoration: underline;
 }
 
 /* ===== BENEFITS BOX ===== */
@@ -981,6 +1013,7 @@
             Proceed to Checkout
         </button>
         <p class="sub-cart-note">Secure checkout via Stripe · Cancel anytime</p>
+        <p class="sub-checkout-error" id="checkoutError"></p>
     </div>
 </div>
 
@@ -1002,6 +1035,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const cartItems = document.getElementById('cartItems');
     const cartTotal = document.getElementById('cartTotal');
     const stripeCheckoutBtn = document.getElementById('stripeCheckoutBtn');
+    const checkoutError = document.getElementById('checkoutError');
+
+    /* ===== TRACK CART OPEN STATE ===== */
+    let cartIsOpen = false;
 
     /* ===== CATEGORY ACCORDIONS ===== */
     document.querySelectorAll('.sub-category').forEach(function (cat) {
@@ -1066,6 +1103,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const qty = parseInt(card.querySelector('.sub-qty-input').value);
             if (qty > 0) {
                 items.push({
+                    scent: card.getAttribute('data-scent'),
                     name: card.querySelector('.sub-product-name').textContent.trim(),
                     meta: card.querySelector('.sub-product-meta').textContent.trim(),
                     price: parseFloat(card.getAttribute('data-price')),
@@ -1078,6 +1116,16 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
         return items;
+    }
+
+    /* ===== REMOVE ITEM BY SCENT (from cart overlay) ===== */
+    function removeItem(scent) {
+        productCards.forEach(function (card) {
+            if (card.getAttribute('data-scent') === scent) {
+                card.querySelector('.sub-qty-input').value = 0;
+            }
+        });
+        refreshUI();
     }
 
     /* ===== REFRESH ALL UI ===== */
@@ -1108,6 +1156,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Enable/disable checkout
         stripeCheckoutBtn.disabled = totalItems === 0;
+
+        // Hide error when cart changes
+        checkoutError.style.display = 'none';
     }
 
     /* ===== RENDER CART OVERLAY ===== */
@@ -1129,39 +1180,75 @@ document.addEventListener('DOMContentLoaded', function () {
                         <p class="sub-cart-item-meta">${item.meta} · Qty: ${item.qty}</p>
                     </div>
                     <span class="sub-cart-item-line">$${lineTotal}</span>
+                    <button type="button" class="sub-cart-item-remove" data-scent="${item.scent}" title="Remove item">&times;</button>
                 </div>
             `;
         });
 
         cartItems.innerHTML = html;
         cartTotal.textContent = '$' + totalPrice.toFixed(2) + '/mo';
+
+        // Attach remove button listeners
+        cartItems.querySelectorAll('.sub-cart-item-remove').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                removeItem(btn.getAttribute('data-scent'));
+            });
+        });
     }
 
-    /* ===== OPEN / CLOSE CART ===== */
+    /* ===== OPEN / CLOSE CART WITH HISTORY STATE ===== */
     function openCart() {
         overlayBg.classList.add('open');
         cartPanel.classList.add('open');
         document.body.style.overflow = 'hidden';
+        cartIsOpen = true;
+
+        // Push a history state so browser back closes the cart
+        history.pushState({ cartOpen: true }, '');
     }
 
     function closeCart() {
         overlayBg.classList.remove('open');
         cartPanel.classList.remove('open');
         document.body.style.overflow = '';
+        cartIsOpen = false;
     }
 
-    reviewCartBtn.addEventListener('click', openCart);
-    cartClose.addEventListener('click', closeCart);
-    overlayBg.addEventListener('click', closeCart);
+    // Handle browser back button — close cart instead of navigating away
+    window.addEventListener('popstate', function (e) {
+        if (cartIsOpen) {
+            closeCart();
+        }
+    });
 
-    /* ===== STRIPE CHECKOUT (via Netlify Function) ===== */
-    stripeCheckoutBtn.addEventListener('click', async function () {
+    reviewCartBtn.addEventListener('click', openCart);
+
+    cartClose.addEventListener('click', function () {
+        closeCart();
+        // Pop the history state we added so back button behaves normally after close
+        if (history.state && history.state.cartOpen) {
+            history.back();
+        }
+    });
+
+    overlayBg.addEventListener('click', function () {
+        closeCart();
+        if (history.state && history.state.cartOpen) {
+            history.back();
+        }
+    });
+
+    /* ===== STRIPE CHECKOUT WITH RETRY ===== */
+    let checkoutAttempts = 0;
+
+    async function attemptCheckout() {
         const items = getSelections();
         if (items.length === 0) return;
 
         // Disable button and show loading state
         stripeCheckoutBtn.disabled = true;
         stripeCheckoutBtn.textContent = 'Processing...';
+        checkoutError.style.display = 'none';
 
         // Build cart
         const cart = items.map(function (item) {
@@ -1187,6 +1274,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 throw new Error(data.error);
             }
 
+            // Reset attempts on success
+            checkoutAttempts = 0;
+
             // Save selections so the thank-you page can display them
             const previousCart = items.map(function (item) {
                 return {
@@ -1200,15 +1290,34 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             localStorage.setItem('previouscart', JSON.stringify(previousCart));
 
-            // Redirect directly to Stripe checkout URL (no Stripe.js needed)
+            // Redirect directly to Stripe checkout URL
             window.location.href = data.url;
 
         } catch (error) {
-            console.error('Checkout error:', error);
-            alert('Checkout error: ' + error.message);
-            stripeCheckoutBtn.disabled = false;
-            stripeCheckoutBtn.textContent = 'Proceed to Checkout';
+            console.error('Checkout error (attempt ' + (checkoutAttempts + 1) + '):', error);
+            checkoutAttempts++;
+
+            if (checkoutAttempts === 1) {
+                // First failure — auto-retry after 500ms
+                stripeCheckoutBtn.textContent = 'Retrying...';
+                setTimeout(function () {
+                    attemptCheckout();
+                }, 500);
+            } else {
+                // Second failure — show contact us message
+                checkoutError.innerHTML = 'Something went wrong. If this error happens again please <a href="/contact-us">contact us</a> to assist.';
+                checkoutError.style.display = 'block';
+                stripeCheckoutBtn.disabled = false;
+                stripeCheckoutBtn.textContent = 'Proceed to Checkout';
+                // Reset attempts so they can try again fresh
+                checkoutAttempts = 0;
+            }
         }
+    }
+
+    stripeCheckoutBtn.addEventListener('click', function () {
+        checkoutAttempts = 0;
+        attemptCheckout();
     });
 
     /* ===== INIT ===== */
