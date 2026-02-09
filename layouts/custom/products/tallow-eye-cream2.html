@@ -377,7 +377,9 @@
         const pricingEntry = productPricing.find(entry => entry.size.toLowerCase() === size);
         if (pricingEntry && pricingEntry.prices[country_code] && pricingEntry.prices[country_code][orderType]) {
             const price = pricingEntry.prices[country_code][orderType];
+            const originalPrice = '17.95';
             document.getElementById("price").textContent = `$${price.toFixed(2)}`;
+            document.getElementById("original-price").textContent = `$${originalPrice}`;
             document.getElementById("afterpay_price").textContent = `${(price / 4).toFixed(2)}`;
             document.getElementById("option-price-display").textContent = price.toFixed(2);
             document.querySelector('.btn-add-to-cart span').textContent = `Add To Cart — $${price.toFixed(2)}`;
