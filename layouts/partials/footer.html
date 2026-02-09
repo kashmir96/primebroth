@@ -1,19 +1,12 @@
-<!--<div id="discountBubble" class="bubble" onclick="openModal()">Get 10% off
-  <span class="close" onclick="closeBubble()">&times;</span>
-</div>
-<div id="modal" class="modal">
-  <div class="modal-content row">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <div>
-      <img class="col-6" src="/img/1.webp" alt="">
-      <div class="col-6">
-        <h1>Want to save 10% on your next order?</h1>
-        <a href="">Sign up</a>
-        <span onclick="closeModal()">&times;No thanks</span>
-      </div>
-    </div>
-  </div>
-</div>-->
+<!-- ─── SUBSCRIBE & SAVE FLOATING BUTTON ─── -->
+<a href="/subscribe" id="ppSubFloat" style="position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;align-items:center;gap:10px;background:#2C1810;color:#fff;padding:14px 20px;border-radius:50px;text-decoration:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;box-shadow:0 4px 20px rgba(44,24,16,0.3);transition:all 0.25s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 28px rgba(44,24,16,0.4)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(44,24,16,0.3)'">
+    <span>🔄</span>
+    <span>Subscribe &amp; Save <strong style="color:#C9A940;">— 20% Off</strong></span>
+    <button onclick="event.preventDefault();event.stopPropagation();document.getElementById('ppSubFloat').style.display='none';sessionStorage.setItem('ppSubDismissed','1');" style="background:rgba(255,255,255,0.15);border:none;color:#fff;width:22px;height:22px;border-radius:50%;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-left:4px;padding:0;line-height:1;">✕</button>
+</a>
+<script>
+if(sessionStorage.getItem('ppSubDismissed')==='1'){document.getElementById('ppSubFloat').style.display='none';}
+</script>
 
 <footer class="pp-footer">
   <!-- ===== SCRIPTS ===== -->
@@ -220,3 +213,4 @@
   </div>
 
 </footer>
+
