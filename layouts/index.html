@@ -340,12 +340,33 @@
 
 /* ===== EANZ BANNER ===== */
 .pp-v3 .eanz {
-  padding: 72px 80px; background: var(--sage-pale);
-  display: flex; align-items: center; justify-content: center;
-  gap: 48px; text-align: center; position: relative;
+  padding: 72px 80px;
+  background: var(--sage-pale);
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 48px;
+  align-items: center;
 }
-.pp-v3 .eanz-logo { height: 100px; width: auto; }
-.pp-v3 .eanz-text { max-width: 480px; text-align: left; }
+.pp-v3 .eanz-video-wrap {
+  position: relative;
+  padding-bottom: 75%;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--bark);
+}
+.pp-v3 .eanz-video-wrap iframe {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
+}
+.pp-v3 .eanz-video-placeholder {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--cream); font-size: 2.5rem; cursor: pointer;
+}
+.pp-v3 .eanz-right {
+  display: flex; align-items: flex-start; gap: 24px;
+}
+.pp-v3 .eanz-logo { height: 100px; width: auto; flex-shrink: 0; }
+.pp-v3 .eanz-text { max-width: 480px; }
 .pp-v3 .eanz-text h3 { font-size: 1.6rem; color: var(--bark); margin-bottom: 10px; }
 .pp-v3 .eanz-text p { font-size: 0.9rem; color: var(--bark-light); line-height: 1.6; }
 .pp-v3 .eanz-disclaimer {
@@ -462,7 +483,8 @@
   .pp-v3 .stores { grid-template-columns: 1fr; gap: 40px; }
   .pp-v3 .origin-inner { grid-template-columns: 1fr; gap: 36px; }
   .pp-v3 .origin-milestones { grid-template-columns: repeat(2, 1fr); }
-  .pp-v3 .eanz { flex-direction: column; padding: 56px 24px; text-align: center; }
+  .pp-v3 .eanz { grid-template-columns: 1fr; padding: 56px 24px; gap: 32px; }
+  .pp-v3 .eanz-right { flex-direction: column; align-items: center; text-align: center; }
   .pp-v3 .eanz-text { text-align: center; }
   .pp-v3 .sellers-top { flex-direction: column; align-items: flex-start; gap: 10px; }
 }
@@ -685,11 +707,18 @@
 
 <!-- ===== EANZ PARTNERSHIP ===== -->
 <section class="eanz" id="eanz-section">
-  <img src="/img/home/eanz.webp" alt="Eczema Association of New Zealand - Primal Pantry Gold Partners" class="eanz-logo" loading="lazy" width="100" height="100">
-  <div class="eanz-text">
-    <h3>Official Gold Supporter of the Eczema Association NZ</h3>
-    <p>Supporting EANZ's mission to help Kiwis living with eczema and sensitive skin conditions.</p>
-    <p class="eanz-disclaimer">Partnership indicates support of EANZ's work; it is not a medical endorsement and does not mean EANZ has tested or approved this product.</p>
+  <div class="eanz-video">
+    <div class="eanz-video-wrap" id="eanz-video-wrap" data-src="https://player.vimeo.com/video/1165170347?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479">
+      <div class="eanz-video-placeholder">▶</div>
+    </div>
+  </div>
+  <div class="eanz-right">
+    <img src="/img/home/eanz.webp" alt="Eczema Association of New Zealand - Primal Pantry Gold Partners" class="eanz-logo" loading="lazy" width="100" height="100">
+    <div class="eanz-text">
+      <h3>Official Gold Supporter of the Eczema Association NZ</h3>
+      <p>Supporting EANZ's mission to help Kiwis living with eczema and sensitive skin conditions.</p>
+      <p class="eanz-disclaimer">Partnership indicates support of EANZ's work; it is not a medical endorsement and does not mean EANZ has tested or approved this product.</p>
+    </div>
   </div>
 </section>
 
@@ -760,6 +789,27 @@
     const s = document.createElement('style');
     s.textContent = '.in{opacity:1!important;transform:translateY(0)!important}';
     document.head.appendChild(s);
+    </script>
+
+    <!-- Lazy-load Vimeo video only when EANZ section scrolls into view -->
+    <script>
+    (function(){
+      var wrap = document.getElementById('eanz-video-wrap');
+      if (!wrap) return;
+      var loaded = false;
+      var obs = new IntersectionObserver(function(entries){
+        if (entries[0].isIntersecting && !loaded) {
+          loaded = true;
+          var src = wrap.getAttribute('data-src');
+          wrap.innerHTML = '<iframe src="'+src+'" allow="autoplay;fullscreen;picture-in-picture;clipboard-write;encrypted-media;web-share" referrerpolicy="strict-origin-when-cross-origin" title="About our mission and partnership with the EANZ" loading="lazy"></iframe>';
+          var s = document.createElement('script');
+          s.src = 'https://player.vimeo.com/api/player.js';
+          document.body.appendChild(s);
+          obs.disconnect();
+        }
+      }, {rootMargin:'200px'});
+      obs.observe(wrap);
+    })();
     </script>
 
     {{- partial "footer.html" . -}}
