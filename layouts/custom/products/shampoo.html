@@ -109,6 +109,22 @@
     color: #fff;
 }
 
+        /* Fix modal backdrop blocking clicks */
+#addedToCartModal {
+    z-index: 1060 !important;
+}
+.modal-backdrop {
+    z-index: 1050 !important;
+}
+#addedToCartModal .modal-dialog {
+    z-index: 1070;
+    pointer-events: auto;
+}
+#addedToCartModal .modal-content {
+    pointer-events: auto;
+}
+
+
         
     </style>
 </head>
