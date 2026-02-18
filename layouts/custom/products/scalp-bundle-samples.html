@@ -48,6 +48,32 @@
 .bundle-includes li {
     margin-bottom: 0.25rem;
 }
+
+/* Pair With Section */
+.pp-pair-with { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+.pp-pair-card { display: flex; align-items: center; gap: 16px; background: #FDFBF7; border-radius: 12px; padding: 16px 20px; margin-top: 20px; }
+.pp-pair-label { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: #94918A; margin-bottom: 8px; text-transform: uppercase; }
+.pp-pair-img { width: 80px; height: 80px; border-radius: 8px; object-fit: cover; }
+.pp-pair-info { flex: 1; }
+.pp-pair-title { font-weight: 600; font-size: 14px; color: #2C2925; margin: 0 0 2px; }
+.pp-pair-title a { color: inherit; text-decoration: none; }
+.pp-pair-title a:hover { text-decoration: underline; }
+.pp-pair-desc { font-size: 12px; color: #94918A; margin: 0 0 8px; }
+.pp-pair-row { display: flex; align-items: center; justify-content: space-between; }
+.pp-pair-price { font-weight: 700; font-size: 15px; }
+.pp-pair-btn { background: #000; color: #fff; border: none; padding: 7px 16px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+.pp-pair-btn:hover { background: #333; }
+.pp-pair-btn.added { background: #4CAF50; cursor: default; }
+/* Toast */
+.pp-toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: #fff; border-radius: 12px; padding: 14px 18px; box-shadow: 0 8px 30px rgba(0,0,0,0.2); z-index: 999999; opacity: 0; visibility: hidden; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px; }
+.pp-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; visibility: visible; }
+.pp-toast-text { font-size: 14px; font-weight: 600; }
+.pp-toast-link { background: #000; color: #fff; padding: 7px 14px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 500; white-space: nowrap; }
+.pp-toast-link:hover { background: #333; color: #fff; }
+@media (max-width: 767px) {
+    .pp-toast { left: 10px; right: 10px; bottom: 80px; transform: translateX(0) translateY(100px); max-width: none; }
+    .pp-toast.show { transform: translateX(0) translateY(0); }
+}
 </style>
 {{- partial "alert-online.html" . -}}
     {{- partial "header_new.html" . -}}
@@ -59,8 +85,8 @@
                 {{- partial "images-scalp-bundle.html" . -}}
             </div>
             <div class="col-12 col-lg-6">
-                <p class="fw-bold mt-2"><img class="stars pe-2" src="/img/stars/5.webp" alt="">Only while stocks last!</p>
-                <h1 class="fw-bold mt-2">Tallow Haircare Bundle - Free Sample Pack</h1>
+                <p class="fw-bold mt-2"><img class="stars pe-2" src="/img/stars/5.webp" alt="">BUNDLE & SAVE - Online Only!</p>
+                <h1 class="fw-bold mt-2">Tallow Haircare Bundle</h1>
                 <h2 class="fw-lighter h1 h1big">Naturally frizz-free hair & happy scalp.</h2>
                 <p class="graytxt fw-bold">From <span class="fst-italic" style="color: rgb(177, 152, 9)">PrimalCare Gold Edition</span></p>
                 <p class="fw-lighter">Natures combo for fighting dull, brittle hair and a dry, red and itchy scalp.</p>
@@ -445,6 +471,32 @@
 })();
 </script>
 
+                <!-- Pair With Serum -->
+                <div class="pp-pair-with">
+                    <p class="pp-pair-label">Complete your routine</p>
+                    <div class="pp-pair-card">
+                        <a href="/shop/products/tallow-serum/">
+                            <img src="/img/serum-shop.webp" alt="Tallow Glow Serum" class="pp-pair-img" loading="lazy">
+                        </a>
+                        <div class="pp-pair-info">
+                            <p class="pp-pair-title"><a href="/shop/products/tallow-serum/">Tallow Glow Serum — Vitamin C & Hyaluronic Acid</a></p>
+                            <p class="pp-pair-desc">Brightening anti-aging serum for naturally glowing skin</p>
+                            <div class="pp-pair-row">
+                                <span class="pp-pair-price" data-product="serum" data-size="30ml" data-order-type="single_purchase">$38.20</span>
+                                <button class="pp-pair-btn pair-with-quick-add"
+                                    data-product="serum"
+                                    data-order-type="single"
+                                    data-flavor="vitc"
+                                    data-size="30ml"
+                                    data-title="Tallow Glow Serum"
+                                    data-display-size="30ml"
+                                    data-display-flavor="Vitamin C & Hyaluronic Acid"
+                                    data-display-order-type="Single bottle">Quick Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
     <!-- YAML FORM ENDS -->
 
 
@@ -595,6 +647,12 @@
     </div>
             {{- partial "irritation-routine.html" . -}}
 
+<!-- ─── TOAST ─── -->
+<div id="pairWithToast" class="pp-toast">
+    <svg width="24" height="24" fill="#4CAF50" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+    <span class="pp-toast-text" id="pairWithToastProduct">Added to Cart!</span>
+    <a href="/cart" class="pp-toast-link">View Cart</a>
+</div>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -624,17 +682,27 @@
         }
 
          function updatePrice() {
-        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
+        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase();
         const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
 
         console.log("Selected size:", size);
         console.log("Selected order type:", orderType);
 
         const pricingEntry = productPricing.find(entry => entry.size.toLowerCase() === size);
-        if (pricingEntry && pricingEntry.prices[country_code][orderType] != null) {
-            const price = pricingEntry.prices[country_code][orderType];
-            document.getElementById("price").textContent = `$${price.toFixed(2)}`;
-            document.getElementById("afterpay_price").textContent = `${(price/4).toFixed(2)}`;
+        const price = pricingEntry?.prices?.[country_code]?.[orderType];
+        
+        if (price != null) {
+            if (price === 0) {
+                document.getElementById("price").textContent = "";
+                document.getElementById("afterpay_price").textContent = "0.00";
+                var afterpayLine = document.getElementById("afterpay_price")?.closest("p");
+                if (afterpayLine) afterpayLine.style.display = "none";
+            } else {
+                document.getElementById("price").textContent = `$${price.toFixed(2)}`;
+                document.getElementById("afterpay_price").textContent = `${(price/4).toFixed(2)}`;
+                var afterpayLine = document.getElementById("afterpay_price")?.closest("p");
+                if (afterpayLine) afterpayLine.style.display = "";
+            }
         } else {
             document.getElementById("price").textContent = "N/A";
             document.getElementById("afterpay_price").textContent = "N/A";
@@ -654,7 +722,7 @@
     <script>
         // Function to update the price ID display
         function updatePriceID() {
-        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
+        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase();
         const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
         const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
         
@@ -704,7 +772,7 @@
 
         function updatePriceId() {
         // Get the selected values
-        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
+        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase();
         const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
         const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
       
@@ -747,12 +815,32 @@
         }
     }
 
+        // Update pair-with price from YAML
+        function updatePairWithPrice() {
+            var priceElements = document.querySelectorAll('.pp-pair-price');
+            priceElements.forEach(function(el) {
+                var product = el.getAttribute('data-product');
+                var size = el.getAttribute('data-size');
+                var orderType = el.getAttribute('data-order-type');
+                try {
+                    var productPricingData = pricingData.tallow.pricing[product];
+                    if (Array.isArray(productPricingData)) {
+                        var entry = productPricingData.find(function(e) { return e.size.toLowerCase() === size.toLowerCase(); });
+                        if (entry && entry.prices[country_code] && entry.prices[country_code][orderType]) {
+                            el.textContent = '$' + entry.prices[country_code][orderType].toFixed(2);
+                        }
+                    }
+                } catch (err) { console.error('Pair-with price error:', err); }
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             // Add event listener for form changes
             document.getElementById('productForm').addEventListener('change', updatePriceId);
 
             // Trigger the update function on page load
             updatePriceId();
+            setTimeout(updatePairWithPrice, 100);
         });
     </script>
 
@@ -813,7 +901,7 @@
 
         // Retrieve values from the dropdowns
         const selectedSize = document.querySelector('input[name="size"]:checked');
-        const size = document.querySelector(`label[for="${selectedSize.id}"]`).textContent.trim(); // Updated to get label text
+        const size = document.querySelector(`label[for="${selectedSize.id}"]`).textContent.trim();
 
     // Use the text content of the selected option
     const selectedFlavor = document.querySelector('input[name="flavor"]:checked');
@@ -837,9 +925,9 @@
         const quantity = quantityField ? parseInt(quantityField.value, 10) || 1 : 1;
 
         // Debugging
-        console.log('Size:', size); // Updated to show label
+        console.log('Size:', size);
         console.log('Flavor:', flavor);
-        console.log('Order Type:', orderTypeSelect); // Updated to show label
+        console.log('Order Type:', orderTypeSelect);
         console.log('Quantity:', quantity);
         console.log('Price ID:', priceId);
 
@@ -859,7 +947,7 @@
             orderType: orderTypeSelect,
             quantity,
             unitPrice,
-            eligibleForDiscount: false // Set this directly to true or false
+            eligibleForDiscount: false
         });
         localStorage.setItem('cartV2', JSON.stringify(cart));
 
@@ -883,6 +971,58 @@
         } else {
             console.error('Add to Cart button not found!');
         }
+
+        // Pair-with quick add
+        document.querySelectorAll('.pair-with-quick-add').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (this.classList.contains('added')) return;
+                var product = this.getAttribute('data-product');
+                var orderType = this.getAttribute('data-order-type');
+                var flavor = this.getAttribute('data-flavor');
+                var size = this.getAttribute('data-size');
+                var title = this.getAttribute('data-title');
+                var displaySize = this.getAttribute('data-display-size');
+                var displayFlavor = this.getAttribute('data-display-flavor');
+                var displayOrderType = this.getAttribute('data-display-order-type');
+                try {
+                    var priceId = pricingData.tallow.ids[product][orderType][flavor][size][country_code];
+                    var productPricingData = pricingData.tallow.pricing[product];
+                    var unitPrice = 0;
+                    if (Array.isArray(productPricingData)) {
+                        var entry = productPricingData.find(function(e) { return e.size.toLowerCase() === size.toLowerCase(); });
+                        if (entry && entry.prices[country_code]) {
+                            var pricingOrderType = orderType === 'single' ? 'single_purchase' : orderType;
+                            unitPrice = entry.prices[country_code][pricingOrderType] || 0;
+                        }
+                    }
+                    if (!priceId || unitPrice === 0) {
+                        alert('Unable to add this product. Please visit the product page.');
+                        return;
+                    }
+                    var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+                    cart.push({ priceId: priceId, title: title, size: displaySize, flavor: displayFlavor, orderType: displayOrderType, quantity: 1, unitPrice: unitPrice, eligibleForDiscount: false });
+                    localStorage.setItem('cartV2', JSON.stringify(cart));
+                    this.textContent = 'Added ✓';
+                    this.classList.add('added');
+                    this.disabled = true;
+                    // Toast
+                    var toast = document.getElementById('pairWithToast');
+                    var toastText = document.getElementById('pairWithToastProduct');
+                    if (toast && toastText) {
+                        toastText.textContent = title + ' added!';
+                        toast.classList.remove('show');
+                        void toast.offsetWidth;
+                        toast.classList.add('show');
+                        setTimeout(function() { toast.classList.remove('show'); }, 4000);
+                    }
+                    if (typeof updateCartBadge === 'function') updateCartBadge();
+                } catch (err) {
+                    console.error('Pair-with add error:', err);
+                    alert('Unable to add this product. Please visit the product page.');
+                }
+            });
+        });
     });
 
     </script>
