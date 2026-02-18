@@ -631,7 +631,7 @@
         console.log("Selected order type:", orderType);
 
         const pricingEntry = productPricing.find(entry => entry.size.toLowerCase() === size);
-        if (pricingEntry && pricingEntry.prices[country_code][orderType]) {
+        if (pricingEntry && pricingEntry.prices[country_code][orderType] != null) {
             const price = pricingEntry.prices[country_code][orderType];
             document.getElementById("price").textContent = `$${price.toFixed(2)}`;
             document.getElementById("afterpay_price").textContent = `${(price/4).toFixed(2)}`;
