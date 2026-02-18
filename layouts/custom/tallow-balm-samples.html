@@ -690,7 +690,9 @@
 </div>
 
 <!-- ─── ROUTINE CROSS-SELL ─── -->
-{{- partial "irritation-routine.html" . -}}
+<div class="section light-peach py-80 mt-5">
+    {{- partial "irritation-routine.html" . -}}
+</div>
 
 <!-- ─── PAGE SCRIPTS ─── -->
 <script>
@@ -791,14 +793,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" aria-label="Close" onclick="window.location.href='/shop'"></button>
             </div>
             <div class="modal-body">
                 Your item has been successfully added to the cart. What would you like to do next?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
-                <a href="/cart" class="btn btn-black">Go to Cart</a>
+                <a href="/shop" class="btn btn-secondary">Continue Shopping</a>
+                <a href="/cart" class="btn btn-black">Checkout</a>
             </div>
         </div>
     </div>
