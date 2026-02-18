@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{- partial "head.html" . -}}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Try PrimalCare Whipped Tallow Balm free — just pay shipping. Choose from 6 scents or get the full sampler pack for $20. NZ made, 100% natural, used by 85,000+ kiwis." />
+    <meta property="og:title" content="Free Tallow Balm Sample | Just Pay Shipping | PrimalPantry" />
+    <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
+    <meta property="og:url" content="https://primalpantry.co.nz/free-sample/" />
+    <meta property="og:image" content="https://primalpantry.co.nz/img/prod/balm/balm-hero.webp" />
+    <meta property="og:description" content="Try NZ's most popular whipped tallow balm free — just pay shipping. Choose Natural, Lavender, Frankincense, Vanilla Rose, Vanilla Manuka, or Vanilla Blue Tansy." />
+    <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
+    <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
+    <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="canonical" href="https://primalpantry.co.nz/free-sample/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Free Tallow Balm Sample",
+        "description": "Try PrimalCare Whipped Tallow Balm free — just pay shipping. Choose from 6 natural scents or get the full sampler pack.",
+        "image": "https://primalpantry.co.nz/img/prod/balm/balm-hero.webp",
+        "brand": { "@type": "Brand", "name": "PrimalPantry" },
+        "offers": {
+            "@type": "Offer",
+            "url": "https://primalpantry.co.nz/free-sample/",
+            "priceCurrency": "NZD",
+            "price": "0.00",
+            "availability": "https://schema.org/InStock",
+            "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "NZ" }
+            }
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "bestRating": "5",
+            "ratingCount": "20000"
+        }
+    }
+    </script>
+    {{ $styles := resources.Get "css/product-page.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+
+    <style>
+    /* ─── SAMPLE PAGE OVERRIDES ─── */
+    .free-tag {
+        display: inline-block;
+        background: #6B8F5B;
+        color: #fff;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 4px 12px;
+        border-radius: 100px;
+        margin-bottom: 8px;
+    }
+
+    .sample-divider {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin: 28px 0;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #6B4D38;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+    }
+    .sample-divider::before,
+    .sample-divider::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: #EEDED0;
+    }
+
+    .scent-option {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 18px;
+        border: 2px solid #EEDED0;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        margin-bottom: 8px;
+        background: #fff;
+    }
+    .scent-option:hover {
+        border-color: #6B8F5B;
+        background: #f9faf7;
+    }
+    .scent-option.selected {
+        border-color: #6B8F5B;
+        background: #f2f7ee;
+    }
+    .scent-option input[type="radio"] {
+        display: none;
+    }
+    .scent-radio {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 2px solid #ccc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: border-color 0.2s;
+    }
+    .scent-radio .dot-inner {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #6B8F5B;
+        transform: scale(0);
+        transition: transform 0.15s ease;
+    }
+    .scent-option.selected .scent-radio {
+        border-color: #6B8F5B;
+    }
+    .scent-option.selected .scent-radio .dot-inner {
+        transform: scale(1);
+    }
+    .scent-details {
+        flex: 1;
+    }
+    .scent-name {
+        font-family: 'DM Sans', sans-serif;
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: #2E1A0E;
+    }
+    .scent-desc {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.78rem;
+        color: #6B4D38;
+        margin-top: 2px;
+    }
+    .scent-price {
+        font-family: 'DM Sans', sans-serif;
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: #2E1A0E;
+        flex-shrink: 0;
+    }
+    .scent-price .strikethrough {
+        text-decoration: line-through;
+        color: #aaa;
+        font-weight: 400;
+        font-size: 0.82rem;
+        margin-right: 4px;
+    }
+    .scent-price .free-label {
+        color: #6B8F5B;
+        font-weight: 700;
+    }
+
+    /* Try-all highlight */
+    .scent-option.try-all {
+        border: 2px solid #d4a76a;
+        background: linear-gradient(135deg, #fdfaf5 0%, #faf4eb 100%);
+        position: relative;
+    }
+    .scent-option.try-all:hover {
+        border-color: #c4914e;
+    }
+    .scent-option.try-all.selected {
+        border-color: #c4914e;
+        background: linear-gradient(135deg, #fdf6ec 0%, #f8eddd 100%);
+    }
+    .scent-option.try-all.selected .scent-radio {
+        border-color: #c4914e;
+    }
+    .scent-option.try-all.selected .scent-radio .dot-inner {
+        background: #c4914e;
+    }
+    .try-all-badge {
+        display: inline-block;
+        background: #c4914e;
+        color: #fff;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.62rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 2px 8px;
+        border-radius: 100px;
+        margin-left: 8px;
+        vertical-align: middle;
+    }
+
+    .limit-note {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.75rem;
+        color: #877B71;
+        text-align: center;
+        margin-top: 12px;
+    }
+    .limit-note svg {
+        width: 14px;
+        height: 14px;
+        vertical-align: -2px;
+        margin-right: 4px;
+    }
+
+    /* Scent grid for "why 6 scents" section */
+    .scent-showcase {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 32px;
+    }
+    @media (max-width: 640px) {
+        .scent-showcase { grid-template-columns: repeat(2, 1fr); }
+    }
+    .scent-card {
+        background: #fff;
+        border: 1px solid #EEDED0;
+        border-radius: 16px;
+        padding: 24px 16px;
+        text-align: center;
+    }
+    .scent-card h4 {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 700;
+        color: #2E1A0E;
+        margin: 0 0 6px;
+    }
+    .scent-card p {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.78rem;
+        color: #6B4D38;
+        line-height: 1.5;
+        margin: 0;
+    }
+    </style>
+</head>
+<body>
+
+{{- partial "alert-online.html" . -}}
+{{- partial "header_new.html" . -}}
+
+<!-- ─── BREADCRUMB ─── -->
+<div class="pp-breadcrumb">
+    <a href="/shop" class="text-dark">Shop</a> › Free Tallow Balm Sample
+</div>
+
+<!-- ─── PRODUCT HERO ─── -->
+<div class="product-hero">
+
+    <!-- Gallery -->
+    <div class="product-gallery">
+        <div class="gallery-main">
+            <img class="main-image" id="mainImage" fetchpriority="high" src="/img/prod/balm/balm-hero.webp" alt="Free tallow balm sample">
+            <div class="exclusive-badge">
+                <span class="dot"></span> Online Exclusive
+            </div>
+        </div>
+        <div class="gallery-thumbs">
+            <div class="thumb active" onclick="switchImage('/img/prod/balm/balm-hero.webp', this)">
+                <img src="/img/prod/balm/balm-hero.webp" alt="Tallow balm sample" loading="lazy">
+            </div>
+            <div class="thumb" onclick="switchImage('/img/prod/balm/eczema.webp', this)">
+                <img src="/img/prod/balm/eczema.webp" alt="Tallow balm for eczema" loading="lazy">
+            </div>
+            <div class="thumb" onclick="switchImage('/img/prod/balm/baby-eczema.webp', this)">
+                <img src="/img/prod/balm/baby-eczema.webp" alt="Tallow balm for baby eczema" loading="lazy">
+            </div>
+            <div class="thumb" onclick="switchImage('/img/prod/balm/balmreviews.webp', this)">
+                <img src="/img/prod/balm/balmreviews.webp" alt="Tallow balm customer reviews" loading="lazy">
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Info -->
+    <div class="product-info">
+
+        <div class="trust-row">
+            <div class="pp-stars">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+            </div>
+            <span class="trust-text">Loved by 85,000+ kiwis.</span>
+            <span class="eanz-badge">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                EANZ Partner
+            </span>
+        </div>
+
+        <span class="free-tag">Free Sample</span>
+        <h1 class="pp-product-title">Try Our Whipped Tallow Balm</h1>
+        <p class="pp-product-subtitle">Find your perfect scent — on us</p>
+        <p class="pp-product-edition">From PrimalCare · Just pay shipping</p>
+
+        <div class="benefit-strip">
+            <p>Stop wasting money on expensive moisturisers filled with chemical nasties that <strong>don't work</strong>. Watch as our light, fluffy whipped tallow balm <strong>soaks deeply into your skin</strong> — hydrating, rejuvenating, and soothing dry, cracked and itchy skin. Try it free and feel the difference yourself.</p>
+        </div>
+
+        <div class="review-snippet">
+            <span class="quote-mark">"</span>
+            <div>
+                <p class="review-text">I ordered the free sample just to try it. Within a week my eczema patches had calmed right down. I've now ordered 3 full-size jars — this stuff is incredible.</p>
+                <p class="reviewer">— Michelle K., Hamilton <span class="verified">✓ Verified Buyer</span></p>
+            </div>
+        </div>
+
+        <!-- ─── SCENT SELECTION ─── -->
+        <div class="pp-selector-group" style="margin-top: 24px;">
+            <div class="pp-selector-label">Choose your free sample</div>
+
+            <label class="scent-option selected" data-scent="natural" data-price-id="price_1T2FlvFZRwx5tlYmh8iEGXmH">
+                <input type="radio" name="sampleChoice" value="natural" checked>
+                <div class="scent-radio"><div class="dot-inner"></div></div>
+                <div class="scent-details">
+                    <div class="scent-name">Natural</div>
+                    <div class="scent-desc">Unscented — pure tallow goodness, nothing else</div>
+                </div>
+                <div class="scent-price"><span class="free-label">FREE</span></div>
+            </label>
+
+            <label class="scent-option" data-scent="lavender" data-price-id="price_1T2FllFZRwx5tlYmR35A4QAG">
+                <input type="radio" name="sampleChoice" value="lavender">
+                <div class="scent-radio"><div class="dot-inner"></div></div>
+                <div class="scent-details">
+                    <div class="scent-name">Lavender</div>
+                    <div class="scent-desc">Calming and soothing — great for winding down</div>
+                </div>
+                <div class="scent-price"><span class="free-label">FREE</span></div>
+            </label>
+
+            <label class="scent-option" data-scent="frankincense" data-price-id="price_1T2FlHFZRwx5tlYm4ak7amwP">
+                <input type="radio" name="sampleChoice" value="frankincense">
+                <div class="scent-radio"><div class="dot-inner"></div></div>
+                <div class="scent-details">
+                    <div class="scent-name">Frankincense</div>
+                    <div class="scent-desc">Earthy and grounding — anti-aging benefits</div>
+                </div>
+                <div class="scent-price"><span class="free-label">FREE</span></div>
+            </label>
+
+            <label class="scent-option" data-scent="vanilla-rose" data-price-id="price_1T2FlZFZRwx5tlYmnr1SuFEW">
+                <input type="radio" name="sampleChoice" value="vanilla-rose">
+                <div class="scent-radio"><div class="dot-inner"></div></div>
+                <div class="scent-details">
+                    <div class="scent-name">Vanilla Rose</div>
+                    <div class="scent-desc">Sweet and floral — our most popular scent</div>
+                </div>
+                <div class="scent-price"><span class="free-label">FREE</span></div>
+            </label>
+
+            <label class="scent-option" data-scent="vanilla-manuka" data-price-id="price_1T2Fm9FZRwx5tlYmymnHUvaN">
+                <input type="radio" name="sampleChoice" value="vanilla-manuka">
+                <div class="scent-radio"><div class="dot-inner"></div></div>
+                <div class="scent-details">
+                    <div class="scent-name">Vanilla Manuka</div>
+                    <div class="scent-desc">Warm vanilla with healing Manuka honey</div>
+                </div>
+                <div class="scent-price"><span class="free-label">FREE</span></div>
+            </label>
+
+            <label class="scent-option" data-scent="vanilla-blue-tansy" data-price-id="price_1T2FmNFZRwx5tlYmTvMvjqDC">
+                <input type="radio" name="sampleChoice" value="vanilla-blue-tansy">
+                <div class="scent-radio"><div class="dot-inner"></div></div>
+                <div class="scent-details">
+                    <div class="scent-name">Vanilla Blue Tansy</div>
+                    <div class="scent-desc">Vanilla with calming blue tansy — great for sensitive skin</div>
+                </div>
+                <div class="scent-price"><span class="free-label">FREE</span></div>
+            </label>
+
+            <div class="sample-divider">or</div>
+
+            <label class="scent-option try-all" data-scent="try-all" data-price-id="price_1T2FmmFZRwx5tlYm85NvJTXk">
+                <input type="radio" name="sampleChoice" value="try-all">
+                <div class="scent-radio"><div class="dot-inner"></div></div>
+                <div class="scent-details">
+                    <div class="scent-name">Try Them All Pack <span class="try-all-badge">Best Value</span></div>
+                    <div class="scent-desc">One sample of each scent — find your favourite</div>
+                </div>
+                <div class="scent-price">$20.00</div>
+            </label>
+
+            <p class="limit-note">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+                Limit one free sample per customer. Shipping charges apply at checkout.
+            </p>
+        </div>
+
+        <div class="stock-indicator">
+            <span class="stock-dot"></span> In Stock · Ships within 1–3 business days
+        </div>
+
+        <div class="action-row">
+            <button class="btn-add-to-cart buy-now" type="button" id="sampleAddToCart">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="position:relative;z-index:1;"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                <span style="position:relative;z-index:1;" id="cartBtnText">Get Free Sample — Just Pay Shipping</span>
+            </button>
+        </div>
+
+        <p class="sub-cta">Money back guarantee · Speedy NZ-wide shipping</p>
+
+        <div class="guarantee-bar">
+            <div class="guarantee-item">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                100% Natural
+            </div>
+            <div class="guarantee-item">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                NZ Made
+            </div>
+            <div class="guarantee-item">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                Gentle on Skin
+            </div>
+            <div class="guarantee-item">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                Money Back
+            </div>
+        </div>
+
+<!-- ===== EANZ PILL + MODAL ===== -->
+<style>
+.pp-eanz-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--white, #FFFFFF);
+  border: 1px solid var(--cream-deep, #EEDED0);
+  border-radius: 16px;
+  padding: 14px 22px;
+  width: fit-content;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  cursor: default;
+  transition: box-shadow 0.3s;
+  margin-top: 16px;
+}
+.pp-eanz-pill:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+.pp-eanz-pill img { height: 52px; width: auto; flex-shrink: 0; }
+.pp-eanz-pill-text { display: flex; flex-direction: column; gap: 2px; }
+.pp-eanz-pill-label { font-family: 'DM Sans', sans-serif; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; color: var(--sage, #6B8F5B); line-height: 1.3; }
+.pp-eanz-pill-title { font-family: 'Fraunces', serif; font-size: 0.95rem; color: var(--bark, #2E1A0E); font-weight: 700; line-height: 1.25; }
+.pp-eanz-pill-commit { font-family: 'DM Sans', sans-serif; font-size: 0.78rem; color: var(--bark-light, #6B4D38); font-weight: 600; line-height: 1.4; margin-top: 2px; }
+.pp-eanz-pill-link { font-family: 'DM Sans', sans-serif; font-size: 0.72rem; font-weight: 700; color: var(--sage, #6B8F5B); cursor: pointer; background: none; border: none; padding: 0; margin-top: 4px; display: inline-flex; align-items: center; gap: 4px; transition: gap 0.3s, opacity 0.3s; text-decoration: none; }
+.pp-eanz-pill-link:hover { gap: 7px; opacity: 0.8; }
+.pp-eanz-pill-link svg { width: 12px; height: 12px; }
+.pp-eanz-modal-overlay { display: none; position: fixed; inset: 0; z-index: 99999; background: rgba(46,26,14,0.45); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 24px; opacity: 0; transition: opacity 0.3s ease; }
+.pp-eanz-modal-overlay.is-open { display: flex; opacity: 1; }
+.pp-eanz-modal { background: var(--sage-pale, #E5EDDF); border-radius: 24px; max-width: 920px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; box-shadow: 0 32px 80px rgba(0,0,0,0.18); animation: pp-eanz-modal-in 0.35s ease both; }
+@keyframes pp-eanz-modal-in { from { opacity: 0; transform: translateY(20px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.pp-eanz-modal-close { position: absolute; top: 16px; right: 16px; z-index: 3; width: 40px; height: 40px; border-radius: 50%; border: none; background: rgba(255,255,255,0.85); backdrop-filter: blur(6px); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.3s, transform 0.3s; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.pp-eanz-modal-close:hover { background: var(--white, #FFFFFF); transform: scale(1.08); }
+.pp-eanz-modal-close svg { width: 18px; height: 18px; color: var(--bark, #2E1A0E); }
+.pp-eanz-modal-body { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; padding: 48px; align-items: center; }
+.pp-eanz-modal-video-wrap { position: relative; padding-bottom: 177.78%; border-radius: 16px; overflow: hidden; background: var(--bark, #2E1A0E); }
+.pp-eanz-modal-video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+.pp-eanz-modal-video-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--cream, #FAF4EB); font-size: 2.5rem; cursor: pointer; }
+.pp-eanz-modal-right { display: flex; align-items: flex-start; gap: 20px; }
+.pp-eanz-modal-right img { height: 88px; width: auto; flex-shrink: 0; }
+.pp-eanz-modal-text { max-width: 400px; }
+.pp-eanz-modal-text h3 { font-family: 'Fraunces', serif; font-weight: 400; font-size: 1.5rem; color: var(--bark, #2E1A0E); margin: 0 0 10px; line-height: 1.2; }
+.pp-eanz-modal-text p { font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--bark-light, #6B4D38); line-height: 1.6; margin: 0; }
+.pp-eanz-modal-text .pp-eanz-disclaimer { font-size: 0.65rem; color: var(--warm-gray, #877B71); margin-top: 10px; line-height: 1.5; }
+@media (max-width: 768px) {
+  .pp-eanz-modal-body { grid-template-columns: 1fr; gap: 28px; padding: 32px 24px; }
+  .pp-eanz-modal-right { flex-direction: column; align-items: center; text-align: center; }
+  .pp-eanz-modal-text { text-align: center; }
+  .pp-eanz-pill { padding: 12px 16px; gap: 12px; }
+  .pp-eanz-pill img { height: 42px; }
+}
+</style>
+
+<div class="pp-eanz-pill">
+  <img src="/img/home/eanz.webp" alt="Eczema Association of New Zealand" width="52" height="52">
+  <div class="pp-eanz-pill-text">
+    <span class="pp-eanz-pill-label">Official Gold Supporters</span>
+    <span class="pp-eanz-pill-title">Eczema Association of New Zealand</span>
+    <span class="pp-eanz-pill-commit">$70,000 committed to Kiwis with eczema</span>
+    <button class="pp-eanz-pill-link" onclick="document.getElementById('pp-eanz-modal').classList.add('is-open');document.body.style.overflow='hidden';">
+      What's this mean?
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+</div>
+
+<div class="pp-eanz-modal-overlay" id="pp-eanz-modal" onclick="if(event.target===this){this.classList.remove('is-open');document.body.style.overflow=''}">
+  <div class="pp-eanz-modal">
+    <button class="pp-eanz-modal-close" onclick="document.getElementById('pp-eanz-modal').classList.remove('is-open');document.body.style.overflow='';" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="pp-eanz-modal-body">
+      <div>
+        <div class="pp-eanz-modal-video-wrap" id="pp-eanz-modal-video" data-src="https://player.vimeo.com/video/1165450069?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479">
+          <div class="pp-eanz-modal-video-placeholder">▶</div>
+        </div>
+      </div>
+      <div class="pp-eanz-modal-right">
+        <img src="/img/home/eanz.webp" alt="Eczema Association of New Zealand - Primal Pantry Gold Partners" width="88" height="88">
+        <div class="pp-eanz-modal-text">
+          <h3>Official Gold Supporter of the Eczema Association NZ</h3>
+          <p>It means we fund EANZ's work and their experts have screened our products for commonly flaring ingredients. But to us, it's a symbol of our shared mission to help as many Kiwis as possible with dry, irritated skin. It's not a cure or endorsed fix — always patch test first.</p>
+          <p class="pp-eanz-disclaimer">Support us on this mission by <a href="/shop/" style="color:var(--sage, #6B8F5B);font-weight:700;">shopping online</a> or collecting from one of your <a href="/stockists/" style="color:var(--sage, #6B8F5B);font-weight:700;">favourite retail stockists</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var overlay = document.getElementById('pp-eanz-modal');
+  var videoWrap = document.getElementById('pp-eanz-modal-video');
+  if (!overlay || !videoWrap) return;
+  var videoLoaded = false;
+  var mo = new MutationObserver(function(){
+    if (overlay.classList.contains('is-open') && !videoLoaded) {
+      videoLoaded = true;
+      var src = videoWrap.getAttribute('data-src');
+      videoWrap.innerHTML = '<iframe src="'+src+'" allow="autoplay;fullscreen;picture-in-picture;clipboard-write;encrypted-media;web-share" referrerpolicy="strict-origin-when-cross-origin" title="About our partnership with the Eczema Association" loading="lazy"></iframe>';
+      if (!document.querySelector('script[src*="player.vimeo.com"]')) {
+        var s = document.createElement('script');
+        s.src = 'https://player.vimeo.com/api/player.js';
+        document.body.appendChild(s);
+      }
+    }
+  });
+  mo.observe(overlay, {attributes: true, attributeFilter: ['class']});
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
+      overlay.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+  });
+})();
+</script>
+    </div>
+</div>
+
+<!-- ─── TABS ─── -->
+<div class="pp-tabs-section">
+    <div class="pp-tabs-nav">
+        <button class="pp-tab-btn active" onclick="switchTab('fastfacts', this)">Fast facts</button>
+        <button class="pp-tab-btn" onclick="switchTab('ingredients', this)">Ingredients</button>
+        <button class="pp-tab-btn" onclick="switchTab('directions', this)">Directions</button>
+        <button class="pp-tab-btn" onclick="switchTab('reviews', this)">Reviews</button>
+        <button class="pp-tab-btn" onclick="switchTab('shipping', this)">Shipping</button>
+    </div>
+    <div class="pp-tab-panel active" id="tab-fastfacts">
+        <h4>Why try tallow balm?</h4>
+        <p>Don't waste another dollar on expensive moisturisers and steroid creams that often don't work and are filled with chemical nasties. Our whipped tallow balm soaks deeply into your skin, giving rapid hydrating and rejuvenating relief to dry, cracked and itchy skin.</p>
+        <p style="margin-top: 12px;"><strong>What makes PrimalCare different?</strong> It's a whipped tallow balm — most others aren't — meaning it soaks in much better. We offer the best value tallow on the NZ market: more product, better quality, for less.</p>
+    </div>
+    <div class="pp-tab-panel" id="tab-ingredients">
+        <h4>3 Nourishing Ingredients</h4>
+        <p>A harmonic combination that soaks in for immediate hydration.</p>
+        <p style="margin-top: 8px;"><strong>Grass-fed purified NZ beef tallow (98%)</strong> — high-grade suet, wet rendered and filtered 6 times.</p>
+        <p><strong>Organic jojoba oil</strong> — adds extra lift to the whip while providing smoothing benefits to your skin.</p>
+        <p><strong>Essential oils</strong> — add the aroma and additional health benefits to your balms.</p>
+        <p style="margin-top: 8px;">Honey variants also include <strong>Manuka honey</strong> — natural antibacterial and anti-inflammatory properties.</p>
+    </div>
+    <div class="pp-tab-panel" id="tab-directions">
+        <h4>How to use</h4>
+        <p>Apply a small amount on the face, neck, hands or feet daily in the morning as a moisturiser or evening as a night cream. Best used on slightly damp skin.</p>
+        <p style="margin-top: 8px;">Also great as a body moisturiser, eczema cream, or monthly hair conditioner.</p>
+        <p style="margin-top: 8px;">For best texture and consistency, keep between 18–25°C and out of direct sunlight.</p>
+    </div>
+    <div class="pp-tab-panel" id="tab-reviews">
+        <h4>See what our customers say online</h4>
+        <img class="tab-reviews-img" src="/img/prod/balm/balmreviews.webp" alt="Tallow balm verified customer reviews" loading="lazy">
+    </div>
+    <div class="pp-tab-panel" id="tab-shipping">
+        <h4>Shipping</h4>
+        <p><strong>Processing:</strong> 1–3 business days, then standard courier times (3–5 business days NZ-wide).</p>
+        <p><strong>Cost:</strong> $4.95–$6.95 shipping applies to all sample orders.</p>
+        <p><strong>International:</strong> Currently NZ only.</p>
+    </div>
+</div>
+
+<!-- ─── AS FEATURED ON ─── -->
+<div class="pp-media-section">
+    <p class="pp-media-label">As featured on</p>
+    <div class="pp-media-logos">
+        <img src="/img/shop/desktop-product-logos.webp" alt="As featured on Stuff, Mai, The Breeze, More FM, Edge, The Press" class="pp-media-logos-img d-none d-md-block" loading="lazy">
+        <img src="/img/shop/mobile-logos.webp" alt="As featured on" class="pp-media-logos-img d-block d-md-none" loading="lazy">
+    </div>
+</div>
+
+<!-- ─── WHY 6 SCENTS SECTION ─── -->
+<div class="pp-why-section">
+    <div class="pp-why-inner">
+        <div class="pp-why-content">
+            <h2>Six scents. One perfect match.</h2>
+            <p>Everyone's skin is different — and so is their nose. That's why we crafted six distinct scents so you can find the one that feels (and smells) like it was made just for you. Our whipped formula absorbs quickly and won't leave a greasy residue, no matter which scent you choose.</p>
+            <p>With oils closely mimicking those produced by our bodies, our tallow soothes dry and irritated skin naturally.</p>
+        </div>
+        <div class="scent-showcase">
+            <div class="scent-card">
+                <h4>🌿 Natural</h4>
+                <p>Pure and unscented. For those who want the benefits without any fragrance.</p>
+            </div>
+            <div class="scent-card">
+                <h4>💜 Lavender</h4>
+                <p>Calming essential oil that soothes both skin and mind before bed.</p>
+            </div>
+            <div class="scent-card">
+                <h4>✨ Frankincense</h4>
+                <p>Earthy and grounding with powerful anti-aging and healing properties.</p>
+            </div>
+            <div class="scent-card">
+                <h4>🌹 Vanilla Rose</h4>
+                <p>Our bestseller — a warm, sweet floral that customers can't get enough of.</p>
+            </div>
+            <div class="scent-card">
+                <h4>🍯 Vanilla Manuka</h4>
+                <p>Warm vanilla meets healing Manuka honey for extra soothing power.</p>
+            </div>
+            <div class="scent-card">
+                <h4>💙 Vanilla Blue Tansy</h4>
+                <p>Calming blue tansy paired with vanilla — ideal for sensitive and reactive skin.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ─── COMPARISON ─── -->
+<div class="pp-comparison-section">
+    <h2>Meet your moisturiser match</h2>
+    <p class="subtitle">See why 85,000+ kiwis made the switch</p>
+    <table class="comparison-table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>PrimalCare</th>
+                <th>Other brands</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>All natural ingredients</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+            <tr><td>Whipped for better absorption</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+            <tr><td>No synthetic chemicals</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+            <tr><td>Affordably priced</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+            <tr><td>NZ made &amp; owned</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+            <tr><td>Money back guarantee</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ─── REVIEWS ─── -->
+<div class="pp-reviews-section">
+    <div class="pp-reviews-inner">
+        <h2>Real results from real kiwis</h2>
+        <p class="pp-reviews-summary">★★★★★ Rated 4.8/5 from 20,000+ verified reviews</p>
+        <div class="pp-reviews-grid">
+            <div class="pp-review-card">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-body">"I ordered the free sample just to try it. Within a week my eczema patches had calmed right down. I've now ordered 3 full-size jars."</p>
+                <p class="review-author">Michelle K.</p>
+                <p class="review-verified">✓ Verified Buyer · Hamilton</p>
+            </div>
+            <div class="pp-review-card">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-body">"The vanilla rose scent is gorgeous and it actually works. My skin hasn't felt this soft since I was a kid. Can't believe I was spending $80+ on department store creams."</p>
+                <p class="review-author">Sarah T.</p>
+                <p class="review-verified">✓ Verified Buyer · Auckland</p>
+            </div>
+            <div class="pp-review-card">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-body">"Got the Try Them All pack and the frankincense is now my daily go-to. Light, whipped, soaks right in. Love that it's NZ made too."</p>
+                <p class="review-author">James R.</p>
+                <p class="review-verified">✓ Verified Buyer · Christchurch</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ─── ROUTINE CROSS-SELL ─── -->
+{{- partial "irritation-routine.html" . -}}
+
+<!-- ─── PAGE SCRIPTS ─── -->
+<script>
+    // Image switcher
+    function switchImage(src, thumbEl) {
+        const main = document.getElementById('mainImage');
+        main.style.opacity = '0';
+        setTimeout(() => { main.src = src; main.style.opacity = '1'; }, 150);
+        document.querySelectorAll('.gallery-thumbs .thumb').forEach(t => t.classList.remove('active'));
+        thumbEl.classList.add('active');
+    }
+
+    // Tab switcher
+    function switchTab(tabId, btn) {
+        document.querySelectorAll('.pp-tab-panel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.pp-tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('tab-' + tabId).classList.add('active');
+        btn.classList.add('active');
+    }
+
+    // Scent selection logic
+    document.addEventListener('DOMContentLoaded', function () {
+        const scentOptions = document.querySelectorAll('.scent-option');
+        const cartBtn = document.getElementById('sampleAddToCart');
+        const cartBtnText = document.getElementById('cartBtnText');
+
+        scentOptions.forEach(option => {
+            option.addEventListener('click', function () {
+                // Update visual state
+                scentOptions.forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                this.querySelector('input[type="radio"]').checked = true;
+
+                // Update button text
+                const scent = this.dataset.scent;
+                if (scent === 'try-all') {
+                    cartBtnText.textContent = 'Get Try Them All Pack — $20.00';
+                } else {
+                    cartBtnText.textContent = 'Get Free Sample — Just Pay Shipping';
+                }
+            });
+        });
+
+        // Add to cart
+        cartBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            const selectedOption = document.querySelector('.scent-option.selected');
+            if (!selectedOption) return;
+
+            const scent = selectedOption.dataset.scent;
+            const priceId = selectedOption.dataset.priceId;
+            const scentName = selectedOption.querySelector('.scent-name').textContent.trim();
+
+            let title, unitPrice, flavor;
+
+            if (scent === 'try-all') {
+                title = 'Tallow Balm - Try Them All Pack';
+                unitPrice = 20.00;
+                flavor = 'All 6 Scents';
+            } else {
+                title = 'Tallow Balm - Free Sample';
+                unitPrice = 0.00;
+                flavor = scentName;
+            }
+
+            if (!priceId) {
+                alert('Please select an option before adding to cart.');
+                return;
+            }
+
+            const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+            cart.push({
+                priceId: priceId,
+                title: title,
+                size: 'Sample',
+                flavor: flavor,
+                orderType: 'Single jar',
+                quantity: 1,
+                unitPrice: unitPrice,
+                eligibleForDiscount: false
+            });
+            localStorage.setItem('cartV2', JSON.stringify(cart));
+
+            const modal = document.getElementById('addedToCartModal');
+            if (modal) {
+                $('#addedToCartModal').modal('show');
+            } else {
+                alert('Item added to cart successfully!');
+            }
+        });
+    });
+</script>
+
+<!-- Modal for Add to Cart Confirmation -->
+<div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Your item has been successfully added to the cart. What would you like to do next?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
+                <a href="/cart" class="btn btn-black">Go to Cart</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+{{- partial "footer.html" . }}
+
+</body>
+</html>
