@@ -36,7 +36,7 @@ exports.handler = async (event, context) => {
         const price = await stripe.prices.retrieve(item.priceId);
 
         // Validate retrieved price
-        if (!price || !price.unit_amount) {
+if (!price || price.unit_amount == null) {
           throw new Error(`Invalid price retrieved for priceId: ${item.priceId}`);
         }
 
