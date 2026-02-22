@@ -2,405 +2,293 @@
 <html lang="en">
 <head>
     {{- partial "head.html" . -}}
-    <meta name="description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
-    <meta property="og:title" content="{{ .Site.Params.homepage_meta_tags.meta_og_title }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Free Manuka Honey Tallow Soap Sample NZ - Try our natural tallow soap with Manuka honey. Made in Christchurch with grass-fed tallow. Just pay shipping. As seen on Seven Sharp." />
+    <meta property="og:title" content="Free Manuka Honey Tallow Soap Sample | Just Pay Shipping | PrimalPantry" />
     <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
-    <meta property="og:url" content="{{ .Site.Params.homepage_meta_tags.meta_og_url }}" />
-    <meta property="og:image" content="{{ .Site.Params.homepage_meta_tags.meta_og_image }}" />
-    <meta property="og:description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
+    <meta property="og:url" content="https://primalpantry.co.nz/shop/products/tallow-manuka-soap-sample/" />
+    <meta property="og:image" content="https://primalpantry.co.nz/img/prod/soap/manuka-soap.webp" />
+    <meta property="og:description" content="Try our Manuka Honey Tallow Soap free — just pay shipping. Made in Christchurch with grass-fed tallow and real Manuka honey. As seen on Seven Sharp." />
     <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
     <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
     <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
+    <link rel="canonical" href="https://primalpantry.co.nz/shop/products/tallow-manuka-soap-sample/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Manuka Honey Tallow Soap — Free Sample",
+        "description": "Free Manuka Honey tallow soap sample. Made in Christchurch with grass-fed tallow and real Manuka honey. Just pay shipping.",
+        "image": "https://primalpantry.co.nz/img/prod/soap/manuka-soap.webp",
+        "brand": { "@type": "Brand", "name": "PrimalPantry" },
+        "offers": {
+            "@type": "Offer",
+            "url": "https://primalpantry.co.nz/shop/products/tallow-manuka-soap-sample/",
+            "priceCurrency": "NZD",
+            "price": "0.00",
+            "availability": "https://schema.org/InStock",
+            "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "NZ" }
+            }
+        }
+    }
+    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- <script src="https://js.stripe.com/v3/"></script> Stripe script -->
+    {{ $styles := resources.Get "css/product-page.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+    <style>
+        /* Pair With Section */
+        .pp-pair-with { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        .pp-pair-card { display: flex; align-items: center; gap: 16px; background: var(--pp-warm-bg, #FDFBF7); border-radius: 12px; padding: 16px 20px; margin-top: 20px; }
+        .pp-pair-label { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: var(--pp-text-muted, #94918A); margin-bottom: 8px; text-transform: uppercase; }
+        .pp-pair-img { width: 80px; height: 80px; border-radius: 8px; object-fit: cover; }
+        .pp-pair-info { flex: 1; }
+        .pp-pair-title { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 14px; color: var(--pp-text-primary, #2C2925); margin: 0 0 2px; }
+        .pp-pair-title a { color: inherit; text-decoration: none; }
+        .pp-pair-title a:hover { text-decoration: underline; }
+        .pp-pair-desc { font-size: 12px; color: var(--pp-text-muted, #94918A); margin: 0 0 8px; }
+        .pp-pair-row { display: flex; align-items: center; justify-content: space-between; }
+        .pp-pair-price { font-weight: 700; font-size: 15px; }
+        .pp-pair-btn { background: #000; color: #fff; border: none; padding: 7px 16px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+        .pp-pair-btn:hover { background: #333; }
+        .pp-pair-btn.added { background: #4CAF50; cursor: default; }
+        /* Toast */
+        .pp-toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: #fff; border-radius: 12px; padding: 14px 18px; box-shadow: 0 8px 30px rgba(0,0,0,0.2); z-index: 999999; opacity: 0; visibility: hidden; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px; }
+        .pp-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; visibility: visible; }
+        .pp-toast-text { font-size: 14px; font-weight: 600; }
+        .pp-toast-link { background: #000; color: #fff; padding: 7px 14px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 500; white-space: nowrap; }
+        .pp-toast-link:hover { background: #333; color: #fff; }
+        @media (max-width: 767px) {
+            .pp-toast { left: 10px; right: 10px; bottom: 80px; transform: translateX(0) translateY(100px); max-width: none; }
+            .pp-toast.show { transform: translateX(0) translateY(0); }
+        }
+
+        /* Fix modal */
+        #addedToCartModal .modal-footer {
+            display: flex; flex-direction: row; gap: 12px; justify-content: stretch; padding: 16px 20px;
+        }
+        #addedToCartModal .modal-footer .btn-secondary {
+            flex: 1; background-color: #6c757d; color: #fff; border: none; padding: 14px 20px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; text-align: center;
+        }
+        #addedToCartModal .modal-footer .btn-secondary:hover { background-color: #5a6268; }
+        #addedToCartModal .modal-footer .btn-black {
+            flex: 1; background-color: #000; color: #fff; border: none; padding: 14px 20px; border-radius: 8px; font-size: 16px; font-weight: 600; text-decoration: none; text-align: center; cursor: pointer;
+        }
+        #addedToCartModal .modal-footer .btn-black:hover { background-color: #333; color: #fff; }
+        #addedToCartModal { z-index: 1060 !important; }
+        .modal-backdrop { z-index: 1050 !important; }
+        #addedToCartModal .modal-dialog { z-index: 1070; pointer-events: auto; }
+        #addedToCartModal .modal-content { pointer-events: auto; }
+
+        /* Free sample badge */
+        .free-sample-badge {
+            display: inline-flex; align-items: center; gap: 6px; background: #E8F5E9; color: #2E7D32;
+            font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 8px; letter-spacing: 0.02em;
+        }
+        .free-sample-badge svg { width: 16px; height: 16px; }
+    </style>
 </head>
 <body>
-<style>
-.custom-radio.out-of-stock input[type="radio"]:checked + .custom-radio-label::before {
-    background-color: red;
-}
 
-.custom-radio.in-stock input[type="radio"]:checked + .custom-radio-label::before {
-    background-color: green;
-}
-
-.custom-radio-label {
-    color: inherit; /* Uses parent color for easy updates */
-}
-
-.bundle-includes {
-    background: #f8f5f0;
-    border-radius: 8px;
-    padding: 1rem;
-    margin: 1rem 0;
-}
-
-.bundle-includes h5 {
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-}
-
-.bundle-includes ul {
-    margin-bottom: 0;
-    padding-left: 1.2rem;
-}
-
-.bundle-includes li {
-    margin-bottom: 0.25rem;
-}
-
-/* Pair With Section */
-.pp-pair-with { max-width: 900px; margin: 0 auto; padding: 0 20px; }
-.pp-pair-card { display: flex; align-items: center; gap: 16px; background: #FDFBF7; border-radius: 12px; padding: 16px 20px; margin-top: 20px; }
-.pp-pair-label { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: #94918A; margin-bottom: 8px; text-transform: uppercase; }
-.pp-pair-img { width: 80px; height: 80px; border-radius: 8px; object-fit: cover; }
-.pp-pair-info { flex: 1; }
-.pp-pair-title { font-weight: 600; font-size: 14px; color: #2C2925; margin: 0 0 2px; }
-.pp-pair-title a { color: inherit; text-decoration: none; }
-.pp-pair-title a:hover { text-decoration: underline; }
-.pp-pair-desc { font-size: 12px; color: #94918A; margin: 0 0 8px; }
-.pp-pair-row { display: flex; align-items: center; justify-content: space-between; }
-.pp-pair-price { font-weight: 700; font-size: 15px; }
-.pp-pair-btn { background: #000; color: #fff; border: none; padding: 7px 16px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; transition: background 0.2s; }
-.pp-pair-btn:hover { background: #333; }
-.pp-pair-btn.added { background: #4CAF50; cursor: default; }
-/* Toast */
-.pp-toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: #fff; border-radius: 12px; padding: 14px 18px; box-shadow: 0 8px 30px rgba(0,0,0,0.2); z-index: 999999; opacity: 0; visibility: hidden; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px; }
-.pp-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; visibility: visible; }
-.pp-toast-text { font-size: 14px; font-weight: 600; }
-.pp-toast-link { background: #000; color: #fff; padding: 7px 14px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 500; white-space: nowrap; }
-.pp-toast-link:hover { background: #333; color: #fff; }
-@media (max-width: 767px) {
-    .pp-toast { left: 10px; right: 10px; bottom: 80px; transform: translateX(0) translateY(100px); max-width: none; }
-    .pp-toast.show { transform: translateX(0) translateY(0); }
-}
-</style>
 {{- partial "alert-online.html" . -}}
-    {{- partial "header_new.html" . -}}
-    
-    <div class="container product-page">
-        <div class="row topbanner rel">
-            <p class="text-dark col-12 ninety mt-1"><a href="/shop" class="text-dark text-decoration-underline">Shop</a> > Tallow Haircare Health Bundle Sample Pack</p>
-            <div class="col-12 col-lg-6 product-photos mb-3">
-                {{- partial "images-scalp-bundle.html" . -}}
+{{- partial "header_new.html" . -}}
+
+<!-- ─── BREADCRUMB ─── -->
+<div class="pp-breadcrumb">
+    <a href="/shop" class="text-dark">Shop</a> › Free Manuka Honey Tallow Soap Sample
+</div>
+
+<!-- ─── PRODUCT HERO ─── -->
+<div class="product-hero">
+
+    <!-- Gallery -->
+    <div class="product-gallery">
+        <div class="gallery-main">
+            <img class="main-image" id="mainImage" fetchpriority="high" src="/img/prod/soap/manuka-soap.webp" alt="Free Manuka Honey Tallow Soap Sample NZ">
+            <div class="exclusive-badge">
+                <span class="dot"></span> While Stocks Last
             </div>
-            <div class="col-12 col-lg-6">
-                <p class="fw-bold mt-2"><img class="stars pe-2" src="/img/stars/5.webp" alt="">While stocks last - Limited Supply</p>
-                <h1 class="fw-bold mt-2">Tallow Haircare Sample Pouches</h1>
-                <h2 class="fw-lighter h1 h1big">Naturally frizz-free hair & happy scalp.</h2>
-                <p class="graytxt fw-bold">From <span class="fst-italic" style="color: rgb(177, 152, 9)">PrimalCare Gold Edition</span></p>
-                <p class="fw-lighter">Free samples of natures combo for fighting dull, brittle hair and a dry, red and itchy scalp, just cover the shipping.</p>
- 
-                <div class="bundle-includes">
-                    <ul>
-                        <li><strong>Tallow Shampoo (30ml pouch)</strong> — Cleanse & soothe</li>
-                        <li><strong>Tallow Conditioner (30ml pouch)</strong> — Fight frizz & moisturise</li>
-                    </ul>
+        </div>
+        <div class="gallery-thumbs">
+            <div class="thumb active" onclick="switchImage('/img/prod/soap/manuka-soap.webp', this)">
+                <img src="/img/prod/soap/manuka-soap.webp" alt="Manuka honey tallow soap">
+            </div>
+            <div class="thumb" onclick="switchImage('/img/prod/balm/eczema.webp', this)">
+                <img src="/img/prod/balm/eczema.webp" alt="Tallow soap for eczema" loading="lazy">
+            </div>
+            <div class="thumb" onclick="switchImage('/img/prod/balm/baby-eczema.webp', this)">
+                <img src="/img/prod/balm/baby-eczema.webp" alt="Tallow soap for sensitive skin" loading="lazy">
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Info -->
+    <div class="product-info">
+
+        <div class="trust-row">
+            <div class="pp-stars">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+            </div>
+            <span class="trust-text">Used by 11,000+ kiwis · Online exclusive</span>
+        </div>
+
+        <h1 class="pp-product-title">Free Manuka Honey Tallow Soap</h1>
+        <p class="pp-product-subtitle">Naturally clean & nourished skin — just pay shipping</p>
+        <p class="pp-product-edition">PrimalCare Skincare</p>
+
+        <div class="benefit-strip">
+            <p>Try our Manuka Honey Tallow Soap <strong>free</strong> — just cover the shipping. Your friends will ask what's the secret to your silky smooth skin. Made with <strong>grass-fed tallow and real Manuka honey</strong>, this soap is moisturising, sudsy, and nourishing — perfect for <strong>sensitive skin</strong> and conditions like eczema and psoriasis.</p>
+        </div>
+
+        <div class="pp-pricing-section">
+            <span class="pp-price-main">
+                <span style="font-size: 28px; font-weight: 700; color: #2E7D32;">FREE</span>
+                <span style="font-size:18px; font-weight:400; color:var(--pp-text-muted); text-decoration:line-through; margin-left:8px;">$12.95</span>
+            </span>
+            <div class="free-sample-badge" style="margin-top: 8px;">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                Just Pay Shipping — One per customer
+            </div>
+        </div>
+
+        <div class="purchase-options">
+            <label class="purchase-option selected">
+                <input type="radio" name="purchaseType" value="single_purchase" checked>
+                <div class="option-left">
+                    <div class="option-radio"><div class="dot-inner"></div></div>
+                    <div>
+                        <div class="option-label">Free Manuka Honey Soap</div>
+                        <div class="option-sublabel">120g block · Limited stock</div>
+                    </div>
                 </div>
+                <div class="option-price" style="color: #2E7D32;">$0.00</div>
+            </label>
+        </div>
 
-    <!-- YAML FORM STARTS -->
+        <!-- Hidden form for pricing engine -->
+        <form id="productForm" autocomplete="off" style="display:none;">
+            <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
+            <input type="radio" id="manuka" name="flavor" value="manuka" checked>
+            <input type="radio" id="size120g" name="size" value="120g" checked>
+        </form>
 
-<!-- Product Form Options with Bootstrap Styling -->
-                <div class="price-display fw-bold">
-                    <p class="mb-2">Free Samples! (One pair per customer)<span id="price">-</span><span class="special" id="special">Just Pay for Shipping!</span></p>
-                    <p class="fw-lighter">or 4 interest free payments of $<span id="afterpay_price"></span> with <img src="/img/afterpay.webp" class="d-inline" height="28" alt="afterpay"></p>            
+        <div class="pp-selector-group">
+            <div class="pp-selector-label">Scent</div>
+            <div class="scent-pills">
+                <div class="scent-pill active">Manuka Honey</div>
+            </div>
+        </div>
+
+        <div class="stock-indicator">
+            <span class="stock-dot"></span> In Stock — Limited Supply · Ships within 1–3 business days
+        </div>
+
+        <div class="action-row">
+            <button class="btn-add-to-cart buy-now" type="button" data-price-id="price_1T3lElFZRwx5tlYmxR3RPwrb" data-quantity-id="quantityAll" style="width:100%;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="position:relative;z-index:1;"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                <span style="position:relative;z-index:1;">Get Free Sample — Just Pay Shipping</span>
+            </button>
+        </div>
+        <!-- Hidden quantity (always 1 for free sample) -->
+        <input type="hidden" id="quantityAll" name="quantity" value="1">
+
+        <p class="sub-cta">Money back guarantee · Speedy NZ-wide shipping</p>
+
+        <div class="guarantee-bar">
+            <div class="guarantee-item">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                Natural Ingredients
+            </div>
+            <div class="guarantee-item">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                Made in Christchurch
+            </div>
+            <div class="guarantee-item">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                Real Manuka Honey
+            </div>
+            <div class="guarantee-item">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                Money Back
+            </div>
+        </div>
+
+        <!-- Pair With Tallow Balm -->
+        <div class="pp-pair-with">
+            <p class="pp-pair-label">Complete your routine</p>
+            <div class="pp-pair-card">
+                <a href="/shop/products/tallow-balm/">
+                    <img src="/img/radio/balm/1.webp" alt="Tallow Balm" class="pp-pair-img" loading="lazy">
+                </a>
+                <div class="pp-pair-info">
+                    <p class="pp-pair-title"><a href="/shop/products/tallow-balm/">Tallow Balm — Original Skin Repair</a></p>
+                    <p class="pp-pair-desc">Our hero product for dry, irritated & eczema-prone skin</p>
+                    <div class="pp-pair-row">
+                        <span class="pp-pair-price" data-product="balm" data-size="50ml" data-order-type="single_purchase">$39.95</span>
+                        <button class="pp-pair-btn pair-with-quick-add"
+                            data-product="balm"
+                            data-order-type="single"
+                            data-flavor="geranium"
+                            data-size="50ml"
+                            data-title="Tallow Balm"
+                            data-display-size="50ml"
+                            data-display-flavor="Fresh Geranium"
+                            data-display-order-type="Single jar">Quick Add</button>
+                    </div>
                 </div>
-                <form id="productForm" class="form-group mb-4" autocomplete="off">
-                    <div class="text-left mb-3 mb-lg-4">
-                        <label class="mob-ninety d-none">Select unit type:</label>
-                    
-                        <input type="radio" id="single_purchase" name="orderType" value="single_purchase" class="d-none" checked>
-                        <label for="single_purchase" class="product-form-radio d-none"><img class="prod-radio-img" src="/img/radio/balm/1.webp" alt="single jar">Single Bundle (1 Shampoo + 1 Conditioner)</label>
-                    
-                        <!-- Uncomment to enable subscription options -->
-                        <!-- 
-                        <input type="radio" id="recurring_monthly" name="orderType" value="recurring_monthly">
-                        <label for="recurring_monthly" class="product-form-radio">Subscribe Monthly (save 20%)</label>
-                    
-                        <input type="radio" id="recurring_quarterly" name="orderType" value="recurring_quarterly">
-                        <label for="recurring_quarterly" class="product-form-radio">Subscribe Quarterly (save 12.5%)</label>
-                        -->
-                    </div>
-                  
-                    <div class="text-left mb-3 mb-lg-4" id="single_unit_fragnance" style="display:none;">
-                        <label class="mob-ninety">Select scent:</label>
-                    
-                       
-                        
-                        <input type="radio" id="geranium" name="flavor" value="geranium" checked style="display:none;">
-                        <label for="geranium" class="product-form-radio" style="display:none;">Fresh Geranium</label>
-                        <!--
-                        <input type="radio" id="frankincense" name="flavor" value="frankincense" >
-                        <label for="frankincense" class="product-form-radio">Frankincense</label>
+            </div>
+        </div>
 
-                        <input type="radio" id="neutral" name="flavor" value="neutral">
-                        <label for="neutral" class="product-form-radio">Natural</label> -->
-                    </div> 
-                    <div class="text-left  mb-3 mb-lg-4" style="display:none;">
-                        <label class="float-left mob-ninety mr-2 mt-2">Select size:</label>
-                      <div class="product-form-radio">
-                            <input type="radio" id="size50ml" name="size" value="50ml" checked>
-                            <label for="size50ml" class="product-form-radio float-left"><img class="prod-radio-img" src="/img/radio/balm/1.webp" alt="balm">Sample Pouch</label>
-                        </div>
-
-                    </div>
-                    
-
-                    <!-- Quantity Selector -->
-                    <div class="form-group mb-3 mb-lg-4">
-                        <div class="mt-4 custom-radio float-end">
-                            <input type="radio" id="inStock" name="stockStatus" checked>
-                            <label class="custom-radio-label mb-0" for="inStock">In Stock - One pair per customer</label>
-                        </div>
-                        <label for="quantityAll" class="form-label d-none">Quantity of bundles:</label>
-                        <div class="quantity-container d-none">
-                            <button type="button" class="btn-decrease">-</button>
-                            <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1">
-                            <button type="button" class="btn-increase">+</button>
-                        </div>
-                    </div>
-                    <!-- Add to Cart Button -->
-                    <div class="add-to-cart text-center mb-4">
-                        <button type="button" class="btn btn-black btn-lg buy-now mb-2" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
-                        <p>Speedy Shipping NZ Wide | Money back guarantee</p>
-                        <img class="badges middle" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
-
-                    </div>
-
-                </form>
-                <!-- ===== EANZ PILL + MODAL — Embed on any page ===== -->
-<!-- Drop this snippet anywhere. Requires the PP fonts (Fraunces + DM Sans) already loaded on the page. -->
-
+<!-- ===== EANZ PILL + MODAL ===== -->
 <style>
-/* ===== EANZ PILL ===== */
 .pp-eanz-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 16px;
-  background: var(--white, #FFFFFF);
-  border: 1px solid var(--cream-deep, #EEDED0);
-  border-radius: 16px;
-  padding: 14px 22px;
-  width: fit-content;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-  cursor: default;
-  transition: box-shadow 0.3s;
-  margin-top: 16px;
+  display: inline-flex; align-items: center; gap: 16px; background: var(--white, #FFFFFF);
+  border: 1px solid var(--cream-deep, #EEDED0); border-radius: 16px; padding: 14px 22px;
+  width: fit-content; box-shadow: 0 2px 12px rgba(0,0,0,0.04); cursor: default; transition: box-shadow 0.3s; margin-top: 16px;
 }
-.pp-eanz-pill:hover {
-  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
-}
-.pp-eanz-pill img {
-  height: 52px;
-  width: auto;
-  flex-shrink: 0;
-}
-.pp-eanz-pill-text {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.pp-eanz-pill-label {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-weight: 700;
-  color: var(--sage, #6B8F5B);
-  line-height: 1.3;
-}
-.pp-eanz-pill-title {
-  font-family: 'Fraunces', serif;
-  font-size: 0.95rem;
-  color: var(--bark, #2E1A0E);
-  font-weight: 700;
-  line-height: 1.25;
-}
-.pp-eanz-pill-commit {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.78rem;
-  color: var(--bark-light, #6B4D38);
-  font-weight: 600;
-  line-height: 1.4;
-  margin-top: 2px;
-}
-.pp-eanz-pill-link {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--sage, #6B8F5B);
-  cursor: pointer;
-  background: none;
-  border: none;
-  padding: 0;
-  margin-top: 4px;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  transition: gap 0.3s, opacity 0.3s;
-  text-decoration: none;
-}
-.pp-eanz-pill-link:hover {
-  gap: 7px;
-  opacity: 0.8;
-}
-.pp-eanz-pill-link svg {
-  width: 12px;
-  height: 12px;
-}
-
-/* ===== EANZ MODAL ===== */
-.pp-eanz-modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 99999;
-  background: rgba(46, 26, 14, 0.45);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-.pp-eanz-modal-overlay.is-open {
-  display: flex;
-  opacity: 1;
-}
-.pp-eanz-modal {
-  background: var(--sage-pale, #E5EDDF);
-  border-radius: 24px;
-  max-width: 920px;
-  width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
-  position: relative;
-  box-shadow: 0 32px 80px rgba(0,0,0,0.18);
-  animation: pp-eanz-modal-in 0.35s ease both;
-}
-@keyframes pp-eanz-modal-in {
-  from { opacity: 0; transform: translateY(20px) scale(0.97); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-.pp-eanz-modal-close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  z-index: 3;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(6px);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s, transform 0.3s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-.pp-eanz-modal-close:hover {
-  background: var(--white, #FFFFFF);
-  transform: scale(1.08);
-}
-.pp-eanz-modal-close svg {
-  width: 18px;
-  height: 18px;
-  color: var(--bark, #2E1A0E);
-}
-.pp-eanz-modal-body {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 40px;
-  padding: 48px;
-  align-items: center;
-}
-.pp-eanz-modal-video-wrap {
-  position: relative;
-  padding-bottom: 177.78%;
-  border-radius: 16px;
-  overflow: hidden;
-  background: var(--bark, #2E1A0E);
-}
-.pp-eanz-modal-video-wrap iframe {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  border: 0;
-}
-.pp-eanz-modal-video-placeholder {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--cream, #FAF4EB);
-  font-size: 2.5rem;
-  cursor: pointer;
-}
-.pp-eanz-modal-right {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-}
-.pp-eanz-modal-right img {
-  height: 88px;
-  width: auto;
-  flex-shrink: 0;
-}
-.pp-eanz-modal-text {
-  max-width: 400px;
-}
-.pp-eanz-modal-text h3 {
-  font-family: 'Fraunces', serif;
-  font-weight: 400;
-  font-size: 1.5rem;
-  color: var(--bark, #2E1A0E);
-  margin: 0 0 10px;
-  line-height: 1.2;
-}
-.pp-eanz-modal-text p {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.88rem;
-  color: var(--bark-light, #6B4D38);
-  line-height: 1.6;
-  margin: 0;
-}
-.pp-eanz-modal-text .pp-eanz-disclaimer {
-  font-size: 0.65rem;
-  color: var(--warm-gray, #877B71);
-  margin-top: 10px;
-  line-height: 1.5;
-}
-
-/* ===== MODAL RESPONSIVE ===== */
+.pp-eanz-pill:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+.pp-eanz-pill img { height: 52px; width: auto; flex-shrink: 0; }
+.pp-eanz-pill-text { display: flex; flex-direction: column; gap: 2px; }
+.pp-eanz-pill-label { font-family: 'DM Sans', sans-serif; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; color: var(--sage, #6B8F5B); line-height: 1.3; }
+.pp-eanz-pill-title { font-family: 'Fraunces', serif; font-size: 0.95rem; color: var(--bark, #2E1A0E); font-weight: 700; line-height: 1.25; }
+.pp-eanz-pill-commit { font-family: 'DM Sans', sans-serif; font-size: 0.78rem; color: var(--bark-light, #6B4D38); font-weight: 600; line-height: 1.4; margin-top: 2px; }
+.pp-eanz-pill-link { font-family: 'DM Sans', sans-serif; font-size: 0.72rem; font-weight: 700; color: var(--sage, #6B8F5B); cursor: pointer; background: none; border: none; padding: 0; margin-top: 4px; display: inline-flex; align-items: center; gap: 4px; transition: gap 0.3s, opacity 0.3s; text-decoration: none; }
+.pp-eanz-pill-link:hover { gap: 7px; opacity: 0.8; }
+.pp-eanz-pill-link svg { width: 12px; height: 12px; }
+.pp-eanz-modal-overlay { display: none; position: fixed; inset: 0; z-index: 99999; background: rgba(46, 26, 14, 0.45); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 24px; opacity: 0; transition: opacity 0.3s ease; }
+.pp-eanz-modal-overlay.is-open { display: flex; opacity: 1; }
+.pp-eanz-modal { background: var(--sage-pale, #E5EDDF); border-radius: 24px; max-width: 920px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; box-shadow: 0 32px 80px rgba(0,0,0,0.18); animation: pp-eanz-modal-in 0.35s ease both; }
+@keyframes pp-eanz-modal-in { from { opacity: 0; transform: translateY(20px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.pp-eanz-modal-close { position: absolute; top: 16px; right: 16px; z-index: 3; width: 40px; height: 40px; border-radius: 50%; border: none; background: rgba(255,255,255,0.85); backdrop-filter: blur(6px); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.3s, transform 0.3s; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.pp-eanz-modal-close:hover { background: var(--white, #FFFFFF); transform: scale(1.08); }
+.pp-eanz-modal-close svg { width: 18px; height: 18px; color: var(--bark, #2E1A0E); }
+.pp-eanz-modal-body { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; padding: 48px; align-items: center; }
+.pp-eanz-modal-video-wrap { position: relative; padding-bottom: 177.78%; border-radius: 16px; overflow: hidden; background: var(--bark, #2E1A0E); }
+.pp-eanz-modal-video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+.pp-eanz-modal-video-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--cream, #FAF4EB); font-size: 2.5rem; cursor: pointer; }
+.pp-eanz-modal-right { display: flex; align-items: flex-start; gap: 20px; }
+.pp-eanz-modal-right img { height: 88px; width: auto; flex-shrink: 0; }
+.pp-eanz-modal-text { max-width: 400px; }
+.pp-eanz-modal-text h3 { font-family: 'Fraunces', serif; font-weight: 400; font-size: 1.5rem; color: var(--bark, #2E1A0E); margin: 0 0 10px; line-height: 1.2; }
+.pp-eanz-modal-text p { font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--bark-light, #6B4D38); line-height: 1.6; margin: 0; }
+.pp-eanz-modal-text .pp-eanz-disclaimer { font-size: 0.65rem; color: var(--warm-gray, #877B71); margin-top: 10px; line-height: 1.5; }
 @media (max-width: 768px) {
-  .pp-eanz-modal-body {
-    grid-template-columns: 1fr;
-    gap: 28px;
-    padding: 32px 24px;
-  }
-  .pp-eanz-modal-right {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  .pp-eanz-modal-text {
-    text-align: center;
-  }
-  .pp-eanz-pill {
-    padding: 12px 16px;
-    gap: 12px;
-  }
-  .pp-eanz-pill img {
-    height: 42px;
-  }
+  .pp-eanz-modal-body { grid-template-columns: 1fr; gap: 28px; padding: 32px 24px; }
+  .pp-eanz-modal-right { flex-direction: column; align-items: center; text-align: center; }
+  .pp-eanz-modal-text { text-align: center; }
+  .pp-eanz-pill { padding: 12px 16px; gap: 12px; }
+  .pp-eanz-pill img { height: 42px; }
 }
 </style>
 
-<!-- ===== THE PILL — place this wherever you want the badge ===== -->
 <div class="pp-eanz-pill">
   <img src="/img/home/eanz.webp" alt="Eczema Association of New Zealand" width="52" height="52">
   <div class="pp-eanz-pill-text">
@@ -414,7 +302,6 @@
   </div>
 </div>
 
-<!-- ===== THE MODAL — only needs to exist once per page ===== -->
 <div class="pp-eanz-modal-overlay" id="pp-eanz-modal" onclick="if(event.target===this){this.classList.remove('is-open');document.body.style.overflow=''}">
   <div class="pp-eanz-modal">
     <button class="pp-eanz-modal-close" onclick="document.getElementById('pp-eanz-modal').classList.remove('is-open');document.body.style.overflow='';" aria-label="Close">
@@ -438,15 +325,12 @@
   </div>
 </div>
 
-<!-- ===== SCRIPT — lazy-loads video only when modal opens ===== -->
 <script>
 (function(){
   var overlay = document.getElementById('pp-eanz-modal');
   var videoWrap = document.getElementById('pp-eanz-modal-video');
   if (!overlay || !videoWrap) return;
   var videoLoaded = false;
-
-  // Watch for modal open to lazy-load video
   var mo = new MutationObserver(function(){
     if (overlay.classList.contains('is-open') && !videoLoaded) {
       videoLoaded = true;
@@ -460,8 +344,6 @@
     }
   });
   mo.observe(overlay, {attributes: true, attributeFilter: ['class']});
-
-  // Close on Escape key
   document.addEventListener('keydown', function(e){
     if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
       overlay.classList.remove('is-open');
@@ -470,182 +352,96 @@
   });
 })();
 </script>
+    </div>
+</div>
 
-                <!-- Pair With Serum -->
-                <div class="pp-pair-with">
-                    <p class="pp-pair-label">Complete your routine</p>
-                    <div class="pp-pair-card">
-                        <a href="/shop/products/tallow-serum/">
-                            <img src="/img/serum-shop.webp" alt="Tallow Glow Serum" class="pp-pair-img" loading="lazy">
-                        </a>
-                        <div class="pp-pair-info">
-                            <p class="pp-pair-title"><a href="/shop/products/tallow-serum/">Tallow Glow Serum — Vitamin C & Hyaluronic Acid</a></p>
-                            <p class="pp-pair-desc">Brightening anti-aging serum for naturally glowing skin</p>
-                            <div class="pp-pair-row">
-                                <span class="pp-pair-price" data-product="serum" data-size="30ml" data-order-type="single_purchase">$38.20</span>
-                                <button class="pp-pair-btn pair-with-quick-add"
-                                    data-product="serum"
-                                    data-order-type="single"
-                                    data-flavor="vitc"
-                                    data-size="30ml"
-                                    data-title="Tallow Glow Serum"
-                                    data-display-size="30ml"
-                                    data-display-flavor="Vitamin C & Hyaluronic Acid"
-                                    data-display-order-type="Single bottle">Quick Add</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!-- ─── TABS ─── -->
+<div class="pp-tabs-section">
+    <div class="pp-tabs-nav">
+        <button class="pp-tab-btn active" onclick="switchTab('fastfacts', this)">Fast Facts</button>
+        <button class="pp-tab-btn" onclick="switchTab('ingredients', this)">Ingredients</button>
+        <button class="pp-tab-btn" onclick="switchTab('directions', this)">Directions</button>
+        <button class="pp-tab-btn" onclick="switchTab('shipping', this)">Shipping</button>
+    </div>
+    <div class="pp-tab-panel active" id="tab-fastfacts">
+        <h4>Why Manuka Honey Tallow Soap?</h4>
+        <p>Tallow soap is very moisturising, sudsy, and nourishing. It's perfect for people with sensitive skin and skin conditions like eczema, psoriasis and others. Our Manuka Honey variant combines the deep nourishing properties of grass-fed tallow with the natural antibacterial benefits of real New Zealand Manuka honey.</p>
+        <p>With oils closely mimicking those produced by our bodies, our tallow soothes dry and irritated skin. Rich in vitamins A, D, E, and K — this isn't just soap, it's skincare. Comes in a 120g block.</p>
+    </div>
+    <div class="pp-tab-panel" id="tab-ingredients">
+        <h4>Manuka Honey Soap Ingredients</h4>
+        <p>Grass-Fed Beef Tallow, Lye*, Manuka Honey</p>
+        <p class="text-muted small">*No lye remains in the finished product after 4 weeks of curing (saponification).</p>
+    </div>
+    <div class="pp-tab-panel" id="tab-directions">
+        <h4>Directions</h4>
+        <p>Use daily as a body and facial cleanser. Lather with water and rinse off thoroughly.</p>
+        <h4>Storage</h4>
+        <p>Store in a dry, cool place away from direct sunlight. Use a well-draining soap dish to extend the life of the bar.</p>
+    </div>
+    <div class="pp-tab-panel" id="tab-shipping">
+        <h4>Shipping</h4>
+        <p><strong>Processing:</strong> 1–3 business days, then standard courier times (3–5 business days NZ-wide).</p>
+        <p><strong>Cost:</strong> $4.95–$6.95 shipping. Your Manuka soap is free — you just cover the shipping cost.</p>
+        <p><strong>International:</strong> Currently NZ only.</p>
+    </div>
+</div>
 
-    <!-- YAML FORM ENDS -->
+<!-- ─── TALLOW SEEN ON ─── -->
+<div class="pp-media-section">
+    <p class="pp-media-label">Tallow seen on Seven Sharp</p>
+    <div class="pp-media-logos">
+        <img src="/img/shop/desktop-product-logos.webp" alt="PrimalPantry tallow seen on Stuff, Mai, The Breeze, More FM" class="pp-media-logos-img d-none d-md-block" loading="lazy">
+        <img src="/img/shop/mobile-logos.webp" alt="Tallow seen on Seven Sharp" class="pp-media-logos-img d-block d-md-none" loading="lazy">
+    </div>
+</div>
 
-
-            </div>
+<!-- ─── WHY TALLOW SOAP ─── -->
+<div class="pp-why-section">
+    <div class="pp-why-inner">
+        <div class="pp-why-content">
+            <h2>Why kiwis are switching to tallow soap</h2>
+            <p>Most commercial soaps are loaded with synthetic detergents, artificial fragrances, and chemical preservatives that strip your skin's natural oils. Tallow soap works differently — its fatty acid profile closely mimics the oils your skin naturally produces, so it cleanses without drying you out.</p>
+            <p>Add real Manuka honey into the mix and you get a bar that cleanses, moisturises, and supports your skin's natural balance. Made in small batches in Christchurch by the tallow skincare company featured on Seven Sharp.</p>
         </div>
-        <div class="row mt-4 py-0  d-flex  justify-content-center">
-            <div class="col-12 col-md-6 text-center">
-                <div class="col-12 text-center">
-                    <h2>As Featured on</h2>
-                    <div class="col-12 d-none d-md-block">
-                        <img src="/img/shop/desktop-product-logos.webp" class="img-fluid">
-                    </div>
-                    <div class="col-12 d-block d-md-none">
-                        <img src="/img/shop/mobile-logos.webp" class="img-fluid">
-                    </div>
-                </div>
+        <div class="ingredients-grid">
+            <div class="ingredient-card">
+                <h4>🌿 Grass-fed Tallow</h4>
+                <p>Rich in vitamins A, D, E, and K. Its fatty acid profile closely mimics your skin's own oils — designed to nourish without clogging pores.</p>
             </div>
-            <div class="faq-tab-container col-12 col-md-6">
-                <!-- Nav tabs -->
-                <div class="faq-nav-tabs">
-                    <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Fast facts</div>
-                    <div class="faq-nav-tab" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</div>
-                    <div class="faq-nav-tab" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="false">Ingredients</div>
-                    <div class="faq-nav-tab" id="directions-tab" data-toggle="tab" href="#directions" role="tab" aria-controls="directions" aria-selected="false">Directions</div>
-                    <div class="faq-nav-tab" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</div>
-                </div>
-
-                <!-- Tab panes -->
-                <div class="tab-content faq-tab-content">
-                    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">        
-                        <p>Transform your haircare routine with our Scalp Health Bundle featuring our Tallow Shampoo and Tallow Conditioner. This complete tallow haircare system pairs our gentle cleansing shampoo with our deeply hydrating conditioner — both formulated with soothing aloe vera and nourishing tallow to calm sensitive scalps while leaving hair silky smooth.</p>
-                        
-                        <p>Perfect for those with dry, itchy, or irritated scalps who want to ditch harsh chemicals without sacrificing results.</p>    
-
-                        <h4>Bundle Benefits</h4>
-                        <ul>
-                            <li>Complete tallow haircare routine in one purchase</li>
-                            <li>Soothes sensitive and itchy scalps</li>
-                            <li>Cleanses without stripping natural oils</li>
-                            <li>Deeply hydrates and reduces frizz</li>
-                            <li>Strengthens and nourishes hair</li>
-                            <li>100% natural ingredients</li>
-                            <li>Made in New Zealand</li>
-                        </ul>
-                    </div>
-
-                    <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                        <h4>See what our customers say online</h4>
-                        <img class="eighty middle" src="/img/prod/balm/balmreviews.webp" alt="reviews">
-                    </div>
-
-                    <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
-                        <h4>Tallow Shampoo Ingredients</h4>
-                        <div class="row text-center mb-4">
-                            <div class="col-6">
-                                <h5 class="fw-bold">Aqua (Water)</h5>
-                                <p>Hydrates and forms the base of the shampoo.</p>
-                            </div>
-
-                            <div class="col-6">
-                                <h5 class="fw-bold">Sodium Coco-Sulfate</h5>
-                                <p>Removes dirt and oil from the hair and scalp.</p>
-                            </div>
-
-                            <div class="col-6">
-                                <h5 class="fw-bold">Glycerin</h5>
-                                <p>Adds moisture to the scalp and helps prevent dryness.</p>
-                            </div>
-
-                            <div class="col-6">
-                                <h5 class="fw-bold">Aloe Vera Powder</h5>
-                                <p>Soothes the scalp and helps reduce irritation.</p>
-                            </div>
-
-                            <div class="col-6">
-                                <h5 class="fw-bold">Tallow</h5>
-                                <p>Provides deep hydration and adds a protective layer.</p>
-                            </div>
-
-                            <div class="col-6">
-                                <h5 class="fw-bold">Lauryl Glucoside</h5>
-                                <p>Cleans hair gently without stripping natural oils.</p>
-                            </div>
-                        </div>
-
-                        <h4>Tallow Conditioner Ingredients</h4>
-                        <div class="row text-center">
-                            <div class="col-6">
-                                <h5 class="fw-bold">Water</h5>
-                                <p>Hydrates and forms the base of the conditioner.</p>
-                            </div>
-
-                            <div class="col-6">
-                                <h5 class="fw-bold">Aloe Vera Powder</h5>
-                                <p>Soothes the scalp and helps reduce irritation.</p>
-                            </div>
-
-                            <div class="col-6">
-                                <h5 class="fw-bold">Glycerine</h5>
-                                <p>Adds moisture to hair and keeps it soft and hydrated.</p>
-                            </div>
-
-                            <div class="col-6">
-                                <h5 class="fw-bold">Sweet Almond Oil</h5>
-                                <p>Nourishes, softens, and adds shine to hair.</p>
-                            </div>
-
-                            <div class="col-6">
-                                <h5 class="fw-bold">Tallow</h5>
-                                <p>Provides deep hydration and adds a protective layer to hair.</p>
-                            </div>
-
-                            <div class="col-6">
-                                <h5 class="fw-bold">Coconut Oil</h5>
-                                <p>Moisturizes, smooths, and protects hair from damage.</p>
-                            </div>
-
-                            <div class="col-6">
-                                <h5 class="fw-bold">Vitamin E</h5>
-                                <p>Protects hair from environmental stress and supports shine.</p>
-                            </div>
-
-                            <div class="col-6">
-                                <h5 class="fw-bold">Rose Geranium Essential Oil</h5>
-                                <p>Provides a gentle floral scent.</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
-                        <h4>Directions</h4>
-                        <p><strong>Step 1 — Shampoo:</strong> Wet hair thoroughly. Apply a small amount of shampoo to your scalp and massage gently. Rinse well.</p>
-                        <p><strong>Step 2 — Conditioner:</strong> After shampooing, apply conditioner from mid-lengths to ends. Leave on for 1-2 minutes, then rinse thoroughly.</p>
-                        <p><strong>Tip:</strong> For best results, use 2-3 times per week or as needed.</p>
-                    </div>
-
-                    <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
-                        <h4>Shipping</h4>
-                        <p><strong>Processing time:</strong> Your order will be processed within 3 business days after which you can expect usual courier times to your area (generally 3-5 business days) </p>
-                        <p><strong>Shipping rates:</strong> We usually charge between $4.95 and $6.95 for shipping. You can view the shipping costs at the checkout before completing your purchase.</p>
-                        <p><strong>International shipping:</strong> Currently, we only offer shipping within New Zealand. We apologize for any inconvenience this may cause.</p>
-                        <p>If you have any questions or concerns regarding shipping, please don't hesitate to <a href="/contact/">contact us</a>.</p>
-                    </div>
-                </div>
-
+            <div class="ingredient-card">
+                <h4>🍯 Manuka Honey</h4>
+                <p>New Zealand's prized Manuka honey — naturally antibacterial and deeply moisturising. Known for supporting healthy, calm skin.</p>
             </div>
         </div>
     </div>
-            {{- partial "irritation-routine.html" . -}}
+</div>
+
+<!-- ─── COMPARISON ─── -->
+<div class="pp-comparison-section">
+    <h2>Tallow soap vs commercial soap</h2>
+    <p class="subtitle">See why kiwis are making the switch</p>
+    <table class="comparison-table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>PrimalCare</th>
+                <th>Other brands</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>All natural ingredients</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+            <tr><td>Real Manuka honey</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+            <tr><td>Rich in vitamins A, D, E & K</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+            <tr><td>Ideal for sensitive & eczema-prone skin</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+            <tr><td>Made in Christchurch, NZ</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+            <tr><td>Money back guarantee</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ─── ROUTINE CROSS-SELL ─── -->
+{{- partial "irritation-routine.html" . -}}
 
 <!-- ─── TOAST ─── -->
 <div id="pairWithToast" class="pp-toast">
@@ -654,329 +450,105 @@
     <a href="/cart" class="pp-toast-link">View Cart</a>
 </div>
 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var tabs = document.querySelectorAll('.faq-nav-tab');
-            tabs.forEach(function(tab) {
-                tab.addEventListener('click', function() {
-                    document.querySelector('.faq-nav-tab.active').classList.remove('active');
-                    tab.classList.add('active');
-                    var tabContent = document.querySelector('.faq-tab-content .tab-pane.show.active');
-                    tabContent.classList.remove('show', 'active');
-                    var target = tab.getAttribute('href');
-                    document.querySelector(target).classList.add('show', 'active');
-                });
-            });
-        });
-    </script>
-    <script>
-        const productPricingRaw = {{ site.Data.pricing.tallow.pricing.scalpbundle | jsonify | safeJS }};
-        console.log("Raw product Pricing from Hugo:", productPricingRaw);
-
-        const productPricing = Array.isArray(productPricingRaw) ? productPricingRaw : [];
-        if (!Array.isArray(productPricing)) {
-            console.error("productPricing is not an array. Ensure your YAML structure and Hugo data access.");
-        } else {
-            console.log("Parsed product Pricing:", productPricing);
-        }
-
-         function updatePrice() {
-        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase();
-        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
-
-        console.log("Selected size:", size);
-        console.log("Selected order type:", orderType);
-
-        const pricingEntry = productPricing.find(entry => entry.size.toLowerCase() === size);
-        const price = pricingEntry?.prices?.[country_code]?.[orderType];
-        
-        if (price != null) {
-            if (price === 0) {
-                document.getElementById("price").textContent = "";
-                document.getElementById("afterpay_price").textContent = "0.00";
-                var afterpayLine = document.getElementById("afterpay_price")?.closest("p");
-                if (afterpayLine) afterpayLine.style.display = "none";
-            } else {
-                document.getElementById("price").textContent = `$${price.toFixed(2)}`;
-                document.getElementById("afterpay_price").textContent = `${(price/4).toFixed(2)}`;
-                var afterpayLine = document.getElementById("afterpay_price")?.closest("p");
-                if (afterpayLine) afterpayLine.style.display = "";
-            }
-        } else {
-            document.getElementById("price").textContent = "N/A";
-            document.getElementById("afterpay_price").textContent = "N/A";
-        }
+<!-- ─── PAGE SCRIPTS ─── -->
+<script>
+    function switchImage(src, thumbEl) {
+        const main = document.getElementById('mainImage');
+        main.style.opacity = '0';
+        setTimeout(() => { main.src = src; main.style.opacity = '1'; }, 150);
+        document.querySelectorAll('.gallery-thumbs .thumb').forEach(t => t.classList.remove('active'));
+        thumbEl.classList.add('active');
     }
 
+    function switchTab(tabId, btn) {
+        document.querySelectorAll('.pp-tab-panel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.pp-tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('tab-' + tabId).classList.add('active');
+        btn.classList.add('active');
+    }
+</script>
 
+<!-- Pricing data for pair-with -->
+<script>
+    const rawData = "{{ .Site.Data.pricing | jsonify }}";
+    const pricingData = JSON.parse(rawData);
 
-        // Attach event listener for changes
-        document.getElementById("productForm").addEventListener("change", updatePrice);
-
-        // Initialize the price on page load
-        document.addEventListener("DOMContentLoaded", updatePrice);
-    </script>
-
-
-    <script>
-        // Function to update the price ID display
-        function updatePriceID() {
-        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase();
-        const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
-        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
-        
-
-
-        // Default value for price ID
-        let priceID = "N/A";
-
-        // Debug: Check the loaded data and selected values
-        console.log("Loaded Data:", productPricingRaw);
-        console.log("Selected - Size:", size, "Flavor:", flavor, "Order Type:", orderType);
-
-        // Traverse the pricing structure for the selected combination
-        if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.scalpbundle) {
-            const balmData = productPricingRaw.ids.scalpbundle;
-            console.log("balm Data:", balmData);
-
-            const orderTypeData = balmData[orderType];
-            console.log("Order Type Data:", orderTypeData);
-
-            if (orderTypeData && orderTypeData[flavor]) {
-                const flavorData = orderTypeData[flavor];
-                console.log("Flavor Data:", flavorData);
-
-                const sizeData = flavorData[size];
-                console.log("Size Data:", sizeData);
-
-                if (sizeData) {
-                    priceID = sizeData[country_code]; // Assign the resolved price ID
+    function updatePairWithPrice() {
+        var priceElements = document.querySelectorAll('.pp-pair-price');
+        priceElements.forEach(function(el) {
+            var product = el.getAttribute('data-product');
+            var size = el.getAttribute('data-size');
+            var orderType = el.getAttribute('data-order-type');
+            try {
+                var productPricingData = pricingData.tallow.pricing[product];
+                if (Array.isArray(productPricingData)) {
+                    var entry = productPricingData.find(function(e) { return e.size.toLowerCase() === size.toLowerCase(); });
+                    if (entry && entry.prices[country_code] && entry.prices[country_code][orderType]) {
+                        el.textContent = '$' + entry.prices[country_code][orderType].toFixed(2);
+                    }
                 }
-            }
-        }
-
-        // Update the DOM element with the resolved price ID
-        document.getElementById("price-id").textContent = priceID !== "N/A" ? priceID : "Price ID Not Available";
-
-        // Log final result
-        console.log("Resolved Price ID:", priceID);
-
-    };
-    </script>
-    <script>
-        // Parse the JSON string into an object
-        const rawData = "{{ .Site.Data.pricing | jsonify }}"; // Embedded JSON string from Hugo
-        const pricingData = JSON.parse(rawData); // Parse into a JavaScript object
-        console.log('Parsed Pricing Data:', pricingData); // Debugging output
-
-        function updatePriceId() {
-        // Get the selected values
-        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase();
-        const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
-        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
-      
-        try {
-            let priceId;
-
-            // Access the correct price ID based on the order type
-            if (orderType === 'single_purchase') {
-                priceId = pricingData.tallow.ids.scalpbundle.single[flavor][size][country_code];
-            } else if (orderType === 'recurring_monthly') {
-                priceId = pricingData.tallow.ids.scalpbundle.monthly[flavor][size][country_code];
-            } else if (orderType === 'recurring_quarterly') {
-                priceId = pricingData.tallow.ids.scalpbundle.quarterly[flavor][size][country_code];
-            } else if (orderType === 'three_pack') {
-                priceId = pricingData.tallow.ids.scalpbundle.pack[flavor][size][country_code];
-            }
-
-            console.log('Price ID:', priceId);
-
-            // Update the DOM element with the resolved price ID, if it exists
-            const priceIdElement = document.getElementById('price-id');
-            if (priceIdElement) {
-                priceIdElement.textContent = priceId || 'Price ID not found';
-            }
-
-            // Update the button's data-price-id attribute
-            const buyNowButton = document.querySelector(".buy-now");
-            if (buyNowButton) {
-                buyNowButton.setAttribute("data-price-id", priceId || "");
-                console.log('Button updated with Price ID:', priceId);
-            }
-        } catch (error) {
-            console.error('Error fetching Price ID:', error);
-
-            // Clear the button's data-price-id attribute on error
-            const buyNowButton = document.querySelector(".buy-now");
-            if (buyNowButton) {
-                buyNowButton.setAttribute("data-price-id", "");
-            }
-        }
+            } catch (err) { console.error('Pair-with price error:', err); }
+        });
     }
 
-        // Update pair-with price from YAML
-        function updatePairWithPrice() {
-            var priceElements = document.querySelectorAll('.pp-pair-price');
-            priceElements.forEach(function(el) {
-                var product = el.getAttribute('data-product');
-                var size = el.getAttribute('data-size');
-                var orderType = el.getAttribute('data-order-type');
-                try {
-                    var productPricingData = pricingData.tallow.pricing[product];
-                    if (Array.isArray(productPricingData)) {
-                        var entry = productPricingData.find(function(e) { return e.size.toLowerCase() === size.toLowerCase(); });
-                        if (entry && entry.prices[country_code] && entry.prices[country_code][orderType]) {
-                            el.textContent = '$' + entry.prices[country_code][orderType].toFixed(2);
-                        }
-                    }
-                } catch (err) { console.error('Pair-with price error:', err); }
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            // Add event listener for form changes
-            document.getElementById('productForm').addEventListener('change', updatePriceId);
-
-            // Trigger the update function on page load
-            updatePriceId();
-            setTimeout(updatePairWithPrice, 100);
-        });
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-        // Convert the ids structure to a simplified format
-        function preprocessproductData(rawData) {
-            const simplified = {};
-
-            // Iterate over balm (or pets, if needed)
-            if (rawData.ids && rawData.ids.balm) {
-                const categories = rawData.ids.balm;
-
-                for (const [orderType, flavors] of Object.entries(categories)) {
-                    for (const [flavor, sizes] of Object.entries(flavors)) {
-                        for (const [size, priceId] of Object.entries(sizes)) {
-                            if (!simplified[size]) {
-                                simplified[size] = {};
-                            }
-                            if (!simplified[size][flavor]) {
-                                simplified[size][flavor] = {};
-                            }
-                            simplified[size][flavor][orderType] = priceId;
-                        }
-                    }
-                }
-            }
-            return simplified;
-        }
-
-        // Example: Assume productPricingRaw is available globally or passed here
-        const normalizedproductData = preprocessproductData(productPricingRaw);
-        console.log('Normalized product Data:', normalizedproductData);
-
-        // Use normalizedproductData for price ID lookups
-        function getPriceID(size, flavor, orderType) {
-            return (
-                normalizedproductData[size]?.[flavor]?.[orderType] ||
-                "Price ID not found"
-            );
-        }
-
+    document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(updatePairWithPrice, 100);
     });
+</script>
 
-    </script>
-
-
-    <script>
-        // Add to Cart Handler Function
-        function handleAddToCart(event) {
+<!-- Add to Cart Handler -->
+<script>
+    function handleAddToCart(event) {
         event.preventDefault();
-
-        console.log('Add to Cart button clicked!'); // Debugging
-
-        const button = event.target;
-
-        
-
-        // Retrieve values from the dropdowns
-        const selectedSize = document.querySelector('input[name="size"]:checked');
-        const size = document.querySelector(`label[for="${selectedSize.id}"]`).textContent.trim();
-
-    // Use the text content of the selected option
-    const selectedFlavor = document.querySelector('input[name="flavor"]:checked');
-    const flavor = document.querySelector(`label[for="${selectedFlavor.id}"]`).textContent.trim();
-
-    // Use the text content of the selected option
-        const selectedOrderType = document.querySelector('input[name="orderType"]:checked');
-        const orderTypeSelect = document.querySelector(`label[for="${selectedOrderType.id}"]`).textContent.trim();
-    
-        const unitPriceElement = document.getElementById('price');
-        const unitPrice = unitPriceElement 
-            ? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00
-            : 0.00;
-
-        // Retrieve the price ID
+        const button = event.target.closest('.buy-now');
+        const size = '120g';
+        const flavor = 'Manuka Honey';
+        const orderTypeLabel = 'Free Sample';
+        const unitPrice = 0.00;
         const priceId = button.getAttribute('data-price-id') || 'N/A';
-        const title = document.querySelector('h1').innerText;
+        const title = 'Manuka Honey Tallow Soap — Free Sample';
+        const quantity = 1;
 
-        // Retrieve quantity
-        const quantityField = document.getElementById('quantityAll');
-        const quantity = quantityField ? parseInt(quantityField.value, 10) || 1 : 1;
-
-        // Debugging
-        console.log('Size:', size);
-        console.log('Flavor:', flavor);
-        console.log('Order Type:', orderTypeSelect);
-        console.log('Quantity:', quantity);
-        console.log('Price ID:', priceId);
-
-        // Check if price ID is valid
         if (!priceId || priceId === 'N/A') {
-            alert('Please select valid options before adding to cart.');
+            alert('Unable to add to cart. Please try again.');
             return;
         }
 
-        // Add to cart
         const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+
+        // Limit to one free sample per customer
+        const alreadyInCart = cart.some(item => item.priceId === 'price_1T3lElFZRwx5tlYmxR3RPwrb');
+        if (alreadyInCart) {
+            alert('You already have a free Manuka soap sample in your cart. Limit one per customer.');
+            return;
+        }
+
         cart.push({
-            priceId,
-            title,
-            size,
-            flavor,
-            orderType: orderTypeSelect,
-            quantity,
-            unitPrice,
+            priceId, title, size, flavor,
+            orderType: orderTypeLabel,
+            quantity, unitPrice,
             eligibleForDiscount: false
         });
         localStorage.setItem('cartV2', JSON.stringify(cart));
 
-        console.log('Cart updated:', cart); // Debugging
-
-        // Trigger success modal or alert
         const modal = document.getElementById('addedToCartModal');
         if (modal) {
             $('#addedToCartModal').modal('show');
         } else {
-            alert('Item added to cart successfully!');
+            alert('Free sample added to cart! Just pay shipping at checkout.');
         }
     }
 
-    // Attach the event listener to the Add to Cart button
     document.addEventListener('DOMContentLoaded', function () {
         const addToCartButton = document.querySelector('.buy-now');
-        if (addToCartButton) {
-            addToCartButton.addEventListener('click', handleAddToCart);
-            console.log('Add to Cart button is ready.');
-        } else {
-            console.error('Add to Cart button not found!');
-        }
+        if (addToCartButton) addToCartButton.addEventListener('click', handleAddToCart);
 
         // Pair-with quick add
         document.querySelectorAll('.pair-with-quick-add').forEach(function(btn) {
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
                 if (this.classList.contains('added')) return;
+
                 var product = this.getAttribute('data-product');
                 var orderType = this.getAttribute('data-order-type');
                 var flavor = this.getAttribute('data-flavor');
@@ -985,6 +557,7 @@
                 var displaySize = this.getAttribute('data-display-size');
                 var displayFlavor = this.getAttribute('data-display-flavor');
                 var displayOrderType = this.getAttribute('data-display-order-type');
+
                 try {
                     var priceId = pricingData.tallow.ids[product][orderType][flavor][size][country_code];
                     var productPricingData = pricingData.tallow.pricing[product];
@@ -996,17 +569,20 @@
                             unitPrice = entry.prices[country_code][pricingOrderType] || 0;
                         }
                     }
+
                     if (!priceId || unitPrice === 0) {
                         alert('Unable to add this product. Please visit the product page.');
                         return;
                     }
+
                     var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
                     cart.push({ priceId: priceId, title: title, size: displaySize, flavor: displayFlavor, orderType: displayOrderType, quantity: 1, unitPrice: unitPrice, eligibleForDiscount: false });
                     localStorage.setItem('cartV2', JSON.stringify(cart));
+
                     this.textContent = 'Added ✓';
                     this.classList.add('added');
                     this.disabled = true;
-                    // Toast
+
                     var toast = document.getElementById('pairWithToast');
                     var toastText = document.getElementById('pairWithToastProduct');
                     if (toast && toastText) {
@@ -1016,6 +592,7 @@
                         toast.classList.add('show');
                         setTimeout(function() { toast.classList.remove('show'); }, 4000);
                     }
+
                     if (typeof updateCartBadge === 'function') updateCartBadge();
                 } catch (err) {
                     console.error('Pair-with add error:', err);
@@ -1024,25 +601,18 @@
             });
         });
     });
-
-    </script>
-
-
-
-
-
+</script>
 
 <!-- Modal for Add to Cart Confirmation -->
 <div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
-                </button>
+                <h5 class="modal-title" id="addedToCartModalLabel">Free Sample Added!</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Your item has been successfully added to the cart. What would you like to do next?
+                Your free Manuka Honey Tallow Soap has been added to your cart. Just pay shipping at checkout. What would you like to do next?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
@@ -1052,102 +622,9 @@
     </div>
 </div>
 
-    <!-- YAML SCRIPT ENDS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
-
-    <script>
-        const quantityInput = document.getElementById('quantityAll');
-        const btnIncrease = document.querySelector('.btn-increase');
-        const btnDecrease = document.querySelector('.btn-decrease');
-        
-        // Increase quantity
-        btnIncrease.addEventListener('click', () => {
-          quantityInput.value = parseInt(quantityInput.value) + 1;
-        });
-        
-        // Decrease quantity (minimum value = 1)
-        btnDecrease.addEventListener('click', () => {
-          const currentValue = parseInt(quantityInput.value);
-          if (currentValue > 1) {
-            quantityInput.value = currentValue - 1;
-          }
-        });
-        
-            </script>
-            
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    const flavorOptions = document.querySelectorAll('input[name="flavor"]');
-                    const sizeOptions = document.querySelectorAll('input[name="size"]');
-                    const stockLabel = document.querySelector('label[for="inStock"]');
-                    const customRadio = document.querySelector('.custom-radio');
-                    const addToCartButton = document.querySelector('.buy-now');
-            
-                    // Define out-of-stock combinations
-                    const outOfStockCombinations = [
-                    ];
-            
-                    function updateStockLabel() {
-                        const selectedFlavor = document.querySelector('input[name="flavor"]:checked').value;
-                        const selectedSize = document.querySelector('input[name="size"]:checked').value;
-            
-                        // Check if the selected combination is out of stock
-                        const isOutOfStock = outOfStockCombinations.some(combo =>
-                            combo.flavor === selectedFlavor && combo.size === selectedSize
-                        );
-            
-                        document.querySelectorAll('.custom-radio').forEach(radio => {
-                            radio.classList.remove('out-of-stock', 'in-stock'); // Clear existing classes
-                        });
-            
-                        if (isOutOfStock) {
-                            stockLabel.textContent = "Temporarily of Stock";
-                            stockLabel.style.color = "red"; // Apply red color for out of stock
-            
-                            // Disable the Add to Cart button
-                            addToCartButton.disabled = true;
-                            addToCartButton.style.backgroundColor = "gray"; // Gray out the button
-                            addToCartButton.style.cursor = "not-allowed"; // Change cursor style
-            
-                            // Apply out-of-stock class to all relevant elements
-                            document.querySelectorAll('.custom-radio').forEach(radio => {
-                                radio.classList.add('out-of-stock');
-                            });
-                        } else {
-                            stockLabel.textContent = "In Stock";
-                            stockLabel.style.color = "green"; // Apply green color for in stock
-            
-                            // Enable the Add to Cart button
-                            addToCartButton.disabled = false;
-                            addToCartButton.style.backgroundColor = ""; // Reset to default color
-                            addToCartButton.style.cursor = "pointer"; // Reset cursor style
-            
-                            // Apply in-stock class to all relevant elements
-                            document.querySelectorAll('.custom-radio').forEach(radio => {
-                                radio.classList.add('in-stock');
-                            });
-                        }
-                    }
-            
-                    flavorOptions.forEach(option => {
-                        option.addEventListener('change', updateStockLabel);
-                    });
-            
-                    sizeOptions.forEach(option => {
-                        option.addEventListener('change', updateStockLabel);
-                    });
-            
-                    // Initialize on page load
-                    updateStockLabel();
-                });
-            </script>
-            
-            
-            
-
-
-
-    {{- partial "footer.html" . }}
+{{- partial "footer.html" . }}
 
 </body>
 </html>
