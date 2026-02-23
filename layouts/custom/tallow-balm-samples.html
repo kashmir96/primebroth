@@ -49,6 +49,9 @@
 
     <style>
     /* ─── SAMPLE PAGE OVERRIDES ─── */
+    .gallery-main {
+        position: relative;
+    }
     .free-tag {
         display: inline-block;
         background: #6B8F5B;
@@ -244,6 +247,65 @@
         line-height: 1.5;
         margin: 0;
     }
+
+    /* ─── BUTTON SHAPE OVERRIDE ─── */
+    .btn-add-to-cart.buy-now {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 16px 28px;
+        border: none;
+        border-radius: 12px;
+        background: #2E1A0E;
+        color: #fff;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+        box-shadow: 0 4px 14px rgba(46, 26, 14, 0.25);
+        -webkit-appearance: none;
+        appearance: none;
+        line-height: 1.4;
+    }
+    .btn-add-to-cart.buy-now:hover {
+        background: #1a0f07;
+        box-shadow: 0 6px 20px rgba(46, 26, 14, 0.35);
+    }
+    .btn-add-to-cart.buy-now:active {
+        transform: scale(0.98);
+        box-shadow: 0 2px 8px rgba(46, 26, 14, 0.2);
+    }
+
+    /* ─── CROSS-SELL PAIR-WITH ─── */
+    .pp-pair-with { max-width: 900px; margin: 0 auto; padding: 0; }
+    .pp-pair-card { display: flex; align-items: center; gap: 16px; background: #FDFBF7; border: 1px solid #EEDED0; border-radius: 12px; padding: 16px 20px; margin-top: 12px; }
+    .pp-pair-label { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: #877B71; margin-bottom: 0; text-transform: uppercase; margin-top: 20px; }
+    .pp-pair-img { width: 80px; height: 80px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
+    .pp-pair-info { flex: 1; }
+    .pp-pair-title { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 14px; color: #2E1A0E; margin: 0 0 2px; }
+    .pp-pair-title a { color: inherit; text-decoration: none; }
+    .pp-pair-title a:hover { text-decoration: underline; }
+    .pp-pair-desc { font-family: 'DM Sans', sans-serif; font-size: 12px; color: #877B71; margin: 0 0 8px; }
+    .pp-pair-row { display: flex; align-items: center; justify-content: space-between; }
+    .pp-pair-price { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 15px; color: #2E1A0E; }
+    .pp-pair-btn { background: #000; color: #fff; border: none; padding: 7px 16px; border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+    .pp-pair-btn:hover { background: #333; }
+    .pp-pair-btn.added { background: #4CAF50; cursor: default; }
+
+    /* ─── TOAST ─── */
+    .pp-toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: #fff; border-radius: 12px; padding: 14px 18px; box-shadow: 0 8px 30px rgba(0,0,0,0.2); z-index: 999999; opacity: 0; visibility: hidden; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px; }
+    .pp-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; visibility: visible; }
+    .pp-toast-text { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; }
+    .pp-toast-link { background: #000; color: #fff; padding: 7px 14px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 500; white-space: nowrap; }
+    .pp-toast-link:hover { background: #333; color: #fff; }
+    @media (max-width: 767px) {
+        .pp-toast { left: 10px; right: 10px; bottom: 80px; transform: translateX(0) translateY(100px); max-width: none; }
+        .pp-toast.show { transform: translateX(0) translateY(0); }
+    }
     </style>
 </head>
 <body>
@@ -265,6 +327,19 @@
             <img class="main-image" id="mainImage" fetchpriority="high" src="/img/samplead.webp" alt="Free tallow balm sample">
             <div class="exclusive-badge">
                 <span class="dot"></span> Online Exclusive
+            </div>
+            <!-- EANZ Pill Overlay -->
+            <div class="pp-eanz-pill">
+              <img src="/img/home/eanz.webp" alt="Eczema Association of New Zealand" width="46" height="46">
+              <div class="pp-eanz-pill-text">
+                <span class="pp-eanz-pill-label">Official Gold Supporters</span>
+                <span class="pp-eanz-pill-title">Eczema Association of New Zealand</span>
+                <span class="pp-eanz-pill-commit">$70,000 committed to Kiwis with eczema</span>
+                <button class="pp-eanz-pill-link" onclick="document.getElementById('pp-eanz-modal').classList.add('is-open');document.body.style.overflow='hidden';">
+                  What's this mean?
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+              </div>
             </div>
         </div>
         <div class="gallery-thumbs">
@@ -432,24 +507,56 @@
             </div>
         </div>
 
+        <!-- ─── CROSS-SELL PAIR-WITH ─── -->
+        <div class="pp-pair-with">
+            <p class="pp-pair-label">Love the sample? Pairs perfectly with</p>
+            <div class="pp-pair-card">
+                <a href="/shop/products/tallow-serum/">
+                    <img src="/img/serum.webp" alt="Tallow Glow Serum" class="pp-pair-img" loading="lazy">
+                </a>
+                <div class="pp-pair-info">
+                    <p class="pp-pair-title"><a href="/shop/products/tallow-serum/">Tallow Glow Serum — Vitamin C & Hyaluronic Acid</a></p>
+                    <p class="pp-pair-desc">Layer under your balm to brighten and deeply hydrate — the perfect partner</p>
+                    <div class="pp-pair-row">
+                        <span class="pp-pair-price" data-product="serum" data-size="30ml" data-order-type="single_purchase">$38.20</span>
+                        <button class="pp-pair-btn pair-with-quick-add"
+                            data-product="serum"
+                            data-order-type="single"
+                            data-flavor="vitc"
+                            data-size="30ml"
+                            data-title="Tallow Glow Serum"
+                            data-display-size="30ml"
+                            data-display-flavor="Vitamin C & Hyaluronic Acid"
+                            data-display-order-type="Single bottle">Quick Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 <!-- ===== EANZ PILL + MODAL ===== -->
 <style>
 .pp-eanz-pill {
   display: inline-flex;
   align-items: center;
-  gap: 16px;
-  background: var(--white, #FFFFFF);
-  border: 1px solid var(--cream-deep, #EEDED0);
-  border-radius: 16px;
-  padding: 14px 22px;
-  width: fit-content;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(238, 222, 208, 0.6);
+  border-radius: 14px;
+  padding: 12px 16px;
+  width: calc(100% - 32px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.10);
   cursor: default;
   transition: box-shadow 0.3s;
-  margin-top: 16px;
+  margin-top: 0;
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  z-index: 2;
 }
-.pp-eanz-pill:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
-.pp-eanz-pill img { height: 52px; width: auto; flex-shrink: 0; }
+.pp-eanz-pill:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.14); }
+.pp-eanz-pill img { height: 46px; width: auto; flex-shrink: 0; }
 .pp-eanz-pill-text { display: flex; flex-direction: column; gap: 2px; }
 .pp-eanz-pill-label { font-family: 'DM Sans', sans-serif; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; color: var(--sage, #6B8F5B); line-height: 1.3; }
 .pp-eanz-pill-title { font-family: 'Fraunces', serif; font-size: 0.95rem; color: var(--bark, #2E1A0E); font-weight: 700; line-height: 1.25; }
@@ -478,23 +585,13 @@
   .pp-eanz-modal-body { grid-template-columns: 1fr; gap: 28px; padding: 32px 24px; }
   .pp-eanz-modal-right { flex-direction: column; align-items: center; text-align: center; }
   .pp-eanz-modal-text { text-align: center; }
-  .pp-eanz-pill { padding: 12px 16px; gap: 12px; }
-  .pp-eanz-pill img { height: 42px; }
+  .pp-eanz-pill { padding: 10px 12px; gap: 10px; bottom: 12px; left: 12px; width: calc(100% - 24px); }
+  .pp-eanz-pill img { height: 38px; }
+  .pp-eanz-pill-title { font-size: 0.82rem; }
+  .pp-eanz-pill-commit { font-size: 0.7rem; }
 }
 </style>
 
-<div class="pp-eanz-pill">
-  <img src="/img/home/eanz.webp" alt="Eczema Association of New Zealand" width="52" height="52">
-  <div class="pp-eanz-pill-text">
-    <span class="pp-eanz-pill-label">Official Gold Supporters</span>
-    <span class="pp-eanz-pill-title">Eczema Association of New Zealand</span>
-    <span class="pp-eanz-pill-commit">$70,000 committed to Kiwis with eczema</span>
-    <button class="pp-eanz-pill-link" onclick="document.getElementById('pp-eanz-modal').classList.add('is-open');document.body.style.overflow='hidden';">
-      What's this mean?
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </button>
-  </div>
-</div>
 
 <div class="pp-eanz-modal-overlay" id="pp-eanz-modal" onclick="if(event.target===this){this.classList.remove('is-open');document.body.style.overflow=''}">
   <div class="pp-eanz-modal">
@@ -691,6 +788,13 @@
     {{- partial "irritation-routine.html" . -}}
 </div>
 
+<!-- ─── TOAST ─── -->
+<div id="pairWithToast" class="pp-toast">
+    <svg width="24" height="24" fill="#4CAF50" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+    <span class="pp-toast-text" id="pairWithToastProduct">Added to Cart!</span>
+    <a href="/cart" class="pp-toast-link">View Cart</a>
+</div>
+
 <!-- ─── PAGE SCRIPTS ─── -->
 <script>
     // Image switcher
@@ -781,6 +885,80 @@
                 alert('Item added to cart successfully!');
             }
         });
+
+        // Pair-with quick add
+        document.querySelectorAll('.pair-with-quick-add').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (this.classList.contains('added')) return;
+                var product = this.getAttribute('data-product');
+                var orderType = this.getAttribute('data-order-type');
+                var flavor = this.getAttribute('data-flavor');
+                var size = this.getAttribute('data-size');
+                var title = this.getAttribute('data-title');
+                var displaySize = this.getAttribute('data-display-size');
+                var displayFlavor = this.getAttribute('data-display-flavor');
+                var displayOrderType = this.getAttribute('data-display-order-type');
+                try {
+                    var priceId = pricingData.tallow.ids[product][orderType][flavor][size][country_code];
+                    var productPricingData = pricingData.tallow.pricing[product];
+                    var unitPrice = 0;
+                    if (Array.isArray(productPricingData)) {
+                        var entry = productPricingData.find(function(e) { return e.size.toLowerCase() === size.toLowerCase(); });
+                        if (entry && entry.prices[country_code]) {
+                            var pricingOrderType = orderType === 'single' ? 'single_purchase' : orderType;
+                            unitPrice = entry.prices[country_code][pricingOrderType] || 0;
+                        }
+                    }
+                    if (!priceId || unitPrice === 0) { alert('Unable to add this product. Please visit the product page.'); return; }
+                    var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+                    cart.push({ priceId: priceId, title: title, size: displaySize, flavor: displayFlavor, orderType: displayOrderType, quantity: 1, unitPrice: unitPrice, eligibleForDiscount: false });
+                    localStorage.setItem('cartV2', JSON.stringify(cart));
+                    this.textContent = 'Added ✓';
+                    this.classList.add('added');
+                    this.disabled = true;
+                    var toast = document.getElementById('pairWithToast');
+                    var toastText = document.getElementById('pairWithToastProduct');
+                    if (toast && toastText) {
+                        toastText.textContent = title + ' added!';
+                        toast.classList.remove('show');
+                        void toast.offsetWidth;
+                        toast.classList.add('show');
+                        setTimeout(function() { toast.classList.remove('show'); }, 4000);
+                    }
+                    if (typeof updateCartBadge === 'function') updateCartBadge();
+                } catch (err) {
+                    console.error('Pair-with add error:', err);
+                    alert('Unable to add this product. Please visit the product page.');
+                }
+            });
+        });
+    });
+</script>
+
+<!-- Pricing data for pair-with -->
+<script>
+    const rawData = "{{ .Site.Data.pricing | jsonify }}";
+    const pricingData = JSON.parse(rawData);
+    function updatePairWithPrice() {
+        var priceElements = document.querySelectorAll('.pp-pair-price');
+        priceElements.forEach(function(el) {
+            var product = el.getAttribute('data-product');
+            var size = el.getAttribute('data-size');
+            var orderType = el.getAttribute('data-order-type');
+            try {
+                var productPricingData = pricingData.tallow.pricing[product];
+                if (Array.isArray(productPricingData)) {
+                    var entry = productPricingData.find(function(e) { return e.size.toLowerCase() === size.toLowerCase(); });
+                    if (entry && entry.prices[country_code] && entry.prices[country_code][orderType]) {
+                        el.textContent = '$' + entry.prices[country_code][orderType].toFixed(2);
+                    }
+                }
+            } catch (err) { console.error('Pair-with price error:', err); }
+        });
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(updatePairWithPrice, 100);
     });
 </script>
 
