@@ -248,6 +248,57 @@
         margin: 0;
     }
 
+    /* ─── ADDON NOTICE BANNER ─── */
+    .sample-addon-notice {
+        display: none;
+        align-items: center;
+        gap: 10px;
+        background: linear-gradient(135deg, #f0f7ec 0%, #e8f2e0 100%);
+        border: 1.5px solid #6B8F5B;
+        border-radius: 10px;
+        padding: 12px 16px;
+        margin-bottom: 16px;
+        animation: addonSlideIn 0.3s ease;
+    }
+    .sample-addon-notice.visible {
+        display: flex;
+    }
+    @keyframes addonSlideIn {
+        from { opacity: 0; transform: translateY(-6px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .sample-addon-notice svg {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: #6B8F5B;
+    }
+    .sample-addon-notice-text {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.82rem;
+        color: #2E1A0E;
+        line-height: 1.4;
+    }
+    .sample-addon-notice-text strong {
+        color: #6B8F5B;
+    }
+
+    .scent-price .addon-price-group {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .scent-price .was-free {
+        text-decoration: line-through;
+        color: #bbb;
+        font-weight: 400;
+        font-size: 0.78rem;
+    }
+    .scent-price .addon-price {
+        color: #2E1A0E;
+        font-weight: 700;
+    }
+
     /* ─── BUTTON SHAPE OVERRIDE ─── */
     .btn-add-to-cart.buy-now {
         display: flex;
@@ -373,7 +424,7 @@
             
         </div>
 
-        <span class="free-tag">Free Sample</span>
+        <span class="free-tag" id="freeTag">Free Sample</span>
         <h1 class="pp-product-title">Try Our Whipped Tallow Balm</h1>
         <p class="pp-product-subtitle">Find your perfect scent — on us</p>
         <p class="pp-product-edition">From PrimalCare · Just pay shipping</p>
@@ -392,9 +443,17 @@
 
         <!-- ─── SCENT SELECTION ─── -->
         <div class="pp-selector-group" style="margin-top: 24px;">
-            <div class="pp-selector-label">Choose your free sample</div>
+            <div class="pp-selector-label" id="selectorLabel">Choose your free sample</div>
 
-            <label class="scent-option selected" data-scent="natural" data-price-id="price_1T2FlvFZRwx5tlYmh8iEGXmH">
+            <!-- Addon notice — shown when a sample is already in cart -->
+            <div class="sample-addon-notice" id="addonNotice">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                <span class="sample-addon-notice-text">
+                    <strong>Free sample in your cart!</strong> Add extra scents for just $4 each to find your favourite.
+                </span>
+            </div>
+
+            <label class="scent-option selected" data-scent="natural" data-price-id="price_1T2FlvFZRwx5tlYmh8iEGXmH" data-addon-price-id="price_1T4zGgFZRwx5tlYmxFbdELFx">
                 <input type="radio" name="sampleChoice" value="natural" checked>
                 <div class="scent-radio"><div class="dot-inner"></div></div>
                 <div class="scent-details">
@@ -404,7 +463,7 @@
                 <div class="scent-price"><span class="free-label">FREE</span></div>
             </label>
 
-            <label class="scent-option" data-scent="lavender" data-price-id="price_1T2FllFZRwx5tlYmR35A4QAG">
+            <label class="scent-option" data-scent="lavender" data-price-id="price_1T2FllFZRwx5tlYmR35A4QAG" data-addon-price-id="price_1T4zGtFZRwx5tlYmy7IF7cTj">
                 <input type="radio" name="sampleChoice" value="lavender">
                 <div class="scent-radio"><div class="dot-inner"></div></div>
                 <div class="scent-details">
@@ -414,7 +473,7 @@
                 <div class="scent-price"><span class="free-label">FREE</span></div>
             </label>
 
-            <label class="scent-option" data-scent="frankincense" data-price-id="price_1T2FlHFZRwx5tlYm4ak7amwP">
+            <label class="scent-option" data-scent="frankincense" data-price-id="price_1T2FlHFZRwx5tlYm4ak7amwP" data-addon-price-id="price_1T4zH4FZRwx5tlYmcdUsbpH9">
                 <input type="radio" name="sampleChoice" value="frankincense">
                 <div class="scent-radio"><div class="dot-inner"></div></div>
                 <div class="scent-details">
@@ -424,7 +483,7 @@
                 <div class="scent-price"><span class="free-label">FREE</span></div>
             </label>
 
-            <label class="scent-option" data-scent="vanilla-rose" data-price-id="price_1T2FlZFZRwx5tlYmnr1SuFEW">
+            <label class="scent-option" data-scent="vanilla-rose" data-price-id="price_1T2FlZFZRwx5tlYmnr1SuFEW" data-addon-price-id="price_1T4zHJFZRwx5tlYmZvifB8mg">
                 <input type="radio" name="sampleChoice" value="vanilla-rose">
                 <div class="scent-radio"><div class="dot-inner"></div></div>
                 <div class="scent-details">
@@ -434,7 +493,7 @@
                 <div class="scent-price"><span class="free-label">FREE</span></div>
             </label>
 
-            <label class="scent-option" data-scent="vanilla-manuka" data-price-id="price_1T2Fm9FZRwx5tlYmymnHUvaN">
+            <label class="scent-option" data-scent="vanilla-manuka" data-price-id="price_1T2Fm9FZRwx5tlYmymnHUvaN" data-addon-price-id="price_1T4zGVFZRwx5tlYmsp90luT6">
                 <input type="radio" name="sampleChoice" value="vanilla-manuka">
                 <div class="scent-radio"><div class="dot-inner"></div></div>
                 <div class="scent-details">
@@ -444,7 +503,7 @@
                 <div class="scent-price"><span class="free-label">FREE</span></div>
             </label>
 
-            <label class="scent-option" data-scent="vanilla-blue-tansy" data-price-id="price_1T2FmNFZRwx5tlYmTvMvjqDC">
+            <label class="scent-option" data-scent="vanilla-blue-tansy" data-price-id="price_1T2FmNFZRwx5tlYmTvMvjqDC" data-addon-price-id="price_1T4zGEFZRwx5tlYmxVNyAmg0">
                 <input type="radio" name="sampleChoice" value="vanilla-blue-tansy">
                 <div class="scent-radio"><div class="dot-inner"></div></div>
                 <div class="scent-details">
@@ -792,6 +851,25 @@
     <a href="/cart" class="pp-toast-link">View Cart</a>
 </div>
 
+<!-- ─── MODAL for Add to Cart Confirmation ─── -->
+<div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addedToCartModalLabel">Added to Cart</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="addedToCartModalBody">
+                Your item has been successfully added to the cart. What would you like to do next?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="modalPickAnother" data-dismiss="modal">Pick another scent</button>
+                <a href="/cart" class="btn btn-black" id="modalCheckout">Checkout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- ─── PAGE SCRIPTS ─── -->
 <script>
     // Image switcher
@@ -811,49 +889,106 @@
         btn.classList.add('active');
     }
 
+    // ─── HELPER: Check if a sample or tester already exists in cart ───
+    function cartHasSampleOrTester() {
+        var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+        return cart.some(function(item) {
+            return item.title === 'Tallow Balm - Free Sample' ||
+                   item.title === 'Tallow Balm Tester' ||
+                   item.title === 'Tallow Balm - Try Them All Pack';
+        });
+    }
+
     // Scent selection logic
     document.addEventListener('DOMContentLoaded', function () {
-        const scentOptions = document.querySelectorAll('.scent-option');
-        const cartBtn = document.getElementById('sampleAddToCart');
-        const cartBtnText = document.getElementById('cartBtnText');
+        var scentOptions = document.querySelectorAll('.scent-option');
+        var cartBtn = document.getElementById('sampleAddToCart');
+        var cartBtnText = document.getElementById('cartBtnText');
 
-        scentOptions.forEach(option => {
+        // ─── Update button text & prices based on cart state ───
+        function updateButtonAndPrices() {
+            var hasSample = cartHasSampleOrTester();
+            var selectedOption = document.querySelector('.scent-option.selected');
+            var scent = selectedOption ? selectedOption.dataset.scent : 'natural';
+            var addonNotice = document.getElementById('addonNotice');
+            var selectorLabel = document.getElementById('selectorLabel');
+            var freeTag = document.getElementById('freeTag');
+
+            // Show/hide the addon notice banner
+            if (hasSample) {
+                addonNotice.classList.add('visible');
+                selectorLabel.textContent = 'Add another scent — $4 each';
+                freeTag.textContent = '$4 Testers';
+                freeTag.style.background = '#c4914e';
+            } else {
+                addonNotice.classList.remove('visible');
+                selectorLabel.textContent = 'Choose your free sample';
+                freeTag.textContent = 'Free Sample';
+                freeTag.style.background = '#6B8F5B';
+            }
+
+            // Update all individual scent price labels
+            scentOptions.forEach(function(opt) {
+                if (opt.dataset.scent === 'try-all') return; // skip try-all
+                var priceEl = opt.querySelector('.scent-price');
+                if (hasSample) {
+                    priceEl.innerHTML = '<span class="addon-price-group"><span class="was-free">FREE</span> <span class="addon-price">$4.00</span></span>';
+                } else {
+                    priceEl.innerHTML = '<span class="free-label">FREE</span>';
+                }
+            });
+
+            // Update main CTA button text
+            if (scent === 'try-all') {
+                cartBtnText.textContent = 'Get Try Them All Pack — $20.00';
+            } else if (hasSample) {
+                cartBtnText.textContent = 'Add Tester — $4.00';
+            } else {
+                cartBtnText.textContent = 'Get Free Sample — Just Pay Shipping';
+            }
+        }
+
+        // Run on load
+        updateButtonAndPrices();
+
+        scentOptions.forEach(function(option) {
             option.addEventListener('click', function () {
-                // Update visual state
-                scentOptions.forEach(o => o.classList.remove('selected'));
+                scentOptions.forEach(function(o) { o.classList.remove('selected'); });
                 this.classList.add('selected');
                 this.querySelector('input[type="radio"]').checked = true;
-
-                // Update button text
-                const scent = this.dataset.scent;
-                if (scent === 'try-all') {
-                    cartBtnText.textContent = 'Get Try Them All Pack — $20.00';
-                } else {
-                    cartBtnText.textContent = 'Get Free Sample — Just Pay Shipping';
-                }
+                updateButtonAndPrices();
             });
         });
 
-        // Add to cart
+        // ─── Add to cart ───
         cartBtn.addEventListener('click', function (event) {
             event.preventDefault();
 
-            const selectedOption = document.querySelector('.scent-option.selected');
+            var selectedOption = document.querySelector('.scent-option.selected');
             if (!selectedOption) return;
 
-            const scent = selectedOption.dataset.scent;
-            const priceId = selectedOption.dataset.priceId;
-            const scentName = selectedOption.querySelector('.scent-name').textContent.trim();
+            var scent = selectedOption.dataset.scent;
+            var scentName = selectedOption.querySelector('.scent-name').textContent.trim();
+            var hasSample = cartHasSampleOrTester();
 
-            let title, unitPrice, flavor;
+            var title, unitPrice, priceId, flavor;
 
             if (scent === 'try-all') {
                 title = 'Tallow Balm - Try Them All Pack';
                 unitPrice = 20.00;
+                priceId = selectedOption.dataset.priceId;
                 flavor = 'All 6 Scents';
+            } else if (hasSample) {
+                // Addon tester — use addon price ID and $4
+                title = 'Tallow Balm Tester';
+                unitPrice = 4.00;
+                priceId = selectedOption.dataset.addonPriceId;
+                flavor = scentName;
             } else {
+                // First free sample
                 title = 'Tallow Balm - Free Sample';
                 unitPrice = 0.00;
+                priceId = selectedOption.dataset.priceId;
                 flavor = scentName;
             }
 
@@ -862,7 +997,7 @@
                 return;
             }
 
-            const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+            var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
             cart.push({
                 priceId: priceId,
                 title: title,
@@ -875,11 +1010,50 @@
             });
             localStorage.setItem('cartV2', JSON.stringify(cart));
 
-            const modal = document.getElementById('addedToCartModal');
-            if (modal) {
-                $('#addedToCartModal').modal('show');
+            // Update badge if function exists
+            if (typeof updateCartBadge === 'function') updateCartBadge();
+
+            // ─── Update modal content based on what was just added ───
+            var modalTitle = document.getElementById('addedToCartModalLabel');
+            var modalBody = document.getElementById('addedToCartModalBody');
+            var modalPickBtn = document.getElementById('modalPickAnother');
+            var modalCheckoutBtn = document.getElementById('modalCheckout');
+
+            if (scent === 'try-all') {
+                modalTitle.textContent = 'Added to Cart';
+                modalBody.textContent = 'Your Try Them All Pack has been added!';
+                modalPickBtn.textContent = 'Continue Shopping';
+            } else if (!hasSample) {
+                // First free sample was just added — upsell another
+                modalTitle.textContent = 'Nice Choice! 🎉';
+                modalBody.innerHTML = 'The first one\'s on us — want to add another scent to try for <strong>$4</strong>?';
+                modalPickBtn.textContent = 'Pick another scent';
             } else {
-                alert('Item added to cart successfully!');
+                // Addon tester was just added — upsell another
+                modalTitle.textContent = 'Added! 🎉';
+                modalBody.innerHTML = 'Your ' + flavor + ' tester has been added. Want to try another scent for <strong>$4</strong>?';
+                modalPickBtn.textContent = 'Pick another scent';
+            }
+
+            modalCheckoutBtn.textContent = 'Proceed to Cart';
+            modalCheckoutBtn.href = '/cart';
+
+            // Show modal
+            $('#addedToCartModal').modal('show');
+
+            // After modal closes, refresh button/prices
+            $('#addedToCartModal').one('hidden.bs.modal', function() {
+                updateButtonAndPrices();
+            });
+        });
+
+        // ─── "Pick another scent" button just closes modal ───
+        document.getElementById('modalPickAnother').addEventListener('click', function() {
+            $('#addedToCartModal').modal('hide');
+            // Scroll to scent selector
+            var selectorGroup = document.querySelector('.pp-selector-group');
+            if (selectorGroup) {
+                selectorGroup.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         });
 
@@ -958,25 +1132,6 @@
         setTimeout(updatePairWithPrice, 100);
     });
 </script>
-
-<!-- Modal for Add to Cart Confirmation -->
-<div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
-                <button type="button" class="btn-close" aria-label="Close" onclick="window.location.href='/shop'"></button>
-            </div>
-            <div class="modal-body">
-                Your item has been successfully added to the cart. What would you like to do next?
-            </div>
-            <div class="modal-footer">
-                <a href="/shop" class="btn btn-secondary">Continue Shopping</a>
-                <a href="/cart" class="btn btn-black">Checkout</a>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
