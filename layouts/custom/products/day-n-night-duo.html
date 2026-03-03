@@ -6,14 +6,14 @@
     <meta name="description" content="Limited Edition Tallow & Honey Balms — Midnight Mousse (Cacao & Blood Orange) and Sunrise Glow (Ylang Ylang & Buckthorn). Grass-fed NZ tallow with Manuka honey. Available for a limited time only from PrimalCare." />
     <meta property="og:title" content="Limited Edition Tallow & Honey Balms | PrimalPantry" />
     <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
-    <meta property="og:url" content="https://primalpantry.co.nz/shop/products/limited-edition/" />
+    <meta property="og:url" content="https://primalpantry.co.nz/shop/products/day-n-night/" />
     <meta property="og:image" content="https://primalpantry.co.nz/img/le-midnight.webp" />
     <meta property="og:description" content="Two limited edition tallow & honey balms — Midnight Mousse (Cacao & Blood Orange) and Sunrise Glow (Ylang Ylang & Buckthorn). Once they're gone, they're gone." />
     <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
     <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
     <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="canonical" href="https://primalpantry.co.nz/shop/products/limited-edition/" />
+    <link rel="canonical" href="https://primalpantry.co.nz/shop/products/day-n-night/" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -27,7 +27,7 @@
         "brand": { "@type": "Brand", "name": "PrimalPantry" },
         "offers": {
             "@type": "Offer",
-            "url": "https://primalpantry.co.nz/shop/products/limited-edition/",
+            "url": "https://primalpantry.co.nz/shop/products/day-n-night/",
             "priceCurrency": "NZD",
             "price": "29.95",
             "availability": "https://schema.org/InStock",
@@ -231,13 +231,14 @@
             <div class="scent-pills">
                 <div class="scent-pill active" data-scent="midnight" onclick="selectScent('midnight', this)">🍫 Midnight Mousse</div>
                 <div class="scent-pill" data-scent="sunrise" onclick="selectScent('sunrise', this)">🌅 Sunrise Glow</div>
+                <div class="scent-pill" data-scent="duo" onclick="selectScent('duo', this)">🌗 Day n Night Duo</div>
             </div>
         </div>
 
         <!-- Scent description -->
         <div class="scent-description" id="scentDesc">
             <h4 id="scentDescTitle">Cacao & Blood Orange</h4>
-            <p id="scentDescText">Think chocolate orange — but for your skin. Antioxidant-rich cacao protects and nourishes while vitamin C-packed blood orange brightens your complexion. All blended into our signature grass-fed tallow &amp; Manuka honey base.</p>
+            <p id="scentDescText">Think chocolate orange — but for your skin. Antioxidant-rich cacao protects and nourishes while vitamin C-packed blood orange brightens your complexion. All blended into our signature grass-fed tallow & Manuka honey base.</p>
         </div>
 
         <!-- Purchase options -->
@@ -247,13 +248,13 @@
                 <div class="option-left">
                     <div class="option-radio"><div class="dot-inner"></div></div>
                     <div>
-                        <div class="option-label">Single Jar</div>
-                        <div class="option-sublabel">120ml</div>
+                        <div class="option-label" id="singleLabel">Single Jar</div>
+                        <div class="option-sublabel" id="singleSublabel">120ml</div>
                     </div>
                 </div>
-                <div class="option-price">$<span class="opt-price-display">29.95</span></div>
+                <div class="option-price">$<span class="opt-price-display" id="singlePriceDisplay">29.95</span></div>
             </label>
-            <label class="purchase-option" data-option="three_pack">
+            <label class="purchase-option" data-option="three_pack" id="threePackOption">
                 <input type="radio" name="purchaseType" value="three_pack">
                 <div class="option-left">
                     <div class="option-radio"><div class="dot-inner"></div></div>
@@ -263,17 +264,6 @@
                     </div>
                 </div>
                 <div class="option-price">$<span class="opt-price-display">71.95</span></div>
-            </label>
-            <label class="purchase-option" data-option="duo">
-                <input type="radio" name="purchaseType" value="duo">
-                <div class="option-left">
-                    <div class="option-radio"><div class="dot-inner"></div></div>
-                    <div>
-                        <div class="option-label">Day n Night Duo</div>
-                        <div class="option-sublabel">1 × Midnight Mousse + 1 × Sunrise Glow</div>
-                    </div>
-                </div>
-                <div class="option-price">$<span class="opt-price-display">54.95</span></div>
             </label>
         </div>
 
@@ -583,7 +573,7 @@
             three_pack: { price: 71.95, priceId: 'price_1T6zW0FZRwx5tlYms06Dw3f7' }
         },
         duo: {
-            duo: { price: 54.95, priceId: 'price_1T71VpFZRwx5tlYmVRWfXb8k' }
+            single:     { price: 54.95, priceId: 'price_1T71VpFZRwx5tlYmVRWfXb8k' }
         }
     };
 
@@ -592,13 +582,25 @@
             title: 'Cacao & Blood Orange',
             text: 'Think chocolate orange — but for your skin. Antioxidant-rich cacao protects and nourishes while vitamin C-packed blood orange brightens your complexion. All blended into our signature grass-fed tallow & Manuka honey base.',
             label: 'Midnight Mousse',
-            cartFlavor: 'Cacao & Blood Orange (Limited Edition)'
+            cartFlavor: 'Cacao & Blood Orange (Limited Edition)',
+            singleLabel: 'Single Jar',
+            singleSublabel: '120ml'
         },
         sunrise: {
             title: 'Ylang Ylang & Buckthorn',
             text: 'A tropical golden glow for your skin. Ylang Ylang calms and balances while sea buckthorn delivers a hit of vitamins and omega fatty acids. Deeply nourishing in our signature tallow & Manuka honey base.',
             label: 'Sunrise Glow',
-            cartFlavor: 'Ylang Ylang & Buckthorn (Limited Edition)'
+            cartFlavor: 'Ylang Ylang & Buckthorn (Limited Edition)',
+            singleLabel: 'Single Jar',
+            singleSublabel: '120ml'
+        },
+        duo: {
+            title: 'Day n Night Duo',
+            text: 'Get the best of both worlds — one Midnight Mousse (Cacao & Blood Orange) and one Sunrise Glow (Ylang Ylang & Buckthorn). Two limited edition scents, one perfect pairing.',
+            label: 'Day n Night Duo',
+            cartFlavor: 'Day n Night Duo (Midnight Mousse + Sunrise Glow)',
+            singleLabel: 'Day n Night Duo',
+            singleSublabel: '1 × Midnight Mousse + 1 × Sunrise Glow'
         }
     };
 
@@ -633,21 +635,32 @@
         document.getElementById('scentDescTitle').textContent = info.title;
         document.getElementById('scentDescText').textContent = info.text;
 
-        // Toggle ingredient display
-        document.getElementById('ingredientsMidnight').style.display = scent === 'midnight' ? '' : 'none';
-        document.getElementById('ingredientsSunrise').style.display = scent === 'sunrise' ? '' : 'none';
+        // Update single jar label
+        document.getElementById('singleLabel').textContent = info.singleLabel;
+        document.getElementById('singleSublabel').textContent = info.singleSublabel;
+        document.getElementById('singlePriceDisplay').textContent = (scent === 'duo') ? '54.95' : '29.95';
 
-        // If duo is selected, keep it; otherwise reset to single
-        if (currentOption !== 'duo') {
-            currentOption = 'single';
-            document.querySelectorAll('.purchase-option').forEach(opt => {
-                opt.classList.remove('selected');
-                opt.querySelector('input').checked = false;
-            });
-            const singleOpt = document.querySelector('.purchase-option[data-option="single"]');
-            singleOpt.classList.add('selected');
-            singleOpt.querySelector('input').checked = true;
+        // Show/hide 3 pack option
+        const threePackEl = document.getElementById('threePackOption');
+        if (scent === 'duo') {
+            threePackEl.style.display = 'none';
+        } else {
+            threePackEl.style.display = '';
         }
+
+        // Toggle ingredient display
+        document.getElementById('ingredientsMidnight').style.display = (scent === 'midnight' || scent === 'duo') ? '' : 'none';
+        document.getElementById('ingredientsSunrise').style.display = (scent === 'sunrise' || scent === 'duo') ? '' : 'none';
+
+        // Reset to single option
+        currentOption = 'single';
+        document.querySelectorAll('.purchase-option').forEach(opt => {
+            opt.classList.remove('selected');
+            opt.querySelector('input').checked = false;
+        });
+        const singleOpt = document.querySelector('.purchase-option[data-option="single"]');
+        singleOpt.classList.add('selected');
+        singleOpt.querySelector('input').checked = true;
 
         updateDisplay();
     }
@@ -665,17 +678,7 @@
 
     // ─── UPDATE PRICE & BUTTON ───
     function updateDisplay() {
-        let pricing;
-        let displayTitle;
-
-        if (currentOption === 'duo') {
-            pricing = PRICING.duo.duo;
-            displayTitle = 'Day n Night Duo';
-        } else {
-            pricing = PRICING[currentScent][currentOption];
-            displayTitle = SCENT_INFO[currentScent].label + (currentOption === 'three_pack' ? ' 3 Pack' : '');
-        }
-
+        const pricing = PRICING[currentScent][currentOption];
         if (!pricing) return;
 
         const price = pricing.price;
@@ -708,16 +711,15 @@
             return;
         }
 
-        let title, flavor, orderType, size;
+        const info = SCENT_INFO[currentScent];
+        let title = 'Tallow & Honey Balm';
+        let flavor = info.cartFlavor;
+        let orderType, size;
 
-        if (currentOption === 'duo') {
-            title = 'Tallow & Honey Balm';
-            flavor = 'Day n Night Duo (Midnight Mousse + Sunrise Glow)';
+        if (currentScent === 'duo') {
             orderType = 'Day n Night Duo';
             size = '2 × 120ml';
         } else {
-            title = 'Tallow & Honey Balm';
-            flavor = SCENT_INFO[currentScent].cartFlavor;
             orderType = currentOption === 'three_pack' ? '3 pack (save 20%)' : 'Single jar';
             size = currentOption === 'three_pack' ? '3 × 120ml' : '120ml';
         }
