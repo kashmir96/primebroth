@@ -7,7 +7,7 @@
     <meta property="og:title" content="Limited Edition Tallow & Honey Balms | PrimalPantry" />
     <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
     <meta property="og:url" content="https://primalpantry.co.nz/shop/products/day-n-night/" />
-    <meta property="og:image" content="https://primalpantry.co.nz/img/le-midnight.webp" />
+    <meta property="og:image" content="https://primalpantry.co.nz/img/le-duo.webp" />
     <meta property="og:description" content="Two limited edition tallow & honey balms — Midnight Mousse (Cacao & Blood Orange) and Sunrise Glow (Ylang Ylang & Buckthorn). Once they're gone, they're gone." />
     <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
     <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
@@ -23,7 +23,7 @@
         "@type": "Product",
         "name": "Limited Edition Tallow & Honey Balms",
         "description": "Two limited edition tallow & honey balms — Midnight Mousse (Cacao & Blood Orange) and Sunrise Glow (Ylang Ylang & Buckthorn). Grass-fed NZ tallow with Manuka honey.",
-        "image": "https://primalpantry.co.nz/img/le-midnight.webp",
+        "image": "https://primalpantry.co.nz/img/le-duo.webp",
         "brand": { "@type": "Brand", "name": "PrimalPantry" },
         "offers": {
             "@type": "Offer",
@@ -40,156 +40,39 @@
     </script>
     {{ $styles := resources.Get "css/product-page.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
-
     <style>
-    /* ─── LIMITED EDITION BADGE ─── */
-    .le-badge {
-        display: inline-block;
-        background: linear-gradient(135deg, #2E1A0E 0%, #5C3A1E 100%);
-        color: #F5E6C8;
-        font-family: 'DM Sans', sans-serif;
-        font-size: 0.72rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        padding: 4px 12px;
-        border-radius: 100px;
-        margin-right: 8px;
-    }
-    .save-badge {
-        display: inline-block;
-        background: #6B8F5B;
-        color: #fff;
-        font-family: 'DM Sans', sans-serif;
-        font-size: 0.68rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        padding: 3px 10px;
-        border-radius: 100px;
-        margin-left: 6px;
-    }
-
-    /* ─── SCENT SELECTOR OVERRIDES ─── */
-    .scent-pills {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-    .scent-pill {
-        padding: 10px 18px;
-        border-radius: 100px;
-        border: 2px solid var(--cream-deep, #EEDED0);
-        background: var(--white, #fff);
-        font-family: 'DM Sans', sans-serif;
-        font-size: 0.88rem;
-        font-weight: 600;
-        color: var(--bark, #2E1A0E);
-        cursor: pointer;
-        transition: all 0.25s ease;
-        user-select: none;
-    }
-    .scent-pill:hover {
-        border-color: var(--bark, #2E1A0E);
-    }
-    .scent-pill.active {
-        border-color: var(--bark, #2E1A0E);
-        background: var(--bark, #2E1A0E);
-        color: #fff;
-    }
-
-    /* ─── PURCHASE OPTION HIGHLIGHT FOR SELECTED ─── */
-    .purchase-option.selected {
-        border-color: var(--bark, #2E1A0E);
-        background: #FAF7F2;
-    }
-
-    /* ─── URGENCY BAR ─── */
-    .urgency-bar {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        background: #FFF8EE;
-        border: 1px solid #F5E6C8;
-        border-radius: 12px;
-        padding: 12px 18px;
-        margin-top: 12px;
-        font-family: 'DM Sans', sans-serif;
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: #8B6914;
-    }
-    .urgency-bar svg {
-        width: 18px;
-        height: 18px;
-        flex-shrink: 0;
-        color: #C9960C;
-    }
-
-    /* ─── SCENT DESCRIPTION ─── */
-    .scent-description {
-        margin-top: 16px;
-        padding: 20px 24px;
-        background: #FAF7F2;
-        border-radius: 16px;
-        border: 1px solid var(--cream-deep, #EEDED0);
-    }
-    .scent-description h4 {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: var(--bark, #2E1A0E);
-        margin: 0 0 8px;
-    }
-    .scent-description p {
-        font-family: 'DM Sans', sans-serif;
-        font-size: 0.88rem;
-        color: var(--bark-light, #6B4D38);
-        line-height: 1.6;
-        margin: 0;
-    }
+    .le-badge { display: inline-block; background: linear-gradient(135deg, #2E1A0E 0%, #5C3A1E 100%); color: #F5E6C8; font-family: 'DM Sans', sans-serif; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 4px 12px; border-radius: 100px; margin-right: 8px; }
+    .save-badge { display: inline-block; background: #6B8F5B; color: #fff; font-family: 'DM Sans', sans-serif; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 10px; border-radius: 100px; margin-left: 6px; }
+    .scent-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .scent-pill { padding: 10px 18px; border-radius: 100px; border: 2px solid var(--cream-deep, #EEDED0); background: var(--white, #fff); font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 600; color: var(--bark, #2E1A0E); cursor: pointer; transition: all 0.25s ease; user-select: none; }
+    .scent-pill:hover { border-color: var(--bark, #2E1A0E); }
+    .scent-pill.active { border-color: var(--bark, #2E1A0E); background: var(--bark, #2E1A0E); color: #fff; }
+    .purchase-option.selected { border-color: var(--bark, #2E1A0E); background: #FAF7F2; }
+    .urgency-bar { display: flex; align-items: center; gap: 10px; background: #FFF8EE; border: 1px solid #F5E6C8; border-radius: 12px; padding: 12px 18px; margin-top: 12px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 600; color: #8B6914; }
+    .urgency-bar svg { width: 18px; height: 18px; flex-shrink: 0; color: #C9960C; }
+    .scent-description { margin-top: 16px; padding: 20px 24px; background: #FAF7F2; border-radius: 16px; border: 1px solid var(--cream-deep, #EEDED0); }
+    .scent-description h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; color: var(--bark, #2E1A0E); margin: 0 0 8px; }
+    .scent-description p { font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--bark-light, #6B4D38); line-height: 1.6; margin: 0; }
     </style>
 </head>
 <body>
-
 {{- partial "alert-online.html" . -}}
 {{- partial "header_new.html" . -}}
-
-<!-- ─── BREADCRUMB ─── -->
-<div class="pp-breadcrumb">
-    <a href="/shop" class="text-dark">Shop</a> › Limited Edition Tallow & Honey Balms
-</div>
-
-<!-- ─── PRODUCT HERO ─── -->
+<div class="pp-breadcrumb"><a href="/shop" class="text-dark">Shop</a> › Limited Edition Tallow & Honey Balms</div>
 <div class="product-hero">
-
-    <!-- Gallery -->
     <div class="product-gallery">
         <div class="gallery-main">
-            <img class="main-image" id="mainImage" fetchpriority="high" src="/img/le-midnight.webp" alt="Limited Edition Midnight Mousse — Cacao & Blood Orange Tallow Balm">
-            <div class="exclusive-badge">
-                <span class="dot"></span> Limited Edition
-            </div>
+            <img class="main-image" id="mainImage" fetchpriority="high" src="/img/le-duo.webp" alt="Limited Edition Tallow Day n Night Duo">
+            <div class="exclusive-badge"><span class="dot"></span> Limited Edition</div>
         </div>
         <div class="gallery-thumbs" id="galleryThumbs">
-            <div class="thumb active" onclick="switchImage('/img/le-midnight.webp', this)">
-                <img src="/img/le-midnight.webp" alt="Midnight Mousse tallow balm" loading="lazy">
-            </div>
-            <div class="thumb" onclick="switchImage('/img/le-midnight-open.webp', this)">
-                <img src="/img/le-midnight-open.webp" alt="Midnight Mousse tallow balm open jar" loading="lazy">
-            </div>
-            <div class="thumb" onclick="switchImage('/img/le-sunrise.webp', this)">
-                <img src="/img/le-sunrise.webp" alt="Sunrise Glow tallow balm" loading="lazy">
-            </div>
-            <div class="thumb" onclick="switchImage('/img/le-duo.webp', this)">
-                <img src="/img/le-duo.webp" alt="Day n Night Duo — both limited edition balms" loading="lazy">
-            </div>
+            <div class="thumb active" onclick="switchImage('/img/le-duo.webp', this)"><img src="/img/le-duo.webp" alt="Day n Night Duo — both limited edition balms" loading="lazy"></div>
+            <div class="thumb" onclick="switchImage('/img/glow-main.webp', this)"><img src="/img/glow-main.webp" alt="Tallow balm glow" loading="lazy"></div>
+            <div class="thumb" onclick="switchImage('/img/shop/both-beforeafter.webp', this)"><img src="/img/shop/both-beforeafter.webp" alt="Tallow balm before and after results" loading="lazy"></div>
+            <div class="thumb" onclick="switchImage('/img/shop/both-child.webp', this)"><img src="/img/shop/both-child.webp" alt="Tallow balm safe for children" loading="lazy"></div>
         </div>
     </div>
-
-    <!-- Product Info -->
     <div class="product-info">
-
         <div class="trust-row">
             <div class="pp-stars">
                 <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
@@ -200,15 +83,12 @@
             </div>
             <span class="trust-text">Used by 85,000+ kiwis.</span>
         </div>
-
         <h1 class="pp-product-title">Limited Edition Tallow & Honey Balms</h1>
         <p class="pp-product-subtitle">Two kiwi-inspired scents. Once they're gone, they're gone.</p>
         <p class="pp-product-edition">PrimalCare Gold Edition</p>
-
         <div class="benefit-strip">
             <p>The same whipped tallow &amp; Manuka honey base you love — in two bold new limited edition scents. Think <strong>chocolate orange for your skin</strong> and a <strong>tropical golden glow</strong>. Same deep hydration, same natural ingredients, whole new experience.</p>
         </div>
-
         <div class="review-snippet">
             <span class="quote-mark">"</span>
             <div>
@@ -216,7 +96,6 @@
                 <p class="reviewer">— Jade R., Hamilton <span class="verified">✓ Verified Buyer</span></p>
             </div>
         </div>
-
         <div class="pp-pricing-section">
             <span class="pp-price-main">
                 <span class="le-badge">Limited Edition</span>
@@ -224,8 +103,6 @@
             </span>
             <p class="afterpay-note">or 4 interest free payments of $<span id="afterpay_price">7.49</span> with <img src="/img/afterpay.webp" class="d-inline" height="18" alt="afterpay"></p>
         </div>
-
-        <!-- Scent selector -->
         <div class="pp-selector-group">
             <div class="pp-selector-label">Choose your scent</div>
             <div class="scent-pills">
@@ -234,14 +111,10 @@
                 <div class="scent-pill" data-scent="duo" onclick="selectScent('duo', this)">🌗 Day n Night Duo</div>
             </div>
         </div>
-
-        <!-- Scent description -->
         <div class="scent-description" id="scentDesc">
             <h4 id="scentDescTitle">Cacao & Blood Orange</h4>
             <p id="scentDescText">Think chocolate orange — but for your skin. Antioxidant-rich cacao protects and nourishes while vitamin C-packed blood orange brightens your complexion. All blended into our signature grass-fed tallow & Manuka honey base.</p>
         </div>
-
-        <!-- Purchase options -->
         <div class="purchase-options" id="purchaseOptions">
             <label class="purchase-option selected" data-option="single">
                 <input type="radio" name="purchaseType" value="single" checked>
@@ -266,23 +139,16 @@
                 <div class="option-price">$<span class="opt-price-display">71.95</span></div>
             </label>
         </div>
-
-        <!-- Hidden form for cart compatibility -->
         <form id="productForm" autocomplete="off" style="display:none;">
             <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
             <input type="radio" id="midnight" name="flavor" value="cacao" checked>
             <input type="radio" id="size120ml" name="size" value="120ml" checked>
         </form>
-
         <div class="urgency-bar">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             Limited batch — once they're sold out, they won't be back.
         </div>
-
-        <div class="stock-indicator">
-            <span class="stock-dot"></span> In Stock · Ships within 1–3 business days
-        </div>
-
+        <div class="stock-indicator"><span class="stock-dot"></span> In Stock · Ships within 1–3 business days</div>
         <div class="action-row">
             <div class="pp-qty-selector">
                 <button type="button" class="btn-decrease">−</button>
@@ -294,44 +160,15 @@
                 <span id="cartBtnLabel" style="position:relative;z-index:1;">Add To Cart — $29.95</span>
             </button>
         </div>
-
         <p class="sub-cta">Money back guarantee · Speedy NZ-wide shipping</p>
-
         <div class="guarantee-bar">
-            <div class="guarantee-item">
-                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-                100% Natural
-            </div>
-            <div class="guarantee-item">
-                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-                NZ Made
-            </div>
-            <div class="guarantee-item">
-                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-                Limited Edition
-            </div>
-            <div class="guarantee-item">
-                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-                Money Back
-            </div>
+            <div class="guarantee-item"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg> 100% Natural</div>
+            <div class="guarantee-item"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg> NZ Made</div>
+            <div class="guarantee-item"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg> Limited Edition</div>
+            <div class="guarantee-item"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg> Money Back</div>
         </div>
-
-<!-- ===== EANZ PILL + MODAL ===== -->
 <style>
-.pp-eanz-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 16px;
-  background: var(--white, #FFFFFF);
-  border: 1px solid var(--cream-deep, #EEDED0);
-  border-radius: 16px;
-  padding: 14px 22px;
-  width: fit-content;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-  cursor: default;
-  transition: box-shadow 0.3s;
-  margin-top: 16px;
-}
+.pp-eanz-pill { display: inline-flex; align-items: center; gap: 16px; background: var(--white, #FFFFFF); border: 1px solid var(--cream-deep, #EEDED0); border-radius: 16px; padding: 14px 22px; width: fit-content; box-shadow: 0 2px 12px rgba(0,0,0,0.04); cursor: default; transition: box-shadow 0.3s; margin-top: 16px; }
 .pp-eanz-pill:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
 .pp-eanz-pill img { height: 52px; width: auto; flex-shrink: 0; }
 .pp-eanz-pill-text { display: flex; flex-direction: column; gap: 2px; }
@@ -358,39 +195,22 @@
 .pp-eanz-modal-text h3 { font-family: 'Fraunces', serif; font-weight: 400; font-size: 1.5rem; color: var(--bark, #2E1A0E); margin: 0 0 10px; line-height: 1.2; }
 .pp-eanz-modal-text p { font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--bark-light, #6B4D38); line-height: 1.6; margin: 0; }
 .pp-eanz-modal-text .pp-eanz-disclaimer { font-size: 0.65rem; color: var(--warm-gray, #877B71); margin-top: 10px; line-height: 1.5; }
-@media (max-width: 768px) {
-  .pp-eanz-modal-body { grid-template-columns: 1fr; gap: 28px; padding: 32px 24px; }
-  .pp-eanz-modal-right { flex-direction: column; align-items: center; text-align: center; }
-  .pp-eanz-modal-text { text-align: center; }
-  .pp-eanz-pill { padding: 12px 16px; gap: 12px; }
-  .pp-eanz-pill img { height: 42px; }
-}
+@media (max-width: 768px) { .pp-eanz-modal-body { grid-template-columns: 1fr; gap: 28px; padding: 32px 24px; } .pp-eanz-modal-right { flex-direction: column; align-items: center; text-align: center; } .pp-eanz-modal-text { text-align: center; } .pp-eanz-pill { padding: 12px 16px; gap: 12px; } .pp-eanz-pill img { height: 42px; } }
 </style>
-
 <div class="pp-eanz-pill">
   <img src="/img/home/eanz.webp" alt="Eczema Association of New Zealand" width="52" height="52">
   <div class="pp-eanz-pill-text">
     <span class="pp-eanz-pill-label">Official Gold Supporters</span>
     <span class="pp-eanz-pill-title">Eczema Association of New Zealand</span>
     <span class="pp-eanz-pill-commit">$70,000 committed to Kiwis with eczema</span>
-    <button class="pp-eanz-pill-link" onclick="document.getElementById('pp-eanz-modal').classList.add('is-open');document.body.style.overflow='hidden';">
-      What's this mean?
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </button>
+    <button class="pp-eanz-pill-link" onclick="document.getElementById('pp-eanz-modal').classList.add('is-open');document.body.style.overflow='hidden';">What's this mean? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
   </div>
 </div>
-
 <div class="pp-eanz-modal-overlay" id="pp-eanz-modal" onclick="if(event.target===this){this.classList.remove('is-open');document.body.style.overflow=''}">
   <div class="pp-eanz-modal">
-    <button class="pp-eanz-modal-close" onclick="document.getElementById('pp-eanz-modal').classList.remove('is-open');document.body.style.overflow='';" aria-label="Close">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-    </button>
+    <button class="pp-eanz-modal-close" onclick="document.getElementById('pp-eanz-modal').classList.remove('is-open');document.body.style.overflow='';" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
     <div class="pp-eanz-modal-body">
-      <div>
-        <div class="pp-eanz-modal-video-wrap" id="pp-eanz-modal-video" data-src="https://player.vimeo.com/video/1165450069?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479">
-          <div class="pp-eanz-modal-video-placeholder">▶</div>
-        </div>
-      </div>
+      <div><div class="pp-eanz-modal-video-wrap" id="pp-eanz-modal-video" data-src="https://player.vimeo.com/video/1165450069?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"><div class="pp-eanz-modal-video-placeholder">▶</div></div></div>
       <div class="pp-eanz-modal-right">
         <img src="/img/home/eanz.webp" alt="Eczema Association of New Zealand - Primal Pantry Gold Partners" width="88" height="88">
         <div class="pp-eanz-modal-text">
@@ -402,7 +222,6 @@
     </div>
   </div>
 </div>
-
 <script>
 (function(){
   var overlay = document.getElementById('pp-eanz-modal');
@@ -414,26 +233,15 @@
       videoLoaded = true;
       var src = videoWrap.getAttribute('data-src');
       videoWrap.innerHTML = '<iframe src="'+src+'" allow="autoplay;fullscreen;picture-in-picture;clipboard-write;encrypted-media;web-share" referrerpolicy="strict-origin-when-cross-origin" title="About our partnership with the Eczema Association" loading="lazy"></iframe>';
-      if (!document.querySelector('script[src*="player.vimeo.com"]')) {
-        var s = document.createElement('script');
-        s.src = 'https://player.vimeo.com/api/player.js';
-        document.body.appendChild(s);
-      }
+      if (!document.querySelector('script[src*="player.vimeo.com"]')) { var s = document.createElement('script'); s.src = 'https://player.vimeo.com/api/player.js'; document.body.appendChild(s); }
     }
   });
   mo.observe(overlay, {attributes: true, attributeFilter: ['class']});
-  document.addEventListener('keydown', function(e){
-    if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
-      overlay.classList.remove('is-open');
-      document.body.style.overflow = '';
-    }
-  });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && overlay.classList.contains('is-open')) { overlay.classList.remove('is-open'); document.body.style.overflow = ''; } });
 })();
 </script>
     </div>
 </div>
-
-<!-- ─── TABS ─── -->
 <div class="pp-tabs-section">
     <div class="pp-tabs-nav">
         <button class="pp-tab-btn active" onclick="switchTab('ingredients', this)">Ingredients</button>
@@ -443,12 +251,8 @@
     </div>
     <div class="pp-tab-panel active" id="tab-ingredients">
         <h4>Nourishing ingredients. Nothing else.</h4>
-        <div id="ingredientsMidnight">
-            <p><strong>Midnight Mousse (Cacao & Blood Orange):</strong> Grass-fed purified NZ beef tallow (98%), organic jojoba oil, Theobroma Cacao Seed Extract, Citrus Aurantium Dulcis (Orange) Peel Oil, Manuka honey.</p>
-        </div>
-        <div id="ingredientsSunrise" style="display:none;">
-            <p><strong>Sunrise Glow (Ylang Ylang & Buckthorn):</strong> Grass-fed purified NZ beef tallow (98%), organic jojoba oil, Ylang Ylang essential oil, Sea Buckthorn oil, Manuka honey.</p>
-        </div>
+        <div id="ingredientsMidnight"><p><strong>Midnight Mousse (Cacao & Blood Orange):</strong> Grass-fed purified NZ beef tallow (98%), organic jojoba oil, Theobroma Cacao Seed Extract, Citrus Aurantium Dulcis (Orange) Peel Oil, Manuka honey.</p></div>
+        <div id="ingredientsSunrise" style="display:none;"><p><strong>Sunrise Glow (Ylang Ylang & Buckthorn):</strong> Grass-fed purified NZ beef tallow (98%), organic jojoba oil, Ylang Ylang essential oil, Sea Buckthorn oil, Manuka honey.</p></div>
         <p style="margin-top:12px;">Each chosen to deeply nourish and hydrate — no fillers, no synthetics, no nasties.</p>
     </div>
     <div class="pp-tab-panel" id="tab-directions">
@@ -468,8 +272,6 @@
         <p><strong>International:</strong> Currently NZ only. Australia shipping coming soon.</p>
     </div>
 </div>
-
-<!-- ─── AS FEATURED ON ─── -->
 <div class="pp-media-section">
     <p class="pp-media-label">As featured on</p>
     <div class="pp-media-logos">
@@ -477,8 +279,6 @@
         <img src="/img/shop/mobile-logos.webp" alt="As featured on" class="pp-media-logos-img d-block d-md-none" loading="lazy">
     </div>
 </div>
-
-<!-- ─── WHY SECTION ─── -->
 <div class="pp-why-section">
     <div class="pp-why-inner">
         <div class="pp-why-content">
@@ -487,38 +287,18 @@
             <p>We've turned that feeling into skincare. Everyone's raving about the health benefits of cacao — packed with antioxidants, magnesium, and essential fatty acids. Now imagine all of that goodness working directly on your skin.</p>
         </div>
         <div class="ingredients-grid">
-            <div class="ingredient-card">
-                <h4>🟤 Cacao</h4>
-                <p>Loaded with antioxidants to protect and nourish your skin from free radical damage.</p>
-            </div>
-            <div class="ingredient-card">
-                <h4>🍊 Blood Orange</h4>
-                <p>Vitamin C rich for a brighter, more even complexion.</p>
-            </div>
-            <div class="ingredient-card">
-                <h4>🍯 Manuka Honey</h4>
-                <p>Naturally antibacterial, deeply soothing for dry, irritated skin.</p>
-            </div>
-            <div class="ingredient-card">
-                <h4>🥩 Grass-Fed Tallow</h4>
-                <p>Mirrors your skin's own fatty acids for deep hydration without clogging pores.</p>
-            </div>
+            <div class="ingredient-card"><h4>🟤 Cacao</h4><p>Loaded with antioxidants to protect and nourish your skin from free radical damage.</p></div>
+            <div class="ingredient-card"><h4>🍊 Blood Orange</h4><p>Vitamin C rich for a brighter, more even complexion.</p></div>
+            <div class="ingredient-card"><h4>🍯 Manuka Honey</h4><p>Naturally antibacterial, deeply soothing for dry, irritated skin.</p></div>
+            <div class="ingredient-card"><h4>🥩 Grass-Fed Tallow</h4><p>Mirrors your skin's own fatty acids for deep hydration without clogging pores.</p></div>
         </div>
     </div>
 </div>
-
-<!-- ─── COMPARISON ─── -->
 <div class="pp-comparison-section">
     <h2>Meet your moisturiser match</h2>
     <p class="subtitle">See why 85,000+ kiwis made the switch</p>
     <table class="comparison-table">
-        <thead>
-            <tr>
-                <th></th>
-                <th>PrimalCare</th>
-                <th>Other brands</th>
-            </tr>
-        </thead>
+        <thead><tr><th></th><th>PrimalCare</th><th>Other brands</th></tr></thead>
         <tbody>
             <tr><td>All natural ingredients</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
             <tr><td>No synthetic chemicals</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
@@ -528,251 +308,109 @@
         </tbody>
     </table>
 </div>
-
-<!-- ─── REVIEWS ─── -->
 <div class="pp-reviews-section">
     <div class="pp-reviews-inner">
         <h2>Real results from real kiwis</h2>
         <p class="pp-reviews-summary">★★★★★ Rated 4.8/5 from verified reviews</p>
         <div class="pp-reviews-grid">
-            <div class="pp-review-card">
-                <div class="review-stars">★★★★★</div>
-                <p class="review-body">"The Midnight Mousse smells incredible — like a chocolate orange but for your skin. My daughter keeps trying to steal it. Skin feels amazing."</p>
-                <p class="review-author">Jade R.</p>
-                <p class="review-verified">✓ Verified Buyer · Hamilton</p>
-            </div>
-            <div class="pp-review-card">
-                <div class="review-stars">★★★★★</div>
-                <p class="review-body">"Bought the duo pack and I'm obsessed with both. The Sunrise Glow is gorgeous — tropical and calming. My eczema patches have calmed right down."</p>
-                <p class="review-author">Melissa T.</p>
-                <p class="review-verified">✓ Verified Buyer · Tauranga</p>
-            </div>
-            <div class="pp-review-card">
-                <div class="review-stars">★★★★★</div>
-                <p class="review-body">"I grabbed two Midnight Mousses before they sell out. The cacao scent is divine and it soaks in so much better than anything I've tried from the pharmacy."</p>
-                <p class="review-author">Stacey L.</p>
-                <p class="review-verified">✓ Verified Buyer · Auckland</p>
-            </div>
+            <div class="pp-review-card"><div class="review-stars">★★★★★</div><p class="review-body">"The Midnight Mousse smells incredible — like a chocolate orange but for your skin. My daughter keeps trying to steal it. Skin feels amazing."</p><p class="review-author">Jade R.</p><p class="review-verified">✓ Verified Buyer · Hamilton</p></div>
+            <div class="pp-review-card"><div class="review-stars">★★★★★</div><p class="review-body">"Bought the duo pack and I'm obsessed with both. The Sunrise Glow is gorgeous — tropical and calming. My eczema patches have calmed right down."</p><p class="review-author">Melissa T.</p><p class="review-verified">✓ Verified Buyer · Tauranga</p></div>
+            <div class="pp-review-card"><div class="review-stars">★★★★★</div><p class="review-body">"I grabbed two Midnight Mousses before they sell out. The cacao scent is divine and it soaks in so much better than anything I've tried from the pharmacy."</p><p class="review-author">Stacey L.</p><p class="review-verified">✓ Verified Buyer · Auckland</p></div>
         </div>
     </div>
 </div>
-
-<!-- ─── ROUTINE CROSS-SELL ─── -->
 {{- partial "irritation-routine.html" . -}}
-
-<!-- ─── PAGE SCRIPTS ─── -->
 <script>
-    // ─── PRICING MAP ───
     const PRICING = {
-        midnight: {
-            single:     { price: 29.95, priceId: 'price_1T6yIxFZRwx5tlYmyPkzCHof' },
-            three_pack: { price: 71.95, priceId: 'price_1T6yPgFZRwx5tlYmIpqgNKES' }
-        },
-        sunrise: {
-            single:     { price: 29.95, priceId: 'price_1T6zWoFZRwx5tlYm705284wk' },
-            three_pack: { price: 71.95, priceId: 'price_1T6zW0FZRwx5tlYms06Dw3f7' }
-        },
-        duo: {
-            single:     { price: 54.95, priceId: 'price_1T71VpFZRwx5tlYmVRWfXb8k' }
-        }
+        midnight: { single: { price: 29.95, priceId: 'price_1T6yIxFZRwx5tlYmyPkzCHof' }, three_pack: { price: 71.95, priceId: 'price_1T6yPgFZRwx5tlYmIpqgNKES' } },
+        sunrise: { single: { price: 29.95, priceId: 'price_1T6zWoFZRwx5tlYm705284wk' }, three_pack: { price: 71.95, priceId: 'price_1T6zW0FZRwx5tlYms06Dw3f7' } },
+        duo: { single: { price: 54.95, priceId: 'price_1T71VpFZRwx5tlYmVRWfXb8k' } }
     };
-
     const SCENT_INFO = {
-        midnight: {
-            title: 'Cacao & Blood Orange',
-            text: 'Think chocolate orange — but for your skin. Antioxidant-rich cacao protects and nourishes while vitamin C-packed blood orange brightens your complexion. All blended into our signature grass-fed tallow & Manuka honey base.',
-            label: 'Midnight Mousse',
-            cartFlavor: 'Cacao & Blood Orange (Limited Edition)',
-            singleLabel: 'Single Jar',
-            singleSublabel: '120ml'
-        },
-        sunrise: {
-            title: 'Ylang Ylang & Buckthorn',
-            text: 'A tropical golden glow for your skin. Ylang Ylang calms and balances while sea buckthorn delivers a hit of vitamins and omega fatty acids. Deeply nourishing in our signature tallow & Manuka honey base.',
-            label: 'Sunrise Glow',
-            cartFlavor: 'Ylang Ylang & Buckthorn (Limited Edition)',
-            singleLabel: 'Single Jar',
-            singleSublabel: '120ml'
-        },
-        duo: {
-            title: 'Day n Night Duo',
-            text: 'Get the best of both worlds — one Midnight Mousse (Cacao & Blood Orange) and one Sunrise Glow (Ylang Ylang & Buckthorn). Two limited edition scents, one perfect pairing.',
-            label: 'Day n Night Duo',
-            cartFlavor: 'Day n Night Duo (Midnight Mousse + Sunrise Glow)',
-            singleLabel: 'Day n Night Duo',
-            singleSublabel: '1 × Midnight Mousse + 1 × Sunrise Glow'
-        }
+        midnight: { title: 'Cacao & Blood Orange', text: 'Think chocolate orange — but for your skin. Antioxidant-rich cacao protects and nourishes while vitamin C-packed blood orange brightens your complexion. All blended into our signature grass-fed tallow & Manuka honey base.', label: 'Midnight Mousse', cartFlavor: 'Cacao & Blood Orange (Limited Edition)', singleLabel: 'Single Jar', singleSublabel: '120ml' },
+        sunrise: { title: 'Ylang Ylang & Buckthorn', text: 'A tropical golden glow for your skin. Ylang Ylang calms and balances while sea buckthorn delivers a hit of vitamins and omega fatty acids. Deeply nourishing in our signature tallow & Manuka honey base.', label: 'Sunrise Glow', cartFlavor: 'Ylang Ylang & Buckthorn (Limited Edition)', singleLabel: 'Single Jar', singleSublabel: '120ml' },
+        duo: { title: 'Day n Night Duo', text: 'Get the best of both worlds — one Midnight Mousse (Cacao & Blood Orange) and one Sunrise Glow (Ylang Ylang & Buckthorn). Two limited edition scents, one perfect pairing.', label: 'Day n Night Duo', cartFlavor: 'Day n Night Duo (Midnight Mousse + Sunrise Glow)', singleLabel: 'Day n Night Duo', singleSublabel: '1 × Midnight Mousse + 1 × Sunrise Glow' }
     };
-
     let currentScent = 'midnight';
     let currentOption = 'single';
-
-    // ─── GALLERY ───
-    function switchImage(src, thumbEl) {
-        const main = document.getElementById('mainImage');
-        main.style.opacity = '0';
-        setTimeout(() => { main.src = src; main.style.opacity = '1'; }, 150);
-        document.querySelectorAll('.gallery-thumbs .thumb').forEach(t => t.classList.remove('active'));
-        thumbEl.classList.add('active');
-    }
-
-    // ─── TABS ───
-    function switchTab(tabId, btn) {
-        document.querySelectorAll('.pp-tab-panel').forEach(p => p.classList.remove('active'));
-        document.querySelectorAll('.pp-tab-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById('tab-' + tabId).classList.add('active');
-        btn.classList.add('active');
-    }
-
-    // ─── SCENT SELECTOR ───
+    function switchImage(src, thumbEl) { const main = document.getElementById('mainImage'); main.style.opacity = '0'; setTimeout(() => { main.src = src; main.style.opacity = '1'; }, 150); document.querySelectorAll('.gallery-thumbs .thumb').forEach(t => t.classList.remove('active')); thumbEl.classList.add('active'); }
+    function switchTab(tabId, btn) { document.querySelectorAll('.pp-tab-panel').forEach(p => p.classList.remove('active')); document.querySelectorAll('.pp-tab-btn').forEach(b => b.classList.remove('active')); document.getElementById('tab-' + tabId).classList.add('active'); btn.classList.add('active'); }
     function selectScent(scent, el) {
         currentScent = scent;
         document.querySelectorAll('.scent-pill').forEach(p => p.classList.remove('active'));
         el.classList.add('active');
-
-        // Update scent description
         const info = SCENT_INFO[scent];
         document.getElementById('scentDescTitle').textContent = info.title;
         document.getElementById('scentDescText').textContent = info.text;
-
-        // Update single jar label
         document.getElementById('singleLabel').textContent = info.singleLabel;
         document.getElementById('singleSublabel').textContent = info.singleSublabel;
         document.getElementById('singlePriceDisplay').textContent = (scent === 'duo') ? '54.95' : '29.95';
-
-        // Show/hide 3 pack option
-        const threePackEl = document.getElementById('threePackOption');
-        if (scent === 'duo') {
-            threePackEl.style.display = 'none';
-        } else {
-            threePackEl.style.display = '';
-        }
-
-        // Toggle ingredient display
+        var threePackEl = document.getElementById('threePackOption');
+        if (scent === 'duo') { threePackEl.style.display = 'none'; } else { threePackEl.style.display = ''; }
         document.getElementById('ingredientsMidnight').style.display = (scent === 'midnight' || scent === 'duo') ? '' : 'none';
         document.getElementById('ingredientsSunrise').style.display = (scent === 'sunrise' || scent === 'duo') ? '' : 'none';
-
-        // Reset to single option
         currentOption = 'single';
-        document.querySelectorAll('.purchase-option').forEach(opt => {
-            opt.classList.remove('selected');
-            opt.querySelector('input').checked = false;
-        });
-        const singleOpt = document.querySelector('.purchase-option[data-option="single"]');
+        document.querySelectorAll('.purchase-option').forEach(function(opt) { opt.classList.remove('selected'); opt.querySelector('input').checked = false; });
+        var singleOpt = document.querySelector('.purchase-option[data-option="single"]');
         singleOpt.classList.add('selected');
         singleOpt.querySelector('input').checked = true;
-
         updateDisplay();
     }
-
-    // ─── PURCHASE OPTION SELECTOR ───
-    document.querySelectorAll('.purchase-option').forEach(opt => {
+    document.querySelectorAll('.purchase-option').forEach(function(opt) {
         opt.addEventListener('click', function() {
-            document.querySelectorAll('.purchase-option').forEach(o => o.classList.remove('selected'));
+            document.querySelectorAll('.purchase-option').forEach(function(o) { o.classList.remove('selected'); });
             this.classList.add('selected');
             this.querySelector('input').checked = true;
             currentOption = this.getAttribute('data-option');
             updateDisplay();
         });
     });
-
-    // ─── UPDATE PRICE & BUTTON ───
     function updateDisplay() {
-        const pricing = PRICING[currentScent][currentOption];
+        var pricing = PRICING[currentScent][currentOption];
         if (!pricing) return;
-
-        const price = pricing.price;
+        var price = pricing.price;
         document.getElementById('price').textContent = '$' + price.toFixed(2);
         document.getElementById('afterpay_price').textContent = (price / 4).toFixed(2);
         document.getElementById('cartBtnLabel').textContent = 'Add To Cart — $' + price.toFixed(2);
         document.querySelector('.buy-now').setAttribute('data-price-id', pricing.priceId);
     }
-
-    // ─── QUANTITY ───
-    const quantityInput = document.getElementById('quantityAll');
-    document.querySelector('.btn-increase').addEventListener('click', () => {
-        quantityInput.value = parseInt(quantityInput.value) + 1;
-    });
-    document.querySelector('.btn-decrease').addEventListener('click', () => {
-        const val = parseInt(quantityInput.value);
-        if (val > 1) quantityInput.value = val - 1;
-    });
-
-    // ─── ADD TO CART ───
+    var quantityInput = document.getElementById('quantityAll');
+    document.querySelector('.btn-increase').addEventListener('click', function() { quantityInput.value = parseInt(quantityInput.value) + 1; });
+    document.querySelector('.btn-decrease').addEventListener('click', function() { var val = parseInt(quantityInput.value); if (val > 1) quantityInput.value = val - 1; });
     function handleAddToCart(event) {
         event.preventDefault();
-        const button = event.target.closest('.buy-now');
-        const priceId = button.getAttribute('data-price-id') || 'N/A';
-        const quantityField = document.getElementById('quantityAll');
-        const quantity = quantityField ? parseInt(quantityField.value, 10) || 1 : 1;
-
-        if (!priceId || priceId === 'N/A') {
-            alert('Please select valid options before adding to cart.');
-            return;
-        }
-
-        const info = SCENT_INFO[currentScent];
-        let title = 'Tallow & Honey Balm';
-        let flavor = info.cartFlavor;
-        let orderType, size;
-
-        if (currentScent === 'duo') {
-            orderType = 'Day n Night Duo';
-            size = '2 × 120ml';
-        } else {
-            orderType = currentOption === 'three_pack' ? '3 pack (save 20%)' : 'Single jar';
-            size = currentOption === 'three_pack' ? '3 × 120ml' : '120ml';
-        }
-
-        const unitPriceElement = document.getElementById('price');
-        const unitPrice = unitPriceElement ? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00 : 0.00;
-
-        const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
-        cart.push({
-            priceId, title, size, flavor,
-            orderType: orderType,
-            quantity, unitPrice,
-            eligibleForDiscount: false
-        });
+        var button = event.target.closest('.buy-now');
+        var priceId = button.getAttribute('data-price-id') || 'N/A';
+        var quantityField = document.getElementById('quantityAll');
+        var quantity = quantityField ? parseInt(quantityField.value, 10) || 1 : 1;
+        if (!priceId || priceId === 'N/A') { alert('Please select valid options before adding to cart.'); return; }
+        var info = SCENT_INFO[currentScent];
+        var title = 'Tallow & Honey Balm';
+        var flavor = info.cartFlavor;
+        var orderType, size;
+        if (currentScent === 'duo') { orderType = 'Day n Night Duo'; size = '2 × 120ml'; } else { orderType = currentOption === 'three_pack' ? '3 pack (save 20%)' : 'Single jar'; size = currentOption === 'three_pack' ? '3 × 120ml' : '120ml'; }
+        var unitPriceElement = document.getElementById('price');
+        var unitPrice = unitPriceElement ? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00 : 0.00;
+        var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+        cart.push({ priceId: priceId, title: title, size: size, flavor: flavor, orderType: orderType, quantity: quantity, unitPrice: unitPrice, eligibleForDiscount: false });
         localStorage.setItem('cartV2', JSON.stringify(cart));
-
-        const modal = document.getElementById('addedToCartModal');
-        if (modal) {
-            $('#addedToCartModal').modal('show');
-        } else {
-            alert('Item added to cart successfully!');
-        }
+        var modal = document.getElementById('addedToCartModal');
+        if (modal) { $('#addedToCartModal').modal('show'); } else { alert('Item added to cart successfully!'); }
     }
-
     document.addEventListener('DOMContentLoaded', function () {
-        const addToCartButton = document.querySelector('.buy-now');
+        var addToCartButton = document.querySelector('.buy-now');
         if (addToCartButton) addToCartButton.addEventListener('click', handleAddToCart);
         updateDisplay();
     });
 </script>
-
-<!-- Modal for Add to Cart Confirmation -->
 <div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Your item has been successfully added to the cart. What would you like to do next?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
-                <a href="/cart" class="btn btn-black">Go to Cart</a>
-            </div>
-        </div>
-    </div>
+    <div class="modal-dialog"><div class="modal-content">
+        <div class="modal-header"><h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5><button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button></div>
+        <div class="modal-body">Your item has been successfully added to the cart. What would you like to do next?</div>
+        <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button><a href="/cart" class="btn btn-black">Go to Cart</a></div>
+    </div></div>
 </div>
-
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-
 {{- partial "footer.html" . }}
-
 </body>
 </html>
