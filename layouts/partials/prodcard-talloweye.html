@@ -1,12 +1,10 @@
-
-<!-- Pet single product card -->
 <div class="product-card grow col-xxl-3 col-lg-4 col-md-4" data-category="skincare" id="eyecream">
     <a href="/shop/products/tallow-eye-cream">
         <div class="product-card-inner">
       <p class="stamp">Online Exclusive</p>
   <img src="/img/shop/eyecream.webp" alt="eye cream" class="d-block m-auto" max-height="400">
   <div class="product-details">
-    <p class="h5"><span class="nz-content" style="display:inline;">{{ with index site.Data.pricing.tallow.pricing.eyecream 0 }}
+    <p class="h5"><s>$34.95</s> <span class="nz-content" style="display:inline;">{{ with index site.Data.pricing.tallow.pricing.eyecream 0 }}
       {{ with .prices.NZ }}
           ${{ .single_purchase }}
       {{ end }}
@@ -18,12 +16,11 @@
          ${{ .single_purchase }}
       {{ end }}
   {{ end }}
-  </p>
-    </span><p class="h5 fw-bold">Tallow Eye Cream</p>
+  </span>
+  <span class="special" id="special">20% off! </span></p>
+    <p class="h5 fw-bold">Tallow Eye Cream</p>
     <p>8,000+ Kiwis</p>
-
   </div>
   </div>
 </a>
 </div>
- 
