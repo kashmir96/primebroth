@@ -29,7 +29,7 @@
             "@type": "Offer",
             "url": "https://primalpantry.co.nz/shop/products/tallow-eye-cream/",
             "priceCurrency": "NZD",
-            "price": "34.95",
+            "price": "27.95",
             "availability": "https://schema.org/InStock",
             "shippingDetails": {
                 "@type": "OfferShippingDetails",
@@ -46,6 +46,30 @@
     </script>
     {{ $styles := resources.Get "css/product-page.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+
+    <style>
+    /* ─── SALE STYLING ─── */
+    .sale-badge {
+        display: inline-block;
+        background: #C0392B;
+        color: #fff;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 4px 12px;
+        border-radius: 100px;
+        margin-right: 8px;
+    }
+    .pp-price-was {
+        text-decoration: line-through;
+        color: #aaa;
+        font-weight: 400;
+        font-size: 0.95rem;
+        margin-right: 6px;
+    }
+    </style>
 </head>
 <body>
 
@@ -119,8 +143,12 @@
         </div>
 
         <div class="pp-pricing-section">
-            <span class="pp-price-main"><span id="price">$34.95</span></span>
-            <p class="afterpay-note">or 4 interest free payments of $<span id="afterpay_price">8.74</span> with <img src="/img/afterpay.webp" class="d-inline" height="18" alt="afterpay"></p>
+            <span class="pp-price-main">
+                <span class="sale-badge">20% Off</span>
+                <span class="pp-price-was" id="priceWas"></span>
+                <span id="price">$27.95</span>
+            </span>
+            <p class="afterpay-note">or 4 interest free payments of $<span id="afterpay_price">6.99</span> with <img src="/img/afterpay.webp" class="d-inline" height="18" alt="afterpay"></p>
         </div>
 
         <div class="purchase-options">
@@ -133,7 +161,7 @@
                         <div class="option-sublabel">15ml · 2–3 months supply</div>
                     </div>
                 </div>
-                <div class="option-price">$<span id="option-price-display">34.95</span></div>
+                <div class="option-price">$<span id="option-price-display">27.95</span></div>
             </label>
         </div>
 
@@ -162,7 +190,7 @@
             </div>
             <button class="btn-add-to-cart buy-now" type="button" data-price-id="" data-quantity-id="quantityAll">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="position:relative;z-index:1;"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-                <span style="position:relative;z-index:1;">Add To Cart — $34.95</span>
+                <span style="position:relative;z-index:1;">Add To Cart — $27.95</span>
             </button>
         </div>
 
@@ -651,6 +679,9 @@
             document.getElementById("afterpay_price").textContent = `${(price / 4).toFixed(2)}`;
             document.getElementById("option-price-display").textContent = price.toFixed(2);
             document.querySelector('.btn-add-to-cart span').textContent = `Add To Cart — $${price.toFixed(2)}`;
+
+            // Show the original price (before 20% off)
+            document.getElementById("priceWas").textContent = `$${(price / 0.80).toFixed(2)}`;
         }
     }
 
