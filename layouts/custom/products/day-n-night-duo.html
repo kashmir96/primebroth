@@ -62,12 +62,12 @@
 <div class="product-hero">
     <div class="product-gallery">
         <div class="gallery-main">
-            <img class="main-image" id="mainImage" fetchpriority="high" src="/img/glow-main.webp" alt="Limited Edition Tallow & Honey Balm">
+            <img class="main-image" id="mainImage" fetchpriority="high" src="/img/le-duo.webp" alt="Limited Edition Tallow Day n Night Duo">
             <div class="exclusive-badge"><span class="dot"></span> Limited Edition</div>
         </div>
         <div class="gallery-thumbs" id="galleryThumbs">
-            <div class="thumb active" onclick="switchImage('/img/glow-main.webp', this)"><img src="/img/glow-main.webp" alt="Tallow balm glow" loading="lazy"></div>
-            <div class="thumb" onclick="switchImage('/img/le-duo.webp', this)"><img src="/img/le-duo.webp" alt="Day n Night Duo — both limited edition balms" loading="lazy"></div>
+            <div class="thumb active" onclick="switchImage('/img/le-duo.webp', this)"><img src="/img/le-duo.webp" alt="Day n Night Duo — both limited edition balms" loading="lazy"></div>
+            <div class="thumb" onclick="switchImage('/img/glow-main.webp', this)"><img src="/img/glow-main.webp" alt="Tallow balm glow" loading="lazy"></div>
             <div class="thumb" onclick="switchImage('/img/shop/both-beforeafter.webp', this)"><img src="/img/shop/both-beforeafter.webp" alt="Tallow balm before and after results" loading="lazy"></div>
             <div class="thumb" onclick="switchImage('/img/shop/both-child.webp', this)"><img src="/img/shop/both-child.webp" alt="Tallow balm safe for children" loading="lazy"></div>
         </div>
@@ -89,6 +89,37 @@
         <div class="benefit-strip">
             <p>The same whipped tallow &amp; Manuka honey base you love — in two bold new limited edition scents. Think <strong>chocolate orange for your skin</strong> and a <strong>tropical golden glow</strong>. Same deep hydration, same natural ingredients, whole new experience.</p>
         </div>
+        <div class="review-snippet">
+            <span class="quote-mark">"</span>
+            <div>
+                <p class="review-text">The Midnight Mousse smells incredible — like a chocolate orange but for your skin. My daughter keeps trying to steal it. Skin feels amazing.</p>
+                <p class="reviewer">— Jade R., Hamilton <span class="verified">✓ Verified Buyer</span></p>
+            </div>
+        </div>
+        <div class="pp-pricing-section">
+            <span class="pp-price-main">
+                <span class="le-badge">Limited Edition</span>
+                <span id="price">$29.95</span>
+            </span>
+            <p class="afterpay-note">or 4 interest free payments of $<span id="afterpay_price">7.49</span> with <img src="/img/afterpay.webp" class="d-inline" height="18" alt="afterpay"></p>
+        </div>
+        <div class="pp-selector-group">
+            <div class="pp-selector-label">Choose your scent</div>
+            <div class="scent-pills">
+                <div class="scent-pill active" data-scent="midnight" onclick="selectScent('midnight', this)">🍫 Midnight Mousse</div>
+                <div class="scent-pill" data-scent="sunrise" onclick="selectScent('sunrise', this)">🌅 Sunrise Glow</div>
+                <div class="scent-pill" data-scent="duo" onclick="selectScent('duo', this)">🌗 Day n Night Duo</div>
+            </div>
+        </div>
+        <div class="scent-description" id="scentDesc">
+            <h4 id="scentDescTitle">Cacao & Blood Orange</h4>
+            <p id="scentDescText">Think chocolate orange — but for your skin. Antioxidant-rich cacao protects and nourishes while vitamin C-packed blood orange brightens your complexion. All blended into our signature grass-fed tallow & Manuka honey base.</p>
+        </div>
+        <div class="purchase-options" id="purchaseOptions">
+            <label class="purchase-option selected" data-option="single">
+                <input type="radio" name="purchaseType" value="single" checked>
+                <div class="option-left">
+                    <div class="option-radio"><div class="dot-inner"></div></div>
                     <div>
                         <div class="option-label" id="singleLabel">Single Jar</div>
                         <div class="option-sublabel" id="singleSublabel">120ml</div>
@@ -232,7 +263,7 @@
     </div>
     <div class="pp-tab-panel" id="tab-reviews">
         <h4>See what our customers say online</h4>
-        <img class="tab-reviews-img" src="/img/prod/balm/balmreviews.webp" alt="Tallow balm customer reviews" loading="lazy">
+        <img class="tab-reviews-img" src="/img/prod/balm/balmreviews.webp" alt="Tallow balm verified customer reviews" loading="lazy">
     </div>
     <div class="pp-tab-panel" id="tab-shipping">
         <h4>Shipping</h4>
@@ -277,3 +308,109 @@
         </tbody>
     </table>
 </div>
+<div class="pp-reviews-section">
+    <div class="pp-reviews-inner">
+        <h2>Real results from real kiwis</h2>
+        <p class="pp-reviews-summary">★★★★★ Rated 4.8/5 from verified reviews</p>
+        <div class="pp-reviews-grid">
+            <div class="pp-review-card"><div class="review-stars">★★★★★</div><p class="review-body">"The Midnight Mousse smells incredible — like a chocolate orange but for your skin. My daughter keeps trying to steal it. Skin feels amazing."</p><p class="review-author">Jade R.</p><p class="review-verified">✓ Verified Buyer · Hamilton</p></div>
+            <div class="pp-review-card"><div class="review-stars">★★★★★</div><p class="review-body">"Bought the duo pack and I'm obsessed with both. The Sunrise Glow is gorgeous — tropical and calming. My eczema patches have calmed right down."</p><p class="review-author">Melissa T.</p><p class="review-verified">✓ Verified Buyer · Tauranga</p></div>
+            <div class="pp-review-card"><div class="review-stars">★★★★★</div><p class="review-body">"I grabbed two Midnight Mousses before they sell out. The cacao scent is divine and it soaks in so much better than anything I've tried from the pharmacy."</p><p class="review-author">Stacey L.</p><p class="review-verified">✓ Verified Buyer · Auckland</p></div>
+        </div>
+    </div>
+</div>
+{{- partial "irritation-routine.html" . -}}
+<script>
+    const PRICING = {
+        midnight: { single: { price: 29.95, priceId: 'price_1T6yIxFZRwx5tlYmyPkzCHof' }, three_pack: { price: 71.95, priceId: 'price_1T6yPgFZRwx5tlYmIpqgNKES' } },
+        sunrise: { single: { price: 29.95, priceId: 'price_1T6zWoFZRwx5tlYm705284wk' }, three_pack: { price: 71.95, priceId: 'price_1T6zW0FZRwx5tlYms06Dw3f7' } },
+        duo: { single: { price: 54.95, priceId: 'price_1T71VpFZRwx5tlYmVRWfXb8k' } }
+    };
+    const SCENT_INFO = {
+        midnight: { title: 'Cacao & Blood Orange', text: 'Think chocolate orange — but for your skin. Antioxidant-rich cacao protects and nourishes while vitamin C-packed blood orange brightens your complexion. All blended into our signature grass-fed tallow & Manuka honey base.', label: 'Midnight Mousse', cartFlavor: 'Cacao & Blood Orange (Limited Edition)', singleLabel: 'Single Jar', singleSublabel: '120ml' },
+        sunrise: { title: 'Ylang Ylang & Buckthorn', text: 'A tropical golden glow for your skin. Ylang Ylang calms and balances while sea buckthorn delivers a hit of vitamins and omega fatty acids. Deeply nourishing in our signature tallow & Manuka honey base.', label: 'Sunrise Glow', cartFlavor: 'Ylang Ylang & Buckthorn (Limited Edition)', singleLabel: 'Single Jar', singleSublabel: '120ml' },
+        duo: { title: 'Day n Night Duo', text: 'Get the best of both worlds — one Midnight Mousse (Cacao & Blood Orange) and one Sunrise Glow (Ylang Ylang & Buckthorn). Two limited edition scents, one perfect pairing.', label: 'Day n Night Duo', cartFlavor: 'Day n Night Duo (Midnight Mousse + Sunrise Glow)', singleLabel: 'Day n Night Duo', singleSublabel: '1 × Midnight Mousse + 1 × Sunrise Glow' }
+    };
+    let currentScent = 'midnight';
+    let currentOption = 'single';
+    function switchImage(src, thumbEl) { const main = document.getElementById('mainImage'); main.style.opacity = '0'; setTimeout(() => { main.src = src; main.style.opacity = '1'; }, 150); document.querySelectorAll('.gallery-thumbs .thumb').forEach(t => t.classList.remove('active')); thumbEl.classList.add('active'); }
+    function switchTab(tabId, btn) { document.querySelectorAll('.pp-tab-panel').forEach(p => p.classList.remove('active')); document.querySelectorAll('.pp-tab-btn').forEach(b => b.classList.remove('active')); document.getElementById('tab-' + tabId).classList.add('active'); btn.classList.add('active'); }
+    function selectScent(scent, el) {
+        currentScent = scent;
+        document.querySelectorAll('.scent-pill').forEach(p => p.classList.remove('active'));
+        el.classList.add('active');
+        const info = SCENT_INFO[scent];
+        document.getElementById('scentDescTitle').textContent = info.title;
+        document.getElementById('scentDescText').textContent = info.text;
+        document.getElementById('singleLabel').textContent = info.singleLabel;
+        document.getElementById('singleSublabel').textContent = info.singleSublabel;
+        document.getElementById('singlePriceDisplay').textContent = (scent === 'duo') ? '54.95' : '29.95';
+        var threePackEl = document.getElementById('threePackOption');
+        if (scent === 'duo') { threePackEl.style.display = 'none'; } else { threePackEl.style.display = ''; }
+        document.getElementById('ingredientsMidnight').style.display = (scent === 'midnight' || scent === 'duo') ? '' : 'none';
+        document.getElementById('ingredientsSunrise').style.display = (scent === 'sunrise' || scent === 'duo') ? '' : 'none';
+        currentOption = 'single';
+        document.querySelectorAll('.purchase-option').forEach(function(opt) { opt.classList.remove('selected'); opt.querySelector('input').checked = false; });
+        var singleOpt = document.querySelector('.purchase-option[data-option="single"]');
+        singleOpt.classList.add('selected');
+        singleOpt.querySelector('input').checked = true;
+        updateDisplay();
+    }
+    document.querySelectorAll('.purchase-option').forEach(function(opt) {
+        opt.addEventListener('click', function() {
+            document.querySelectorAll('.purchase-option').forEach(function(o) { o.classList.remove('selected'); });
+            this.classList.add('selected');
+            this.querySelector('input').checked = true;
+            currentOption = this.getAttribute('data-option');
+            updateDisplay();
+        });
+    });
+    function updateDisplay() {
+        var pricing = PRICING[currentScent][currentOption];
+        if (!pricing) return;
+        var price = pricing.price;
+        document.getElementById('price').textContent = '$' + price.toFixed(2);
+        document.getElementById('afterpay_price').textContent = (price / 4).toFixed(2);
+        document.getElementById('cartBtnLabel').textContent = 'Add To Cart — $' + price.toFixed(2);
+        document.querySelector('.buy-now').setAttribute('data-price-id', pricing.priceId);
+    }
+    var quantityInput = document.getElementById('quantityAll');
+    document.querySelector('.btn-increase').addEventListener('click', function() { quantityInput.value = parseInt(quantityInput.value) + 1; });
+    document.querySelector('.btn-decrease').addEventListener('click', function() { var val = parseInt(quantityInput.value); if (val > 1) quantityInput.value = val - 1; });
+    function handleAddToCart(event) {
+        event.preventDefault();
+        var button = event.target.closest('.buy-now');
+        var priceId = button.getAttribute('data-price-id') || 'N/A';
+        var quantityField = document.getElementById('quantityAll');
+        var quantity = quantityField ? parseInt(quantityField.value, 10) || 1 : 1;
+        if (!priceId || priceId === 'N/A') { alert('Please select valid options before adding to cart.'); return; }
+        var info = SCENT_INFO[currentScent];
+        var title = 'Tallow & Honey Balm';
+        var flavor = info.cartFlavor;
+        var orderType, size;
+        if (currentScent === 'duo') { orderType = 'Day n Night Duo'; size = '2 × 120ml'; } else { orderType = currentOption === 'three_pack' ? '3 pack (save 20%)' : 'Single jar'; size = currentOption === 'three_pack' ? '3 × 120ml' : '120ml'; }
+        var unitPriceElement = document.getElementById('price');
+        var unitPrice = unitPriceElement ? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00 : 0.00;
+        var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+        cart.push({ priceId: priceId, title: title, size: size, flavor: flavor, orderType: orderType, quantity: quantity, unitPrice: unitPrice, eligibleForDiscount: false });
+        localStorage.setItem('cartV2', JSON.stringify(cart));
+        var modal = document.getElementById('addedToCartModal');
+        if (modal) { $('#addedToCartModal').modal('show'); } else { alert('Item added to cart successfully!'); }
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        var addToCartButton = document.querySelector('.buy-now');
+        if (addToCartButton) addToCartButton.addEventListener('click', handleAddToCart);
+        updateDisplay();
+    });
+</script>
+<div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
+    <div class="modal-dialog"><div class="modal-content">
+        <div class="modal-header"><h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5><button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button></div>
+        <div class="modal-body">Your item has been successfully added to the cart. What would you like to do next?</div>
+        <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button><a href="/cart" class="btn btn-black">Go to Cart</a></div>
+    </div></div>
+</div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+{{- partial "footer.html" . }}
+</body>
+</html>
