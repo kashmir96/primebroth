@@ -14,18 +14,29 @@
 
     if (!isAU) {
       window.MARKET = 'NZ';
+      window.country_code = 'NZ';
       return;
     }
 
     window.MARKET = 'AU';
+    window.country_code = 'AU';
     localStorage.setItem('market', 'AU');
     var exp = new Date(Date.now() + 30*24*60*60*1000).toUTCString();
     document.cookie = 'country_code=AU; expires=' + exp + '; path=/';
 
   } catch(e) {
     window.MARKET = 'NZ';
+    window.country_code = 'NZ';
   }
 })();
+
+// Toggle nz-content / au-content spans site-wide
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.MARKET === 'AU') {
+    document.querySelectorAll('.nz-content').forEach(function(el) { el.style.display = 'none'; });
+    document.querySelectorAll('.au-content').forEach(function(el) { el.style.display = 'inline'; });
+  }
+});
 </script>
 {{- partial "analytics" . -}}
 <meta charset="utf-8">
