@@ -1,140 +1,121 @@
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+/**
+ * create-checkout-session.js
+ *
+ * Env vars required in Netlify:
+ *   STRIPE_SECRET_KEY      — NZ Stripe secret key (existing, no rename needed)
+ *   STRIPE_SECRET_KEY_AU   — AU Stripe secret key (new)
+ */
+
+const getStripe = (market) => {
+  if (market === 'AU') {
+    const auKey = process.env.STRIPE_SECRET_KEY_AU;
+    if (!auKey) {
+      console.warn('[checkout] STRIPE_SECRET_KEY_AU not set, falling back to NZ');
+      return require('stripe')(process.env.STRIPE_SECRET_KEY);
+    }
+    return require('stripe')(auKey);
+  }
+  return require('stripe')(process.env.STRIPE_SECRET_KEY);
+};
 
 exports.handler = async (event, context) => {
   try {
     const { cart, countryCode } = JSON.parse(event.body);
-    // const encodedCartData = encodeURIComponent(JSON.stringify(cart));
 
-    // Check if the cart is valid
+    // Only activate AU if the AU Stripe key is actually configured
+    const market = (countryCode === 'AU' && process.env.STRIPE_SECRET_KEY_AU)
+      ? 'AU'
+      : 'NZ';
+
+    const stripe = getStripe(market);
+
+    // Validate cart
     if (!cart || !Array.isArray(cart) || cart.length === 0) {
       throw new Error('Cart is empty or not provided.');
     }
+    for (const item of cart) {
+      if (!item.priceId || typeof item.quantity !== 'number' || item.quantity <= 0) {
+        throw new Error(`Invalid cart item: ${JSON.stringify(item)}`);
+      }
+    }
 
-    // Retrieve the landing URL from cookies (sent from frontend)
+    // Landing URL from cookie (for thank-you page attribution)
     const landingURL = event.headers.cookie
-      .split(';')
-      .find(cookie => cookie.trim().startsWith('landingURL='))
+      ?.split(';')
+      .find(c => c.trim().startsWith('landingURL='))
       ?.split('=')[1];
-
-    // Decode URL-encoded string
     const decodedLandingURL = decodeURIComponent(landingURL || '');
 
+    // Build line items and total
     const lineItems = [];
     let totalAmount = 0;
 
-    // Process each cart item to create line items
     for (const item of cart) {
       try {
-        // Validate each item in the cart
-        if (!item.priceId || typeof item.quantity !== 'number' || item.quantity <= 0) {
-          throw new Error(`Invalid cart item: Missing or incorrect priceId or quantity for item: ${JSON.stringify(item)}`);
-        }
-
-        console.log(`Retrieving price for priceId: ${item.priceId}`);
-
-        // Retrieve the price from Stripe
+        console.log(`[${market}] Retrieving price: ${item.priceId}`);
         const price = await stripe.prices.retrieve(item.priceId);
 
-        // Validate retrieved price
-if (!price || price.unit_amount == null) {
-          throw new Error(`Invalid price retrieved for priceId: ${item.priceId}`);
+        if (!price || price.unit_amount == null) {
+          throw new Error(`Invalid price for priceId: ${item.priceId}`);
         }
 
-        console.log(`Price retrieved: ${price.unit_amount} cents, Quantity: ${item.quantity}`);
-
-        // Create line item for Stripe Checkout
-        lineItems.push({
-          price: item.priceId,
-          quantity: item.quantity,
-        });
-
-        // Accumulate the total amount
+        lineItems.push({ price: item.priceId, quantity: item.quantity });
         totalAmount += item.quantity * price.unit_amount;
       } catch (priceError) {
-        console.error(`Error processing cart item with priceId: ${item.priceId}`, priceError);
-        throw new Error(`Failed to process item in cart: ${priceError.message}`);
+        console.error(`[${market}] Error on priceId ${item.priceId}:`, priceError);
+        throw new Error(`Failed to process item: ${priceError.message}`);
       }
     }
 
-    // Log the total amount for debugging
-    console.log(`Total amount in cents: ${totalAmount}`);
-    
-    // Determine the shipping rate based on the total amount
-    const standardShippingRate = 'shr_1RNoLQFZRwx5tlYmbtbV28PB';
-    const mediumShippingRate = 'shr_1QKTanFZRwx5tlYmmr0UUDQw';
-    const freeShippingRate = 'shr_1RNoN3FZRwx5tlYmUStQxW5y';
-    const ruralShippingRate = 'shr_1RNoR5FZRwx5tlYmxFgyFs06'; // Replace with your actual rural shipping rate ID
-    const standardShippingRateAU = 'shr_1QreQWFZRwx5tlYmSp5RW0qz';
-    const freeShippingRateAU = 'shr_1QxGdxFZRwx5tlYmATptVQyM';
+    console.log(`[${market}] Total: ${totalAmount} cents`);
 
+    // ── Shipping options ─────────────────────────────────────────────────────
     let shippingOptions = [];
     let payment_method_types = [];
 
-    if(countryCode == 'NZ')
-    {
-      payment_method_types = ['card',  'afterpay_clearpay'];
-
-      if (totalAmount >= 8000) {
-        shippingOptions = [
-          {
-            shipping_rate: freeShippingRate,
-          },
-        ];
-      } else {
-        // Show both standard and rural shipping options
-        shippingOptions = [
-          {
-            shipping_rate: standardShippingRate,
-          },
-          {
-            shipping_rate: ruralShippingRate,
-          },
-        ];
-      }
-    }
-    else {
-      if (totalAmount >= 15000) {
-        shippingOptions = [
-          {
-            shipping_rate: freeShippingRateAU,
-          },
-        ];
-      }
-      else {
-        shippingOptions = [
-          {
-            shipping_rate: standardShippingRateAU,
-          },
-        ];
-      }
+    if (market === 'NZ') {
+      payment_method_types = ['card', 'afterpay_clearpay'];
+      shippingOptions = totalAmount >= 8000
+        ? [{ shipping_rate: 'shr_1RNoN3FZRwx5tlYmUStQxW5y' }]           // free NZ ($80+)
+        : [
+            { shipping_rate: 'shr_1RNoLQFZRwx5tlYmbtbV28PB' },           // standard NZ
+            { shipping_rate: 'shr_1RNoR5FZRwx5tlYmxFgyFs06' },           // rural NZ
+          ];
+    } else {
       payment_method_types = ['card'];
+      shippingOptions = totalAmount >= 15000
+        ? [{ shipping_rate: 'shr_1QxGdxFZRwx5tlYmATptVQyM' }]           // free AU ($150+)
+        : [{ shipping_rate: 'shr_1QreQWFZRwx5tlYmSp5RW0qz' }];          // standard AU
     }
 
-    console.log(`Shipping options: ${JSON.stringify(shippingOptions)}`);
+    // ── URLs ─────────────────────────────────────────────────────────────────
+    const baseURL = 'https://www.primalpantry.co.nz';
+    const successUrl = `${baseURL}/pages/thank-you?landing_url=${encodeURIComponent(decodedLandingURL)}&market=${market}`;
+    const cancelUrl = `${baseURL}/cart/`;
 
-    // Create success URL with landingURL as a query parameter
-    const successUrl = `https://www.primalpantry.co.nz/pages/thank-you?landing_url=${encodeURIComponent(decodedLandingURL)}`;
-
-    // Create a Stripe checkout session
+    // ── Create session ────────────────────────────────────────────────────────
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: payment_method_types,
+      payment_method_types,
       shipping_address_collection: {
-        allowed_countries: ['NZ'], // Restrict to New Zealand
+        allowed_countries: [market],
       },
       shipping_options: shippingOptions,
       line_items: lineItems,
       mode: 'payment',
-      success_url: successUrl, // Updated success URL
-      cancel_url: 'https://www.primalpantry.co.nz/cart/',
+      success_url: successUrl,
+      cancel_url: cancelUrl,
+      metadata: {
+        market, // passed to webhook so it knows which Stripe account fired
+      },
     });
 
-    console.log(`Checkout session created successfully with ID: ${session.id}`);
+    console.log(`[${market}] Session created: ${session.id}`);
 
-    // Return session ID to frontend
     return {
       statusCode: 200,
       body: JSON.stringify({ sessionId: session.id }),
     };
+
   } catch (error) {
     console.error('Error creating checkout session:', error.message);
     return {
