@@ -1,41 +1,11 @@
 <!DOCTYPE html>
-<html lang="{{ or .Site.Language.Lang "en" }}">
+<html lang="{{ or .Site.Language.Lang "ja" }}">
+
 <head>
-  <!-- Market detection — inlined (no HTTP request), NZ exits in microseconds -->
-  <script>
-  (function(){
-    try {
-      var isAUSubdomain = window.location.hostname.startsWith('au.');
-      var paramMarket = new URLSearchParams(window.location.search).get('market');
-      var storedMarket = localStorage.getItem('market');
-      var cookieMatch = document.cookie.match(/(?:^|;)\s*country_code=([^;]*)/);
-      var cookieMarket = cookieMatch ? cookieMatch[1] : null;
-
-      var isAU = isAUSubdomain
-        || (paramMarket || '').toUpperCase() === 'AU'
-        || storedMarket === 'AU'
-        || cookieMarket === 'AU';
-
-      if (!isAU) {
-        // NZ: set and exit — nothing else to do
-        window.MARKET = 'NZ';
-        return;
-      }
-
-      // AU: persist across pages
-      window.MARKET = 'AU';
-      localStorage.setItem('market', 'AU');
-      var exp = new Date(Date.now() + 30*24*60*60*1000).toUTCString();
-      document.cookie = 'country_code=AU; expires=' + exp + '; path=/';
-
-    } catch(e) {
-      window.MARKET = 'NZ';
-    }
-  })();
-  </script>
   {{- partial "head.html" . -}}
   {{ block "meta_tags" . }}{{end}}
 </head>
+
 <body class="flex flex-col min-h-screen">
   <main class="flex-grow">
     {{- partial "header.html" . -}}
@@ -46,4 +16,5 @@
   </main>
   {{- partial "footer.html" . -}}
 </body>
+
 </html>
