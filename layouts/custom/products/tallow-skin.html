@@ -42,7 +42,7 @@
                 <h1 class="fw-bold mt-2">Whipped Tallow Balm </h1>
                 <p class="fw-lighter h1 h1big">Naturally Perfect Skin</p>
                 <p class="text-muted">From PrimalCare</p>
-                <p class="fw-lighter">Your friends will ask what’s the secret to your <span class="attention-primalcare">glow up!</span></p>
+                <p class="fw-lighter">Your friends will ask what's the secret to your <span class="attention-primalcare">glow up!</span></p>
  
                 
     <!-- YAML FORM STARTS -->
@@ -128,11 +128,11 @@
                     </div> 
                     <div class="text-left  mb-3 mb-lg-4">
                         <label class="float-left mob-ninety mr-2 mt-2">Select size:</label>
-                      <div class="product-form-radio">
+                        <div class="product-form-radio" id="wrap-size60ml">
                             <input type="radio" id="size60ml" name="size" value="60ml" checked>
                             <label for="size60ml" class="product-form-radio float-left"><img class="prod-radio-img" src="/img/radio/balm/1.webp" alt="balm">60ml</label>
                         </div>
-                        <div class="product-form-radio">
+                        <div class="product-form-radio" id="wrap-size120ml">
                             <input type="radio" id="size120ml" name="size" value="120ml" >
                             <label for="size120ml" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/balm/175.webp" alt="balm">120ml <span class="attention-primalcare small">(cheaper per ml)</span></label>
                         </div>
@@ -511,11 +511,11 @@
                 <!-- Tab panes -->
                 <div class="tab-content faq-tab-content">
             <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">        
-                <p>Don’t waste another dollar on expensive moisturisers and steroid creams that often <span class="attention-primalcare">don’t work</span> and are filled with <span class="attention-primalcare">chemical nasties!</span></p>
+                <p>Don't waste another dollar on expensive moisturisers and steroid creams that often <span class="attention-primalcare">don't work</span> and are filled with <span class="attention-primalcare">chemical nasties!</span></p>
                 <p>Watch as light and fluffy balm soaks deeply into your skin, going to work giving rapid <span class="attention-primalcare">hydrating and rejuvenating</span> dry, cracked and itchy skin.</p>
                 <p class="mt-4 h6">What makes Primalcare tallow balm different? </p>
                 <ul>
-                    <li>It’s a whipped tallow balm, most others aren’t. Meaning it soaks in much better.</li>
+                    <li>It's a whipped tallow balm, most others aren't. Meaning it soaks in much better.</li>
                     <li>We offer the best value tallow on the NZ market–get more, at better quality, for less.</li>
                 </ul>
                 
@@ -596,18 +596,6 @@
 
     <!-- Include Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-    <!-- <script src="https://player.vimeo.com/api/player.js"></script>
-    <script>
-       document.querySelectorAll('.image-container img').forEach(function(image) {
-            image.addEventListener('click', function() {
-                // Hide the image container
-                this.parentElement.style.display = 'none';
-                // Show the corresponding video container
-                var videoId = this.getAttribute('data-video-id');
-                document.getElementById(videoId).style.display = 'block';
-            });
-        });
-  </script> -->
 
     <!-- YAML SCRIPT STARTS -->
 
@@ -624,7 +612,7 @@
     }
 
     function updatePrice() {
-        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
+        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase();
         const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
 
         console.log("Selected size:", size);
@@ -641,8 +629,6 @@
         }
     }
 
-
-
     // Attach event listener for changes
     document.getElementById("productForm").addEventListener("change", updatePrice);
 
@@ -654,11 +640,9 @@
 <script>
     // Function to update the price ID display
     function updatePriceID() {
-    const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
+    const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase();
     const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
     const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
-    
-
 
     // Default value for price ID
     let priceID = "N/A";
@@ -683,7 +667,7 @@
             console.log("Size Data:", sizeData);
 
             if (sizeData) {
-                priceID = sizeData[country_code]; // Assign the resolved price ID
+                priceID = sizeData[country_code];
             }
         }
     }
@@ -698,13 +682,12 @@
 </script>
 <script>
     // Parse the JSON string into an object
-    const rawData = "{{ .Site.Data.pricing | jsonify }}"; // Embedded JSON string from Hugo
-    const pricingData = JSON.parse(rawData); // Parse into a JavaScript object
-    console.log('Parsed Pricing Data:', pricingData); // Debugging output
+    const rawData = "{{ .Site.Data.pricing | jsonify }}";
+    const pricingData = JSON.parse(rawData);
+    console.log('Parsed Pricing Data:', pricingData);
 
     function updatePriceId() {
-    // Get the selected values
-    const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
+    const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase();
     const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
     console.log(size);
     if((size=="120ml" || size == "60ml") && orderType == "three_pack")
@@ -718,7 +701,6 @@
     try {
         let priceId;
 
-        // Access the correct price ID based on the order type
         if (orderType === 'single_purchase') {
             const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
             document.getElementById("single_unit_fragnance").style.display = 'block';
@@ -739,13 +721,11 @@
 
         console.log('Price ID:', priceId);
 
-        // Update the DOM element with the resolved price ID, if it exists
         const priceIdElement = document.getElementById('price-id');
         if (priceIdElement) {
             priceIdElement.textContent = priceId || 'Price ID not found';
         }
 
-        // Update the button's data-price-id attribute
         const buyNowButton = document.querySelector(".buy-now");
         if (buyNowButton) {
             buyNowButton.setAttribute("data-price-id", priceId || "");
@@ -754,7 +734,6 @@
     } catch (error) {
         console.error('Error fetching Price ID:', error);
 
-        // Clear the button's data-price-id attribute on error
         const buyNowButton = document.querySelector(".buy-now");
         if (buyNowButton) {
             buyNowButton.setAttribute("data-price-id", "");
@@ -782,11 +761,9 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-    // Convert the ids structure to a simplified format
     function preprocessproductData(rawData) {
         const simplified = {};
 
-        // Iterate over balm (or pets, if needed)
         if (rawData.ids && rawData.ids.balm) {
             const categories = rawData.ids.balm;
 
@@ -807,11 +784,9 @@
         return simplified;
     }
 
-    // Example: Assume productPricingRaw is available globally or passed here
     const normalizedproductData = preprocessproductData(productPricingRaw);
     console.log('Normalized product Data:', normalizedproductData);
 
-    // Use normalizedproductData for price ID lookups
     function getPriceID(size, flavor, orderType) {
         return (
             normalizedproductData[size]?.[flavor]?.[orderType] ||
@@ -824,26 +799,71 @@
 </script>
 
 
+<!-- ===== SIZE LOCK SCRIPT — singles = 60ml only, 3-pack = 120ml only ===== -->
+<script>
+    function updateSizeForOrderType() {
+        const orderType = document.querySelector('input[name="orderType"]:checked').value;
+
+        const size60  = document.getElementById('size60ml');
+        const size120 = document.getElementById('size120ml');
+        const wrap60  = document.getElementById('wrap-size60ml');
+        const wrap120 = document.getElementById('wrap-size120ml');
+
+        if (orderType === 'single_purchase') {
+            // Lock to 60ml
+            size60.checked  = true;
+            size60.disabled = false;
+            size120.checked  = false;
+            size120.disabled = true;
+            wrap60.style.opacity       = '1';
+            wrap60.style.pointerEvents = 'auto';
+            wrap60.removeAttribute('title');
+            wrap120.style.opacity       = '0.35';
+            wrap120.style.pointerEvents = 'none';
+            wrap120.title = 'Only available in the 3-pack';
+        } else if (orderType === 'three_pack') {
+            // Lock to 120ml
+            size120.checked  = true;
+            size120.disabled = false;
+            size60.checked  = false;
+            size60.disabled = true;
+            wrap120.style.opacity       = '1';
+            wrap120.style.pointerEvents = 'auto';
+            wrap120.removeAttribute('title');
+            wrap60.style.opacity       = '0.35';
+            wrap60.style.pointerEvents = 'none';
+            wrap60.title = 'Only available as a single jar';
+        }
+
+        // Keep price and price ID in sync after size change
+        updatePriceId();
+        updatePrice();
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('input[name="orderType"]').forEach(function (radio) {
+            radio.addEventListener('change', updateSizeForOrderType);
+        });
+        // Set correct state on initial load
+        updateSizeForOrderType();
+    });
+</script>
+
+
 <script>
     // Add to Cart Handler Function
     function handleAddToCart(event) {
     event.preventDefault();
 
-    console.log('Add to Cart button clicked!'); // Debugging
+    console.log('Add to Cart button clicked!');
 
     const button = event.target;
 
-    
-
-    // Retrieve values from the dropdowns
     const selectedSize = document.querySelector('input[name="size"]:checked');
-    const size = document.querySelector(`label[for="${selectedSize.id}"]`).textContent.trim(); // Updated to get label text
+    const size = document.querySelector(`label[for="${selectedSize.id}"]`).textContent.trim();
 
-// Use the text content of the selected option
-let flavor;
+    let flavor;
 
-
-// Use the text content of the selected option
     const selectedOrderType = document.querySelector('input[name="orderType"]:checked');
     const orderTypeSelect = document.querySelector(`label[for="${selectedOrderType.id}"]`).textContent.trim();
     const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
@@ -860,28 +880,23 @@ let flavor;
         ? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00
         : 0.00;
 
-    // Retrieve the price ID
     const priceId = button.getAttribute('data-price-id') || 'N/A';
     const title = document.querySelector('h1').innerText;
 
-    // Retrieve quantity
     const quantityField = document.getElementById('quantityAll');
     const quantity = quantityField ? parseInt(quantityField.value, 10) || 1 : 1;
 
-    // Debugging
-    console.log('Size:', size); // Updated to show label
+    console.log('Size:', size);
     console.log('Flavor:', flavor);
-    console.log('Order Type:', orderTypeSelect); // Updated to show label
+    console.log('Order Type:', orderTypeSelect);
     console.log('Quantity:', quantity);
     console.log('Price ID:', priceId);
 
-    // Check if price ID is valid
     if (!priceId || priceId === 'N/A') {
         alert('Please select valid options before adding to cart.');
         return;
     }
 
-    // Add to cart
     const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
     cart.push({
         priceId,
@@ -891,13 +906,12 @@ let flavor;
         orderType: orderTypeSelect,
         quantity,
         unitPrice,
-        eligibleForDiscount: false // Set this directly to true or false
+        eligibleForDiscount: false
     });
     localStorage.setItem('cartV2', JSON.stringify(cart));
 
-    console.log('Cart updated:', cart); // Debugging
+    console.log('Cart updated:', cart);
 
-    // Trigger success modal or alert
     const modal = document.getElementById('addedToCartModal');
     if (modal) {
         $('#addedToCartModal').modal('show');
@@ -906,7 +920,6 @@ let flavor;
     }
 }
 
-// Attach the event listener to the Add to Cart button
 document.addEventListener('DOMContentLoaded', function () {
     const addToCartButton = document.querySelector('.buy-now');
     if (addToCartButton) {
@@ -918,10 +931,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 </script>
-
-
-
-
 
 
 <!-- Modal for Add to Cart Confirmation -->
@@ -952,12 +961,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const btnIncrease = document.querySelector('.btn-increase');
         const btnDecrease = document.querySelector('.btn-decrease');
         
-        // Increase quantity
         btnIncrease.addEventListener('click', () => {
           quantityInput.value = parseInt(quantityInput.value) + 1;
         });
         
-        // Decrease quantity (minimum value = 1)
         btnDecrease.addEventListener('click', () => {
           const currentValue = parseInt(quantityInput.value);
           if (currentValue > 1) {
@@ -983,38 +990,29 @@ document.addEventListener('DOMContentLoaded', function () {
                         const selectedFlavor = document.querySelector('input[name="flavor"]:checked').value;
                         const selectedSize = document.querySelector('input[name="size"]:checked').value;
             
-                        // Check if the selected combination is out of stock
                         const isOutOfStock = outOfStockCombinations.some(combo =>
                             combo.flavor === selectedFlavor && combo.size === selectedSize
                         );
             
                         document.querySelectorAll('.custom-radio').forEach(radio => {
-                            radio.classList.remove('out-of-stock', 'in-stock'); // Clear existing classes
+                            radio.classList.remove('out-of-stock', 'in-stock');
                         });
             
                         if (isOutOfStock) {
                             stockLabel.textContent = "Temporarily of Stock";
-                            stockLabel.style.color = "red"; // Apply red color for out of stock
-            
-                            // Disable the Add to Cart button
+                            stockLabel.style.color = "red";
                             addToCartButton.disabled = true;
-                            addToCartButton.style.backgroundColor = "gray"; // Gray out the button
-                            addToCartButton.style.cursor = "not-allowed"; // Change cursor style
-            
-                            // Apply out-of-stock class to all relevant elements
+                            addToCartButton.style.backgroundColor = "gray";
+                            addToCartButton.style.cursor = "not-allowed";
                             document.querySelectorAll('.custom-radio').forEach(radio => {
                                 radio.classList.add('out-of-stock');
                             });
                         } else {
                             stockLabel.textContent = "In Stock";
-                            stockLabel.style.color = "green"; // Apply green color for in stock
-            
-                            // Enable the Add to Cart button
+                            stockLabel.style.color = "green";
                             addToCartButton.disabled = false;
-                            addToCartButton.style.backgroundColor = ""; // Reset to default color
-                            addToCartButton.style.cursor = "pointer"; // Reset cursor style
-            
-                            // Apply in-stock class to all relevant elements
+                            addToCartButton.style.backgroundColor = "";
+                            addToCartButton.style.cursor = "pointer";
                             document.querySelectorAll('.custom-radio').forEach(radio => {
                                 radio.classList.add('in-stock');
                             });
@@ -1029,22 +1027,14 @@ document.addEventListener('DOMContentLoaded', function () {
                         option.addEventListener('change', updateStockLabel);
                     });
             
-                    // Initialize on page load
                     updateStockLabel();
                 });
             </script>
             
             
-            
-
 
 
     {{- partial "footer.html" . }}
 
 </body>
 </html>
-
-
-
-
-
