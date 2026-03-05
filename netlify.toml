@@ -1,165 +1,138 @@
 [build]
   functions = "functions"
 
+# ── AU subdomain redirect ────────────────────────────────────────────────────
+# Sends au.primalpantry.co.nz/* → www.primalpantry.co.nz/*?market=au
+# Uses 302 (temporary) so browsers never permanently cache it.
+# au.primalpantry.co.nz must be added as a domain alias in Netlify dashboard.
+[[redirects]]
+  from = "https://au.primalpantry.co.nz/*"
+  to = "https://www.primalpantry.co.nz/:splat?market=au"
+  status = 302
+  force = true
+
+# ── Existing redirects (unchanged) ──────────────────────────────────────────
 [[redirects]]
   from = "https://www.primalpantry.co.nz/shop/products/pets-powder/"
   to = "https://www.primalpantry.co.nz/shop/"
   status = 301
   force = true
-
 [[redirects]]
   from = "https://www.primalpantry.co.nz/shop/products/broth-bundle/"
   to = "https://www.primalpantry.co.nz/shop/"
   status = 301
   force = true
-
 [[redirects]]
   from = "https://www.primalpantry.co.nz/golden-stack/"
   to = "https://www.primalpantry.co.nz/shop/products/golden-tallow-honey-stack/?from_url=goldenstack"
   status = 301
   force = true
-
-# [[redirects]]
-#   from = "https://www.primalpantry.co.nz/fathers-day/"
-#   to = "https://www.primalpantry.co.nz/shop/products/mens-bundle/?from_url=fathersday"
-#   status = 301
-#   force = true
-
 [[redirects]]
   from = "https://www.primalpantry.co.nz/shop/products/broth-powder-chicken/"
   to = "https://www.primalpantry.co.nz/shop/"
   status = 301
   force = true
-
 [[redirects]]
   from = "https://www.primalpantry.co.nz/shop/products/hojicha/"
   to = "https://www.primalpantry.co.nz/shop/"
   status = 301
   force = true
-
 [[redirects]]
   from = "https://www.primalpantry.co.nz/shop/products/matcha/"
   to = "https://www.primalpantry.co.nz/shop/"
   status = 301
   force = true
-
 [[redirects]]
   from = "https://www.primalpantry.co.nz/shop/products/mushroom-chips/"
   to = "https://www.primalpantry.co.nz/shop/"
   status = 301
   force = true
-
 [[redirects]]
   from = "https://www.primalpantry.co.nz/shop/products/marrow-butter/"
   to = "https://www.primalpantry.co.nz/shop/"
   status = 301
   force = true
-
 [[redirects]]
   from = "https://www.primalpantry.co.nz/shop/products/powder/"
   to = "https://www.primalpantry.co.nz/shop/"
   status = 301
   force = true
-
 [[redirects]]
   from = "https://www.primalpantry.co.nz/shop/products/tallow-cooking/"
   to = "https://www.primalpantry.co.nz/shop/"
   status = 301
   force = true
-
 [[redirects]]
   from = "https://www.primalpantry.co.nz/shop/products/salmon-skin-treats/"
   to = "https://www.primalpantry.co.nz/shop/"
   status = 301
   force = true
-
 [[redirects]]
   from = "https://www.primalpantry.co.nz/shop/products/tallow-broth-bundle/"
   to = "https://www.primalpantry.co.nz/shop/"
   status = 301
   force = true
-
 [[redirects]]
   from = "https://www.primalpantry.co.nz/shop/products/tallow-balm-skin-unwhipped/"
   to = "https://www.primalpantry.co.nz/shop/"
   status = 301
   force = true
-
 [[redirects]]
   from = "https://www.primalpantry.co.nz/shop/products/tallow-skin-kit/"
   to = "https://www.primalpantry.co.nz/shop/products/tallow-skin/"
   status = 301
   force = true
-
 [[redirects]]
   from = "https://www.primalpantry.co.nz/shop/products/tallow-trio/"
   to = "https://www.primalpantry.co.nz/shop/products/tallow-skin/"
   status = 301
   force = true
-
 [[redirects]]
   from = "https://www.primalpantry.co.nz/home-v1/"
   to = "https://www.primalpantry.co.nz/"
   status = 301
   force = true
-
 [[redirects]]
   from = "https://www.primalpantry.co.nz/shop/products/inside-out/"
   to = "https://www.primalpantry.co.nz/shop/products/tallow-skin/"
   status = 301
   force = true
-
 [[redirects]]
-  # Redirect all HTTP traffic (non-www) to HTTPS on the old domain
   from = "http://primebroth.co.nz/*"
   to = "https://www.primalpantry.co.nz/:splat"
   status = 301
   force = true
-
 [[redirects]]
-  # Redirect all HTTP traffic (www) to HTTPS on the new domain
   from = "http://www.primebroth.co.nz/*"
   to = "https://www.primalpantry.co.nz/:splat"
   status = 301
   force = true
-
 [[redirects]]
-  # Redirect all HTTPS traffic (non-www) to the new domain
   from = "https://primebroth.co.nz/*"
   to = "https://www.primalpantry.co.nz/:splat"
   status = 301
   force = true
-
 [[redirects]]
-  # Redirect all HTTPS traffic (www) to the new domain
   from = "https://www.primebroth.co.nz/*"
   to = "https://www.primalpantry.co.nz/:splat"
   status = 301
   force = true
-
 [[redirects]]
-  # Redirect primalcare.co.nz to the specific balm page
   from = "http://primalcare.co.nz/"
   to = "https://www.primalpantry.co.nz/shop?filter=tallow"
   status = 301
   force = true
-
 [[redirects]]
-  # Redirect www.primalcare.co.nz to the specific balm page
   from = "http://www.primalcare.co.nz/"
   to = "https://www.primalpantry.co.nz/shop?filter=tallow"
   status = 301
   force = true
-
 [[redirects]]
-  # Redirect all HTTPS traffic (non-www) for primalcare.co.nz
   from = "https://primalcare.co.nz/"
   to = "https://www.primalpantry.co.nz/shop?filter=tallow"
   status = 301
   force = true
-
 [[redirects]]
-  # Redirect all HTTPS traffic (www) for primalcare.co.nz
   from = "https://www.primalcare.co.nz/"
   to = "https://www.primalpantry.co.nz/shop?filter=tallow"
   status = 301
