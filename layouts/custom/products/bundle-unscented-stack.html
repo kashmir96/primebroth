@@ -15,16 +15,14 @@
 </head>
 <body>
     <style>
-
         .custom-radio input[type="radio"]:checked + .custom-radio-label::before {
           background-color: green;
         }
-        
         .custom-radio-label {
             color: green;
         }
-            </style>
-             {{- partial "alert-online.html" . -}}
+    </style>
+    {{- partial "alert-online.html" . -}}
     {{- partial "header_new.html" . -}}
     
     <div class="container product-page">
@@ -39,7 +37,6 @@
                 <img class="stars float-left mr-2" src="/img/stars/5.webp" alt=""><p class="fw-bold">Used by 300+ kiwis - Online Exclusive!</p>
                 <h1 class="fw-bold mt-2">Sensitive Skin Tallow Stack </h1><p class="fw-lighter h1 h1big">Naturally Soothing Skincare</p>
                 <p class="fw-lighter">A natural toolkit for <span class="attention-primalcare"> nourishing sensitive skin!</span></p>
-                <!-- Product Form Options with Bootstrap Styling -->
                 <div class="price-display">    
                     <p class="mb-2"><span id="price">-</span></p>
                     <p>or 4 interest free payments of $<span id="afterpay_price"></span> with <img src="/img/afterpay.webp" class="d-inline" height="28"></p>                
@@ -52,12 +49,10 @@
                         <input type="radio" id="unscented" name="flavor" value="unscented" checked>
                         <label for="unscented" class="product-form-radio">
                             <ul class="text-left">
-                                <li>1x Travel tallow balm 60ml (Vanilla rose)</li>hu
+                                <li>1x Travel tallow balm 60ml (Vanilla rose)</li>
                                 <li>1x Tallow balm 120ml (Vanilla rose)</li>
-                                <!-- <li>1x Tallow soap (unscented)</li> -->
                                 <li>1x Lip Balm (Manuka honey)</li>
                                 <li>1x Deodorant (Cedarwood)</li>
-                                <!-- <li>1x Shampoo bar (rosemary & peppermint)</li> -->
                             </ul></label>
                     </div>  
                 
@@ -65,7 +60,7 @@
                         <label class="float-left mob-ninety mr-2 mt-2">Select size:</label>
                         <div class=" product-form-radio">
                             <input type="radio" id="sizeone-size" name="size" value="one-size" checked>
-                            <label for="sizeone-size" class="product-form-radio"><img class="prod-radio-img" src="/img/sensitive-trans.webp">One Size<span></span></label></p>
+                            <label for="sizeone-size" class="product-form-radio"><img class="prod-radio-img" src="/img/sensitive-trans.webp">One Size<span></span></label>
                         </div>
                     </div>
 
@@ -78,7 +73,6 @@
                         <input type="radio" id="three_pack" name="orderType" value="three_pack">
                         <label for="three_pack" class="product-form-radio"><img class="prod-radio-img" src="/img/sensitive-trans-3.webp">3 pack <span class="attention-primalcare small">(save 20%)</span></label>
                     </div>
-                    <!-- Quantity Selector -->
                     <div class="form-group mb-3 mb-lg-4">
                         <div class="mt-4 custom-radio float-right">
                             <input type="radio" id="inStock" name="stockStatus" checked>
@@ -91,248 +85,51 @@
                             <button type="button" class="btn-increase">+</button>
                         </div>
                     </div>
-                    <!-- Add to Cart Button -->
                     <div class="add-to-cart text-center mb-4">
                         <button type="button" class="btn btn-black btn-lg buy-now mb-2" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button>
                         <p>Speedy Shipping NZ Wide | Money back guarantee</p>
                         <img class="badges middle" src="/img/stripe-badge-transparent.webp" alt="stripe secure badges">
-
                     </div>
 
                 </form> 
-                <!-- ===== EANZ PILL + MODAL — Embed on any page ===== -->
-<!-- Drop this snippet anywhere. Requires the PP fonts (Fraunces + DM Sans) already loaded on the page. -->
 
 <style>
-/* ===== EANZ PILL ===== */
-.pp-eanz-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 16px;
-  background: var(--white, #FFFFFF);
-  border: 1px solid var(--cream-deep, #EEDED0);
-  border-radius: 16px;
-  padding: 14px 22px;
-  width: fit-content;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-  cursor: default;
-  transition: box-shadow 0.3s;
-  margin-top: 16px;
-}
-.pp-eanz-pill:hover {
-  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
-}
-.pp-eanz-pill img {
-  height: 52px;
-  width: auto;
-  flex-shrink: 0;
-}
-.pp-eanz-pill-text {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.pp-eanz-pill-label {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-weight: 700;
-  color: var(--sage, #6B8F5B);
-  line-height: 1.3;
-}
-.pp-eanz-pill-title {
-  font-family: 'Fraunces', serif;
-  font-size: 0.95rem;
-  color: var(--bark, #2E1A0E);
-  font-weight: 700;
-  line-height: 1.25;
-}
-.pp-eanz-pill-commit {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.78rem;
-  color: var(--bark-light, #6B4D38);
-  font-weight: 600;
-  line-height: 1.4;
-  margin-top: 2px;
-}
-.pp-eanz-pill-link {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--sage, #6B8F5B);
-  cursor: pointer;
-  background: none;
-  border: none;
-  padding: 0;
-  margin-top: 4px;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  transition: gap 0.3s, opacity 0.3s;
-  text-decoration: none;
-}
-.pp-eanz-pill-link:hover {
-  gap: 7px;
-  opacity: 0.8;
-}
-.pp-eanz-pill-link svg {
-  width: 12px;
-  height: 12px;
-}
-
-/* ===== EANZ MODAL ===== */
-.pp-eanz-modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 99999;
-  background: rgba(46, 26, 14, 0.45);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-.pp-eanz-modal-overlay.is-open {
-  display: flex;
-  opacity: 1;
-}
-.pp-eanz-modal {
-  background: var(--sage-pale, #E5EDDF);
-  border-radius: 24px;
-  max-width: 920px;
-  width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
-  position: relative;
-  box-shadow: 0 32px 80px rgba(0,0,0,0.18);
-  animation: pp-eanz-modal-in 0.35s ease both;
-}
-@keyframes pp-eanz-modal-in {
-  from { opacity: 0; transform: translateY(20px) scale(0.97); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-.pp-eanz-modal-close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  z-index: 3;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(6px);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s, transform 0.3s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-.pp-eanz-modal-close:hover {
-  background: var(--white, #FFFFFF);
-  transform: scale(1.08);
-}
-.pp-eanz-modal-close svg {
-  width: 18px;
-  height: 18px;
-  color: var(--bark, #2E1A0E);
-}
-.pp-eanz-modal-body {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 40px;
-  padding: 48px;
-  align-items: center;
-}
-.pp-eanz-modal-video-wrap {
-  position: relative;
-  padding-bottom: 177.78%;
-  border-radius: 16px;
-  overflow: hidden;
-  background: var(--bark, #2E1A0E);
-}
-.pp-eanz-modal-video-wrap iframe {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  border: 0;
-}
-.pp-eanz-modal-video-placeholder {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--cream, #FAF4EB);
-  font-size: 2.5rem;
-  cursor: pointer;
-}
-.pp-eanz-modal-right {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-}
-.pp-eanz-modal-right img {
-  height: 88px;
-  width: auto;
-  flex-shrink: 0;
-}
-.pp-eanz-modal-text {
-  max-width: 400px;
-}
-.pp-eanz-modal-text h3 {
-  font-family: 'Fraunces', serif;
-  font-weight: 400;
-  font-size: 1.5rem;
-  color: var(--bark, #2E1A0E);
-  margin: 0 0 10px;
-  line-height: 1.2;
-}
-.pp-eanz-modal-text p {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.88rem;
-  color: var(--bark-light, #6B4D38);
-  line-height: 1.6;
-  margin: 0;
-}
-.pp-eanz-modal-text .pp-eanz-disclaimer {
-  font-size: 0.65rem;
-  color: var(--warm-gray, #877B71);
-  margin-top: 10px;
-  line-height: 1.5;
-}
-
-/* ===== MODAL RESPONSIVE ===== */
+.pp-eanz-pill { display: inline-flex; align-items: center; gap: 16px; background: var(--white, #FFFFFF); border: 1px solid var(--cream-deep, #EEDED0); border-radius: 16px; padding: 14px 22px; width: fit-content; box-shadow: 0 2px 12px rgba(0,0,0,0.04); cursor: default; transition: box-shadow 0.3s; margin-top: 16px; }
+.pp-eanz-pill:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+.pp-eanz-pill img { height: 52px; width: auto; flex-shrink: 0; }
+.pp-eanz-pill-text { display: flex; flex-direction: column; gap: 2px; }
+.pp-eanz-pill-label { font-family: 'DM Sans', sans-serif; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; color: var(--sage, #6B8F5B); line-height: 1.3; }
+.pp-eanz-pill-title { font-family: 'Fraunces', serif; font-size: 0.95rem; color: var(--bark, #2E1A0E); font-weight: 700; line-height: 1.25; }
+.pp-eanz-pill-commit { font-family: 'DM Sans', sans-serif; font-size: 0.78rem; color: var(--bark-light, #6B4D38); font-weight: 600; line-height: 1.4; margin-top: 2px; }
+.pp-eanz-pill-link { font-family: 'DM Sans', sans-serif; font-size: 0.72rem; font-weight: 700; color: var(--sage, #6B8F5B); cursor: pointer; background: none; border: none; padding: 0; margin-top: 4px; display: inline-flex; align-items: center; gap: 4px; transition: gap 0.3s, opacity 0.3s; text-decoration: none; }
+.pp-eanz-pill-link:hover { gap: 7px; opacity: 0.8; }
+.pp-eanz-pill-link svg { width: 12px; height: 12px; }
+.pp-eanz-modal-overlay { display: none; position: fixed; inset: 0; z-index: 99999; background: rgba(46,26,14,0.45); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 24px; opacity: 0; transition: opacity 0.3s ease; }
+.pp-eanz-modal-overlay.is-open { display: flex; opacity: 1; }
+.pp-eanz-modal { background: var(--sage-pale, #E5EDDF); border-radius: 24px; max-width: 920px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; box-shadow: 0 32px 80px rgba(0,0,0,0.18); animation: pp-eanz-modal-in 0.35s ease both; }
+@keyframes pp-eanz-modal-in { from { opacity: 0; transform: translateY(20px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.pp-eanz-modal-close { position: absolute; top: 16px; right: 16px; z-index: 3; width: 40px; height: 40px; border-radius: 50%; border: none; background: rgba(255,255,255,0.85); backdrop-filter: blur(6px); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.3s, transform 0.3s; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.pp-eanz-modal-close:hover { background: var(--white, #FFFFFF); transform: scale(1.08); }
+.pp-eanz-modal-close svg { width: 18px; height: 18px; color: var(--bark, #2E1A0E); }
+.pp-eanz-modal-body { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; padding: 48px; align-items: center; }
+.pp-eanz-modal-video-wrap { position: relative; padding-bottom: 177.78%; border-radius: 16px; overflow: hidden; background: var(--bark, #2E1A0E); }
+.pp-eanz-modal-video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+.pp-eanz-modal-video-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--cream, #FAF4EB); font-size: 2.5rem; cursor: pointer; }
+.pp-eanz-modal-right { display: flex; align-items: flex-start; gap: 20px; }
+.pp-eanz-modal-right img { height: 88px; width: auto; flex-shrink: 0; }
+.pp-eanz-modal-text { max-width: 400px; }
+.pp-eanz-modal-text h3 { font-family: 'Fraunces', serif; font-weight: 400; font-size: 1.5rem; color: var(--bark, #2E1A0E); margin: 0 0 10px; line-height: 1.2; }
+.pp-eanz-modal-text p { font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--bark-light, #6B4D38); line-height: 1.6; margin: 0; }
+.pp-eanz-modal-text .pp-eanz-disclaimer { font-size: 0.65rem; color: var(--warm-gray, #877B71); margin-top: 10px; line-height: 1.5; }
 @media (max-width: 768px) {
-  .pp-eanz-modal-body {
-    grid-template-columns: 1fr;
-    gap: 28px;
-    padding: 32px 24px;
-  }
-  .pp-eanz-modal-right {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  .pp-eanz-modal-text {
-    text-align: center;
-  }
-  .pp-eanz-pill {
-    padding: 12px 16px;
-    gap: 12px;
-  }
-  .pp-eanz-pill img {
-    height: 42px;
-  }
+  .pp-eanz-modal-body { grid-template-columns: 1fr; gap: 28px; padding: 32px 24px; }
+  .pp-eanz-modal-right { flex-direction: column; align-items: center; text-align: center; }
+  .pp-eanz-modal-text { text-align: center; }
+  .pp-eanz-pill { padding: 12px 16px; gap: 12px; }
+  .pp-eanz-pill img { height: 42px; }
 }
 </style>
 
-<!-- ===== THE PILL — place this wherever you want the badge ===== -->
 <div class="pp-eanz-pill">
   <img src="/img/home/eanz.webp" alt="Eczema Association of New Zealand" width="52" height="52">
   <div class="pp-eanz-pill-text">
@@ -346,7 +143,6 @@
   </div>
 </div>
 
-<!-- ===== THE MODAL — only needs to exist once per page ===== -->
 <div class="pp-eanz-modal-overlay" id="pp-eanz-modal" onclick="if(event.target===this){this.classList.remove('is-open');document.body.style.overflow=''}">
   <div class="pp-eanz-modal">
     <button class="pp-eanz-modal-close" onclick="document.getElementById('pp-eanz-modal').classList.remove('is-open');document.body.style.overflow='';" aria-label="Close">
@@ -370,15 +166,12 @@
   </div>
 </div>
 
-<!-- ===== SCRIPT — lazy-loads video only when modal opens ===== -->
 <script>
 (function(){
   var overlay = document.getElementById('pp-eanz-modal');
   var videoWrap = document.getElementById('pp-eanz-modal-video');
   if (!overlay || !videoWrap) return;
   var videoLoaded = false;
-
-  // Watch for modal open to lazy-load video
   var mo = new MutationObserver(function(){
     if (overlay.classList.contains('is-open') && !videoLoaded) {
       videoLoaded = true;
@@ -392,8 +185,6 @@
     }
   });
   mo.observe(overlay, {attributes: true, attributeFilter: ['class']});
-
-  // Close on Escape key
   document.addEventListener('keydown', function(e){
     if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
       overlay.classList.remove('is-open');
@@ -424,10 +215,8 @@
                     </div>
                     <p>With oils closely mimicking those produced by our bodies, our tallow <span class="attention-primalcare">soothes dry and irritated skin</span></p>
                 </div>
-            
             </div>
             <div class="faq-tab-container col-12 col-md-6">
-                <!-- Nav tabs -->
                 <div class="faq-nav-tabs">
                     <div class="faq-nav-tab active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</div>
                     <div class="faq-nav-tab" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</div>
@@ -437,13 +226,11 @@
                     <div class="faq-nav-tab" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</div>
                 </div>
         
-                <!-- Tab panes -->
                 <div class="tab-content faq-tab-content">
                     <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                         <h4>Sensitive Skin Tallow Stack</h4>
-                        <p>Soothe your skin with a bundle of gentle tallow skincare designed for people with sensitive, irritated and itchy skin. </p>
+                        <p>Soothe your skin with a bundle of gentle tallow skincare designed for people with sensitive, irritated and itchy skin.</p>
                         <p>Containing travel (60ml) and full-size (120ml) Vanilla rose tallow balms, Manuka honey lipbalm and a Cedarwood deodorant, you'll be nourished with the unique benefits of tallow day-round.</p>
-                        
                     </div>
                     <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
                         <h4>See what our customers say online</h4>
@@ -451,45 +238,31 @@
                     </div>
                     <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
                         <h4>Product Ingredients</h4>
-                        <p><span class="product-flavour"> Tallow Balm: Grass-fed purified NZ beef tallow, organic olive oil, organic jojoba oil, essential oil. </span></p>
-                            <!-- <p><span class="product-flavour"> Tallow Soap: Grass-Fed Beef Tallow, Lye (none remains in the product after 4 weeks of curing).</span></p>
-                                <p><span class="product-flavour"> Tallow Shampoo: Grass-Fed Beef Tallow, Olive Oil, Coconut Oil, Castor Oil Lye (none remains in product after 4 weeks of curing), Peppermint & Rosemary Essential Oils.</span></p>
-                                  -->   
-                                <p><span class="product-flavour"> Tallow Deodorant: Grass-fed purified NZ beef tallow (75%), organic coconut oil, bees wax, magnesium hydroxide, cedarwood essential oil.</span></p>
-                                    <p><span class="product-flavour"> Tallow Lip balm: Grass-fed purified NZ beef tallow (75%), NZ manuka honey, organic coconut oil, NZ bees wax, essential oil.</span></p>
-
-                    </div>                  
-
-
+                        <p><span class="product-flavour">Tallow Balm: Grass-fed purified NZ beef tallow, organic olive oil, organic jojoba oil, essential oil.</span></p>
+                        <p><span class="product-flavour">Tallow Deodorant: Grass-fed purified NZ beef tallow (75%), organic coconut oil, bees wax, magnesium hydroxide, cedarwood essential oil.</span></p>
+                        <p><span class="product-flavour">Tallow Lip balm: Grass-fed purified NZ beef tallow (75%), NZ manuka honey, organic coconut oil, NZ bees wax, essential oil.</span></p>
+                    </div>
                     <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
                         <h4>Tallow Directions</h4>
                         <p>Apply a small amount on the face, neck, hands or feet daily in the morning as a moisturiser or evening as a night cream. Best used on slightly damp skin.</p>
                         <p>Body and facial moisturizer. Eczema cream, monthly hair conditioner.</p>
-
-
                     </div>
                     <div class="tab-pane fade" id="storage" role="tabpanel" aria-labelledby="storage-tab">
                         <h4>Tallow Storage</h4>
                         <p>For best texture and consistency when using, keep in temperatures between 18 and 25 degrees celsius and out of direct sunlight.</p>
-                        
-
                     </div>
                     <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
                         <h4>Shipping</h4>
-                        <p><strong>Processing time:</strong> Your order will be processed wifw-lighter 3 business days after which you can expect usual courier times to your area (generally 3-5 business days) </p>
+                        <p><strong>Processing time:</strong> Your order will be processed within 3 business days after which you can expect usual courier times to your area (generally 3-5 business days)</p>
                         <p><strong>Shipping rates:</strong> We usually charge between $4.95 and $6.95 for shipping. You can view the shipping costs at the checkout before completing your purchase.</p>
-                        <p><strong>International shipping:</strong> Currently, we only offer shipping wifw-lighter New Zealand. We apologize for any inconvenience this may cause.</p>
+                        <p><strong>International shipping:</strong> Currently, we only offer shipping within New Zealand. We apologize for any inconvenience this may cause.</p>
                         <p>If you have any questions or concerns regarding shipping, please don't hesitate to <a href="contact">contact us</a>.</p>
                     </div>
                 </div>
-                
             </div>
         </div>
     </div>
-            {{- partial "irritation-routine.html" . -}}
-
-
-
+    {{- partial "irritation-routine.html" . -}}
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -506,8 +279,20 @@
             });
         });
     </script>
-<script>
-    const productPricingRaw = {{ site.Data.pricing.bundles.pricing.sensitive_stack | jsonify | safeJS }};
+
+    <!-- YAML SCRIPT STARTS -->
+
+    <script>
+    // ── MARKET SETUP ──────────────────────────────────────────────────────────
+    var country_code = (window.MARKET === 'AU') ? 'AU' : 'NZ';
+    </script>
+
+    <script>
+    // ── PRICING DATA ──────────────────────────────────────────────────────────
+    const productPricingRaw = (window.MARKET === 'AU')
+        ? {{ site.Data.pricing_au.bundles.pricing.sensitive_stack | jsonify | safeJS }}
+        : {{ site.Data.pricing.bundles.pricing.sensitive_stack | jsonify | safeJS }};
+
     console.log("Raw product Pricing from Hugo:", productPricingRaw);
 
     const productPricing = Array.isArray(productPricingRaw) ? productPricingRaw : [];
@@ -518,7 +303,7 @@
     }
 
     function updatePrice() {
-        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
+        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase();
         const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
 
         console.log("Selected size:", size);
@@ -535,297 +320,217 @@
         }
     }
 
-    // Attach event listener for changes
     document.getElementById("productForm").addEventListener("change", updatePrice);
-
-    // Initialize the price on page load
     document.addEventListener("DOMContentLoaded", updatePrice);
-</script>
+    </script>
 
-
-<script>
-    // Function to update the price ID display
+    <script>
     function updatePriceID() {
-    const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
-    const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
-    const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
-    
-    
+        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase();
+        const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
 
+        let priceID = "N/A";
 
-    // Default value for price ID
-    let priceID = "N/A";
+        console.log("Loaded Data:", productPricingRaw);
+        console.log("Selected - Size:", size, "Flavor:", flavor, "Order Type:", orderType);
 
-    // Debug: Check the loaded data and selected values
-    console.log("Loaded Data:", productPricingRaw);
-    console.log("Selected - Size:", size, "Flavor:", flavor, "Order Type:", orderType);
-
-    // Traverse the pricing structure for the selected combination
-    if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.balm) {
-        const balmData = productPricingRaw.ids.balm;
-        console.log("balm Data:", balmData);
-
-        const orderTypeData = balmData[orderType];
-        console.log("Order Type Data:", orderTypeData);
-
-        if (orderTypeData && orderTypeData[flavor]) {
-            const flavorData = orderTypeData[flavor];
-            console.log("Flavor Data:", flavorData);
-
-            const sizeData = flavorData[size];
-            console.log("Size Data:", sizeData);
-
-            if (sizeData) {
-                priceID = sizeData[country_code]; // Assign the resolved price ID
-            }
-        }
-    }
-
-    // Update the DOM element with the resolved price ID
-    document.getElementById("price-id").textContent = priceID !== "N/A" ? priceID : "Price ID Not Available";
-
-    // Log final result
-    console.log("Resolved Price ID:", priceID);
-
-};
-</script>
-<script>
-    // Parse the JSON string into an object
-    const rawData = "{{ .Site.Data.pricing | jsonify }}"; // Embedded JSON string from Hugo
-    const pricingData = JSON.parse(rawData); // Parse into a JavaScript object
-    console.log('Parsed Pricing Data:', pricingData); // Debugging output
-
-    function updatePriceId() {
-    // Get the selected values
-    const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
-    const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
-    const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
-    
-
-    try {
-        let priceId;
-
-        // Access the correct price ID based on the order type
-        if (orderType === 'single_purchase') {
-            priceId = pricingData.bundles.ids.sensitive_stack.single[flavor][size][country_code];
-        } else if (orderType === 'recurring_monthly') {
-            priceId = pricingData.bundles.ids.sensitive_stack.monthly[flavor][size][country_code];
-        } else if (orderType === 'recurring_quarterly') {
-            priceId = pricingData.bundles.ids.sensitive_stack.quarterly[flavor][size][country_code];
-        } else if (orderType === 'three_pack') {
-            priceId = pricingData.bundles.ids.sensitive_stack.pack[flavor][size][country_code];
-        }
-
-        console.log('Price ID:', priceId);
-
-        // Update the DOM element with the resolved price ID, if it exists
-        const priceIdElement = document.getElementById('price-id');
-        if (priceIdElement) {
-            priceIdElement.textContent = priceId || 'Price ID not found';
-        }
-
-        // Update the button's data-price-id attribute
-        const buyNowButton = document.querySelector(".buy-now");
-        if (buyNowButton) {
-            buyNowButton.setAttribute("data-price-id", priceId || "");
-            console.log('Button updated with Price ID:', priceId);
-        }
-    } catch (error) {
-        console.error('Error fetching Price ID:', error);
-
-        // Clear the button's data-price-id attribute on error
-        const buyNowButton = document.querySelector(".buy-now");
-        if (buyNowButton) {
-            buyNowButton.setAttribute("data-price-id", "");
-        }
-    }
-}
-
-    document.addEventListener('DOMContentLoaded', function () {
-        // Add event listener for form changes
-        document.getElementById('productForm').addEventListener('change', updatePriceId);
-
-        // Trigger the update function on page load
-        updatePriceId();
-    });
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-    // Convert the ids structure to a simplified format
-    function preprocessproductData(rawData) {
-        const simplified = {};
-
-        // Iterate over balm (or pets, if needed)
-        if (rawData.ids && rawData.ids.balm) {
-            const categories = rawData.ids.balm;
-
-            for (const [orderType, flavors] of Object.entries(categories)) {
-                for (const [flavor, sizes] of Object.entries(flavors)) {
-                    for (const [size, priceId] of Object.entries(sizes)) {
-                        if (!simplified[size]) {
-                            simplified[size] = {};
-                        }
-                        if (!simplified[size][flavor]) {
-                            simplified[size][flavor] = {};
-                        }
-                        simplified[size][flavor][orderType] = priceId;
-                    }
+        if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.balm) {
+            const balmData = productPricingRaw.ids.balm;
+            const orderTypeData = balmData[orderType];
+            if (orderTypeData && orderTypeData[flavor]) {
+                const flavorData = orderTypeData[flavor];
+                const sizeData = flavorData[size];
+                if (sizeData) {
+                    priceID = sizeData[country_code];
                 }
             }
         }
-        return simplified;
+
+        document.getElementById("price-id").textContent = priceID !== "N/A" ? priceID : "Price ID Not Available";
+        console.log("Resolved Price ID:", priceID);
+    }
+    </script>
+
+    <script>
+    // ── FULL PRICING DATA (for price ID lookups) ──────────────────────────────
+    const pricingData = (window.MARKET === 'AU')
+        ? {{ .Site.Data.pricing_au | jsonify | safeJS }}
+        : {{ .Site.Data.pricing | jsonify | safeJS }};
+
+    console.log('Parsed Pricing Data:', pricingData);
+
+    function updatePriceId() {
+        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase();
+        const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
+
+        try {
+            let priceId;
+
+            if (orderType === 'single_purchase') {
+                priceId = pricingData.bundles.ids.sensitive_stack.single[flavor][size][country_code];
+            } else if (orderType === 'recurring_monthly') {
+                priceId = pricingData.bundles.ids.sensitive_stack.monthly[flavor][size][country_code];
+            } else if (orderType === 'recurring_quarterly') {
+                priceId = pricingData.bundles.ids.sensitive_stack.quarterly[flavor][size][country_code];
+            } else if (orderType === 'three_pack') {
+                priceId = pricingData.bundles.ids.sensitive_stack.pack[flavor][size][country_code];
+            }
+
+            console.log('Price ID:', priceId);
+
+            const priceIdElement = document.getElementById('price-id');
+            if (priceIdElement) {
+                priceIdElement.textContent = priceId || 'Price ID not found';
+            }
+
+            const buyNowButton = document.querySelector(".buy-now");
+            if (buyNowButton) {
+                buyNowButton.setAttribute("data-price-id", priceId || "");
+                console.log('Button updated with Price ID:', priceId);
+            }
+        } catch (error) {
+            console.error('Error fetching Price ID:', error);
+            const buyNowButton = document.querySelector(".buy-now");
+            if (buyNowButton) {
+                buyNowButton.setAttribute("data-price-id", "");
+            }
+        }
     }
 
-    // Example: Assume productPricingRaw is available globally or passed here
-    const normalizedproductData = preprocessproductData(productPricingRaw);
-    console.log('Normalized product Data:', normalizedproductData);
-
-    // Use normalizedproductData for price ID lookups
-    function getPriceID(size, flavor, orderType) {
-        return (
-            normalizedproductData[size]?.[flavor]?.[orderType] ||
-            "Price ID not found"
-        );
-    }
-
-});
-
-</script>
-
-
-<script>
-    // Add to Cart Handler Function
-    function handleAddToCart(event) {
-    event.preventDefault();
-
-    console.log('Add to Cart button clicked!'); // Debugging
-
-    const button = event.target;
-
-
-    // Retrieve values from the dropdowns
-    const selectedSize = document.querySelector('input[name="size"]:checked');
-    const size = document.querySelector(`label[for="${selectedSize.id}"]`).textContent.trim(); // Updated to get label text
-
-// Use the text content of the selected option
-const selectedFlavor = document.querySelector('input[name="flavor"]:checked');
-const flavor = document.querySelector(`label[for="${selectedFlavor.id}"]`).textContent.trim();
-
-// Use the text content of the selected option
-    const selectedOrderType = document.querySelector('input[name="orderType"]:checked');
-    const orderTypeSelect = document.querySelector(`label[for="${selectedOrderType.id}"]`).textContent.trim();
-  
-
-    const unitPriceElement = document.getElementById('price');
-    const unitPrice = unitPriceElement 
-        ? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00
-        : 0.00;
-
-    // Retrieve the price ID
-    const priceId = button.getAttribute('data-price-id') || 'N/A';
-    const title = document.querySelector('h1').innerText;
-
-    // Retrieve quantity
-    const quantityField = document.getElementById('quantityAll');
-    const quantity = quantityField ? parseInt(quantityField.value, 10) || 1 : 1;
-
-    // Debugging
-    console.log('Size:', size);
-    console.log('Flavor:', flavor);
-    console.log('Order Type:', orderTypeSelect); // Updated to show label
-    console.log('Quantity:', quantity);
-    console.log('Price ID:', priceId);
-
-    // Check if price ID is valid
-    if (!priceId || priceId === 'N/A') {
-        alert('Please select valid options before adding to cart.');
-        return;
-    }
-
-    // Add to cart
-    const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
-    cart.push({
-        priceId,
-        title,
-        size,
-        flavor,
-        orderType: orderTypeSelect,
-        quantity,
-        unitPrice
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('productForm').addEventListener('change', updatePriceId);
+        updatePriceId();
     });
-    localStorage.setItem('cartV2', JSON.stringify(cart));
+    </script>
 
-    console.log('Cart updated:', cart); // Debugging
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        function preprocessproductData(rawData) {
+            const simplified = {};
+            if (rawData.ids && rawData.ids.balm) {
+                const categories = rawData.ids.balm;
+                for (const [orderType, flavors] of Object.entries(categories)) {
+                    for (const [flavor, sizes] of Object.entries(flavors)) {
+                        for (const [size, priceId] of Object.entries(sizes)) {
+                            if (!simplified[size]) simplified[size] = {};
+                            if (!simplified[size][flavor]) simplified[size][flavor] = {};
+                            simplified[size][flavor][orderType] = priceId;
+                        }
+                    }
+                }
+            }
+            return simplified;
+        }
 
-    // Trigger success modal or alert
-    const modal = document.getElementById('addedToCartModal');
-    if (modal) {
-        $('#addedToCartModal').modal('show');
-    } else {
-        alert('Item added to cart successfully!');
+        const normalizedproductData = preprocessproductData(productPricingRaw);
+        console.log('Normalized product Data:', normalizedproductData);
+
+        function getPriceID(size, flavor, orderType) {
+            return normalizedproductData[size]?.[flavor]?.[orderType] || "Price ID not found";
+        }
+    });
+    </script>
+
+    <script>
+    function handleAddToCart(event) {
+        event.preventDefault();
+        console.log('Add to Cart button clicked!');
+
+        const button = event.target;
+        const selectedSize = document.querySelector('input[name="size"]:checked');
+        const size = document.querySelector(`label[for="${selectedSize.id}"]`).textContent.trim();
+        const selectedFlavor = document.querySelector('input[name="flavor"]:checked');
+        const flavor = document.querySelector(`label[for="${selectedFlavor.id}"]`).textContent.trim();
+        const selectedOrderType = document.querySelector('input[name="orderType"]:checked');
+        const orderTypeSelect = document.querySelector(`label[for="${selectedOrderType.id}"]`).textContent.trim();
+
+        const unitPriceElement = document.getElementById('price');
+        const unitPrice = unitPriceElement
+            ? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00
+            : 0.00;
+
+        const priceId = button.getAttribute('data-price-id') || 'N/A';
+        const title = document.querySelector('h1').innerText;
+        const quantityField = document.getElementById('quantityAll');
+        const quantity = quantityField ? parseInt(quantityField.value, 10) || 1 : 1;
+
+        console.log('Size:', size);
+        console.log('Flavor:', flavor);
+        console.log('Order Type:', orderTypeSelect);
+        console.log('Quantity:', quantity);
+        console.log('Price ID:', priceId);
+
+        if (!priceId || priceId === 'N/A') {
+            alert('Please select valid options before adding to cart.');
+            return;
+        }
+
+        const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+        cart.push({ priceId, title, size, flavor, orderType: orderTypeSelect, quantity, unitPrice });
+        localStorage.setItem('cartV2', JSON.stringify(cart));
+        console.log('Cart updated:', cart);
+
+        const modal = document.getElementById('addedToCartModal');
+        if (modal) {
+            $('#addedToCartModal').modal('show');
+        } else {
+            alert('Item added to cart successfully!');
+        }
     }
-}
 
-// Attach the event listener to the Add to Cart button
-document.addEventListener('DOMContentLoaded', function () {
-    const addToCartButton = document.querySelector('.buy-now');
-    if (addToCartButton) {
-        addToCartButton.addEventListener('click', handleAddToCart);
-        console.log('Add to Cart button is ready.');
-    } else {
-        console.error('Add to Cart button not found!');
-    }
-});
+    document.addEventListener('DOMContentLoaded', function () {
+        const addToCartButton = document.querySelector('.buy-now');
+        if (addToCartButton) {
+            addToCartButton.addEventListener('click', handleAddToCart);
+            console.log('Add to Cart button is ready.');
+        } else {
+            console.error('Add to Cart button not found!');
+        }
+    });
+    </script>
 
-</script>
-
-
-
-
-
-
-<!-- Modal for Add to Cart Confirmation -->
-<div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
-                </button>
-            </div>
-            <div class="modal-body">
-                Your item has been successfully added to the cart. What would you like to do next?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
-                <a href="/cart" class="btn btn-black">Go to Cart</a>
+    <!-- Modal for Add to Cart Confirmation -->
+    <div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Your item has been successfully added to the cart. What would you like to do next?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
+                    <a href="/cart" class="btn btn-black">Go to Cart</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
-{{- partial "stripe.html" . -}}    
+
+    {{- partial "stripe.html" . -}}
 
     <!-- YAML SCRIPT ENDS -->
+
     <script>
         const quantityInput = document.getElementById('quantityAll');
         const btnIncrease = document.querySelector('.btn-increase');
         const btnDecrease = document.querySelector('.btn-decrease');
         
-        // Increase quantity
         btnIncrease.addEventListener('click', () => {
           quantityInput.value = parseInt(quantityInput.value) + 1;
         });
         
-        // Decrease quantity (minimum value = 1)
         btnDecrease.addEventListener('click', () => {
           const currentValue = parseInt(quantityInput.value);
           if (currentValue > 1) {
             quantityInput.value = currentValue - 1;
           }
         });
-        
-            </script>
+    </script>
+
     {{- partial "footer.html" . }}
 </body>
 </html>
