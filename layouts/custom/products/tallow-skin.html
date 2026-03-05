@@ -810,29 +810,27 @@
         const wrap120 = document.getElementById('wrap-size120ml');
 
         if (orderType === 'single_purchase') {
-            // Lock to 60ml
-            size60.checked  = true;
-            size60.disabled = false;
-            size120.checked  = false;
-            size120.disabled = true;
+            // Both sizes available for singles
+            size60.disabled  = false;
+            size120.disabled = false;
             wrap60.style.opacity       = '1';
             wrap60.style.pointerEvents = 'auto';
             wrap60.removeAttribute('title');
-            wrap120.style.opacity       = '0.35';
-            wrap120.style.pointerEvents = 'none';
-            wrap120.title = 'Only available in the 3-pack';
+            wrap120.style.opacity       = '1';
+            wrap120.style.pointerEvents = 'auto';
+            wrap120.removeAttribute('title');
         } else if (orderType === 'three_pack') {
-            // Lock to 120ml
+            // Lock to 120ml only
             size120.checked  = true;
             size120.disabled = false;
-            size60.checked  = false;
-            size60.disabled = true;
+            size60.checked   = false;
+            size60.disabled  = true;
             wrap120.style.opacity       = '1';
             wrap120.style.pointerEvents = 'auto';
             wrap120.removeAttribute('title');
             wrap60.style.opacity       = '0.35';
             wrap60.style.pointerEvents = 'none';
-            wrap60.title = 'Only available as a single jar';
+            wrap60.title = 'Not available in the 3-pack';
         }
 
         // Keep price and price ID in sync after size change
