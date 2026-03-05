@@ -1,3 +1,32 @@
+<script>
+(function(){
+  try {
+    var isAUSubdomain = window.location.hostname.startsWith('au.');
+    var paramMarket = new URLSearchParams(window.location.search).get('market');
+    var storedMarket = localStorage.getItem('market');
+    var cookieMatch = document.cookie.match(/(?:^|;)\s*country_code=([^;]*)/);
+    var cookieMarket = cookieMatch ? cookieMatch[1] : null;
+
+    var isAU = isAUSubdomain
+      || (paramMarket || '').toUpperCase() === 'AU'
+      || storedMarket === 'AU'
+      || cookieMarket === 'AU';
+
+    if (!isAU) {
+      window.MARKET = 'NZ';
+      return;
+    }
+
+    window.MARKET = 'AU';
+    localStorage.setItem('market', 'AU');
+    var exp = new Date(Date.now() + 30*24*60*60*1000).toUTCString();
+    document.cookie = 'country_code=AU; expires=' + exp + '; path=/';
+
+  } catch(e) {
+    window.MARKET = 'NZ';
+  }
+})();
+</script>
 {{- partial "analytics" . -}}
 <meta charset="utf-8">
 <title>{{site.Title}}{{if not .IsHome}} | {{.Title}}{{end}}</title>
@@ -87,15 +116,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 <!-- Klaviyo Pixel Code Start 
 
 <script async type='text/javascript' src='https://static.klaviyo.com/onsite/js/UpP7TU/klaviyo.js?company_id=UpP7TU'></script>
-          <script type="text/javascript"> 
-          //Initialize Klaviyo object on page load
-          !function(){if(!window.klaviyo){window._klOnsite=window._klOnsite||[];try{window.klaviyo=new Proxy({},{get:function(n,i){return"push"===i?function(){var n;(n=window._klOnsite).push.apply(n,arguments)}:function(){for(var n=arguments.length,o=new Array(n),w=0;w<n;w++)o[w]=arguments[w];var t="function"==typeof o[o.length-1]?o.pop():void 0,e=new Promise((function(n){window._klOnsite.push([i].concat(o,[function(i){t&&t(i),n(i)}]))}));return e}}})}catch(n){window.klaviyo=window.klaviyo||[],window.klaviyo.push=function(){var n;(n=window._klOnsite).push.apply(n,arguments)}}}}(); </script>
+          <script type="text/javascript"> 
+          //Initialize Klaviyo object on page load
+          !function(){if(!window.klaviyo){window._klOnsite=window._klOnsite||[];try{window.klaviyo=new Proxy({},{get:function(n,i){return"push"===i?function(){var n;(n=window._klOnsite).push.apply(n,arguments)}:function(){for(var n=arguments.length,o=new Array(n),w=0;w<n;w++)o[w]=arguments[w];var t="function"==typeof o[o.length-1]?o.pop():void 0,e=new Promise((function(n){window._klOnsite.push([i].concat(o,[function(i){t&&t(i),n(i)}]))}));return e}}})}catch(n){window.klaviyo=window.klaviyo||[],window.klaviyo.push=function(){var n;(n=window._klOnsite).push.apply(n,arguments)}}}}(); </script>
 <!-- Klaviyo Pixel Code End -->
-
-
-
-
-
-
-
-
