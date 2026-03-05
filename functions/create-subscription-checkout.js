@@ -1,59 +1,82 @@
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+/**
+ * create-subscription-session.js
+ *
+ * Env vars required in Netlify:
+ *   STRIPE_SECRET_KEY      — NZ Stripe secret key (existing, no rename needed)
+ *   STRIPE_SECRET_KEY_AU   — AU Stripe secret key (new)
+ */
+
+const getStripe = (market) => {
+  if (market === 'AU') {
+    const auKey = process.env.STRIPE_SECRET_KEY_AU;
+    if (!auKey) {
+      console.warn('[subscription] STRIPE_SECRET_KEY_AU not set, falling back to NZ');
+      return require('stripe')(process.env.STRIPE_SECRET_KEY);
+    }
+    return require('stripe')(auKey);
+  }
+  return require('stripe')(process.env.STRIPE_SECRET_KEY);
+};
 
 exports.handler = async (event, context) => {
   try {
     const { cart, countryCode } = JSON.parse(event.body);
 
+    // Only activate AU if the AU Stripe key is actually configured
+    const market = (countryCode === 'AU' && process.env.STRIPE_SECRET_KEY_AU)
+      ? 'AU'
+      : 'NZ';
+
+    const stripe = getStripe(market);
+
     // Validate cart
     if (!cart || !Array.isArray(cart) || cart.length === 0) {
       throw new Error('Cart is empty or not provided.');
     }
-
-    // Validate all items
     for (const item of cart) {
       if (!item.priceId || typeof item.quantity !== 'number' || item.quantity <= 0) {
         throw new Error(`Invalid cart item: ${JSON.stringify(item)}`);
       }
     }
 
-    // Build line items
     const lineItems = cart.map(item => ({
       price: item.priceId,
       quantity: item.quantity,
     }));
 
-    console.log('Subscription line items:', JSON.stringify(lineItems));
+    console.log(`[${market}] Subscription line items:`, JSON.stringify(lineItems));
 
-    // Retrieve landing URL from cookies
+    // Landing URL from cookie
     const landingURL = event.headers.cookie
       ?.split(';')
-      .find(cookie => cookie.trim().startsWith('landingURL='))
+      .find(c => c.trim().startsWith('landingURL='))
       ?.split('=')[1];
     const decodedLandingURL = decodeURIComponent(landingURL || '');
 
-    const successUrl = `https://www.primalpantry.co.nz/pages/thank-you?landing_url=${encodeURIComponent(decodedLandingURL)}&type=subscription`;
+    const baseURL = 'https://www.primalpantry.co.nz';
+    const successUrl = `${baseURL}/pages/thank-you?landing_url=${encodeURIComponent(decodedLandingURL)}&type=subscription&market=${market}`;
 
-    // Create Stripe Checkout Session in subscription mode
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       shipping_address_collection: {
-        allowed_countries: ['NZ'],
+        allowed_countries: [market],
       },
       line_items: lineItems,
       mode: 'subscription',
       success_url: successUrl,
-      cancel_url: 'https://www.primalpantry.co.nz/subscribe/',
+      cancel_url: `${baseURL}/subscribe/`,
+      metadata: { market },
     });
 
-    console.log(`Subscription checkout session created: ${session.id}`);
+    console.log(`[${market}] Subscription session created: ${session.id}`);
 
-    // Return both sessionId and url so frontend can redirect without Stripe.js
     return {
       statusCode: 200,
       body: JSON.stringify({ sessionId: session.id, url: session.url }),
     };
+
   } catch (error) {
-    console.error('Error creating subscription checkout session:', error.message);
+    console.error('Error creating subscription session:', error.message);
     return {
       statusCode: 400,
       body: JSON.stringify({ error: `Error creating subscription checkout: ${error.message}` }),
