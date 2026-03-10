@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{- partial "head.html" . -}}
+    <meta name="description" content="{{ .Params.description }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400;1,9..144,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+{{- partial "alert.html" . -}}
+{{- partial "header_new.html" . -}}
+
+<style>
+/* ===== TOKENS (mirror pp-v3) ===== */
+:root {
+  --cream: #FAF4EB;
+  --cream-deep: #EEDED0;
+  --bark: #2E1A0E;
+  --bark-mid: #442A16;
+  --bark-light: #6B4D38;
+  --sage: #6B8F5B;
+  --sage-light: #8CB47A;
+  --sage-muted: #A3B898;
+  --sage-pale: #E5EDDF;
+  --honey: #D4A84B;
+  --blush: #DBBFA8;
+  --charcoal: #1E1E1E;
+  --warm-gray: #877B71;
+  --off-white: #FEFCF8;
+  --white: #FFFFFF;
+  /* Reviana accent — a warm limestone/stone tone distinct from PrimalCare's sage */
+  --rv-stone: #C8B89A;
+  --rv-stone-pale: #F3EEE7;
+  --rv-ink: #1A1410;
+}
+
+/* ===== BASE ===== */
+.prv {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--charcoal);
+  -webkit-font-smoothing: antialiased;
+}
+.prv h1, .prv h2, .prv h3, .prv h4 {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  line-height: 1.12;
+  margin: 0;
+  padding: 0;
+}
+.prv a { text-decoration: none; color: inherit; }
+.prv img { max-width: 100%; display: block; }
+.prv p { margin: 0; }
+
+.prv .pp-btn-primary, .prv a.pp-btn-primary {
+  background: var(--bark); color: #FAF4EB;
+  padding: 15px 32px; border-radius: 100px;
+  font-weight: 700; font-size: 0.92rem;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: all 0.3s; text-decoration: none;
+}
+.prv a.pp-btn-primary:hover { background: var(--bark-mid); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(46,26,14,0.16); }
+.prv .pp-btn-outline, .prv a.pp-btn-outline {
+  background: transparent; color: var(--bark);
+  padding: 15px 32px; border-radius: 100px;
+  font-weight: 700; font-size: 0.92rem;
+  border: 2px solid var(--bark);
+  transition: all 0.3s; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.prv a.pp-btn-outline:hover { background: var(--bark); color: #FAF4EB; }
+.prv .pp-btn-primary svg, .prv .pp-btn-outline svg { width: 16px; height: 16px; transition: transform 0.3s; }
+.prv .pp-btn-primary:hover svg { transform: translateX(3px); }
+
+/* ===== HERO ===== */
+.prv-hero {
+  background: var(--cream);
+  padding: 80px 0 0;
+  overflow: hidden;
+  position: relative;
+}
+.prv-hero-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 60px 80px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: end;
+}
+.prv-hero-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--rv-stone-pale);
+  border: 1px solid var(--rv-stone);
+  border-radius: 100px;
+  padding: 6px 16px 6px 10px;
+  margin-bottom: 24px;
+  width: fit-content;
+}
+.prv-hero-label-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--rv-stone); flex-shrink: 0;
+}
+.prv-hero-label span {
+  font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--bark-light);
+}
+.prv-hero h1 {
+  font-size: clamp(2.6rem, 3.8vw, 3.6rem);
+  color: var(--bark);
+  margin-bottom: 20px;
+  line-height: 1.08;
+  animation: prv-rise 0.7s ease both;
+}
+.prv-hero h1 em { color: var(--sage); font-style: italic; }
+.prv-hero-sub {
+  font-size: 1.02rem;
+  color: var(--warm-gray);
+  line-height: 1.68;
+  max-width: 480px;
+  margin-bottom: 32px;
+  animation: prv-rise 0.7s ease 0.1s both;
+}
+.prv-hero-btns {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  animation: prv-rise 0.7s ease 0.18s both;
+  margin-bottom: 48px;
+}
+.prv-hero-made-by {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: var(--white);
+  border: 1px solid var(--cream-deep);
+  border-radius: 14px;
+  font-size: 0.82rem;
+  color: var(--bark-light);
+  font-weight: 600;
+  animation: prv-rise 0.7s ease 0.26s both;
+  width: fit-content;
+}
+.prv-hero-made-by svg { width: 14px; height: 14px; color: var(--sage); flex-shrink: 0; }
+.prv-hero-img {
+  position: relative;
+  align-self: end;
+  animation: prv-rise 0.8s ease 0.08s both;
+}
+.prv-hero-img img {
+  width: 100%;
+  border-radius: 20px 20px 0 0;
+  display: block;
+}
+.prv-hero-img-badge {
+  position: absolute;
+  top: 20px; left: 20px;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(8px);
+  border-radius: 100px;
+  padding: 7px 18px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--bark);
+}
+
+/* ===== ORIGIN PULL-QUOTE ===== */
+.prv-origin {
+  background: var(--bark);
+  padding: 72px 80px;
+}
+.prv-origin-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 72px;
+  align-items: center;
+}
+.prv-origin-left {
+  display: flex; flex-direction: column; gap: 16px;
+}
+.prv-origin-eyebrow {
+  font-size: 0.68rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.18em;
+  color: var(--rv-stone);
+}
+.prv-origin-left h2 {
+  font-size: clamp(1.9rem, 2.6vw, 2.5rem);
+  color: var(--white);
+  line-height: 1.12;
+}
+.prv-origin-left h2 em { color: var(--rv-stone); font-style: italic; }
+.prv-origin-left p {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.7;
+}
+.prv-origin-right { display: flex; flex-direction: column; gap: 24px; }
+.prv-origin-quote {
+  font-family: 'Fraunces', serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--white);
+  line-height: 1.55;
+  padding-left: 20px;
+  border-left: 3px solid var(--rv-stone);
+  opacity: 0.9;
+}
+.prv-origin-quote mark {
+  background: none;
+  color: var(--rv-stone);
+  font-style: italic;
+}
+.prv-origin-stat-row {
+  display: flex; gap: 32px; flex-wrap: wrap;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+.prv-origin-stat-num {
+  font-family: 'Fraunces', serif;
+  font-size: 1.6rem;
+  color: var(--rv-stone);
+  font-weight: 600;
+  line-height: 1;
+}
+.prv-origin-stat-label {
+  font-size: 0.68rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.35);
+  margin-top: 4px;
+}
+
+/* ===== COMPARISON ===== */
+.prv-compare {
+  background: var(--off-white);
+  padding: 96px 80px;
+}
+.prv-compare-inner { max-width: 1240px; margin: 0 auto; }
+.prv-compare-top {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.prv-compare-top .prv-eyebrow {
+  font-size: 0.68rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.18em;
+  color: var(--sage); margin-bottom: 10px; display: block;
+}
+.prv-compare-top h2 {
+  font-size: clamp(2rem, 2.8vw, 2.8rem);
+  color: var(--bark);
+}
+.prv-compare-top p {
+  font-size: 0.92rem; color: var(--warm-gray);
+  margin-top: 10px; max-width: 520px; margin-inline: auto;
+  line-height: 1.65;
+}
+.prv-compare-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+  align-items: stretch;
+}
+.prv-compare-card {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 48px 44px 44px;
+  border: 1px solid var(--cream-deep);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+}
+.prv-compare-card:hover { box-shadow: 0 20px 56px rgba(46,26,14,0.08); }
+.prv-compare-card.prv-card-reviana {
+  border-color: var(--rv-stone);
+  border-width: 2px;
+}
+.prv-compare-card.prv-card-reviana::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(to right, var(--rv-stone), var(--honey));
+}
+.prv-compare-card.prv-card-primalcare::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: var(--sage);
+}
+.prv-card-brand-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  width: fit-content;
+}
+.prv-card-brand-dot {
+  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+}
+.prv-card-brand-tag span {
+  font-size: 0.68rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.16em;
+  color: var(--bark-light);
+}
+.prv-compare-card h3 {
+  font-size: 1.9rem;
+  color: var(--bark);
+  margin-bottom: 6px;
+}
+.prv-compare-card .prv-card-tagline {
+  font-size: 0.85rem;
+  color: var(--warm-gray);
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+.prv-card-purpose {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--bark);
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--cream-deep);
+  line-height: 1.4;
+}
+.prv-card-features {
+  display: flex; flex-direction: column; gap: 12px;
+  flex: 1;
+}
+.prv-card-feat {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 0.85rem; color: var(--charcoal); line-height: 1.45;
+}
+.prv-card-feat-icon {
+  width: 20px; height: 20px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+  font-size: 0.65rem; font-weight: 800;
+}
+.prv-card-primalcare .prv-card-feat-icon {
+  background: var(--sage-pale); color: var(--sage);
+}
+.prv-card-reviana .prv-card-feat-icon {
+  background: var(--rv-stone-pale); color: var(--bark-light);
+}
+.prv-card-actives {
+  margin-top: 28px;
+  padding: 20px;
+  border-radius: 14px;
+  font-size: 0.82rem;
+}
+.prv-card-primalcare .prv-card-actives {
+  background: var(--sage-pale);
+}
+.prv-card-reviana .prv-card-actives {
+  background: var(--rv-stone-pale);
+}
+.prv-card-actives-label {
+  font-size: 0.65rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--bark-light); margin-bottom: 8px; display: block;
+}
+.prv-card-actives-pills {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.prv-card-pill {
+  background: var(--white);
+  border-radius: 100px;
+  padding: 4px 12px;
+  font-size: 0.75rem; font-weight: 600;
+  color: var(--bark);
+  border: 1px solid var(--cream-deep);
+}
+.prv-card-cta {
+  margin-top: 28px;
+}
+.prv-compare-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+.prv-compare-divider-line {
+  width: 1px; flex: 1; background: var(--cream-deep);
+}
+.prv-compare-vs {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--cream); border: 2px solid var(--cream-deep);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Fraunces', serif;
+  font-size: 0.9rem; font-weight: 700; color: var(--bark-light);
+  flex-shrink: 0;
+}
+
+/* ===== ACTIVES STRIP ===== */
+.prv-actives {
+  background: var(--cream);
+  padding: 88px 80px;
+}
+.prv-actives-inner { max-width: 1240px; margin: 0 auto; }
+.prv-actives-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  margin-bottom: 56px;
+}
+.prv-actives-top h2 {
+  font-size: clamp(2rem, 2.8vw, 2.6rem); color: var(--bark);
+}
+.prv-actives-top h2 em { color: var(--sage); font-style: italic; }
+.prv-actives-top p {
+  font-size: 0.9rem; color: var(--warm-gray);
+  line-height: 1.7; margin-top: 12px;
+}
+.prv-actives-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.prv-active-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 32px 28px;
+  border: 1px solid var(--cream-deep);
+  transition: all 0.35s;
+  position: relative;
+  overflow: hidden;
+}
+.prv-active-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(to right, var(--rv-stone), var(--honey));
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.35s ease;
+}
+.prv-active-card:hover { box-shadow: 0 16px 40px rgba(46,26,14,0.07); transform: translateY(-4px); border-color: transparent; }
+.prv-active-card:hover::after { transform: scaleX(1); }
+.prv-active-icon {
+  width: 46px; height: 46px; border-radius: 14px;
+  background: var(--rv-stone-pale);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; margin-bottom: 18px;
+}
+.prv-active-name {
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem; color: var(--bark); margin-bottom: 4px;
+}
+.prv-active-tag {
+  font-size: 0.65rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--rv-stone); margin-bottom: 14px; display: block;
+}
+.prv-active-desc {
+  font-size: 0.84rem; color: var(--warm-gray); line-height: 1.65;
+  margin-bottom: 16px;
+}
+.prv-active-benefits {
+  display: flex; flex-direction: column; gap: 7px;
+}
+.prv-active-benefit {
+  font-size: 0.78rem; color: var(--charcoal); display: flex; gap: 8px; align-items: flex-start; line-height: 1.4;
+}
+.prv-active-benefit::before {
+  content: '✓'; color: var(--sage); font-weight: 800; font-size: 0.7rem; flex-shrink: 0; margin-top: 1px;
+}
+
+/* ===== TRUST BRIDGE ===== */
+.prv-bridge {
+  background: var(--sage-pale);
+  padding: 72px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 64px;
+  align-items: center;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+.prv-bridge-img-wrap {
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  flex-shrink: 0;
+}
+.prv-bridge-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.prv-bridge-logo-wrap {
+  display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; flex-shrink: 0;
+}
+.prv-bridge-logo-wrap img { height: 80px; width: auto; }
+.prv-bridge-logo-label {
+  font-size: 0.65rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--sage);
+}
+.prv-bridge-right {}
+.prv-bridge-eyebrow {
+  font-size: 0.68rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.16em;
+  color: var(--sage); margin-bottom: 10px; display: block;
+}
+.prv-bridge-right h2 {
+  font-size: clamp(1.7rem, 2.4vw, 2.2rem); color: var(--bark); margin-bottom: 14px;
+}
+.prv-bridge-right p {
+  font-size: 0.9rem; color: var(--bark-light); line-height: 1.7; max-width: 700px;
+}
+.prv-bridge-divider {
+  width: 1px; height: 80px; background: rgba(107,143,91,0.25); flex-shrink: 0;
+}
+.prv-bridge-stats {
+  display: flex; gap: 36px; margin-top: 24px; flex-wrap: wrap;
+}
+.prv-bridge-stat-num {
+  font-family: 'Fraunces', serif; font-size: 1.4rem; color: var(--bark); font-weight: 600; line-height: 1;
+}
+.prv-bridge-stat-label {
+  font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--sage); margin-top: 3px;
+}
+
+/* ===== CTA FOOTER ===== */
+.prv-cta {
+  background: var(--bark);
+  padding: 96px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.prv-cta::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(200,184,154,0.08) 0%, transparent 70%);
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+}
+.prv-cta-inner { position: relative; z-index: 1; }
+.prv-cta-eyebrow {
+  font-size: 0.68rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.18em;
+  color: var(--rv-stone); margin-bottom: 14px; display: block;
+}
+.prv-cta h2 {
+  font-size: clamp(2rem, 3.2vw, 3rem); color: var(--white); margin-bottom: 16px;
+}
+.prv-cta h2 em { color: var(--rv-stone); font-style: italic; }
+.prv-cta-sub {
+  font-size: 0.95rem; color: rgba(255,255,255,0.5);
+  max-width: 520px; margin: 0 auto 36px; line-height: 1.7;
+}
+.prv-cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.prv-cta .pp-btn-primary { background: var(--rv-stone); color: var(--bark); }
+.prv-cta .pp-btn-primary:hover { background: var(--honey); box-shadow: 0 8px 28px rgba(200,184,154,0.3); }
+.prv-cta .pp-btn-outline { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.7); }
+.prv-cta .pp-btn-outline:hover { background: rgba(255,255,255,0.1); color: var(--white); border-color: rgba(255,255,255,0.6); }
+
+/* ===== ANIMATIONS ===== */
+@keyframes prv-rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .prv-hero-inner { grid-template-columns: 1fr; gap: 40px; padding: 48px 24px 0; }
+  .prv-hero-img { max-width: 480px; }
+  .prv-origin { padding: 56px 24px; }
+  .prv-origin-inner { grid-template-columns: 1fr; gap: 36px; }
+  .prv-compare { padding: 64px 24px; }
+  .prv-compare-grid { grid-template-columns: 1fr; }
+  .prv-compare-divider { flex-direction: row; padding: 12px 0; }
+  .prv-compare-divider-line { flex: 1; height: 1px; width: auto; }
+  .prv-actives { padding: 64px 24px; }
+  .prv-actives-top { grid-template-columns: 1fr; gap: 24px; }
+  .prv-actives-grid { grid-template-columns: 1fr; }
+  .prv-bridge { grid-template-columns: 1fr; padding: 56px 24px; gap: 32px; text-align: center; }
+  .prv-bridge-img-wrap { max-width: 400px; margin: 0 auto; }
+  .prv-bridge-stats { justify-content: center; }
+  .prv-cta { padding: 72px 24px; }
+}
+@media (max-width: 640px) {
+  .prv-hero-inner { padding: 32px 18px 0; }
+  .prv-actives-grid { grid-template-columns: 1fr; }
+  .prv-cta-btns { flex-direction: column; align-items: center; }
+  .prv-origin-stat-row { gap: 20px; }
+}
+</style>
+
+<div class="prv">
+
+<!-- ===== HERO ===== -->
+<section class="prv-hero">
+  <div class="prv-hero-inner">
+    <div>
+      <div class="prv-hero-label">
+        <span class="prv-hero-label-dot"></span>
+        <span>From the makers of PrimalCare</span>
+      </div>
+      <h1>Introducing <em>Reviana</em> — anti-aging that won't punish sensitive skin</h1>
+      <p class="prv-hero-sub">You asked for anti-aging. You needed it gentle. We spent months building it from scratch. Meet our new premium skincare line — powered by Vitamin C, Bakuchiol and Hyaluronic Acid, formulated without a single ingredient that stings.</p>
+      <div class="prv-hero-btns">
+        <a href="https://reviana.co.nz/shop/" class="pp-btn-primary">
+          Shop Reviana
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="https://reviana.co.nz/pages/about/" class="pp-btn-outline">Our Story</a>
+      </div>
+      <div class="prv-hero-made-by">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z"/></svg>
+        A PrimalPantry brand · Made in Christchurch, NZ
+      </div>
+    </div>
+    <div class="prv-hero-img">
+      <span class="prv-hero-img-badge">New from PrimalPantry</span>
+      <img src="/img/reviana.webp" alt="Reviana premium anti-aging skincare range" loading="eager">
+    </div>
+  </div>
+</section>
+
+<!-- ===== ORIGIN ===== -->
+<section class="prv-origin">
+  <div class="prv-origin-inner">
+    <div class="prv-origin-left">
+      <span class="prv-origin-eyebrow">Why we built it</span>
+      <h2>Our customers kept asking for <em>one more thing</em></h2>
+      <p>PrimalCare solved soothing skin. But thousands of our most loyal customers had a second problem we hadn't solved yet.</p>
+    </div>
+    <div class="prv-origin-right">
+      <p class="prv-origin-quote">"Your products are the <mark>only things my skin can tolerate</mark> — but I need something for anti-aging. Everything else I try burns. Can you make one?"</p>
+      <p style="font-size:0.88rem;color:rgba(255,255,255,0.45);line-height:1.65;">We heard this enough times that we couldn't ignore it. Anti-aging actives — retinol, vitamin C serums, AHA exfoliants — are notoriously harsh. Sensitive skin reacts badly to almost all of them. So we built Reviana: an entirely new range with entirely new formulations, designed from scratch to be both effective and gentle.</p>
+      <div class="prv-origin-stat-row">
+        <div>
+          <div class="prv-origin-stat-num">90,000+</div>
+          <div class="prv-origin-stat-label">PrimalCare Customers</div>
+        </div>
+        <div>
+          <div class="prv-origin-stat-num">4</div>
+          <div class="prv-origin-stat-label">New Formulations</div>
+        </div>
+        <div>
+          <div class="prv-origin-stat-num">0</div>
+          <div class="prv-origin-stat-label">Synthetic Irritants</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COMPARISON ===== -->
+<section class="prv-compare">
+  <div class="prv-compare-inner">
+    <div class="prv-compare-top">
+      <span class="prv-eyebrow">Two brands, one team</span>
+      <h2>Same makers. Different purpose.</h2>
+      <p>Both brands are made by PrimalPantry in Christchurch — but they're built for different goals with completely different formulations.</p>
+    </div>
+
+    <div class="prv-compare-grid">
+
+      <!-- PrimalCare -->
+      <div class="prv-compare-card prv-card-primalcare">
+        <div class="prv-card-brand-tag">
+          <div class="prv-card-brand-dot" style="background:var(--sage);"></div>
+          <span>Existing Range</span>
+        </div>
+        <div style="margin:-4px 0 20px;border-radius:14px;overflow:hidden;aspect-ratio:3/2;background:var(--cream);">
+          <img src="/img/shop/honeyshop.webp" alt="PrimalCare Tallow & Honey Balm" loading="lazy" style="width:100%;height:100%;object-fit:contain;">
+        </div>
+        <h3>PrimalCare</h3>
+        <p class="prv-card-tagline">Simple · Gentle · Soothing</p>
+        <p class="prv-card-purpose">Daily relief for dry, irritated &amp; eczema-prone skin — tallow-based balms and body care that your skin recognises.</p>
+        <div class="prv-card-features">
+          <div class="prv-card-feat">
+            <div class="prv-card-feat-icon">✓</div>
+            Soothes flare-ups, redness and dry patches
+          </div>
+          <div class="prv-card-feat">
+            <div class="prv-card-feat-icon">✓</div>
+            Grass-fed tallow base — deeply moisturising
+          </div>
+          <div class="prv-card-feat">
+            <div class="prv-card-feat-icon">✓</div>
+            EANZ Gold Supporter — screened for flaring ingredients
+          </div>
+          <div class="prv-card-feat">
+            <div class="prv-card-feat-icon">✓</div>
+            From $18.95 · Available in 120+ NZ stores
+          </div>
+        </div>
+        <div class="prv-card-actives">
+          <span class="prv-card-actives-label">Key ingredients</span>
+          <div class="prv-card-actives-pills">
+            <span class="prv-card-pill">Grass-fed Tallow</span>
+            <span class="prv-card-pill">Manuka Honey</span>
+            <span class="prv-card-pill">NZ Botanicals</span>
+          </div>
+        </div>
+        <div class="prv-card-cta">
+          <a href="/shop/" class="pp-btn-outline" style="width:100%;justify-content:center;">
+            Shop PrimalCare
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="prv-compare-divider">
+        <div class="prv-compare-divider-line"></div>
+        <div class="prv-compare-vs">vs</div>
+        <div class="prv-compare-divider-line"></div>
+      </div>
+
+      <!-- Reviana -->
+      <div class="prv-compare-card prv-card-reviana">
+        <div class="prv-card-brand-tag">
+          <div class="prv-card-brand-dot" style="background:var(--rv-stone);"></div>
+          <span>New Range</span>
+        </div>
+        <h3>Reviana</h3>
+        <p class="prv-card-tagline">Anti-Aging · Brightening · Targeted</p>
+        <p class="prv-card-purpose">Premium cosmetic anti-aging for people whose skin won't tolerate conventional serums or creams — powered by clinically-studied actives.</p>
+        <div class="prv-card-features">
+          <div class="prv-card-feat">
+            <div class="prv-card-feat-icon">✓</div>
+            Reduces fine lines, dark circles and uneven tone
+          </div>
+          <div class="prv-card-feat">
+            <div class="prv-card-feat-icon">✓</div>
+            Oil-soluble Vitamin C — penetrates without stinging
+          </div>
+          <div class="prv-card-feat">
+            <div class="prv-card-feat-icon">✓</div>
+            Bakuchiol — retinol-comparable results, zero irritation
+          </div>
+          <div class="prv-card-feat">
+            <div class="prv-card-feat-icon">✓</div>
+            Day Cream · Night Cream · Eye Cream · Serum
+          </div>
+        </div>
+        <div class="prv-card-actives">
+          <span class="prv-card-actives-label">Key actives</span>
+          <div class="prv-card-actives-pills">
+            <span class="prv-card-pill">THD Ascorbate (Vit C)</span>
+            <span class="prv-card-pill">Bakuchiol</span>
+            <span class="prv-card-pill">Hyaluronic Acid</span>
+            <span class="prv-card-pill">Niacinamide</span>
+          </div>
+        </div>
+        <div class="prv-card-cta">
+          <a href="https://reviana.co.nz/shop/" class="pp-btn-primary" style="width:100%;justify-content:center;">
+            Shop Reviana
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== ACTIVES ===== -->
+<section class="prv-actives">
+  <div class="prv-actives-inner">
+    <div class="prv-actives-top">
+      <div>
+        <h2>Ingredients you'll <em>actually recognise</em></h2>
+        <p>Reviana uses the actives people ask for — peptides, ceramides, hyaluronic acid — in forms that work for reactive skin instead of against it.</p>
+      </div>
+      <div>
+        <p style="font-size:0.88rem;color:var(--warm-gray);line-height:1.7;">Most anti-aging products work by causing a degree of skin stress — that's fine for normal skin, but for sensitive skin it triggers redness and flares. Reviana uses gentler forms of the same well-known actives that get you the results without the reaction.</p>
+      </div>
+    </div>
+    <div class="prv-actives-grid">
+
+      <div class="prv-active-card">
+        <div class="prv-active-icon">💉</div>
+        <div class="prv-active-name">Peptides</div>
+        <span class="prv-active-tag">Acetyl Hexapeptide-8 · Eye Cream</span>
+        <p class="prv-active-desc">Peptides are short chains of amino acids — the building blocks your skin uses to produce collagen. The peptide in Reviana's Eye Cream targets expression lines and crow's feet specifically, signalling skin to firm and smooth the delicate under-eye area without any irritation.</p>
+        <div class="prv-active-benefits">
+          <div class="prv-active-benefit">Visibly reduces crow's feet and expression lines</div>
+          <div class="prv-active-benefit">Supports collagen and elastin production</div>
+          <div class="prv-active-benefit">Works on the most delicate skin on your face</div>
+          <div class="prv-active-benefit">No stinging or sensitivity — ever</div>
+        </div>
+      </div>
+
+      <div class="prv-active-card">
+        <div class="prv-active-icon">🧱</div>
+        <div class="prv-active-name">Ceramides</div>
+        <span class="prv-active-tag">Ceramide NP · Night Cream</span>
+        <p class="prv-active-desc">Ceramides are the lipids that hold your skin barrier together. Sensitive skin typically has a depleted ceramide layer — which is why it reacts to everything. Replacing them directly helps rebuild the barrier from within, reducing reactivity over time rather than just masking it.</p>
+        <div class="prv-active-benefits">
+          <div class="prv-active-benefit">Restores the skin's protective barrier</div>
+          <div class="prv-active-benefit">Locks in moisture through the night</div>
+          <div class="prv-active-benefit">Reduces reactivity to environmental triggers</div>
+          <div class="prv-active-benefit">Works best used consistently as a night treatment</div>
+        </div>
+      </div>
+
+      <div class="prv-active-card">
+        <div class="prv-active-icon">💧</div>
+        <div class="prv-active-name">Hyaluronic Acid</div>
+        <span class="prv-active-tag">Sodium Hyaluronate · All four products</span>
+        <p class="prv-active-desc">Hyaluronic acid is one of the most recognised hydration actives in skincare — and one of the most gentle. It attracts and holds water in the skin, visibly plumping fine lines from dehydration. Reviana uses the sodium salt form, which penetrates deeper for more sustained hydration throughout the day and night.</p>
+        <div class="prv-active-benefits">
+          <div class="prv-active-benefit">Plumps and smooths fine dehydration lines</div>
+          <div class="prv-active-benefit">Deeply hydrating without heaviness or grease</div>
+          <div class="prv-active-benefit">Suited to all skin types including oily and combination</div>
+          <div class="prv-active-benefit">Boosts absorption of other actives</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRIMALCARE TRUST BRIDGE ===== -->
+<section class="prv-bridge">
+  <div class="prv-bridge-img-wrap">
+    <img src="/reviana-prod.webp" alt="Reviana skincare products" loading="lazy">
+  </div>
+  <div>
+    <span class="prv-bridge-eyebrow">Made by PrimalPantry</span>
+    <h2 class="prv-bridge-right">From the team behind NZ's most popular sensitive skin brand</h2>
+    <p style="font-size:0.9rem;color:var(--bark-light);line-height:1.7;margin-top:12px;max-width:680px;">PrimalCare started at a Christchurch farmers market and grew into a range stocked in 120+ NZ stores with 90,000+ customers. We built that brand by getting formulations right — no shortcuts, no irritants, no fillers. Reviana is built to exactly the same standard. Different products, different purpose, same obsession with gentle formulation.</p>
+    <div class="prv-bridge-stats">
+      <div>
+        <div class="prv-bridge-stat-num">90,000+</div>
+        <div class="prv-bridge-stat-label">Customers Served</div>
+      </div>
+      <div>
+        <div class="prv-bridge-stat-num">120+</div>
+        <div class="prv-bridge-stat-label">NZ Retailers</div>
+      </div>
+      <div>
+        <div class="prv-bridge-stat-num">4.7★</div>
+        <div class="prv-bridge-stat-label">Avg Rating</div>
+      </div>
+      <div>
+        <div class="prv-bridge-stat-num">NZ Made</div>
+        <div class="prv-bridge-stat-label">Christchurch Facility</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="prv-cta">
+  <div class="prv-cta-inner">
+    <span class="prv-cta-eyebrow">Shop Reviana</span>
+    <h2>Anti-aging that works for skin that <em>over-reacts</em></h2>
+    <p class="prv-cta-sub">Day Cream, Night Cream, Eye Cream and Serum — four products, one goal. Peptides, ceramides, Vitamin C and Hyaluronic Acid, without the sting. Ships from Christchurch.</p>
+    <div class="prv-cta-btns">
+      <a href="https://reviana.co.nz/shop/" class="pp-btn-primary">
+        Shop the Collection
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="https://reviana.co.nz/pages/about/" class="pp-btn-outline">Learn More</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- end .prv -->
+
+<!-- Scroll-in animations -->
+<script>
+(function(){
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('prv-in'); });
+  }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
+
+  document.querySelectorAll(
+    '.prv-compare-card, .prv-active-card, .prv-origin-stat-row > div, .prv-bridge-stats > div'
+  ).forEach(function(el, i){
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(18px)';
+    el.style.transition = 'opacity 0.5s ease ' + (i % 3 * 0.09) + 's, transform 0.5s ease ' + (i % 3 * 0.09) + 's';
+    io.observe(el);
+  });
+
+  var s = document.createElement('style');
+  s.textContent = '.prv-in{opacity:1!important;transform:translateY(0)!important}';
+  document.head.appendChild(s);
+})();
+</script>
+
+{{- partial "footer.html" . -}}
+</body>
+</html>
