@@ -55,8 +55,6 @@
 .rv-g svg{width:13px;height:13px;color:var(--sage);}
 .rv-online-note{font-size:0.78rem;color:var(--warm-gray);display:flex;align-items:center;gap:6px;}
 .rv-online-note svg{width:13px;height:13px;color:var(--warm-gray);}
-
-/* Tabs */
 .rv-tabs{max-width:1240px;margin:0 auto;padding:0 40px 64px;}
 .rv-tabs-nav{display:flex;border-bottom:1px solid var(--border);margin-bottom:24px;}
 .rv-tab-btn{padding:12px 20px;font-size:0.85rem;font-weight:600;color:var(--warm-gray);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all 0.25s;}
@@ -66,8 +64,6 @@
 .rv-tab-panel.active{display:block;}
 .rv-tab-panel h4{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:10px;color:var(--bark);}
 .rv-tab-panel p{font-size:0.9rem;color:var(--bark-light);line-height:1.75;margin-bottom:10px;}
-
-/* Why section */
 .rv-why{padding:72px 0;background:var(--cream);}
 .rv-why-inner{max-width:1240px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center;}
 .rv-why h2{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:400;margin-bottom:14px;color:var(--bark);}
@@ -77,8 +73,6 @@
 .rv-ing-card{background:var(--white);border-radius:14px;padding:18px;border:1px solid var(--border);}
 .rv-ing-card h4{font-weight:700;font-size:0.85rem;margin-bottom:4px;color:var(--bark);}
 .rv-ing-card p{font-size:0.78rem;color:var(--warm-gray);line-height:1.5;}
-
-/* Research */
 .rv-research{padding:60px 0;background:var(--cream);border-top:1px solid var(--border);}
 .rv-research-inner{max-width:1240px;margin:0 auto;padding:0 40px;}
 .rv-research-label{font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--sage);margin-bottom:8px;text-align:center;}
@@ -88,8 +82,6 @@
 .rv-rc-icon{font-size:1.2rem;margin-bottom:10px;}
 .rv-rc-name{font-weight:700;font-size:0.85rem;color:var(--bark);margin-bottom:6px;}
 .rv-rc-desc{font-size:0.78rem;color:var(--warm-gray);line-height:1.55;}
-
-/* Expect */
 .rv-expect{padding:72px 0;background:var(--white);}
 .rv-expect-inner{max-width:1240px;margin:0 auto;padding:0 40px;}
 .rv-expect-inner h2{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:400;margin-bottom:8px;text-align:center;color:var(--bark);}
@@ -102,12 +94,9 @@
 .rv-ts-title{font-weight:700;font-size:0.85rem;color:var(--bark);margin-bottom:6px;}
 .rv-ts-desc{font-size:0.78rem;color:var(--warm-gray);line-height:1.55;}
 .rv-expect-note{text-align:center;margin-top:32px;font-size:0.75rem;color:var(--warm-gray);font-style:italic;}
-
-/* Breadcrumb */
 .rv-bc-bar{max-width:1240px;margin:0 auto;padding:16px 40px 0;font-size:0.8rem;color:var(--warm-gray);}
 .rv-bc-bar a{color:var(--warm-gray);}
 .rv-bc-bar a:hover{color:var(--sage);}
-
 @media(max-width:1024px){
   .rv-pdp{grid-template-columns:1fr;gap:32px;padding:90px 24px 48px;}
   .rv-bc-bar{padding:16px 24px 0;}
@@ -130,8 +119,7 @@
 </style>
 </head>
 <body>
-{{- partial "alert-online.html" . -}}
-{{- partial "header_new.html" . -}}
+{{- partial "header.html" . -}}
 
 {{ $p := site.Data.pricing.reviana.day_cream }}
 
