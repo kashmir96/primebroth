@@ -156,7 +156,7 @@
     <div class="rv-price-row">
       <span class="rv-price-main" id="dispPrice">${{ $p.price_nz }}</span>
     </div>
-    <p class="rv-afterpay">or 4 interest free payments of $<span id="afterpayPrice">{{ printf "%.2f" (math.Div $p.price_nz 4.0) }}</span> with <img src="/img/afterpay.webp" height="20" alt="afterpay"></p>
+    <p class="rv-afterpay">or 4 interest free payments of $<span id="afterpayPrice">{{ printf "%.2f" (math.Div (float $p.price_nz) 4) }}</span> with <img src="/img/afterpay.webp" height="20" alt="afterpay"></p>
     <div class="rv-stock"><span class="rv-stock-dot"></span> In Stock · Ships 1–3 business days</div>
     <div class="rv-actions">
       <div class="rv-qty">
