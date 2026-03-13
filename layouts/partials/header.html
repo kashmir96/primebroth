@@ -293,33 +293,8 @@
     }
 </script>
 
-<script type="application/javascript">
-    function geoip(json){
-        const expires = new Date();
-        expires.setTime(expires.getTime() + (30 * 24 * 60 * 60 * 1000));
-        if(json.country_code){
-            document.cookie = `country_code=${json.country_code}; expires=${expires.toUTCString()}; path=/`;
-        }
-        else{
-            document.cookie = `country_code=NZ; expires=${expires.toUTCString()}; path=/`;
-        }
-    }
-
-    function getCountryCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-        return null;
-    }
-
-    // Global country code - set site-wide
-    var country_code = (function() {
-        const cookie = getCountryCookie('country_code');
-        if (cookie === 'AU') return 'AU';
-        return 'NZ';
-    })();
-
-    // Disable link for out of stock 
+<script>
+    // Disable link for out of stock
     var outOfStockLinks = document.querySelectorAll('.outOfStock a');
     outOfStockLinks.forEach(function (link) {
         link.addEventListener('click', function (event) {
@@ -331,38 +306,11 @@
     });
 </script>
 
-<script src="https://get.geojs.io/v1/ip/geo.js"></script>
-
 <script>
     window.onload = function() {
-        const countryCode = getCountryCookie('country_code') || "NZ";
         var shipping_rate = document.getElementById('shipping_rate');
-        
-        if(countryCode == 'AU') {
-            if(shipping_rate){
-                shipping_rate.textContent='$150';
-            }
-            document.querySelectorAll('.nz-content').forEach(function(item) {
-                item.style.display = 'none';
-            });
-            document.querySelectorAll('.au-content').forEach(function(item) {
-                item.style.display = 'inline';
-            });
-        }
-        else{
-            if(shipping_rate){
-                shipping_rate.textContent='$80';
-            }
-            document.querySelectorAll('.au-content').forEach(function(item) {
-                item.style.display = 'none';
-            });
-            document.querySelectorAll('.nz-content').forEach(function(item) {
-                item.style.display = 'inline';
-            });
-        }
+        if (shipping_rate) { shipping_rate.textContent = '$80'; }
+        document.querySelectorAll('.au-content').forEach(function(item) { item.style.display = 'none'; });
+        document.querySelectorAll('.nz-content').forEach(function(item) { item.style.display = 'inline'; });
     };
 </script>
-
-
-
-
