@@ -1,1 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{- partial "head.html" . -}}
+    <title>Reviana Eye Cream — Vitamin C Brightening for Fresher, More Awake-Looking Eyes | By PrimalPantry</title>
+    <meta name="description" content="Caffeine, stabilised Vitamin C and Peptides in a featherlight tallow base. For fresher, smoother, more awake-looking eyes. 15ml. Made in NZ by PrimalPantry." />
+    <meta property="og:title" content="Reviana Eye Cream — Vitamin C Brightening | PrimalPantry" />
+    <meta property="og:type" content="product" />
+    <link rel="canonical" href="https://primalpantry.co.nz/cosmetic-tallow-reviana/eye-cream/" />
+    {{ $p := site.Data.reviana.eye_cream }}
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Reviana Eye Cream","brand":{"@type":"Brand","name":"PrimalPantry"},"offers":{"@type":"Offer","priceCurrency":"NZD","price":"{{ $p.price }}","availability":"https://schema.org/InStock"}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{ $styles := resources.Get "css/product-page.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+    <style>
+    :root{--rv-cream:#FAF7F2;--rv-cream-deep:#EDE5D8;--rv-bark:#2E1A0E;--rv-bark-light:#6B4D38;--rv-sage:#6B8F5B;--rv-sage-mid:#4E6840;--rv-sage-pale:#E5EDDF;--rv-stone:#C8A87A;--rv-stone-light:#DEC49A;--rv-warm-gray:#877B71;--rv-border:rgba(46,26,14,0.1);--rv-white:#FDFBF8;}
+    *{box-sizing:border-box;}body{font-family:'DM Sans',sans-serif;color:var(--rv-bark);-webkit-font-smoothing:antialiased;}
+    h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400;line-height:1.1;margin:0;}p{margin:0;}a{text-decoration:none;color:inherit;}img{max-width:100%;display:block;}
+    .rv-breadcrumb{font-size:0.78rem;color:var(--rv-warm-gray);padding:14px 0 0;max-width:1240px;margin:0 auto;padding-left:40px;}.rv-breadcrumb a{color:var(--rv-warm-gray);transition:color 0.2s;}.rv-breadcrumb a:hover{color:var(--rv-sage);}
+    .rv-pdp{display:grid;grid-template-columns:1fr 1fr;gap:56px;max-width:1240px;margin:0 auto;padding:32px 40px 64px;align-items:start;}
+    .rv-gal-main{background:var(--rv-cream);border-radius:20px;overflow:hidden;aspect-ratio:1;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
+    .rv-gal-main img{width:92%;height:92%;object-fit:contain;transition:opacity 0.2s;}
+    .rv-gal-thumbs{display:flex;gap:10px;}.rv-gal-thumb{width:72px;height:72px;border-radius:10px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:border-color 0.2s;background:var(--rv-cream);}
+    .rv-gal-thumb.active,.rv-gal-thumb:hover{border-color:var(--rv-sage);}.rv-gal-thumb img{width:100%;height:100%;object-fit:cover;}
+    .rv-mt{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px;}.rv-mt span{font-size:0.7rem;font-weight:700;color:var(--rv-warm-gray);}.rv-mt strong{color:var(--rv-bark);}.rv-mt-dot{width:3px;height:3px;border-radius:50%;background:var(--rv-border);flex-shrink:0;}.rv-mt-nz{color:var(--rv-sage) !important;}
+    .rv-label{font-size:0.68rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:var(--rv-sage);display:block;}
+    .rv-pdp-title{font-size:2rem;margin-bottom:6px;}.rv-pdp-subtitle{font-size:0.95rem;color:var(--rv-warm-gray);margin-bottom:16px;line-height:1.5;}
+    .rv-stars{display:flex;align-items:center;gap:8px;margin-bottom:16px;color:var(--rv-sage);}.rv-stars span{font-size:0.82rem;color:var(--rv-warm-gray);}
+    .rv-desc{font-size:0.92rem;color:var(--rv-bark-light);line-height:1.78;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--rv-border);}
+    .rv-price-row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px;}.rv-price{font-family:'Playfair Display',serif;font-size:1.85rem;font-weight:600;color:var(--rv-bark);}
+    .rv-afterpay{font-size:0.82rem;color:var(--rv-warm-gray);margin-bottom:24px;}.rv-afterpay img{vertical-align:middle;display:inline;}
+    .rv-opt{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border:2px solid var(--rv-border);border-radius:12px;cursor:pointer;transition:all 0.2s;margin-bottom:8px;}
+    .rv-opt.sel{border-color:var(--rv-sage);background:var(--rv-sage-pale);}.rv-opt:hover{border-color:var(--rv-sage);}
+    .rv-opt-left{display:flex;align-items:center;gap:12px;}.rv-opt-radio{width:18px;height:18px;border-radius:50%;border:2px solid var(--rv-border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:border-color 0.2s;}.rv-opt.sel .rv-opt-radio{border-color:var(--rv-sage);background:var(--rv-sage-pale);}
+    .rv-opt-dot{width:8px;height:8px;border-radius:50%;background:var(--rv-sage);transform:scale(0);transition:transform 0.2s;}.rv-opt.sel .rv-opt-dot{transform:scale(1);}
+    .rv-opt-label{font-weight:600;font-size:0.88rem;}.rv-opt-sublabel{font-size:0.78rem;color:var(--rv-warm-gray);}.rv-opt-price{font-weight:700;font-size:0.92rem;}
+    .rv-stock{font-size:0.82rem;color:var(--rv-sage);font-weight:600;margin:18px 0;display:flex;align-items:center;gap:6px;}.rv-stock-dot{width:7px;height:7px;border-radius:50%;background:var(--rv-sage);}
+    .rv-actions{display:flex;gap:12px;margin-bottom:16px;}.rv-qty{display:flex;border:2px solid var(--rv-border);border-radius:10px;overflow:hidden;}
+    .rv-qty button{width:42px;height:48px;border:none;background:var(--rv-white);font-size:1rem;cursor:pointer;color:var(--rv-bark);transition:background 0.2s;}.rv-qty button:hover{background:var(--rv-cream);}
+    .rv-qty input{width:44px;text-align:center;border:none;border-left:1px solid var(--rv-border);border-right:1px solid var(--rv-border);font-size:0.9rem;font-weight:600;-moz-appearance:textfield;}.rv-qty input::-webkit-inner-spin-button,.rv-qty input::-webkit-outer-spin-button{-webkit-appearance:none;}
+    .rv-btn-atc{flex:1;background:var(--rv-bark);color:#fff;border:none;padding:14px 24px;border-radius:10px;font-weight:800;font-size:0.92rem;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:8px;}.rv-btn-atc:hover{background:var(--rv-bark-light);transform:translateY(-1px);box-shadow:0 6px 20px rgba(46,26,14,0.2);}
+    .rv-guarantees{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px;}.rv-g{font-size:0.78rem;font-weight:600;color:var(--rv-warm-gray);display:flex;align-items:center;gap:4px;}.rv-g svg{width:14px;height:14px;color:var(--rv-sage);}
+    .rv-online-note{font-size:0.74rem;color:var(--rv-warm-gray);font-weight:600;display:flex;align-items:center;gap:6px;margin-top:8px;}
+    .rv-tabs{max-width:1240px;margin:0 auto;padding:0 40px 64px;}.rv-tabs-nav{display:flex;border-bottom:1px solid var(--rv-border);margin-bottom:24px;}
+    .rv-tab-btn{padding:12px 20px;font-size:0.85rem;font-weight:600;color:var(--rv-warm-gray);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all 0.25s;}.rv-tab-btn.active{color:var(--rv-bark);border-bottom-color:var(--rv-sage);}.rv-tab-btn:hover{color:var(--rv-bark);}
+    .rv-tab-panel{display:none;}.rv-tab-panel.active{display:block;}.rv-tab-panel h4{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:10px;}.rv-tab-panel p{font-size:0.9rem;color:var(--rv-bark-light);line-height:1.75;margin-bottom:10px;}
+    .rv-research{padding:64px 0;background:var(--rv-cream);border-top:1px solid var(--rv-border);}.rv-research-inner{max-width:1240px;margin:0 auto;padding:0 40px;}
+    .rv-research-eyebrow{font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--rv-sage);margin-bottom:10px;text-align:center;display:block;}
+    .rv-research-sub{font-size:0.88rem;color:var(--rv-warm-gray);text-align:center;margin-bottom:36px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.6;}
+    .rv-research-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}.rv-research-card{padding:24px 20px;background:var(--rv-white);border-radius:14px;border:1px solid var(--rv-border);}
+    .rv-research-card-icon{font-size:1.3rem;margin-bottom:12px;}.rv-research-card-name{font-weight:700;font-size:0.85rem;color:var(--rv-bark);margin-bottom:6px;}.rv-research-card-desc{font-size:0.78rem;color:var(--rv-warm-gray);line-height:1.55;}
+    .rv-why{padding:80px 0;background:var(--rv-white);}.rv-why-inner{max-width:1240px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center;}
+    .rv-why h2{font-size:1.8rem;margin-bottom:16px;}.rv-why p{font-size:0.92rem;color:var(--rv-bark-light);line-height:1.75;margin-bottom:12px;}
+    .rv-ing-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}.rv-ing-card{background:var(--rv-cream);border-radius:14px;padding:20px;border:1px solid var(--rv-border);}
+    .rv-ing-card h4{font-weight:700;font-size:0.85rem;margin-bottom:4px;}.rv-ing-card p{font-size:0.78rem;color:var(--rv-warm-gray);line-height:1.5;}
+    .rv-timeline{padding:80px 0;background:var(--rv-cream-deep);}.rv-timeline-inner{max-width:1240px;margin:0 auto;padding:0 40px;}
+    .rv-timeline-inner h2{font-size:1.8rem;margin-bottom:8px;text-align:center;}.rv-timeline-inner>p{text-align:center;font-size:0.86rem;color:var(--rv-warm-gray);margin-bottom:48px;}
+    .rv-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}.rv-steps::before{content:'';position:absolute;top:28px;left:10%;right:10%;height:2px;background:var(--rv-border);z-index:0;}
+    .rv-step{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;z-index:1;padding:0 16px;}
+    .rv-step-dot{width:56px;height:56px;border-radius:50%;background:var(--rv-white);border:2px solid var(--rv-border);display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-family:'Playfair Display',serif;font-size:0.78rem;font-weight:700;color:var(--rv-sage-mid);flex-shrink:0;}
+    .rv-step-label{font-size:0.68rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--rv-stone);margin-bottom:6px;}.rv-step-title{font-weight:700;font-size:0.85rem;color:var(--rv-bark);margin-bottom:6px;}.rv-step-desc{font-size:0.78rem;color:var(--rv-warm-gray);line-height:1.55;}
+    .rv-timeline-note{text-align:center;margin-top:36px;font-size:0.75rem;color:var(--rv-warm-gray);font-style:italic;}
+    @media(max-width:1024px){.rv-pdp{grid-template-columns:1fr;gap:32px;padding:24px 24px 48px;}.rv-breadcrumb{padding-left:24px;}.rv-tabs,.rv-research-inner,.rv-why-inner,.rv-timeline-inner{padding:0 24px;}.rv-research-grid{grid-template-columns:repeat(2,1fr);}.rv-why-inner{grid-template-columns:1fr;gap:40px;}.rv-steps{grid-template-columns:repeat(2,1fr);gap:32px;}.rv-steps::before{display:none;}}
+    @media(max-width:640px){.rv-pdp{padding:16px 18px 36px;}.rv-pdp-title{font-size:1.65rem;}.rv-ing-grid,.rv-research-grid{grid-template-columns:1fr;}.rv-steps{grid-template-columns:1fr;}.rv-tabs,.rv-research-inner,.rv-timeline-inner{padding:0 18px;}}
+    </style>
+</head>
+<body>
+{{- partial "alert-online.html" . -}}
+{{- partial "header_new.html" . -}}
 
+{{ $p := site.Data.reviana.eye_cream }}
+
+<div class="rv-breadcrumb"><a href="/shop/">Shop</a> › <a href="/cosmetic-tallow-reviana/">Cosmetic Tallow — Reviana</a> › Eye Cream</div>
+
+<div class="rv-pdp">
+  <div>
+    <div class="rv-gal-main"><img id="mainImg" src="/img/eyecream-texture.webp" alt="Reviana Eye Cream 15ml"></div>
+    <div class="rv-gal-thumbs">
+      <div class="rv-gal-thumb active" onclick="swImg('/img/eyecream-texture.webp',this)"><img src="/img/eyecream-texture.webp" alt="Texture" loading="lazy"></div>
+      <div class="rv-gal-thumb" onclick="swImg('/img/eyecream-benefits.webp',this)"><img src="/img/eyecream-benefits.webp" alt="Benefits" loading="lazy"></div>
+    </div>
+  </div>
+  <div>
+    <span class="rv-label" style="margin-bottom:4px;">Reviana · By PrimalPantry</span>
+    <div class="rv-mt">
+      <span>Trusted by <strong>90,000+</strong> kiwis</span><span class="rv-mt-dot"></span>
+      <span>4.7★ rating</span><span class="rv-mt-dot"></span>
+      <span class="rv-mt-nz">NZ Made</span>
+    </div>
+    <h1 class="rv-pdp-title">Eye Cream</h1>
+    <p class="rv-pdp-subtitle">Vitamin C brightening for fresher, more awake-looking eyes — 15ml</p>
+    <div class="rv-stars">★★★★★ <span>4.7 · Verified Reviews</span></div>
+    <p class="rv-desc">The skin around your eyes is the thinnest on your face — and usually the first to show dark circles, puffiness and fine lines. This targeted eye treatment combines Caffeine, stabilised Vitamin C and bio-identical lipids to support brighter-looking under-eyes, smoother-looking crow's feet and a more awake-looking appearance. Featherlight texture, formulated specifically for the most delicate skin on your face.</p>
+    <div class="rv-price-row"><span class="rv-price" id="dispPrice">${{ $p.price }}</span></div>
+    <p class="rv-afterpay">or 4 interest free payments of $<span id="afterpayPrice">{{ div $p.price 4 | printf "%.2f" }}</span> with <img src="/img/afterpay.webp" height="20" alt="afterpay"></p>
+    <div style="margin-bottom:24px;">
+      <div class="rv-opt sel" data-pid="{{ $p.price_id }}" data-price="{{ $p.price }}" onclick="selOpt(this)">
+        <div class="rv-opt-left"><div class="rv-opt-radio"><div class="rv-opt-dot"></div></div><div><div class="rv-opt-label">One-Time Purchase</div><div class="rv-opt-sublabel">15ml · 3–4 months supply</div></div></div>
+        <div class="rv-opt-price">${{ $p.price }}</div>
+      </div>
+    </div>
+    <div class="rv-stock"><span class="rv-stock-dot"></span> In Stock · Ships 1–3 business days</div>
+    <div class="rv-actions">
+      <div class="rv-qty">
+        <button type="button" id="qMinus">−</button>
+        <input type="number" id="qty" value="1" min="1" readonly>
+        <button type="button" id="qPlus">+</button>
+      </div>
+      <button class="rv-btn-atc" id="atcBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span id="atcText">Add to Cart — ${{ $p.price }}</span>
+      </button>
+    </div>
+    <p class="sub-cta">Money back guarantee · Speedy NZ-wide shipping</p>
+    <div class="rv-guarantees">
+      <div class="rv-g"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>Naturally Derived</div>
+      <div class="rv-g"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>NZ Made</div>
+      <div class="rv-g"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>Formulated for Sensitive Skin</div>
+      <div class="rv-g"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>Money Back</div>
+    </div>
+    <div class="rv-online-note"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" style="width:14px;height:14px;"><path d="M3 3h14l-1.68 8.39A2 2 0 0113.36 13H6.64a2 2 0 01-1.96-1.61L3 3z" stroke-linejoin="round"/><circle cx="8" cy="17" r="1" fill="currentColor" stroke="none"/><circle cx="13" cy="17" r="1" fill="currentColor" stroke="none"/></svg>Reviana is exclusively online — not in stores</div>
+  </div>
+</div>
+
+<div class="rv-tabs">
+  <div class="rv-tabs-nav">
+    <button class="rv-tab-btn active" onclick="swTab('ing',this)">Ingredients</button>
+    <button class="rv-tab-btn" onclick="swTab('dir',this)">How to Use</button>
+    <button class="rv-tab-btn" onclick="swTab('ship',this)">Shipping</button>
+  </div>
+  <div class="rv-tab-panel active" id="tab-ing">
+    <h4>Full Ingredient List</h4>
+    <p>Water/Aqua, Glycerin, Caprylic/Capric Triglyceride, Sodium Acrylates Copolymer (and) Lecithin, Niacinamide, Simmondsia Chinensis (Jojoba) Seed Oil, Squalane, Tetrahexyldecyl Ascorbate, Butyrospermum Parkii (Shea) Butter, Water (and) Acetyl Hexapeptide-8 (and) Sodium Benzoate, Benzyl Alcohol, Dehydroacetic Acid, Tocopherol, Helianthus Annuus (Sunflower) Seed Oil, Sodium Hyaluronate, Aloe Barbadensis (Aloe Vera) Leaf Extract, Alpha-Bisabolol, Caffeine, D-Panthenol (Pro-Vitamin B5), Sodium Phytate (and) Aqua (and) Alcohol.</p>
+    <p>As with any new skincare, patch test before full use. Avoid direct contact with eyes.</p>
+  </div>
+  <div class="rv-tab-panel" id="tab-dir">
+    <h4>Morning and evening</h4>
+    <p>Using your ring finger (lightest touch), gently dab a small amount around the orbital bone — under eyes and along crow's feet. Pat gently until absorbed. Use morning and evening for best results.</p>
+    <p>Suitable for use under makeup. A 15ml tube lasts approximately 3–4 months with twice-daily use.</p>
+  </div>
+  <div class="rv-tab-panel" id="tab-ship">
+    <h4>Shipping</h4>
+    <p><strong>Processing:</strong> 1–3 business days + 3–5 business days NZ-wide.</p>
+    <p><strong>Cost:</strong> $6.95, or free on orders over $80.</p>
+    <p><strong>International:</strong> Currently NZ only.</p>
+  </div>
+</div>
+
+<section class="rv-research">
+  <div class="rv-research-inner">
+    <span class="rv-research-eyebrow">Research-Backed Actives</span>
+    <p class="rv-research-sub">The eye area is the most delicate on your face. Every active here is selected for both efficacy and gentleness — chosen for what published research shows they can do for brightness, puffiness and fine lines.</p>
+    <div class="rv-research-grid">
+      <div class="rv-research-card"><div class="rv-research-card-icon">✨</div><div class="rv-research-card-name">THD Ascorbate (Vitamin C)</div><p class="rv-research-card-desc">Oil-soluble Vitamin C that penetrates the delicate eye area without stinging. Supports brighter-looking under-eyes and helps even the look of dark circles over time.</p></div>
+      <div class="rv-research-card"><div class="rv-research-card-icon">☕</div><div class="rv-research-card-name">Caffeine</div><p class="rv-research-card-desc">A well-studied vasoconstrictor that improves microcirculation around the eye. Research shows measurable support for a less puffy, more awake-looking appearance with regular use.</p></div>
+      <div class="rv-research-card"><div class="rv-research-card-icon">🧬</div><div class="rv-research-card-name">Acetyl Hexapeptide-8</div><p class="rv-research-card-desc">A signal peptide that works by relaxing facial muscle contractions. Research indicates visible improvement in the look of crow's feet depth within 30 days of consistent use.</p></div>
+      <div class="rv-research-card"><div class="rv-research-card-icon">💧</div><div class="rv-research-card-name">Sodium Hyaluronate</div><p class="rv-research-card-desc">Low molecular weight HA that penetrates deeper than standard hyaluronic acid, supporting plumper-looking, more hydrated skin under the eye.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="rv-why">
+  <div class="rv-why-inner">
+    <div>
+      <span style="font-size:0.68rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:var(--rv-sage);display:block;margin-bottom:8px;">The Science</span>
+      <h2>Targeted brightening for the eye area</h2>
+      <p>Dark circles, fine lines and puffiness around the eye are driven by thinning skin, poor circulation and collagen loss. Stabilised Vitamin C works on all three — supporting collagen production, brightening the look of hyperpigmentation, and protecting against environmental stress.</p>
+      <p>Paired with Caffeine for a fresher-looking appearance and bio-identical lipids for deeper delivery — targeted brightening and renewal for the area that shows it first.</p>
+    </div>
+    <div class="rv-ing-grid">
+      <div class="rv-ing-card"><h4>🧬 Bio-Identical Lipids</h4><p>Mirrors your skin's natural sebum for deep absorption into the delicate eye area.</p></div>
+      <div class="rv-ing-card"><h4>☕ Caffeine</h4><p>Supports a less puffy, more awake-looking appearance around the eye.</p></div>
+      <div class="rv-ing-card"><h4>✨ Stabilised Vitamin C</h4><p>Chosen for brighter-looking under-eyes and a more even-looking complexion.</p></div>
+      <div class="rv-ing-card"><h4>💧 Hyaluronic Acid</h4><p>Supports plumper-looking, more hydrated skin under the eye.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="rv-timeline">
+  <div class="rv-timeline-inner">
+    <span style="font-size:0.68rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:var(--rv-sage);display:block;text-align:center;margin-bottom:8px;">What to Expect</span>
+    <h2>A Timeline Based on the Research</h2>
+    <p>What published ingredient research suggests for the eye area — and when.</p>
+    <div class="rv-steps">
+      <div class="rv-step"><div class="rv-step-dot">Day 1</div><div class="rv-step-label">Immediately</div><div class="rv-step-title">Featherlight hydration</div><p class="rv-step-desc">Specifically weighted for the eye area — light enough to layer under makeup without heaviness. Skin feels smoother and more nourished from first application.</p></div>
+      <div class="rv-step"><div class="rv-step-dot">Wk 1</div><div class="rv-step-label">Week 1</div><div class="rv-step-title">Fresher-looking eyes</div><p class="rv-step-desc">Caffeine starts improving microcirculation. Morning puffiness and under-eye bags should begin to look measurably reduced with consistent twice-daily use.</p></div>
+      <div class="rv-step"><div class="rv-step-dot">Wk 4</div><div class="rv-step-label">Week 4</div><div class="rv-step-title">Smoother-looking lines</div><p class="rv-step-desc">Acetyl Hexapeptide-8 works on expression-line depth. Crow's feet and fine under-eye lines become visibly shallower-looking with consistent use.</p></div>
+      <div class="rv-step"><div class="rv-step-dot">Wk 8+</div><div class="rv-step-label">Week 8+</div><div class="rv-step-title">Brighter-looking under-eyes</div><p class="rv-step-desc">Vitamin C ester and Niacinamide work cumulatively. Dark circles fade as melanin transfer is progressively inhibited with continued use.</p></div>
+    </div>
+    <p class="rv-timeline-note">Individual results vary. Timeline based on published studies for each key active at relevant concentrations.</p>
+  </div>
+</section>
+
+<div class="modal fade" id="addedToCartModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog"><div class="modal-content">
+    <div class="modal-header"><h5 class="modal-title">Item Added to Cart</h5><button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button></div>
+    <div class="modal-body">Reviana Eye Cream has been added to your cart.</div>
+    <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button><a href="/cart" class="btn btn-black">Go to Cart</a></div>
+  </div></div>
+</div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script>
+function swImg(s,el){var i=document.getElementById('mainImg');i.style.opacity='0';setTimeout(function(){i.src=s;i.style.opacity='1';},150);document.querySelectorAll('.rv-gal-thumb').forEach(function(t){t.classList.remove('active');});el.classList.add('active');}
+function swTab(id,btn){document.querySelectorAll('.rv-tab-panel').forEach(function(p){p.classList.remove('active');});document.querySelectorAll('.rv-tab-btn').forEach(function(b){b.classList.remove('active');});document.getElementById('tab-'+id).classList.add('active');btn.classList.add('active');}
+function selOpt(el){document.querySelectorAll('.rv-opt').forEach(function(o){o.classList.remove('sel');});el.classList.add('sel');selPid=el.dataset.pid;selPrice=parseFloat(el.dataset.price);document.getElementById('dispPrice').textContent='$'+selPrice.toFixed(2);document.getElementById('afterpayPrice').textContent=(selPrice/4).toFixed(2);document.getElementById('atcText').textContent='Add to Cart — $'+selPrice.toFixed(2);}
+var selPid='{{ $p.price_id }}', selPrice={{ $p.price }};
+var q=document.getElementById('qty');
+document.getElementById('qPlus').addEventListener('click',function(){q.value=parseInt(q.value)+1;});
+document.getElementById('qMinus').addEventListener('click',function(){if(parseInt(q.value)>1)q.value=parseInt(q.value)-1;});
+document.getElementById('atcBtn').addEventListener('click',function(){
+  var cart=JSON.parse(localStorage.getItem('cartV2'))||[];
+  cart.push({priceId:selPid,title:'Reviana Eye Cream',size:'15ml',flavor:'Vitamin C',orderType:'Single',quantity:parseInt(q.value)||1,unitPrice:selPrice,eligibleForDiscount:false});
+  localStorage.setItem('cartV2',JSON.stringify(cart));
+  $('#addedToCartModal').modal('show');
+});
+</script>
+{{- partial "footer.html" . -}}
+</body>
+</html>
