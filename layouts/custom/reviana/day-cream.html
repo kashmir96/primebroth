@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
 <style>
 :root{--bark:#2E1A0E;--bark-light:#6B4D38;--sage:#6B8F5B;--sage-mid:#4E6840;--sage-pale:#E5EDDF;--cream:#FAF4EB;--cream-deep:#EEDED0;--stone:#C8A87A;--warm-gray:#877B71;--border:rgba(46,26,14,0.12);--white:#FDFBF8;}
-.rv-pdp{display:grid;grid-template-columns:1fr 1fr;gap:56px;max-width:1240px;margin:0 auto;padding:100px 40px 64px;align-items:start;}
+.rv-pdp{display:grid;grid-template-columns:1fr 1fr;gap:56px;max-width:1240px;margin:0 auto;padding:32px 40px 64px;align-items:start;}
 .rv-gal-main{background:var(--cream);border-radius:20px;overflow:hidden;aspect-ratio:1;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
 .rv-gal-main img{width:92%;height:92%;object-fit:contain;transition:opacity 0.2s;}
 .rv-gal-thumbs{display:flex;gap:10px;}
@@ -98,7 +98,7 @@
 .rv-bc-bar a{color:var(--warm-gray);}
 .rv-bc-bar a:hover{color:var(--sage);}
 @media(max-width:1024px){
-  .rv-pdp{grid-template-columns:1fr;gap:32px;padding:90px 24px 48px;}
+  .rv-pdp{grid-template-columns:1fr;gap:32px;padding:24px 24px 48px;}
   .rv-bc-bar{padding:16px 24px 0;}
   .rv-why-inner{grid-template-columns:1fr;gap:36px;padding:0 24px;}
   .rv-tabs{padding:0 24px 48px;}
@@ -109,7 +109,7 @@
   .rv-expect-inner{padding:0 24px;}
 }
 @media(max-width:640px){
-  .rv-pdp{padding:80px 18px 32px;}
+  .rv-pdp{padding:16px 18px 32px;}
   .rv-pdp-title{font-size:1.6rem;}
   .rv-ing-grid{grid-template-columns:1fr;}
   .rv-research-grid{grid-template-columns:1fr;}
@@ -156,7 +156,7 @@
     <div class="rv-price-row">
       <span class="rv-price-main" id="dispPrice">${{ $p.price_nz }}</span>
     </div>
-    <p class="rv-afterpay">or 4 interest free payments of $<span id="afterpayPrice">{{ printf "%.2f" (div $p.price_nz 4.0) }}</span> with <img src="/img/afterpay.webp" height="20" alt="afterpay"></p>
+    <p class="rv-afterpay">or 4 interest free payments of $<span id="afterpayPrice">{{ printf "%.2f" (math.Div $p.price_nz 4.0) }}</span> with <img src="/img/afterpay.webp" height="20" alt="afterpay"></p>
     <div class="rv-stock"><span class="rv-stock-dot"></span> In Stock · Ships 1–3 business days</div>
     <div class="rv-actions">
       <div class="rv-qty">
