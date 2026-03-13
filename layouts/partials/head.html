@@ -1,41 +1,17 @@
 <script>
 (function(){
-  try {
-    var isAUSubdomain = window.location.hostname.startsWith('au.');
-    var paramMarket = new URLSearchParams(window.location.search).get('market');
-    var storedMarket = localStorage.getItem('market');
-    var cookieMatch = document.cookie.match(/(?:^|;)\s*country_code=([^;]*)/);
-    var cookieMarket = cookieMatch ? cookieMatch[1] : null;
-
-    var isAU = isAUSubdomain
-      || (paramMarket || '').toUpperCase() === 'AU'
-      || storedMarket === 'AU'
-      || cookieMarket === 'AU';
-
-    if (!isAU) {
-      window.MARKET = 'NZ';
-      window.country_code = 'NZ';
-      return;
-    }
-
-    window.MARKET = 'AU';
-    window.country_code = 'AU';
-    localStorage.setItem('market', 'AU');
-    var exp = new Date(Date.now() + 30*24*60*60*1000).toUTCString();
-    document.cookie = 'country_code=AU; expires=' + exp + '; path=/';
-
-  } catch(e) {
-    window.MARKET = 'NZ';
-    window.country_code = 'NZ';
-  }
+  // NZ only — geo detection removed
+  window.MARKET = 'NZ';
+  window.country_code = 'NZ';
+  // Clear any stale AU values from returning visitors
+  localStorage.removeItem('market');
+  document.cookie = 'country_code=NZ; expires=' + new Date(Date.now() + 30*24*60*60*1000).toUTCString() + '; path=/';
 })();
 
 // Toggle nz-content / au-content spans site-wide
 document.addEventListener('DOMContentLoaded', function() {
-  if (window.MARKET === 'AU') {
-    document.querySelectorAll('.nz-content').forEach(function(el) { el.style.display = 'none'; });
-    document.querySelectorAll('.au-content').forEach(function(el) { el.style.display = 'inline'; });
-  }
+  document.querySelectorAll('.au-content').forEach(function(el) { el.style.display = 'none'; });
+  document.querySelectorAll('.nz-content').forEach(function(el) { el.style.display = 'inline'; });
 });
 </script>
 {{- partial "analytics" . -}}
@@ -62,7 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
   {{ $styles := $styles | minify | fingerprint | resources.PostProcess }}
   <link rel="stylesheet" href="{{ $styles.RelPermalink }}" />
   {{ end }}
-   
 {{ else }}
 {{ $styles := resources.Get "css/style.css" | postCSS }}
   {{ if .Site.IsServer }}
@@ -109,7 +84,7 @@ f=false,w=window,d=document,v=d.querySelector('#vwoCode'),cK='_vwo_'+account_id+
   // Google Ads conversion tracking ID
   gtag('config', 'AW-16543078874');
 </script>
-<script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0124/4549.js" async="async" ></script>
+<script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0124/4549.js" async="async"></script>
 
 <!-- TikTok Pixel Code Start -->
 <script>
@@ -118,16 +93,15 @@ f=false,w=window,d=document,v=d.querySelector('#vwoCode'),cK='_vwo_'+account_id+
 var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
 ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
 
-
   ttq.load('CVEJ0HBC77U2AAG9J2P0');
   ttq.page();
 }(window, document, 'ttq');
 </script>
 <!-- TikTok Pixel Code End -->
-<!-- Klaviyo Pixel Code Start 
 
+<!-- Klaviyo Pixel Code Start 
 <script async type='text/javascript' src='https://static.klaviyo.com/onsite/js/UpP7TU/klaviyo.js?company_id=UpP7TU'></script>
-          <script type="text/javascript"> 
-          //Initialize Klaviyo object on page load
-          !function(){if(!window.klaviyo){window._klOnsite=window._klOnsite||[];try{window.klaviyo=new Proxy({},{get:function(n,i){return"push"===i?function(){var n;(n=window._klOnsite).push.apply(n,arguments)}:function(){for(var n=arguments.length,o=new Array(n),w=0;w<n;w++)o[w]=arguments[w];var t="function"==typeof o[o.length-1]?o.pop():void 0,e=new Promise((function(n){window._klOnsite.push([i].concat(o,[function(i){t&&t(i),n(i)}]))}));return e}}})}catch(n){window.klaviyo=window.klaviyo||[],window.klaviyo.push=function(){var n;(n=window._klOnsite).push.apply(n,arguments)}}}}(); </script>
+<script type="text/javascript"> 
+!function(){if(!window.klaviyo){window._klOnsite=window._klOnsite||[];try{window.klaviyo=new Proxy({},{get:function(n,i){return"push"===i?function(){var n;(n=window._klOnsite).push.apply(n,arguments)}:function(){for(var n=arguments.length,o=new Array(n),w=0;w<n;w++)o[w]=arguments[w];var t="function"==typeof o[o.length-1]?o.pop():void 0,e=new Promise((function(n){window._klOnsite.push([i].concat(o,[function(i){t&&t(i),n(i)}]))}));return e}}})}catch(n){window.klaviyo=window.klaviyo||[],window.klaviyo.push=function(){var n;(n=window._klOnsite).push.apply(n,arguments)}}}}();
+</script>
 <!-- Klaviyo Pixel Code End -->
