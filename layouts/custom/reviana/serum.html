@@ -7,7 +7,7 @@
     <meta property="og:title" content="Reviana Serum — Complexion-Refining | PrimalPantry" />
     <meta property="og:type" content="product" />
     <link rel="canonical" href="https://primalpantry.co.nz/cosmetic-tallow-reviana/serum/" />
-    {{ $p := site.Data.reviana.serum }}
+    {{ $p := site.Data.pricing.reviana.serum }}
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Reviana Serum","brand":{"@type":"Brand","name":"PrimalPantry"},"offers":{"@type":"Offer","priceCurrency":"NZD","price":"{{ $p.price_nz }}","availability":"https://schema.org/InStock"}}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -95,10 +95,9 @@
     </style>
 </head>
 <body>
-{{- partial "alert-online.html" . -}}
-{{- partial "header_new.html" . -}}
+{{- partial "header.html" . -}}
 
-{{ $p := site.Data.reviana.serum }}
+{{ $p := site.Data.pricing.reviana.serum }}
 
 <div class="rv-breadcrumb"><a href="/shop/">Shop</a> › <a href="/cosmetic-tallow-reviana/">Cosmetic Tallow — Reviana</a> › Serum</div>
 
