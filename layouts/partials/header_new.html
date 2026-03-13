@@ -57,14 +57,12 @@
                 </a>
             </li>
             {{ end }}
-            
         </ul>
     </div>
 
-    <nav class="navbar  navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
 
-    
             <div class="d-block d-lg-none">
                 <div id="hamburgerbtn" class="flex cursor-pointer items-center w-14 h-10 py-2 rounded mopen">
                     <span class="top"></span>
@@ -72,51 +70,44 @@
                     <span class="bottom"></span>
                 </div>
             </div>
-            
+
             <div class="d-flex align-items-center flex-shrink-0 text-xl text-grey-900">
                 <a href="{{ .Site.BaseURL }}" aria-label="PrimalPantry">
                     <img alt="{{ .Site.Params.logo.alt }}" class="sitelogo mr-3" src="{{ .Site.Params.logo.main | relURL }}" width="120" height="36">
                 </a>
             </div>
 
-            
-
-            <a class="iglink  d-lg-none" href="/cart">
-                    <div class="cart-icon-container" style="position: relative; display: inline-block;">
-                        <img src="/img/cart.webp" alt="Cart for PrimalPantry" width="24" height="24">
-                        <!-- Badge for desktop cart icon -->
-                        <span class="cart-badge" style="display: none; position: absolute; top: 0; right: 0; background-color: red; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px;">1</span>
-                    </div>
-                </a>
+            <a class="iglink d-lg-none" href="/cart">
+                <div class="cart-icon-container" style="position: relative; display: inline-block;">
+                    <img src="/img/cart.webp" alt="Cart for PrimalPantry" width="24" height="24">
+                    <span class="cart-badge" style="display: none; position: absolute; top: 0; right: 0; background-color: red; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px;">1</span>
+                </div>
+            </a>
 
             <div class="d-none w-full block flex-grow d-lg-flex align-items-center w-lg-auto" id="mobileMenu">
-                    <ul class="navbar-nav ms-auto">
-                        {{ range .Site.Menus.main }}
-                        <li class="nav-item">
-                        <a class="nav-link  {{ if eq .URL $.RelPermalink }}active{{ end }}" aria-current="page" href="{{ .URL | safeURL }}"> {{ .Name }}</a>
-                        </li>
-                        {{ end }}
-                    </ul>
-            
+                <ul class="navbar-nav ms-auto">
+                    {{ range .Site.Menus.main }}
+                    <li class="nav-item">
+                        <a class="nav-link {{ if eq .URL $.RelPermalink }}active{{ end }}" aria-current="page" href="{{ .URL | safeURL }}">{{ .Name }}</a>
+                    </li>
+                    {{ end }}
+                </ul>
+
                 <a class="iglink mob-hide me-6" href="/cart">
                     <div class="cart-icon-container" style="position: relative; display: inline-block;">
                         <img src="/img/cart.webp" alt="Cart for PrimalPantry" width="24" height="24">
-                        <!-- Badge for desktop cart icon -->
                         <span class="cart-badge" style="display: none; position: absolute; top: 0; right: 0; background-color: red; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px;">1</span>
                     </div>
                 </a>
-                
             </div>
         </div>
     </nav>
-    
+
 </header>
 
 <!-- Script for Cart Badges -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        console.log('Script loaded and DOM content fully loaded.');
-
         const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
         const cartBadges = document.querySelectorAll('.cart-badge');
         const tiktokparams = new URLSearchParams(window.location.search);
@@ -125,16 +116,12 @@
             localStorage.setItem('ttclid', ttclid);
         }
 
-        console.log('Cart contents:', cart);
-
         if (cart.length > 0) {
-            // Display the badges and show the number of items in the cart
             cartBadges.forEach(badge => {
                 badge.style.display = 'flex';
                 badge.textContent = cart.length;
             });
         } else {
-            // Hide the badges if the cart is empty
             cartBadges.forEach(badge => {
                 badge.style.display = 'none';
             });
@@ -143,86 +130,35 @@
 </script>
 
 <script type="application/javascript">
-    function geoip(json){
-        const expires = new Date();
-        expires.setTime(expires.getTime() + (30 * 24 * 60 * 60 * 1000));
-        if(json.country_code){
-            document.cookie = `country_code=${json.country_code}; expires=${expires.toUTCString()}; path=/`;
-        }
-        else{
-            document.cookie = `country_code=NZ; expires=${expires.toUTCString()}; path=/`;
-        }
-    }
+    // NZ-only: geo detection removed
+    var country_code = 'NZ';
 
-    function getCountryCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-        return null;
-    }
+    // Clear any stale AU cookie from previous geo detection
+    document.cookie = 'country_code=NZ; expires=' + new Date(Date.now() + 30*24*60*60*1000).toUTCString() + '; path=/';
 
-    // Global country code - set site-wide
-    var country_code = (function() {
-        const cookie = getCountryCookie('country_code');
-        if (cookie === 'AU') return 'AU';
-        return 'NZ';
-    })();
-
-    // Disable link for out of stock 
-    var outOfStockLinks=  document.querySelectorAll('.outOfStock a');
-    // Loop through each 'outOfStock' element and add event listeners
-    outOfStockLinks.forEach(function (link) {
-        link.addEventListener('click', function (event) {
-            // Check if the clicked element's parent has the 'outOfStock' class
+    // Disable link for out of stock
+    var outOfStockLinks = document.querySelectorAll('.outOfStock a');
+    outOfStockLinks.forEach(function(link) {
+        link.addEventListener('click', function(event) {
             if (this.closest('.outOfStock')) {
-                event.preventDefault(); // Prevent default action (e.g., navigating the link)
-                alert('This item is out of stock!'); // Optionally show a message
+                event.preventDefault();
+                alert('This item is out of stock!');
             }
         });
     });
-  </script>
-<!-- GeoJS: defer to avoid blocking render (geoip callback is already defined above) -->
-<script src="https://get.geojs.io/v1/ip/geo.js" defer></script>
-  
+</script>
+
 <script>
-   window.onload = function() {
-    const countryCode = getCountryCookie('country_code') || "NZ";
-    var shipping_rate = document.getElementById('shipping_rate');
-    
-    // If the country is NZ, show NZ-specific partials
-    if(countryCode == 'AU') {
-        // var bone_broth =  document.getElementById('bone-broth');
-        
-        if(shipping_rate){
-            shipping_rate.textContent='$150';
-        }
-        // if(bone_broth)
-        // {
-        //     document.getElementById('bone-broth').style.display = 'none';
-        // }
-    //   $('label[for="bone-broth"]').hide();
-    //   $('.product-card').filter(function () {
-    //                     var categories = $(this).data('category').split(' ');
-    //                     return categories.includes("bone-broth");
-    //                 }).hide();
-        document.querySelectorAll('.nz-content').forEach(function(item) {
-                item.style.display = 'none';
-            });
-            document.querySelectorAll('.au-content').forEach(function(item) {
-                item.style.display = 'inline';
-            });
-    }
-    else{
-        if(shipping_rate){
-            shipping_rate.textContent='$80';
+    window.onload = function() {
+        var shipping_rate = document.getElementById('shipping_rate');
+        if (shipping_rate) {
+            shipping_rate.textContent = '$80';
         }
         document.querySelectorAll('.au-content').forEach(function(item) {
-        item.style.display = 'none';
+            item.style.display = 'none';
+        });
         document.querySelectorAll('.nz-content').forEach(function(item) {
-                item.style.display = 'inline';
-            });
-    });
-
-    }
-  };
- </script>
+            item.style.display = 'inline';
+        });
+    };
+</script>
