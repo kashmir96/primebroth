@@ -13,9 +13,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    {{ $styles := resources.Get "css/product-page.css" | minify | fingerprint }}
-    <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
 </head>
 <body>
 {{- partial "alert-online.html" . -}}
@@ -42,7 +39,7 @@
   --ta-border: rgba(61,82,48,0.13);
   --ta-white: #FDFBF8;
 }
-* { box-sizing: border-box; }
+.ta * { box-sizing: border-box; }
 .ta { font-family: 'DM Sans', sans-serif; color: var(--ta-black); -webkit-font-smoothing: antialiased; }
 .ta h1,.ta h2,.ta h3,.ta h4 { font-family: 'Playfair Display', serif; font-weight: 400; line-height: 1.1; margin: 0; padding: 0; }
 .ta p { margin: 0; }
@@ -190,7 +187,7 @@
 
 /* RESPONSIVE */
 @media (max-width: 1024px) {
-  .ta-hero-inner { grid-template-columns: 1fr; padding: 110px 24px 56px; min-height: auto; gap: 40px; }
+  .ta-hero-inner { grid-template-columns: 1fr; padding: 24px 24px 56px; min-height: auto; gap: 40px; }
   .ta-hero-float-card { display: none; }
   .ta-bridge-inner { grid-template-columns: 1fr; padding: 0 24px; gap: 40px; }
   .ta-products-inner { padding: 0 24px; }
@@ -497,7 +494,6 @@
     <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button><a href="/cart" class="btn btn-black">Go to Cart</a></div>
   </div></div>
 </div>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <script>
 function ppAddToCart(pid, price, title, size, flavor) {
   var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
