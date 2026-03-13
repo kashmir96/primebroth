@@ -1,1 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{- partial "head.html" . -}}
+    <title>Reviana Day Cream — Brightening Daily Moisturiser | PrimalPantry</title>
+    <meta name="description" content="{{ .Params.description }}" />
+    <meta property="og:title" content="Reviana Day Cream — Brightening Daily Moisturiser for More Even-Looking Skin" />
+    <meta property="og:type" content="product" />
+    <link rel="canonical" href="https://primalpantry.co.nz/cosmetic-tallow-reviana/day-cream/" />
+    {{ $p := site.Data.pricing.reviana.day_cream }}
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Reviana Day Cream","brand":{"@type":"Brand","name":"PrimalPantry"},"offers":{"@type":"Offer","priceCurrency":"NZD","price":"{{ $p.price_nz }}","availability":"https://schema.org/InStock"}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+{{ $styles := resources.Get "css/product-page.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+<style>
+:root{--bark:#2E1A0E;--bark-light:#6B4D38;--sage:#6B8F5B;--sage-mid:#4E6840;--sage-pale:#E5EDDF;--cream:#FAF4EB;--cream-deep:#EEDED0;--stone:#C8A87A;--warm-gray:#877B71;--border:rgba(46,26,14,0.12);--white:#FDFBF8;}
+.rv-pdp{display:grid;grid-template-columns:1fr 1fr;gap:56px;max-width:1240px;margin:0 auto;padding:100px 40px 64px;align-items:start;}
+.rv-gal-main{background:var(--cream);border-radius:20px;overflow:hidden;aspect-ratio:1;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
+.rv-gal-main img{width:92%;height:92%;object-fit:contain;transition:opacity 0.2s;}
+.rv-gal-thumbs{display:flex;gap:10px;}
+.rv-gal-thumb{width:72px;height:72px;border-radius:10px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:border-color 0.2s;background:var(--cream);}
+.rv-gal-thumb.active,.rv-gal-thumb:hover{border-color:var(--sage);}
+.rv-gal-thumb img{width:100%;height:100%;object-fit:cover;}
+.rv-pdp-bc{font-size:0.78rem;color:var(--warm-gray);margin-bottom:16px;}
+.rv-pdp-bc a{color:var(--warm-gray);}
+.rv-pdp-bc a:hover{color:var(--sage);}
+.rv-mt{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.rv-mt-item{font-size:0.7rem;color:var(--warm-gray);}
+.rv-mt-item strong{color:var(--bark);}
+.rv-mt-dot{width:3px;height:3px;border-radius:50%;background:var(--cream-deep);flex-shrink:0;}
+.rv-mt-nz{font-size:0.7rem;font-weight:700;color:var(--sage);}
+.rv-pdp-title{font-family:'Playfair Display',serif;font-size:2rem;font-weight:400;color:var(--bark);margin-bottom:6px;}
+.rv-pdp-sub{font-size:0.95rem;color:var(--bark-light);margin-bottom:12px;}
+.rv-pdp-stars{display:flex;align-items:center;gap:8px;margin-bottom:16px;color:var(--sage);}
+.rv-pdp-stars span{font-size:0.82rem;color:var(--warm-gray);}
+.rv-pdp-desc{font-size:0.92rem;color:var(--bark-light);line-height:1.75;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border);}
+.rv-price-row{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;}
+.rv-price-main{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:600;color:var(--bark);}
+.rv-afterpay{font-size:0.82rem;color:var(--warm-gray);margin-bottom:20px;}
+.rv-afterpay img{vertical-align:middle;display:inline;}
+.rv-stock{font-size:0.82rem;color:var(--sage);font-weight:600;margin:16px 0;display:flex;align-items:center;gap:6px;}
+.rv-stock-dot{width:7px;height:7px;border-radius:50%;background:var(--sage);}
+.rv-actions{display:flex;gap:12px;margin-bottom:16px;}
+.rv-qty{display:flex;border:2px solid var(--border);border-radius:10px;overflow:hidden;}
+.rv-qty button{width:42px;height:48px;border:none;background:var(--white);font-size:1rem;cursor:pointer;color:var(--bark);transition:background 0.2s;}
+.rv-qty button:hover{background:var(--cream);}
+.rv-qty input{width:44px;text-align:center;border:none;border-left:1px solid var(--border);border-right:1px solid var(--border);font-size:0.9rem;font-weight:600;-moz-appearance:textfield;}
+.rv-qty input::-webkit-outer-spin-button,.rv-qty input::-webkit-inner-spin-button{-webkit-appearance:none;}
+.rv-btn-atc{flex:1;background:var(--sage);color:#fff;border:none;padding:14px 24px;border-radius:10px;font-weight:800;font-size:0.92rem;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.rv-btn-atc:hover{background:var(--sage-mid);transform:translateY(-1px);box-shadow:0 6px 20px rgba(107,143,91,0.35);}
+.rv-guarantees{display:flex;gap:12px;flex-wrap:wrap;padding-bottom:16px;border-bottom:1px solid var(--border);margin-bottom:16px;}
+.rv-g{font-size:0.78rem;font-weight:600;color:var(--warm-gray);display:flex;align-items:center;gap:4px;}
+.rv-g svg{width:13px;height:13px;color:var(--sage);}
+.rv-online-note{font-size:0.78rem;color:var(--warm-gray);display:flex;align-items:center;gap:6px;}
+.rv-online-note svg{width:13px;height:13px;color:var(--warm-gray);}
 
+/* Tabs */
+.rv-tabs{max-width:1240px;margin:0 auto;padding:0 40px 64px;}
+.rv-tabs-nav{display:flex;border-bottom:1px solid var(--border);margin-bottom:24px;}
+.rv-tab-btn{padding:12px 20px;font-size:0.85rem;font-weight:600;color:var(--warm-gray);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all 0.25s;}
+.rv-tab-btn.active{color:var(--bark);border-bottom-color:var(--sage);}
+.rv-tab-btn:hover{color:var(--bark);}
+.rv-tab-panel{display:none;}
+.rv-tab-panel.active{display:block;}
+.rv-tab-panel h4{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:10px;color:var(--bark);}
+.rv-tab-panel p{font-size:0.9rem;color:var(--bark-light);line-height:1.75;margin-bottom:10px;}
+
+/* Why section */
+.rv-why{padding:72px 0;background:var(--cream);}
+.rv-why-inner{max-width:1240px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center;}
+.rv-why h2{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:400;margin-bottom:14px;color:var(--bark);}
+.rv-why p{font-size:0.92rem;color:var(--bark-light);line-height:1.75;margin-bottom:12px;}
+.rv-eyebrow{font-size:0.68rem;font-weight:800;text-transform:uppercase;letter-spacing:0.18em;color:var(--sage);margin-bottom:10px;display:block;}
+.rv-ing-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.rv-ing-card{background:var(--white);border-radius:14px;padding:18px;border:1px solid var(--border);}
+.rv-ing-card h4{font-weight:700;font-size:0.85rem;margin-bottom:4px;color:var(--bark);}
+.rv-ing-card p{font-size:0.78rem;color:var(--warm-gray);line-height:1.5;}
+
+/* Research */
+.rv-research{padding:60px 0;background:var(--cream);border-top:1px solid var(--border);}
+.rv-research-inner{max-width:1240px;margin:0 auto;padding:0 40px;}
+.rv-research-label{font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--sage);margin-bottom:8px;text-align:center;}
+.rv-research-sub{font-size:0.88rem;color:var(--warm-gray);text-align:center;margin-bottom:32px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.6;}
+.rv-research-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.rv-rc{padding:22px 18px;background:var(--white);border-radius:14px;border:1px solid var(--border);}
+.rv-rc-icon{font-size:1.2rem;margin-bottom:10px;}
+.rv-rc-name{font-weight:700;font-size:0.85rem;color:var(--bark);margin-bottom:6px;}
+.rv-rc-desc{font-size:0.78rem;color:var(--warm-gray);line-height:1.55;}
+
+/* Expect */
+.rv-expect{padding:72px 0;background:var(--white);}
+.rv-expect-inner{max-width:1240px;margin:0 auto;padding:0 40px;}
+.rv-expect-inner h2{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:400;margin-bottom:8px;text-align:center;color:var(--bark);}
+.rv-expect-inner>p{text-align:center;font-size:0.86rem;color:var(--warm-gray);margin-bottom:44px;}
+.rv-timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
+.rv-timeline::before{content:'';position:absolute;top:28px;left:10%;right:10%;height:2px;background:var(--border);z-index:0;}
+.rv-ts{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;z-index:1;padding:0 16px;}
+.rv-ts-dot{width:56px;height:56px;border-radius:50%;background:var(--cream);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-family:'Playfair Display',serif;font-size:0.78rem;font-weight:700;color:var(--sage);flex-shrink:0;}
+.rv-ts-week{font-size:0.68rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--stone);margin-bottom:6px;}
+.rv-ts-title{font-weight:700;font-size:0.85rem;color:var(--bark);margin-bottom:6px;}
+.rv-ts-desc{font-size:0.78rem;color:var(--warm-gray);line-height:1.55;}
+.rv-expect-note{text-align:center;margin-top:32px;font-size:0.75rem;color:var(--warm-gray);font-style:italic;}
+
+/* Breadcrumb */
+.rv-bc-bar{max-width:1240px;margin:0 auto;padding:16px 40px 0;font-size:0.8rem;color:var(--warm-gray);}
+.rv-bc-bar a{color:var(--warm-gray);}
+.rv-bc-bar a:hover{color:var(--sage);}
+
+@media(max-width:1024px){
+  .rv-pdp{grid-template-columns:1fr;gap:32px;padding:90px 24px 48px;}
+  .rv-bc-bar{padding:16px 24px 0;}
+  .rv-why-inner{grid-template-columns:1fr;gap:36px;padding:0 24px;}
+  .rv-tabs{padding:0 24px 48px;}
+  .rv-research-grid{grid-template-columns:repeat(2,1fr);}
+  .rv-research-inner{padding:0 24px;}
+  .rv-timeline{grid-template-columns:repeat(2,1fr);gap:28px;}
+  .rv-timeline::before{display:none;}
+  .rv-expect-inner{padding:0 24px;}
+}
+@media(max-width:640px){
+  .rv-pdp{padding:80px 18px 32px;}
+  .rv-pdp-title{font-size:1.6rem;}
+  .rv-ing-grid{grid-template-columns:1fr;}
+  .rv-research-grid{grid-template-columns:1fr;}
+  .rv-research-inner,.rv-expect-inner{padding:0 18px;}
+  .rv-timeline{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+{{- partial "alert-online.html" . -}}
+{{- partial "header_new.html" . -}}
+
+{{ $p := site.Data.pricing.reviana.day_cream }}
+
+<div class="rv-bc-bar">
+  <a href="/shop/">Shop</a> › <a href="/cosmetic-tallow-reviana/">Reviana</a> › Day Cream
+</div>
+
+<div class="rv-pdp">
+  <div>
+    <div class="rv-gal-main"><img id="mainImg" src="/img/daycream-texture.webp" alt="Reviana Day Cream 60ml" fetchpriority="high"></div>
+    <div class="rv-gal-thumbs">
+      <div class="rv-gal-thumb active" onclick="swImg('/img/daycream-texture.webp',this)"><img src="/img/daycream-texture.webp" alt="Texture" loading="lazy"></div>
+      <div class="rv-gal-thumb" onclick="swImg('/img/daycream-benefits.webp',this)"><img src="/img/daycream-benefits.webp" alt="Benefits" loading="lazy"></div>
+      <div class="rv-gal-thumb" onclick="swImg('/img/day-features.webp',this)"><img src="/img/day-features.webp" alt="Features" loading="lazy"></div>
+    </div>
+  </div>
+  <div>
+    <div class="rv-pdp-bc"><a href="/shop/">Shop</a> › <a href="/cosmetic-tallow-reviana/">Reviana</a> › Day Cream</div>
+    <p style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--sage);margin-bottom:6px;">Reviana · Brightening Daily Moisturiser</p>
+    <div class="rv-mt">
+      <span class="rv-mt-item">By <strong>PrimalPantry</strong></span>
+      <span class="rv-mt-dot"></span>
+      <span class="rv-mt-item">90,000+ customers</span>
+      <span class="rv-mt-dot"></span>
+      <span class="rv-mt-item">4.7★</span>
+      <span class="rv-mt-dot"></span>
+      <span class="rv-mt-nz">NZ Made</span>
+    </div>
+    <h1 class="rv-pdp-title">Day Cream</h1>
+    <p class="rv-pdp-sub">Brightening daily moisturiser for glow and more even-looking skin — 60ml</p>
+    <div class="rv-pdp-stars">★★★★★ <span>4.7 · Verified Reviews</span></div>
+    <p class="rv-pdp-desc">Your morning ritual, upgraded. This light, fast-absorbing day cream delivers Vitamin C, Niacinamide and Zinc Oxide in a bio-identical lipid base that your skin already recognises — supporting brighter-looking tone, a smoother-looking finish under makeup, and deeper daily hydration. No greasy residue. No heaviness.</p>
+    <div class="rv-price-row">
+      <span class="rv-price-main" id="dispPrice">${{ $p.price_nz }}</span>
+    </div>
+    <p class="rv-afterpay">or 4 interest free payments of $<span id="afterpayPrice">{{ printf "%.2f" (div $p.price_nz 4.0) }}</span> with <img src="/img/afterpay.webp" height="20" alt="afterpay"></p>
+    <div class="rv-stock"><span class="rv-stock-dot"></span> In Stock · Ships 1–3 business days</div>
+    <div class="rv-actions">
+      <div class="rv-qty">
+        <button type="button" id="qMinus">−</button>
+        <input type="number" id="qty" value="1" min="1" readonly>
+        <button type="button" id="qPlus">+</button>
+      </div>
+      <button class="rv-btn-atc" id="atcBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span id="atcText">Add to Cart — ${{ $p.price_nz }}</span>
+      </button>
+    </div>
+    <p style="font-size:0.78rem;color:var(--warm-gray);margin-bottom:14px;">Money back guarantee · Speedy NZ-wide shipping</p>
+    <div class="rv-guarantees">
+      <div class="rv-g"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>Naturally Derived</div>
+      <div class="rv-g"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>NZ Made</div>
+      <div class="rv-g"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>Formulated for Sensitive Skin</div>
+      <div class="rv-g"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>Money Back</div>
+    </div>
+    <div class="rv-online-note">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h14l-1.68 8.39A2 2 0 0113.36 13H6.64a2 2 0 01-1.96-1.61L3 3z" stroke-linejoin="round"/><circle cx="8" cy="17" r="1" fill="currentColor" stroke="none"/><circle cx="13" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+      Reviana — online only · not available in stores
+    </div>
+  </div>
+</div>
+
+<div class="rv-tabs">
+  <div class="rv-tabs-nav">
+    <button class="rv-tab-btn active" onclick="swTab('ing',this)">Ingredients</button>
+    <button class="rv-tab-btn" onclick="swTab('dir',this)">How to Use</button>
+    <button class="rv-tab-btn" onclick="swTab('ship',this)">Shipping</button>
+  </div>
+  <div class="rv-tab-panel active" id="tab-ing">
+    <h4>Full Ingredient List</h4>
+    <p>Aqua (Water), Squalane, Glycerin, Tallow, Niacinamide, Zinc Oxide (and) Coco-Caprylate/Caprate (and) Polyhydroxystearic Acid, Sodium Acrylates Copolymer (and) Lecithin, Simmondsia Chinensis (Jojoba) Seed Oil, Caprylic/Capric Triglyceride, Cetearyl Olivate (and) Sorbitan Olivate, Tetrahexyldecyl Ascorbate, Terminalia Ferdinandiana Fruit Extract, Benzyl Alcohol (and) Dehydroacetic Acid, Panthenol, Butyrospermum Parkii (Shea) Butter, Sodium Hyaluronate, Aloe Barbadensis Leaf Extract, Bisabolol, Sodium Phytate (and) Aqua (and) Alcohol, Tocopherol (and) Helianthus Annuus (Sunflower) Seed Oil.</p>
+  </div>
+  <div class="rv-tab-panel" id="tab-dir">
+    <h4>Morning routine</h4>
+    <p>After cleansing, apply a small amount to face and neck. Gently press into skin using upward motions. Allow to absorb 1–2 minutes before makeup or sunscreen. A little goes a long way — one jar typically lasts 2–3 months.</p>
+    <p>As with any new skincare, patch test before full use.</p>
+  </div>
+  <div class="rv-tab-panel" id="tab-ship">
+    <h4>Shipping</h4>
+    <p><strong>Processing:</strong> 1–3 business days + 3–5 business days NZ-wide.</p>
+    <p><strong>Cost:</strong> $6.95, or free on orders over $80.</p>
+  </div>
+</div>
+
+<section class="rv-research">
+  <div class="rv-research-inner">
+    <p class="rv-research-label">Research-Backed Actives</p>
+    <p class="rv-research-sub">Every ingredient earns its place. Here's what the key actives do for tone, glow and a more even-looking complexion.</p>
+    <div class="rv-research-grid">
+      <div class="rv-rc"><div class="rv-rc-icon">🧬</div><div class="rv-rc-name">Bio-Identical Lipids</div><p class="rv-rc-desc">Tallow and Squalane mirror your skin's own lipid structure — absorbing deeply and carrying actives where surface-level moisturisers can't reach.</p></div>
+      <div class="rv-rc"><div class="rv-rc-icon">✨</div><div class="rv-rc-name">Tetrahexyldecyl Ascorbate</div><p class="rv-rc-desc">Oil-soluble Vitamin C that penetrates the skin barrier more effectively than standard Vitamin C, chosen for brighter-looking tone without stinging or oxidising.</p></div>
+      <div class="rv-rc"><div class="rv-rc-icon">🌿</div><div class="rv-rc-name">Niacinamide (Vitamin B3)</div><p class="rv-rc-desc">One of the most studied actives in skincare. Supports a calmer-looking complexion and inhibits melanin transfer for more even-looking tone over time.</p></div>
+      <div class="rv-rc"><div class="rv-rc-icon">🍑</div><div class="rv-rc-name">Kakadu Plum</div><p class="rv-rc-desc">Terminalia Ferdinandiana — the world's highest known natural source of Vitamin C. Antioxidant protection alongside brightening and complexion-evening benefits.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="rv-why">
+  <div class="rv-why-inner">
+    <div>
+      <span class="rv-eyebrow">The Science</span>
+      <h2>Why bio-identical lipids change everything</h2>
+      <p>Most moisturisers sit on top of your skin. Reviana is built around lipids that mirror your skin's own structure — absorbing deeply and delivering actives where they actually make a difference for tone, texture and radiance.</p>
+      <p>Brighter, more hydrated, more even-looking skin — with a finish that works under makeup.</p>
+    </div>
+    <div class="rv-ing-grid">
+      <div class="rv-ing-card"><h4>🧬 Bio-Identical Lipids</h4><p>Mirrors your skin's natural sebum for deep absorption and active delivery.</p></div>
+      <div class="rv-ing-card"><h4>✨ Vitamin C</h4><p>Supports brighter-looking tone, glow and a more even complexion.</p></div>
+      <div class="rv-ing-card"><h4>🌿 Kakadu Plum</h4><p>World's highest natural Vitamin C source — antioxidant and brightening.</p></div>
+      <div class="rv-ing-card"><h4>🛡️ Zinc Oxide</h4><p>Mineral protection and anti-inflammatory benefit for reactive skin.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="rv-expect">
+  <div class="rv-expect-inner">
+    <span class="rv-eyebrow" style="display:block;text-align:center;">What to Expect</span>
+    <h2>A Timeline Based on the Research</h2>
+    <p>What published ingredient research suggests you can reasonably expect — and when.</p>
+    <div class="rv-timeline">
+      <div class="rv-ts"><div class="rv-ts-dot">Day 1</div><div class="rv-ts-week">Immediately</div><div class="rv-ts-title">Instant hydration</div><p class="rv-ts-desc">Glycerin and Sodium Hyaluronate draw moisture into the skin on first application. Lightweight finish, no greasiness.</p></div>
+      <div class="rv-ts"><div class="rv-ts-dot">Wk 2</div><div class="rv-ts-week">Week 2</div><div class="rv-ts-title">Barrier strengthening</div><p class="rv-ts-desc">Niacinamide begins stimulating ceramide production. Skin starts to feel more resilient with a calmer appearance.</p></div>
+      <div class="rv-ts"><div class="rv-ts-dot">Wk 4</div><div class="rv-ts-week">Week 4</div><div class="rv-ts-title">More even-looking tone</div><p class="rv-ts-desc">THD Ascorbate and Kakadu Plum begin measurably inhibiting melanin transfer. Uneven patches start to look more even.</p></div>
+      <div class="rv-ts"><div class="rv-ts-dot">Wk 8+</div><div class="rv-ts-week">Week 8+</div><div class="rv-ts-title">Smoother, more youthful-looking skin</div><p class="rv-ts-desc">Collagen support from the Vitamin C ester continues to build. Fine lines look softer with continued daily use.</p></div>
+    </div>
+    <p class="rv-expect-note">Individual results vary. Timeline is based on published studies for each key active at relevant concentrations.</p>
+  </div>
+</section>
+
+<div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
+  <div class="modal-dialog"><div class="modal-content">
+    <div class="modal-header"><h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5><button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button></div>
+    <div class="modal-body">Your item has been added to the cart.</div>
+    <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button><a href="/cart" class="btn btn-black">Go to Cart</a></div>
+  </div></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script>
+function swImg(s,el){var i=document.getElementById('mainImg');i.style.opacity='0';setTimeout(function(){i.src=s;i.style.opacity='1';},150);document.querySelectorAll('.rv-gal-thumb').forEach(function(t){t.classList.remove('active');});el.classList.add('active');}
+function swTab(id,btn){document.querySelectorAll('.rv-tab-panel').forEach(function(p){p.classList.remove('active');});document.querySelectorAll('.rv-tab-btn').forEach(function(b){b.classList.remove('active');});document.getElementById('tab-'+id).classList.add('active');btn.classList.add('active');}
+var selPrice = {{ $p.price_nz }};
+var selPid = '{{ $p.price_id_nz }}';
+var q = document.getElementById('qty');
+document.getElementById('qPlus').addEventListener('click',function(){q.value=parseInt(q.value)+1;});
+document.getElementById('qMinus').addEventListener('click',function(){if(parseInt(q.value)>1)q.value=parseInt(q.value)-1;});
+document.getElementById('atcBtn').addEventListener('click',function(){
+  var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+  cart.push({priceId:selPid,title:'Reviana Day Cream',size:'{{ $p.size }}',flavor:'Day Formula',orderType:'Single',quantity:parseInt(q.value)||1,unitPrice:selPrice,eligibleForDiscount:false});
+  localStorage.setItem('cartV2',JSON.stringify(cart));
+  $('#addedToCartModal').modal('show');
+});
+</script>
+
+{{- partial "footer.html" . -}}
+</body>
+</html>
