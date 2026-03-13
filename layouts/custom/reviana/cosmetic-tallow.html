@@ -18,14 +18,13 @@
     <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
 </head>
 <body>
-{{- partial "alert-online.html" . -}}
-{{- partial "header_new.html" . -}}
+{{- partial "header.html" . -}}
 
-{{ $day    := site.Data.reviana.day_cream }}
-{{ $night  := site.Data.reviana.night_cream }}
-{{ $eye    := site.Data.reviana.eye_cream }}
-{{ $serum  := site.Data.reviana.serum }}
-{{ $bundle := site.Data.reviana.anti_aging_duo }}
+{{ $day    := site.Data.pricing.reviana.day_cream }}
+{{ $night  := site.Data.pricing.reviana.night_cream }}
+{{ $eye    := site.Data.pricing.reviana.eye_cream }}
+{{ $serum  := site.Data.pricing.reviana.serum }}
+{{ $bundle := site.Data.pricing.reviana.anti_aging_duo }}
 
 <style>
 :root {
@@ -247,7 +246,7 @@
       <img src="/img/rev-nat.webp" alt="Reviana — tallow elevated for brighter, more even-looking skin">
       <div class="ta-hero-float-card">
         <div class="fc-label">Day Cream</div>
-        <div class="fc-val">NZ${{ $day.price }}</div>
+        <div class="fc-val">NZ${{ $day.price_nz }}</div>
         <div class="fc-sub">Vitamin C · Niacinamide · Zinc Oxide</div>
       </div>
     </div>
@@ -297,11 +296,11 @@
         <h3>The Complete Ritual — All 4 Products</h3>
         <p>Serum · Day Cream · Night Cream · Eye Cream — the full Reviana ritual for glow, tone, texture and a more youthful-looking complexion.</p>
         <div class="ta-bundle-price-row">
-          <span class="ta-bundle-price">NZ${{ $bundle.price }}</span>
+          <span class="ta-bundle-price">NZ${{ $bundle.price_nz }}</span>
           {{ if $bundle.compare_price }}<span class="ta-bundle-was">NZ${{ $bundle.compare_price }}</span>{{ end }}
           <span class="ta-bundle-save">Save with bundle</span>
         </div>
-        <button class="ta-bundle-atc" data-atc-pid="{{ $bundle.price_id }}" data-atc-price="{{ $bundle.price }}" data-atc-title="Reviana Complete Ritual Bundle" data-atc-size="Full Set" data-atc-flavor="All 4 Products">
+        <button class="ta-bundle-atc" data-atc-pid="{{ $bundle.price_id_nz }}" data-atc-price="{{ $bundle.price_nz }}" data-atc-title="Reviana Complete Ritual Bundle" data-atc-size="Full Set" data-atc-flavor="All 4 Products">
           Add Bundle to Cart
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </button>
@@ -314,10 +313,10 @@
         <div class="ta-p-card-body">
           <div class="ta-p-card-name">Day Cream</div>
           <div class="ta-p-card-sub">Brightening daily moisturiser · 60ml</div>
-          <div class="ta-p-card-price">NZ${{ $day.price }}</div>
+          <div class="ta-p-card-price">NZ${{ $day.price_nz }}</div>
           <div class="ta-p-card-added">For hydration, glow and a smoother-looking finish under makeup</div>
           <div class="ta-p-card-cta">
-            <button class="ta-p-card-atc" data-atc-pid="{{ $day.price_id }}" data-atc-price="{{ $day.price }}" data-atc-title="Reviana Day Cream" data-atc-size="60ml" data-atc-flavor="Day Formula">Add to Cart</button>
+            <button class="ta-p-card-atc" data-atc-pid="{{ $day.price_id_nz }}" data-atc-price="{{ $day.price_nz }}" data-atc-title="Reviana Day Cream" data-atc-size="60ml" data-atc-flavor="Day Formula">Add to Cart</button>
             <a href="/cosmetic-tallow-reviana/day-cream/" class="ta-p-card-view">View</a>
           </div>
         </div>
@@ -328,10 +327,10 @@
         <div class="ta-p-card-body">
           <div class="ta-p-card-name">Night Cream</div>
           <div class="ta-p-card-sub">Overnight renewal cream · 60ml</div>
-          <div class="ta-p-card-price">NZ${{ $night.price }}</div>
+          <div class="ta-p-card-price">NZ${{ $night.price_nz }}</div>
           <div class="ta-p-card-added">For smoother, more nourished, more youthful-looking skin by morning</div>
           <div class="ta-p-card-cta">
-            <button class="ta-p-card-atc" data-atc-pid="{{ $night.price_id }}" data-atc-price="{{ $night.price }}" data-atc-title="Reviana Night Cream" data-atc-size="60ml" data-atc-flavor="Night Formula">Add to Cart</button>
+            <button class="ta-p-card-atc" data-atc-pid="{{ $night.price_id_nz }}" data-atc-price="{{ $night.price_nz }}" data-atc-title="Reviana Night Cream" data-atc-size="60ml" data-atc-flavor="Night Formula">Add to Cart</button>
             <a href="/cosmetic-tallow-reviana/night-cream/" class="ta-p-card-view">View</a>
           </div>
         </div>
@@ -342,10 +341,10 @@
         <div class="ta-p-card-body">
           <div class="ta-p-card-name">Eye Cream</div>
           <div class="ta-p-card-sub">Brightening eye treatment · 15ml</div>
-          <div class="ta-p-card-price">NZ${{ $eye.price }}</div>
+          <div class="ta-p-card-price">NZ${{ $eye.price_nz }}</div>
           <div class="ta-p-card-added">For fresher, smoother, more awake-looking eyes</div>
           <div class="ta-p-card-cta">
-            <button class="ta-p-card-atc" data-atc-pid="{{ $eye.price_id }}" data-atc-price="{{ $eye.price }}" data-atc-title="Reviana Eye Cream" data-atc-size="15ml" data-atc-flavor="Vitamin C">Add to Cart</button>
+            <button class="ta-p-card-atc" data-atc-pid="{{ $eye.price_id_nz }}" data-atc-price="{{ $eye.price_nz }}" data-atc-title="Reviana Eye Cream" data-atc-size="15ml" data-atc-flavor="Vitamin C">Add to Cart</button>
             <a href="/cosmetic-tallow-reviana/eye-cream/" class="ta-p-card-view">View</a>
           </div>
         </div>
@@ -356,10 +355,10 @@
         <div class="ta-p-card-body">
           <div class="ta-p-card-name">Serum</div>
           <div class="ta-p-card-sub">Complexion-refining serum · 30ml</div>
-          <div class="ta-p-card-price">NZ${{ $serum.price }}</div>
+          <div class="ta-p-card-price">NZ${{ $serum.price_nz }}</div>
           <div class="ta-p-card-added">For glow, more even-looking tone and lightweight hydration</div>
           <div class="ta-p-card-cta">
-            <button class="ta-p-card-atc" data-atc-pid="{{ $serum.price_id }}" data-atc-price="{{ $serum.price }}" data-atc-title="Reviana Serum" data-atc-size="30ml" data-atc-flavor="Complexion Serum">Add to Cart</button>
+            <button class="ta-p-card-atc" data-atc-pid="{{ $serum.price_id_nz }}" data-atc-price="{{ $serum.price_nz }}" data-atc-title="Reviana Serum" data-atc-size="30ml" data-atc-flavor="Complexion Serum">Add to Cart</button>
             <a href="/cosmetic-tallow-reviana/serum/" class="ta-p-card-view">View</a>
           </div>
         </div>
@@ -470,7 +469,7 @@
 <section class="ta-cta">
   <div class="ta-cta-inner">
     <span class="ta-eyebrow">The Ritual — Shop Now</span>
-    <h2>Start your ritual.<br><em>From NZ${{ $day.price }}.</em></h2>
+    <h2>Start your ritual.<br><em>From NZ${{ $day.price_nz }}.</em></h2>
     <p>Four products built on ultra-purified cosmetic tallow and elevated with science-backed actives. Vitamin C, Bakuchiol, Ceramides and Peptides. Made in Christchurch. Exclusively online.</p>
     <div class="ta-cta-btns">
       <a href="#products" class="ta-btn-primary">
