@@ -11,138 +11,644 @@
     <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
     <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
     <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
- 
-    <!-- Add the styling for the pill-shaped radio buttons -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <style>
-        .filter-options {
-            display: flex;
-            justify-content: center;
-            margin: 10px 0;
-        }
+    /* ─── SHOP VARIABLES ─────────────────────────────────── */
+    :root {
+      --pc-cream:       #F7F2EB;
+      --pc-cream-deep:  #EDE3D3;
+      --pc-black:       #1C1A17;
+      --pc-brown:       #7B5C3A;
+      --pc-brown-mid:   #9B7550;
+      --pc-brown-light: #C4A07A;
+      --pc-brown-pale:  #F0E6D8;
+      --pc-green:       #4A5E38;
+      --pc-green-mid:   #5C7346;
+      --pc-border:      rgba(123,92,58,0.14);
+      --pc-warm-gray:   #8A7D70;
+      --pc-white:       #FDFAF6;
+    }
 
-        .filter-options label {
-            display: inline-block;
-            padding: 8px 16px;
-            margin: 0 5px;
-            border: 1px solid #ccc;
-            border-radius: 30px;
-            font-size: 14px;
-            cursor: pointer;
-            background-color: #f7f7f7;
-            transition: background-color 0.3s, color 0.3s;
-        }
+    /* ─── ROUTINE SECTION ────────────────────────────────── */
+    .soothe-section {
+      background: var(--pc-cream);
+      padding: 64px 0 0;
+    }
+    .soothe-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 80px;
+    }
+    .soothe-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .soothe-eyebrow {
+      font-size: 0.66rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--pc-brown-mid);
+      margin-bottom: 8px;
+      display: block;
+    }
+    .soothe-title {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(1.8rem, 2.6vw, 2.4rem);
+      font-weight: 400;
+      color: var(--pc-black);
+      line-height: 1.1;
+      margin: 0;
+    }
+    .soothe-title em {
+      color: var(--pc-brown);
+      font-style: italic;
+    }
+    .soothe-subtitle {
+      font-size: 0.85rem;
+      color: var(--pc-warm-gray);
+      line-height: 1.65;
+      max-width: 480px;
+      margin-top: 8px;
+    }
 
-        .filter-options input[type="radio"] {
-            display: none;
-        }
+    /* ─── BUNDLE CARD ────────────────────────────────────── */
+    .soothe-bundle {
+      background: var(--pc-brown);
+      border-radius: 20px;
+      padding: 28px 36px;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .soothe-bundle::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 240px; height: 240px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+    .soothe-bundle::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; left: 120px;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.03);
+    }
+    .soothe-bundle-badge {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: var(--pc-brown-light);
+      color: var(--pc-black);
+      font-size: 0.6rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+    .soothe-bundle-imgs {
+      display: flex;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+    .soothe-bundle-img {
+      width: 60px; height: 60px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.12);
+      border: 2px solid rgba(255,255,255,0.2);
+      overflow: hidden;
+      margin-left: -10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .soothe-bundle-img:first-child { margin-left: 0; }
+    .soothe-bundle-img img { width: 80%; height: 80%; object-fit: contain; }
+    .soothe-bundle-content { flex: 1; z-index: 1; }
+    .soothe-bundle-content h3 {
+      font-family: Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 400;
+      color: #fff;
+      margin: 0 0 4px;
+    }
+    .soothe-bundle-content p {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.55);
+      margin: 0 0 14px;
+      line-height: 1.5;
+    }
+    .soothe-bundle-price-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .soothe-bundle-price {
+      font-family: Georgia, serif;
+      font-size: 1.7rem;
+      color: #fff;
+    }
+    .soothe-bundle-was {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.35);
+      text-decoration: line-through;
+    }
+    .soothe-bundle-save {
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--pc-brown-light);
+      background: rgba(196,160,122,0.18);
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+    .soothe-bundle-atc {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      color: var(--pc-brown) !important;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 0.84rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      text-decoration: none;
+    }
+    .soothe-bundle-atc:hover {
+      background: var(--pc-brown-light);
+      transform: translateY(-1px);
+      color: var(--pc-black) !important;
+    }
 
-        /* Active state for the selected radio button */
-        .filter-options input[type="radio"]:checked + label {
-            background-color: gray;
-            color: white;
-            border-color: gray;
-        }
+    /* ─── RITUAL STRIP ───────────────────────────────────── */
+    .soothe-ritual-strip {
+      display: flex;
+      background: var(--pc-white);
+      border: 1px solid var(--pc-border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+    .soothe-ritual-half {
+      flex: 1;
+      padding: 18px 26px;
+    }
+    .soothe-ritual-half:first-child {
+      border-right: 1px solid var(--pc-border);
+    }
+    .soothe-ritual-label {
+      font-size: 0.62rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--pc-brown-mid);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .soothe-ritual-steps {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      flex-wrap: wrap;
+    }
+    .soothe-ritual-step {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--pc-black);
+    }
+    .soothe-ritual-dot {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--pc-brown-pale);
+      border: 1px solid var(--pc-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.6rem;
+      font-weight: 800;
+      color: var(--pc-brown);
+      flex-shrink: 0;
+    }
+    .soothe-ritual-arrow {
+      font-size: 0.85rem;
+      color: var(--pc-brown-light);
+      opacity: 0.7;
+    }
+    .soothe-ritual-ghost {
+      opacity: 0.4;
+      font-size: 0.76rem;
+    }
 
-        /* Hover effect */
-        .filter-options label:hover {
-            background-color: #e0e0e0;
-        }
+    /* ─── FEATURED PRODUCT CARDS ─────────────────────────── */
+    .soothe-products-label {
+      font-size: 0.66rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--pc-warm-gray);
+      margin-bottom: 14px;
+    }
+    .soothe-p-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      padding-bottom: 56px;
+    }
+    /* Featured card gets a subtle highlight ring */
+    .soothe-p-grid .product-card {
+      border: 1.5px solid var(--pc-border) !important;
+      border-radius: 16px;
+      background: var(--pc-white);
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .soothe-p-grid .product-card:hover {
+      box-shadow: 0 14px 36px rgba(123,92,58,0.12);
+      transform: translateY(-3px);
+    }
 
-        /* Align "Coming Soon" option to the right */
-        .filter-options .coming-soon {
-            margin-left: auto;
-        }
+    /* ─── DIVIDER ─────────────────────────────────────────── */
+    .shop-divider {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 80px;
+    }
+    .shop-divider-inner {
+      border-top: 1px solid var(--pc-border);
+      padding: 48px 0 0;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .shop-divider-label {
+      font-size: 0.66rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--pc-warm-gray);
+      white-space: nowrap;
+    }
+    .shop-divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--pc-border);
+    }
+
+    /* ─── FILTER PILLS ───────────────────────────────────── */
+    .filter-options {
+      display: flex;
+      justify-content: flex-start;
+      margin: 0 0 24px;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+    .filter-options label {
+      display: inline-block;
+      padding: 7px 16px;
+      margin: 0 6px 6px 0;
+      border: 1px solid var(--pc-border);
+      border-radius: 30px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: var(--pc-white);
+      color: var(--pc-warm-gray);
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .filter-options input[type="radio"] { display: none; }
+    .filter-options input[type="radio"]:checked + label {
+      background: var(--pc-brown);
+      color: #fff;
+      border-color: var(--pc-brown);
+    }
+    .filter-options label:hover {
+      background: var(--pc-brown-pale);
+      border-color: var(--pc-brown-light);
+      color: var(--pc-brown);
+    }
+
+    /* ─── ALL PRODUCTS SECTION ───────────────────────────── */
+    .all-products-section {
+      background: var(--pc-cream);
+      padding: 0 0 80px;
+    }
+    .all-products-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 80px;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .soothe-inner, .all-products-inner, .shop-divider { padding-left: 24px; padding-right: 24px; }
+      .soothe-p-grid { grid-template-columns: repeat(3, 1fr); }
+      .soothe-bundle { flex-direction: column; align-items: flex-start; gap: 14px; padding: 24px; }
+      .soothe-bundle-imgs { display: none; }
+    }
+    @media (max-width: 700px) {
+      .soothe-p-grid { grid-template-columns: repeat(2, 1fr); }
+      .soothe-ritual-strip { flex-direction: column; }
+      .soothe-ritual-half:first-child { border-right: none; border-bottom: 1px solid var(--pc-border); }
+      .soothe-header { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 480px) {
+      .soothe-p-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    }
+
+    /* ─── EANZ BADGE ─────────────────────────────────────── */
+    .shop-eanz-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      background: #fff;
+      border: 1px solid var(--pc-border);
+      border-radius: 16px;
+      padding: 12px 18px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      flex-shrink: 0;
+      align-self: flex-start;
+    }
+    .shop-eanz-badge img { height: 48px; width: auto; flex-shrink: 0; }
+    .shop-eanz-badge-text { display: flex; flex-direction: column; }
+    .shop-eanz-badge-label {
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-weight: 700;
+      color: var(--pc-green);
+      line-height: 1.3;
+    }
+    .shop-eanz-badge-title {
+      font-family: Georgia, serif;
+      font-size: 0.88rem;
+      color: var(--pc-black);
+      font-weight: 700;
+      line-height: 1.25;
+    }
+    .shop-eanz-badge-commit {
+      font-size: 0.72rem;
+      color: var(--pc-brown);
+      font-weight: 600;
+      line-height: 1.4;
+      margin-top: 1px;
+    }
+    .shop-eanz-badge-link {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--pc-green);
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      margin-top: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: 'DM Sans', Georgia, sans-serif;
+      transition: gap 0.25s, opacity 0.25s;
+    }
+    .shop-eanz-badge-link:hover { gap: 7px; opacity: 0.75; }
+    .shop-eanz-badge-link svg { width: 11px; height: 11px; }
+    @media (max-width: 700px) { .shop-eanz-badge { display: none; } }
+
+    /* ─── EANZ MODAL ─────────────────────────────────────── */
+    .shop-eanz-modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 99999;
+      background: rgba(28,26,23,0.5);
+      backdrop-filter: blur(6px);
+      align-items: center; justify-content: center; padding: 24px;
+      opacity: 0; transition: opacity 0.3s ease;
+    }
+    .shop-eanz-modal-overlay.is-open { display: flex; opacity: 1; }
+    .shop-eanz-modal {
+      background: #EFF5E9; border-radius: 24px;
+      max-width: 860px; width: 100%; max-height: 90vh; overflow-y: auto;
+      position: relative; box-shadow: 0 32px 80px rgba(0,0,0,0.18);
+      animation: eanz-modal-in 0.32s ease both;
+    }
+    @keyframes eanz-modal-in {
+      from { opacity: 0; transform: translateY(20px) scale(0.97); }
+      to   { opacity: 1; transform: none; }
+    }
+    .shop-eanz-modal-close {
+      position: absolute; top: 14px; right: 14px; z-index: 3;
+      width: 38px; height: 38px; border-radius: 50%; border: none;
+      background: rgba(255,255,255,0.85); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .shop-eanz-modal-close:hover { background: #fff; transform: scale(1.07); }
+    .shop-eanz-modal-close svg { width: 17px; height: 17px; color: var(--pc-black); }
+    .shop-eanz-modal-body {
+      display: grid; grid-template-columns: 1fr 1.3fr; gap: 36px;
+      padding: 44px; align-items: center;
+    }
+    .shop-eanz-modal-video-wrap {
+      position: relative; padding-bottom: 177.78%; border-radius: 14px;
+      overflow: hidden; background: var(--pc-black);
+    }
+    .shop-eanz-modal-video-wrap iframe {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
+    }
+    .shop-eanz-modal-video-placeholder {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 2.2rem; cursor: pointer;
+    }
+    .shop-eanz-modal-right { display: flex; align-items: flex-start; gap: 18px; }
+    .shop-eanz-modal-right img { height: 80px; width: auto; flex-shrink: 0; }
+    .shop-eanz-modal-text h3 {
+      font-family: Georgia, serif; font-size: 1.4rem;
+      color: var(--pc-black); margin: 0 0 10px; line-height: 1.2; font-weight: 400;
+    }
+    .shop-eanz-modal-text p {
+      font-size: 0.87rem; color: var(--pc-brown); line-height: 1.62; margin: 0;
+    }
+    .shop-eanz-modal-disclaimer {
+      font-size: 0.64rem; color: var(--pc-warm-gray); margin-top: 10px; line-height: 1.5;
+    }
+    @media (max-width: 700px) {
+      .shop-eanz-modal-body { grid-template-columns: 1fr; gap: 24px; padding: 28px 20px; }
+      .shop-eanz-modal-right { flex-direction: column; align-items: center; text-align: center; }
+    }
     </style>
 </head>
 <body>
-     {{- partial "alert.html" . -}}
+    {{- partial "alert.html" . -}}
     {{- partial "header_new.html" . -}}
     <div class="scroll-top rounded-full">
         <span class="icon-keyboard_arrow_up text-2xl"></span>
     </div>
 
-    <!-- Add html below -->
-<section class="py-50 light-peach px-80">
-  <div class="container-fluid shopcontainer">
-        <!-- Filter buttons -->
+    <!-- ═══════════════════════════════════════════════════
+         CALM & SOOTHE ROUTINE — FEATURED SECTION
+    ════════════════════════════════════════════════════════ -->
+    <section class="soothe-section">
+      <div class="soothe-inner">
 
-        <div style="padding: 10px; margin: 20px auto 0px; " class="col-12 shopsection"> 
-                    <div style="padding: 10px auto 0px;" class="filter-options mob-hide">
-                <input type="radio" id="all" name="product-filter" value="all" checked>
-                <label for="all">All</label>
-    
-                <input type="radio" id="skincare" name="product-filter" value="skincare">
-                <label for="skincare">Skincare</label>
-
-                <input type="radio" id="haircare" name="product-filter" value="haircare">
-                <label for="haircare">Haircare</label>
-             
-                <input type="radio" id="bundles" name="product-filter" value="bundles">
-                <label for="bundles">Bundles</label>
-
-                <!-- Coming Soon Filter, aligned to the right 
-                <input type="radio" id="coming-soon" name="product-filter" value="coming-soon" class="coming-soon">
-                <label for="coming-soon" class="coming-soon">Coming Soon</label>-->
+        <!-- Header -->
+        <div class="soothe-header">
+          <div>
+            <span class="soothe-eyebrow">PrimalCare · Calm &amp; Soothe</span>
+            <h2 class="soothe-title">The routine for <em>calm,<br>comfortable skin.</em></h2>
+            <p class="soothe-subtitle">Five best-sellers built around pure tallow — for sensitive, reactive and dry skin that just wants to feel normal again.</p>
+          </div>
+          <!-- EANZ Badge -->
+          <div class="shop-eanz-badge">
+            <img src="/img/home/eanz.webp" alt="Eczema Association of New Zealand" width="48" height="48">
+            <div class="shop-eanz-badge-text">
+              <span class="shop-eanz-badge-label">Official Gold Supporters</span>
+              <span class="shop-eanz-badge-title">Eczema Association of NZ</span>
+              <span class="shop-eanz-badge-commit">$70,000 committed to Kiwis with eczema</span>
+              <button class="shop-eanz-badge-link" onclick="document.getElementById('shop-eanz-modal').classList.add('is-open');document.body.style.overflow='hidden';">
+                What's this mean?
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
             </div>
-            <div class="row shopdiv gx-3 gx-lg-5">
-                
-            {{- partial "prodcardtallowskin.html" . -}} 
-            {{- partial "prodcard-honeybalm.html" . -}}
+          </div>
+        </div>
 
+        <!-- Gold Stack Bundle Card -->
+        <div class="soothe-bundle">
+          <span class="soothe-bundle-badge">Best Value</span>
+          <div class="soothe-bundle-imgs">
+            <div class="soothe-bundle-img"><img src="/img/tallow-skin.webp" alt="Tallow Balm"></div>
+            <div class="soothe-bundle-img"><img src="/img/tallow-eye.webp" alt="Eye Cream"></div>
+            <div class="soothe-bundle-img"><img src="/img/shampoo-bar.webp" alt="Shampoo Bar"></div>
+            <div class="soothe-bundle-img"><img src="/img/lip-balm.webp" alt="Lip Balm"></div>
+          </div>
+          <div class="soothe-bundle-content">
+            <h3>The Gold Stack — Best Sellers Bundle</h3>
+            <p>Our most-loved tallow products, together. The fastest way to get your skin feeling calm, nourished and comfortable.</p>
+            <div class="soothe-bundle-price-row">
+              {{- partial "prodcardtallowgoldstack-price.html" . -}}
+              <span class="soothe-bundle-save">Save with bundle</span>
+            </div>
+            {{- partial "prodcardtallowgoldstack-atc.html" . -}}
+          </div>
+        </div>
+        <!-- NOTE: Replace the price/ATC partials above with your Gold Stack price_id and price data,
+             or inline the button directly using the same data-atc-* pattern from your product cards. -->
+
+        <!-- 5 Featured Product Cards -->
+        <p class="soothe-products-label">Routine products — individual</p>
+        <div class="soothe-p-grid">
+            {{- partial "prodcardtallowskin.html" . -}}
             {{- partial "prodcard-talloweye.html" . -}}
-                                            {{- partial "prodcard-serum.html" . -}}
-                        {{- partial "prodcard-day-n-night.html" . -}} 
-                            {{- partial "prodcard-baby-butter.html" . -}} 
-
-       <!--     {{- partial "prodcard-giftbox.html" . -}}-->
-                            {{- partial "prodcard-scalpbundle.html" . -}} 
-                                            {{- partial "prodcard-babies.html" . -}} 
-
-
-                {{- partial "prodcard-conditioner.html" . -}} 
-           {{- partial "prodcard-liqshampoo.html" . -}} 
-                            {{- partial "prodcard-dishblock.html" . -}} 
-            {{- partial "prodcard-liquid-lotion.html" . -}} 
+            {{- partial "prodcard-serum.html" . -}}
+            {{- partial "prodcard-lipbalm.html" . -}}
             {{- partial "prodcardshampoo.html" . -}}
-            {{- partial "prodcard-summerbalm.html" . -}} 
-            {{- partial "prodcard-deodorant.html" . -}} 
-            {{- partial "prodcard-cleanser.html" . -}}
-            {{- partial "prodcard-liquid-soap.html" . -}} 
-            {{- partial "prodcardtallowgoldstack.html" . -}}
-            {{- partial "prodcard-lipbalm.html" . -}} 
-                            {{- partial "prodcard-lip-balm-stick.html" . -}} 
+        </div>
 
+        <!-- Morning / Evening Ritual Strip -->
+        <div class="soothe-ritual-strip">
+          <div class="soothe-ritual-half">
+            <div class="soothe-ritual-label">☀️ Morning — daily soothing</div>
+            <div class="soothe-ritual-steps">
+              <div class="soothe-ritual-step"><span class="soothe-ritual-dot">1</span> Lip Balm</div>
+              <span class="soothe-ritual-arrow">→</span>
+              <div class="soothe-ritual-step"><span class="soothe-ritual-dot">2</span> Serum</div>
+              <span class="soothe-ritual-arrow">→</span>
+              <div class="soothe-ritual-step"><span class="soothe-ritual-dot">3</span> Tallow Balm</div>
+              <span class="soothe-ritual-arrow">→</span>
+              <div class="soothe-ritual-step soothe-ritual-ghost">Shampoo Bar (wash)</div>
+            </div>
+          </div>
+          <div class="soothe-ritual-half">
+            <div class="soothe-ritual-label">🌙 Evening — deep calm &amp; repair</div>
+            <div class="soothe-ritual-steps">
+              <div class="soothe-ritual-step"><span class="soothe-ritual-dot">1</span> Serum</div>
+              <span class="soothe-ritual-arrow">→</span>
+              <div class="soothe-ritual-step"><span class="soothe-ritual-dot">2</span> Eye Cream</div>
+              <span class="soothe-ritual-arrow">→</span>
+              <div class="soothe-ritual-step"><span class="soothe-ritual-dot">3</span> Tallow Balm</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════
+         ALL PRODUCTS — FULL GRID
+    ════════════════════════════════════════════════════════ -->
+    <section class="all-products-section">
+      <div class="all-products-inner">
+
+        <!-- Divider -->
+        <div class="shop-divider-inner">
+          <span class="shop-divider-label">All Products</span>
+          <div class="shop-divider-line"></div>
+        </div>
+
+        <!-- Filter pills -->
+        <div style="padding: 24px 0 0;" class="mob-hide">
+          <div class="filter-options">
+            <input type="radio" id="all" name="product-filter" value="all" checked>
+            <label for="all">All</label>
+            <input type="radio" id="skincare" name="product-filter" value="skincare">
+            <label for="skincare">Skincare</label>
+            <input type="radio" id="haircare" name="product-filter" value="haircare">
+            <label for="haircare">Haircare</label>
+            <input type="radio" id="bundles" name="product-filter" value="bundles">
+            <label for="bundles">Bundles</label>
+          </div>
+        </div>
+
+        <!-- Full product grid (all products) -->
+        <div class="row shopdiv gx-3 gx-lg-5">
+            {{- partial "prodcardtallowskin.html" . -}}
+            {{- partial "prodcard-honeybalm.html" . -}}
+            {{- partial "prodcard-talloweye.html" . -}}
+            {{- partial "prodcard-serum.html" . -}}
+            {{- partial "prodcard-day-n-night.html" . -}}
+            {{- partial "prodcard-baby-butter.html" . -}}
+            {{- partial "prodcard-scalpbundle.html" . -}}
+            {{- partial "prodcard-babies.html" . -}}
+            {{- partial "prodcard-conditioner.html" . -}}
+            {{- partial "prodcard-liqshampoo.html" . -}}
+            {{- partial "prodcard-dishblock.html" . -}}
+            {{- partial "prodcard-liquid-lotion.html" . -}}
+            {{- partial "prodcardshampoo.html" . -}}
+            {{- partial "prodcard-summerbalm.html" . -}}
+            {{- partial "prodcard-deodorant.html" . -}}
+            {{- partial "prodcard-cleanser.html" . -}}
+            {{- partial "prodcard-liquid-soap.html" . -}}
+            {{- partial "prodcardtallowgoldstack.html" . -}}
+            {{- partial "prodcard-lipbalm.html" . -}}
+            {{- partial "prodcard-lip-balm-stick.html" . -}}
             {{- partial "prodcardtallowstack.html" . -}}
             {{- partial "prodcardtallowskinunwhipped.html" . -}}
             {{- partial "prodcard-beardbalm.html" . -}}
-            {{- partial "prodcard-liquid-bundle.html" . -}} 
+            {{- partial "prodcard-liquid-bundle.html" . -}}
             {{- partial "prodcardtallowsoap.html" . -}}
             {{- partial "prodcard-hairclay.html" . -}}
-            {{- partial "prodcardcolloidaloat.html" . -}} 
-           <!--  {{- partial "prodcard-mensbundle.html" . -}} -->
-
-
-<!--  
-
-
-                
-                      
-          {{- partial "prodcard-eczemabundle.html" . -}} 
-
-                    {{- partial "prodcard-serum.html" . -}}
-          
-           {{- partial "prodcard-bodyoil.html" . -}} -->
+            {{- partial "prodcardcolloidaloat.html" . -}}
         </div>
-        </div>
-    </div>
-</section>
-  
+
+      </div>
+    </section>
 
     <!-- Filtering script -->
     <script>
         $(document).ready(function () {
-            // Function to get URL parameter by name
             function getUrlParameter(name) {
                 name = name.replace(/[\[\]]/g, '\\$&');
                 var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
@@ -151,49 +657,77 @@
                 if (!results[2]) return '';
                 return decodeURIComponent(results[2].replace(/\+/g, ' '));
             }
-    
-            // Get the 'filter' parameter from the URL
             var selectedFilter = getUrlParameter('filter');
-    
-            // Set the filter based on the URL parameter
             if (selectedFilter) {
                 $('input[name="product-filter"][value="' + selectedFilter + '"]').prop('checked', true).change();
             }
-    
-            // Apply the filter logic when the filter changes
             $('input[name="product-filter"]').on('change', function () {
                 var selectedFilter = $(this).val();
-    
                 if (selectedFilter === 'all') {
-                    $('.product-card').show();
+                    $('.all-products-section .product-card').show();
                 } else if (selectedFilter === 'coming-soon') {
-                    $('.product-card').hide();
-                    $('.product-card[data-coming-soon="true"]').show();
+                    $('.all-products-section .product-card').hide();
+                    $('.all-products-section .product-card[data-coming-soon="true"]').show();
                 } else {
-                    $('.product-card').hide();
-                    $('.product-card').filter(function () {
+                    $('.all-products-section .product-card').hide();
+                    $('.all-products-section .product-card').filter(function () {
                         var categories = $(this).data('category').split(' ');
                         return categories.includes(selectedFilter);
                     }).show();
                 }
-                const countryCode = getCountryCookie('country_code') || "NZ";
-                // If the country is NZ, show NZ-specific partials
-                // if (countryCode === 'AU') {
-                //     document.getElementById('bone-broth').style.display = 'none';
-                //     $('label[for="bone-broth"]').hide();
-                //     $('.product-card').filter(function () {
-                //         var categories = $(this).data('category').split(' ');
-                //         return categories.includes("bone-broth");
-                //     }).hide();
-                // }
             });
-    
-            // Trigger the change event to apply the initial filter
             $('input[name="product-filter"]:checked').change();
         });
     </script>
-    
-    <!-- Add html above -->
+
+
+    <!-- EANZ Modal -->
+    <div class="shop-eanz-modal-overlay" id="shop-eanz-modal" onclick="if(event.target===this){this.classList.remove('is-open');document.body.style.overflow=''}">
+      <div class="shop-eanz-modal">
+        <button class="shop-eanz-modal-close" onclick="document.getElementById('shop-eanz-modal').classList.remove('is-open');document.body.style.overflow='';" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+        <div class="shop-eanz-modal-body">
+          <div>
+            <div class="shop-eanz-modal-video-wrap" id="shop-eanz-modal-video" data-src="https://player.vimeo.com/video/1165450069?badge=0&autopause=0&player_id=0&app_id=58479">
+              <div class="shop-eanz-modal-video-placeholder">&#9654;</div>
+            </div>
+          </div>
+          <div class="shop-eanz-modal-right">
+            <img src="/img/home/eanz.webp" alt="Eczema Association of New Zealand" width="80" height="80">
+            <div class="shop-eanz-modal-text">
+              <h3>Official Gold Supporter of the Eczema Association NZ</h3>
+              <p>It means we fund EANZ's work and their experts have screened our products for commonly flaring ingredients. But to us, it's a symbol of our shared mission to help as many Kiwis as possible with dry, irritated skin. It's not a cure or endorsed fix — always patch test first.</p>
+              <p class="shop-eanz-modal-disclaimer">Support us on this mission by <a href="/shop/" style="color:var(--pc-green);font-weight:700;">shopping online</a> or collecting from one of your <a href="/stockists/" style="color:var(--pc-green);font-weight:700;">favourite retail stockists</a>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+    (function(){
+      var overlay = document.getElementById('shop-eanz-modal');
+      var videoWrap = document.getElementById('shop-eanz-modal-video');
+      if (!overlay || !videoWrap) return;
+      var videoLoaded = false;
+      var mo = new MutationObserver(function(){
+        if (overlay.classList.contains('is-open') && !videoLoaded) {
+          videoLoaded = true;
+          var src = videoWrap.getAttribute('data-src');
+          videoWrap.innerHTML = '<iframe src="'+src+'" allow="autoplay;fullscreen;picture-in-picture;clipboard-write;encrypted-media;web-share" referrerpolicy="strict-origin-when-cross-origin" title="About our EANZ partnership" loading="lazy"></iframe>';
+          if (!document.querySelector('script[src*="player.vimeo.com"]')) {
+            var s = document.createElement('script'); s.src = 'https://player.vimeo.com/api/player.js'; document.body.appendChild(s);
+          }
+        }
+      });
+      mo.observe(overlay, {attributes: true, attributeFilter: ['class']});
+      document.addEventListener('keydown', function(e){
+        if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
+          overlay.classList.remove('is-open'); document.body.style.overflow = '';
+        }
+      });
+    })();
+    </script>
     {{- partial "footer.html" . -}}
 </body>
 </html>
