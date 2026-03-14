@@ -133,8 +133,12 @@
                             <label for="size60ml" class="product-form-radio float-left"><img class="prod-radio-img" src="/img/radio/balm/1.webp" alt="balm">60ml</label>
                         </div>
                         <div class="product-form-radio" id="wrap-size120ml">
-                            <input type="radio" id="size120ml" name="size" value="120ml" >
+                            <input type="radio" id="size120ml" name="size" value="120ml">
                             <label for="size120ml" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/balm/175.webp" alt="balm">120ml <span class="attention-primalcare small">(cheaper per ml)</span></label>
+                        </div>
+                        <div class="product-form-radio" id="wrap-size250ml">
+                            <input type="radio" id="size250ml" name="size" value="250ml">
+                            <label for="size250ml" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/balm/175.webp" alt="balm">250ml <span class="attention-primalcare small">(best value)</span></label>
                         </div>
                     </div>
                     
@@ -447,7 +451,6 @@
   if (!overlay || !videoWrap) return;
   var videoLoaded = false;
 
-  // Watch for modal open to lazy-load video
   var mo = new MutationObserver(function(){
     if (overlay.classList.contains('is-open') && !videoLoaded) {
       videoLoaded = true;
@@ -462,7 +465,6 @@
   });
   mo.observe(overlay, {attributes: true, attributeFilter: ['class']});
 
-  // Close on Escape key
   document.addEventListener('keydown', function(e){
     if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
       overlay.classList.remove('is-open');
@@ -629,29 +631,22 @@
         }
     }
 
-    // Attach event listener for changes
     document.getElementById("productForm").addEventListener("change", updatePrice);
-
-    // Initialize the price on page load
     document.addEventListener("DOMContentLoaded", updatePrice);
 </script>
 
 
 <script>
-    // Function to update the price ID display
     function updatePriceID() {
     const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase();
     const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
     const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
 
-    // Default value for price ID
     let priceID = "N/A";
 
-    // Debug: Check the loaded data and selected values
     console.log("Loaded Data:", productPricingRaw);
     console.log("Selected - Size:", size, "Flavor:", flavor, "Order Type:", orderType);
 
-    // Traverse the pricing structure for the selected combination
     if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.balm) {
         const balmData = productPricingRaw.ids.balm;
         console.log("balm Data:", balmData);
@@ -672,16 +667,11 @@
         }
     }
 
-    // Update the DOM element with the resolved price ID
     document.getElementById("price-id").textContent = priceID !== "N/A" ? priceID : "Price ID Not Available";
-
-    // Log final result
     console.log("Resolved Price ID:", priceID);
-
 };
 </script>
 <script>
-    // Parse the JSON string into an object
     const rawData = "{{ .Site.Data.pricing | jsonify }}";
     const pricingData = JSON.parse(rawData);
     console.log('Parsed Pricing Data:', pricingData);
@@ -751,10 +741,7 @@
             document.getElementById("single_unit_fragnance").style.display = 'none';
             document.getElementById("pack_unit_fragnance").style.display = 'block';
         }
-        // Add event listener for form changes
         document.getElementById('productForm').addEventListener('change', updatePriceId);
-
-        // Trigger the update function on page load
         updatePriceId();
     });
 </script>
@@ -799,48 +786,99 @@
 </script>
 
 
-<!-- ===== SIZE LOCK SCRIPT — singles = 60ml only, 3-pack = 120ml only ===== -->
+<!-- ===== SIZE + ORDER TYPE LOCK SCRIPT ===== -->
+<!-- Rules:
+     - single_purchase: all sizes available (60ml, 120ml, 250ml)
+     - three_pack: 120ml only — 60ml and 250ml disabled
+     - 250ml selected: single_purchase only — three_pack disabled
+-->
 <script>
     function updateSizeForOrderType() {
         const orderType = document.querySelector('input[name="orderType"]:checked').value;
 
         const size60  = document.getElementById('size60ml');
         const size120 = document.getElementById('size120ml');
+        const size250 = document.getElementById('size250ml');
         const wrap60  = document.getElementById('wrap-size60ml');
         const wrap120 = document.getElementById('wrap-size120ml');
+        const wrap250 = document.getElementById('wrap-size250ml');
 
         if (orderType === 'single_purchase') {
-            // Both sizes available for singles
+            // All sizes available
             size60.disabled  = false;
             size120.disabled = false;
+            size250.disabled = false;
             wrap60.style.opacity       = '1';
             wrap60.style.pointerEvents = 'auto';
             wrap60.removeAttribute('title');
             wrap120.style.opacity       = '1';
             wrap120.style.pointerEvents = 'auto';
             wrap120.removeAttribute('title');
+            wrap250.style.opacity       = '1';
+            wrap250.style.pointerEvents = 'auto';
+            wrap250.removeAttribute('title');
         } else if (orderType === 'three_pack') {
-            // Lock to 120ml only
-            size120.checked  = true;
-            size120.disabled = false;
-            size60.checked   = false;
+            // Lock to 120ml — disable 60ml and 250ml
+            if (size250.checked || size60.checked) {
+                size120.checked = true;
+            }
             size60.disabled  = true;
+            size250.disabled = true;
+            size120.disabled = false;
             wrap120.style.opacity       = '1';
             wrap120.style.pointerEvents = 'auto';
             wrap120.removeAttribute('title');
             wrap60.style.opacity       = '0.35';
             wrap60.style.pointerEvents = 'none';
             wrap60.title = 'Not available in the 3-pack';
+            wrap250.style.opacity       = '0.35';
+            wrap250.style.pointerEvents = 'none';
+            wrap250.title = 'Not available in the 3-pack';
         }
 
-        // Keep price and price ID in sync after size change
+        updatePriceId();
+        updatePrice();
+    }
+
+    function updateOrderTypeForSize() {
+        const size = document.querySelector('input[name="size"]:checked').value;
+        const threePack      = document.getElementById('three_pack');
+        const threePackLabel = document.querySelector('label[for="three_pack"]');
+
+        if (size === '250ml') {
+            // Force single purchase, disable three_pack
+            document.getElementById('single_purchase').checked = true;
+            threePack.disabled = true;
+            if (threePackLabel) {
+                threePackLabel.style.opacity       = '0.35';
+                threePackLabel.style.pointerEvents = 'none';
+                threePackLabel.title = 'Not available in 250ml';
+            }
+            // Show single scent selector
+            document.getElementById("single_unit_fragnance").style.display = 'block';
+            document.getElementById("pack_unit_fragnance").style.display   = 'none';
+        } else {
+            // Re-enable three_pack
+            threePack.disabled = false;
+            if (threePackLabel) {
+                threePackLabel.style.opacity       = '1';
+                threePackLabel.style.pointerEvents = 'auto';
+                threePackLabel.removeAttribute('title');
+            }
+        }
+
         updatePriceId();
         updatePrice();
     }
 
     document.addEventListener('DOMContentLoaded', function () {
+        // Listen for order type changes
         document.querySelectorAll('input[name="orderType"]').forEach(function (radio) {
             radio.addEventListener('change', updateSizeForOrderType);
+        });
+        // Listen for size changes
+        document.querySelectorAll('input[name="size"]').forEach(function (radio) {
+            radio.addEventListener('change', updateOrderTypeForSize);
         });
         // Set correct state on initial load
         updateSizeForOrderType();
@@ -849,7 +887,6 @@
 
 
 <script>
-    // Add to Cart Handler Function
     function handleAddToCart(event) {
     event.preventDefault();
 
@@ -980,7 +1017,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     const customRadio = document.querySelector('.custom-radio');
                     const addToCartButton = document.querySelector('.buy-now');
             
-                    // Define out-of-stock combinations
                     const outOfStockCombinations = [
                     ];
             
@@ -1029,9 +1065,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             </script>
             
-            
-
-
     {{- partial "footer.html" . }}
 
 </body>
