@@ -77,20 +77,23 @@
                     
                         <input type="radio" id="vanilla" name="flavor" value="vanilla" checked>
                         <label for="vanilla" class="product-form-radio">Vanilla & Manuka</label>
-                         <input type="radio" id="tansy" name="flavor" value="tansy" >
+                        <input type="radio" id="tansy" name="flavor" value="tansy">
                         <label for="tansy" class="product-form-radio">Blue Tansy & Manuka</label>
 
                     </div> 
                     <div class="text-left  mb-3 mb-lg-4">
                         <label class="float-left mob-ninety mr-2 mt-2">Select size:</label>
-                      <div class="product-form-radio">
+                        <div class="product-form-radio" id="wrap-size60ml">
                             <input type="radio" id="size60ml" name="size" value="60ml" checked>
                             <label for="size60ml" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/balm/1.webp">60ml</label>
                         </div>
-
-                        <div class="product-form-radio">
-                            <input type="radio" id="size120ml" name="size" value="120ml" >
+                        <div class="product-form-radio" id="wrap-size120ml">
+                            <input type="radio" id="size120ml" name="size" value="120ml">
                             <label for="size120ml" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/balm/175.webp">120ml<span class="attention-primalcare small"> (cheaper per ml)</span></label>
+                        </div>
+                        <div class="product-form-radio" id="wrap-size250ml">
+                            <input type="radio" id="size250ml" name="size" value="250ml">
+                            <label for="size250ml" class="product-form-radio"><img class="prod-radio-img" src="/img/radio/balm/175.webp">250ml<span class="attention-primalcare small"> (best value)</span></label>
                         </div>
                     </div>
                     
@@ -394,7 +397,6 @@
   if (!overlay || !videoWrap) return;
   var videoLoaded = false;
 
-  // Watch for modal open to lazy-load video
   var mo = new MutationObserver(function(){
     if (overlay.classList.contains('is-open') && !videoLoaded) {
       videoLoaded = true;
@@ -409,7 +411,6 @@
   });
   mo.observe(overlay, {attributes: true, attributeFilter: ['class']});
 
-  // Close on Escape key
   document.addEventListener('keydown', function(e){
     if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
       overlay.classList.remove('is-open');
@@ -494,7 +495,7 @@
                                 <p>Adding extra lift to the whip while providing smoothing and benefits to your skin.</p>    
                             </div>
                             <div class="col-6">
-                                <img src="/img/prod/balm/essentialoil.webp" class="w-50 mb-1 middle"s alt="Natural essential oils">
+                                <img src="/img/prod/balm/essentialoil.webp" class="w-50 mb-1 middle" alt="Natural essential oils">
                                 <p>These add the aroma and additional health benefits to your balms.</p>
                             </div>
                         </div>
@@ -548,177 +549,199 @@
         }
 
         function updatePrice() {
-        const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
-      
-        console.log(flavor);
-        if(flavor == "vanilla")
-        {
-            document.getElementById("size60ml").parentElement.classList.remove('d-none');
+            const flavor    = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+            const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
+
+            // Show/hide size options based on flavor
+            updateSizeVisibility(flavor, orderType);
+
+            const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase();
+
+            console.log("Selected size:", size);
+            console.log("Selected order type:", orderType);
+
+            const pricingEntry = productPricing.find(entry => entry.size.toLowerCase() === size);
+            if (pricingEntry && pricingEntry.prices[country_code] && pricingEntry.prices[country_code][orderType]) {
+                const price = pricingEntry.prices[country_code][orderType];
+                document.getElementById("price").textContent = `$${price.toFixed(2)}`;
+                document.getElementById("afterpay_price").textContent = `${(price/4).toFixed(2)}`;
+            } else {
+                document.getElementById("price").textContent = "N/A";
+                document.getElementById("afterpay_price").textContent = "N/A";
+            }
         }
-        else{
-            document.getElementById("size60ml").checked= false;
-            document.getElementById("size60ml").parentElement.classList.add('d-none');
-            
-            document.getElementById("size120ml").checked= true;
-        }
-        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
-        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
 
-        console.log("Selected size:", size);
-        console.log("Selected order type:", orderType);
-
-        const pricingEntry = productPricing.find(entry => entry.size.toLowerCase() === size);
-        if (pricingEntry && pricingEntry.prices[country_code][orderType]) {
-            const price = pricingEntry.prices[country_code][orderType];
-            document.getElementById("price").textContent = `$${price.toFixed(2)}`;
-            document.getElementById("afterpay_price").textContent = `${(price/4).toFixed(2)}`;
-        } else {
-            document.getElementById("price").textContent = "N/A";
-            document.getElementById("afterpay_price").textContent = "N/A";
-        }
-    }
-
-
-
-        // Attach event listener for changes
         document.getElementById("productForm").addEventListener("change", updatePrice);
-
-        // Initialize the price on page load
         document.addEventListener("DOMContentLoaded", updatePrice);
     </script>
 
 
     <script>
-        // Function to update the price ID display
         function updatePriceID() {
-        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
-        const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
-        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
-        
+            const size      = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase();
+            const flavor    = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+            const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
 
+            let priceID = "N/A";
 
-        // Default value for price ID
-        let priceID = "N/A";
+            console.log("Loaded Data:", productPricingRaw);
+            console.log("Selected - Size:", size, "Flavor:", flavor, "Order Type:", orderType);
 
-        // Debug: Check the loaded data and selected values
-        console.log("Loaded Data:", productPricingRaw);
-        console.log("Selected - Size:", size, "Flavor:", flavor, "Order Type:", orderType);
+            if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.balm) {
+                const balmData = productPricingRaw.ids.balm;
+                const orderTypeData = balmData[orderType];
 
-        // Traverse the pricing structure for the selected combination
-        if (productPricingRaw && productPricingRaw.ids && productPricingRaw.ids.balm) {
-            const balmData = productPricingRaw.ids.balm;
-            console.log("balm Data:", balmData);
+                if (orderTypeData && orderTypeData[flavor]) {
+                    const flavorData = orderTypeData[flavor];
+                    const sizeData = flavorData[size];
+                    if (sizeData) {
+                        priceID = sizeData[country_code];
+                    }
+                }
+            }
 
-            const orderTypeData = balmData[orderType];
-            console.log("Order Type Data:", orderTypeData);
+            document.getElementById("price-id").textContent = priceID !== "N/A" ? priceID : "Price ID Not Available";
+            console.log("Resolved Price ID:", priceID);
+        };
+    </script>
 
-            if (orderTypeData && orderTypeData[flavor]) {
-                const flavorData = orderTypeData[flavor];
-                console.log("Flavor Data:", flavorData);
+    <script>
+        const rawData = "{{ .Site.Data.pricing | jsonify }}";
+        const pricingData = JSON.parse(rawData);
+        console.log('Parsed Pricing Data:', pricingData);
 
-                const sizeData = flavorData[size];
-                console.log("Size Data:", sizeData);
+        // ===== SIZE VISIBILITY LOGIC =====
+        // vanilla: 60ml, 120ml, 250ml (250ml = single only)
+        // tansy:   120ml, 250ml       (250ml = single only)
+        function updateSizeVisibility(flavor, orderType) {
+            const size60wrap  = document.getElementById('wrap-size60ml');
+            const size60      = document.getElementById('size60ml');
+            const size250wrap = document.getElementById('wrap-size250ml');
+            const size250     = document.getElementById('size250ml');
+            const threePack      = document.getElementById('three_pack');
+            const threePackLabel = document.querySelector('label[for="three_pack"]');
 
-                if (sizeData) {
-                    priceID = sizeData[country_code]; // Assign the resolved price ID
+            // Handle 60ml visibility (vanilla only)
+            if (flavor === 'vanilla') {
+                size60wrap.classList.remove('d-none');
+            } else {
+                // tansy: hide 60ml, move off if selected
+                if (size60.checked) {
+                    size60.checked  = false;
+                    document.getElementById('size120ml').checked = true;
+                }
+                size60wrap.classList.add('d-none');
+            }
+
+            // Handle 250ml / three_pack mutual exclusion
+            const currentSize = document.querySelector('input[name="size"]:checked').value;
+
+            if (currentSize === '250ml' || orderType === 'single_purchase' && size250.checked) {
+                // 250ml selected — force single, disable three_pack
+                document.getElementById('single_purchase').checked = true;
+                threePack.disabled = true;
+                if (threePackLabel) {
+                    threePackLabel.style.opacity       = '0.35';
+                    threePackLabel.style.pointerEvents = 'none';
+                    threePackLabel.title = 'Not available in 250ml';
+                }
+            } else {
+                threePack.disabled = false;
+                if (threePackLabel) {
+                    threePackLabel.style.opacity       = '1';
+                    threePackLabel.style.pointerEvents = 'auto';
+                    threePackLabel.removeAttribute('title');
+                }
+            }
+
+            // If three_pack is selected, 250ml is not available
+            if (orderType === 'three_pack') {
+                if (size250.checked) {
+                    size250.checked = false;
+                    document.getElementById('size120ml').checked = true;
+                }
+                size250wrap.style.opacity       = '0.35';
+                size250wrap.style.pointerEvents = 'none';
+                size250wrap.title = 'Not available in the 3-pack';
+            } else {
+                size250wrap.style.opacity       = '1';
+                size250wrap.style.pointerEvents = 'auto';
+                size250wrap.removeAttribute('title');
+            }
+        }
+
+        function updatePriceId() {
+            const flavor    = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
+            const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
+
+            // Apply size visibility rules first
+            updateSizeVisibility(flavor, orderType);
+
+            const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase();
+
+            if((size === "120ml" || size === "60ml") && orderType === "three_pack") {
+                document.getElementById("special").style.display = "inline";
+            } else {
+                document.getElementById("special").style.display = "none";
+            }
+
+            try {
+                let priceId;
+
+                if (orderType === 'single_purchase') {
+                    priceId = pricingData.tallow.ids.honeybalm.single[flavor][size][country_code];
+                } else if (orderType === 'recurring_monthly') {
+                    priceId = pricingData.tallow.ids.honeybalm.monthly[flavor][size][country_code];
+                } else if (orderType === 'recurring_quarterly') {
+                    priceId = pricingData.tallow.ids.honeybalm.quarterly[flavor][size][country_code];
+                } else if (orderType === 'three_pack') {
+                    priceId = pricingData.tallow.ids.honeybalm.pack[flavor][size][country_code];
+                }
+
+                console.log('Price ID:', priceId);
+
+                const priceIdElement = document.getElementById('price-id');
+                if (priceIdElement) {
+                    priceIdElement.textContent = priceId || 'Price ID not found';
+                }
+
+                const buyNowButton = document.querySelector(".buy-now");
+                if (buyNowButton) {
+                    buyNowButton.setAttribute("data-price-id", priceId || "");
+                    console.log('Button updated with Price ID:', priceId);
+                }
+            } catch (error) {
+                console.error('Error fetching Price ID:', error);
+                const buyNowButton = document.querySelector(".buy-now");
+                if (buyNowButton) {
+                    buyNowButton.setAttribute("data-price-id", "");
                 }
             }
         }
 
-        // Update the DOM element with the resolved price ID
-        document.getElementById("price-id").textContent = priceID !== "N/A" ? priceID : "Price ID Not Available";
-
-        // Log final result
-        console.log("Resolved Price ID:", priceID);
-
-    };
-    </script>
-    <script>
-        // Parse the JSON string into an object
-        const rawData = "{{ .Site.Data.pricing | jsonify }}"; // Embedded JSON string from Hugo
-        const pricingData = JSON.parse(rawData); // Parse into a JavaScript object
-        console.log('Parsed Pricing Data:', pricingData); // Debugging output
-
-        function updatePriceId() {
-        // Get the selected values
-        const flavor = document.querySelector('input[name="flavor"]:checked').value.trim().toLowerCase();
-      
-        console.log(flavor);
-        if(flavor == "vanilla")
-        {
-            document.getElementById("size60ml").parentElement.classList.remove('d-none');
-        }
-        else{
-            document.getElementById("size60ml").checked= false;
-            document.getElementById("size60ml").parentElement.classList.add('d-none');
-            
-            document.getElementById("size120ml").checked= true;
-        }
-        const size = document.querySelector('input[name="size"]:checked').value.trim().toLowerCase(); // Updated line
-        const orderType = document.querySelector('input[name="orderType"]:checked').value.trim().toLowerCase();
-        if((size=="120ml" || size == "60ml") && orderType == "three_pack")
-        {
-            document.getElementById("special").style.display="inline";
-        }
-        else{
-            document.getElementById("special").style.display="none";
-        }
-
-        try {
-            let priceId;
-
-            // Access the correct price ID based on the order type
-            if (orderType === 'single_purchase') {
-                priceId = pricingData.tallow.ids.honeybalm.single[flavor][size][country_code];
-            } else if (orderType === 'recurring_monthly') {
-                priceId = pricingData.tallow.ids.honeybalm.monthly[flavor][size][country_code];
-            } else if (orderType === 'recurring_quarterly') {
-                priceId = pricingData.tallow.ids.honeybalm.quarterly[flavor][size][country_code];
-            } else if (orderType === 'three_pack') {
-                priceId = pricingData.tallow.ids.honeybalm.pack[flavor][size][country_code];
-            }
-
-            console.log('Price ID:', priceId);
-
-            // Update the DOM element with the resolved price ID, if it exists
-            const priceIdElement = document.getElementById('price-id');
-            if (priceIdElement) {
-                priceIdElement.textContent = priceId || 'Price ID not found';
-            }
-
-            // Update the button's data-price-id attribute
-            const buyNowButton = document.querySelector(".buy-now");
-            if (buyNowButton) {
-                buyNowButton.setAttribute("data-price-id", priceId || "");
-                console.log('Button updated with Price ID:', priceId);
-            }
-        } catch (error) {
-            console.error('Error fetching Price ID:', error);
-
-            // Clear the button's data-price-id attribute on error
-            const buyNowButton = document.querySelector(".buy-now");
-            if (buyNowButton) {
-                buyNowButton.setAttribute("data-price-id", "");
-            }
-        }
-    }
-
         document.addEventListener('DOMContentLoaded', function () {
-            // Add event listener for form changes
             document.getElementById('productForm').addEventListener('change', updatePriceId);
 
-            // Trigger the update function on page load
+            // Also listen specifically for size changes to enforce 250ml → single rule
+            document.querySelectorAll('input[name="size"]').forEach(function(radio) {
+                radio.addEventListener('change', function() {
+                    if (this.value === '250ml') {
+                        document.getElementById('single_purchase').checked = true;
+                    }
+                    updatePriceId();
+                    updatePrice();
+                });
+            });
+
             updatePriceId();
         });
     </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-        // Convert the ids structure to a simplified format
         function preprocessproductData(rawData) {
             const simplified = {};
 
-            // Iterate over balm (or pets, if needed)
             if (rawData.ids && rawData.ids.balm) {
                 const categories = rawData.ids.balm;
 
@@ -739,113 +762,91 @@
             return simplified;
         }
 
-        // Example: Assume productPricingRaw is available globally or passed here
         const normalizedproductData = preprocessproductData(productPricingRaw);
         console.log('Normalized product Data:', normalizedproductData);
 
-        // Use normalizedproductData for price ID lookups
         function getPriceID(size, flavor, orderType) {
             return (
                 normalizedproductData[size]?.[flavor]?.[orderType] ||
                 "Price ID not found"
             );
         }
-
     });
-
     </script>
 
 
     <script>
-        // Add to Cart Handler Function
         function handleAddToCart(event) {
-        event.preventDefault();
+            event.preventDefault();
 
-        console.log('Add to Cart button clicked!'); // Debugging
+            console.log('Add to Cart button clicked!');
 
-        const button = event.target;
+            const button = event.target;
 
+            const selectedSize = document.querySelector('input[name="size"]:checked');
+            const size = document.querySelector(`label[for="${selectedSize.id}"]`).textContent.trim();
+
+            const selectedFlavor = document.querySelector('input[name="flavor"]:checked');
+            const flavor = document.querySelector(`label[for="${selectedFlavor.id}"]`).textContent.trim();
+
+            const selectedOrderType = document.querySelector('input[name="orderType"]:checked');
+            const orderTypeSelect = document.querySelector(`label[for="${selectedOrderType.id}"]`).textContent.trim();
         
+            const unitPriceElement = document.getElementById('price');
+            const unitPrice = unitPriceElement 
+                ? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00
+                : 0.00;
 
-        // Retrieve values from the dropdowns
-        const selectedSize = document.querySelector('input[name="size"]:checked');
-        const size = document.querySelector(`label[for="${selectedSize.id}"]`).textContent.trim(); // Updated to get label text
+            const priceId = button.getAttribute('data-price-id') || 'N/A';
+            const title = document.querySelector('h1').innerText;
 
-    // Use the text content of the selected option
-    const selectedFlavor = document.querySelector('input[name="flavor"]:checked');
-    const flavor = document.querySelector(`label[for="${selectedFlavor.id}"]`).textContent.trim();
+            const quantityField = document.getElementById('quantityAll');
+            const quantity = quantityField ? parseInt(quantityField.value, 10) || 1 : 1;
 
-    // Use the text content of the selected option
-        const selectedOrderType = document.querySelector('input[name="orderType"]:checked');
-        const orderTypeSelect = document.querySelector(`label[for="${selectedOrderType.id}"]`).textContent.trim();
-    
-        const unitPriceElement = document.getElementById('price');
-        const unitPrice = unitPriceElement 
-            ? parseFloat(unitPriceElement.textContent.replace('$', '').trim()) || 0.00
-            : 0.00;
+            console.log('Size:', size);
+            console.log('Flavor:', flavor);
+            console.log('Order Type:', orderTypeSelect);
+            console.log('Quantity:', quantity);
+            console.log('Price ID:', priceId);
 
-        // Retrieve the price ID
-        const priceId = button.getAttribute('data-price-id') || 'N/A';
-        const title = document.querySelector('h1').innerText;
+            if (!priceId || priceId === 'N/A') {
+                alert('Please select valid options before adding to cart.');
+                return;
+            }
 
-        // Retrieve quantity
-        const quantityField = document.getElementById('quantityAll');
-        const quantity = quantityField ? parseInt(quantityField.value, 10) || 1 : 1;
+            const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+            cart.push({
+                priceId,
+                title,
+                size,
+                flavor,
+                orderType: orderTypeSelect,
+                quantity,
+                unitPrice,
+                eligibleForDiscount: false
+            });
+            localStorage.setItem('cartV2', JSON.stringify(cart));
 
-        // Debugging
-        console.log('Size:', size); // Updated to show label
-        console.log('Flavor:', flavor);
-        console.log('Order Type:', orderTypeSelect); // Updated to show label
-        console.log('Quantity:', quantity);
-        console.log('Price ID:', priceId);
+            console.log('Cart updated:', cart);
 
-        // Check if price ID is valid
-        if (!priceId || priceId === 'N/A') {
-            alert('Please select valid options before adding to cart.');
-            return;
+            const modal = document.getElementById('addedToCartModal');
+            if (modal) {
+                $('#addedToCartModal').modal('show');
+            } else {
+                alert('Item added to cart successfully!');
+            }
         }
 
-        // Add to cart
-        const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
-        cart.push({
-            priceId,
-            title,
-            size,
-            flavor,
-            orderType: orderTypeSelect,
-            quantity,
-            unitPrice,
-            eligibleForDiscount: false // Set this directly to true or false
+        document.addEventListener('DOMContentLoaded', function () {
+            const addToCartButton = document.querySelector('.buy-now');
+            if (addToCartButton) {
+                addToCartButton.addEventListener('click', handleAddToCart);
+                console.log('Add to Cart button is ready.');
+            } else {
+                console.error('Add to Cart button not found!');
+            }
         });
-        localStorage.setItem('cartV2', JSON.stringify(cart));
-
-        console.log('Cart updated:', cart); // Debugging
-
-        // Trigger success modal or alert
-        const modal = document.getElementById('addedToCartModal');
-        if (modal) {
-            $('#addedToCartModal').modal('show');
-        } else {
-            alert('Item added to cart successfully!');
-        }
-    }
-
-    // Attach the event listener to the Add to Cart button
-    document.addEventListener('DOMContentLoaded', function () {
-        const addToCartButton = document.querySelector('.buy-now');
-        if (addToCartButton) {
-            addToCartButton.addEventListener('click', handleAddToCart);
-            console.log('Add to Cart button is ready.');
-        } else {
-            console.error('Add to Cart button not found!');
-        }
-    });
-
     </script>
-
-
-
-
 
 
 <!-- Modal for Add to Cart Confirmation -->
@@ -876,92 +877,72 @@
         const btnIncrease = document.querySelector('.btn-increase');
         const btnDecrease = document.querySelector('.btn-decrease');
         
-        // Increase quantity
         btnIncrease.addEventListener('click', () => {
           quantityInput.value = parseInt(quantityInput.value) + 1;
         });
         
-        // Decrease quantity (minimum value = 1)
         btnDecrease.addEventListener('click', () => {
           const currentValue = parseInt(quantityInput.value);
           if (currentValue > 1) {
             quantityInput.value = currentValue - 1;
           }
         });
-        
-            </script>
+    </script>
             
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    const flavorOptions = document.querySelectorAll('input[name="flavor"]');
-                    const sizeOptions = document.querySelectorAll('input[name="size"]');
-                    const stockLabel = document.querySelector('label[for="inStock"]');
-                    const customRadio = document.querySelector('.custom-radio');
-                    const addToCartButton = document.querySelector('.buy-now');
-            
-                    // Define out-of-stock combinations
-                    const outOfStockCombinations = [
-                    ];
-            
-                    function updateStockLabel() {
-                        const selectedFlavor = document.querySelector('input[name="flavor"]:checked').value;
-                        const selectedSize = document.querySelector('input[name="size"]:checked').value;
-            
-                        // Check if the selected combination is out of stock
-                        const isOutOfStock = outOfStockCombinations.some(combo =>
-                            combo.flavor === selectedFlavor && combo.size === selectedSize
-                        );
-            
-                        document.querySelectorAll('.custom-radio').forEach(radio => {
-                            radio.classList.remove('out-of-stock', 'in-stock'); // Clear existing classes
-                        });
-            
-                        if (isOutOfStock) {
-                            stockLabel.textContent = "Temporarily of Stock";
-                            stockLabel.style.color = "red"; // Apply red color for out of stock
-            
-                            // Disable the Add to Cart button
-                            addToCartButton.disabled = true;
-                            addToCartButton.style.backgroundColor = "gray"; // Gray out the button
-                            addToCartButton.style.cursor = "not-allowed"; // Change cursor style
-            
-                            // Apply out-of-stock class to all relevant elements
-                            document.querySelectorAll('.custom-radio').forEach(radio => {
-                                radio.classList.add('out-of-stock');
-                            });
-                        } else {
-                            stockLabel.textContent = "In Stock";
-                            stockLabel.style.color = "green"; // Apply green color for in stock
-            
-                            // Enable the Add to Cart button
-                            addToCartButton.disabled = false;
-                            addToCartButton.style.backgroundColor = ""; // Reset to default color
-                            addToCartButton.style.cursor = "pointer"; // Reset cursor style
-            
-                            // Apply in-stock class to all relevant elements
-                            document.querySelectorAll('.custom-radio').forEach(radio => {
-                                radio.classList.add('in-stock');
-                            });
-                        }
-                    }
-            
-                    flavorOptions.forEach(option => {
-                        option.addEventListener('change', updateStockLabel);
-                    });
-            
-                    sizeOptions.forEach(option => {
-                        option.addEventListener('change', updateStockLabel);
-                    });
-            
-                    // Initialize on page load
-                    updateStockLabel();
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const flavorOptions = document.querySelectorAll('input[name="flavor"]');
+            const sizeOptions = document.querySelectorAll('input[name="size"]');
+            const stockLabel = document.querySelector('label[for="inStock"]');
+            const addToCartButton = document.querySelector('.buy-now');
+    
+            const outOfStockCombinations = [
+            ];
+    
+            function updateStockLabel() {
+                const selectedFlavor = document.querySelector('input[name="flavor"]:checked').value;
+                const selectedSize = document.querySelector('input[name="size"]:checked').value;
+    
+                const isOutOfStock = outOfStockCombinations.some(combo =>
+                    combo.flavor === selectedFlavor && combo.size === selectedSize
+                );
+    
+                document.querySelectorAll('.custom-radio').forEach(radio => {
+                    radio.classList.remove('out-of-stock', 'in-stock');
                 });
-            </script>
-            
-            
-            
-
-
+    
+                if (isOutOfStock) {
+                    stockLabel.textContent = "Temporarily of Stock";
+                    stockLabel.style.color = "red";
+                    addToCartButton.disabled = true;
+                    addToCartButton.style.backgroundColor = "gray";
+                    addToCartButton.style.cursor = "not-allowed";
+                    document.querySelectorAll('.custom-radio').forEach(radio => {
+                        radio.classList.add('out-of-stock');
+                    });
+                } else {
+                    stockLabel.textContent = "In Stock";
+                    stockLabel.style.color = "green";
+                    addToCartButton.disabled = false;
+                    addToCartButton.style.backgroundColor = "";
+                    addToCartButton.style.cursor = "pointer";
+                    document.querySelectorAll('.custom-radio').forEach(radio => {
+                        radio.classList.add('in-stock');
+                    });
+                }
+            }
+    
+            flavorOptions.forEach(option => {
+                option.addEventListener('change', updateStockLabel);
+            });
+    
+            sizeOptions.forEach(option => {
+                option.addEventListener('change', updateStockLabel);
+            });
+    
+            updateStockLabel();
+        });
+    </script>
 
     {{- partial "footer.html" . }}
 
