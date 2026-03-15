@@ -29,7 +29,7 @@
     <style>
     /* ── Desktop nav size ──────────────────────────────────── */
     .navbar .nav-link {
-        font-size: 0.82rem !important;
+        font-size: 1rem !important;
         padding-top: 0.4rem !important;
         padding-bottom: 0.4rem !important;
         padding-left: 0.7rem !important;
@@ -42,21 +42,27 @@
     .nav-dropdown {
         display: none;
         position: absolute;
-        top: calc(100% + 8px);
+        top: 100%;
         left: 50%;
-        transform: translateX(-50%) translateY(-4px);
+        transform: translateX(-50%);
+        padding-top: 10px;
+        background: transparent;
+        z-index: 9999;
+        pointer-events: none;
+        min-width: 268px;
+    }
+    .nav-dropdown-inner {
         background: #fff;
         border: 1px solid rgba(123,92,58,0.12);
         border-radius: 14px;
         box-shadow: 0 12px 32px rgba(0,0,0,0.1);
-        min-width: 268px;
         padding: 8px;
-        z-index: 9999;
         opacity: 0;
+        transform: translateY(-4px);
         transition: opacity 0.18s ease, transform 0.18s ease;
-        pointer-events: none;
+        position: relative;
     }
-    .nav-dropdown::before {
+    .nav-dropdown-inner::before {
         content: '';
         position: absolute;
         top: -5px; left: 50%;
@@ -69,9 +75,12 @@
     .nav-item.has-dropdown:hover .nav-dropdown,
     .nav-item.has-dropdown:focus-within .nav-dropdown {
         display: block;
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
         pointer-events: all;
+    }
+    .nav-item.has-dropdown:hover .nav-dropdown-inner,
+    .nav-item.has-dropdown:focus-within .nav-dropdown-inner {
+        opacity: 1;
+        transform: translateY(0);
     }
 
     .nav-dropdown-item {
@@ -174,7 +183,7 @@
                                 {{ .Name }}
                                 <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
                             </a>
-                            <div class="nav-dropdown">
+                            <div class="nav-dropdown"><div class="nav-dropdown-inner">
                                 {{ range .Children }}
                                     {{ if eq .Identifier "calm-soothe" }}
                                     <a class="nav-dropdown-item" href="{{ .URL | safeURL }}">
@@ -200,6 +209,7 @@
                                     {{ end }}
                                 {{ end }}
                             </div>
+                            </div><!-- /.nav-dropdown-inner -->
                         </li>
                         {{ else }}
                         <li class="nav-item">
