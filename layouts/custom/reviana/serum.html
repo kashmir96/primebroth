@@ -103,7 +103,7 @@
 
 <div class="rv-pdp">
   <div>
-    <div class="rv-gal-main"><img id="mainImg" src="/img/serum-texture-3.webp" alt="Reviana Serum 30ml"></div>
+    <div class="rv-gal-main"><img id="mainImg" src="/img/serum-texture-3.webp" alt="Reviana Serum 15ml"></div>
     <div class="rv-gal-thumbs">
       <div class="rv-gal-thumb active" onclick="swImg('/img/serum-texture-3.webp',this)"><img src="/img/serum-texture-3.webp" alt="Texture" loading="lazy"></div>
       <div class="rv-gal-thumb" onclick="swImg('/img/serum-benefits.webp',this)"><img src="/img/serum-benefits.webp" alt="Benefits" loading="lazy"></div>
@@ -118,14 +118,14 @@
       <span class="rv-mt-nz">NZ Made</span>
     </div>
     <h1 class="rv-pdp-title">Serum</h1>
-    <p class="rv-pdp-subtitle">Complexion-refining serum for glow &amp; more even-looking tone — 30ml</p>
+    <p class="rv-pdp-subtitle">Complexion-refining serum for glow &amp; more even-looking tone — 15ml</p>
     <div class="rv-stars">★★★★★ <span>4.7 · Verified Reviews</span></div>
     <p class="rv-desc">The complexion-refining step of the Reviana ritual. This lightweight serum pairs Azelaic Acid and Niacinamide with Centella Asiatica and Hyaluronic Acid to support brighter-looking tone, plumper-looking texture and visible radiance. Fast-absorbing and formulated for skin that doesn't tolerate conventional serums — wear it morning and night before your moisturiser.</p>
     <div class="rv-price-row"><span class="rv-price" id="dispPrice">${{ $p.price_nz }}</span></div>
     <p class="rv-afterpay">or 4 interest free payments of $<span id="afterpayPrice"></span> with <img src="/img/afterpay.webp" height="20" alt="afterpay"></p>
     <div style="margin-bottom:24px;">
       <div class="rv-opt sel" data-pid="{{ $p.price_id_nz }}" data-price="{{ $p.price_nz }}" onclick="selOpt(this)">
-        <div class="rv-opt-left"><div class="rv-opt-radio"><div class="rv-opt-dot"></div></div><div><div class="rv-opt-label">One-Time Purchase</div><div class="rv-opt-sublabel">30ml · 2–3 months supply</div></div></div>
+        <div class="rv-opt-left"><div class="rv-opt-radio"><div class="rv-opt-dot"></div></div><div><div class="rv-opt-label">One-Time Purchase</div><div class="rv-opt-sublabel">15ml · 2–3 months supply</div></div></div>
         <div class="rv-opt-price">${{ $p.price_nz }}</div>
       </div>
     </div>
@@ -166,7 +166,7 @@
   <div class="rv-tab-panel" id="tab-dir">
     <h4>Morning and evening — before moisturiser</h4>
     <p>After cleansing, apply 3–4 drops to face and neck. Press gently into skin — don't rub. Allow 30–60 seconds to absorb, then follow with Reviana Day Cream (morning) or Night Cream (evening).</p>
-    <p>A 30ml bottle lasts approximately 2–3 months with twice-daily use.</p>
+    <p>A 15ml bottle lasts approximately 2–3 months with twice-daily use.</p>
   </div>
   <div class="rv-tab-panel" id="tab-ship">
     <h4>Shipping</h4>
@@ -239,7 +239,7 @@ document.getElementById('qPlus').addEventListener('click',function(){q.value=par
 document.getElementById('qMinus').addEventListener('click',function(){if(parseInt(q.value)>1)q.value=parseInt(q.value)-1;});
 document.getElementById('atcBtn').addEventListener('click',function(){
   var cart=JSON.parse(localStorage.getItem('cartV2'))||[];
-  cart.push({priceId:selPid,title:'Reviana Serum',size:'30ml',flavor:'Complexion Serum',orderType:'Single',quantity:parseInt(q.value)||1,unitPrice:selPrice,eligibleForDiscount:false});
+  cart.push({priceId:selPid,title:'Reviana Serum',size:'15ml',flavor:'Complexion Serum',orderType:'Single',quantity:parseInt(q.value)||1,unitPrice:selPrice,eligibleForDiscount:false});
   localStorage.setItem('cartV2',JSON.stringify(cart));
   $('#addedToCartModal').modal('show');
 });
