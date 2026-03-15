@@ -1,61 +1,142 @@
 <header>
-    <!-- Preconnect to critical third-party origins (saves ~100-300ms per origin) -->
     <link rel="preconnect" href="https://cdn.usefathom.com" crossorigin>
     <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
     <link rel="preconnect" href="https://www.primalpantry.co.nz" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- Preload hero image on homepage (fixes LCP — biggest single win) -->
     {{ if .IsHome }}
     <link rel="preload" as="image" href="/img/home/hero.webp" fetchpriority="high">
     {{ end }}
-
-    <!-- Preload logo so nav renders fast -->
     <link rel="preload" as="image" href="{{ .Site.Params.logo.main | relURL }}" fetchpriority="high">
 
-    <!-- Fathom - beautiful, simple website analytics -->
     <script src="https://cdn.usefathom.com/script.js" data-site="SUFMJROW" defer></script>
-    <!-- / Fathom -->
-
-    <!-- Google Analytics -->
     {{ template "_internal/google_analytics.html" . }}
-    <!-- / Google Analytics -->
 
-    <!-- Meta Pixel Code -->
     <script>
         !function(f,b,e,v,n,t,s) {
             if(f.fbq) return;
-            n = f.fbq = function() {
-                n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            };
-            if(!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = !0;
-            n.version = '2.0';
-            n.queue = [];
-            t = b.createElement(e);
-            t.async = !0;
-            t.src = v;
-            s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s)
+            n = f.fbq = function() { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments) };
+            if(!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = [];
+            t = b.createElement(e); t.async = !0; t.src = v;
+            s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
         }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
         fbq('init', '809100344281173');
         fbq('track', 'PageView');
     </script>
-    <noscript>
-        <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=809100344281173&ev=PageView&noscript=1"/>
-    </noscript>
-    <!-- End Meta Pixel Code -->
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=809100344281173&ev=PageView&noscript=1"/></noscript>
 
+    <style>
+    /* ── Desktop nav size ──────────────────────────────────── */
+    .navbar .nav-link {
+        font-size: 0.82rem !important;
+        padding-top: 0.4rem !important;
+        padding-bottom: 0.4rem !important;
+        padding-left: 0.7rem !important;
+        padding-right: 0.7rem !important;
+    }
+
+    /* ── Dropdown ──────────────────────────────────────────── */
+    .nav-item.has-dropdown { position: relative; }
+
+    .nav-dropdown {
+        display: none;
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%) translateY(-4px);
+        background: #fff;
+        border: 1px solid rgba(123,92,58,0.12);
+        border-radius: 14px;
+        box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+        min-width: 268px;
+        padding: 8px;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.18s ease, transform 0.18s ease;
+        pointer-events: none;
+    }
+    .nav-dropdown::before {
+        content: '';
+        position: absolute;
+        top: -5px; left: 50%;
+        width: 10px; height: 10px;
+        background: #fff;
+        border-left: 1px solid rgba(123,92,58,0.12);
+        border-top: 1px solid rgba(123,92,58,0.12);
+        transform: translateX(-50%) rotate(45deg);
+    }
+    .nav-item.has-dropdown:hover .nav-dropdown,
+    .nav-item.has-dropdown:focus-within .nav-dropdown {
+        display: block;
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+        pointer-events: all;
+    }
+
+    .nav-dropdown-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 11px;
+        padding: 9px 11px;
+        border-radius: 9px;
+        text-decoration: none;
+        transition: background 0.15s;
+        color: #1C1A17;
+    }
+    .nav-dropdown-item:hover { background: #F7F2EB; color: #1C1A17; text-decoration: none; }
+
+    .nav-dropdown-icon {
+        width: 34px; height: 34px;
+        border-radius: 8px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1rem; flex-shrink: 0;
+    }
+    .nav-dropdown-icon.soothe  { background: #F0E6D8; }
+    .nav-dropdown-icon.reviana { background: #2D3D22; }
+
+    .nav-dropdown-label { font-size: 0.76rem; font-weight: 700; color: #1C1A17; line-height: 1.25; margin-bottom: 1px; }
+    .nav-dropdown-sub   { font-size: 0.66rem; color: #8A7D70; line-height: 1.3; }
+
+    .nav-chevron {
+        display: inline-block; width: 10px; height: 10px;
+        margin-left: 3px; vertical-align: middle;
+        transition: transform 0.2s; opacity: 0.6;
+    }
+    .nav-item.has-dropdown:hover .nav-chevron { transform: rotate(180deg); }
+
+    .nav-dropdown-divider { height: 1px; background: rgba(123,92,58,0.1); margin: 4px 8px; }
+
+    /* ── Mobile overlay ────────────────────────────────────── */
+    #overlay .nav-parent-label {
+        font-size: 0.68rem; text-transform: uppercase;
+        letter-spacing: 0.13em; opacity: 0.4;
+        margin-top: 10px; margin-bottom: 2px; display: block;
+    }
+    #overlay .nav-child-link {
+        font-size: 0.95rem !important; opacity: 0.8;
+        padding: 5px 0 !important; display: block;
+    }
+    </style>
+
+    <!-- Mobile overlay -->
     <div id="overlay">
         <ul class="text-center list-unstyled text-white fs-5">
             {{ range .Site.Menus.main }}
-            <li class="p-2">
-                <a href="{{ .URL | safeURL }}">
-                    <span>{{ .Name }}</span>
-                </a>
-            </li>
+                {{ if .HasChildren }}
+                <li class="p-1">
+                    <span class="nav-parent-label">{{ .Name }}</span>
+                </li>
+                {{ range .Children }}
+                <li class="p-1">
+                    <a class="nav-child-link" href="{{ .URL | safeURL }}"><span>{{ .Name }}</span></a>
+                </li>
+                {{ end }}
+                {{ else }}
+                <li class="p-2">
+                    <a href="{{ .URL | safeURL }}"><span>{{ .Name }}</span></a>
+                </li>
+                {{ end }}
             {{ end }}
         </ul>
     </div>
@@ -87,9 +168,44 @@
             <div class="d-none w-full block flex-grow d-lg-flex align-items-center w-lg-auto" id="mobileMenu">
                 <ul class="navbar-nav ms-auto">
                     {{ range .Site.Menus.main }}
-                    <li class="nav-item">
-                        <a class="nav-link {{ if eq .URL $.RelPermalink }}active{{ end }}" aria-current="page" href="{{ .URL | safeURL }}">{{ .Name }}</a>
-                    </li>
+                        {{ if .HasChildren }}
+                        <li class="nav-item has-dropdown">
+                            <a class="nav-link" href="{{ .URL | safeURL }}">
+                                {{ .Name }}
+                                <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+                            </a>
+                            <div class="nav-dropdown">
+                                {{ range .Children }}
+                                    {{ if eq .Identifier "calm-soothe" }}
+                                    <a class="nav-dropdown-item" href="{{ .URL | safeURL }}">
+                                        <div class="nav-dropdown-icon soothe">🌿</div>
+                                        <div>
+                                            <div class="nav-dropdown-label">Calm &amp; Soothe</div>
+                                            <div class="nav-dropdown-sub">PrimalCare · sensitive &amp; dry skin</div>
+                                        </div>
+                                    </a>
+                                    {{ else if eq .Identifier "brighten-refine" }}
+                                    <div class="nav-dropdown-divider"></div>
+                                    <a class="nav-dropdown-item" href="{{ .URL | safeURL }}">
+                                        <div class="nav-dropdown-icon reviana">✨</div>
+                                        <div>
+                                            <div class="nav-dropdown-label">Brighten &amp; Refine</div>
+                                            <div class="nav-dropdown-sub">Reviana · Vitamin C, Bakuchiol &amp; more</div>
+                                        </div>
+                                    </a>
+                                    {{ else }}
+                                    <a class="nav-dropdown-item" href="{{ .URL | safeURL }}">
+                                        <div><div class="nav-dropdown-label">{{ .Name }}</div></div>
+                                    </a>
+                                    {{ end }}
+                                {{ end }}
+                            </div>
+                        </li>
+                        {{ else }}
+                        <li class="nav-item">
+                            <a class="nav-link {{ if eq .URL $.RelPermalink }}active{{ end }}" aria-current="page" href="{{ .URL | safeURL }}">{{ .Name }}</a>
+                        </li>
+                        {{ end }}
                     {{ end }}
                 </ul>
 
@@ -105,45 +221,28 @@
 
 </header>
 
-<!-- Script for Cart Badges -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
         const cartBadges = document.querySelectorAll('.cart-badge');
         const tiktokparams = new URLSearchParams(window.location.search);
         const ttclid = tiktokparams.get('ttclid');
-        if (ttclid) {
-            localStorage.setItem('ttclid', ttclid);
-        }
-
+        if (ttclid) { localStorage.setItem('ttclid', ttclid); }
         if (cart.length > 0) {
-            cartBadges.forEach(badge => {
-                badge.style.display = 'flex';
-                badge.textContent = cart.length;
-            });
+            cartBadges.forEach(badge => { badge.style.display = 'flex'; badge.textContent = cart.length; });
         } else {
-            cartBadges.forEach(badge => {
-                badge.style.display = 'none';
-            });
+            cartBadges.forEach(badge => { badge.style.display = 'none'; });
         }
     });
 </script>
 
 <script type="application/javascript">
-    // NZ-only: geo detection removed
     var country_code = 'NZ';
-
-    // Clear any stale AU cookie from previous geo detection
     document.cookie = 'country_code=NZ; expires=' + new Date(Date.now() + 30*24*60*60*1000).toUTCString() + '; path=/';
-
-    // Disable link for out of stock
     var outOfStockLinks = document.querySelectorAll('.outOfStock a');
     outOfStockLinks.forEach(function(link) {
         link.addEventListener('click', function(event) {
-            if (this.closest('.outOfStock')) {
-                event.preventDefault();
-                alert('This item is out of stock!');
-            }
+            if (this.closest('.outOfStock')) { event.preventDefault(); alert('This item is out of stock!'); }
         });
     });
 </script>
@@ -151,14 +250,8 @@
 <script>
     window.onload = function() {
         var shipping_rate = document.getElementById('shipping_rate');
-        if (shipping_rate) {
-            shipping_rate.textContent = '$80';
-        }
-        document.querySelectorAll('.au-content').forEach(function(item) {
-            item.style.display = 'none';
-        });
-        document.querySelectorAll('.nz-content').forEach(function(item) {
-            item.style.display = 'inline';
-        });
+        if (shipping_rate) { shipping_rate.textContent = '$80'; }
+        document.querySelectorAll('.au-content').forEach(function(item) { item.style.display = 'none'; });
+        document.querySelectorAll('.nz-content').forEach(function(item) { item.style.display = 'inline'; });
     };
 </script>
