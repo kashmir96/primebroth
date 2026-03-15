@@ -228,7 +228,6 @@
       padding-bottom: 56px;
     }
     .rev-card {
-      background: var(--rv-forest);
       border-radius: 18px;
       padding: 28px 32px;
       display: flex;
@@ -236,20 +235,17 @@
       gap: 32px;
       position: relative;
       overflow: hidden;
+      background-image: url('/img/aging-2.webp');
+      background-size: cover;
+      background-position: center;
     }
     .rev-card::before {
-      content: ''; position: absolute;
-      top: -60px; right: -60px;
-      width: 220px; height: 220px; border-radius: 50%;
-      background: rgba(255,255,255,0.03);
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(25,36,19,0.92) 0%, rgba(61,82,48,0.82) 100%);
+      border-radius: 18px;
     }
-    .rev-card::after {
-      content: ''; position: absolute;
-      bottom: -40px; left: 200px;
-      width: 140px; height: 140px; border-radius: 50%;
-      background: rgba(196,160,122,0.06);
-    }
-    .rev-card-imgs { display: flex; flex-shrink: 0; z-index: 1; }
+    .rev-card::after { display: none; }
+    .rev-card-imgs { display: flex; flex-shrink: 0; z-index: 2; }
     .rev-card-img {
       width: 64px; height: 64px; border-radius: 12px;
       background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.15);
@@ -258,7 +254,7 @@
     }
     .rev-card-img:first-child { margin-left: 0; }
     .rev-card-img img { width: 78%; height: 78%; object-fit: contain; padding: 2px; }
-    .rev-card-content { flex: 1; z-index: 1; }
+    .rev-card-content { flex: 1; z-index: 2; }
     .rev-card-eyebrow {
       font-size: 0.6rem; font-weight: 800; text-transform: uppercase;
       letter-spacing: 0.16em; color: var(--rv-stone); margin-bottom: 6px; display: block;
@@ -283,7 +279,7 @@
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 100px; padding: 3px 10px;
     }
-    .rev-card-cta { flex-shrink: 0; z-index: 1; }
+    .rev-card-cta { flex-shrink: 0; z-index: 2; }
     .rev-card-btn {
       display: inline-flex; align-items: center; gap: 8px;
       background: #fff; color: var(--rv-forest);
@@ -587,15 +583,19 @@
         <div class="soothe-ritual">
           <div class="ritual-row">
             <span class="ritual-time">☀️ Morning</span>
-            <div class="ritual-step"><span class="ritual-dot">1</span> Lip Balm</div>
+            <div class="ritual-step"><span class="ritual-dot">1</span> Tallow Balm</div>
             <span class="ritual-arrow">→</span>
-            <div class="ritual-step"><span class="ritual-dot">2</span> Tallow Balm</div>
+            <div class="ritual-step"><span class="ritual-dot">2</span> Eye Cream</div>
+            <span class="ritual-arrow">→</span>
+            <div class="ritual-step"><span class="ritual-dot">3</span> Lip Balm</div>
           </div>
           <div class="ritual-row">
             <span class="ritual-time">🌙 Evening</span>
-            <div class="ritual-step"><span class="ritual-dot">1</span> Eye Cream</div>
+            <div class="ritual-step"><span class="ritual-dot">1</span> Shampoo Bar</div>
             <span class="ritual-arrow">→</span>
             <div class="ritual-step"><span class="ritual-dot">2</span> Tallow Balm</div>
+            <span class="ritual-arrow">→</span>
+            <div class="ritual-step"><span class="ritual-dot">3</span> Serum</div>
           </div>
         </div>
 
@@ -632,12 +632,6 @@
       </div>
     </section>
 
-    <!-- More Products Bridge -->
-    <div style="background:var(--pc-cream); padding: 0 0 32px;">
-      <div class="mpb-wrap">
-        <div class="mpb-inner">
-          <div class="mpb-left">
-            <div class="mpb-icon">🧴</div>
             <div>
               <div class="mpb-label">Full Range Below</div>
               <div class="mpb-title">27 products — balms, haircare, bundles, soap, baby &amp; more</div>
