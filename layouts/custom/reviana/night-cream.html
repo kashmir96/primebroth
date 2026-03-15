@@ -103,7 +103,7 @@
 
 <div class="rv-pdp">
   <div>
-    <div class="rv-gal-main"><img id="mainImg" src="/img/nightcream-texture-2.webp" alt="Reviana Night Cream 60ml"></div>
+    <div class="rv-gal-main"><img id="mainImg" src="/img/nightcream-texture-2.webp" alt="Reviana Night Cream 50ml"></div>
     <div class="rv-gal-thumbs">
       <div class="rv-gal-thumb active" onclick="swImg('/img/nightcream-texture-2.webp',this)"><img src="/img/nightcream-texture-2.webp" alt="Texture" loading="lazy"></div>
       <div class="rv-gal-thumb" onclick="swImg('/img/nightcream-benefits.webp',this)"><img src="/img/nightcream-benefits.webp" alt="Benefits" loading="lazy"></div>
@@ -118,14 +118,14 @@
       <span class="rv-mt-nz">NZ Made</span>
     </div>
     <h1 class="rv-pdp-title">Night Cream</h1>
-    <p class="rv-pdp-subtitle">Intensive overnight anti-aging restoration — 60ml</p>
+    <p class="rv-pdp-subtitle">Intensive overnight anti-aging restoration — 50ml</p>
     <div class="rv-stars">★★★★★ <span>4.7 · Verified Reviews</span></div>
     <p class="rv-desc">Your skin does its deepest repair work overnight — this cream is designed to support that. A rich, nourishing formulation of bio-identical lipids and restorative actives that work while you sleep, visibly reducing the look of fine lines and restoring a firmer-looking complexion by morning. No heaviness — just deeply replenished, younger-looking skin.</p>
     <div class="rv-price-row"><span class="rv-price" id="dispPrice">${{ $p.price_nz }}</span></div>
     <p class="rv-afterpay">or 4 interest free payments of $<span id="afterpayPrice"></span> with <img src="/img/afterpay.webp" height="20" alt="afterpay"></p>
     <div style="margin-bottom:24px;">
       <div class="rv-opt sel" data-pid="{{ $p.price_id_nz }}" data-price="{{ $p.price_nz }}" onclick="selOpt(this)">
-        <div class="rv-opt-left"><div class="rv-opt-radio"><div class="rv-opt-dot"></div></div><div><div class="rv-opt-label">One-Time Purchase</div><div class="rv-opt-sublabel">60ml · 2–3 months supply</div></div></div>
+        <div class="rv-opt-left"><div class="rv-opt-radio"><div class="rv-opt-dot"></div></div><div><div class="rv-opt-label">One-Time Purchase</div><div class="rv-opt-sublabel">50ml · 2–3 months supply</div></div></div>
         <div class="rv-opt-price">${{ $p.price_nz }}</div>
       </div>
     </div>
@@ -238,7 +238,7 @@ document.getElementById('qPlus').addEventListener('click',function(){q.value=par
 document.getElementById('qMinus').addEventListener('click',function(){if(parseInt(q.value)>1)q.value=parseInt(q.value)-1;});
 document.getElementById('atcBtn').addEventListener('click',function(){
   var cart=JSON.parse(localStorage.getItem('cartV2'))||[];
-  cart.push({priceId:selPid,title:'Reviana Night Cream',size:'60ml',flavor:'Night Formula',orderType:'Single',quantity:parseInt(q.value)||1,unitPrice:selPrice,eligibleForDiscount:false});
+  cart.push({priceId:selPid,title:'Reviana Night Cream',size:'50ml',flavor:'Night Formula',orderType:'Single',quantity:parseInt(q.value)||1,unitPrice:selPrice,eligibleForDiscount:false});
   localStorage.setItem('cartV2',JSON.stringify(cart));
   $('#addedToCartModal').modal('show');
 });
