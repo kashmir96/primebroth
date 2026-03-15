@@ -3,12 +3,10 @@ languageCode = 'en-us'
 title = 'PrimalPantry'
 theme = 'tella'
 enableRobotsTXT = true
-
 [params]
   defaultTheme = "light"
   disableThemeToggle = true
   description = "The tallow skincare company making the most silky smooth tallow in Christchurch for Kiwis around NZ."
-
   [params.homeInfoParams]
     Title = "Ancestral products for wellness inside and out"
     Content = "The tallow skincare company making the most  silky smooth tallow in Christchurch for Kiwis around NZ."
@@ -19,57 +17,39 @@ enableRobotsTXT = true
   [[params.socialIcons]]
     Name = "twitter"
     Url = "https://twitter.com/"
-
   [params.cover]
     linkFullImages = true
-
   ShowBreadCrumbs = true
   ShowReadingTime = true
   ShowShareButtons = true
   ShowPostNavLinks = true
   trailingSlash = "always"
-
 [params.logo]
     main = "img/logo/logo.webp"
-
 [params.homepage_meta_tags]
     meta_og_image = "/img/about/header.webp"
     meta_og_title = "Ancestral products for wellness inside and out"
     meta_og_description = "The tallow skincare company making the most silky smooth tallow in Christchurch for Kiwis around NZ."
-
-
 [menu]
-
   [[menu.main]]
-    identifier = "shop"
-    name = "Shop Primalcare Tallow"
+    identifier = "tallow-skincare"
+    name = "Shop Tallow Skincare"
     url = "/shop/"
     weight = 1
 
-    #   [[menu.main]]
-  #  identifier = "subscribe"
-  #  name = "Subscribe & Save"
- #   url = "/subscribe/"
- #   weight = 2
-
-    [[menu.main]]
-    identifier = "cosmetic"
-    name = "Tallow Cosmetics"
-    url = "/cosmetic-tallow-reviana/"
-    weight = 2
+  [[menu.main]]
+    identifier = "calm-soothe"
+    name = "Calm & Soothe — PrimalCare"
+    url = "/shop/"
+    parent = "tallow-skincare"
+    weight = 1
 
   [[menu.main]]
-    identifier = "about"
-    name = "About"
-    url = "/pages/about/"
-    weight = 6
-
-
-  # [[menu.footer]]
-  #   identifier = "charity"
-  #   name = "Charity"
-  #   url = "/charity/"
-  #   weight = 10
+    identifier = "brighten-refine"
+    name = "Brighten & Refine — Reviana"
+    url = "/cosmetic-tallow-reviana/"
+    parent = "tallow-skincare"
+    weight = 2
 
   [[menu.main]]
     identifier = "reviews"
@@ -77,92 +57,53 @@ enableRobotsTXT = true
     url = "/pages/reviews/"
     weight = 3
 
-
-  # [[menu.footer]]
-  # identifier = "get-listed"
-  # name = "Get listed"
-  # url = "/get-listed/"
-  # weight = 8
-
-
-
-    
-
-
-
-  # [[menu.main]]
-  #   identifier = "markets"
-  #   name = "Markets"
-  #   url = "/upcoming-markets/"
-  #   weight = 5
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/pages/about/"
+    weight = 6
 
   [[menu.footer]]
     identifier = "terms_of_use"
     name = "Terms of Use"
     url = "/pages/terms-of-use/"
     weight = 6
-
-
   [[menu.footer]]
     identifier = "privacy_policy"
     name = "Privacy Policy"
     url = "/pages/privacy-policy/"
     weight = 7
-
   [[menu.footer]]
     identifier = "sitemap"
     name = "Sitemap"
     url = "/sitemap/"
     weight = 9
-
-
-  # [[menu.footer]]
-  #   identifier = "delivery"
-  #   name = "Delivery"
-  #   url = "/pages/delivery/"
-  #   weight = 6
-
-
   [[menu.footer]]
     identifier = "blog"
     name = "Blog"
     url = "/posts/"
     weight = 8
-
   [[menu.footer]]
     identifier = "refund_policy"
     name = "Refund Policy"
     url = "/pages/refund-policy/"
     weight = 5
-
-  # [[menu.footer]]
-  #   identifier = "partner"
-  #   name = "Partners"
-  #   url = "/partner/"
-  #   weight = 4
-
   [[menu.footer]]
       identifier = "faq"
       name = "FAQs"
       url = "/faq/"
       weight = 3
-
   [[menu.footer]]
       identifier = "support"
       name = "Customer Support"
       url = "/support/"
       weight = 1
-
-
   [[menu.footer]]
       identifier = "reviews"
       name = "Reviews"
       url = "/pages/reviews/"
       weight = 2
-
-
 [markup.goldmark.renderer]
 unsafe = true
-
 [markup.goldmark.extensions]
 linkify = false
