@@ -105,13 +105,13 @@
     }
     .soothe-bundle-imgs { display: flex; flex-shrink: 0; z-index: 1; }
     .soothe-bundle-img {
-      width: 52px; height: 52px; border-radius: 10px;
+      width: 80px; height: 80px; border-radius: 12px;
       background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.18);
-      overflow: hidden; margin-left: -8px;
+      overflow: hidden; margin-left: 0;
       display: flex; align-items: center; justify-content: center;
     }
     .soothe-bundle-img:first-child { margin-left: 0; }
-    .soothe-bundle-img img { width: 80%; height: 80%; object-fit: contain; }
+    .soothe-bundle-img img { width: 100%; height: 100%; object-fit: cover; }
     .soothe-bundle-content { flex: 1; z-index: 1; min-width: 0; }
     .soothe-bundle-name {
       font-family: 'Playfair Display', Georgia, serif;
@@ -147,7 +147,7 @@
       gap: 12px; margin-bottom: 18px;
     }
     .soothe-p-card {
-      background: var(--pc-white); border: 1px solid var(--pc-border);
+      background: #fff; border: 1px solid var(--pc-border);
       border-radius: 16px; overflow: hidden;
       display: flex; flex-direction: column;
       transition: transform 0.28s, box-shadow 0.28s;
@@ -161,7 +161,7 @@
       background: var(--pc-brown); color: #fff;
     }
     .soothe-p-img {
-      aspect-ratio: 1; background: var(--pc-cream);
+      aspect-ratio: 1; background: #fff;
       display: flex; align-items: center; justify-content: center;
       overflow: hidden; position: relative;
     }
@@ -174,7 +174,7 @@
       transition: transform 0.4s ease;
     }
     .soothe-p-card:hover .soothe-p-img img { transform: scale(1.06); }
-    .soothe-p-body { padding: 12px 14px 14px; flex: 1; display: flex; flex-direction: column; }
+    .soothe-p-body { padding: 12px 14px 14px; flex: 1; display: flex; flex-direction: column; background: var(--pc-cream); }
     .soothe-p-name {
       font-family: 'Playfair Display', Georgia, serif;
       font-size: 0.9rem; font-weight: 400; color: var(--pc-black); margin-bottom: 2px;
@@ -222,74 +222,6 @@
     .ritual-arrow { font-size: 0.7rem; color: var(--pc-brown-light); opacity: 0.6; }
     .ritual-ghost { opacity: 0.35; font-size: 0.7rem; font-weight: 500; }
 
-    /* ── REVIANA AWARENESS CARD ──────────────────────────── */
-    .rev-card-wrap {
-      padding: 32px 0 0;
-      padding-bottom: 56px;
-    }
-    .rev-card {
-      border-radius: 18px;
-      padding: 28px 32px;
-      display: flex;
-      align-items: center;
-      gap: 32px;
-      position: relative;
-      overflow: hidden;
-      background-image: url('/img/aging-2.webp');
-      background-size: cover;
-      background-position: center;
-    }
-    .rev-card::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(25,36,19,0.92) 0%, rgba(61,82,48,0.82) 100%);
-      border-radius: 18px;
-    }
-    .rev-card::after { display: none; }
-    .rev-card-imgs { display: flex; flex-shrink: 0; z-index: 2; }
-    .rev-card-img {
-      width: 64px; height: 64px; border-radius: 12px;
-      background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.15);
-      overflow: hidden; margin-left: -10px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .rev-card-img:first-child { margin-left: 0; }
-    .rev-card-img img { width: 78%; height: 78%; object-fit: contain; padding: 2px; }
-    .rev-card-content { flex: 1; z-index: 2; }
-    .rev-card-eyebrow {
-      font-size: 0.6rem; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.16em; color: var(--rv-stone); margin-bottom: 6px; display: block;
-    }
-    .rev-card-title {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1.15rem; font-weight: 400; color: #fff;
-      margin: 0 0 6px; line-height: 1.2;
-    }
-    .rev-card-title em { color: var(--rv-stone); font-style: italic; }
-    .rev-card-desc {
-      font-size: 0.8rem; color: rgba(255,255,255,0.5);
-      line-height: 1.6; margin: 0; max-width: 480px;
-    }
-    .rev-card-pills {
-      display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px;
-    }
-    .rev-card-pill {
-      font-size: 0.62rem; font-weight: 600;
-      color: rgba(255,255,255,0.5);
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 100px; padding: 3px 10px;
-    }
-    .rev-card-cta { flex-shrink: 0; z-index: 2; }
-    .rev-card-btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: #fff; color: var(--rv-forest);
-      padding: 12px 22px; border-radius: 100px;
-      font-weight: 700; font-size: 0.82rem;
-      text-decoration: none; transition: all 0.25s; white-space: nowrap;
-    }
-    .rev-card-btn:hover { background: var(--rv-stone); color: var(--pc-black); transform: translateY(-1px); }
-    .rev-card-btn svg { width: 13px; height: 13px; transition: transform 0.2s; }
-    .rev-card-btn:hover svg { transform: translateX(3px); }
 
     /* ── MORE PRODUCTS BRIDGE ────────────────────────────── */
     .mpb-wrap {
@@ -479,9 +411,7 @@
         <div class="soothe-bundle">
           <span class="soothe-bundle-badge">Best Value</span>
           <div class="soothe-bundle-imgs">
-            <div class="soothe-bundle-img"><img src="/img/shop/balm.webp" alt="Tallow Balm"></div>
-            <div class="soothe-bundle-img"><img src="/img/shampoobar/shampoo-bar-prodcutpage.webp" alt="Shampoo Bar"></div>
-            <div class="soothe-bundle-img"><img src="/img/lip-balm-images1.webp" alt="Lip Balm"></div>
+            <div class="soothe-bundle-img" style="width:72px;height:72px;border-radius:12px;"><img src="/img/shop/shop-gold.webp" alt="Gold Stack Bundle" style="width:100%;height:100%;object-fit:cover;padding:0;"></div>
           </div>
           <div class="soothe-bundle-content">
             <div class="soothe-bundle-name">The Gold Stack</div>
@@ -632,7 +562,24 @@
       </div>
     </section>
 
+            <div>
+              <div class="mpb-label">Full Range Below</div>
+              <div class="mpb-title">27 products — balms, haircare, bundles, soap, baby &amp; more</div>
+            </div>
           </div>
+          <div class="mpb-pills">
+            <span class="mpb-pill">Honey Balm</span>
+            <span class="mpb-pill">Baby Butter</span>
+            <span class="mpb-pill">Deodorant</span>
+            <span class="mpb-pill">Liquid Soap</span>
+            <span class="mpb-pill">Beard Balm</span>
+            <span class="mpb-pill">Hair Clay</span>
+            <span class="mpb-pill">+ more</span>
+          </div>
+          <a href="#all-products" class="mpb-link">
+            See all products
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          </a>
         </div>
       </div>
     </div>
@@ -642,23 +589,6 @@
     ═════════════════════════════════════════════════════════ -->
     <section class="all-products-section" id="all-products">
       <div class="all-products-inner">
-
-        <div class="shop-divider-inner">
-          <span class="shop-divider-label">All Products</span>
-          <div class="shop-divider-line"></div>
-        </div>
-
-        <div style="padding: 24px 0 0;" class="mob-hide">
-          <div class="filter-options">
-            <input type="radio" id="all" name="product-filter" value="all" checked>
-            <label for="all">All</label>
-            <input type="radio" id="skincare" name="product-filter" value="skincare">
-            <label for="skincare">Skincare</label>
-            <input type="radio" id="haircare" name="product-filter" value="haircare">
-            <label for="haircare">Haircare</label>
-            <input type="radio" id="bundles" name="product-filter" value="bundles">
-            <label for="bundles">Bundles</label>
-          </div>
         </div>
 
         <div class="row shopdiv gx-3 gx-lg-5">
