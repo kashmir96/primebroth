@@ -19,107 +19,65 @@
     <style>
     /* ── VARIABLES ───────────────────────────────────────── */
     :root {
-      --s-cream:        #F7F2EB;
-      --s-cream-deep:   #EDE3D3;
-      --s-black:        #1C1A17;
-      --s-brown:        #7B5C3A;
-      --s-brown-mid:    #9B7550;
-      --s-brown-light:  #C4A07A;
-      --s-brown-pale:   #F0E6D8;
-      --s-green:        #4A5E38;
-      --s-border:       rgba(123,92,58,0.14);
-      --s-warm-gray:    #8A7D70;
-      --s-white:        #FDFAF6;
-      --r-forest:       #2D3D22;
-      --r-forest-mid:   #3D5230;
-      --r-stone:        #C4A07A;
-      --r-stone-light:  #DEC49A;
-      --r-border:       rgba(255,255,255,0.1);
+      --pc-cream:        #F7F2EB;
+      --pc-cream-deep:   #EDE3D3;
+      --pc-black:        #1C1A17;
+      --pc-brown:        #7B5C3A;
+      --pc-brown-mid:    #9B7550;
+      --pc-brown-light:  #C4A07A;
+      --pc-brown-pale:   #F0E6D8;
+      --pc-green:        #4A5E38;
+      --pc-border:       rgba(123,92,58,0.14);
+      --pc-warm-gray:    #8A7D70;
+      --pc-white:        #FDFAF6;
+      --rv-forest:       #2D3D22;
+      --rv-stone:        #C4A07A;
     }
     * { box-sizing: border-box; }
 
-    /* ── ROUTINES SECTION ────────────────────────────────── */
-    .routines-section {
-      background: var(--s-cream);
-    }
-    .routines-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      max-width: 1440px;
-      margin: 0 auto;
-    }
+    /* ── SOOTHE SECTION ──────────────────────────────────── */
+    .soothe-section { background: var(--pc-cream); padding: 56px 0 0; }
+    .soothe-inner { max-width: 1280px; margin: 0 auto; padding: 0 80px; }
 
-    /* ── EACH COLUMN ─────────────────────────────────────── */
-    .routine-col {
-      padding: 56px 56px 64px;
+    .soothe-header {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 20px;
+      margin-bottom: 28px; flex-wrap: wrap;
     }
-    .routine-soothe { background: var(--s-cream); }
-    .routine-reviana { background: var(--r-forest); }
-
-    /* ── COLUMN HEADER ───────────────────────────────────── */
-    .routine-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 24px;
+    .soothe-eyebrow {
+      font-size: 0.66rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.18em; color: var(--pc-brown-mid);
+      margin-bottom: 6px; display: block;
     }
-    .routine-eyebrow {
-      font-size: 0.62rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      margin-bottom: 6px;
-      display: block;
-    }
-    .soothe .routine-eyebrow { color: var(--s-brown-mid); }
-    .reviana .routine-eyebrow { color: var(--r-stone); }
-    .routine-title {
+    .soothe-title {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: clamp(1.4rem, 1.8vw, 2rem);
-      font-weight: 400;
-      line-height: 1.12;
-      margin: 0 0 6px;
+      font-size: clamp(1.8rem, 2.4vw, 2.2rem);
+      font-weight: 400; color: var(--pc-black);
+      line-height: 1.1; margin: 0 0 6px;
     }
-    .soothe .routine-title { color: var(--s-black); }
-    .reviana .routine-title { color: #fff; }
-    .routine-title em { font-style: italic; }
-    .soothe .routine-title em { color: var(--s-brown); }
-    .reviana .routine-title em { color: var(--r-stone); }
-    .routine-subtitle {
-      font-size: 0.8rem;
-      line-height: 1.6;
-      max-width: 340px;
+    .soothe-title em { color: var(--pc-brown); font-style: italic; }
+    .soothe-subtitle {
+      font-size: 0.84rem; color: var(--pc-warm-gray);
+      line-height: 1.65; max-width: 460px; margin: 0;
     }
-    .soothe .routine-subtitle { color: var(--s-warm-gray); }
-    .reviana .routine-subtitle { color: rgba(255,255,255,0.48); }
 
     /* EANZ badge */
     .eanz-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: #fff;
-      border: 1px solid var(--s-border);
-      border-radius: 14px;
-      padding: 10px 14px;
-      flex-shrink: 0;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      display: inline-flex; align-items: center; gap: 12px;
+      background: #fff; border: 1px solid var(--pc-border);
+      border-radius: 14px; padding: 10px 16px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05); flex-shrink: 0;
     }
-    .eanz-badge img { height: 40px; width: auto; }
+    .eanz-badge img { height: 44px; width: auto; }
     .eanz-badge-text { display: flex; flex-direction: column; }
     .eanz-badge-label {
-      font-size: 0.56rem; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.14em; color: var(--s-green); line-height: 1.3;
+      font-size: 0.58rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.14em; color: var(--pc-green); line-height: 1.3;
     }
-    .eanz-badge-title {
-      font-size: 0.72rem; font-weight: 700; color: var(--s-black); line-height: 1.25;
-    }
-    .eanz-badge-commit {
-      font-size: 0.62rem; color: var(--s-brown); line-height: 1.4; margin-top: 1px;
-    }
+    .eanz-badge-title { font-size: 0.78rem; font-weight: 700; color: var(--pc-black); line-height: 1.25; }
+    .eanz-badge-commit { font-size: 0.68rem; color: var(--pc-brown); line-height: 1.4; margin-top: 1px; }
     .eanz-badge-btn {
-      font-size: 0.62rem; font-weight: 700; color: var(--s-green);
+      font-size: 0.66rem; font-weight: 700; color: var(--pc-green);
       background: none; border: none; padding: 0; margin-top: 3px;
       cursor: pointer; display: inline-flex; align-items: center; gap: 3px;
       transition: gap 0.2s; font-family: 'DM Sans', sans-serif;
@@ -127,354 +85,291 @@
     .eanz-badge-btn:hover { gap: 6px; }
     .eanz-badge-btn svg { width: 10px; height: 10px; }
 
-    /* Reviana page link */
-    .rev-page-link {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 0.72rem; font-weight: 700;
-      color: rgba(255,255,255,0.45);
-      border-bottom: 1px solid rgba(255,255,255,0.18);
-      padding-bottom: 2px; text-decoration: none;
-      transition: color 0.2s, gap 0.2s, border-color 0.2s;
-      white-space: nowrap; flex-shrink: 0; align-self: flex-end;
-    }
-    .rev-page-link:hover { color: #fff; border-color: rgba(255,255,255,0.45); gap: 9px; }
-    .rev-page-link svg { width: 12px; height: 12px; }
-
     /* ── BUNDLE CARD ─────────────────────────────────────── */
-    .routine-bundle {
-      border-radius: 14px;
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 16px;
-      position: relative;
+    .soothe-bundle {
+      background: var(--pc-brown); border-radius: 18px;
+      padding: 22px 28px; display: flex; align-items: center;
+      gap: 28px; margin-bottom: 18px; position: relative; overflow: hidden;
       flex-wrap: wrap;
     }
-    .soothe .routine-bundle {
-      background: var(--s-brown);
+    .soothe-bundle::before {
+      content: ''; position: absolute; top: -50px; right: -50px;
+      width: 180px; height: 180px; border-radius: 50%;
+      background: rgba(255,255,255,0.04);
     }
-    .reviana .routine-bundle {
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
-    }
-    .bundle-badge {
-      position: absolute; top: -10px; right: 14px;
-      font-size: 0.58rem; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.1em; padding: 3px 10px; border-radius: 100px;
-    }
-    .soothe .bundle-badge { background: var(--s-brown-light); color: var(--s-black); }
-    .reviana .bundle-badge { background: var(--r-stone); color: var(--s-black); }
-    .bundle-left { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-    .bundle-name {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 0.95rem; font-weight: 400; line-height: 1.2;
-    }
-    .soothe .bundle-name { color: #fff; }
-    .reviana .bundle-name { color: #fff; }
-    .bundle-sub { font-size: 0.72rem; }
-    .soothe .bundle-sub { color: rgba(255,255,255,0.52); }
-    .reviana .bundle-sub { color: rgba(255,255,255,0.42); }
-    .bundle-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-    .bundle-price {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1.3rem;
-    }
-    .soothe .bundle-price { color: #fff; }
-    .reviana .bundle-price { color: #fff; }
-    .bundle-atc {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 9px 18px; border-radius: 100px;
-      font-weight: 700; font-size: 0.78rem;
-      border: none; cursor: pointer; transition: all 0.22s;
-      white-space: nowrap;
-    }
-    .soothe .bundle-atc { background: #fff; color: var(--s-brown); }
-    .soothe .bundle-atc:hover { background: var(--s-brown-light); color: var(--s-black); }
-    .reviana .bundle-atc { background: #fff; color: var(--r-forest-mid); }
-    .reviana .bundle-atc:hover { background: var(--r-stone); color: var(--s-black); }
-
-    /* ── PRODUCT GRID & CARDS ────────────────────────────── */
-    .routine-products-label {
+    .soothe-bundle-badge {
+      position: absolute; top: -10px; right: 16px;
+      background: var(--pc-brown-light); color: var(--pc-black);
       font-size: 0.6rem; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.16em; margin-bottom: 10px;
+      letter-spacing: 0.12em; padding: 3px 12px; border-radius: 100px;
     }
-    .soothe .routine-products-label { color: var(--s-warm-gray); }
-    .reviana .routine-products-label { color: rgba(255,255,255,0.3); }
-
-    .routine-products {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .rp-card {
-      border-radius: 14px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.28s, box-shadow 0.28s;
-    }
-    .soothe .rp-card {
-      background: var(--s-white);
-      border: 1px solid var(--s-border);
-    }
-    .reviana .rp-card {
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-    .rp-card:hover { transform: translateY(-3px); }
-    .soothe .rp-card:hover { box-shadow: 0 10px 28px rgba(123,92,58,0.12); }
-    .reviana .rp-card:hover { box-shadow: 0 10px 28px rgba(0,0,0,0.22); border-color: rgba(196,160,122,0.3); }
-
-    .rp-card-img {
-      aspect-ratio: 1;
+    .soothe-bundle-imgs { display: flex; flex-shrink: 0; z-index: 1; }
+    .soothe-bundle-img {
+      width: 52px; height: 52px; border-radius: 10px;
+      background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.18);
+      overflow: hidden; margin-left: -8px;
       display: flex; align-items: center; justify-content: center;
-      overflow: hidden; position: relative;
     }
-    .soothe .rp-card-img { background: var(--s-cream); }
-    .reviana .rp-card-img { background: rgba(255,255,255,0.05); }
-    .rp-card-img a {
-      display: flex; align-items: center; justify-content: center;
-      width: 100%; height: 100%; position: absolute; inset: 0;
-    }
-    .rp-card-img img {
-      width: 78%; height: 78%; object-fit: contain;
-      transition: transform 0.4s ease;
-    }
-    .rp-card:hover .rp-card-img img { transform: scale(1.06); }
-
-    .rp-card-body {
-      padding: 12px 14px 14px;
-      flex: 1; display: flex; flex-direction: column;
-    }
-    .rp-card-name {
+    .soothe-bundle-img:first-child { margin-left: 0; }
+    .soothe-bundle-img img { width: 80%; height: 80%; object-fit: contain; }
+    .soothe-bundle-content { flex: 1; z-index: 1; min-width: 0; }
+    .soothe-bundle-name {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 0.88rem; font-weight: 400; margin-bottom: 2px; line-height: 1.2;
+      font-size: 1.15rem; font-weight: 400; color: #fff; margin: 0 0 3px;
     }
-    .soothe .rp-card-name { color: var(--s-black); }
-    .reviana .rp-card-name { color: #fff; }
-    .rp-card-sub { font-size: 0.68rem; margin-bottom: 6px; line-height: 1.4; }
-    .soothe .rp-card-sub { color: var(--s-warm-gray); }
-    .reviana .rp-card-sub { color: rgba(255,255,255,0.42); }
-    .rp-card-price { font-size: 0.9rem; font-weight: 700; margin-bottom: 10px; flex: 1; }
-    .soothe .rp-card-price { color: var(--s-brown); }
-    .reviana .rp-card-price { color: var(--r-stone); }
-    .rp-card-cta { display: flex; gap: 6px; }
-    .rp-card-atc {
-      flex: 1; padding: 8px 10px; border-radius: 7px;
-      font-weight: 700; font-size: 0.7rem;
-      border: none; cursor: pointer; transition: all 0.2s;
+    .soothe-bundle-sub { font-size: 0.78rem; color: rgba(255,255,255,0.52); margin: 0 0 12px; }
+    .soothe-bundle-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .soothe-bundle-price {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.5rem; color: #fff;
     }
-    .soothe .rp-card-atc { background: var(--s-brown); color: #fff; }
-    .soothe .rp-card-atc:hover { background: var(--s-brown-mid); }
-    .reviana .rp-card-atc {
-      background: rgba(255,255,255,0.12); color: #fff;
-      border: 1px solid rgba(255,255,255,0.18);
+    .soothe-bundle-save {
+      font-size: 0.66rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--pc-brown-light);
+      background: rgba(196,160,122,0.18); padding: 3px 10px; border-radius: 100px;
     }
-    .reviana .rp-card-atc:hover { background: #fff; color: var(--r-forest-mid); border-color: #fff; }
-    .rp-card-view {
-      padding: 8px 10px; border-radius: 7px;
-      font-weight: 600; font-size: 0.7rem;
-      cursor: pointer; transition: all 0.2s;
-      text-decoration: none; display: inline-flex; align-items: center; justify-content: center;
+    .soothe-bundle-atc {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: #fff; color: var(--pc-brown); border: none;
+      padding: 10px 22px; border-radius: 100px;
+      font-weight: 700; font-size: 0.82rem; cursor: pointer;
+      transition: all 0.22s; text-decoration: none;
     }
-    .soothe .rp-card-view { background: var(--s-brown-pale); color: var(--s-brown); border: 1px solid var(--s-border); }
-    .soothe .rp-card-view:hover { background: var(--s-cream-deep); }
-    .reviana .rp-card-view { background: transparent; color: rgba(255,255,255,0.45); border: 1px solid rgba(255,255,255,0.15); }
-    .reviana .rp-card-view:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
+    .soothe-bundle-atc:hover { background: var(--pc-brown-light); color: var(--pc-black); transform: translateY(-1px); }
 
-    /* ── RITUAL STRIP ────────────────────────────────────── */
-    .routine-ritual {
-      border-radius: 12px;
-      overflow: hidden;
+    /* ── PRODUCT CARDS ───────────────────────────────────── */
+    .soothe-products-label {
+      font-size: 0.62rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.16em; color: var(--pc-warm-gray); margin-bottom: 12px;
     }
-    .soothe .routine-ritual { background: var(--s-white); border: 1px solid var(--s-border); }
-    .reviana .routine-ritual { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
-    .ritual-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 18px;
-      flex-wrap: wrap;
+    .soothe-p-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 12px; margin-bottom: 18px;
     }
-    .ritual-row:first-child {
-      border-bottom-width: 1px; border-bottom-style: solid;
+    .soothe-p-card {
+      background: var(--pc-white); border: 1px solid var(--pc-border);
+      border-radius: 16px; overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: transform 0.28s, box-shadow 0.28s;
+      position: relative;
     }
-    .soothe .ritual-row:first-child { border-bottom-color: var(--s-border); }
-    .reviana .ritual-row:first-child { border-bottom-color: rgba(255,255,255,0.08); }
-    .ritual-time {
-      font-size: 0.58rem; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.14em; margin-right: 4px; white-space: nowrap;
-    }
-    .soothe .ritual-time { color: var(--s-brown-mid); }
-    .reviana .ritual-time { color: var(--r-stone); }
-    .ritual-step {
-      display: flex; align-items: center; gap: 5px;
-      font-size: 0.72rem; font-weight: 600;
-    }
-    .soothe .ritual-step { color: var(--s-black); }
-    .reviana .ritual-step { color: rgba(255,255,255,0.82); }
-    .ritual-dot {
-      width: 20px; height: 20px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.55rem; font-weight: 800; flex-shrink: 0;
-    }
-    .soothe .ritual-dot { background: var(--s-brown-pale); color: var(--s-brown); border: 1px solid var(--s-border); }
-    .reviana .ritual-dot { background: rgba(196,160,122,0.18); color: var(--r-stone); border: 1px solid rgba(196,160,122,0.25); }
-    .ritual-arrow { font-size: 0.7rem; opacity: 0.5; }
-    .soothe .ritual-arrow { color: var(--s-brown-light); }
-    .reviana .ritual-arrow { color: var(--r-stone); }
-    .ritual-ghost { opacity: 0.35; font-size: 0.68rem; }
-
-
-    /* ── BEST SELLER BADGE ───────────────────────────────── */
-    .rp-card { position: relative; }
-    .rp-bs-badge {
+    .soothe-p-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(123,92,58,0.1); }
+    .soothe-p-badge {
       position: absolute; top: 8px; left: 8px; z-index: 3;
       font-size: 0.55rem; font-weight: 800; text-transform: uppercase;
       letter-spacing: 0.1em; padding: 3px 9px; border-radius: 100px;
+      background: var(--pc-brown); color: #fff;
     }
-    .soothe .rp-bs-badge { background: var(--s-brown); color: #fff; }
-    .reviana .rp-bs-badge { background: var(--r-stone); color: #1C1A17; }
+    .soothe-p-img {
+      aspect-ratio: 1; background: var(--pc-cream);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; position: relative;
+    }
+    .soothe-p-img a {
+      display: flex; align-items: center; justify-content: center;
+      width: 100%; height: 100%; position: absolute; inset: 0;
+    }
+    .soothe-p-img img {
+      width: 78%; height: 78%; object-fit: contain;
+      transition: transform 0.4s ease;
+    }
+    .soothe-p-card:hover .soothe-p-img img { transform: scale(1.06); }
+    .soothe-p-body { padding: 12px 14px 14px; flex: 1; display: flex; flex-direction: column; }
+    .soothe-p-name {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 0.9rem; font-weight: 400; color: var(--pc-black); margin-bottom: 2px;
+    }
+    .soothe-p-sub { font-size: 0.7rem; color: var(--pc-warm-gray); margin-bottom: 8px; line-height: 1.4; }
+    .soothe-p-price { font-size: 0.95rem; font-weight: 700; color: var(--pc-brown); margin-bottom: 10px; flex: 1; }
+    .soothe-p-cta { display: flex; gap: 6px; }
+    .soothe-p-atc {
+      flex: 1; background: var(--pc-brown); color: #fff;
+      border: none; padding: 8px 10px; border-radius: 7px;
+      font-weight: 700; font-size: 0.72rem; cursor: pointer; transition: all 0.2s;
+    }
+    .soothe-p-atc:hover { background: var(--pc-brown-mid); }
+    .soothe-p-view {
+      background: var(--pc-brown-pale); color: var(--pc-brown);
+      border: 1px solid var(--pc-border); padding: 8px 10px; border-radius: 7px;
+      font-weight: 600; font-size: 0.72rem; cursor: pointer; transition: all 0.2s;
+      text-decoration: none; display: inline-flex; align-items: center; justify-content: center;
+    }
+    .soothe-p-view:hover { background: var(--pc-cream-deep); }
+
+    /* ── RITUAL STRIP ────────────────────────────────────── */
+    .soothe-ritual {
+      background: var(--pc-white); border: 1px solid var(--pc-border);
+      border-radius: 12px; overflow: hidden; margin-bottom: 0;
+    }
+    .ritual-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 11px 20px; flex-wrap: wrap;
+    }
+    .ritual-row:first-child { border-bottom: 1px solid var(--pc-border); }
+    .ritual-time {
+      font-size: 0.58rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.14em; color: var(--pc-brown-mid);
+      margin-right: 4px; white-space: nowrap; min-width: 80px;
+    }
+    .ritual-step { display: flex; align-items: center; gap: 5px; font-size: 0.74rem; font-weight: 600; color: var(--pc-black); }
+    .ritual-dot {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--pc-brown-pale); color: var(--pc-brown);
+      border: 1px solid var(--pc-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.55rem; font-weight: 800; flex-shrink: 0;
+    }
+    .ritual-arrow { font-size: 0.7rem; color: var(--pc-brown-light); opacity: 0.6; }
+    .ritual-ghost { opacity: 0.35; font-size: 0.7rem; font-weight: 500; }
+
+    /* ── REVIANA AWARENESS CARD ──────────────────────────── */
+    .rev-card-wrap {
+      padding: 32px 0 0;
+      padding-bottom: 56px;
+    }
+    .rev-card {
+      background: var(--rv-forest);
+      border-radius: 18px;
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .rev-card::before {
+      content: ''; position: absolute;
+      top: -60px; right: -60px;
+      width: 220px; height: 220px; border-radius: 50%;
+      background: rgba(255,255,255,0.03);
+    }
+    .rev-card::after {
+      content: ''; position: absolute;
+      bottom: -40px; left: 200px;
+      width: 140px; height: 140px; border-radius: 50%;
+      background: rgba(196,160,122,0.06);
+    }
+    .rev-card-imgs { display: flex; flex-shrink: 0; z-index: 1; }
+    .rev-card-img {
+      width: 64px; height: 64px; border-radius: 12px;
+      background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.15);
+      overflow: hidden; margin-left: -10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .rev-card-img:first-child { margin-left: 0; }
+    .rev-card-img img { width: 78%; height: 78%; object-fit: contain; padding: 2px; }
+    .rev-card-content { flex: 1; z-index: 1; }
+    .rev-card-eyebrow {
+      font-size: 0.6rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.16em; color: var(--rv-stone); margin-bottom: 6px; display: block;
+    }
+    .rev-card-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.15rem; font-weight: 400; color: #fff;
+      margin: 0 0 6px; line-height: 1.2;
+    }
+    .rev-card-title em { color: var(--rv-stone); font-style: italic; }
+    .rev-card-desc {
+      font-size: 0.8rem; color: rgba(255,255,255,0.5);
+      line-height: 1.6; margin: 0; max-width: 480px;
+    }
+    .rev-card-pills {
+      display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px;
+    }
+    .rev-card-pill {
+      font-size: 0.62rem; font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px; padding: 3px 10px;
+    }
+    .rev-card-cta { flex-shrink: 0; z-index: 1; }
+    .rev-card-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #fff; color: var(--rv-forest);
+      padding: 12px 22px; border-radius: 100px;
+      font-weight: 700; font-size: 0.82rem;
+      text-decoration: none; transition: all 0.25s; white-space: nowrap;
+    }
+    .rev-card-btn:hover { background: var(--rv-stone); color: var(--pc-black); transform: translateY(-1px); }
+    .rev-card-btn svg { width: 13px; height: 13px; transition: transform 0.2s; }
+    .rev-card-btn:hover svg { transform: translateX(3px); }
 
     /* ── MORE PRODUCTS BRIDGE ────────────────────────────── */
-    .more-products-bridge {
-      background: var(--s-cream);
-      padding: 36px 80px 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-      flex-direction: column;
-    }
-    .more-products-bridge-inner {
-      max-width: 1440px;
-      width: 100%;
-      background: var(--s-white);
-      border: 1px solid var(--s-border);
-      border-radius: 14px;
-      padding: 18px 28px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    .mpb-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .mpb-icon {
-      width: 36px; height: 36px;
-      background: var(--s-brown-pale);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1rem;
-      flex-shrink: 0;
-    }
-    .mpb-text-label {
-      font-size: 0.62rem; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.14em; color: var(--s-brown-mid); margin-bottom: 2px;
-    }
-    .mpb-text-title {
-      font-size: 0.92rem; font-weight: 700; color: var(--s-black);
-    }
-    .mpb-products-strip {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .mpb-pill {
-      font-size: 0.7rem; font-weight: 600;
-      color: var(--s-warm-gray);
-      background: var(--s-cream);
-      border: 1px solid var(--s-border);
-      border-radius: 100px;
-      padding: 4px 12px;
-      white-space: nowrap;
-    }
-    .mpb-arrow {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 0.78rem; font-weight: 700;
-      color: var(--s-brown);
-      background: none; border: none; cursor: pointer;
-      padding: 0;
-      transition: gap 0.2s;
-      text-decoration: none;
-      flex-shrink: 0;
-    }
-    .mpb-arrow:hover { gap: 9px; color: var(--s-brown); }
-    .mpb-arrow svg { width: 14px; height: 14px; }
-    @media (max-width: 860px) {
-      .more-products-bridge { padding: 24px 20px 0; }
-      .more-products-bridge-inner { flex-direction: column; align-items: flex-start; gap: 12px; }
-      .mpb-products-strip { display: none; }
-    }
-
-    /* ── ALL PRODUCTS DIVIDER ────────────────────────────── */
-    .all-products-section {
-      background: var(--s-cream);
-      padding: 0 0 80px;
-    }
-    .all-products-inner {
+    .mpb-wrap {
+      background: var(--pc-cream);
+      padding: 0 80px;
       max-width: 1280px;
       margin: 0 auto;
-      padding: 0 80px;
     }
+    .mpb-inner {
+      background: var(--pc-white); border: 1px solid var(--pc-border);
+      border-radius: 12px; padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
+    }
+    .mpb-left { display: flex; align-items: center; gap: 12px; }
+    .mpb-icon {
+      width: 34px; height: 34px; background: var(--pc-brown-pale);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; flex-shrink: 0;
+    }
+    .mpb-label { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; color: var(--pc-brown-mid); margin-bottom: 1px; }
+    .mpb-title { font-size: 0.88rem; font-weight: 700; color: var(--pc-black); }
+    .mpb-pills { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .mpb-pill {
+      font-size: 0.68rem; font-weight: 600; color: var(--pc-warm-gray);
+      background: var(--pc-cream); border: 1px solid var(--pc-border);
+      border-radius: 100px; padding: 3px 11px; white-space: nowrap;
+    }
+    .mpb-link {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 0.78rem; font-weight: 700; color: var(--pc-brown);
+      text-decoration: none; white-space: nowrap; transition: gap 0.2s;
+    }
+    .mpb-link:hover { gap: 8px; color: var(--pc-brown); }
+    .mpb-link svg { width: 13px; height: 13px; }
+
+    /* ── ALL PRODUCTS ────────────────────────────────────── */
+    .all-products-section { background: var(--pc-cream); padding: 0 0 80px; }
+    .all-products-inner { max-width: 1280px; margin: 0 auto; padding: 0 80px; }
     .shop-divider-inner {
-      border-top: 1px solid var(--s-border);
-      padding: 48px 0 0;
+      border-top: 1px solid var(--pc-border); padding: 44px 0 0;
       display: flex; align-items: center; gap: 16px;
     }
     .shop-divider-label {
-      font-size: 0.66rem; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.16em; color: var(--s-warm-gray); white-space: nowrap;
+      font-size: 0.64rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.16em; color: var(--pc-warm-gray); white-space: nowrap;
     }
-    .shop-divider-line { flex: 1; height: 1px; background: var(--s-border); }
+    .shop-divider-line { flex: 1; height: 1px; background: var(--pc-border); }
 
     /* ── FILTER PILLS ────────────────────────────────────── */
-    .filter-options {
-      display: flex; justify-content: flex-start;
-      margin: 0 0 24px; flex-wrap: wrap;
-    }
+    .filter-options { display: flex; margin: 0 0 24px; flex-wrap: wrap; }
     .filter-options label {
-      display: inline-block; padding: 7px 16px;
-      margin: 0 6px 6px 0; border: 1px solid var(--s-border);
-      border-radius: 30px; font-size: 0.78rem; font-weight: 600;
-      cursor: pointer; background: var(--s-white); color: var(--s-warm-gray);
+      display: inline-block; padding: 7px 16px; margin: 0 6px 6px 0;
+      border: 1px solid var(--pc-border); border-radius: 30px;
+      font-size: 0.78rem; font-weight: 600; cursor: pointer;
+      background: var(--pc-white); color: var(--pc-warm-gray);
       transition: background 0.2s, color 0.2s, border-color 0.2s;
     }
     .filter-options input[type="radio"] { display: none; }
-    .filter-options input[type="radio"]:checked + label {
-      background: var(--s-brown); color: #fff; border-color: var(--s-brown);
-    }
-    .filter-options label:hover {
-      background: var(--s-brown-pale); border-color: var(--s-brown-light); color: var(--s-brown);
-    }
+    .filter-options input[type="radio"]:checked + label { background: var(--pc-brown); color: #fff; border-color: var(--pc-brown); }
+    .filter-options label:hover { background: var(--pc-brown-pale); border-color: var(--pc-brown-light); color: var(--pc-brown); }
 
     /* ── EANZ MODAL ──────────────────────────────────────── */
     .shop-eanz-modal-overlay {
       display: none; position: fixed; inset: 0; z-index: 99999;
       background: rgba(28,26,23,0.5); backdrop-filter: blur(6px);
       align-items: center; justify-content: center; padding: 24px;
-      opacity: 0; transition: opacity 0.3s ease;
+      opacity: 0; transition: opacity 0.3s;
     }
     .shop-eanz-modal-overlay.is-open { display: flex; opacity: 1; }
     .shop-eanz-modal {
-      background: #EFF5E9; border-radius: 24px;
-      max-width: 860px; width: 100%; max-height: 90vh; overflow-y: auto;
-      position: relative; box-shadow: 0 32px 80px rgba(0,0,0,0.18);
-      animation: eanz-in 0.32s ease both;
+      background: #EFF5E9; border-radius: 24px; max-width: 860px; width: 100%;
+      max-height: 90vh; overflow-y: auto; position: relative;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.18); animation: eanz-in 0.32s ease both;
     }
-    @keyframes eanz-in {
-      from { opacity: 0; transform: translateY(20px) scale(0.97); }
-      to   { opacity: 1; transform: none; }
-    }
+    @keyframes eanz-in { from { opacity:0; transform:translateY(20px) scale(0.97); } to { opacity:1; transform:none; } }
     .shop-eanz-modal-close {
       position: absolute; top: 14px; right: 14px; z-index: 3;
       width: 38px; height: 38px; border-radius: 50%; border: none;
@@ -484,70 +379,63 @@
     }
     .shop-eanz-modal-close:hover { background: #fff; }
     .shop-eanz-modal-close svg { width: 17px; height: 17px; color: #1C1A17; }
-    .shop-eanz-modal-body {
-      display: grid; grid-template-columns: 1fr 1.3fr; gap: 36px;
-      padding: 44px; align-items: center;
-    }
-    .shop-eanz-modal-video-wrap {
-      position: relative; padding-bottom: 177.78%; border-radius: 14px;
-      overflow: hidden; background: #1C1A17;
-    }
-    .shop-eanz-modal-video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-    .shop-eanz-modal-video-placeholder {
-      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-      color: #fff; font-size: 2.2rem; cursor: pointer;
-    }
-    .shop-eanz-modal-right { display: flex; align-items: flex-start; gap: 18px; }
-    .shop-eanz-modal-right img { height: 80px; width: auto; flex-shrink: 0; }
-    .shop-eanz-modal-text h3 {
-      font-family: 'Playfair Display', Georgia, serif; font-size: 1.4rem; font-weight: 400;
-      color: #1C1A17; margin: 0 0 10px; line-height: 1.2;
-    }
-    .shop-eanz-modal-text p { font-size: 0.87rem; color: #7B5C3A; line-height: 1.62; margin: 0; }
-    .shop-eanz-modal-disclaimer { font-size: 0.64rem; color: #8A7D70; margin-top: 10px; line-height: 1.5; }
-
-    /* Cart modal */
-    .modal-backdrop.show { opacity: .3; }
+    .shop-eanz-modal-body { display: grid; grid-template-columns: 1fr 1.3fr; gap: 36px; padding: 44px; align-items: center; }
+    .shop-eanz-modal-video-wrap { position: relative; padding-bottom: 177.78%; border-radius: 14px; overflow: hidden; background: #1C1A17; }
+    .shop-eanz-modal-video-wrap iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:0; }
+    .shop-eanz-modal-video-placeholder { position: absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#fff; font-size:2.2rem; cursor:pointer; }
+    .shop-eanz-modal-right { display:flex; align-items:flex-start; gap:18px; }
+    .shop-eanz-modal-right img { height:80px; width:auto; flex-shrink:0; }
+    .shop-eanz-modal-text h3 { font-family:'Playfair Display',Georgia,serif; font-size:1.4rem; font-weight:400; color:#1C1A17; margin:0 0 10px; line-height:1.2; }
+    .shop-eanz-modal-text p { font-size:0.87rem; color:#7B5C3A; line-height:1.62; margin:0; }
+    .shop-eanz-modal-disclaimer { font-size:0.64rem; color:#8A7D70; margin-top:10px; line-height:1.5; }
 
     /* ── RESPONSIVE ──────────────────────────────────────── */
     @media (max-width: 1100px) {
-      .routine-col { padding: 40px 32px 48px; }
-      .all-products-inner { padding-left: 24px; padding-right: 24px; }
+      .soothe-inner, .all-products-inner, .mpb-wrap { padding-left: 24px; padding-right: 24px; }
+      .soothe-p-grid { grid-template-columns: repeat(2, 1fr); }
+      .rev-card { flex-direction: column; align-items: flex-start; gap: 18px; padding: 24px; }
+      .rev-card-imgs { display: none; }
     }
-
     @media (max-width: 860px) {
-      .routines-grid { grid-template-columns: 1fr; }
-      .routine-products {
-        display: flex;
+      .soothe-section { padding-top: 36px; }
+      .soothe-inner { padding-left: 20px; padding-right: 20px; overflow: hidden; }
+      .all-products-inner { padding-left: 20px; padding-right: 20px; }
+      .mpb-wrap { padding-left: 20px; padding-right: 20px; }
+      .soothe-header { flex-direction: column; gap: 12px; }
+      .eanz-badge { display: none; }
+
+      /* horizontal scroll strip */
+      .soothe-p-grid {
+        display: flex !important;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
         gap: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
         padding-bottom: 10px;
-        margin-bottom: 16px;
-        /* Hide scrollbar but keep functionality */
-        scrollbar-width: thin;
-        scrollbar-color: rgba(123,92,58,0.2) transparent;
+        margin-left: -20px;
+        margin-right: -20px;
+        scrollbar-width: none;
       }
-      .routine-products::-webkit-scrollbar { height: 4px; }
-      .routine-products::-webkit-scrollbar-track { background: transparent; }
-      .soothe .routine-products::-webkit-scrollbar-thumb { background: rgba(123,92,58,0.25); border-radius: 2px; }
-      .reviana .routine-products::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 2px; }
-      .rp-card {
-        flex: 0 0 190px;
-        scroll-snap-align: start;
-      }
-      .bundle-right { flex-direction: column; align-items: flex-start; gap: 8px; }
-      .routine-bundle { flex-direction: column; align-items: flex-start; }
-      .eanz-badge { display: none; }
+      .soothe-p-grid::-webkit-scrollbar { display: none; }
+      .soothe-p-card { flex: 0 0 155px; min-width: 155px; scroll-snap-align: start; }
+      .soothe-products-label::after { content: ' — swipe →'; opacity: 0.45; font-weight: 400; text-transform: none; letter-spacing: 0; }
+
+      .soothe-bundle { flex-direction: column; align-items: flex-start; gap: 12px; padding: 20px; }
+      .soothe-bundle-imgs { display: none; }
+      .soothe-bundle-row { flex-direction: row; align-items: center; }
+
+      .rev-card-wrap { padding: 24px 0 40px; }
+      .mpb-inner { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .mpb-pills { display: none; }
+
       .shop-eanz-modal-body { grid-template-columns: 1fr; gap: 24px; padding: 28px 20px; }
       .shop-eanz-modal-right { flex-direction: column; align-items: center; text-align: center; }
     }
-
     @media (max-width: 480px) {
-      .routine-col { padding: 32px 20px 40px; }
-      .rp-card { flex: 0 0 168px; }
-      .routine-header { flex-direction: column; }
+      .soothe-p-card { flex: 0 0 142px; min-width: 142px; }
+      .rev-card-title { font-size: 1rem; }
     }
     </style>
 </head>
@@ -558,51 +446,54 @@
         <span class="icon-keyboard_arrow_up text-2xl"></span>
     </div>
 
-    {{ $day    := site.Data.pricing.reviana.day_cream }}
-    {{ $night  := site.Data.pricing.reviana.night_cream }}
-    {{ $eye    := site.Data.pricing.reviana.eye_cream }}
-    {{ $rserum := site.Data.pricing.reviana.serum }}
+    {{ $day     := site.Data.pricing.reviana.day_cream }}
+    {{ $night   := site.Data.pricing.reviana.night_cream }}
+    {{ $eye     := site.Data.pricing.reviana.eye_cream }}
+    {{ $rserum  := site.Data.pricing.reviana.serum }}
     {{ $rbundle := site.Data.pricing.reviana.complexion_bundle }}
 
     <!-- ════════════════════════════════════════════════════
-         TWO ROUTINES — SIDE BY SIDE
+         CALM & SOOTHE ROUTINE
     ═════════════════════════════════════════════════════════ -->
-    <section class="routines-section">
-      <div class="routines-grid">
+    <section class="soothe-section">
+      <div class="soothe-inner">
 
-        <!-- ── LEFT: CALM & SOOTHE ── -->
-        <div class="routine-col routine-soothe soothe">
-
-          <div class="routine-header">
-            <div>
-              <span class="routine-eyebrow">PrimalCare · Calm &amp; Soothe</span>
-              <h2 class="routine-title">The routine for <em>calm,<br>comfortable skin.</em></h2>
-              <p class="routine-subtitle">Our best-selling tallow products for sensitive, reactive and dry skin.</p>
-            </div>
-            <div class="eanz-badge">
-              <img src="/img/home/eanz.webp" alt="Eczema Association NZ" width="40" height="40">
-              <div class="eanz-badge-text">
-                <span class="eanz-badge-label">Gold Supporters</span>
-                <span class="eanz-badge-title">Eczema Assoc. NZ</span>
-                <span class="eanz-badge-commit">$70k committed</span>
-                <button class="eanz-badge-btn" onclick="document.getElementById('shop-eanz-modal').classList.add('is-open');document.body.style.overflow='hidden';">
-                  What's this?
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </button>
-              </div>
+        <!-- Header -->
+        <div class="soothe-header">
+          <div>
+            <span class="soothe-eyebrow">PrimalCare · Calm &amp; Soothe</span>
+            <h2 class="soothe-title">The routine for <em>calm, comfortable skin.</em></h2>
+            <p class="soothe-subtitle">Our best-sellers for sensitive, reactive and dry skin — built around pure tallow.</p>
+          </div>
+          <div class="eanz-badge">
+            <img src="/img/home/eanz.webp" alt="Eczema Association NZ" width="44" height="44">
+            <div class="eanz-badge-text">
+              <span class="eanz-badge-label">Gold Supporters</span>
+              <span class="eanz-badge-title">Eczema Assoc. of NZ</span>
+              <span class="eanz-badge-commit">$70k committed to Kiwis</span>
+              <button class="eanz-badge-btn" onclick="document.getElementById('shop-eanz-modal').classList.add('is-open');document.body.style.overflow='hidden';">
+                What's this?
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
             </div>
           </div>
+        </div>
 
-          <!-- Gold Stack Bundle -->
-          <div class="routine-bundle">
-            <span class="bundle-badge">Best Value</span>
-            <div class="bundle-left">
-              <div class="bundle-name">The Gold Stack</div>
-              <div class="bundle-sub">Balm · Eye Cream · Shampoo Bar · Lip Balm</div>
-            </div>
-            <div class="bundle-right">
-              <span class="bundle-price">NZ$54.95</span>
-              <button class="bundle-atc"
+        <!-- Gold Stack Bundle -->
+        <div class="soothe-bundle">
+          <span class="soothe-bundle-badge">Best Value</span>
+          <div class="soothe-bundle-imgs">
+            <div class="soothe-bundle-img"><img src="/img/shop/balm.webp" alt="Tallow Balm"></div>
+            <div class="soothe-bundle-img"><img src="/img/shampoobar/shampoo-bar-prodcutpage.webp" alt="Shampoo Bar"></div>
+            <div class="soothe-bundle-img"><img src="/img/lip-balm-images1.webp" alt="Lip Balm"></div>
+          </div>
+          <div class="soothe-bundle-content">
+            <div class="soothe-bundle-name">The Gold Stack</div>
+            <div class="soothe-bundle-sub">Tallow Balm · Shampoo Bar · Lip Balm</div>
+            <div class="soothe-bundle-row">
+              <span class="soothe-bundle-price">NZ$54.95</span>
+              <span class="soothe-bundle-save">Save with bundle</span>
+              <button class="soothe-bundle-atc"
                 data-atc-pid="price_1Rm1kFFZRwx5tlYmID3EjS6j"
                 data-atc-price="54.95"
                 data-atc-title="The Gold Stack"
@@ -612,281 +503,160 @@
               </button>
             </div>
           </div>
+        </div>
 
-          <p class="routine-products-label">Individual products</p>
-          <div class="routine-products">
+        <!-- 4 Best Seller Cards -->
+        <p class="soothe-products-label">Best sellers — individual</p>
+        <div class="soothe-p-grid">
 
-            <div class="rp-card">
-              <div class="rp-card-img">
-                <span class="rp-bs-badge">Best Seller</span>
-                <a href="/shop/products/tallow-skin">
-                  <img src="/img/shop/balm.webp" alt="Whipped Tallow Balm" loading="lazy">
-                </a>
-              </div>
-              <div class="rp-card-body">
-                <div class="rp-card-name">Tallow Balm</div>
-                <div class="rp-card-sub">Face &amp; body · from 60ml</div>
-                <div class="rp-card-price">From $18.95</div>
-                <div class="rp-card-cta">
-                  <a href="/shop/products/tallow-skin" class="rp-card-atc" style="text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;">Shop</a>
-                  <a href="/shop/products/tallow-skin" class="rp-card-view">View</a>
-                </div>
-              </div>
+          <div class="soothe-p-card">
+            <span class="soothe-p-badge">Best Seller</span>
+            <div class="soothe-p-img">
+              <a href="/shop/products/tallow-skin">
+                <img src="/img/shop/balm.webp" alt="Whipped Tallow Balm" loading="lazy">
+              </a>
             </div>
-
-            <div class="rp-card">
-              <div class="rp-card-img">
-                <span class="rp-bs-badge">Best Seller</span>
-                <a href="/shop/products/tallow-eye-cream">
-                  <img src="/img/shop/eyecream.webp" alt="Tallow Eye Cream" loading="lazy">
-                </a>
+            <div class="soothe-p-body">
+              <div class="soothe-p-name">Tallow Balm</div>
+              <div class="soothe-p-sub">Face &amp; body · from 60ml</div>
+              <div class="soothe-p-price">From $18.95</div>
+              <div class="soothe-p-cta">
+                <a href="/shop/products/tallow-skin" class="soothe-p-atc" style="text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;">Shop</a>
+                <a href="/shop/products/tallow-skin" class="soothe-p-view">View</a>
               </div>
-              <div class="rp-card-body">
-                <div class="rp-card-name">Eye Cream</div>
-                <div class="rp-card-sub">Dark circles &amp; fine lines</div>
-                <div class="rp-card-price">$27.95</div>
-                <div class="rp-card-cta">
-                  <a href="/shop/products/tallow-eye-cream" class="rp-card-atc" style="text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;">Shop</a>
-                  <a href="/shop/products/tallow-eye-cream" class="rp-card-view">View</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="rp-card">
-              <div class="rp-card-img">
-                <span class="rp-bs-badge">Best Seller</span>
-                <a href="/shop/products/tallow-shampoo-bar">
-                  <img src="/img/shampoobar/shampoo-bar-prodcutpage.webp" alt="Tallow Shampoo Bar" loading="lazy">
-                </a>
-              </div>
-              <div class="rp-card-body">
-                <div class="rp-card-name">Shampoo Bar</div>
-                <div class="rp-card-sub">Scalp-soothing · 120g</div>
-                <div class="rp-card-price">$17.95</div>
-                <div class="rp-card-cta">
-                  <a href="/shop/products/tallow-shampoo-bar" class="rp-card-atc" style="text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;">Shop</a>
-                  <a href="/shop/products/tallow-shampoo-bar" class="rp-card-view">View</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="rp-card">
-              <div class="rp-card-img">
-                <span class="rp-bs-badge">Best Seller</span>
-                <a href="/shop/products/lip-balm">
-                  <img src="/img/lip-balm-images1.webp" alt="Tallow Lip Balm" loading="lazy">
-                </a>
-              </div>
-              <div class="rp-card-body">
-                <div class="rp-card-name">Lip Balm</div>
-                <div class="rp-card-sub">Manuka honey · 10ml</div>
-                <div class="rp-card-price">$12.95</div>
-                <div class="rp-card-cta">
-                  <a href="/shop/products/lip-balm" class="rp-card-atc" style="text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;">Shop</a>
-                  <a href="/shop/products/lip-balm" class="rp-card-view">View</a>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Ritual strip -->
-          <div class="routine-ritual">
-            <div class="ritual-row">
-              <span class="ritual-time">☀️ Morning</span>
-              <div class="ritual-step"><span class="ritual-dot">1</span> Lip Balm</div>
-              <span class="ritual-arrow">→</span>
-              <div class="ritual-step"><span class="ritual-dot">2</span> Tallow Balm</div>
-            </div>
-            <div class="ritual-row">
-              <span class="ritual-time">🌙 Evening</span>
-              <div class="ritual-step"><span class="ritual-dot">1</span> Eye Cream</div>
-              <span class="ritual-arrow">→</span>
-              <div class="ritual-step"><span class="ritual-dot">2</span> Tallow Balm</div>
             </div>
           </div>
 
-        </div><!-- end soothe col -->
-
-        <!-- ── RIGHT: BRIGHTEN & REFINE ── -->
-        <div class="routine-col routine-reviana reviana">
-
-          <div class="routine-header">
-            <div>
-              <span class="routine-eyebrow">Reviana · Brighten &amp; Refine</span>
-              <h2 class="routine-title">The ritual for <em>brighter, smoother,<br>more even-looking skin.</em></h2>
-              <p class="routine-subtitle">Ultra-purified cosmetic tallow elevated with Vitamin C, Bakuchiol and Ceramides.</p>
+          <div class="soothe-p-card">
+            <span class="soothe-p-badge">Best Seller</span>
+            <div class="soothe-p-img">
+              <a href="/shop/products/tallow-eye-cream">
+                <img src="/img/shop/eyecream.webp" alt="Tallow Eye Cream" loading="lazy">
+              </a>
             </div>
-            <a href="/cosmetic-tallow-reviana/" class="rev-page-link">
-              Full Reviana page
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-
-          <!-- Complete Ritual Bundle -->
-          <div class="routine-bundle">
-            <span class="bundle-badge">Best Value</span>
-            <div class="bundle-left">
-              <div class="bundle-name">The Complete Ritual</div>
-              <div class="bundle-sub">Day Cream · Eye Cream · Serum · Night Cream</div>
-            </div>
-            <div class="bundle-right">
-              <span class="bundle-price">NZ${{ $rbundle.price_nz }}</span>
-              <button class="bundle-atc"
-                data-atc-pid="{{ $rbundle.price_id_nz }}"
-                data-atc-price="{{ $rbundle.price_nz }}"
-                data-atc-title="Reviana Complete Ritual Bundle"
-                data-atc-size="Full Set"
-                data-atc-flavor="All 4 Products">
-                Add to Cart
-              </button>
+            <div class="soothe-p-body">
+              <div class="soothe-p-name">Eye Cream</div>
+              <div class="soothe-p-sub">Dark circles &amp; fine lines</div>
+              <div class="soothe-p-price">$27.95</div>
+              <div class="soothe-p-cta">
+                <a href="/shop/products/tallow-eye-cream" class="soothe-p-atc" style="text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;">Shop</a>
+                <a href="/shop/products/tallow-eye-cream" class="soothe-p-view">View</a>
+              </div>
             </div>
           </div>
 
-          <p class="routine-products-label">Individual products</p>
-          <div class="routine-products">
-
-            <div class="rp-card">
-              <div class="rp-card-img">
-                <a href="/cosmetic-tallow-reviana/day-cream/">
-                  <img src="/img/daycream-2.webp" alt="Reviana Day Cream" loading="lazy">
-                </a>
-              </div>
-              <div class="rp-card-body">
-                <div class="rp-card-name">Day Cream</div>
-                <div class="rp-card-sub">Brightening daily · 60ml</div>
-                <div class="rp-card-price">NZ${{ $day.price_nz }}</div>
-                <div class="rp-card-cta">
-                  <button class="rp-card-atc"
-                    data-atc-pid="{{ $day.price_id_nz }}"
-                    data-atc-price="{{ $day.price_nz }}"
-                    data-atc-title="Reviana Day Cream"
-                    data-atc-size="60ml"
-                    data-atc-flavor="Day Formula">Add to Cart</button>
-                  <a href="/cosmetic-tallow-reviana/day-cream/" class="rp-card-view">View</a>
-                </div>
-              </div>
+          <div class="soothe-p-card">
+            <span class="soothe-p-badge">Best Seller</span>
+            <div class="soothe-p-img">
+              <a href="/shop/products/tallow-shampoo-bar">
+                <img src="/img/shampoobar/shampoo-bar-prodcutpage.webp" alt="Tallow Shampoo Bar" loading="lazy">
+              </a>
             </div>
-
-            <div class="rp-card">
-              <div class="rp-card-img">
-                <a href="/cosmetic-tallow-reviana/eye-cream/">
-                  <img src="/img/eyecream-3.webp" alt="Reviana Eye Cream" loading="lazy">
-                </a>
+            <div class="soothe-p-body">
+              <div class="soothe-p-name">Shampoo Bar</div>
+              <div class="soothe-p-sub">Scalp-soothing · 120g</div>
+              <div class="soothe-p-price">$17.95</div>
+              <div class="soothe-p-cta">
+                <a href="/shop/products/tallow-shampoo-bar" class="soothe-p-atc" style="text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;">Shop</a>
+                <a href="/shop/products/tallow-shampoo-bar" class="soothe-p-view">View</a>
               </div>
-              <div class="rp-card-body">
-                <div class="rp-card-name">Eye Cream</div>
-                <div class="rp-card-sub">Brightening treatment · 15ml</div>
-                <div class="rp-card-price">NZ${{ $eye.price_nz }}</div>
-                <div class="rp-card-cta">
-                  <button class="rp-card-atc"
-                    data-atc-pid="{{ $eye.price_id_nz }}"
-                    data-atc-price="{{ $eye.price_nz }}"
-                    data-atc-title="Reviana Eye Cream"
-                    data-atc-size="15ml"
-                    data-atc-flavor="Vitamin C">Add to Cart</button>
-                  <a href="/cosmetic-tallow-reviana/eye-cream/" class="rp-card-view">View</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="rp-card">
-              <div class="rp-card-img">
-                <a href="/cosmetic-tallow-reviana/serum/">
-                  <img src="/img/serum-2.webp" alt="Reviana Serum" loading="lazy">
-                </a>
-              </div>
-              <div class="rp-card-body">
-                <div class="rp-card-name">Serum</div>
-                <div class="rp-card-sub">Complexion-refining · 30ml</div>
-                <div class="rp-card-price">NZ${{ $rserum.price_nz }}</div>
-                <div class="rp-card-cta">
-                  <button class="rp-card-atc"
-                    data-atc-pid="{{ $rserum.price_id_nz }}"
-                    data-atc-price="{{ $rserum.price_nz }}"
-                    data-atc-title="Reviana Serum"
-                    data-atc-size="30ml"
-                    data-atc-flavor="Complexion Serum">Add to Cart</button>
-                  <a href="/cosmetic-tallow-reviana/serum/" class="rp-card-view">View</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="rp-card">
-              <div class="rp-card-img">
-                <a href="/cosmetic-tallow-reviana/night-cream/">
-                  <img src="/img/nightcream.webp" alt="Reviana Night Cream" loading="lazy">
-                </a>
-              </div>
-              <div class="rp-card-body">
-                <div class="rp-card-name">Night Cream</div>
-                <div class="rp-card-sub">Overnight renewal · 60ml</div>
-                <div class="rp-card-price">NZ${{ $night.price_nz }}</div>
-                <div class="rp-card-cta">
-                  <button class="rp-card-atc"
-                    data-atc-pid="{{ $night.price_id_nz }}"
-                    data-atc-price="{{ $night.price_nz }}"
-                    data-atc-title="Reviana Night Cream"
-                    data-atc-size="60ml"
-                    data-atc-flavor="Night Formula">Add to Cart</button>
-                  <a href="/cosmetic-tallow-reviana/night-cream/" class="rp-card-view">View</a>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Ritual strip -->
-          <div class="routine-ritual">
-            <div class="ritual-row">
-              <span class="ritual-time">☀️ Morning</span>
-              <div class="ritual-step"><span class="ritual-dot">1</span> Serum</div>
-              <span class="ritual-arrow">→</span>
-              <div class="ritual-step"><span class="ritual-dot">2</span> Day Cream</div>
-              <span class="ritual-arrow">→</span>
-              <span class="ritual-step ritual-ghost">SPF (yours)</span>
-            </div>
-            <div class="ritual-row">
-              <span class="ritual-time">🌙 Night</span>
-              <div class="ritual-step"><span class="ritual-dot">1</span> Serum</div>
-              <span class="ritual-arrow">→</span>
-              <div class="ritual-step"><span class="ritual-dot">2</span> Night Cream</div>
-              <span class="ritual-arrow">→</span>
-              <div class="ritual-step"><span class="ritual-dot">3</span> Eye Cream</div>
             </div>
           </div>
 
-        </div><!-- end reviana col -->
+          <div class="soothe-p-card">
+            <span class="soothe-p-badge">Best Seller</span>
+            <div class="soothe-p-img">
+              <a href="/shop/products/tallow-lip-balm">
+                <img src="/img/lip-balm-images1.webp" alt="Tallow Lip Balm" loading="lazy">
+              </a>
+            </div>
+            <div class="soothe-p-body">
+              <div class="soothe-p-name">Lip Balm</div>
+              <div class="soothe-p-sub">Manuka honey · 10ml</div>
+              <div class="soothe-p-price">$12.95</div>
+              <div class="soothe-p-cta">
+                <a href="/shop/products/tallow-lip-balm" class="soothe-p-atc" style="text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;">Shop</a>
+                <a href="/shop/products/tallow-lip-balm" class="soothe-p-view">View</a>
+              </div>
+            </div>
+          </div>
 
-      </div><!-- end routines-grid -->
+        </div>
+
+        <!-- Ritual strip -->
+        <div class="soothe-ritual">
+          <div class="ritual-row">
+            <span class="ritual-time">☀️ Morning</span>
+            <div class="ritual-step"><span class="ritual-dot">1</span> Lip Balm</div>
+            <span class="ritual-arrow">→</span>
+            <div class="ritual-step"><span class="ritual-dot">2</span> Tallow Balm</div>
+          </div>
+          <div class="ritual-row">
+            <span class="ritual-time">🌙 Evening</span>
+            <div class="ritual-step"><span class="ritual-dot">1</span> Eye Cream</div>
+            <span class="ritual-arrow">→</span>
+            <div class="ritual-step"><span class="ritual-dot">2</span> Tallow Balm</div>
+          </div>
+        </div>
+
+        <!-- Reviana awareness card -->
+        <div class="rev-card-wrap">
+          <div class="rev-card">
+            <div class="rev-card-imgs">
+              <div class="rev-card-img"><img src="/img/daycream-2.webp" alt="Day Cream"></div>
+              <div class="rev-card-img"><img src="/img/eyecream-3.webp" alt="Eye Cream"></div>
+              <div class="rev-card-img"><img src="/img/serum-2.webp" alt="Serum"></div>
+              <div class="rev-card-img"><img src="/img/nightcream.webp" alt="Night Cream"></div>
+            </div>
+            <div class="rev-card-content">
+              <span class="rev-card-eyebrow">Also by PrimalPantry · New</span>
+              <h3 class="rev-card-title">Reviana — tallow elevated for <em>brighter, more even-looking skin.</em></h3>
+              <p class="rev-card-desc">Ultra-purified cosmetic tallow meets Vitamin C, Bakuchiol, Peptides and Ceramides. A more refined facial ritual, built on the same tallow foundation.</p>
+              <div class="rev-card-pills">
+                <span class="rev-card-pill">Vitamin C</span>
+                <span class="rev-card-pill">Bakuchiol</span>
+                <span class="rev-card-pill">Ceramides</span>
+                <span class="rev-card-pill">Peptides</span>
+                <span class="rev-card-pill">NZ Made</span>
+              </div>
+            </div>
+            <div class="rev-card-cta">
+              <a href="/cosmetic-tallow-reviana/" class="rev-card-btn">
+                Discover Reviana
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </section>
 
-
-    <!-- ════════════════════════════════════════════════════
-         MORE PRODUCTS BRIDGE
-    ═════════════════════════════════════════════════════════ -->
-    <div class="more-products-bridge">
-      <div class="more-products-bridge-inner">
-        <div class="mpb-left">
-          <div class="mpb-icon">🧴</div>
-          <div>
-            <div class="mpb-text-label">Full Range Below</div>
-            <div class="mpb-text-title">27 products in total — balms, haircare, bundles, baby &amp; more</div>
+    <!-- More Products Bridge -->
+    <div style="background:var(--pc-cream); padding: 0 0 32px;">
+      <div class="mpb-wrap">
+        <div class="mpb-inner">
+          <div class="mpb-left">
+            <div class="mpb-icon">🧴</div>
+            <div>
+              <div class="mpb-label">Full Range Below</div>
+              <div class="mpb-title">27 products — balms, haircare, bundles, soap, baby &amp; more</div>
+            </div>
           </div>
+          <div class="mpb-pills">
+            <span class="mpb-pill">Honey Balm</span>
+            <span class="mpb-pill">Baby Butter</span>
+            <span class="mpb-pill">Deodorant</span>
+            <span class="mpb-pill">Liquid Soap</span>
+            <span class="mpb-pill">Beard Balm</span>
+            <span class="mpb-pill">Hair Clay</span>
+            <span class="mpb-pill">+ more</span>
+          </div>
+          <a href="#all-products" class="mpb-link">
+            See all products
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          </a>
         </div>
-        <div class="mpb-products-strip">
-          <span class="mpb-pill">Honey Balm</span>
-          <span class="mpb-pill">Baby Butter</span>
-          <span class="mpb-pill">Deodorant</span>
-          <span class="mpb-pill">Liquid Soap</span>
-          <span class="mpb-pill">Beard Balm</span>
-          <span class="mpb-pill">Tallow Soap</span>
-          <span class="mpb-pill">+ more</span>
-        </div>
-        <a href="#all-products" class="mpb-arrow">
-          See all products
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-        </a>
       </div>
     </div>
 
@@ -988,7 +758,6 @@
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
-    <!-- ATC -->
     <script>
     function ppAddToCart(pid, price, title, size, flavor) {
       var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
@@ -1007,7 +776,6 @@
     });
     </script>
 
-    <!-- Filter -->
     <script>
     $(document).ready(function () {
       function getUrlParameter(name) {
@@ -1018,18 +786,16 @@
         if (!results[2]) return '';
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
       }
-      var selectedFilter = getUrlParameter('filter');
-      if (selectedFilter) {
-        $('input[name="product-filter"][value="' + selectedFilter + '"]').prop('checked', true).change();
-      }
+      var f = getUrlParameter('filter');
+      if (f) $('input[name="product-filter"][value="' + f + '"]').prop('checked', true).change();
       $('input[name="product-filter"]').on('change', function () {
-        var f = $(this).val();
-        if (f === 'all') {
+        var val = $(this).val();
+        if (val === 'all') {
           $('.all-products-section .product-card').show();
         } else {
           $('.all-products-section .product-card').hide();
           $('.all-products-section .product-card').filter(function () {
-            return $(this).data('category').split(' ').includes(f);
+            return $(this).data('category').split(' ').includes(val);
           }).show();
         }
       });
@@ -1037,7 +803,6 @@
     });
     </script>
 
-    <!-- EANZ modal video lazy load -->
     <script>
     (function(){
       var overlay = document.getElementById('shop-eanz-modal');
@@ -1055,9 +820,7 @@
         }
       }).observe(overlay, {attributes:true, attributeFilter:['class']});
       document.addEventListener('keydown', function(e){
-        if (e.key==='Escape' && overlay.classList.contains('is-open')) {
-          overlay.classList.remove('is-open'); document.body.style.overflow='';
-        }
+        if (e.key==='Escape' && overlay.classList.contains('is-open')) { overlay.classList.remove('is-open'); document.body.style.overflow=''; }
       });
     })();
     </script>
