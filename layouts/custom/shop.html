@@ -329,6 +329,93 @@
     .reviana .ritual-arrow { color: var(--r-stone); }
     .ritual-ghost { opacity: 0.35; font-size: 0.68rem; }
 
+
+    /* ── BEST SELLER BADGE ───────────────────────────────── */
+    .rp-card { position: relative; }
+    .rp-bs-badge {
+      position: absolute; top: 8px; left: 8px; z-index: 3;
+      font-size: 0.55rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.1em; padding: 3px 9px; border-radius: 100px;
+    }
+    .soothe .rp-bs-badge { background: var(--s-brown); color: #fff; }
+    .reviana .rp-bs-badge { background: var(--r-stone); color: #1C1A17; }
+
+    /* ── MORE PRODUCTS BRIDGE ────────────────────────────── */
+    .more-products-bridge {
+      background: var(--s-cream);
+      padding: 36px 80px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-direction: column;
+    }
+    .more-products-bridge-inner {
+      max-width: 1440px;
+      width: 100%;
+      background: var(--s-white);
+      border: 1px solid var(--s-border);
+      border-radius: 14px;
+      padding: 18px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .mpb-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .mpb-icon {
+      width: 36px; height: 36px;
+      background: var(--s-brown-pale);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .mpb-text-label {
+      font-size: 0.62rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.14em; color: var(--s-brown-mid); margin-bottom: 2px;
+    }
+    .mpb-text-title {
+      font-size: 0.92rem; font-weight: 700; color: var(--s-black);
+    }
+    .mpb-products-strip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .mpb-pill {
+      font-size: 0.7rem; font-weight: 600;
+      color: var(--s-warm-gray);
+      background: var(--s-cream);
+      border: 1px solid var(--s-border);
+      border-radius: 100px;
+      padding: 4px 12px;
+      white-space: nowrap;
+    }
+    .mpb-arrow {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.78rem; font-weight: 700;
+      color: var(--s-brown);
+      background: none; border: none; cursor: pointer;
+      padding: 0;
+      transition: gap 0.2s;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .mpb-arrow:hover { gap: 9px; color: var(--s-brown); }
+    .mpb-arrow svg { width: 14px; height: 14px; }
+    @media (max-width: 860px) {
+      .more-products-bridge { padding: 24px 20px 0; }
+      .more-products-bridge-inner { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .mpb-products-strip { display: none; }
+    }
+
     /* ── ALL PRODUCTS DIVIDER ────────────────────────────── */
     .all-products-section {
       background: var(--s-cream);
@@ -531,6 +618,7 @@
 
             <div class="rp-card">
               <div class="rp-card-img">
+                <span class="rp-bs-badge">Best Seller</span>
                 <a href="/shop/products/tallow-skin">
                   <img src="/img/shop/balm.webp" alt="Whipped Tallow Balm" loading="lazy">
                 </a>
@@ -548,6 +636,7 @@
 
             <div class="rp-card">
               <div class="rp-card-img">
+                <span class="rp-bs-badge">Best Seller</span>
                 <a href="/shop/products/tallow-eye-cream">
                   <img src="/img/shop/eyecream.webp" alt="Tallow Eye Cream" loading="lazy">
                 </a>
@@ -565,6 +654,7 @@
 
             <div class="rp-card">
               <div class="rp-card-img">
+                <span class="rp-bs-badge">Best Seller</span>
                 <a href="/shop/products/tallow-shampoo-bar">
                   <img src="/img/shampoobar/shampoo-bar-prodcutpage.webp" alt="Tallow Shampoo Bar" loading="lazy">
                 </a>
@@ -582,6 +672,7 @@
 
             <div class="rp-card">
               <div class="rp-card-img">
+                <span class="rp-bs-badge">Best Seller</span>
                 <a href="/shop/products/lip-balm">
                   <img src="/img/lip-balm-images1.webp" alt="Tallow Lip Balm" loading="lazy">
                 </a>
@@ -770,10 +861,39 @@
       </div><!-- end routines-grid -->
     </section>
 
+
+    <!-- ════════════════════════════════════════════════════
+         MORE PRODUCTS BRIDGE
+    ═════════════════════════════════════════════════════════ -->
+    <div class="more-products-bridge">
+      <div class="more-products-bridge-inner">
+        <div class="mpb-left">
+          <div class="mpb-icon">🧴</div>
+          <div>
+            <div class="mpb-text-label">Full Range Below</div>
+            <div class="mpb-text-title">27 products in total — balms, haircare, bundles, baby &amp; more</div>
+          </div>
+        </div>
+        <div class="mpb-products-strip">
+          <span class="mpb-pill">Honey Balm</span>
+          <span class="mpb-pill">Baby Butter</span>
+          <span class="mpb-pill">Deodorant</span>
+          <span class="mpb-pill">Liquid Soap</span>
+          <span class="mpb-pill">Beard Balm</span>
+          <span class="mpb-pill">Tallow Soap</span>
+          <span class="mpb-pill">+ more</span>
+        </div>
+        <a href="#all-products" class="mpb-arrow">
+          See all products
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </a>
+      </div>
+    </div>
+
     <!-- ════════════════════════════════════════════════════
          ALL PRODUCTS — FULL GRID
     ═════════════════════════════════════════════════════════ -->
-    <section class="all-products-section">
+    <section class="all-products-section" id="all-products">
       <div class="all-products-inner">
 
         <div class="shop-divider-inner">
