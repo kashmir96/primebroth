@@ -284,6 +284,60 @@
     .filter-options input[type="radio"]:checked + label { background: var(--pc-brown); color: #fff; border-color: var(--pc-brown); }
     .filter-options label:hover { background: var(--pc-brown-pale); border-color: var(--pc-brown-light); color: var(--pc-brown); }
 
+
+    /* ── REVIANA AWARENESS CARD ──────────────────────────── */
+    .rev-card-wrap { padding: 32px 0 0; padding-bottom: 56px; }
+    .rev-card {
+      border-radius: 18px; padding: 28px 32px;
+      display: flex; align-items: center; gap: 32px;
+      position: relative; overflow: hidden;
+      background-image: url('/img/aging-2.webp');
+      background-size: cover; background-position: center;
+    }
+    .rev-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(25,36,19,0.92) 0%, rgba(61,82,48,0.82) 100%);
+      border-radius: 18px;
+    }
+    .rev-card-imgs { display: flex; flex-shrink: 0; z-index: 2; }
+    .rev-card-img {
+      width: 64px; height: 64px; border-radius: 12px;
+      background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.15);
+      overflow: hidden; margin-left: -10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .rev-card-img:first-child { margin-left: 0; }
+    .rev-card-img img { width: 78%; height: 78%; object-fit: contain; padding: 2px; }
+    .rev-card-content { flex: 1; z-index: 2; }
+    .rev-card-eyebrow {
+      font-size: 0.6rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.16em; color: var(--rv-stone); margin-bottom: 6px; display: block;
+    }
+    .rev-card-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.15rem; font-weight: 400; color: #fff;
+      margin: 0 0 6px; line-height: 1.2;
+    }
+    .rev-card-title em { color: var(--rv-stone); font-style: italic; }
+    .rev-card-desc { font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.6; margin: 0; max-width: 480px; }
+    .rev-card-pills { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+    .rev-card-pill {
+      font-size: 0.62rem; font-weight: 600; color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px; padding: 3px 10px;
+    }
+    .rev-card-cta { flex-shrink: 0; z-index: 2; }
+    .rev-card-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #fff; color: var(--rv-forest);
+      padding: 12px 22px; border-radius: 100px;
+      font-weight: 700; font-size: 0.82rem;
+      text-decoration: none; transition: all 0.25s; white-space: nowrap;
+    }
+    .rev-card-btn:hover { background: var(--rv-stone); color: var(--pc-black); transform: translateY(-1px); }
+    .rev-card-btn svg { width: 13px; height: 13px; transition: transform 0.2s; }
+    .rev-card-btn:hover svg { transform: translateX(3px); }
+
     /* ── EANZ MODAL ──────────────────────────────────────── */
     .shop-eanz-modal-overlay {
       display: none; position: fixed; inset: 0; z-index: 99999;
