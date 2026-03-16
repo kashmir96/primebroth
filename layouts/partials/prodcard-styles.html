@@ -140,6 +140,14 @@
     background: #9CAF88;
     pointer-events: none;
 }
+.pp-card-atc.is-close {
+    background: none;
+    color: #8B7355;
+    border: 1px solid rgba(139,115,85,0.2);
+    font-weight: 600;
+    font-size: 0.7rem;
+}
+.pp-card-atc.is-close:hover { background: rgba(139,115,85,0.08); }
 
 .pp-card-view {
     background: rgba(139,115,85,0.1);
@@ -325,15 +333,17 @@
         document.querySelectorAll('.pp-card-variants-panel.open').forEach(function(p) {
             p.classList.remove('open');
             var otherBtn = p.closest('.pp-card').querySelector('[data-pp-variants]');
-            if (otherBtn) otherBtn.textContent = 'Add to Cart';
+            if (otherBtn) { otherBtn.textContent = 'Add to Cart'; otherBtn.classList.remove('is-close'); }
         });
 
         if (!isOpen) {
             panel.classList.add('open');
-            btn.textContent = 'Close';
+            btn.textContent = '✕ Close';
+            btn.classList.add('is-close');
             initVariantPanel(card, panel);
         } else {
             btn.textContent = 'Add to Cart';
+            btn.classList.remove('is-close');
         }
     });
 
