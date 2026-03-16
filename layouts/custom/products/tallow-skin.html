@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     {{- partial "head.html" . -}}
+    
     <meta name="description" content="{{ .Site.Params.homepage_meta_tags.meta_og_description }}" />
     <meta property="og:title" content="{{ .Site.Params.homepage_meta_tags.meta_og_title }}" />
     <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
@@ -13,6 +14,33 @@
     <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- <script src="https://js.stripe.com/v3/"></script> Stripe script -->
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Whipped Tallow Balm",
+    "description": "Naturally whipped tallow balm for dry, sensitive and eczema-prone skin. Made with grass-fed NZ beef tallow, organic jojoba oil and essential oils.",
+    "image": "https://www.primalpantry.co.nz/img/prod/balm/tallowwhite.webp",
+    "brand": { "@type": "Brand", "name": "PrimalCare by PrimalPantry" },
+    "offers": {
+        "@type": "Offer",
+        "url": "https://www.primalpantry.co.nz/shop/products/tallow-balm/",
+        "priceCurrency": "NZD",
+        "price": "18.95",
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "NZ" }
+        }
+    },
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.7",
+        "bestRating": "5",
+        "ratingCount": "1463"
+    }
+}
+</script>
 </head>
 <body>
 <style>
