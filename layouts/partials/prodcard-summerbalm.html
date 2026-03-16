@@ -9,23 +9,45 @@
         <div class="pp-card-name"><a href="/shop/products/tallow-summerbalm">Tallow + Zinc Summer Balm</a></div>
         <div class="pp-card-sub">700+ Kiwis</div>
         <div class="pp-card-price">
+            <span class="from">From </span>
             {{ with index site.Data.pricing.tallow.pricing.summer_balm 0 }}
             <span class="nz-content">${{ with .prices.NZ }}{{ .single_purchase }}{{ end }}</span>
             <span class="au-content" style="display:none;">A${{ with .prices.AU }}{{ .single_purchase }}{{ end }}</span>
             {{ end }}
         </div>
         <div class="pp-card-cta">
-            {{ with index site.Data.pricing.tallow.pricing.summer_balm 0 }}
-            <button class="pp-card-atc" data-pp-atc
-                data-pp-pid="{{ index (index site.Data.pricing.tallow.ids.summer_balm.single.rose_zinc "30ml") "NZ" }}"
-                data-pp-pid-au="{{ index (index site.Data.pricing.tallow.ids.summer_balm.single.rose_zinc "30ml") "AU" }}"
-                data-pp-price="{{ with .prices.NZ }}{{ .single_purchase }}{{ end }}"
-                data-pp-price-au="{{ with .prices.AU }}{{ .single_purchase }}{{ end }}"
-                data-pp-title="Tallow + Zinc Summer Balm"
-                data-pp-size="30ml"
-                data-pp-flavor="rose_zinc">Add to Cart</button>
-            {{ end }}
+            <button class="pp-card-atc" data-pp-variants>Add to Cart</button>
             <a href="/shop/products/tallow-summerbalm" class="pp-card-view">View</a>
         </div>
+    </div>
+    <script type="application/json" class="pp-card-variant-data">
+    {
+        "title": "Tallow + Zinc Summer Balm",
+        "defaultSize": "30ml",
+        "scents": ["rose_zinc"],
+        "sizes": ["30ml","120ml"],
+        "scentLabels": { "rose_zinc": "Rose Zinc" },
+        "flavorLabels": { "rose_zinc": "Rose Zinc" },
+        "pricing": [
+            {{ with index site.Data.pricing.tallow.pricing.summer_balm 0 }}{"size":"30ml","NZ":{{ with .prices.NZ }}{{ .single_purchase }}{{ end }},"AU":{{ with .prices.AU }}{{ .single_purchase }}{{ end }} }{{ end }},
+            {{ with index site.Data.pricing.tallow.pricing.summer_balm 1 }}{"size":"120ml","NZ":{{ with .prices.NZ }}{{ .single_purchase }}{{ end }},"AU":{{ with .prices.AU }}{{ .single_purchase }}{{ end }} }{{ end }}
+        ],
+        "ids": {
+            "single": {
+                "rose_zinc": {
+                    "30ml": {"NZ":"{{ index (index site.Data.pricing.tallow.ids.summer_balm.single.rose_zinc "30ml") "NZ" }}"{{ if index (index site.Data.pricing.tallow.ids.summer_balm.single.rose_zinc "30ml") "AU" }},"AU":"{{ index (index site.Data.pricing.tallow.ids.summer_balm.single.rose_zinc "30ml") "AU" }}"{{ end }} },
+                    "120ml": {"NZ":"{{ index (index site.Data.pricing.tallow.ids.summer_balm.single.rose_zinc "120ml") "NZ" }}"{{ if index (index site.Data.pricing.tallow.ids.summer_balm.single.rose_zinc "120ml") "AU" }},"AU":"{{ index (index site.Data.pricing.tallow.ids.summer_balm.single.rose_zinc "120ml") "AU" }}"{{ end }} }
+                }
+            }
+        }
+    }
+    </script>
+    <div class="pp-card-variants-panel">
+        <div class="pp-var-row">
+            <span class="pp-var-label">Size</span>
+            <select class="pp-var-select pp-var-size"></select>
+        </div>
+        <div class="pp-var-price"></div>
+        <button class="pp-var-submit" disabled>Add to Cart</button>
     </div>
 </div>

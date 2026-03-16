@@ -38,7 +38,7 @@
     * { box-sizing: border-box; }
 
     /* ── SOOTHE SECTION ──────────────────────────────────── */
-    .soothe-section { background: var(--pc-cream); padding: 56px 0 0; }
+    .soothe-section { background: var(--pc-cream); padding: 56px 0 24px; }
     .soothe-inner { max-width: 1280px; margin: 0 auto; padding: 0 80px; }
 
     .soothe-header {
@@ -63,41 +63,36 @@
       line-height: 1.65; max-width: 460px; margin: 0;
     }
 
-    /* EANZ badge */
+    /* EANZ badge — matches homepage hero-eanz */
     .eanz-badge {
-      display: inline-flex; align-items: center; gap: 12px;
+      display: inline-flex; align-items: center; gap: 14px;
       background: #fff; border: 1px solid var(--pc-border);
-      border-radius: 14px; padding: 10px 16px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05); flex-shrink: 0;
+      border-radius: 16px; padding: 14px 20px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06); flex-shrink: 0;
     }
-    .eanz-badge img { height: 44px; width: auto; }
+    .eanz-badge img { height: 52px; width: auto; }
     .eanz-badge-text { display: flex; flex-direction: column; }
     .eanz-badge-label {
-      font-size: 0.58rem; font-weight: 800; text-transform: uppercase;
+      font-size: 0.62rem; font-weight: 800; text-transform: uppercase;
       letter-spacing: 0.14em; color: var(--pc-green); line-height: 1.3;
     }
-    .eanz-badge-title { font-size: 0.78rem; font-weight: 700; color: var(--pc-black); line-height: 1.25; }
-    .eanz-badge-commit { font-size: 0.68rem; color: var(--pc-brown); line-height: 1.4; margin-top: 1px; }
+    .eanz-badge-title { font-size: 0.88rem; font-weight: 700; color: var(--pc-black); line-height: 1.25; }
+    .eanz-badge-commit { font-size: 0.72rem; color: var(--pc-brown); line-height: 1.4; margin-top: 2px; }
     .eanz-badge-btn {
-      font-size: 0.66rem; font-weight: 700; color: var(--pc-green);
-      background: none; border: none; padding: 0; margin-top: 3px;
-      cursor: pointer; display: inline-flex; align-items: center; gap: 3px;
+      font-size: 0.68rem; font-weight: 700; color: var(--pc-green);
+      background: none; border: none; padding: 0; margin-top: 4px;
+      cursor: pointer; display: inline-flex; align-items: center; gap: 4px;
       transition: gap 0.2s; font-family: 'DM Sans', sans-serif;
     }
-    .eanz-badge-btn:hover { gap: 6px; }
-    .eanz-badge-btn svg { width: 10px; height: 10px; }
+    .eanz-badge-btn:hover { gap: 7px; }
+    .eanz-badge-btn svg { width: 11px; height: 11px; }
 
     /* ── BUNDLE CARD ─────────────────────────────────────── */
     .soothe-bundle {
       background: var(--pc-brown); border-radius: 18px;
       padding: 22px 28px; display: flex; align-items: center;
-      gap: 28px; margin-top: 14px; margin-bottom: 18px; position: relative; overflow: visible;
+      gap: 28px; margin-top: 14px; margin-bottom: 0; position: relative; overflow: hidden;
       flex-wrap: wrap;
-    }
-    .soothe-bundle::before {
-      content: ''; position: absolute; top: -50px; right: -50px;
-      width: 180px; height: 180px; border-radius: 50%;
-      background: rgba(255,255,255,0.04);
     }
     .soothe-bundle-badge {
       position: absolute; top: -10px; right: 16px;
@@ -107,8 +102,8 @@
     }
     .soothe-bundle-imgs { display: flex; flex-shrink: 0; z-index: 1; }
     .soothe-bundle-img {
-      width: 80px; height: 80px; border-radius: 12px;
-      background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.18);
+      width: 100px; height: 100px; border-radius: 14px;
+      background: none; border: none;
       overflow: hidden; margin-left: 0;
       display: flex; align-items: center; justify-content: center;
     }
@@ -314,13 +309,13 @@
             <p class="soothe-subtitle">Our best-sellers for sensitive, reactive and dry skin — built around pure tallow.</p>
           </div>
           <div class="eanz-badge">
-            <img src="/img/home/eanz.webp" alt="Eczema Association NZ" width="44" height="44">
+            <img src="/img/home/eanz.webp" alt="Eczema Association of New Zealand" width="52" height="52">
             <div class="eanz-badge-text">
-              <span class="eanz-badge-label">Gold Supporters</span>
-              <span class="eanz-badge-title">Eczema Assoc. of NZ</span>
-              <span class="eanz-badge-commit">$70k committed to Kiwis</span>
+              <span class="eanz-badge-label">Official Gold Supporters</span>
+              <span class="eanz-badge-title">Eczema Association of New Zealand</span>
+              <span class="eanz-badge-commit">$70,000 committed to Kiwis with eczema</span>
               <button class="eanz-badge-btn" onclick="document.getElementById('shop-eanz-modal').classList.add('is-open');document.body.style.overflow='hidden';">
-                What's this?
+                What's this mean?
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </button>
             </div>
@@ -331,7 +326,7 @@
         <div class="soothe-bundle">
           <span class="soothe-bundle-badge">Best Value</span>
           <div class="soothe-bundle-imgs">
-            <div class="soothe-bundle-img" style="width:72px;height:72px;border-radius:12px;"><img src="/img/shop/shop-gold.webp" alt="Gold Stack Bundle" style="width:100%;height:100%;object-fit:cover;padding:0;"></div>
+            <div class="soothe-bundle-img"><img src="/img/shop/shop-gold.webp" alt="Gold Stack Bundle" style="width:100%;height:100%;object-fit:cover;padding:0;"></div>
           </div>
           <div class="soothe-bundle-content">
             <div class="soothe-bundle-name">The Gold Stack</div>

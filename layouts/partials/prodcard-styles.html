@@ -362,8 +362,12 @@
         var priceEl = panel.querySelector('.pp-var-price');
         var submitBtn = panel.querySelector('.pp-var-submit');
 
-        // Populate scent dropdown
+        // Populate scent dropdown (hide if only one scent)
         if (scentSel && data.scents) {
+            if (data.scents.length <= 1) {
+                var scentRow = scentSel.closest('.pp-var-row');
+                if (scentRow) scentRow.style.display = 'none';
+            }
             scentSel.innerHTML = '';
             data.scents.forEach(function(s) {
                 var opt = document.createElement('option');
@@ -374,13 +378,13 @@
             });
         }
 
-        // Populate size dropdown
+        // Populate size dropdown (add Best Value to 250ml)
         if (sizeSel && data.sizes) {
             sizeSel.innerHTML = '';
             data.sizes.forEach(function(sz) {
                 var opt = document.createElement('option');
                 opt.value = sz;
-                opt.textContent = sz;
+                opt.textContent = sz === '250ml' ? sz + ' — Best Value' : sz;
                 if (data.defaultSize && sz === data.defaultSize) opt.selected = true;
                 sizeSel.appendChild(opt);
             });
