@@ -282,6 +282,17 @@
             eligibleForDiscount: false
         });
         localStorage.setItem('cartV2', JSON.stringify(cart));
+        // Open the cart drawer
+        if (typeof window.ppOpenCartDrawer === 'function') {
+            window.ppOpenCartDrawer();
+        } else {
+            // Fallback: open drawer directly via DOM if IIFE hasn't run yet
+            var d = document.getElementById('ppCartDrawer');
+            var o = document.getElementById('ppCartOverlay');
+            if (d) d.classList.add('open');
+            if (o) o.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
     };
 
     // Single-SKU quick add
