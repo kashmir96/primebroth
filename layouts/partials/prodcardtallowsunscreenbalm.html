@@ -1,24 +1,31 @@
-<!-- Soap single product card -->
-<div class="product-card grow col-xxl-3 col-lg-4 col-md-4" data-category="skincare" id="prodcardtallowsunscreenbalm"><a href="/shop/products/tallow-sunscreen-balm">
-  <p class="stamp">New</p>
-  <img src="/img/sunscreen/main.webp" alt="">
-  <div class="product-details">
-    <p><span class="nz-content" style="display:inline;">{{ with index site.Data.pricing.tallow.pricing.sunscreen 0 }}
-      {{ with .prices.NZ }}
-          ${{ .single_purchase }}
-      {{ end }}
-  {{ end }}
-  </span>
-  <span class="au-content" style="display:none;">
-      {{ with index site.Data.pricing.tallow.pricing.sunscreen 0 }}
-      {{ with .prices.AU }}
-         ${{ .single_purchase }}
-      {{ end }}
-  {{ end }}
-  </span></p>
-    <h6>Tallow Sunbalm</h6>
-    <p>400+ kiwis</p>
-
-  </div>
-</a>
+<div class="product-card pp-card" data-category="skincare" id="prodcardtallowsunscreenbalm">
+    <span class="pp-card-badge">New</span>
+    <div class="pp-card-img">
+        <a href="/shop/products/tallow-sunscreen-balm">
+            <img src="/img/sunscreen/main.webp" alt="Tallow Sunbalm" loading="lazy">
+        </a>
+    </div>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/shop/products/tallow-sunscreen-balm">Tallow Sunbalm</a></div>
+        <div class="pp-card-sub">400+ kiwis</div>
+        <div class="pp-card-price">
+            {{ with index site.Data.pricing.tallow.pricing.sunscreen 0 }}
+            <span class="nz-content">${{ with .prices.NZ }}{{ .single_purchase }}{{ end }}</span>
+            <span class="au-content" style="display:none;">A${{ with .prices.AU }}{{ .single_purchase }}{{ end }}</span>
+            {{ end }}
+        </div>
+        <div class="pp-card-cta">
+            {{ with index site.Data.pricing.tallow.pricing.sunscreen 0 }}
+            <button class="pp-card-atc" data-pp-atc
+                data-pp-pid="{{ index (index site.Data.pricing.tallow.ids.sunscreen.single.unscented "50ml") "NZ" }}"
+                data-pp-pid-au="{{ index (index site.Data.pricing.tallow.ids.sunscreen.single.unscented "50ml") "AU" }}"
+                data-pp-price="{{ with .prices.NZ }}{{ .single_purchase }}{{ end }}"
+                data-pp-price-au="{{ with .prices.AU }}{{ .single_purchase }}{{ end }}"
+                data-pp-title="Tallow Sunbalm"
+                data-pp-size="50ml"
+                data-pp-flavor="unscented">Add to Cart</button>
+            {{ end }}
+            <a href="/shop/products/tallow-sunscreen-balm" class="pp-card-view">View</a>
+        </div>
+    </div>
 </div>

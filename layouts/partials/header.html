@@ -53,20 +53,19 @@
                 <span class="bottom"></span>
             </div>
         </div>
-        
+
         <div class="flex items-center flex-shrink-0 text-xl text-grey-900">
             <a href="{{ .Site.BaseURL }}" aria-label="PrimalPantry">
                 <img alt="{{ .Site.Params.logo.alt }}" class="sitelogo mr-3" src="{{ .Site.Params.logo.main | relURL }}">
             </a>
         </div>
 
-        <a class="iglink lg:hidden" href="/cart">
+        <button class="iglink lg:hidden pp-cart-trigger" aria-label="Open cart" style="background:none;border:none;cursor:pointer;padding:0;">
             <div class="cart-icon-container" style="position: relative; display: inline-block;">
                 <img src="/img/cart.webp" alt="Cart for PrimalPantry" class="cart-icon">
-                <!-- Badge for mobile cart icon -->
-                <span class="cart-badge" style="display: none; position: absolute; top: 0; right: 0; background-color: red; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px;">1</span>
+                <span class="cart-badge" style="display:none;position:absolute;top:0;right:0;background-color:#9CAF88;color:white;border-radius:50%;width:20px;height:20px;align-items:center;justify-content:center;font-size:12px;">0</span>
             </div>
-        </a>
+        </button>
 
         <div class="hidden w-full block flex-grow lg:flex lg:items-center lg:w-auto" id="mobileMenu">
             <div class="text-lg lg:flex-grow">
@@ -78,220 +77,17 @@
                 </a>
                 {{ end }}
             </div>
-            <a class="iglink mob-hide mr-6" href="/cart">
+            <button class="iglink mob-hide mr-6 pp-cart-trigger" aria-label="Open cart" style="background:none;border:none;cursor:pointer;padding:0;">
                 <div class="cart-icon-container" style="position: relative; display: inline-block;">
                     <img src="/img/cart.webp" alt="Cart for PrimalPantry" class="cart-icon">
-                    <!-- Badge for desktop cart icon -->
-                    <span class="cart-badge" style="display: none; position: absolute; top: 0; right: 0; background-color: red; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px;">1</span>
+                    <span class="cart-badge" style="display:none;position:absolute;top:0;right:0;background-color:#9CAF88;color:white;border-radius:50%;width:20px;height:20px;align-items:center;justify-content:center;font-size:12px;">0</span>
                 </div>
-            </a>
+            </button>
         </div>
     </nav>
-
-    <style>
-        @keyframes cartBounce {
-            0%, 100% { transform: scale(1); }
-            20% { transform: scale(1.2) rotate(-10deg); }
-            40% { transform: scale(1.1) rotate(10deg); }
-            60% { transform: scale(1.15) rotate(-5deg); }
-            80% { transform: scale(1.05) rotate(3deg); }
-        }
-
-        @keyframes badgePop {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.4); background-color: #ff4444; }
-            100% { transform: scale(1); background-color: red; }
-        }
-
-        .cart-icon-container.bounce .cart-icon {
-            animation: cartBounce 0.6s ease-in-out;
-        }
-
-        .cart-icon-container.bounce .cart-badge {
-            animation: badgePop 0.4s ease-in-out;
-        }
-
-        /* Fixed cart notification that appears when item added */
-        .cart-notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: white;
-            border-radius: 10px;
-            padding: 15px 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            z-index: 99999;
-            display: none;
-            align-items: center;
-            gap: 12px;
-            border: 2px solid #98fb98;
-        }
-
-        .cart-notification.show {
-            display: flex !important;
-            animation: slideIn 0.3s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideOut {
-            from {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-        }
-
-        .cart-notification.hide {
-            animation: slideOut 0.3s ease-in forwards;
-        }
-
-        .cart-notification .notification-icon {
-            width: 40px;
-            height: 40px;
-        }
-
-        .cart-notification .notification-text {
-            font-weight: 500;
-        }
-
-        .cart-notification .notification-text small {
-            display: block;
-            color: #666;
-            font-weight: normal;
-        }
-
-        .cart-notification .go-to-cart {
-            background: #000;
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 14px;
-            white-space: nowrap;
-        }
-
-        .cart-notification .go-to-cart:hover {
-            background: #333;
-            color: #fff;
-        }
-    </style>
-
-    <!-- Fixed Cart Notification -->
-    <div class="cart-notification" id="cartNotification">
-        <img src="/img/cart.webp" alt="Cart" class="notification-icon">
-        <div class="notification-text">
-            Added to cart!
-            <small id="notificationProductName"></small>
-        </div>
-        <a href="/cart" class="go-to-cart">View Cart</a>
-    </div>
 </header>
 
-<!-- Script for Cart Badges -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('Script loaded and DOM content fully loaded.');
-
-        const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
-        const cartBadges = document.querySelectorAll('.cart-badge');
-        const tiktokparams = new URLSearchParams(window.location.search);
-        const ttclid = tiktokparams.get('ttclid');
-        if (ttclid) {
-            localStorage.setItem('ttclid', ttclid);
-        }
-
-        console.log('Cart contents:', cart);
-
-        if (cart.length > 0) {
-            cartBadges.forEach(badge => {
-                badge.style.display = 'flex';
-                badge.textContent = cart.length;
-            });
-        } else {
-            cartBadges.forEach(badge => {
-                badge.style.display = 'none';
-            });
-        }
-    });
-</script>
-
-<!-- Global Cart Functions -->
-<script>
-    // Global function to update cart badge
-    function updateCartBadge() {
-        const cart = JSON.parse(localStorage.getItem('cartV2')) || [];
-        const cartBadges = document.querySelectorAll('.cart-badge');
-        
-        if (cart.length > 0) {
-            cartBadges.forEach(badge => {
-                badge.style.display = 'flex';
-                badge.textContent = cart.length;
-            });
-        } else {
-            cartBadges.forEach(badge => {
-                badge.style.display = 'none';
-            });
-        }
-    }
-
-    // Global function to trigger cart icon bounce and show notification
-    function triggerCartBounce(productName) {
-        console.log('triggerCartBounce called with:', productName);
-        
-        // Bounce the cart icons
-        const cartContainers = document.querySelectorAll('.cart-icon-container');
-        cartContainers.forEach(container => {
-            container.classList.remove('bounce');
-            void container.offsetWidth;
-            container.classList.add('bounce');
-            setTimeout(() => container.classList.remove('bounce'), 700);
-        });
-        
-        // Show fixed notification
-        const notification = document.getElementById('cartNotification');
-        const productNameEl = document.getElementById('notificationProductName');
-        
-        console.log('Notification element:', notification);
-        
-        if (notification) {
-            // Reset state
-            notification.classList.remove('hide');
-            notification.classList.remove('show');
-            void notification.offsetWidth;
-            
-            // Show it
-            notification.classList.add('show');
-            
-            if (productNameEl && productName) {
-                productNameEl.textContent = productName;
-            }
-            
-            // Auto-hide after 3 seconds
-            setTimeout(() => {
-                notification.classList.add('hide');
-                setTimeout(() => {
-                    notification.classList.remove('show');
-                    notification.classList.remove('hide');
-                }, 300);
-            }, 3000);
-        } else {
-            console.error('Cart notification element not found!');
-        }
-    }
-</script>
+{{- partial "cart-drawer.html" . -}}
 
 <script>
     // Disable link for out of stock

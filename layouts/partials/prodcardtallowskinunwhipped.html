@@ -1,42 +1,31 @@
-<!-- Tallow skin product card -->
-<div class="product-card grow left col-xxl-3 col-lg-4 col-md-4" data-category="skincare">
-  <a href="/shop/products/unwhipped-tallow-balm">
-      <div class="product-card-inner">
-              <p class="stamp">Online Exclusive</p>
-
-          <img src="/img/shop/shop-unwhipped.webp" alt="Shop Unwhipped balm">
-          <div class="product-details">
-            <!-- Price partial inclusion -->
-          <p class="h5"><span class="nz-content" style="display:inline;">
-          {{ with index site.Data.pricing.tallow.pricing.tallowunwhip 0 }}
-          {{ with .prices.NZ }}
-              <span class=""> ${{ .single_purchase }}</span>   
-          {{ end }}
-          {{ end }}
-          <!-- {{ with index site.Data.pricing.tallow.discount_from.balm 0 }}
-              {{ with .prices.NZ }}
-          <span class=" small text-decoration-line-through">${{ .single_purchase }}</span>
-          {{ end }}
-          {{ end }}
-          -->
-          </span>
-        <span class="au-content" style="display:none;">
-            {{ with index site.Data.pricing.tallow.pricing.tallowunwhip 0 }}
-            {{ with .prices.AU }}
-                <span class="">From ${{ .single_purchase }}</span> 
-                {{ end }}
-                {{ end }}
-            <!-- {{ with index site.Data.pricing.tallow.discount_from.balm 0 }}
-                {{ with .prices.AU }}
-            <span class=" small text-decoration-line-through">${{ .single_purchase }}</span>
-          {{ end }}
-          {{ end }} -->
-        </span></p>
-
-        <p class="h5 fw-bold">Unwhipped Tallow Balm </p>
-        <p>5,000+ Kiwis</p>
-      </div>
+<div class="pp-card" data-category="skincare" id="prodcardtallowskinunwhipped">
+    <span class="pp-card-badge">Online Exclusive</span>
+    <div class="pp-card-img">
+        <a href="/shop/products/unwhipped-tallow-balm">
+            <img src="/img/shop/shop-unwhipped.webp" alt="Unwhipped Tallow Balm" loading="lazy">
+        </a>
     </div>
-  </a>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/shop/products/unwhipped-tallow-balm">Unwhipped Tallow Balm</a></div>
+        <div class="pp-card-sub">5,000+ Kiwis</div>
+        <div class="pp-card-price">
+            {{ with index site.Data.pricing.tallow.pricing.tallowunwhip 0 }}
+            <span class="nz-content">${{ with .prices.NZ }}{{ .single_purchase }}{{ end }}</span>
+            <span class="au-content" style="display:none;">A${{ with .prices.AU }}{{ .single_purchase }}{{ end }}</span>
+            {{ end }}
+        </div>
+        <div class="pp-card-cta">
+            {{ with index site.Data.pricing.tallow.pricing.tallowunwhip 0 }}
+            <button class="pp-card-atc" data-pp-atc
+                data-pp-pid="{{ index (index (index site.Data.pricing.tallow.ids.tallowunwhip.single "vanilla-rose") "60ml") "NZ" }}"
+                data-pp-pid-au="{{ index (index (index site.Data.pricing.tallow.ids.tallowunwhip.single "vanilla-rose") "60ml") "AU" }}"
+                data-pp-price="{{ with .prices.NZ }}{{ .single_purchase }}{{ end }}"
+                data-pp-price-au="{{ with .prices.AU }}{{ .single_purchase }}{{ end }}"
+                data-pp-title="Unwhipped Tallow Balm"
+                data-pp-size="60ml"
+                data-pp-flavor="Vanilla Rose">Add to Cart</button>
+            {{ end }}
+            <a href="/shop/products/unwhipped-tallow-balm" class="pp-card-view">View</a>
+        </div>
+    </div>
 </div>
-

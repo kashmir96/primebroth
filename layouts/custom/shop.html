@@ -16,6 +16,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+    {{- partial "prodcard-styles.html" . -}}
+
     <style>
     /* ── VARIABLES ───────────────────────────────────────── */
     :root {
@@ -137,64 +139,7 @@
     }
     .soothe-bundle-atc:hover { background: var(--pc-brown-light); color: var(--pc-black); transform: translateY(-1px); }
 
-    /* ── PRODUCT CARDS ───────────────────────────────────── */
-    .soothe-products-label {
-      font-size: 0.62rem; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.16em; color: var(--pc-warm-gray); margin-bottom: 12px;
-    }
-    .soothe-p-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 12px; margin-bottom: 18px;
-    }
-    .soothe-p-card {
-      background: #fff; border: 1px solid var(--pc-border);
-      border-radius: 16px; overflow: hidden;
-      display: flex; flex-direction: column;
-      transition: transform 0.28s, box-shadow 0.28s;
-      position: relative;
-    }
-    .soothe-p-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(123,92,58,0.1); }
-    .soothe-p-badge {
-      position: absolute; top: 8px; left: 8px; z-index: 3;
-      font-size: 0.55rem; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.1em; padding: 3px 9px; border-radius: 100px;
-      background: var(--pc-brown); color: #fff;
-    }
-    .soothe-p-img {
-      aspect-ratio: 1; background: #fff;
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden; position: relative;
-    }
-    .soothe-p-img a {
-      display: flex; align-items: center; justify-content: center;
-      width: 100%; height: 100%; position: absolute; inset: 0;
-    }
-    .soothe-p-img img {
-      width: 78%; height: 78%; object-fit: contain;
-      transition: transform 0.4s ease;
-    }
-    .soothe-p-card:hover .soothe-p-img img { transform: scale(1.06); }
-    .soothe-p-body { padding: 12px 14px 14px; flex: 1; display: flex; flex-direction: column; background: var(--pc-cream); }
-    .soothe-p-name {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 0.9rem; font-weight: 400; color: var(--pc-black); margin-bottom: 2px;
-    }
-    .soothe-p-sub { font-size: 0.7rem; color: var(--pc-warm-gray); margin-bottom: 8px; line-height: 1.4; }
-    .soothe-p-price { font-size: 0.95rem; font-weight: 700; color: var(--pc-brown); margin-bottom: 10px; flex: 1; }
-    .soothe-p-cta { display: flex; gap: 6px; }
-    .soothe-p-atc {
-      flex: 1; background: var(--pc-brown); color: #fff;
-      border: none; padding: 8px 10px; border-radius: 7px;
-      font-weight: 700; font-size: 0.72rem; cursor: pointer; transition: all 0.2s;
-    }
-    .soothe-p-atc:hover { background: var(--pc-brown-mid); }
-    .soothe-p-view {
-      background: var(--pc-brown-pale); color: var(--pc-brown);
-      border: 1px solid var(--pc-border); padding: 8px 10px; border-radius: 7px;
-      font-weight: 600; font-size: 0.72rem; cursor: pointer; transition: all 0.2s;
-      text-decoration: none; display: inline-flex; align-items: center; justify-content: center;
-    }
-    .soothe-p-view:hover { background: var(--pc-cream-deep); }
+    /* Product cards now use shared pp-card styles from prodcard-styles.html */
 
     /* ── RITUAL STRIP ────────────────────────────────────── */
     .soothe-ritual {
@@ -285,59 +230,6 @@
     .filter-options label:hover { background: var(--pc-brown-pale); border-color: var(--pc-brown-light); color: var(--pc-brown); }
 
 
-    /* ── REVIANA AWARENESS CARD ──────────────────────────── */
-    .rev-card-wrap { padding: 32px 0 0; padding-bottom: 56px; }
-    .rev-card {
-      border-radius: 18px; padding: 28px 32px;
-      display: flex; align-items: center; gap: 32px;
-      position: relative; overflow: hidden;
-      background-image: url('/img/aging-2.webp');
-      background-size: cover; background-position: center;
-    }
-    .rev-card::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(25,36,19,0.92) 0%, rgba(61,82,48,0.82) 100%);
-      border-radius: 18px;
-    }
-    .rev-card-imgs { display: flex; flex-shrink: 0; z-index: 2; }
-    .rev-card-img {
-      width: 64px; height: 64px; border-radius: 12px;
-      background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.15);
-      overflow: hidden; margin-left: -10px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .rev-card-img:first-child { margin-left: 0; }
-    .rev-card-img img { width: 78%; height: 78%; object-fit: contain; padding: 2px; }
-    .rev-card-content { flex: 1; z-index: 2; }
-    .rev-card-eyebrow {
-      font-size: 0.6rem; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.16em; color: var(--rv-stone); margin-bottom: 6px; display: block;
-    }
-    .rev-card-title {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1.15rem; font-weight: 400; color: #fff;
-      margin: 0 0 6px; line-height: 1.2;
-    }
-    .rev-card-title em { color: var(--rv-stone); font-style: italic; }
-    .rev-card-desc { font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.6; margin: 0; max-width: 480px; }
-    .rev-card-pills { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
-    .rev-card-pill {
-      font-size: 0.62rem; font-weight: 600; color: rgba(255,255,255,0.5);
-      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 100px; padding: 3px 10px;
-    }
-    .rev-card-cta { flex-shrink: 0; z-index: 2; }
-    .rev-card-btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: #fff; color: var(--rv-forest);
-      padding: 12px 22px; border-radius: 100px;
-      font-weight: 700; font-size: 0.82rem;
-      text-decoration: none; transition: all 0.25s; white-space: nowrap;
-    }
-    .rev-card-btn:hover { background: var(--rv-stone); color: var(--pc-black); transform: translateY(-1px); }
-    .rev-card-btn svg { width: 13px; height: 13px; transition: transform 0.2s; }
-    .rev-card-btn:hover svg { transform: translateX(3px); }
-
     /* ── EANZ MODAL ──────────────────────────────────────── */
     .shop-eanz-modal-overlay {
       display: none; position: fixed; inset: 0; z-index: 99999;
@@ -374,9 +266,6 @@
     /* ── RESPONSIVE ──────────────────────────────────────── */
     @media (max-width: 1100px) {
       .soothe-inner, .all-products-inner, .mpb-wrap { padding-left: 24px; padding-right: 24px; }
-      .soothe-p-grid { grid-template-columns: repeat(2, 1fr); }
-      .rev-card { flex-direction: column; align-items: flex-start; gap: 18px; padding: 24px; }
-      .rev-card-imgs { display: none; }
     }
     @media (max-width: 860px) {
       .soothe-section { padding-top: 36px; }
@@ -386,38 +275,15 @@
       .soothe-header { flex-direction: column; gap: 12px; }
       .eanz-badge { display: none; }
 
-      /* horizontal scroll strip */
-      .soothe-p-grid {
-        display: flex !important;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        gap: 10px;
-        padding-left: 20px;
-        padding-right: 20px;
-        padding-bottom: 10px;
-        margin-left: -20px;
-        margin-right: -20px;
-        scrollbar-width: none;
-      }
-      .soothe-p-grid::-webkit-scrollbar { display: none; }
-      .soothe-p-card { flex: 0 0 155px; min-width: 155px; scroll-snap-align: start; }
-      .soothe-products-label::after { content: ' — swipe →'; opacity: 0.45; font-weight: 400; text-transform: none; letter-spacing: 0; }
-
       .soothe-bundle { flex-direction: column; align-items: flex-start; gap: 12px; padding: 20px; }
       .soothe-bundle-imgs { display: none; }
       .soothe-bundle-row { flex-direction: row; align-items: center; }
 
-      .rev-card-wrap { padding: 24px 0 40px; }
       .mpb-inner { flex-direction: column; align-items: flex-start; gap: 10px; }
       .mpb-pills { display: none; }
 
       .shop-eanz-modal-body { grid-template-columns: 1fr; gap: 24px; padding: 28px 20px; }
       .shop-eanz-modal-right { flex-direction: column; align-items: center; text-align: center; }
-    }
-    @media (max-width: 480px) {
-      .soothe-p-card { flex: 0 0 142px; min-width: 142px; }
-      .rev-card-title { font-size: 1rem; }
     }
     </style>
 </head>
@@ -485,115 +351,6 @@
           </div>
         </div>
 
-        <!-- 4 Best Seller Cards -->
-        <p class="soothe-products-label">Best sellers — individual</p>
-        <div class="soothe-p-grid">
-
-          <div class="soothe-p-card">
-            <span class="soothe-p-badge">Best Seller</span>
-            <div class="soothe-p-img">
-              <a href="/shop/products/tallow-skin">
-                <img src="/img/shop/balm.webp" alt="Whipped Tallow Balm" loading="lazy">
-              </a>
-            </div>
-            <div class="soothe-p-body">
-              <div class="soothe-p-name">Tallow Balm</div>
-              <div class="soothe-p-sub">Face &amp; body · from 60ml</div>
-              <div class="soothe-p-price">From $18.95</div>
-              <div class="soothe-p-cta">
-                <a href="/shop/products/tallow-skin" class="soothe-p-atc" style="text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;">Shop</a>
-                <a href="/shop/products/tallow-skin" class="soothe-p-view">View</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="soothe-p-card">
-            <span class="soothe-p-badge">Best Seller</span>
-            <div class="soothe-p-img">
-              <a href="/shop/products/tallow-eye-cream">
-                <img src="/img/shop/eyecream.webp" alt="Tallow Eye Cream" loading="lazy">
-              </a>
-            </div>
-            <div class="soothe-p-body">
-              <div class="soothe-p-name">Eye Cream</div>
-              <div class="soothe-p-sub">Dark circles &amp; fine lines</div>
-              <div class="soothe-p-price">$27.95</div>
-              <div class="soothe-p-cta">
-                <a href="/shop/products/tallow-eye-cream" class="soothe-p-atc" style="text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;">Shop</a>
-                <a href="/shop/products/tallow-eye-cream" class="soothe-p-view">View</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="soothe-p-card">
-            <span class="soothe-p-badge">Best Seller</span>
-            <div class="soothe-p-img">
-              <a href="/shop/products/tallow-shampoo-bar">
-                <img src="/img/shampoobar/shampoo-bar-prodcutpage.webp" alt="Tallow Shampoo Bar" loading="lazy">
-              </a>
-            </div>
-            <div class="soothe-p-body">
-              <div class="soothe-p-name">Shampoo Bar</div>
-              <div class="soothe-p-sub">Scalp-soothing · 120g</div>
-              <div class="soothe-p-price">$17.95</div>
-              <div class="soothe-p-cta">
-                <a href="/shop/products/tallow-shampoo-bar" class="soothe-p-atc" style="text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;">Shop</a>
-                <a href="/shop/products/tallow-shampoo-bar" class="soothe-p-view">View</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="soothe-p-card">
-            <span class="soothe-p-badge">Best Seller</span>
-            <div class="soothe-p-img">
-              <a href="/shop/products/tallow-lip-balm">
-                <img src="/img/lip-balm-images1.webp" alt="Tallow Lip Balm" loading="lazy">
-              </a>
-            </div>
-            <div class="soothe-p-body">
-              <div class="soothe-p-name">Lip Balm</div>
-              <div class="soothe-p-sub">Manuka honey · 10ml</div>
-              <div class="soothe-p-price">$12.95</div>
-              <div class="soothe-p-cta">
-                <a href="/shop/products/tallow-lip-balm" class="soothe-p-atc" style="text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;">Shop</a>
-                <a href="/shop/products/tallow-lip-balm" class="soothe-p-view">View</a>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        
-
-        <!-- Reviana awareness card -->
-        <div class="rev-card-wrap">
-          <div class="rev-card">
-            <div class="rev-card-imgs">
-              <div class="rev-card-img"><img src="/img/daycream-2.webp" alt="Day Cream"></div>
-              <div class="rev-card-img"><img src="/img/eyecream-3.webp" alt="Eye Cream"></div>
-              <div class="rev-card-img"><img src="/img/serum-2.webp" alt="Serum"></div>
-              <div class="rev-card-img"><img src="/img/nightcream.webp" alt="Night Cream"></div>
-            </div>
-            <div class="rev-card-content">
-              <span class="rev-card-eyebrow">Also by PrimalPantry · New</span>
-              <h3 class="rev-card-title">Reviana — tallow elevated for <em>brighter, more even-looking skin.</em></h3>
-              <p class="rev-card-desc">Ultra-purified cosmetic tallow meets Vitamin C, Bakuchiol, Peptides and Ceramides. A more refined facial ritual, built on the same tallow foundation.</p>
-              <div class="rev-card-pills">
-                <span class="rev-card-pill">Vitamin C</span>
-                <span class="rev-card-pill">Bakuchiol</span>
-                <span class="rev-card-pill">Ceramides</span>
-                <span class="rev-card-pill">Peptides</span>
-                <span class="rev-card-pill">NZ Made</span>
-              </div>
-            </div>
-            <div class="rev-card-cta">
-              <a href="/cosmetic-tallow-reviana/" class="rev-card-btn">
-                Discover Reviana
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
-            </div>
-          </div>
-        </div>
 
       </div>
     </section>
@@ -604,11 +361,15 @@
     ═════════════════════════════════════════════════════════ -->
     <section class="all-products-section" id="all-products">
       <div class="all-products-inner">
-        <div class="row shopdiv gx-3 gx-lg-5">
+        <div class="pp-card-grid" id="product-grid">
+            <!-- Best Sellers (1-4) -->
             {{- partial "prodcardtallowskin.html" . -}}
             {{- partial "prodcard-honeybalm.html" . -}}
             {{- partial "prodcard-talloweye.html" . -}}
             {{- partial "prodcard-serum.html" . -}}
+            <!-- Reviana (position 5) -->
+            {{- partial "prodcard-reviana.html" . -}}
+            <!-- All other products -->
             {{- partial "prodcard-day-n-night.html" . -}}
             {{- partial "prodcard-baby-butter.html" . -}}
             {{- partial "prodcard-scalpbundle.html" . -}}
@@ -636,20 +397,7 @@
       </div>
     </section>
 
-    <!-- Cart Modal -->
-    <div class="modal fade" id="addedToCartModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog"><div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Item Added to Cart</h5>
-          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body" id="cartModalBody">Your item has been added to the cart.</div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
-          <a href="/cart" class="btn btn-black">Go to Cart</a>
-        </div>
-      </div></div>
-    </div>
+    <!-- Cart Modal (replaced by cart drawer) -->
 
     <!-- EANZ Modal -->
     <div class="shop-eanz-modal-overlay" id="shop-eanz-modal" onclick="if(event.target===this){this.classList.remove('is-open');document.body.style.overflow=''}">
@@ -678,18 +426,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
     <script>
-    function ppAddToCart(pid, price, title, size, flavor) {
-      var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
-      cart.push({ priceId: pid, title: title, size: size, flavor: flavor, orderType: 'Single', quantity: 1, unitPrice: parseFloat(price), eligibleForDiscount: false });
-      localStorage.setItem('cartV2', JSON.stringify(cart));
-      document.getElementById('cartModalBody').textContent = title + ' has been added to your cart.';
-      $('#addedToCartModal').modal('show');
-    }
+    /* Bundle ATC (hero section) — uses shared ppAddToCart from prodcard-styles */
     document.querySelectorAll('button[data-atc-pid]').forEach(function(btn) {
       btn.addEventListener('click', function() {
-        ppAddToCart(btn.dataset.atcPid, btn.dataset.atcPrice, btn.dataset.atcTitle, btn.dataset.atcSize, btn.dataset.atcFlavor);
+        window.ppAddToCart(btn.dataset.atcPid, btn.dataset.atcPrice, btn.dataset.atcTitle, btn.dataset.atcSize, btn.dataset.atcFlavor);
         var orig = btn.textContent.trim();
-        btn.textContent = 'Added ✓';
+        btn.textContent = 'Added \u2713';
         setTimeout(function() { btn.textContent = orig; }, 2500);
       });
     });
@@ -710,11 +452,11 @@
       $('input[name="product-filter"]').on('change', function () {
         var val = $(this).val();
         if (val === 'all') {
-          $('.all-products-section .product-card').show();
+          $('.all-products-section .pp-card').show();
         } else {
-          $('.all-products-section .product-card').hide();
-          $('.all-products-section .product-card').filter(function () {
-            return $(this).data('category').split(' ').includes(val);
+          $('.all-products-section .pp-card').hide();
+          $('.all-products-section .pp-card').filter(function () {
+            return ($(this).data('category') || '').split(' ').includes(val);
           }).show();
         }
       });

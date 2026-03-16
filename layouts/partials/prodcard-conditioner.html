@@ -1,24 +1,31 @@
-<div class="product-card grow col-xxl-3 col-lg-4 col-md-4 " data-category="haircare" id="prodcard-conditioner">
-  <a href="/shop/products/tallow-conditioner">
-    <div class="product-card-inner">
-        <img src="/img/conditioner-shop.webp" alt="tallow cleanser photo" class="d-block m-auto" max-height="400">
-        <div class="product-details">
-          <p class="h5"><span class="nz-content" style="display:inline;">{{ with index site.Data.pricing.tallow.pricing.conditioner 0 }}
-            {{ with .prices.NZ }}
-                ${{ .single_purchase }}
-            {{ end }}
-        {{ end }}
-        </span>
-        <span class="au-content" style="display:none;">
-            {{ with index site.Data.pricing.tallow.pricing.conditioner 0 }}
-            {{ with .prices.AU }}
-              ${{ .single_purchase }}
-            {{ end }}
-        {{ end }}
-        </span></p>
-        <p class="h5 fw-bold">Tallow Conditioner</h6>
-        <p>New & Nourishing</p>
-      </div>
+<div class="product-card pp-card" data-category="haircare" id="prodcard-conditioner">
+    <span class="pp-card-badge">Online Exclusive</span>
+    <div class="pp-card-img">
+        <a href="/shop/products/tallow-conditioner">
+            <img src="/img/conditioner-shop.webp" alt="Tallow Conditioner" loading="lazy">
+        </a>
     </div>
-  </a>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/shop/products/tallow-conditioner">Tallow Conditioner</a></div>
+        <div class="pp-card-sub">New & Nourishing</div>
+        <div class="pp-card-price">
+            {{ with index site.Data.pricing.tallow.pricing.conditioner 0 }}
+            <span class="nz-content">${{ with .prices.NZ }}{{ .single_purchase }}{{ end }}</span>
+            <span class="au-content" style="display:none;">A${{ with .prices.AU }}{{ .single_purchase }}{{ end }}</span>
+            {{ end }}
+        </div>
+        <div class="pp-card-cta">
+            {{ with index site.Data.pricing.tallow.pricing.conditioner 0 }}
+            <button class="pp-card-atc" data-pp-atc
+                data-pp-pid="{{ index (index site.Data.pricing.tallow.ids.conditioner.single.geranium "500ml") "NZ" }}"
+                data-pp-pid-au="{{ index (index site.Data.pricing.tallow.ids.conditioner.single.geranium "500ml") "AU" }}"
+                data-pp-price="{{ with .prices.NZ }}{{ .single_purchase }}{{ end }}"
+                data-pp-price-au="{{ with .prices.AU }}{{ .single_purchase }}{{ end }}"
+                data-pp-title="Tallow Conditioner"
+                data-pp-size="500ml"
+                data-pp-flavor="geranium">Add to Cart</button>
+            {{ end }}
+            <a href="/shop/products/tallow-conditioner" class="pp-card-view">View</a>
+        </div>
+    </div>
 </div>

@@ -1,42 +1,63 @@
-<!-- Tallow skin product card -->
-<div class="product-card grow left col-xxl-3 col-lg-4 col-md-4" data-category="skincare" id="prodcardtallowskin">
-  <a href="/shop/products/tallow-skin">
-    <div class="product-card-inner">
-          <p class="stamp">Best Seller</p>
-      <img src="/img/shop/balm.webp" max-height="400" class="d-block m-auto" alt="Beef Tallow for Skincare">
-      <div class="product-details">
-        <!-- Price partial inclusion -->
-        <p class="h5">From <span class="nz-content" style="display:inline;">
-          {{ with index site.Data.pricing.tallow.pricing.balm 0 }}
-          {{ with .prices.NZ }}
-              ${{ .single_purchase }}  
-          {{ end }}
-          {{ end }}
-          <!-- {{ with index site.Data.pricing.tallow.discount_from.balm 0 }}
-              {{ with .prices.NZ }}
-          <span class=" small text-decoration-line-through">${{ .single_purchase }}</span>
-          {{ end }}
-          {{ end }}
-          -->
-          </span>
-          <span class="au-content" style="display:none;">
-              {{ with index site.Data.pricing.tallow.pricing.balm 0 }}
-              {{ with .prices.AU }}
-                  From ${{ .single_purchase }}
-                  {{ end }}
-                  {{ end }}
-              <!-- {{ with index site.Data.pricing.tallow.discount_from.balm 0 }}
-                  {{ with .prices.AU }}
-              <span class=" small text-decoration-line-through">${{ .single_purchase }}</span>
-            {{ end }}
-            {{ end }} -->
-          </span></p>
-        
-
-        <p class="h5 fw-bold">Tallow Balm - Whipped</p>
-        <p>20,000+ kiwis</p>
-      </div>
+<div class="pp-card" data-category="skincare" id="prodcardtallowskin">
+    <span class="pp-card-badge">Best Seller</span>
+    <div class="pp-card-img">
+        <a href="/shop/products/tallow-skin">
+            <img src="/img/shop/balm.webp" alt="Tallow Balm - Whipped" loading="lazy">
+        </a>
     </div>
-  </a>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/shop/products/tallow-skin">Tallow Balm - Whipped</a></div>
+        <div class="pp-card-sub">20,000+ kiwis</div>
+        <div class="pp-card-price">
+            <span class="from">From </span>
+            {{ with index site.Data.pricing.tallow.pricing.balm 0 }}
+            <span class="nz-content">${{ with .prices.NZ }}{{ .single_purchase }}{{ end }}</span>
+            <span class="au-content" style="display:none;">A${{ with .prices.AU }}{{ .single_purchase }}{{ end }}</span>
+            {{ end }}
+        </div>
+        <div class="pp-card-cta">
+            <button class="pp-card-atc" data-pp-variants>Add to Cart</button>
+            <a href="/shop/products/tallow-skin" class="pp-card-view">View</a>
+        </div>
+    </div>
+    <script type="application/json" class="pp-card-variant-data">
+    {
+        "title": "Tallow Balm - Whipped",
+        "defaultScent": "vanilla-rose",
+        "defaultSize": "60ml",
+        "scents": ["vanilla-rose","lavender","frankincense","neutral"],
+        "sizes": ["60ml","120ml","250ml"],
+        "pricing": [
+            {{ with index site.Data.pricing.tallow.pricing.balm 0 }}{"size":"60ml","NZ":{{ with .prices.NZ }}{{ .single_purchase }}{{ end }},"AU":{{ with .prices.AU }}{{ .single_purchase }}{{ end }} }{{ end }},
+            {{ with index site.Data.pricing.tallow.pricing.balm 2 }}{"size":"120ml","NZ":{{ with .prices.NZ }}{{ .single_purchase }}{{ end }},"AU":{{ with .prices.AU }}{{ .single_purchase }}{{ end }} }{{ end }},
+            {{ with index site.Data.pricing.tallow.pricing.balm 4 }}{"size":"250ml","NZ":{{ with .prices.NZ }}{{ .single_purchase }}{{ end }} }{{ end }}
+        ],
+        "ids": {
+            "single": {
+                {{ $balm := site.Data.pricing.tallow.ids.balm.single }}
+                {{ $scents := slice "vanilla-rose" "lavender" "frankincense" "neutral" }}
+                {{ range $i, $scent := $scents }}
+                {{ $s := index $balm $scent }}
+                {{ if $i }},{{ end }}"{{ $scent }}": {
+                    {{ if (index $s "60ml") }}"60ml": {"NZ":"{{ index (index $s "60ml") "NZ" }}"{{ if index (index $s "60ml") "AU" }},"AU":"{{ index (index $s "60ml") "AU" }}"{{ end }} }{{ end }}
+                    {{ if (index $s "120ml") }},"120ml": {"NZ":"{{ index (index $s "120ml") "NZ" }}"{{ if index (index $s "120ml") "AU" }},"AU":"{{ index (index $s "120ml") "AU" }}"{{ end }} }{{ end }}
+                    {{ if (index $s "250ml") }},"250ml": {"NZ":"{{ index (index $s "250ml") "NZ" }}" }{{ end }}
+                }
+                {{ end }}
+            }
+        }
+    }
+    </script>
+    <div class="pp-card-variants-panel">
+        <div class="pp-var-row">
+            <span class="pp-var-label">Scent</span>
+            <select class="pp-var-select pp-var-scent"></select>
+        </div>
+        <div class="pp-var-row">
+            <span class="pp-var-label">Size</span>
+            <select class="pp-var-select pp-var-size"></select>
+        </div>
+        <div class="pp-var-price"></div>
+        <button class="pp-var-submit" disabled>Add to Cart</button>
+    </div>
 </div>
-

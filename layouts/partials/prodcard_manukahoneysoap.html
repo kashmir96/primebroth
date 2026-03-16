@@ -1,25 +1,31 @@
-<div class="product-card grow col-xxl-3 col-lg-4 col-md-4" data-category="skincare" id="prodcardshampoo">
-   <a href="/shop/products/manuka-honey-soap/">
-      <div class="product-card-inner">
-      <p class="stamp">Online Exclusive</p>
-        <img src="/img/shop/honey_soap1.webp" alt="shampoo" class="d-block m-auto" max-height="400">
-        <div class="product-details">
-          <p class="h5"><span class="nz-content" style="display:inline;">{{ with index site.Data.pricing.tallow.pricing.manuka_soap 0 }}
-                {{ with .prices.NZ }}
-                    ${{ .single_purchase }}
-                {{ end }}
+<div class="product-card pp-card" data-category="skincare" id="prodcardshampoo">
+    <span class="pp-card-badge">Online Exclusive</span>
+    <div class="pp-card-img">
+        <a href="/shop/products/manuka-honey-soap/">
+            <img src="/img/shop/honey_soap1.webp" alt="Manuka Honey Soap" loading="lazy">
+        </a>
+    </div>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/shop/products/manuka-honey-soap/">Manuka Honey Soap</a></div>
+        <div class="pp-card-sub">New</div>
+        <div class="pp-card-price">
+            {{ with index site.Data.pricing.tallow.pricing.soap 0 }}
+            <span class="nz-content">${{ with .prices.NZ }}{{ .single_purchase }}{{ end }}</span>
+            <span class="au-content" style="display:none;">A${{ with .prices.AU }}{{ .single_purchase }}{{ end }}</span>
             {{ end }}
-            </span>
-            <span class="au-content" style="display:none;">
-                {{ with index site.Data.pricing.tallow.pricing.manuka_soap 0 }}
-                {{ with .prices.AU }}
-                  ${{ .single_purchase }}
-                {{ end }}
-            {{ end }}
-            </span></p>
-          <p class="h5 fw-bold">Manuka Honey Soap</p>
-          <p>New</p>
         </div>
-      </div>
-    </a>
+        <div class="pp-card-cta">
+            {{ with index site.Data.pricing.tallow.pricing.soap 0 }}
+            <button class="pp-card-atc" data-pp-atc
+                data-pp-pid="{{ index (index site.Data.pricing.tallow.ids.soap.single.manuka "120g") "NZ" }}"
+                data-pp-pid-au="{{ index (index site.Data.pricing.tallow.ids.soap.single.manuka "120g") "AU" }}"
+                data-pp-price="{{ with .prices.NZ }}{{ .single_purchase }}{{ end }}"
+                data-pp-price-au="{{ with .prices.AU }}{{ .single_purchase }}{{ end }}"
+                data-pp-title="Manuka Honey Soap"
+                data-pp-size="120g"
+                data-pp-flavor="manuka">Add to Cart</button>
+            {{ end }}
+            <a href="/shop/products/manuka-honey-soap/" class="pp-card-view">View</a>
+        </div>
+    </div>
 </div>

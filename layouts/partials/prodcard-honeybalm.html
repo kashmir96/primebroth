@@ -1,34 +1,62 @@
-<!-- Pet single product card -->
-<div class="product-card grow col-xxl-3 col-lg-4 col-md-4 " data-category="skincare" id="prodcard-honeybalm">
-  <a href="/shop/products/tallow-honey-balm">
-    <div class="product-card-inner">
-            <p class="stamp">Best Seller</p>
-        <img src="/img/shop/honeyshop.webp" alt="honey balm" class="d-block m-auto" max-height="400">
-        <div class="product-details">
-          <p class="h5"><span class="nz-content" style="display:inline;">From {{ with index site.Data.pricing.tallow.pricing.honeybalm 1 }}
-            {{ with .prices.NZ }}
-                ${{ .single_purchase }}
-            {{ end }}
-        {{ end }}
-        </span>
-        <span class="au-content" style="display:none;">
-            {{ with index site.Data.pricing.tallow.pricing.honeybalm 1 }}
-            {{ with .prices.AU }}
-              ${{ .single_purchase }}
-            {{ end }}
-        {{ end }}
-        </span></p>
-        <p class="h5 fw-bold">Tallow & Honey Balm</h6>
-      <p>20,000+ Kiwis</p>
-      </div>
+<div class="pp-card" data-category="skincare" id="prodcard-honeybalm">
+    <span class="pp-card-badge">Best Seller</span>
+    <div class="pp-card-img">
+        <a href="/shop/products/tallow-honey-balm">
+            <img src="/img/shop/honeyshop.webp" alt="Tallow &amp; Honey Balm" loading="lazy">
+        </a>
     </div>
-  </a>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/shop/products/tallow-honey-balm">Tallow &amp; Honey Balm</a></div>
+        <div class="pp-card-sub">20,000+ Kiwis</div>
+        <div class="pp-card-price">
+            <span class="from">From </span>
+            {{ with index site.Data.pricing.tallow.pricing.honeybalm 0 }}
+            <span class="nz-content">${{ with .prices.NZ }}{{ .single_purchase }}{{ end }}</span>
+            <span class="au-content" style="display:none;">A${{ with .prices.AU }}{{ .single_purchase }}{{ end }}</span>
+            {{ end }}
+        </div>
+        <div class="pp-card-cta">
+            <button class="pp-card-atc" data-pp-variants>Add to Cart</button>
+            <a href="/shop/products/tallow-honey-balm" class="pp-card-view">View</a>
+        </div>
+    </div>
+    <script type="application/json" class="pp-card-variant-data">
+    {
+        "title": "Tallow & Honey Balm",
+        "defaultScent": "vanilla",
+        "defaultSize": "120ml",
+        "scents": ["vanilla","tansy"],
+        "sizes": ["60ml","120ml","250ml"],
+        "pricing": [
+            {{ with index site.Data.pricing.tallow.pricing.honeybalm 0 }}{"size":"60ml","NZ":{{ with .prices.NZ }}{{ .single_purchase }}{{ end }},"AU":{{ with .prices.AU }}{{ .single_purchase }}{{ end }} }{{ end }},
+            {{ with index site.Data.pricing.tallow.pricing.honeybalm 1 }}{"size":"120ml","NZ":{{ with .prices.NZ }}{{ .single_purchase }}{{ end }},"AU":{{ with .prices.AU }}{{ .single_purchase }}{{ end }} }{{ end }},
+            {{ with index site.Data.pricing.tallow.pricing.honeybalm 2 }}{"size":"250ml","NZ":{{ with .prices.NZ }}{{ .single_purchase }}{{ end }} }{{ end }}
+        ],
+        "ids": {
+            "single": {
+                "vanilla": {
+                    {{ with index site.Data.pricing.tallow.ids.honeybalm.single.vanilla "60ml" }}"60ml": {"NZ":"{{ index . "NZ" }}"{{ if index . "AU" }},"AU":"{{ index . "AU" }}"{{ end }} }{{ end }}
+                    {{ with index site.Data.pricing.tallow.ids.honeybalm.single.vanilla "120ml" }},"120ml": {"NZ":"{{ index . "NZ" }}"{{ if index . "AU" }},"AU":"{{ index . "AU" }}"{{ end }} }{{ end }}
+                    {{ with index site.Data.pricing.tallow.ids.honeybalm.single.vanilla "250ml" }},"250ml": {"NZ":"{{ index . "NZ" }}" }{{ end }}
+                },
+                "tansy": {
+                    {{ with index site.Data.pricing.tallow.ids.honeybalm.single.tansy "120ml" }}"120ml": {"NZ":"{{ index . "NZ" }}"{{ if index . "AU" }},"AU":"{{ index . "AU" }}"{{ end }} }{{ end }}
+                    {{ with index site.Data.pricing.tallow.ids.honeybalm.single.tansy "250ml" }},"250ml": {"NZ":"{{ index . "NZ" }}" }{{ end }}
+                }
+            }
+        }
+    }
+    </script>
+    <div class="pp-card-variants-panel">
+        <div class="pp-var-row">
+            <span class="pp-var-label">Scent</span>
+            <select class="pp-var-select pp-var-scent"></select>
+        </div>
+        <div class="pp-var-row">
+            <span class="pp-var-label">Size</span>
+            <select class="pp-var-select pp-var-size"></select>
+        </div>
+        <div class="pp-var-price"></div>
+        <button class="pp-var-submit" disabled>Add to Cart</button>
+    </div>
 </div>
-
-
-
-
-
-
-
-

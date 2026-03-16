@@ -1,26 +1,31 @@
-<!-- Serum single product card -->
-<div class="product-card grow col-xxl-3 col-lg-4 col-md-4" data-category="haircare" id="prodcardtallowshampoo"><a href="/shop/products/tallow-liquid-shampoo">
-  <div class="product-card-inner">
-
-  <img src="/img/liqshampoo-shop.webp" alt="" max-height="400">
-  <div class="product-details">
-    <p class="h5"><span class="nz-content" style="display:inline;">{{ with index site.Data.pricing.tallow.pricing.liqshampoo 0 }}
-      {{ with .prices.NZ }}
-          ${{ .single_purchase }}
-      {{ end }}
-  {{ end }}
-  </span>
-  <span class="au-content" style="display:none;">
-      {{ with index site.Data.pricing.tallow.pricing.liqshampoo 0 }}
-      {{ with .prices.AU }}
-         ${{ .single_purchase }}
-      {{ end }}
-  {{ end }}
-  </span></p>
-    <p class="h5 fw-bold">Tallow Scalp Shampoo</p>
-    <p>New Product!</p>
-
-  </div>
-  </div>
-</a>
+<div class="product-card pp-card" data-category="haircare" id="prodcardtallowshampoo">
+    <span class="pp-card-badge">Online Exclusive</span>
+    <div class="pp-card-img">
+        <a href="/shop/products/tallow-liquid-shampoo">
+            <img src="/img/liqshampoo-shop.webp" alt="Tallow Scalp Shampoo" loading="lazy">
+        </a>
+    </div>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/shop/products/tallow-liquid-shampoo">Tallow Scalp Shampoo</a></div>
+        <div class="pp-card-sub">New Product!</div>
+        <div class="pp-card-price">
+            {{ with index site.Data.pricing.tallow.pricing.liqshampoo 0 }}
+            <span class="nz-content">${{ with .prices.NZ }}{{ .single_purchase }}{{ end }}</span>
+            <span class="au-content" style="display:none;">A${{ with .prices.AU }}{{ .single_purchase }}{{ end }}</span>
+            {{ end }}
+        </div>
+        <div class="pp-card-cta">
+            {{ with index site.Data.pricing.tallow.pricing.liqshampoo 0 }}
+            <button class="pp-card-atc" data-pp-atc
+                data-pp-pid="{{ index (index site.Data.pricing.tallow.ids.liqshampoo.single.geranium "500ml") "NZ" }}"
+                data-pp-pid-au="{{ index (index site.Data.pricing.tallow.ids.liqshampoo.single.geranium "500ml") "AU" }}"
+                data-pp-price="{{ with .prices.NZ }}{{ .single_purchase }}{{ end }}"
+                data-pp-price-au="{{ with .prices.AU }}{{ .single_purchase }}{{ end }}"
+                data-pp-title="Tallow Scalp Shampoo"
+                data-pp-size="500ml"
+                data-pp-flavor="geranium">Add to Cart</button>
+            {{ end }}
+            <a href="/shop/products/tallow-liquid-shampoo" class="pp-card-view">View</a>
+        </div>
+    </div>
 </div>

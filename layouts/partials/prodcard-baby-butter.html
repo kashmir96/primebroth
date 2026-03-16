@@ -1,25 +1,31 @@
-<!-- Pet single product card -->
-<div class="product-card grow col-xxl-3 col-lg-4 col-md-4 " data-category="skincare" id="prodcard-baby-butter">
-  <a href="/shop/products/baby-body-butter">
-    <div class="product-card-inner">
-        <img src="/img/baby-butter-shop.webp" alt="lip balm" class="d-block m-auto" max-height="400">
-        <div class="product-details">
-          <p class="h5"><span class="nz-content" style="display:inline;">{{ with index site.Data.pricing.tallow.pricing.baby_butter 0 }}
-            {{ with .prices.NZ }}
-                ${{ .single_purchase }}
-            {{ end }}
-        {{ end }}
-        </span>
-        <span class="au-content" style="display:none;">
-            {{ with index site.Data.pricing.tallow.pricing.baby_butter 0 }}
-            {{ with .prices.AU }}
-              ${{ .single_purchase }}
-            {{ end }}
-        {{ end }}
-        </span></p>
-        <p class="h5 fw-bold">Tallow Baby Butter</h6>
-        <p>NEW</p>
-      </div>
+<div class="product-card pp-card" data-category="skincare" id="prodcard-baby-butter">
+    <span class="pp-card-badge">NEW</span>
+    <div class="pp-card-img">
+        <a href="/shop/products/baby-body-butter">
+            <img src="/img/baby-butter-shop.webp" alt="Baby Butter" loading="lazy">
+        </a>
     </div>
-  </a>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/shop/products/baby-body-butter">Tallow Baby Butter</a></div>
+        <div class="pp-card-sub">NEW</div>
+        <div class="pp-card-price">
+            {{ with index site.Data.pricing.tallow.pricing.baby_butter 0 }}
+            <span class="nz-content">${{ with .prices.NZ }}{{ .single_purchase }}{{ end }}</span>
+            <span class="au-content" style="display:none;">A${{ with .prices.AU }}{{ .single_purchase }}{{ end }}</span>
+            {{ end }}
+        </div>
+        <div class="pp-card-cta">
+            {{ with index site.Data.pricing.tallow.pricing.baby_butter 0 }}
+            <button class="pp-card-atc" data-pp-atc
+                data-pp-pid="{{ index (index site.Data.pricing.tallow.ids.baby_butter.single.natural "120ml") "NZ" }}"
+                data-pp-pid-au="{{ index (index site.Data.pricing.tallow.ids.baby_butter.single.natural "120ml") "AU" }}"
+                data-pp-price="{{ with .prices.NZ }}{{ .single_purchase }}{{ end }}"
+                data-pp-price-au="{{ with .prices.AU }}{{ .single_purchase }}{{ end }}"
+                data-pp-title="Tallow Baby Butter"
+                data-pp-size="120ml"
+                data-pp-flavor="natural">Add to Cart</button>
+            {{ end }}
+            <a href="/shop/products/baby-body-butter" class="pp-card-view">View</a>
+        </div>
+    </div>
 </div>

@@ -1,34 +1,31 @@
-<!-- Pet single product card -->
-<div class="product-card grow col-xxl-3 col-lg-4 col-md-4 " data-category="haircare" id="prodcard-beardbalm">
-  <a href="/shop/products/tallow-beard-balm">
-    <div class="product-card-inner">
-            <p class="stamp">Online Exclusive</p>
-        <img src="/img/shop/shopbeardi.webp" alt="lip balm" class="d-block m-auto" max-height="400">
-        <div class="product-details">
-          <p class="h5"><span class="nz-content" style="display:inline;">{{ with index site.Data.pricing.tallow.pricing.beardbalm 0 }}
-            {{ with .prices.NZ }}
-                ${{ .single_purchase }}
-            {{ end }}
-        {{ end }}
-        </span>
-        <span class="au-content" style="display:none;">
-            {{ with index site.Data.pricing.tallow.pricing.beardbalm 0 }}
-            {{ with .prices.AU }}
-              ${{ .single_purchase }}
-            {{ end }}
-        {{ end }}
-        </span></p>
-        <p class="h5 fw-bold">Tallow Beard Balm</h6>
-        <p>New</p>
-      </div>
+<div class="pp-card" data-category="haircare" id="prodcard-beardbalm">
+    <span class="pp-card-badge">Online Exclusive</span>
+    <div class="pp-card-img">
+        <a href="/shop/products/tallow-beard-balm">
+            <img src="/img/shop/shopbeardi.webp" alt="Tallow Beard Balm" loading="lazy">
+        </a>
     </div>
-  </a>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/shop/products/tallow-beard-balm">Tallow Beard Balm</a></div>
+        <div class="pp-card-sub">New</div>
+        <div class="pp-card-price">
+            {{ with index site.Data.pricing.tallow.pricing.beardbalm 0 }}
+            <span class="nz-content">${{ with .prices.NZ }}{{ .single_purchase }}{{ end }}</span>
+            <span class="au-content" style="display:none;">A${{ with .prices.AU }}{{ .single_purchase }}{{ end }}</span>
+            {{ end }}
+        </div>
+        <div class="pp-card-cta">
+            {{ with index site.Data.pricing.tallow.pricing.beardbalm 0 }}
+            <button class="pp-card-atc" data-pp-atc
+                data-pp-pid="{{ index (index (index site.Data.pricing.tallow.ids.beardbalm.single "gingerbread") "60ml") "NZ" }}"
+                data-pp-pid-au="{{ index (index (index site.Data.pricing.tallow.ids.beardbalm.single "gingerbread") "60ml") "AU" }}"
+                data-pp-price="{{ with .prices.NZ }}{{ .single_purchase }}{{ end }}"
+                data-pp-price-au="{{ with .prices.AU }}{{ .single_purchase }}{{ end }}"
+                data-pp-title="Tallow Beard Balm"
+                data-pp-size="60ml"
+                data-pp-flavor="Gingerbread">Add to Cart</button>
+            {{ end }}
+            <a href="/shop/products/tallow-beard-balm" class="pp-card-view">View</a>
+        </div>
+    </div>
 </div>
-
-
-
-
-
-
-
-

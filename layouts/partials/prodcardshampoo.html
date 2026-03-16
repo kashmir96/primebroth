@@ -1,26 +1,31 @@
-<div class="product-card grow col-xxl-3 col-lg-4 col-md-4" data-category="haircare" id="prodcardshampoo">
-   <a href="/shop/products/tallow-shampoo-bar">
-      <div class="product-card-inner">
-               <p class="stamp">Online Exclusive</p>
-        <img src="/img/shampoobar/shampoo-bar-prodcutpage.webp" alt="shampoo" class="d-block m-auto" max-height="400">
-        <div class="product-details">
-          <p class="h5"><span class="nz-content attention-primalcare" style="display:inline;">{{ with index site.Data.pricing.tallow.pricing.shampoo 0 }}
-                {{ with .prices.NZ }}
-                    ${{ .single_purchase }}
-                {{ end }}
+<div class="product-card pp-card" data-category="haircare" id="prodcardshampoo">
+    <span class="pp-card-badge">Online Exclusive</span>
+    <div class="pp-card-img">
+        <a href="/shop/products/tallow-shampoo-bar">
+            <img src="/img/shampoobar/shampoo-bar-prodcutpage.webp" alt="Tallow Shampoo Bar" loading="lazy">
+        </a>
+    </div>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/shop/products/tallow-shampoo-bar">Tallow Shampoo Bar</a></div>
+        <div class="pp-card-sub">6000+ kiwis</div>
+        <div class="pp-card-price">
+            {{ with index site.Data.pricing.tallow.pricing.shampoo 0 }}
+            <span class="nz-content">${{ with .prices.NZ }}{{ .single_purchase }}{{ end }}</span>
+            <span class="au-content" style="display:none;">A${{ with .prices.AU }}{{ .single_purchase }}{{ end }}</span>
             {{ end }}
-            </span>
-
-            <span class="au-content" style="display:none;">
-                {{ with index site.Data.pricing.tallow.pricing.shampoo 0 }}
-                {{ with .prices.AU }}
-                  ${{ .single_purchase }}
-                {{ end }}
-            {{ end }}
-            </span><!--<span class="special" id="special">30% off!</p>-->
-          <p class="h5 fw-bold">Tallow Shampoo Bar</p>
-          <p>6000+ kiwis</p>
         </div>
-      </div>
-    </a>
+        <div class="pp-card-cta">
+            {{ with index site.Data.pricing.tallow.pricing.shampoo 0 }}
+            <button class="pp-card-atc" data-pp-atc
+                data-pp-pid="{{ index (index site.Data.pricing.tallow.ids.shampoo.single.peppermintrosemary "120g") "NZ" }}"
+                data-pp-pid-au="{{ index (index site.Data.pricing.tallow.ids.shampoo.single.peppermintrosemary "120g") "AU" }}"
+                data-pp-price="{{ with .prices.NZ }}{{ .single_purchase }}{{ end }}"
+                data-pp-price-au="{{ with .prices.AU }}{{ .single_purchase }}{{ end }}"
+                data-pp-title="Tallow Shampoo Bar"
+                data-pp-size="120g"
+                data-pp-flavor="peppermintrosemary">Add to Cart</button>
+            {{ end }}
+            <a href="/shop/products/tallow-shampoo-bar" class="pp-card-view">View</a>
+        </div>
+    </div>
 </div>

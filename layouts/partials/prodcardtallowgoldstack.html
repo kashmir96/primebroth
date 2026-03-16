@@ -1,41 +1,31 @@
-<!-- Tallow skin product card -->
-<div class="product-card grow left col-xxl-3 col-lg-4 col-md-4" data-category="skincare bundles">
-  <a href="/shop/products/golden-tallow-honey-stack/">
-      <div class="product-card-inner">
-              <p class="stamp">Online Exclusive</p>
-
-          <img src="/img/shop/shop-gold.webp" alt="Shop gold bundle">
-          <div class="product-details">
-            <!-- Price partial inclusion -->
-          <p class="h5"><span class="nz-content" style="display:inline;">
-            {{ with index site.Data.pricing.bundles.pricing.gold_stack 0 }}
-                {{ with .prices.NZ }}
-                    <span class=""> ${{ .single_purchase }}</span>   
-                {{ end }}
-          {{ end }}
-          <!-- {{ with index site.Data.pricing.tallow.discount_from.balm 0 }}
-              {{ with .prices.NZ }}
-          <span class=" small text-decoration-line-through">${{ .single_purchase }}</span>
-          {{ end }}
-          {{ end }}
-          -->
-          </span>
-        <span class="au-content" style="display:none;">
-             {{ with index site.Data.pricing.bundles.pricing.gold_stack 0 }}
-                {{ with .prices.AU }}
-                    <span class="">From ${{ .single_purchase }}</span> 
-                {{ end }}
-                {{ end }}
-            <!-- {{ with index site.Data.pricing.tallow.discount_from.balm 0 }}
-                {{ with .prices.AU }}
-            <span class=" small text-decoration-line-through">${{ .single_purchase }}</span>
-          {{ end }}
-          {{ end }} -->
-        </span></p>
-
-        <p class="h5 fw-bold">Tallow & Honey Bundle </p>
-        <p>NEW</p>
-      </div>
+<div class="product-card pp-card" data-category="skincare bundles" id="prodcardtallowgoldstack">
+    <span class="pp-card-badge">Online Exclusive</span>
+    <div class="pp-card-img">
+        <a href="/shop/products/golden-tallow-honey-stack/">
+            <img src="/img/shop/shop-gold.webp" alt="Tallow &amp; Honey Bundle" loading="lazy">
+        </a>
     </div>
-  </a>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/shop/products/golden-tallow-honey-stack/">Tallow &amp; Honey Bundle</a></div>
+        <div class="pp-card-sub">NEW</div>
+        <div class="pp-card-price">
+            {{ with index site.Data.pricing.bundles.pricing.gold_stack 0 }}
+            <span class="nz-content">${{ with .prices.NZ }}{{ .single_purchase }}{{ end }}</span>
+            <span class="au-content" style="display:none;">A${{ with .prices.AU }}{{ .single_purchase }}{{ end }}</span>
+            {{ end }}
+        </div>
+        <div class="pp-card-cta">
+            {{ with index site.Data.pricing.bundles.pricing.gold_stack 0 }}
+            <button class="pp-card-atc" data-pp-atc
+                data-pp-pid="{{ index (index site.Data.pricing.bundles.ids.gold_stack.single.unscented "one-size") "NZ" }}"
+                data-pp-pid-au="{{ index (index site.Data.pricing.bundles.ids.gold_stack.single.unscented "one-size") "AU" }}"
+                data-pp-price="{{ with .prices.NZ }}{{ .single_purchase }}{{ end }}"
+                data-pp-price-au="{{ with .prices.AU }}{{ .single_purchase }}{{ end }}"
+                data-pp-title="Tallow &amp; Honey Bundle"
+                data-pp-size="one-size"
+                data-pp-flavor="unscented">Add to Cart</button>
+            {{ end }}
+            <a href="/shop/products/golden-tallow-honey-stack/" class="pp-card-view">View</a>
+        </div>
+    </div>
 </div>

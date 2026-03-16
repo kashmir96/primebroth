@@ -486,20 +486,12 @@
 
 </div>
 
-<div class="modal fade" id="addedToCartModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog"><div class="modal-content">
-    <div class="modal-header"><h5 class="modal-title">Item Added to Cart</h5><button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button></div>
-    <div class="modal-body" id="cartModalBody">Your item has been added to the cart.</div>
-    <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button><a href="/cart" class="btn btn-black">Go to Cart</a></div>
-  </div></div>
-</div>
+<!-- Cart Modal (replaced by cart drawer) -->
 <script>
 function ppAddToCart(pid, price, title, size, flavor) {
   var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
   cart.push({ priceId: pid, title: title, size: size, flavor: flavor, orderType: 'Single', quantity: 1, unitPrice: parseFloat(price), eligibleForDiscount: false });
   localStorage.setItem('cartV2', JSON.stringify(cart));
-  document.getElementById('cartModalBody').textContent = title + ' has been added to your cart.';
-  $('#addedToCartModal').modal('show');
 }
 document.querySelectorAll('[data-atc-pid]').forEach(function(btn) {
   btn.addEventListener('click', function() {

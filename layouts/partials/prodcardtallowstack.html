@@ -1,28 +1,31 @@
-<!-- Soap single product card -->
-<div class="product-card grow col-xxl-3 col-lg-4 col-md-4" data-category="skincare bundles" id="prodcardtallowstack">
-  <a href="/shop/products/tallow-unscented-stack">
-    <div class="product-card-inner">
-            <p class="stamp">Online Exclusive</p>
-
-    <img src="/img/sensitive-stack-tub.webp" alt="tallow stack" class="d-block m-auto" max-height="400">
-    <div class="product-details">
-      <p class="h5"><span class="nz-content" style="display:inline;">{{ with index site.Data.pricing.bundles.pricing.sensitive_stack 0 }}
-        {{ with .prices.NZ }}
-            ${{ .single_purchase }}
-        {{ end }}
-    {{ end }}
-    </span>
-    <span class="au-content" style="display:none;">
-        {{ with index site.Data.pricing.bundles.pricing.sensitive_stack 0 }}
-        {{ with .prices.AU }}
-          ${{ .single_purchase }}
-        {{ end }}
-    {{ end }}
-    </span></p>
-      <p class="h5 fw-bold">Sensitive Skin Tallow Stack</p>
-      <p>3,000+ kiwis</p>
-
+<div class="product-card pp-card" data-category="skincare bundles" id="prodcardtallowstack">
+    <span class="pp-card-badge">Online Exclusive</span>
+    <div class="pp-card-img">
+        <a href="/shop/products/tallow-unscented-stack">
+            <img src="/img/sensitive-stack-tub.webp" alt="Sensitive Skin Tallow Stack" loading="lazy">
+        </a>
     </div>
-  </div>
-</a>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/shop/products/tallow-unscented-stack">Sensitive Skin Tallow Stack</a></div>
+        <div class="pp-card-sub">3,000+ kiwis</div>
+        <div class="pp-card-price">
+            {{ with index site.Data.pricing.bundles.pricing.sensitive_stack 0 }}
+            <span class="nz-content">${{ with .prices.NZ }}{{ .single_purchase }}{{ end }}</span>
+            <span class="au-content" style="display:none;">A${{ with .prices.AU }}{{ .single_purchase }}{{ end }}</span>
+            {{ end }}
+        </div>
+        <div class="pp-card-cta">
+            {{ with index site.Data.pricing.bundles.pricing.sensitive_stack 0 }}
+            <button class="pp-card-atc" data-pp-atc
+                data-pp-pid="{{ index (index site.Data.pricing.bundles.ids.sensitive_stack.single.unscented "one-size") "NZ" }}"
+                data-pp-pid-au="{{ index (index site.Data.pricing.bundles.ids.sensitive_stack.single.unscented "one-size") "AU" }}"
+                data-pp-price="{{ with .prices.NZ }}{{ .single_purchase }}{{ end }}"
+                data-pp-price-au="{{ with .prices.AU }}{{ .single_purchase }}{{ end }}"
+                data-pp-title="Sensitive Skin Tallow Stack"
+                data-pp-size="one-size"
+                data-pp-flavor="unscented">Add to Cart</button>
+            {{ end }}
+            <a href="/shop/products/tallow-unscented-stack" class="pp-card-view">View</a>
+        </div>
+    </div>
 </div>

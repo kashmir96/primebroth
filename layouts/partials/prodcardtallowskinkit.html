@@ -1,17 +1,32 @@
-<!-- Tallow skin product card -->
-<div class="product-card grow left col-xxl-3 col-lg-4 col-md-4" data-category="tallow">
-  <a href="/shop/products/tallow-skin-kit">
-
-    <img src="/img/tallow-balm.webp" alt="Beef Tallow for Skincare">
-  <div class="product-details">
-    <p>{{- partial "price-tallow-skin-kit-50.html" . -}}</p>
-    <h6>Tallow Balm - DIY kit</h6>
-    <p>1600+ kiwis</p>
-
-  </div>
-</a>
+<!-- Note: This card used a price partial (price-tallow-skin-kit-50.html). Price ID path may need verification. -->
+<div class="product-card pp-card" data-category="tallow" id="prodcardtallowskinkit">
+    <span class="pp-card-badge">Online Exclusive</span>
+    <div class="pp-card-img">
+        <a href="/shop/products/tallow-skin-kit">
+            <img src="/img/tallow-balm.webp" alt="Tallow Balm - DIY kit" loading="lazy">
+        </a>
+    </div>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/shop/products/tallow-skin-kit">Tallow Balm - DIY kit</a></div>
+        <div class="pp-card-sub">1600+ kiwis</div>
+        <div class="pp-card-price">
+            {{ with index site.Data.pricing.tallow.pricing.balm 0 }}
+            <span class="nz-content">${{ with .prices.NZ }}{{ .single_purchase }}{{ end }}</span>
+            <span class="au-content" style="display:none;">A${{ with .prices.AU }}{{ .single_purchase }}{{ end }}</span>
+            {{ end }}
+        </div>
+        <div class="pp-card-cta">
+            {{ with index site.Data.pricing.tallow.pricing.balm 0 }}
+            <button class="pp-card-atc" data-pp-atc
+                data-pp-pid="{{ index (index site.Data.pricing.tallow.ids.balm.single.lavender "60ml") "NZ" }}"
+                data-pp-pid-au="{{ index (index site.Data.pricing.tallow.ids.balm.single.lavender "60ml") "AU" }}"
+                data-pp-price="{{ with .prices.NZ }}{{ .single_purchase }}{{ end }}"
+                data-pp-price-au="{{ with .prices.AU }}{{ .single_purchase }}{{ end }}"
+                data-pp-title="Tallow Balm - DIY kit"
+                data-pp-size="60ml"
+                data-pp-flavor="lavender">Add to Cart</button>
+            {{ end }}
+            <a href="/shop/products/tallow-skin-kit" class="pp-card-view">View</a>
+        </div>
+    </div>
 </div>
-
-
-
-

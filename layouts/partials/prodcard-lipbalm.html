@@ -1,34 +1,31 @@
-<!-- Pet single product card -->
-<div class="product-card grow col-xxl-3 col-lg-4 col-md-4 " data-category="skincare" id="prodcard-lipbalm">
-  <a href="/shop/products/tallow-lip-balm">
-    <div class="product-card-inner">
-            <p class="stamp">Online Exclusive</p>
-        <img src="/img/lip-balm-images1.webp" alt="lip balm" class="d-block m-auto" max-height="400">
-        <div class="product-details">
-          <p class="h5"><span class="nz-content" style="display:inline;">{{ with index site.Data.pricing.tallow.pricing.lipbalm 0 }}
-            {{ with .prices.NZ }}
-                ${{ .single_purchase }}
-            {{ end }}
-        {{ end }}
-        </span>
-        <span class="au-content" style="display:none;">
-            {{ with index site.Data.pricing.tallow.pricing.lipbalm 0 }}
-            {{ with .prices.AU }}
-              ${{ .single_purchase }}
-            {{ end }}
-        {{ end }}
-        </span></p>
-        <p class="h5 fw-bold">Tallow Lip Balm</h6>
-        <p>15,000+ kiwis</p>
-      </div>
+<div class="product-card pp-card" data-category="skincare" id="prodcard-lipbalm">
+    <span class="pp-card-badge">Online Exclusive</span>
+    <div class="pp-card-img">
+        <a href="/shop/products/tallow-lip-balm">
+            <img src="/img/lip-balm-images1.webp" alt="Tallow Lip Balm" loading="lazy">
+        </a>
     </div>
-  </a>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/shop/products/tallow-lip-balm">Tallow Lip Balm</a></div>
+        <div class="pp-card-sub">15,000+ kiwis</div>
+        <div class="pp-card-price">
+            {{ with index site.Data.pricing.tallow.pricing.lipbalm 0 }}
+            <span class="nz-content">${{ with .prices.NZ }}{{ .single_purchase }}{{ end }}</span>
+            <span class="au-content" style="display:none;">A${{ with .prices.AU }}{{ .single_purchase }}{{ end }}</span>
+            {{ end }}
+        </div>
+        <div class="pp-card-cta">
+            {{ with index site.Data.pricing.tallow.pricing.lipbalm 0 }}
+            <button class="pp-card-atc" data-pp-atc
+                data-pp-pid="{{ index (index site.Data.pricing.tallow.ids.lipbalm.single.manuka "10ml") "NZ" }}"
+                data-pp-pid-au="{{ index (index site.Data.pricing.tallow.ids.lipbalm.single.manuka "10ml") "AU" }}"
+                data-pp-price="{{ with .prices.NZ }}{{ .single_purchase }}{{ end }}"
+                data-pp-price-au="{{ with .prices.AU }}{{ .single_purchase }}{{ end }}"
+                data-pp-title="Tallow Lip Balm"
+                data-pp-size="10ml"
+                data-pp-flavor="manuka">Add to Cart</button>
+            {{ end }}
+            <a href="/shop/products/tallow-lip-balm" class="pp-card-view">View</a>
+        </div>
+    </div>
 </div>
-
-
-
-
-
-
-
-

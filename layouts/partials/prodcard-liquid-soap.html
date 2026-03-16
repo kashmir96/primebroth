@@ -1,25 +1,31 @@
-<div class="product-card grow col-xxl-3 col-lg-4 col-md-4 " data-category="skincare" id="prodcard-liquid-soap">
-  <a href="/shop/products/tallow-liquid-soap">
-    <div class="product-card-inner">
-      <p class="stamp">Online Exclusive</p>
-        <img src="/img/natural-soap-cutout.webp" alt="honey balm" class="d-block m-auto" max-height="400">
-        <div class="product-details">
-          <p class="h5"><span class="nz-content" style="display:inline;">{{ with index site.Data.pricing.tallow.pricing.liquid_soap 0 }}
-            {{ with .prices.NZ }}
-                ${{ .single_purchase }}
-            {{ end }}
-        {{ end }}
-        </span>
-        <span class="au-content" style="display:none;">
-            {{ with index site.Data.pricing.tallow.pricing.liquid_soap 0 }}
-            {{ with .prices.AU }}
-              ${{ .single_purchase }}
-            {{ end }}
-        {{ end }}
-        </span></p>
-        <p class="h5 fw-bold">Tallow Liquid Soap</h6>
-        <p>NEW PRODUCT</p>
-      </div>
+<div class="product-card pp-card" data-category="skincare" id="prodcard-liquid-soap">
+    <span class="pp-card-badge">Online Exclusive</span>
+    <div class="pp-card-img">
+        <a href="/shop/products/tallow-liquid-soap">
+            <img src="/img/natural-soap-cutout.webp" alt="Tallow Liquid Soap" loading="lazy">
+        </a>
     </div>
-  </a>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/shop/products/tallow-liquid-soap">Tallow Liquid Soap</a></div>
+        <div class="pp-card-sub">NEW PRODUCT</div>
+        <div class="pp-card-price">
+            {{ with index site.Data.pricing.tallow.pricing.liquid_soap 0 }}
+            <span class="nz-content">${{ with .prices.NZ }}{{ .single_purchase }}{{ end }}</span>
+            <span class="au-content" style="display:none;">A${{ with .prices.AU }}{{ .single_purchase }}{{ end }}</span>
+            {{ end }}
+        </div>
+        <div class="pp-card-cta">
+            {{ with index site.Data.pricing.tallow.pricing.liquid_soap 0 }}
+            <button class="pp-card-atc" data-pp-atc
+                data-pp-pid="{{ index (index site.Data.pricing.tallow.ids.liquid_soap.single.natural "220ml") "NZ" }}"
+                data-pp-pid-au="{{ index (index site.Data.pricing.tallow.ids.liquid_soap.single.natural "220ml") "AU" }}"
+                data-pp-price="{{ with .prices.NZ }}{{ .single_purchase }}{{ end }}"
+                data-pp-price-au="{{ with .prices.AU }}{{ .single_purchase }}{{ end }}"
+                data-pp-title="Tallow Liquid Soap"
+                data-pp-size="220ml"
+                data-pp-flavor="natural">Add to Cart</button>
+            {{ end }}
+            <a href="/shop/products/tallow-liquid-soap" class="pp-card-view">View</a>
+        </div>
+    </div>
 </div>

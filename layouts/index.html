@@ -16,7 +16,9 @@
   <link rel="preload" href="/img/home/hero.webp" fetchpriority="high" as="image" type="image/webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400;1,9..144,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400;1,9..144,700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  {{- partial "prodcard-styles.html" . -}}
 
 <style>
 /* All styles scoped under .pp-v3 to avoid breaking site header/footer/nav */
@@ -300,41 +302,8 @@
 }
 .pp-v3 .sellers-top a:hover { gap: 10px; }
 .pp-v3 .sellers-top a svg { width: 16px; height: 16px; }
-.pp-v3 .p-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-.pp-v3 .p-card {
-  background: var(--white); border-radius: 16px; overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  position: relative; display: block;
-}
-.pp-v3 .p-card:hover { box-shadow: 0 20px 48px rgba(46,26,14,0.09); }
-.pp-v3 .p-card:nth-child(1):hover { transform: translateY(-6px) rotate(-0.3deg); }
-.pp-v3 .p-card:nth-child(2):hover { transform: translateY(-5px) rotate(0.2deg); }
-.pp-v3 .p-card:nth-child(3):hover { transform: translateY(-7px) rotate(-0.15deg); }
-.pp-v3 .p-card:nth-child(4):hover { transform: translateY(-4px) rotate(0.25deg); }
-.pp-v3 .p-badge {
-  position: absolute; top: 12px; left: 12px;
-  background: var(--bark); color: var(--cream);
-  font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.08em; padding: 4px 11px; border-radius: 100px; z-index: 3;
-}
-.pp-v3 .p-badge.online { background: var(--sage); }
-.pp-v3 .p-img {
-  aspect-ratio: 1; background: var(--white);
-  display: flex; align-items: center; justify-content: center;
-  position: relative; overflow: hidden;
-  border-bottom: 1px solid rgba(0,0,0,0.04);
-}
-.pp-v3 .p-img img { width: 82%; height: 82%; object-fit: contain; transition: transform 0.5s ease; }
-.pp-v3 .p-card:hover .p-img img { transform: scale(1.07); }
-.pp-v3 .p-info { padding: 16px 18px 18px; }
-.pp-v3 .p-name {
-  font-family: 'Fraunces', serif; font-size: 1rem; color: var(--bark); margin-bottom: 3px;
-}
-.pp-v3 .p-sub { font-size: 0.78rem; color: var(--warm-gray); margin-bottom: 10px; line-height: 1.45; }
-.pp-v3 .p-row { display: flex; justify-content: space-between; align-items: baseline; }
-.pp-v3 .p-price { font-weight: 700; font-size: 0.92rem; color: var(--bark); }
-.pp-v3 .p-kiwis { font-size: 0.72rem; color: var(--warm-gray); }
-.pp-v3 .p-stars { color: #C89520; font-size: 0.75rem; letter-spacing: 1px; margin-top: 5px; }
+/* Best sellers grid uses pp-card-grid from prodcard-styles.html */
+.pp-v3 .sellers .pp-card-grid { max-width: none; padding: 0; }
 
 /* ===== MARQUEE INTERRUPT ===== */
 .pp-v3 .marquee-wrap {
@@ -547,7 +516,6 @@
   .pp-v3 .ranges { grid-template-columns: 1fr; }
   .pp-v3 .range-card { min-height: 360px; }
   .pp-v3 .sellers, .pp-v3 .results, .pp-v3 .stores, .pp-v3 .origin { padding: 64px 24px; }
-  .pp-v3 .p-grid { grid-template-columns: repeat(2, 1fr); }
   .pp-v3 .results-grid { grid-template-columns: 1fr; gap: 40px; }
   .pp-v3 .stores { grid-template-columns: 1fr; gap: 40px; }
   .pp-v3 .origin-inner { grid-template-columns: 1fr; gap: 36px; }
@@ -561,9 +529,6 @@
   .pp-eanz-modal-text { text-align: center; }
 }
 @media (max-width: 640px) {
-  .pp-v3 .p-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-  .pp-v3 .p-info { padding: 12px 14px 14px; }
-  .pp-v3 .p-name { font-size: 0.9rem; }
   .pp-v3 .store-brands { grid-template-columns: repeat(2, 1fr); }
   .pp-v3 .results-mini-reviews { grid-template-columns: 1fr; }
   .pp-v3 .origin-milestones { grid-template-columns: 1fr 1fr; }
@@ -683,47 +648,11 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
   </div>
-  <div class="p-grid">
-    <a href="/shop/products/tallow-skin" class="p-card">
-      <span class="p-badge">Best Seller</span>
-      <div class="p-img"><img src="/img/shop/balm.webp" alt="Whipped Tallow Balm NZ - Tallow Face and Body Balm" width="400" height="400" loading="lazy"></div>
-      <div class="p-info">
-        <div class="p-name">Whipped Tallow Balm</div>
-        <div class="p-sub">Soothes, hydrates & moisturises dry & irritated skin — a tallow face and body balm</div>
-        <div class="p-row"><span class="p-price">From $18.95</span><span class="p-kiwis">20,000+ Kiwis</span></div>
-        <div class="p-stars">★★★★✦ 4.7</div>
-      </div>
-    </a>
-    <a href="/shop/products/tallow-honey-balm" class="p-card">
-      <span class="p-badge">Best Seller</span>
-      <div class="p-img"><img src="/img/shop/honeyshop.webp" alt="Tallow and Honey Balm NZ" width="400" height="400" loading="lazy"></div>
-      <div class="p-info">
-        <div class="p-name">Tallow & Honey Balm</div>
-        <div class="p-sub">Extra nourishing face and body moisturiser — NZ honey meets grass-fed beef tallow</div>
-        <div class="p-row"><span class="p-price">From $21.95</span><span class="p-kiwis">20,000+ Kiwis</span></div>
-        <div class="p-stars">★★★★✦ 4.7</div>
-      </div>
-    </a>
-    <a href="/shop/products/tallow-eye-cream" class="p-card">
-      <span class="p-badge online">Online Only</span>
-      <div class="p-img"><img src="/img/shop/eyecream.webp" alt="Tallow Eye Cream for sensitive skin" width="400" height="400" loading="lazy"></div>
-      <div class="p-info">
-        <div class="p-name">Tallow Eye Cream</div>
-        <div class="p-sub">Gentle tallow cream for dark circles & fine lines</div>
-        <div class="p-row"><span class="p-price">$34.95</span><span class="p-kiwis">8,000+ Kiwis</span></div>
-        <div class="p-stars">★★★★✦ 4.7</div>
-      </div>
-    </a>
-    <a href="/shop/products/tallow-serum" class="p-card">
-      <span class="p-badge online">Online Only</span>
-      <div class="p-img"><img src="/img/serum-shop.webp" alt="Tallow Glow Serum for sensitive skin" width="400" height="400" loading="lazy"></div>
-      <div class="p-info">
-        <div class="p-name">Tallow Glow Serum</div>
-        <div class="p-sub">Lightweight serum for radiant, hydrated skin</div>
-        <div class="p-row"><span class="p-price">$38.20</span><span class="p-kiwis">New!</span></div>
-        <div class="p-stars">★★★★✦ 4.7</div>
-      </div>
-    </a>
+  <div class="pp-card-grid">
+    {{- partial "prodcardtallowskin.html" . -}}
+    {{- partial "prodcard-honeybalm.html" . -}}
+    {{- partial "prodcard-talloweye.html" . -}}
+    {{- partial "prodcard-serum.html" . -}}
   </div>
 </section>
 
@@ -880,7 +809,7 @@
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
     }, { threshold: 0.06, rootMargin: '0px 0px -24px 0px' });
-    document.querySelectorAll('.pp-v3 .p-card, .pp-v3 .mini-review, .pp-v3 .store-brand, .pp-v3 .milestone, .pp-v3 .range-card, .pp-v3 .results-featured').forEach((el, i) => {
+    document.querySelectorAll('.pp-v3 .pp-card, .pp-v3 .mini-review, .pp-v3 .store-brand, .pp-v3 .milestone, .pp-v3 .range-card, .pp-v3 .results-featured').forEach((el, i) => {
       el.style.opacity = '0';
       el.style.transform = 'translateY(16px)';
       el.style.transition = `opacity 0.5s ease ${i % 4 * 0.07}s, transform 0.5s ease ${i % 4 * 0.07}s`;

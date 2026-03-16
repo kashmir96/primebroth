@@ -1,0 +1,433 @@
+<style>
+/* ── Product Card Grid ─────────────────────────────── */
+.pp-card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ── Product Card ──────────────────────────────────── */
+.pp-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: visible;
+    transition: all 0.35s ease;
+    border: 1px solid rgba(139,115,85,0.12);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.pp-card:hover {
+    box-shadow: 0 12px 32px rgba(0,0,0,0.10);
+    transform: translateY(-4px);
+    border-color: transparent;
+}
+
+/* Badge */
+.pp-card-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-size: 0.56rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 10px;
+    border-radius: 50px;
+    z-index: 3;
+    background: rgba(139,115,85,0.12);
+    color: #8B7355;
+    backdrop-filter: blur(4px);
+}
+.pp-card-badge.sale { background: rgba(156,175,136,0.18); color: #5A7A42; }
+.pp-card-badge.new { background: rgba(139,115,85,0.12); color: #8B7355; }
+
+/* Image */
+.pp-card-img {
+    aspect-ratio: 1;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px 16px 0 0;
+}
+.pp-card-img a {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pp-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.pp-card:hover .pp-card-img img {
+    transform: scale(1.06);
+}
+
+/* Body */
+.pp-card-body {
+    padding: 16px 18px 18px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #FAF7F2;
+    border-radius: 0 0 16px 16px;
+}
+
+/* Name */
+.pp-card-name {
+    font-family: 'Playfair Display', 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #2D2A26;
+    margin-bottom: 3px;
+    line-height: 1.3;
+}
+.pp-card-name a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.25s;
+}
+.pp-card-name a:hover { color: #8B7355; }
+
+/* Subtitle */
+.pp-card-sub {
+    font-size: 0.74rem;
+    color: #8B7355;
+    margin-bottom: 10px;
+    line-height: 1.4;
+    flex: 1;
+}
+
+/* Price */
+.pp-card-price {
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: #2D2A26;
+    margin-bottom: 12px;
+}
+.pp-card-price .from { font-weight: 400; font-size: 0.78rem; color: #8B7355; }
+
+/* CTA */
+.pp-card-cta {
+    display: flex;
+    gap: 8px;
+}
+.pp-card-atc {
+    flex: 1;
+    background: #2D2A26;
+    color: #fff;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.76rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-family: 'DM Sans', sans-serif;
+}
+.pp-card-atc:hover { background: #4A3728; }
+.pp-card-atc.added {
+    background: #9CAF88;
+    pointer-events: none;
+}
+
+.pp-card-view {
+    background: rgba(139,115,85,0.1);
+    color: #2D2A26;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.76rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Sans', sans-serif;
+}
+.pp-card-view:hover { background: rgba(139,115,85,0.18); color: #2D2A26; text-decoration: none; }
+
+/* ── Variant Panel (multi-variant cards) ───────────── */
+.pp-card-variants-panel {
+    display: none;
+    padding: 12px 18px 16px;
+    background: #FAF7F2;
+    border-top: 1px solid rgba(139,115,85,0.12);
+    border-radius: 0 0 16px 16px;
+}
+.pp-card-variants-panel.open { display: block; }
+
+.pp-var-row {
+    margin-bottom: 8px;
+}
+.pp-var-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #8B7355;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+    display: block;
+}
+.pp-var-select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid rgba(139,115,85,0.2);
+    border-radius: 6px;
+    font-size: 0.8rem;
+    color: #2D2A26;
+    background: #fff;
+    font-family: 'DM Sans', sans-serif;
+    appearance: auto;
+}
+.pp-var-select:focus { border-color: #9CAF88; outline: none; }
+
+.pp-var-price {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: #2D2A26;
+    margin: 8px 0;
+    text-align: center;
+}
+
+.pp-var-submit {
+    width: 100%;
+    background: #2D2A26;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.76rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-family: 'DM Sans', sans-serif;
+}
+.pp-var-submit:hover:not(:disabled) { background: #4A3728; }
+.pp-var-submit:disabled { opacity: 0.4; cursor: not-allowed; }
+.pp-var-submit.added { background: #9CAF88; pointer-events: none; }
+
+/* ── Reviana Card ─────────────────────────────────── */
+.pp-card--reviana .pp-card-img { background: #2D3D22; }
+
+/* ── Reviana Card Pills ────────────────────────────── */
+.pp-reviana-pills {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    z-index: 2;
+}
+.pp-reviana-pills span {
+    font-size: 0.54rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.85);
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(4px);
+    padding: 3px 8px;
+    border-radius: 50px;
+}
+
+/* ── Responsive ────────────────────────────────────── */
+@media (max-width: 1100px) {
+    .pp-card-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+    .pp-card-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; padding: 0 16px; }
+    .pp-card-body { padding: 12px 14px 14px; }
+    .pp-card-name { font-size: 0.88rem; }
+}
+@media (max-width: 420px) {
+    .pp-card-grid { gap: 10px; padding: 0 12px; }
+    .pp-card-cta { flex-direction: column; }
+}
+</style>
+
+<script>
+/* ── Product Card Quick-Add ────────────────────────── */
+(function() {
+    if (window._ppCardInit) return;
+    window._ppCardInit = true;
+
+    var market = (typeof window.MARKET !== 'undefined') ? window.MARKET : 'NZ';
+
+    // Shared add-to-cart function
+    window.ppAddToCart = function(pid, price, title, size, flavor) {
+        var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+        cart.push({
+            priceId: pid,
+            title: title,
+            size: size,
+            flavor: flavor,
+            orderType: 'Single',
+            quantity: 1,
+            unitPrice: parseFloat(price),
+            eligibleForDiscount: false
+        });
+        localStorage.setItem('cartV2', JSON.stringify(cart));
+    };
+
+    // Single-SKU quick add
+    document.addEventListener('click', function(e) {
+        var btn = e.target.closest('[data-pp-atc]');
+        if (!btn || btn.classList.contains('added')) return;
+
+        var pid = market === 'AU' ? (btn.dataset.ppPidAu || btn.dataset.ppPid) : btn.dataset.ppPid;
+        var price = market === 'AU' ? (btn.dataset.ppPriceAu || btn.dataset.ppPrice) : btn.dataset.ppPrice;
+
+        window.ppAddToCart(pid, price, btn.dataset.ppTitle, btn.dataset.ppSize, btn.dataset.ppFlavor);
+
+        var orig = btn.textContent.trim();
+        btn.textContent = 'Added \u2713';
+        btn.classList.add('added');
+        setTimeout(function() { btn.textContent = orig; btn.classList.remove('added'); }, 2500);
+    });
+
+    // Multi-variant toggle
+    document.addEventListener('click', function(e) {
+        var btn = e.target.closest('[data-pp-variants]');
+        if (!btn) return;
+
+        var card = btn.closest('.pp-card');
+        var panel = card.querySelector('.pp-card-variants-panel');
+        if (!panel) return;
+
+        var isOpen = panel.classList.contains('open');
+        // Close all other open panels first
+        document.querySelectorAll('.pp-card-variants-panel.open').forEach(function(p) {
+            p.classList.remove('open');
+            var otherBtn = p.closest('.pp-card').querySelector('[data-pp-variants]');
+            if (otherBtn) otherBtn.textContent = 'Add to Cart';
+        });
+
+        if (!isOpen) {
+            panel.classList.add('open');
+            btn.textContent = 'Close';
+            initVariantPanel(card, panel);
+        } else {
+            btn.textContent = 'Add to Cart';
+        }
+    });
+
+    // Initialize variant panel dropdowns from embedded JSON
+    function initVariantPanel(card, panel) {
+        if (panel.dataset.inited) return;
+        panel.dataset.inited = '1';
+
+        var dataEl = card.querySelector('.pp-card-variant-data');
+        if (!dataEl) return;
+        var data;
+        try { data = JSON.parse(dataEl.textContent); } catch(e) { return; }
+
+        var scentSel = panel.querySelector('.pp-var-scent');
+        var sizeSel = panel.querySelector('.pp-var-size');
+        var priceEl = panel.querySelector('.pp-var-price');
+        var submitBtn = panel.querySelector('.pp-var-submit');
+
+        // Populate scent dropdown
+        if (scentSel && data.scents) {
+            scentSel.innerHTML = '';
+            data.scents.forEach(function(s) {
+                var opt = document.createElement('option');
+                opt.value = s;
+                opt.textContent = (data.scentLabels && data.scentLabels[s]) ? data.scentLabels[s] : s.charAt(0).toUpperCase() + s.slice(1).replace(/-/g, ' ');
+                if (data.defaultScent && s === data.defaultScent) opt.selected = true;
+                scentSel.appendChild(opt);
+            });
+        }
+
+        // Populate size dropdown
+        if (sizeSel && data.sizes) {
+            sizeSel.innerHTML = '';
+            data.sizes.forEach(function(sz) {
+                var opt = document.createElement('option');
+                opt.value = sz;
+                opt.textContent = sz;
+                if (data.defaultSize && sz === data.defaultSize) opt.selected = true;
+                sizeSel.appendChild(opt);
+            });
+        }
+
+        function updatePrice() {
+            var scent = scentSel ? scentSel.value : (data.scents ? data.scents[0] : '');
+            var size = sizeSel ? sizeSel.value : (data.sizes ? data.sizes[0] : '');
+            if ((!scentSel || scent) && (!sizeSel || size)) {
+                var mk = market === 'AU' ? 'AU' : 'NZ';
+                // Find price from pricing array
+                var priceVal = null;
+                if (data.pricing) {
+                    data.pricing.forEach(function(p) {
+                        // Support size-based pricing (most products) or scent-based pricing (day-n-night)
+                        if (p.size === size && p[mk]) priceVal = p[mk];
+                        if (!data.sizes && p.scent === scent && p[mk]) priceVal = p[mk];
+                    });
+                }
+                // Find price_id from ids
+                var pid = null;
+                if (data.ids && data.ids.single && data.ids.single[scent]) {
+                    var scentIds = data.ids.single[scent];
+                    if (size && scentIds[size] && scentIds[size][mk]) {
+                        pid = scentIds[size][mk];
+                    } else if (!data.sizes && scentIds[mk]) {
+                        // No sizes — price ID directly under scent
+                        pid = scentIds[mk];
+                    }
+                }
+                if (priceVal !== null) {
+                    priceEl.textContent = (market === 'AU' ? 'A$' : '$') + parseFloat(priceVal).toFixed(2);
+                }
+                submitBtn.disabled = !pid;
+                submitBtn.dataset.resolvedPid = pid || '';
+                submitBtn.dataset.resolvedPrice = priceVal || '';
+                submitBtn.dataset.resolvedScent = scent;
+                submitBtn.dataset.resolvedSize = size;
+            } else {
+                priceEl.textContent = '';
+                submitBtn.disabled = true;
+            }
+        }
+
+        if (scentSel) scentSel.addEventListener('change', updatePrice);
+        if (sizeSel) sizeSel.addEventListener('change', updatePrice);
+
+        // Auto-resolve price for pre-filled defaults
+        updatePrice();
+
+        // Submit button
+        submitBtn.addEventListener('click', function() {
+            if (submitBtn.disabled || submitBtn.classList.contains('added')) return;
+            var pid = submitBtn.dataset.resolvedPid;
+            var price = submitBtn.dataset.resolvedPrice;
+            var scent = submitBtn.dataset.resolvedScent || '';
+            var size = submitBtn.dataset.resolvedSize || '';
+
+            var flavorText = (data.flavorLabels && data.flavorLabels[scent]) ? data.flavorLabels[scent] : scent.charAt(0).toUpperCase() + scent.slice(1).replace(/-/g, ' ');
+            window.ppAddToCart(pid, price, data.title, size, flavorText);
+
+            submitBtn.textContent = 'Added \u2713';
+            submitBtn.classList.add('added');
+            setTimeout(function() {
+                submitBtn.textContent = 'Add to Cart';
+                submitBtn.classList.remove('added');
+            }, 2500);
+        });
+    }
+})();
+</script>

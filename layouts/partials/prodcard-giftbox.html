@@ -1,25 +1,31 @@
-<div class="product-card grow col-xxl-3 col-lg-4 col-md-4 " data-category="skincare bundles haircare" id="prodcard-giftbox">
-  <a href="/shop/products/tallow-skincare-giftbox">
-    <div class="product-card-inner">
-      <p class="stamp">Online Exclusive</p>
-        <img src="/img/valentines-shop.webp" alt="tallow giftbox photo" class="d-block m-auto" max-height="400">
-        <div class="product-details">
-        <p class="h5">From <span class="nz-content" style="display:inline;">{{ with index site.Data.pricing.tallow.pricing.giftbox 1 }}
-            {{ with .prices.NZ }}
-                ${{ .single_purchase }}
-            {{ end }}
-        {{ end }}
-        </span>
-        <span class="au-content" style="display:none;">
-            {{ with index site.Data.pricing.tallow.pricing.giftbox 1 }}
-            {{ with .prices.AU }}
-              ${{ .single_purchase }}
-            {{ end }}
-        {{ end }}
-        </span></p>
-        <p class="h5 fw-bold">Tallow Giftbox</h6>
-    <p>SAVE 20%</p>
-      </div>
+<div class="product-card pp-card" data-category="skincare bundles haircare" id="prodcard-giftbox">
+    <span class="pp-card-badge">Online Exclusive</span>
+    <div class="pp-card-img">
+        <a href="/shop/products/tallow-skincare-giftbox">
+            <img src="/img/valentines-shop.webp" alt="Tallow Giftbox" loading="lazy">
+        </a>
     </div>
-  </a>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/shop/products/tallow-skincare-giftbox">Tallow Giftbox</a></div>
+        <div class="pp-card-sub">SAVE 20%</div>
+        <div class="pp-card-price">
+            {{ with index site.Data.pricing.tallow.pricing.giftbox 1 }}
+            <span class="nz-content">From ${{ with .prices.NZ }}{{ .single_purchase }}{{ end }}</span>
+            <span class="au-content" style="display:none;">From A${{ with .prices.AU }}{{ .single_purchase }}{{ end }}</span>
+            {{ end }}
+        </div>
+        <div class="pp-card-cta">
+            {{ with index site.Data.pricing.tallow.pricing.giftbox 1 }}
+            <button class="pp-card-atc" data-pp-atc
+                data-pp-pid="{{ index (index site.Data.pricing.tallow.ids.giftbox.single.giftbox "half") "NZ" }}"
+                data-pp-pid-au="{{ index (index site.Data.pricing.tallow.ids.giftbox.single.giftbox "half") "AU" }}"
+                data-pp-price="{{ with .prices.NZ }}{{ .single_purchase }}{{ end }}"
+                data-pp-price-au="{{ with .prices.AU }}{{ .single_purchase }}{{ end }}"
+                data-pp-title="Tallow Giftbox"
+                data-pp-size="half"
+                data-pp-flavor="giftbox">Add to Cart</button>
+            {{ end }}
+            <a href="/shop/products/tallow-skincare-giftbox" class="pp-card-view">View</a>
+        </div>
+    </div>
 </div>

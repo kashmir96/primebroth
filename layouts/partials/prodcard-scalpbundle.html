@@ -1,26 +1,31 @@
-<!-- Serum single product card -->
-<div class="product-card grow col-xxl-3 col-lg-4 col-md-4" data-category="haircare" id="prodcardscalpbundle"><a href="/shop/products/scalp-health-bundle">
-  <div class="product-card-inner">
-
-  <img src="/img/scalpbundle-shop.webp" alt="" max-height="400">
-  <div class="product-details">
-    <p class="h5 attention-primalcare"><span class="nz-content" style="display:inline;">{{ with index site.Data.pricing.tallow.pricing.scalpbundle 0 }}
-      {{ with .prices.NZ }}
-          ${{ .single_purchase }}
-      {{ end }}
-  {{ end }}
-  </span>
-  <span class="au-content" style="display:none;">
-      {{ with index site.Data.pricing.tallow.pricing.scalpbundle 0 }}
-      {{ with .prices.AU }}
-         ${{ .single_purchase }}
-      {{ end }}
-  {{ end }}
-  </span><span class="special" id="special">20% off!</p></p>
-    <p class="h5 fw-bold">Tallow Haircare Bundle</p>
-    <p>Brand New - Launch deal!</p>
-
-  </div>
-  </div>
-</a>
+<div class="product-card pp-card" data-category="haircare" id="prodcardscalpbundle">
+    <span class="pp-card-badge">20% off!</span>
+    <div class="pp-card-img">
+        <a href="/shop/products/scalp-health-bundle">
+            <img src="/img/scalpbundle-shop.webp" alt="Tallow Haircare Bundle" loading="lazy">
+        </a>
+    </div>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/shop/products/scalp-health-bundle">Tallow Haircare Bundle</a></div>
+        <div class="pp-card-sub">Brand New - Launch deal!</div>
+        <div class="pp-card-price">
+            {{ with index site.Data.pricing.tallow.pricing.scalpbundle 0 }}
+            <span class="nz-content">${{ with .prices.NZ }}{{ .single_purchase }}{{ end }}</span>
+            <span class="au-content" style="display:none;">A${{ with .prices.AU }}{{ .single_purchase }}{{ end }}</span>
+            {{ end }}
+        </div>
+        <div class="pp-card-cta">
+            {{ with index site.Data.pricing.tallow.pricing.scalpbundle 0 }}
+            <button class="pp-card-atc" data-pp-atc
+                data-pp-pid="{{ index (index site.Data.pricing.tallow.ids.scalpbundle.single.geranium "500ml") "NZ" }}"
+                data-pp-pid-au="{{ index (index site.Data.pricing.tallow.ids.scalpbundle.single.geranium "500ml") "AU" }}"
+                data-pp-price="{{ with .prices.NZ }}{{ .single_purchase }}{{ end }}"
+                data-pp-price-au="{{ with .prices.AU }}{{ .single_purchase }}{{ end }}"
+                data-pp-title="Tallow Haircare Bundle"
+                data-pp-size="500ml"
+                data-pp-flavor="geranium">Add to Cart</button>
+            {{ end }}
+            <a href="/shop/products/scalp-health-bundle" class="pp-card-view">View</a>
+        </div>
+    </div>
 </div>

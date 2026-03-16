@@ -1,14 +1,32 @@
-<!-- Tallow skin product card -->
-<div class="product-card grow left col-xxl-3 col-lg-4 col-md-4" data-category="tallow">
-  <a href="/shop/products/tallow-skin">
-    <img src="/img/whip.webp" alt="Beef Tallow for Skincare">
-    <div class="product-details">
-      <!-- Price partial inclusion -->
-      <p>{{- partial "price-tallow-skin-50.html" . -}}</p>
-      <h6>Tallow Balm - Whipped</h6>
-      <p>100+ kiwis</p>
-
+<!-- Note: This card uses a price partial. The price ID path may need verification. -->
+<div class="product-card pp-card" data-category="tallow" id="prodcardtallowskinpremium">
+    <span class="pp-card-badge">Online Exclusive</span>
+    <div class="pp-card-img">
+        <a href="/shop/products/tallow-skin">
+            <img src="/img/whip.webp" alt="Tallow Balm - Whipped" loading="lazy">
+        </a>
     </div>
-  </a>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/shop/products/tallow-skin">Tallow Balm - Whipped</a></div>
+        <div class="pp-card-sub">100+ kiwis</div>
+        <div class="pp-card-price">
+            {{ with index site.Data.pricing.tallow.pricing.balm 0 }}
+            <span class="nz-content">${{ with .prices.NZ }}{{ .single_purchase }}{{ end }}</span>
+            <span class="au-content" style="display:none;">A${{ with .prices.AU }}{{ .single_purchase }}{{ end }}</span>
+            {{ end }}
+        </div>
+        <div class="pp-card-cta">
+            {{ with index site.Data.pricing.tallow.pricing.balm 0 }}
+            <button class="pp-card-atc" data-pp-atc
+                data-pp-pid="{{ index (index site.Data.pricing.tallow.ids.balm.single.lavender "60ml") "NZ" }}"
+                data-pp-pid-au="{{ index (index site.Data.pricing.tallow.ids.balm.single.lavender "60ml") "AU" }}"
+                data-pp-price="{{ with .prices.NZ }}{{ .single_purchase }}{{ end }}"
+                data-pp-price-au="{{ with .prices.AU }}{{ .single_purchase }}{{ end }}"
+                data-pp-title="Tallow Balm - Whipped"
+                data-pp-size="60ml"
+                data-pp-flavor="lavender">Add to Cart</button>
+            {{ end }}
+            <a href="/shop/products/tallow-skin" class="pp-card-view">View</a>
+        </div>
+    </div>
 </div>
-
