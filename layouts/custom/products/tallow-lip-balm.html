@@ -474,9 +474,36 @@
                         <img class="eighty middle" src="/img/prod/balm/balmreviews.webp" alt="">
                     </div>
                     <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
-                            <h4>4 Nourishing Ingredients</h4>
-                            <p>A harmonic combination that soaks in for immediate hydration</p>
-                            <p>Grass-fed purified NZ beef tallow (75%), NZ manuka honey, organic coconut oil, NZ bees wax, essential oil. </p>
+                            <h4>Ingredients</h4>
+                            <div class="ingredient-variants">
+                                <div data-flavor="manuka-tub">
+                                    <p><strong>Manuka Honey:</strong> Tallow, Mel (Honey), Beeswax, Cocos Nucifera (Coconut) Oil</p>
+                                </div>
+                                <div data-flavor="manuka" style="display:none;">
+                                    <p><strong>Manuka Honey:</strong> Tallow, Mel (Honey), Beeswax, Cocos Nucifera (Coconut) Oil</p>
+                                </div>
+                                <div data-flavor="mint" style="display:none;">
+                                    <p><strong>Mint:</strong> Tallow, Beeswax, Cocos Nucifera (Coconut) Oil, Mentha Arvensis (Cornmint) Leaf Oil</p>
+                                </div>
+                                <div data-flavor="raspberry" style="display:none;">
+                                    <p><strong>Raspberry:</strong> Tallow, Olea Europaea (Olive) Fruit Oil, Cocos Nucifera (Coconut) Oil, Parfum*</p>
+                                    <p class="small"><em>*A combination of natural plant oils.</em></p>
+                                </div>
+                            </div>
+                            <script>
+                            (function(){
+                                var radios = document.querySelectorAll('input[name="flavor"]');
+                                var variants = document.querySelectorAll('.ingredient-variants [data-flavor]');
+                                function update(){
+                                    var sel = document.querySelector('input[name="flavor"]:checked');
+                                    if(!sel) return;
+                                    var val = sel.value;
+                                    variants.forEach(function(v){ v.style.display = v.getAttribute('data-flavor') === val ? '' : 'none'; });
+                                }
+                                radios.forEach(function(r){ r.addEventListener('change', update); });
+                                update();
+                            })();
+                            </script>
                             </div>
                             
                             

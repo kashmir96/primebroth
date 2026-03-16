@@ -494,11 +494,30 @@
         <p>Most lotions rely on water, petroleum, and synthetic thickeners — they coat the surface but don't truly hydrate. Our tallow body lotion is built around grass-fed tallow and aloe vera, with a fatty acid profile that closely mimics your skin's own oils. It absorbs fast, hydrates deeply, and keeps your skin soft all day — without any synthetic chemicals.</p>
     </div>
     <div class="pp-tab-panel" id="tab-ingredients">
-        <h4>Ingredients — Natural (unscented)</h4>
-        <p>Purified water, Grass-fed tallow, Coconut glycerin, Aloe vera extract, Natural emulsifying wax, Glyceryl stearate, Castor oil, Bisabolol, Vitamin E, Natural preservative.</p>
-        <h4>Ingredients — Rose Geranium</h4>
-        <p>Purified water, Grass-fed tallow, Coconut glycerin, Aloe vera extract, Natural emulsifying wax, Glyceryl stearate, Castor oil, Bisabolol, Vitamin E, Natural preservative, Rose geranium essential oil.</p>
+        <h4>Ingredients</h4>
+        <div class="ingredient-variants">
+            <div data-flavor="geranium">
+                <p><strong>Rose:</strong> Aqua (Water), Tallow, Glycerin, Cetearyl Glucoside, Cetearyl Alcohol, Glyceryl Stearate, Ricinus Communis (Castor) Seed Oil, Caprylhydroxamic Acid, Glyceryl Caprylate, Tocopherol (Vitamin E), Helianthus Annuus (Sunflower) Seed Oil, Bisabolol, Xanthan Gum, Pelargonium Graveolens (Rose Geranium) Oil, Aloe Barbadensis (Aloe Vera) Leaf Extract</p>
+            </div>
+            <div data-flavor="natural" style="display:none;">
+                <p><strong>Natural:</strong> Aqua (Water), Tallow, Glycerin, Cetearyl Glucoside, Cetearyl Alcohol, Glyceryl Stearate, Ricinus Communis (Castor) Seed Oil, Caprylhydroxamic Acid, Glyceryl Caprylate, Tocopherol (Vitamin E), Helianthus Annuus (Sunflower) Seed Oil, Bisabolol, Xanthan Gum, Aloe Barbadensis (Aloe Vera) Leaf Extract</p>
+            </div>
+        </div>
         <p>No petroleum, no parabens, no synthetic fragrances. Just clean, natural ingredients that work with your skin — not against it.</p>
+        <script>
+        (function(){
+            var radios = document.querySelectorAll('input[name="flavor"]');
+            var variants = document.querySelectorAll('.ingredient-variants [data-flavor]');
+            function update(){
+                var sel = document.querySelector('input[name="flavor"]:checked');
+                if(!sel) return;
+                var val = sel.value;
+                variants.forEach(function(v){ v.style.display = v.getAttribute('data-flavor') === val ? '' : 'none'; });
+            }
+            radios.forEach(function(r){ r.addEventListener('change', update); });
+            update();
+        })();
+        </script>
     </div>
     <div class="pp-tab-panel" id="tab-directions">
         <h4>How to use</h4>

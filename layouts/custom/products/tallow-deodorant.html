@@ -426,13 +426,30 @@
         <p style="margin-top: 12px;"><strong>What makes PrimalCare different?</strong> It's made with a tallow base — all natural, petroleum free and hydrating. Rich in Vitamins A, E, D & K and fatty acids important for skin repair and barrier building. We offer the best value tallow products in NZ: more product, better quality, for less.</p>
     </div>
     <div class="pp-tab-panel" id="tab-ingredients">
-        <h4>Nourishing Ingredients</h4>
-        <p>A harmonic combination that hydrates and deodorises naturally.</p>
-        <p style="margin-top: 8px;"><strong>Grass-fed purified NZ beef tallow (75%)</strong> — high-grade suet, hydrating base rich in vitamins and fatty acids.</p>
-        <p><strong>Organic coconut oil</strong> — natural antibacterial properties to fight odour-causing bacteria.</p>
-        <p><strong>Beeswax</strong> — helps the deodorant glide on smoothly and hold its form.</p>
-        <p><strong>Magnesium hydroxide</strong> — a gentle, natural mineral that neutralises odour without irritation.</p>
-        <p><strong>Essential oils</strong> — Cedarwood or Vanilla Rose for a subtle, natural scent.</p>
+        <h4>Ingredients</h4>
+        <div class="ingredient-variants">
+            <div data-flavor="cedarwood">
+                <p><strong>Cedarwood:</strong> Tallow, Cocos Nucifera (Coconut) Oil, Tapioca Starch, Beeswax, Magnesium Hydroxide (Odour Neutraliser), Cedrus Atlantica (Cedarwood) Bark Oil</p>
+            </div>
+            <div data-flavor="vanilla-rose" style="display:none;">
+                <p><strong>Vanilla Rose:</strong> Tallow, Cocos Nucifera (Coconut) Oil, Tapioca Starch, Beeswax, Magnesium Hydroxide (Odour Neutraliser), Pelargonium Graveolens (Rose Geranium) Oil, Parfum*</p>
+                <p class="small"><em>*A blend of natural plant oils including vanilla.</em></p>
+            </div>
+        </div>
+        <script>
+        (function(){
+            var radios = document.querySelectorAll('input[name="flavor"]');
+            var variants = document.querySelectorAll('.ingredient-variants [data-flavor]');
+            function update(){
+                var sel = document.querySelector('input[name="flavor"]:checked');
+                if(!sel) return;
+                var val = sel.value;
+                variants.forEach(function(v){ v.style.display = v.getAttribute('data-flavor') === val ? '' : 'none'; });
+            }
+            radios.forEach(function(r){ r.addEventListener('change', update); });
+            update();
+        })();
+        </script>
     </div>
     <div class="pp-tab-panel" id="tab-directions">
         <h4>How to use</h4>

@@ -476,13 +476,16 @@ Watch as light and fluffy balm soaks deeply into your skin, going to work giving
                         <img class="eighty middle" src="/img/prod/balm/balmreviews.webp" alt="">
                     </div>
                     <div class="tab-pane fade" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
-                        <h4>Nourishing Ingredients</h4>
-                        <p>A harmonic combination that soaks in for immediate hydration</p>
-                        <h5>Blue tansy & manuka honey tallow balm</h5>
-                        <p>Grass-fed purified NZ beef tallow (98%),  organic jojoba oil, essential oil,manuka honey, blue tansy. </p>
-                        <h5>Vanilla & manuka honey tallow balm</h5>
-                         <p>Grass-fed purified NZ beef tallow (98%),  organic jojoba oil, essential oil,manuka honey, vanilla essential oil. </p>
-                        
+                        <h4>Ingredients</h4>
+                        <div class="ingredient-variants">
+                            <div data-flavor="vanilla">
+                                <p><strong>Vanilla Manuka:</strong> Tallow, Simmondsia Chinensis (Jojoba) Seed Oil, Mel (Honey), Parfum*</p>
+                                <p class="small"><em>*A blend of natural plant oils including vanilla.</em></p>
+                            </div>
+                            <div data-flavor="tansy" style="display:none;">
+                                <p><strong>Blue Tansy Manuka:</strong> Tallow, Simmondsia Chinensis (Jojoba) Seed Oil, Mel (Honey), Tanacetum Annuum (Blue Tansy) Flower Oil</p>
+                            </div>
+                        </div>
                         <div class="row text-center">
                             <div class="col-6 mb-3">
                                 <img src="/img/prod/balm/tallowwhite.webp" class="w-50 mb-1 middle" alt="Grass-fed beef tallow">
@@ -490,13 +493,27 @@ Watch as light and fluffy balm soaks deeply into your skin, going to work giving
                             </div>
                             <div class="col-6">
                                 <img src="/img/prod/balm/jojobaoil.webp" class="w-50 mb-1 middle" alt="Organic cold pressed jojoba oil">
-                                <p>Adding extra lift to the whip while providing smoothing and benefits to your skin.</p>    
+                                <p>Adding extra lift to the whip while providing smoothing and benefits to your skin.</p>
                             </div>
                             <div class="col-6">
-                                <img src="/img/prod/balm/essentialoil.webp" class="w-50 mb-1 middle"s alt="Natural essential oils">
+                                <img src="/img/prod/balm/essentialoil.webp" class="w-50 mb-1 middle" alt="Natural essential oils">
                                 <p>These add the aroma and additional health benefits to your balms.</p>
                             </div>
                         </div>
+                        <script>
+                        (function(){
+                            var radios = document.querySelectorAll('input[name="flavor"]');
+                            var variants = document.querySelectorAll('.ingredient-variants [data-flavor]');
+                            function update(){
+                                var sel = document.querySelector('input[name="flavor"]:checked');
+                                if(!sel) return;
+                                var val = sel.value;
+                                variants.forEach(function(v){ v.style.display = v.getAttribute('data-flavor') === val ? '' : 'none'; });
+                            }
+                            radios.forEach(function(r){ r.addEventListener('change', update); });
+                            update();
+                        })();
+                        </script>
                     </div>       
                     <div class="tab-pane fade" id="directions" role="tabpanel" aria-labelledby="directions-tab">
                         <h4>Directions</h4>
