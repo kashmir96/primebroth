@@ -133,11 +133,11 @@
         <ul class="text-center list-unstyled text-white fs-5">
             {{ range .Site.Menus.main }}
             {{ if eq .Identifier "tallow-skincare" }}
-            <li class="p-1">
-                <a class="nav-parent-label" href="/shop/" style="text-decoration:none; color:inherit;">{{ .Name }}</a>
+            <li class="p-2">
+                <a href="/shop/"><span>{{ .Name }}</span></a>
             </li>
-            <li class="p-1"><a class="nav-child-link" href="/shop/"><span>For dry, red &amp; itchy skin</span></a></li>
-            <li class="p-1"><a class="nav-child-link" href="/cosmetic-tallow-reviana/"><span>For brightening &amp; fine lines</span></a></li>
+            <li class="p-1"><a class="nav-child-link" href="/shop/"><span>Primalcare - Calm &amp; Soothe</span></a></li>
+            <li class="p-1"><a class="nav-child-link" href="/cosmetic-tallow-reviana/"><span>Reviana - Fine Lines &amp; Brightening</span></a></li>
             {{ else if not .Parent }}
             <li class="p-2">
                 <a href="{{ .URL | safeURL }}"><span>{{ .Name }}</span></a>
