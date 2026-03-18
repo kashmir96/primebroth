@@ -667,34 +667,39 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     .soothe-bundle {
       background: var(--pc-brown); border-radius: 18px;
       padding: 22px 28px; display: flex; align-items: center;
-      gap: 28px; margin-top: 14px; margin-bottom: 0; position: relative; overflow: hidden;
+      gap: 28px; margin-top: 14px; margin-bottom: 0; position: relative; overflow: visible;
       flex-wrap: wrap;
     }
     .soothe-bundle-badge {
-      position: absolute; top: -10px; right: 16px;
+      position: absolute; top: -11px; right: 16px;
       background: var(--pc-brown-light); color: var(--pc-black);
       font-size: 0.6rem; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.12em; padding: 3px 12px; border-radius: 100px;
+      letter-spacing: 0.12em; padding: 5px 14px; border-radius: 100px;
+      z-index: 2; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
+    .soothe-bundle--stacked { flex-direction: row; align-items: center; gap: 24px; }
+    .soothe-bundle-header { z-index: 1; }
     .soothe-bundle-imgs { display: flex; flex-shrink: 0; z-index: 1; }
     .soothe-bundle-img {
-      width: 100px; height: 100px; border-radius: 14px;
+      width: 120px; height: 120px; border-radius: 14px;
       background: none; border: none;
       overflow: hidden; margin-left: 0;
       display: flex; align-items: center; justify-content: center;
     }
     .soothe-bundle-img:first-child { margin-left: 0; }
     .soothe-bundle-img img { width: 100%; height: 100%; object-fit: cover; }
+    .soothe-bundle-right { flex: 1; z-index: 1; min-width: 0; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .soothe-bundle-text { flex: 1; min-width: 0; }
     .soothe-bundle-content { flex: 1; z-index: 1; min-width: 0; }
     .soothe-bundle-name {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1.15rem; font-weight: 400; color: #fff; margin: 0 0 3px;
+      font-size: 1.35rem; font-weight: 400; color: #fff; margin: 0 0 4px;
     }
-    .soothe-bundle-sub { font-size: 0.78rem; color: rgba(255,255,255,0.52); margin: 0 0 12px; }
-    .soothe-bundle-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .soothe-bundle-sub { font-size: 0.88rem; color: rgba(255,255,255,0.52); margin: 0; }
+    .soothe-bundle-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; flex-shrink: 0; }
     .soothe-bundle-price {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1.5rem; color: #fff;
+      font-size: 1.6rem; color: #fff;
     }
     .soothe-bundle-save {
       font-size: 0.66rem; font-weight: 800; text-transform: uppercase;
@@ -840,14 +845,17 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     }
     @media (max-width: 860px) {
       .soothe-section { padding-top: 36px; }
-      .soothe-inner { padding-left: 20px; padding-right: 20px; overflow: hidden; }
+      .soothe-inner { padding-left: 20px; padding-right: 20px; }
       .all-products-inner { padding-left: 20px; padding-right: 20px; }
       .mpb-wrap { padding-left: 20px; padding-right: 20px; }
       .soothe-header { flex-direction: column; gap: 12px; }
       .eanz-badge { display: none; }
 
-      .soothe-bundle { flex-direction: column; align-items: flex-start; gap: 12px; padding: 20px; }
-      .soothe-bundle-imgs { display: flex; justify-content: center; }
+      .soothe-bundle { padding: 16px; gap: 14px; }
+      .soothe-bundle-img { width: 80px; height: 80px; border-radius: 10px; }
+      .soothe-bundle-right { flex-direction: column; align-items: flex-start; }
+      .soothe-bundle-name { font-size: 1.05rem; }
+      .soothe-bundle-sub { margin-bottom: 8px; font-size: 0.75rem; }
       .soothe-bundle-row { flex-direction: row; align-items: center; }
 
       .mpb-inner { flex-direction: column; align-items: flex-start; gap: 10px; }
@@ -1023,12 +1031,6 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             
             
             <li class="p-2">
-                <a href="/shop/products/tallow-day-n-night-duo/"><span>Balm of The Month</span></a>
-            </li>
-            
-            
-            
-            <li class="p-2">
                 <a href="/pages/about/"><span>About</span></a>
             </li>
             
@@ -1092,12 +1094,6 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                     
                     <li class="nav-item">
                         <a class="nav-link " aria-current="page" href="/pages/reviews/">Reviews</a>
-                    </li>
-                    
-                    
-                    
-                    <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/shop/products/tallow-day-n-night-duo/">Balm of The Month</a>
                     </li>
                     
                     
@@ -1749,21 +1745,22 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         </div>
 
         
-        <div class="soothe-bundle">
+        <div class="soothe-bundle soothe-bundle--stacked">
           <span class="soothe-bundle-badge">Best Value</span>
           <div class="soothe-bundle-imgs">
-            <div class="soothe-bundle-img"><img src="/img/shop/shop-gold.webp" alt="Gold Stack Bundle" style="width:100%;height:100%;object-fit:cover;padding:0;"></div>
+            <div class="soothe-bundle-img"><img src="/img/shop/shop-gold.webp" alt="Tallow Soothing Routine Bundle" style="width:100%;height:100%;object-fit:cover;padding:0;"></div>
           </div>
-          <div class="soothe-bundle-content">
-            <div class="soothe-bundle-name">The Gold Stack</div>
-            <div class="soothe-bundle-sub">Tallow Balm · Shampoo Bar · Lip Balm</div>
+          <div class="soothe-bundle-right">
+            <div class="soothe-bundle-text">
+              <div class="soothe-bundle-name">Tallow Soothing Routine</div>
+              <div class="soothe-bundle-sub">Soothe your face, lips, body and scalp</div>
+            </div>
             <div class="soothe-bundle-row">
               <span class="soothe-bundle-price">NZ$54.95</span>
-              <span class="soothe-bundle-save">Save with bundle</span>
               <button class="soothe-bundle-atc"
                 data-atc-pid="price_1Rm1kFFZRwx5tlYmID3EjS6j"
                 data-atc-price="54.95"
-                data-atc-title="The Gold Stack"
+                data-atc-title="Tallow Soothing Routine"
                 data-atc-size="one-size"
                 data-atc-flavor="Unscented">
                 Add to Cart
@@ -2482,8 +2479,8 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         </a>
     </div>
     <div class="pp-card-body">
-        <div class="pp-card-name"><a href="/shop/products/golden-tallow-honey-stack/">The Golden Stack (bundle)</a></div>
-        <div class="pp-card-sub">Tallow Balm · Shampoo Bar · Lip Balm</div>
+        <div class="pp-card-name"><a href="/shop/products/golden-tallow-honey-stack/">Tallow Soothing Routine (bundle)</a></div>
+        <div class="pp-card-sub">Soothe your face, lips, body and scalp</div>
         <div class="pp-card-price">
             
             <span class="nz-content"><span class="pp-card-price-was">$60.85</span>$54.95</span>
@@ -2497,7 +2494,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                 data-pp-pid-au="price_1T7S3kJzNO9WRf4JLnM0nGoh"
                 data-pp-price="54.95"
                 data-pp-price-au="59.95"
-                data-pp-title="The Golden Stack"
+                data-pp-title="Tallow Soothing Routine"
                 data-pp-size="one-size"
                 data-pp-flavor="unscented">Add to Cart</button>
             
