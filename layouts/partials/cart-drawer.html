@@ -295,17 +295,6 @@
         }
         footerEl.style.display = '';
 
-        // Fallback image lookup for cart items without a stored image
-        var fallbackImages = {};
-        document.querySelectorAll('.pp-card').forEach(function(card) {
-            var nameEl = card.querySelector('.pp-card-name');
-            var imgEl = card.querySelector('.pp-card-img img');
-            if (nameEl && imgEl) {
-                var t = nameEl.textContent.trim();
-                fallbackImages[t] = imgEl.getAttribute('src');
-            }
-        });
-
         var html = '', subtotal = 0;
         cart.forEach(function(item, i) {
             var qty = parseInt(item.quantity) || 1;
@@ -322,7 +311,7 @@
                 meta += (meta ? ' \u00b7 ' : '') + item.orderType;
             }
 
-            var imgSrc = item.image || fallbackImages[item.title] || '';
+            var imgSrc = item.image || _cardImages[item.title] || '';
             var imgHtml = imgSrc
                 ? '<div class="pp-drawer-item-img"><img src="' + imgSrc + '" alt="' + (item.title || '') + '"></div>'
                 : '<div class="pp-drawer-item-img"></div>';
@@ -459,29 +448,62 @@
     window.updateCartBadge = function() { updateBadge(); };
     window.triggerCartBounce = function(productName) { triggerBounce(); openDrawer(); };
 
+    // --- Product card image map (used to auto-attach images to cart items) ---
+    var _cardImages = {
+        "Tallow Balm - Whipped":"/img/shop/balm.webp",
+        "Whipped Tallow Balm":"/img/shop/balm.webp",
+        "Tallow & Honey Balm":"/img/shop/honeyshop.webp",
+        "Tallow Eye Cream":"/img/shop/eyecream.webp",
+        "Tallow Glow Serum":"/img/serum-shop.webp",
+        "Tallow Deodorant":"/img/shop/deod.webp",
+        "Tallow Lip Balm":"/img/lip-balm-images1.webp",
+        "Tallow Lip Balm Stick":"/img/shop/lipshop.webp",
+        "Tallow Shampoo Bar":"/img/shampoobar/shampoo-bar-prodcutpage.webp",
+        "Tallow Scalp Shampoo":"/img/liqshampoo-shop.webp",
+        "Tallow Conditioner":"/img/conditioner-shop.webp",
+        "Tallow Hair Clay":"/img/shop/hair-clay-shop.webp",
+        "Tallow Beard Balm":"/img/shop/shopbeardi.webp",
+        "Unwhipped Tallow Balm":"/img/shop/shop-unwhipped.webp",
+        "Tallow Cleanser":"/img/cleanser/tallow-cleasner-productpage.webp",
+        "Tallow Body Oil":"/img/cleanser/tallow-cleasner-productpage.webp",
+        "Tallow Liquid Soap":"/img/natural-soap-cutout.webp",
+        "Aloe Tallow Body Lotion":"/img/body-lotion-natural-cutout.webp",
+        "Tallow Soap":"/img/soaps/tallow-soap-range-productpage.webp",
+        "Tallow Soap Mixed Sampler":"/img/soaps-new/mixed-prod.webp",
+        "Manuka Honey Soap":"/img/shop/honey_soap1.webp",
+        "Non-Tox Tallow Dish Block":"/img/dish-shop.webp",
+        "Colloidal Oat Bath Soak":"/img/colloidal_oat1.webp",
+        "Tallow + Zinc Summer Balm":"/img/summer1.webp",
+        "Tallow Sunbalm":"/img/sunscreen/main.webp",
+        "Tallow Day n Night Balms":"/img/limited-shop.webp",
+        "Tallow Baby Butter":"/img/baby-butter-shop.webp",
+        "Tallow Baby Skincare Kit":"/img/bundle-babies-skincare.webp",
+        "Tallow Giftbox":"/img/valentines-shop.webp",
+        "Eczema Bundle":"/img/shop/EANZ-bundle.webp",
+        "Men's Bundle":"/img/shop/fathersbundle1.webp",
+        "Tallow Haircare Bundle":"/img/scalpbundle-shop.webp",
+        "Ultimate Tallow Bundle":"/img/ultimate-bundle.webp",
+        "Tallow Balm Mixed Bundle":"/img/dec24/product-trio.webp",
+        "Tallow Liquid Soap & Lotion Bundle":"/img/liquid-shop.webp",
+        "The Golden Stack":"/img/shop/shop-gold.webp",
+        "Sensitive Skin Tallow Stack":"/img/sensitive-stack-tub.webp",
+        "Tallow Anti-aging Kit":"/img/wrinkleskinnew.webp",
+        "Tallow Balm - DIY kit":"/img/tallow-balm.webp",
+        "Reviana - Tallow Cosmetics":"/img/r2-reviana-range-square.webp",
+        "Nourishing Tallow Conditioner":"/img/conditioner-shop.webp"
+    };
+
     // --- Auto-detect cart changes from product pages ---
     localStorage.setItem = function(key, value) {
-        // Auto-attach product image to new cart items that lack one
+        // Auto-attach product card image to new cart items that lack one
         if (key === 'cartV2') {
             try {
                 var parsed = JSON.parse(value) || [];
                 var patched = false;
                 for (var k = 0; k < parsed.length; k++) {
-                    if (!parsed[k].image) {
-                        // Try product page main image
-                        var mainImg = document.querySelector('.main-image') || document.querySelector('.gallery-main img') || document.querySelector('.product-swiper img');
-                        // Try product card image (shop pages)
-                        if (!mainImg) {
-                            var cards = document.querySelectorAll('.pp-card');
-                            for (var c = 0; c < cards.length; c++) {
-                                var name = cards[c].querySelector('.pp-card-name');
-                                if (name && name.textContent.trim() === parsed[k].title) {
-                                    mainImg = cards[c].querySelector('.pp-card-img img');
-                                    break;
-                                }
-                            }
-                        }
-                        if (mainImg) { parsed[k].image = mainImg.getAttribute('src'); patched = true; }
+                    if (!parsed[k].image && parsed[k].title && _cardImages[parsed[k].title]) {
+                        parsed[k].image = _cardImages[parsed[k].title];
+                        patched = true;
                     }
                 }
                 if (patched) value = JSON.stringify(parsed);
