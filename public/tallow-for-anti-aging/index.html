@@ -255,7 +255,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             
             
             <li class="p-2">
-                <a href="/balm-of-the-month/"><span>Balm of The Month</span></a>
+                <a href="/shop/products/tallow-day-n-night-duo/"><span>Balm of The Month</span></a>
             </li>
             
             
@@ -329,7 +329,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                     
                     
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/balm-of-the-month/">Balm of The Month</a>
+                        <a class="nav-link " aria-current="page" href="/shop/products/tallow-day-n-night-duo/">Balm of The Month</a>
                     </li>
                     
                     
@@ -1443,6 +1443,25 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
   </div>
 
 </footer>
+
+
+<script>
+(function(){
+    var thumbs = document.querySelectorAll('.product-image');
+    if (!thumbs.length) return;
+    var main = document.querySelector('.main-image');
+    if (!main) return;
+    main.style.transition = 'opacity 0.15s';
+    thumbs.forEach(function(thumb){
+        thumb.addEventListener('click', function(){
+            main.style.opacity = '0';
+            setTimeout(function(){ main.src = thumb.src; main.style.opacity = '1'; }, 150);
+            thumbs.forEach(function(t){ t.classList.remove('active'); });
+            thumb.classList.add('active');
+        });
+    });
+})();
+</script>
 
 
 

@@ -278,7 +278,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             
             
             <li class="p-2">
-                <a href="/balm-of-the-month/"><span>Balm of The Month</span></a>
+                <a href="/shop/products/tallow-day-n-night-duo/"><span>Balm of The Month</span></a>
             </li>
             
             
@@ -352,7 +352,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                     
                     
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/balm-of-the-month/">Balm of The Month</a>
+                        <a class="nav-link " aria-current="page" href="/shop/products/tallow-day-n-night-duo/">Balm of The Month</a>
                     </li>
                     
                     
@@ -1155,8 +1155,8 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         <div class="pp-card-sub">Tallow balm 120ml &amp; 60ml · Deodorant · Lip Balm Tub</div>
         <div class="pp-card-price">
             
-            <span class="nz-content">$69.95</span>
-            <span class="au-content" style="display:none;">A$74.95</span>
+            <span class="nz-content"><span class="pp-card-price-was">$74.80</span>$69.95</span>
+            <span class="au-content" style="display:none;"><span class="pp-card-price-was">A$79.80</span>A$74.95</span>
             
         </div>
         <div class="pp-card-cta">
@@ -1175,7 +1175,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     </div>
 </div>
 <div class="product-card pp-card" data-category="skincare" id="prodcardtallowbundle">
-    <span class="pp-card-badge">Online Exclusive</span>
+    <span class="pp-card-badge special">25% Off</span>
     <div class="pp-card-img">
         <a href="/shop/products/tallow-deodorant">
             <img src="/img/shop/deod.webp" alt="Tallow Deodorant" loading="lazy">
@@ -1186,8 +1186,9 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         <div class="pp-card-sub">Natural deodorant without the sting</div>
         <div class="pp-card-price">
             
-            <span class="nz-content">$13.46</span>
-            <span class="au-content" style="display:none;">A$19.95</span>
+            
+            <span class="nz-content"><span class="pp-card-price-was">$17.95</span>$13.46</span>
+            <span class="au-content" style="display:none;"><span class="pp-card-price-was">A$26.60</span>A$19.95</span>
             
         </div>
         <div class="pp-card-cta">
@@ -1249,8 +1250,8 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         <div class="pp-card-sub">Tallow balm 120ml &amp; 60ml · Deodorant · Lip Balm Tub</div>
         <div class="pp-card-price">
             
-            <span class="nz-content">$69.95</span>
-            <span class="au-content" style="display:none;">A$74.95</span>
+            <span class="nz-content"><span class="pp-card-price-was">$74.80</span>$69.95</span>
+            <span class="au-content" style="display:none;"><span class="pp-card-price-was">A$79.80</span>A$74.95</span>
             
         </div>
         <div class="pp-card-cta">
@@ -1830,6 +1831,25 @@ if (window.innerWidth <= 900) {
   </div>
 
 </footer>
+
+
+<script>
+(function(){
+    var thumbs = document.querySelectorAll('.product-image');
+    if (!thumbs.length) return;
+    var main = document.querySelector('.main-image');
+    if (!main) return;
+    main.style.transition = 'opacity 0.15s';
+    thumbs.forEach(function(thumb){
+        thumb.addEventListener('click', function(){
+            main.style.opacity = '0';
+            setTimeout(function(){ main.src = thumb.src; main.style.opacity = '1'; }, 150);
+            thumbs.forEach(function(t){ t.classList.remove('active'); });
+            thumb.classList.add('active');
+        });
+    });
+})();
+</script>
 
 
 

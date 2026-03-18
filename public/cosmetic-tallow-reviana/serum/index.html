@@ -97,7 +97,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
-    <link rel="stylesheet" href="/css/product-page.min.ab84fbb29d1b0415d766fef886fb7014e102d34f41b792f3577c1dbe98e59248.css">
+    <link rel="stylesheet" href="/css/product-page.min.6f5c13feacfeb9961b2e7a48e3f82d4986ab7b228d5bb4cd4fc4928e0f28ec6d.css">
     <style>
     :root{--rv-cream:#FAF7F2;--rv-cream-deep:#EDE5D8;--rv-bark:#2E1A0E;--rv-bark-light:#6B4D38;--rv-sage:#6B8F5B;--rv-sage-mid:#4E6840;--rv-sage-pale:#E5EDDF;--rv-stone:#C8A87A;--rv-stone-light:#DEC49A;--rv-warm-gray:#877B71;--rv-border:rgba(46,26,14,0.1);--rv-white:#FDFBF8;}
     *{box-sizing:border-box;}body{font-family:'DM Sans',sans-serif;color:var(--rv-bark);-webkit-font-smoothing:antialiased;}
@@ -108,8 +108,8 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     .rv-gal-main{background:var(--rv-cream);border-radius:20px;overflow:hidden;aspect-ratio:1;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
     .rv-gal-main img{width:92%;height:92%;object-fit:contain;transition:opacity 0.2s;}
     .rv-gal-thumbs{display:flex;gap:10px;}
-    .rv-gal-thumb{width:72px;height:72px;border-radius:10px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:border-color 0.2s;background:var(--rv-cream);}
-    .rv-gal-thumb.active,.rv-gal-thumb:hover{border-color:var(--rv-sage);}
+    .rv-gal-thumb{width:72px;height:72px;border-radius:10px;overflow:hidden;cursor:pointer;border:2px solid var(--rv-cream-deep,#EDE5D8);transition:border-color 0.2s;background:var(--rv-cream);}
+    .rv-gal-thumb.active,.rv-gal-thumb:hover{border-color:#2C1810;}
     .rv-gal-thumb img{width:100%;height:100%;object-fit:cover;}
     .rv-mt{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
     .rv-mt span{font-size:0.7rem;font-weight:700;color:var(--rv-warm-gray);}
@@ -336,7 +336,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             
             
             <li class="p-2">
-                <a href="/balm-of-the-month/"><span>Balm of The Month</span></a>
+                <a href="/shop/products/tallow-day-n-night-duo/"><span>Balm of The Month</span></a>
             </li>
             
             
@@ -410,7 +410,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                     
                     
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/balm-of-the-month/">Balm of The Month</a>
+                        <a class="nav-link " aria-current="page" href="/shop/products/tallow-day-n-night-duo/">Balm of The Month</a>
                     </li>
                     
                     
@@ -1395,6 +1395,25 @@ if (window.innerWidth <= 900) {
   </div>
 
 </footer>
+
+
+<script>
+(function(){
+    var thumbs = document.querySelectorAll('.product-image');
+    if (!thumbs.length) return;
+    var main = document.querySelector('.main-image');
+    if (!main) return;
+    main.style.transition = 'opacity 0.15s';
+    thumbs.forEach(function(thumb){
+        thumb.addEventListener('click', function(){
+            main.style.opacity = '0';
+            setTimeout(function(){ main.src = thumb.src; main.style.opacity = '1'; }, 150);
+            thumbs.forEach(function(t){ t.classList.remove('active'); });
+            thumb.classList.add('active');
+        });
+    });
+})();
+</script>
 
 
 
