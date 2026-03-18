@@ -10,8 +10,8 @@
         <div class="pp-card-sub">Liquid Lotion &amp; Liquid Soap</div>
         <div class="pp-card-price">
             {{ with index site.Data.pricing.tallow.pricing.liquid_bundle 0 }}
-            <span class="nz-content">${{ with .prices.NZ }}{{ .single_purchase }}{{ end }}</span>
-            <span class="au-content" style="display:none;">A${{ with .prices.AU }}{{ .single_purchase }}{{ end }}</span>
+            <span class="nz-content"><span class="pp-card-price-was">$64.90</span>${{ with .prices.NZ }}{{ .single_purchase }}{{ end }}</span>
+            <span class="au-content" style="display:none;"><span class="pp-card-price-was">A$74.90</span>A${{ with .prices.AU }}{{ .single_purchase }}{{ end }}</span>
             {{ end }}
         </div>
         <div class="pp-card-cta">
