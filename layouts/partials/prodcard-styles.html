@@ -322,7 +322,22 @@
         var imgEl = card ? card.querySelector('.pp-card-img img') : null;
         var image = imgEl ? imgEl.getAttribute('src') : '';
 
-        window.ppAddToCart(pid, price, btn.dataset.ppTitle, btn.dataset.ppSize, btn.dataset.ppFlavor, image);
+        var rawFlavor = btn.dataset.ppFlavor || '';
+        var flavorLabelOverride = btn.dataset.ppFlavorLabel || '';
+        if (flavorLabelOverride) { var flavorLabel = flavorLabelOverride; } else {
+        var flavorMap = {
+            'manukahoney_vitc': 'Manuka Honey & Vitamin C',
+            'peppermintrosemary': 'Peppermint Rosemary',
+            'lav-vanro-fran': 'Lavender, Vanilla Rose & Frankincense',
+            'one-scent': '',
+            'samplea': '',
+            'medium-hold': 'Medium Hold',
+            'vitc': 'Vitamin C',
+            'giftbox': ''
+        };
+        var flavorLabel = flavorMap[rawFlavor] !== undefined ? flavorMap[rawFlavor] : rawFlavor.charAt(0).toUpperCase() + rawFlavor.slice(1).replace(/[-_]/g, ' ');
+        }
+        window.ppAddToCart(pid, price, btn.dataset.ppTitle, btn.dataset.ppSize, flavorLabel, image);
 
         var orig = btn.textContent.trim();
         btn.textContent = 'Added \u2713';
@@ -454,11 +469,12 @@
             var scent = submitBtn.dataset.resolvedScent || '';
             var size = submitBtn.dataset.resolvedSize || '';
 
-            var flavorText = (data.flavorLabels && data.flavorLabels[scent]) ? data.flavorLabels[scent] : scent.charAt(0).toUpperCase() + scent.slice(1).replace(/-/g, ' ');
+            var flavorText = scentSel ? scentSel.options[scentSel.selectedIndex].text : ((data.flavorLabels && data.flavorLabels[scent]) ? data.flavorLabels[scent] : scent.charAt(0).toUpperCase() + scent.slice(1).replace(/[-_]/g, ' '));
+            var sizeText = sizeSel ? sizeSel.options[sizeSel.selectedIndex].text : size;
             // Find product card image
             var imgEl = card.querySelector('.pp-card-img img');
             var image = imgEl ? imgEl.getAttribute('src') : '';
-            window.ppAddToCart(pid, price, data.title, size, flavorText, image);
+            window.ppAddToCart(pid, price, data.title, sizeText, flavorText, image);
 
             submitBtn.textContent = 'Added \u2713';
             submitBtn.classList.add('added');
