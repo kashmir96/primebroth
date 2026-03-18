@@ -132,7 +132,11 @@
     <div id="overlay">
         <ul class="text-center list-unstyled text-white fs-5">
             {{ range .Site.Menus.main }}
-            {{ if eq .Identifier "tallow-skincare" }}
+            {{ if eq .Identifier "balm-of-the-month" }}
+            <li class="p-2">
+                <a href="{{ .URL | safeURL }}"><span>{{ .Name }}</span></a>
+            </li>
+            {{ else if eq .Identifier "tallow-skincare" }}
             <li class="p-2">
                 <a href="/shop/"><span>{{ .Name }}</span></a>
             </li>

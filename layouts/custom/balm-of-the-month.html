@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{- partial "head.html" . -}}
+    <meta name="description" content="Join the PrimalPantry Balm of The Month Club — unique limited edition tallow balms delivered to your door every month." />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    {{- partial "prodcard-styles.html" . -}}
+
+    <style>
+    :root {
+      --pc-cream:        #F7F2EB;
+      --pc-cream-deep:   #EDE3D3;
+      --pc-black:        #1C1A17;
+      --pc-brown:        #7B5C3A;
+      --pc-brown-mid:    #9B7550;
+      --pc-brown-light:  #C4A07A;
+      --pc-brown-pale:   #F0E6D8;
+      --pc-green:        #4A5E38;
+      --pc-border:       rgba(123,92,58,0.14);
+      --pc-warm-gray:    #8A7D70;
+      --pc-white:        #FDFAF6;
+    }
+    * { box-sizing: border-box; }
+
+    /* ── HERO ─────────────────────────────────────────── */
+    .botm-hero {
+      background: var(--pc-cream);
+      padding: 80px 0 60px;
+    }
+    .botm-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .botm-hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .botm-hero-eyebrow {
+      font-size: 0.66rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--pc-brown-mid);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .botm-hero-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 400;
+      color: var(--pc-black);
+      line-height: 1.12;
+      margin: 0 0 16px;
+    }
+    .botm-hero-title em {
+      color: var(--pc-brown);
+      font-style: italic;
+    }
+    .botm-hero-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      color: var(--pc-warm-gray);
+      line-height: 1.7;
+      margin: 0 0 28px;
+      max-width: 440px;
+    }
+    .botm-price-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .botm-price {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2rem;
+      color: var(--pc-black);
+    }
+    .botm-price-sub {
+      font-size: 0.82rem;
+      color: var(--pc-warm-gray);
+      line-height: 1.3;
+    }
+    .botm-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--pc-brown);
+      color: #fff;
+      border: none;
+      padding: 16px 36px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.22s;
+      text-decoration: none;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .botm-cta:hover {
+      background: var(--pc-brown-mid);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(123,92,58,0.25);
+      text-decoration: none;
+    }
+    .botm-cta svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ── PERKS ─────────────────────────────────────────── */
+    .botm-perks {
+      display: flex;
+      gap: 12px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+    .botm-perk {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--pc-white);
+      border: 1px solid var(--pc-border);
+      border-radius: 100px;
+      padding: 8px 16px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--pc-black);
+    }
+    .botm-perk-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--pc-brown-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      flex-shrink: 0;
+    }
+
+    /* ── THIS MONTH SECTION ───────────────────────────── */
+    .botm-month {
+      background: var(--pc-white);
+      padding: 60px 0 80px;
+      border-top: 1px solid var(--pc-border);
+    }
+    .botm-month-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .botm-month-eyebrow {
+      font-size: 0.66rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--pc-brown-mid);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .botm-month-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-weight: 400;
+      color: var(--pc-black);
+      line-height: 1.15;
+      margin: 0 0 14px;
+    }
+    .botm-month-title em {
+      color: var(--pc-brown);
+      font-style: italic;
+    }
+    .botm-month-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem;
+      color: var(--pc-warm-gray);
+      line-height: 1.7;
+      margin: 0 0 24px;
+      max-width: 440px;
+    }
+    .botm-card-wrap {
+      display: flex;
+      justify-content: center;
+    }
+    .botm-card-wrap .pp-card {
+      max-width: 320px;
+      width: 100%;
+    }
+
+    /* ── WHY MEMBERS LOVE IT ─────────────────────────── */
+    .botm-why {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 0;
+    }
+    .botm-why-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      background: var(--pc-cream);
+      border: 1px solid var(--pc-border);
+      border-radius: 16px;
+      padding: 24px 20px;
+    }
+    .botm-why-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: var(--pc-brown-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .botm-why-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--pc-black);
+      margin-bottom: 4px;
+    }
+    .botm-why-desc {
+      font-size: 0.8rem;
+      color: var(--pc-warm-gray);
+      line-height: 1.55;
+    }
+
+    /* ── HOW IT WORKS ─────────────────────────────────── */
+    .botm-how {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 0;
+    }
+    .botm-step {
+      background: var(--pc-cream);
+      border: 1px solid var(--pc-border);
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-align: center;
+    }
+    .botm-step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--pc-brown);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .botm-step-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--pc-black);
+      margin-bottom: 6px;
+    }
+    .botm-step-desc {
+      font-size: 0.8rem;
+      color: var(--pc-warm-gray);
+      line-height: 1.55;
+    }
+
+    /* ── BOTTOM CTA ───────────────────────────────────── */
+    .botm-bottom-cta {
+      background: var(--pc-brown);
+      border-radius: 18px;
+      padding: 44px 40px;
+      text-align: center;
+      margin-top: 48px;
+    }
+    .botm-bottom-cta h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+      font-weight: 400;
+      color: #fff;
+      margin: 0 0 6px;
+    }
+    .botm-bottom-cta p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.6);
+      margin: 0 0 22px;
+    }
+    .botm-bottom-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      color: var(--pc-brown);
+      border: none;
+      padding: 14px 32px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.22s;
+      text-decoration: none;
+      font-family: 'DM Sans', sans-serif;
+      white-space: nowrap;
+    }
+    .botm-bottom-btn:hover {
+      background: var(--pc-brown-pale);
+      color: var(--pc-black);
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
+
+    /* ── RESPONSIVE ────────────────────────────────────── */
+    @media (max-width: 860px) {
+      .botm-hero { padding: 48px 0 40px; }
+      .botm-inner { padding: 0 20px; }
+      .botm-hero-grid { grid-template-columns: 1fr; gap: 32px; }
+      .botm-hero-grid > :first-child { order: 1; }
+      .botm-hero-grid > :last-child { order: 2; }
+      .botm-hero-desc { max-width: 100%; }
+      .botm-month { padding: 40px 0 60px; }
+      .botm-month-grid { grid-template-columns: 1fr; gap: 28px; }
+      .botm-month-grid > :last-child { order: -1; }
+      .botm-why { grid-template-columns: 1fr; }
+      .botm-how { grid-template-columns: 1fr; }
+      .botm-bottom-cta { padding: 32px 20px; }
+      .botm-perks { flex-direction: column; }
+    }
+    </style>
+</head>
+<body>
+    {{- partial "header_new.html" . -}}
+    <div class="scroll-top rounded-full">
+        <span class="icon-keyboard_arrow_up text-2xl"></span>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════
+         HERO — BALM OF THE MONTH CLUB
+    ═════════════════════════════════════════════════════════ -->
+    <section class="botm-hero">
+      <div class="botm-inner">
+        <div class="botm-hero-grid">
+
+          <div>
+            <span class="botm-hero-eyebrow">Limited Scents. Delivered Monthly.</span>
+            <h1 class="botm-hero-title">A new scent<br><em>every month.</em></h1>
+            <p class="botm-hero-desc">
+              We craft one unique, limited edition whipped tallow balm each month
+              — scents you'll never find in our shop. Members get first access
+              before they sell out, shipped free straight to your door. Some of
+              our customers collect every single one.
+            </p>
+
+            <div class="botm-price-row">
+              <span class="botm-price">$29.95<span style="font-size:0.5em;color:var(--pc-warm-gray);font-family:'DM Sans',sans-serif;"> /month</span></span>
+              <span class="botm-price-sub">Free shipping included<br>Cancel anytime</span>
+            </div>
+
+            <button class="botm-cta"
+              data-atc-pid="price_1TC7BbFZRwx5tlYmZp885667"
+              data-atc-price="29.95"
+              data-atc-title="Balm of The Month Club"
+              data-atc-size="one-size"
+              data-atc-flavor="Monthly Subscription">
+              Join the Club
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+
+            <div class="botm-perks">
+              <div class="botm-perk">
+                <span class="botm-perk-icon">📦</span>
+                Free shipping every month
+              </div>
+              <div class="botm-perk">
+                <span class="botm-perk-icon">🔑</span>
+                First access before public
+              </div>
+              <div class="botm-perk">
+                <span class="botm-perk-icon">✨</span>
+                Exclusive scents you can't buy in store
+              </div>
+            </div>
+          </div>
+
+          <div class="botm-card-wrap">
+            {{- partial "prodcard-day-n-night.html" . -}}
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════
+         WHY MEMBERS LOVE IT
+    ═════════════════════════════════════════════════════════ -->
+    <section class="botm-month">
+      <div class="botm-inner">
+
+        <!-- Why join strip -->
+        <div class="botm-why">
+          <div class="botm-why-item">
+            <div class="botm-why-icon">🧴</div>
+            <div>
+              <div class="botm-why-title">Soothe &amp; nourish</div>
+              <div class="botm-why-desc">Same grass-fed tallow &amp; Manuka honey base your skin already loves — just in a scent that won't come back.</div>
+            </div>
+          </div>
+          <div class="botm-why-item">
+            <div class="botm-why-icon">🗂</div>
+            <div>
+              <div class="botm-why-title">Build your collection</div>
+              <div class="botm-why-desc">Each drop is a one-off. Once it's gone, it's gone. Our collectors line them up on the shelf and never miss a month.</div>
+            </div>
+          </div>
+          <div class="botm-why-item">
+            <div class="botm-why-icon">🎁</div>
+            <div>
+              <div class="botm-why-title">The gift that keeps landing</div>
+              <div class="botm-why-desc">Gift a membership and they'll get a surprise balm on their doorstep every month — no wrapping required.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- This month's drop + how it works -->
+        <div class="botm-month-grid" style="margin-top:48px;">
+          <div>
+            <span class="botm-month-eyebrow">This Month's Drop</span>
+            <h2 class="botm-month-title">Day n Night <em>Duo</em></h2>
+            <p class="botm-month-desc">
+              Two limited edition whipped tallow balms — <strong>Midnight Mousse</strong>
+              with cacao &amp; blood orange for your evening wind-down, and
+              <strong>Sunrise Glow</strong> with ylang ylang &amp; buckthorn to wake
+              up your skin. Rich in vitamins A, D, E &amp; K from 100% grass-fed
+              tallow and raw Manuka honey. Once this month's batch is gone, these
+              scents are retired forever.
+            </p>
+            <a href="/shop/products/tallow-day-n-night-duo" class="botm-cta" style="font-size:0.85rem; padding:12px 28px;">
+              View This Month's Balm
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <div>
+            <div class="botm-how">
+              <div class="botm-step">
+                <div class="botm-step-num">1</div>
+                <div class="botm-step-title">Join</div>
+                <div class="botm-step-desc">$29.95/month, free shipping, no lock-in. Cancel or skip whenever you like.</div>
+              </div>
+              <div class="botm-step">
+                <div class="botm-step-num">2</div>
+                <div class="botm-step-title">We Drop</div>
+                <div class="botm-step-desc">We craft a brand new limited scent and ship it to members before anyone else can buy it.</div>
+              </div>
+              <div class="botm-step">
+                <div class="botm-step-num">3</div>
+                <div class="botm-step-title">You Collect</div>
+                <div class="botm-step-desc">Unwrap, try, and add it to your shelf. Every month is a new scent you'll never see again.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom CTA bar -->
+        <div class="botm-bottom-cta">
+          <h3>Your skin deserves something new every month.</h3>
+          <p>$29.95/month &middot; Free shipping &middot; Exclusive scents &middot; Cancel anytime</p>
+          <button class="botm-bottom-btn"
+            data-atc-pid="price_1TC7BbFZRwx5tlYmZp885667"
+            data-atc-price="29.95"
+            data-atc-title="Balm of The Month Club"
+            data-atc-size="one-size"
+            data-atc-flavor="Monthly Subscription">
+            Join the Balm of The Month Club
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <script>
+    /* BOTM ATC buttons — uses shared ppAddToCart from prodcard-styles */
+    document.querySelectorAll('button[data-atc-pid]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        window.ppAddToCart(btn.dataset.atcPid, btn.dataset.atcPrice, btn.dataset.atcTitle, btn.dataset.atcSize, btn.dataset.atcFlavor);
+        var orig = btn.textContent.trim();
+        btn.textContent = 'Added \u2713';
+        setTimeout(function() { btn.textContent = orig; }, 2500);
+      });
+    });
+    </script>
+
+    {{- partial "footer.html" . -}}
+</body>
+</html>
