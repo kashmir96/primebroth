@@ -461,6 +461,32 @@
 
     // --- Auto-detect cart changes from product pages ---
     localStorage.setItem = function(key, value) {
+        // Auto-attach product image to new cart items that lack one
+        if (key === 'cartV2') {
+            try {
+                var parsed = JSON.parse(value) || [];
+                var patched = false;
+                for (var k = 0; k < parsed.length; k++) {
+                    if (!parsed[k].image) {
+                        // Try product page main image
+                        var mainImg = document.querySelector('.main-image') || document.querySelector('.gallery-main img') || document.querySelector('.product-swiper img');
+                        // Try product card image (shop pages)
+                        if (!mainImg) {
+                            var cards = document.querySelectorAll('.pp-card');
+                            for (var c = 0; c < cards.length; c++) {
+                                var name = cards[c].querySelector('.pp-card-name');
+                                if (name && name.textContent.trim() === parsed[k].title) {
+                                    mainImg = cards[c].querySelector('.pp-card-img img');
+                                    break;
+                                }
+                            }
+                        }
+                        if (mainImg) { parsed[k].image = mainImg.getAttribute('src'); patched = true; }
+                    }
+                }
+                if (patched) value = JSON.stringify(parsed);
+            } catch(e) {}
+        }
         _origSetItem(key, value);
         if (key === 'cartV2') {
             var newCart = [];
