@@ -212,7 +212,7 @@
     .shop-divider-line { flex: 1; height: 1px; background: var(--pc-border); }
 
     /* ── FILTER PILLS ────────────────────────────────────── */
-    .filter-options { display: flex; margin: 0 0 24px; flex-wrap: wrap; }
+    .filter-options { display: flex; margin: 0 0 24px; flex-wrap: wrap; justify-content: center; }
     .filter-options label {
       display: inline-block; padding: 7px 16px; margin: 0 6px 6px 0;
       border: 1px solid var(--pc-border); border-radius: 30px;
@@ -356,16 +356,31 @@
     ═════════════════════════════════════════════════════════ -->
     <section class="all-products-section" id="all-products">
       <div class="all-products-inner">
+
+        <!-- Filter Pills -->
+        <div class="filter-options" style="margin-bottom:24px;">
+          <input type="radio" name="product-filter" id="f-all" value="all" checked>
+          <label for="f-all">All</label>
+          <input type="radio" name="product-filter" id="f-bundle" value="bundle">
+          <label for="f-bundle">Bundle &amp; Save</label>
+          <input type="radio" name="product-filter" id="f-skincare" value="skincare">
+          <label for="f-skincare">Skincare</label>
+          <input type="radio" name="product-filter" id="f-haircare" value="haircare">
+          <label for="f-haircare">Haircare</label>
+          <input type="radio" name="product-filter" id="f-balm" value="balm">
+          <label for="f-balm">Balms</label>
+        </div>
+
         <div class="pp-card-grid" id="product-grid">
-            <!-- Best Sellers (1-4) -->
+            <!-- Best Sellers -->
             {{- partial "prodcardtallowskin.html" . -}}
             {{- partial "prodcard-honeybalm.html" . -}}
             {{- partial "prodcard-talloweye.html" . -}}
+            {{- partial "prodcardshampoo.html" . -}}
             {{- partial "prodcard-serum.html" . -}}
-            <!-- Reviana (position 5) -->
+            {{- partial "prodcard-day-n-night.html" . -}}
             {{- partial "prodcard-reviana.html" . -}}
             <!-- All other products -->
-            {{- partial "prodcard-day-n-night.html" . -}}
             {{- partial "prodcard-baby-butter.html" . -}}
             {{- partial "prodcard-scalpbundle.html" . -}}
             {{- partial "prodcard-babies.html" . -}}
@@ -373,7 +388,6 @@
             {{- partial "prodcard-liqshampoo.html" . -}}
             {{- partial "prodcard-dishblock.html" . -}}
             {{- partial "prodcard-liquid-lotion.html" . -}}
-            {{- partial "prodcardshampoo.html" . -}}
             {{- partial "prodcard-summerbalm.html" . -}}
             {{- partial "prodcard-deodorant.html" . -}}
             {{- partial "prodcard-cleanser.html" . -}}
