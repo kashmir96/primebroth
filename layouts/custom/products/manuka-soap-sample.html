@@ -40,6 +40,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     {{ $styles := resources.Get "css/product-page.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+    <link rel="stylesheet" href="/css/swiper-bundle.min.css">
     <style>
         /* Pair With Section */
         .pp-pair-with { max-width: 900px; margin: 0 auto; padding: 0 20px; }
@@ -106,7 +107,7 @@
 <div class="product-hero">
 
     <!-- Gallery -->
-    <div class="product-gallery">
+    <div class="product-gallery gallery-desktop">
         <div class="gallery-main">
             <img class="main-image" id="mainImage" fetchpriority="high" src="/img/prod/soap/manuka-soap.webp" alt="Free Manuka Honey Tallow Soap Sample NZ">
             <div class="exclusive-badge">
@@ -123,6 +124,16 @@
             <div class="thumb" onclick="switchImage('/img/prod/balm/baby-eczema.webp', this)">
                 <img src="/img/prod/balm/baby-eczema.webp" alt="Tallow soap for sensitive skin" loading="lazy">
             </div>
+        </div>
+    </div>
+    <div class="product-gallery gallery-mobile">
+        <div class="swiper product-swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="/img/prod/soap/manuka-soap.webp" alt="Manuka honey tallow soap"></div>
+                <div class="swiper-slide"><img src="/img/prod/balm/eczema.webp" alt="Tallow soap for eczema"></div>
+                <div class="swiper-slide"><img src="/img/prod/balm/baby-eczema.webp" alt="Tallow soap for sensitive skin"></div>
+            </div>
+            <div class="swiper-pagination"></div>
         </div>
     </div>
 
@@ -624,6 +635,16 @@
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
+<script src="/js/swiper-bundle.min.js"></script>
+<script>
+if (window.innerWidth <= 900) {
+  new Swiper('.product-swiper', {
+    slidesPerView: 'auto',
+    spaceBetween: 5,
+    pagination: { el: '.swiper-pagination', clickable: true }
+  });
+}
+</script>
 {{- partial "footer.html" . }}
 
 </body>

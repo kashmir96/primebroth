@@ -46,6 +46,7 @@
     </script>
     {{ $styles := resources.Get "css/product-page.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+    <link rel="stylesheet" href="/css/swiper-bundle.min.css">
 
     <style>
     /* ─── DEODORANT PAGE OVERRIDES ─── */
@@ -214,7 +215,7 @@
 <div class="product-hero">
 
     <!-- Gallery -->
-    <div class="product-gallery">
+    <div class="product-gallery gallery-desktop">
         <div class="gallery-main">
             <img class="main-image" id="mainImage" fetchpriority="high" src="/img/shop/deod4.webp" alt="Tallow Deodorant">
             <!-- EANZ Pill Overlay -->
@@ -247,6 +248,17 @@
             <div class="thumb" onclick="switchImage('/img/deod-reviews.webp', this)">
                 <img src="/img/deod-reviews.webp" alt="Tallow deodorant customer reviews" loading="lazy">
             </div>
+        </div>
+    </div>
+    <div class="product-gallery gallery-mobile">
+        <div class="swiper product-swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="/img/shop/deod4.webp" alt="Tallow deodorant"></div>
+                <div class="swiper-slide"><img src="/img/shop/deod2.webp" alt="Tallow deodorant ingredients"></div>
+                <div class="swiper-slide"><img src="/img/shop/deod3.webp" alt="Tallow deodorant application"></div>
+                <div class="swiper-slide"><img src="/img/deod-reviews.webp" alt="Tallow deodorant customer reviews"></div>
+            </div>
+            <div class="swiper-pagination"></div>
         </div>
     </div>
 
@@ -743,6 +755,16 @@
 </div>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="/js/swiper-bundle.min.js"></script>
+<script>
+if (window.innerWidth <= 900) {
+  new Swiper('.product-swiper', {
+    slidesPerView: 'auto',
+    spaceBetween: 5,
+    pagination: { el: '.swiper-pagination', clickable: true }
+  });
+}
+</script>
 
 {{- partial "footer.html" . }}
 

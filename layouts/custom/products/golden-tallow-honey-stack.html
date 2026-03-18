@@ -12,6 +12,7 @@
     <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
     <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="/css/swiper-bundle.min.css">
 </head>
 <body>
     <style>
@@ -23,6 +24,12 @@
         .custom-radio-label {
             color: green;
         }
+.gallery-mobile { margin-bottom: 16px; overflow: hidden; }
+.gallery-mobile .product-swiper .swiper-slide { width: 95%; aspect-ratio: 4/5; border-radius: 12px; overflow: hidden; background: #F5EDE3; }
+.gallery-mobile .product-swiper .swiper-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.gallery-mobile .swiper-pagination { position: relative; margin-top: 12px; text-align: center; }
+.gallery-mobile .swiper-pagination-bullet { width: 8px; height: 8px; background: #EDE0D1; opacity: 1; }
+.gallery-mobile .swiper-pagination-bullet-active { background: #2C1810; }
             </style>
              {{- partial "alert-online.html" . -}}
     {{- partial "header_new.html" . -}}
@@ -31,8 +38,20 @@
         <div class="row topbanner rel">
             <p class="text-muted ninety  mt-1"><a href="/shop" class="dark text-muted front pl-2 text-decoration-underline">Shop</a> > Golden Stack bundle</p>
 
-            <div class="col-12 col-lg-6 product-photos mt-3 mb-0">
+            <div class="col-12 col-lg-6 product-photos mt-3 mb-0 d-none d-lg-block">
                 {{- partial "images-gold-stack.html" . -}}
+            </div>
+            <div class="col-12 d-lg-none gallery-mobile">
+                <div class="swiper product-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><img src="/img/noea-golden.webp" alt="Golden Stack main"></div>
+                        <div class="swiper-slide"><img src="/img/shop/both-beforeafter.webp" alt="Before and after"></div>
+                        <div class="swiper-slide"><img src="/img/shop/honebalm.webp" alt="Honey balm"></div>
+                        <div class="swiper-slide"><img src="/img/shop/tallow-reviews.webp" alt="Tallow reviews"></div>
+                        <div class="swiper-slide"><img src="/img/shop/gold-soap.webp" alt="Gold soap"></div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
             </div>
             <div class="col-12 col-lg-6">
 
@@ -840,6 +859,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         
             </script>
-    {{- partial "footer.html" . }}
+</script>
+<script src="/js/swiper-bundle.min.js"></script>
+<script>
+if (window.innerWidth <= 900) {
+  new Swiper(".product-swiper", {
+    slidesPerView: "auto",
+    spaceBetween: 5,
+    pagination: { el: ".swiper-pagination", clickable: true }
+  });
+}
+</script>    {{- partial "footer.html" . }}
 </body>
 </html>

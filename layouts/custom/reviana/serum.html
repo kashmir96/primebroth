@@ -92,7 +92,18 @@
     .rv-timeline-note{text-align:center;margin-top:36px;font-size:0.75rem;color:var(--rv-warm-gray);font-style:italic;}
     @media(max-width:1024px){.rv-pdp{grid-template-columns:1fr;gap:32px;padding:24px 24px 48px;}.rv-breadcrumb{padding-left:24px;}.rv-tabs,.rv-research-inner,.rv-why-inner,.rv-timeline-inner{padding:0 24px;}.rv-research-grid{grid-template-columns:repeat(2,1fr);}.rv-why-inner{grid-template-columns:1fr;gap:40px;}.rv-steps{grid-template-columns:repeat(2,1fr);gap:32px;}.rv-steps::before{display:none;}}
     @media(max-width:640px){.rv-pdp{padding:16px 18px 36px;}.rv-pdp-title{font-size:1.65rem;}.rv-ing-grid,.rv-research-grid{grid-template-columns:1fr;}.rv-steps{grid-template-columns:1fr;}.rv-tabs,.rv-research-inner,.rv-timeline-inner{padding:0 18px;}}
+    .gallery-mobile { display: none; }
+    @media (max-width: 900px) {
+      .gallery-desktop { display: none; }
+      .gallery-mobile { display: block; width: 100%; overflow: hidden; border-radius: 16px; }
+      .product-swiper .swiper-slide { width: 95%; aspect-ratio: 1; border-radius: 12px; overflow: hidden; background: var(--rv-cream, #F5F0E8); }
+      .product-swiper .swiper-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .product-swiper .swiper-pagination { position: relative; margin-top: 12px; }
+      .product-swiper .swiper-pagination-bullet { width: 8px; height: 8px; background: #EDE0D1; opacity: 1; }
+      .product-swiper .swiper-pagination-bullet-active { background: #3D5E2F; }
+    }
     </style>
+    <link rel="stylesheet" href="/css/swiper-bundle.min.css">
 </head>
 <body>
 {{- partial "header_new.html" . -}}
@@ -103,12 +114,25 @@
 
 <div class="rv-pdp">
   <div>
-    <div class="rv-gal-main"><img id="mainImg" src="/img/reviana-serum-jar.webp" alt="Reviana Serum 15ml" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;"></div>
-    <div class="rv-gal-thumbs">
-      <div class="rv-gal-thumb active" onclick="swImg('/img/reviana-serum-jar.webp',this)"><img src="/img/reviana-serum-jar.webp" alt="Jar" loading="lazy"></div>
-      <div class="rv-gal-thumb" onclick="swImg('/img/serum-texture-3.webp',this)"><img src="/img/serum-texture-3.webp" alt="Texture" loading="lazy"></div>
-      <div class="rv-gal-thumb" onclick="swImg('/img/serum-benefits.webp',this)"><img src="/img/serum-benefits.webp" alt="Benefits" loading="lazy"></div>
-      <div class="rv-gal-thumb" onclick="swImg('/img/serum-features.webp',this)"><img src="/img/serum-features.webp" alt="Features" loading="lazy"></div>
+    <div class="gallery-desktop">
+      <div class="rv-gal-main"><img id="mainImg" src="/img/reviana-serum-jar.webp" alt="Reviana Serum 15ml" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;"></div>
+      <div class="rv-gal-thumbs">
+        <div class="rv-gal-thumb active" onclick="swImg('/img/reviana-serum-jar.webp',this)"><img src="/img/reviana-serum-jar.webp" alt="Jar" loading="lazy"></div>
+        <div class="rv-gal-thumb" onclick="swImg('/img/serum-texture-3.webp',this)"><img src="/img/serum-texture-3.webp" alt="Texture" loading="lazy"></div>
+        <div class="rv-gal-thumb" onclick="swImg('/img/serum-benefits.webp',this)"><img src="/img/serum-benefits.webp" alt="Benefits" loading="lazy"></div>
+        <div class="rv-gal-thumb" onclick="swImg('/img/serum-features.webp',this)"><img src="/img/serum-features.webp" alt="Features" loading="lazy"></div>
+      </div>
+    </div>
+    <div class="gallery-mobile">
+      <div class="swiper product-swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="/img/reviana-serum-jar.webp" alt="Reviana Serum 15ml"></div>
+          <div class="swiper-slide"><img src="/img/serum-texture-3.webp" alt="Texture"></div>
+          <div class="swiper-slide"><img src="/img/serum-benefits.webp" alt="Benefits"></div>
+          <div class="swiper-slide"><img src="/img/serum-features.webp" alt="Features"></div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
     </div>
   </div>
   <div>
@@ -245,6 +269,17 @@ document.getElementById('atcBtn').addEventListener('click',function(){
   $('#addedToCartModal').modal('show');
 });
 </script>
+<script src="/js/swiper-bundle.min.js"></script>
+<script>
+if (window.innerWidth <= 900) {
+  new Swiper('.product-swiper', {
+    slidesPerView: 'auto',
+    spaceBetween: 5,
+    pagination: { el: '.swiper-pagination', clickable: true }
+  });
+}
+</script>
+
 {{- partial "footer.html" . -}}
 </body>
 </html>

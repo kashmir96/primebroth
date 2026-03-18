@@ -116,7 +116,18 @@
   .rv-research-inner,.rv-expect-inner{padding:0 18px;}
   .rv-timeline{grid-template-columns:1fr;}
 }
+.gallery-mobile { display: none; }
+@media (max-width: 900px) {
+  .gallery-desktop { display: none; }
+  .gallery-mobile { display: block; width: 100%; overflow: hidden; border-radius: 16px; }
+  .product-swiper .swiper-slide { width: 95%; aspect-ratio: 1; border-radius: 12px; overflow: hidden; background: var(--cream, #F5F0E8); }
+  .product-swiper .swiper-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .product-swiper .swiper-pagination { position: relative; margin-top: 12px; }
+  .product-swiper .swiper-pagination-bullet { width: 8px; height: 8px; background: #EDE0D1; opacity: 1; }
+  .product-swiper .swiper-pagination-bullet-active { background: #3D5E2F; }
+}
 </style>
+<link rel="stylesheet" href="/css/swiper-bundle.min.css">
 </head>
 <body>
 {{- partial "header_new.html" . -}}
@@ -129,12 +140,25 @@
 
 <div class="rv-pdp">
   <div>
-    <div class="rv-gal-main"><img id="mainImg" src="/img/reviana-day-jar.webp" alt="Reviana Day Cream 50ml" style="width:100%;height:100%;object-fit:cover;" fetchpriority="high"></div>
-    <div class="rv-gal-thumbs">
-      <div class="rv-gal-thumb active" onclick="swImg('/img/reviana-day-jar.webp',this)"><img src="/img/reviana-day-jar.webp" alt="Jar" loading="lazy"></div>
-      <div class="rv-gal-thumb" onclick="swImg('/img/daycream-texture-2.webp',this)"><img src="/img/daycream-texture-2.webp" alt="Texture" loading="lazy"></div>
-      <div class="rv-gal-thumb" onclick="swImg('/img/daycream-benefits.webp',this)"><img src="/img/daycream-benefits.webp" alt="Benefits" loading="lazy"></div>
-      <div class="rv-gal-thumb" onclick="swImg('/img/day-features.webp',this)"><img src="/img/day-features.webp" alt="Features" loading="lazy"></div>
+    <div class="gallery-desktop">
+      <div class="rv-gal-main"><img id="mainImg" src="/img/reviana-day-jar.webp" alt="Reviana Day Cream 50ml" style="width:100%;height:100%;object-fit:cover;" fetchpriority="high"></div>
+      <div class="rv-gal-thumbs">
+        <div class="rv-gal-thumb active" onclick="swImg('/img/reviana-day-jar.webp',this)"><img src="/img/reviana-day-jar.webp" alt="Jar" loading="lazy"></div>
+        <div class="rv-gal-thumb" onclick="swImg('/img/daycream-texture-2.webp',this)"><img src="/img/daycream-texture-2.webp" alt="Texture" loading="lazy"></div>
+        <div class="rv-gal-thumb" onclick="swImg('/img/daycream-benefits.webp',this)"><img src="/img/daycream-benefits.webp" alt="Benefits" loading="lazy"></div>
+        <div class="rv-gal-thumb" onclick="swImg('/img/day-features.webp',this)"><img src="/img/day-features.webp" alt="Features" loading="lazy"></div>
+      </div>
+    </div>
+    <div class="gallery-mobile">
+      <div class="swiper product-swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="/img/reviana-day-jar.webp" alt="Reviana Day Cream 50ml"></div>
+          <div class="swiper-slide"><img src="/img/daycream-texture-2.webp" alt="Texture"></div>
+          <div class="swiper-slide"><img src="/img/daycream-benefits.webp" alt="Benefits"></div>
+          <div class="swiper-slide"><img src="/img/day-features.webp" alt="Features"></div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
     </div>
   </div>
   <div>
@@ -274,6 +298,17 @@ document.getElementById('atcBtn').addEventListener('click',function(){
   localStorage.setItem('cartV2',JSON.stringify(cart));
   $('#addedToCartModal').modal('show');
 });
+</script>
+
+<script src="/js/swiper-bundle.min.js"></script>
+<script>
+if (window.innerWidth <= 900) {
+  new Swiper('.product-swiper', {
+    slidesPerView: 'auto',
+    spaceBetween: 5,
+    pagination: { el: '.swiper-pagination', clickable: true }
+  });
+}
 </script>
 
 {{- partial "footer.html" . -}}

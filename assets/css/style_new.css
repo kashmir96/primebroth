@@ -163,7 +163,8 @@ img, video {
 /* banner css */
 .topbanner,.hero,.starter {
     min-height: 750px;
-    margin: 0
+    margin: 0;
+    align-items: start;
 }
 
 
@@ -499,31 +500,46 @@ input[type=number] {
 .badges {
     width: 250px !important;
 }
+.product-photos {
+    overflow: hidden;
+}
+
+.product-photos .row {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 12px;
+}
+
 .product-images {
     display: flex;
-    justify-content: center;
-    width: 120px;
     flex-direction: column;
-
+    gap: 10px;
+    order: -1;
 }
 
 .product-image {
-    width: 120px;
-    margin: 10px;
+    width: 72px;
+    height: 72px;
+    border-radius: 10px;
     cursor: pointer;
-    height: fit-content;
+    object-fit: cover;
+    border: 2px solid transparent;
+    transition: border-color 0.2s;
+    margin: 0;
 }
 
 .product-image:hover {
-    opacity: .7
+    border-color: #2C1810;
+    opacity: 1;
 }
 
 .main-image {
-    width: calc(100% - 150px);
-    height: auto;
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    object-position: center bottom;
     display: block;
-    margin: 0 auto;
-    max-width: 550px;
+    border-radius: 16px;
 }
 
 .faq-tab-container {
@@ -796,18 +812,23 @@ input[type=number] {
 }
 
 @media  screen and (max-width: 1200px) {
-     .product-images {
-    width: 100%;
-    flex-direction: row;
-    order:2;
-    margin-top:20px;
+    .product-photos .row {
+        grid-template-columns: 1fr;
+    }
+
+    .product-images {
+        flex-direction: row;
+        order: 1;
+        gap: 10px;
     }
 
     .product-image {
-        width: 80px;
-        margin: 10px;
+        width: 60px;
+        height: 60px;
+        margin: 0;
         cursor: pointer;
-        height: auto;
-        }
+        border-radius: 10px;
+        object-fit: cover;
+    }
 
 }

@@ -40,6 +40,7 @@
     </script>
     {{ $styles := resources.Get "css/product-page.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+    <link rel="stylesheet" href="/css/swiper-bundle.min.css">
     <style>
     .le-badge { display: inline-block; background: linear-gradient(135deg, #2E1A0E 0%, #5C3A1E 100%); color: #F5E6C8; font-family: 'DM Sans', sans-serif; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 4px 12px; border-radius: 100px; margin-right: 8px; }
     .save-badge { display: inline-block; background: #6B8F5B; color: #fff; font-family: 'DM Sans', sans-serif; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 10px; border-radius: 100px; margin-left: 6px; }
@@ -60,7 +61,7 @@
 {{- partial "header_new.html" . -}}
 <div class="pp-breadcrumb"><a href="/shop" class="text-dark">Shop</a> › Limited Edition Tallow & Honey Balms</div>
 <div class="product-hero">
-    <div class="product-gallery">
+    <div class="product-gallery gallery-desktop">
         <div class="gallery-main">
             <img class="main-image" id="mainImage" fetchpriority="high" src="/img/limited-prod.webp" alt="Limited Edition Tallow Day n Night Duo">
             <div class="exclusive-badge"><span class="dot"></span> Limited Edition</div>
@@ -71,6 +72,18 @@
             <div class="thumb" onclick="switchImage('/img/sunrise-hand.webp', this)"><img src="/img/sunrise-hand.webp" alt="Tallow balm glow" loading="lazy"></div>
             <div class="thumb" onclick="switchImage('/img/shop/both-beforeafter.webp', this)"><img src="/img/shop/both-beforeafter.webp" alt="Tallow balm before and after results" loading="lazy"></div>
             <div class="thumb" onclick="switchImage('/img/shop/both-child.webp', this)"><img src="/img/shop/both-child.webp" alt="Tallow balm safe for children" loading="lazy"></div>
+        </div>
+    </div>
+    <div class="product-gallery gallery-mobile">
+        <div class="swiper product-swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="/img/limited-prod.webp" alt="Day n Night Duo — both limited edition balms"></div>
+                <div class="swiper-slide"><img src="/img/mousse-hand.webp" alt="Tallow balm glow"></div>
+                <div class="swiper-slide"><img src="/img/sunrise-hand.webp" alt="Tallow balm glow"></div>
+                <div class="swiper-slide"><img src="/img/shop/both-beforeafter.webp" alt="Tallow balm before and after results"></div>
+                <div class="swiper-slide"><img src="/img/shop/both-child.webp" alt="Tallow balm safe for children"></div>
+            </div>
+            <div class="swiper-pagination"></div>
         </div>
     </div>
     <div class="product-info">
@@ -394,6 +407,17 @@
     </div></div>
 </div>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<script src="/js/swiper-bundle.min.js"></script>
+<script>
+if (window.innerWidth <= 900) {
+  new Swiper('.product-swiper', {
+    slidesPerView: 'auto',
+    spaceBetween: 5,
+    pagination: { el: '.swiper-pagination', clickable: true }
+  });
+}
+</script>
 {{- partial "footer.html" . }}
 </body>
 </html>

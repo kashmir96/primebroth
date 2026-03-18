@@ -40,6 +40,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     {{ $styles := resources.Get "css/product-page.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+    <link rel="stylesheet" href="/css/swiper-bundle.min.css">
 </head>
 <body>
 
@@ -55,7 +56,7 @@
 <div class="product-hero">
 
     <!-- Gallery -->
-    <div class="product-gallery">
+    <div class="product-gallery gallery-desktop">
         <div class="gallery-main">
             <img class="main-image" id="mainImage" fetchpriority="high" src="/img/lotion-prod.webp" alt="Tallow Body Lotion NZ - natural aloe tallow lotion for face and body">
             <div class="exclusive-badge">
@@ -75,6 +76,18 @@
             <div class="thumb" onclick="switchImage('/img/lotion-reviews.webp', this)">
                 <img src="/img/lotion-reviews.webp" alt="Tallow body lotion customer reviews NZ" loading="lazy">
             </div>
+        </div>
+    </div>
+
+    <div class="product-gallery gallery-mobile">
+        <div class="swiper product-swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="/img/lotion-prod.webp" alt="Tallow Body Lotion NZ - natural aloe tallow lotion for face and body"></div>
+                <div class="swiper-slide"><img src="/img/lotion-use.webp" alt="Tallow lotion in use"></div>
+                <div class="swiper-slide"><img src="/img/lotion-tree.webp" alt="Tallow body lotion natural ingredients"></div>
+                <div class="swiper-slide"><img src="/img/lotion-reviews.webp" alt="Tallow body lotion customer reviews NZ"></div>
+            </div>
+            <div class="swiper-pagination"></div>
         </div>
     </div>
 
@@ -759,6 +772,17 @@
 </div>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<script src="/js/swiper-bundle.min.js"></script>
+<script>
+if (window.innerWidth <= 900) {
+  new Swiper('.product-swiper', {
+    slidesPerView: 'auto',
+    spaceBetween: 5,
+    pagination: { el: '.swiper-pagination', clickable: true }
+  });
+}
+</script>
 
 {{- partial "footer.html" . }}
 

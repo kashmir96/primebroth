@@ -46,6 +46,7 @@
     </script>
     {{ $styles := resources.Get "css/product-page.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+    <link rel="stylesheet" href="/css/swiper-bundle.min.css">
 
     <style>
     /* ─── SALE STYLING ─── */
@@ -84,8 +85,8 @@
 <!-- ─── PRODUCT HERO ─── -->
 <div class="product-hero">
 
-    <!-- Gallery -->
-    <div class="product-gallery">
+    <!-- Gallery: Desktop -->
+    <div class="product-gallery gallery-desktop">
         <div class="gallery-main">
             <img class="main-image" id="mainImage" fetchpriority="high" src="/img/eyebox.webp" alt="Tallow Eye Cream">
             <div class="exclusive-badge">
@@ -102,10 +103,21 @@
             <div class="thumb" onclick="switchImage('/img/shop/both-beforeafter.webp', this)">
                 <img src="/img/shop/both-beforeafter.webp" alt="Tallow eye cream before and after results" loading="lazy">
             </div>
-           
             <div class="thumb" onclick="switchImage('/img/eyecream-reviews.webp', this)">
                 <img src="/img/eyecream-reviews.webp" alt="Tallow eye cream customer reviews" loading="lazy">
             </div>
+        </div>
+    </div>
+    <!-- Gallery: Mobile Swiper -->
+    <div class="product-gallery gallery-mobile">
+        <div class="swiper product-swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="/img/eyebox.webp" alt="Tallow Eye Cream"></div>
+                <div class="swiper-slide"><img src="/img/noea-eye.webp" alt="Tallow eye cream"></div>
+                <div class="swiper-slide"><img src="/img/shop/both-beforeafter.webp" alt="Tallow eye cream before and after results"></div>
+                <div class="swiper-slide"><img src="/img/eyecream-reviews.webp" alt="Tallow eye cream customer reviews"></div>
+            </div>
+            <div class="swiper-pagination"></div>
         </div>
     </div>
 
@@ -782,6 +794,17 @@
 </div>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="/js/swiper-bundle.min.js"></script>
+<script>
+if (window.innerWidth <= 900) {
+  new Swiper('.product-swiper', {
+    slidesPerView: 'auto',
+    centeredSlides: false,
+    spaceBetween: 5,
+    pagination: { el: '.swiper-pagination', clickable: true }
+  });
+}
+</script>
 
 {{- partial "footer.html" . }}
 

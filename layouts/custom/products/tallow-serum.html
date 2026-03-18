@@ -40,6 +40,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     {{ $styles := resources.Get "css/product-page.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+    <link rel="stylesheet" href="/css/swiper-bundle.min.css">
 </head>
 <body>
 
@@ -55,7 +56,7 @@
 <div class="product-hero">
 
     <!-- Gallery -->
-    <div class="product-gallery">
+    <div class="product-gallery gallery-desktop">
         <div class="gallery-main">
             <img class="main-image" id="mainImage" fetchpriority="high" src="/img/serum.webp" alt="Tallow Serum NZ - brightening anti-aging serum with Vitamin C and Hyaluronic Acid">
             <div class="exclusive-badge">
@@ -72,6 +73,17 @@
             <div class="thumb" onclick="switchImage('/img/serum3.webp', this)">
                 <img src="/img/serum3.webp" alt="Tallow serum customer reviews NZ" loading="lazy">
             </div>
+        </div>
+    </div>
+
+    <div class="product-gallery gallery-mobile">
+        <div class="swiper product-swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="/img/serum.webp" alt="Tallow Serum NZ - brightening anti-aging serum with Vitamin C and Hyaluronic Acid"></div>
+                <div class="swiper-slide"><img src="/img/serum2.webp" alt="Tallow glow serum texture"></div>
+                <div class="swiper-slide"><img src="/img/serum3.webp" alt="Tallow serum customer reviews NZ"></div>
+            </div>
+            <div class="swiper-pagination"></div>
         </div>
     </div>
 
@@ -718,6 +730,17 @@
 </div>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<script src="/js/swiper-bundle.min.js"></script>
+<script>
+if (window.innerWidth <= 900) {
+  new Swiper('.product-swiper', {
+    slidesPerView: 'auto',
+    spaceBetween: 5,
+    pagination: { el: '.swiper-pagination', clickable: true }
+  });
+}
+</script>
 
 {{- partial "footer.html" . }}
 

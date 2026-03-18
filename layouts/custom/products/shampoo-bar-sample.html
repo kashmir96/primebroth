@@ -40,6 +40,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     {{ $styles := resources.Get "css/product-page.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+    <link rel="stylesheet" href="/css/swiper-bundle.min.css">
     <style>
         .pp-pair-with { max-width: 900px; margin: 0 auto; padding: 0 20px; }
         .pp-pair-card { display: flex; align-items: center; gap: 16px; background: var(--pp-warm-bg, #FDFBF7); border-radius: 12px; padding: 16px 20px; margin-top: 20px; }
@@ -118,7 +119,7 @@
 
 <div class="product-hero">
 
-    <div class="product-gallery">
+    <div class="product-gallery gallery-desktop">
         <div class="gallery-main">
             <img class="main-image" id="mainImage" fetchpriority="high" src="/img/shampoo-shipping.webp" alt="Free Tallow Shampoo Bar Trial Sample NZ">
             <div class="exclusive-badge">
@@ -129,13 +130,23 @@
             <div class="thumb active" onclick="switchImage('/img/noea-shamp.webp', this)">
                 <img src="/img/noea-shamp.webp" alt="Tallow shampoo bar sample">
             </div>
-           
+
             <div class="thumb" onclick="switchImage('/img/shampoo-hands.webp', this)">
                 <img src="/img/shampoo-hands.webp" alt="Tallow shampoo bar in hands" loading="lazy">
             </div>
             <div class="thumb" onclick="switchImage('/img/shampoo-reviews.webp', this)">
                 <img src="/img/shampoo-reviews.webp" alt="Tallow shampoo bar customer reviews NZ" loading="lazy">
             </div>
+        </div>
+    </div>
+    <div class="product-gallery gallery-mobile">
+        <div class="swiper product-swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="/img/noea-shamp.webp" alt="Tallow shampoo bar sample"></div>
+                <div class="swiper-slide"><img src="/img/shampoo-hands.webp" alt="Tallow shampoo bar in hands"></div>
+                <div class="swiper-slide"><img src="/img/shampoo-reviews.webp" alt="Tallow shampoo bar customer reviews NZ"></div>
+            </div>
+            <div class="swiper-pagination"></div>
         </div>
     </div>
 
@@ -551,6 +562,16 @@
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
+<script src="/js/swiper-bundle.min.js"></script>
+<script>
+if (window.innerWidth <= 900) {
+  new Swiper('.product-swiper', {
+    slidesPerView: 'auto',
+    spaceBetween: 5,
+    pagination: { el: '.swiper-pagination', clickable: true }
+  });
+}
+</script>
 {{- partial "footer.html" . }}
 
 </body>

@@ -40,6 +40,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     {{ $styles := resources.Get "css/product-page.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+    <link rel="stylesheet" href="/css/swiper-bundle.min.css">
     <style>
         /* Pair With Section */
         .pp-pair-with { max-width: 900px; margin: 0 auto; padding: 0 20px; }
@@ -82,7 +83,7 @@
 <div class="product-hero">
 
     <!-- Gallery -->
-    <div class="product-gallery">
+    <div class="product-gallery gallery-desktop">
         <div class="gallery-main">
             <img class="main-image" id="mainImage" fetchpriority="high" src="/img/shampoobar/shampoo-bar.webp" alt="Tallow Shampoo Bar NZ - natural shampoo bar for scalp health">
             <div class="exclusive-badge">
@@ -102,6 +103,18 @@
             <div class="thumb" onclick="switchImage('/img/shampoo-reviews.webp', this)">
                 <img src="/img/shampoo-reviews.webp" alt="Tallow shampoo bar customer reviews NZ" loading="lazy">
             </div>
+        </div>
+    </div>
+
+    <div class="product-gallery gallery-mobile">
+        <div class="swiper product-swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="/img/shampoobar/shampoo-bar.webp" alt="Tallow Shampoo Bar NZ - natural shampoo bar for scalp health"></div>
+                <div class="swiper-slide"><img src="/img/shampoobar/tallow-shampoo-bar-product-benifitswebp.webp" alt="Tallow shampoo bar benefits"></div>
+                <div class="swiper-slide"><img src="/img/shampoo-hands.webp" alt="Tallow shampoo bar in hands"></div>
+                <div class="swiper-slide"><img src="/img/shampoo-reviews.webp" alt="Tallow shampoo bar customer reviews NZ"></div>
+            </div>
+            <div class="swiper-pagination"></div>
         </div>
     </div>
 
@@ -565,6 +578,17 @@
 </div>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<script src="/js/swiper-bundle.min.js"></script>
+<script>
+if (window.innerWidth <= 900) {
+  new Swiper('.product-swiper', {
+    slidesPerView: 'auto',
+    spaceBetween: 5,
+    pagination: { el: '.swiper-pagination', clickable: true }
+  });
+}
+</script>
 
 {{- partial "footer.html" . }}
 
