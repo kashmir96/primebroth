@@ -492,13 +492,63 @@
     </section>
 
     <script>
-    /* BOTM ATC buttons — uses shared ppAddToCart from prodcard-styles */
+    /* BOTM subscription checkout — uses same Netlify function as /subscribe/ */
+    var botmCheckoutAttempts = 0;
+
+    async function botmCheckout(btn) {
+      var priceId = btn.dataset.atcPid;
+      var origText = btn.textContent.trim();
+      btn.disabled = true;
+      btn.textContent = 'Processing...';
+
+      var cart = [{ priceId: priceId, quantity: 1 }];
+
+      try {
+        var response = await fetch('/.netlify/functions/create-subscription-checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            cart: cart,
+            countryCode: typeof country_code !== 'undefined' ? country_code.toUpperCase() : 'NZ'
+          })
+        });
+
+        var data = await response.json();
+        if (data.error) throw new Error(data.error);
+
+        botmCheckoutAttempts = 0;
+
+        localStorage.setItem('previouscart', JSON.stringify([{
+          title: 'Balm of The Month Club',
+          flavor: 'Monthly Subscription',
+          size: 'one-size',
+          quantity: 1,
+          unitPrice: 29.95,
+          orderType: 'subscription'
+        }]));
+
+        window.location.href = data.url;
+
+      } catch (error) {
+        console.error('BOTM checkout error:', error);
+        botmCheckoutAttempts++;
+
+        if (botmCheckoutAttempts === 1) {
+          btn.textContent = 'Retrying...';
+          setTimeout(function() { botmCheckout(btn); }, 500);
+        } else {
+          btn.textContent = origText;
+          btn.disabled = false;
+          botmCheckoutAttempts = 0;
+          alert('Something went wrong. Please try again or contact us for help.');
+        }
+      }
+    }
+
     document.querySelectorAll('button[data-atc-pid]').forEach(function(btn) {
       btn.addEventListener('click', function() {
-        window.ppAddToCart(btn.dataset.atcPid, btn.dataset.atcPrice, btn.dataset.atcTitle, btn.dataset.atcSize, btn.dataset.atcFlavor);
-        var orig = btn.textContent.trim();
-        btn.textContent = 'Added \u2713';
-        setTimeout(function() { btn.textContent = orig; }, 2500);
+        botmCheckoutAttempts = 0;
+        botmCheckout(btn);
       });
     });
     </script>
