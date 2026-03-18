@@ -281,9 +281,9 @@
     var market = (typeof window.MARKET !== 'undefined') ? window.MARKET : 'NZ';
 
     // Shared add-to-cart function
-    window.ppAddToCart = function(pid, price, title, size, flavor) {
+    window.ppAddToCart = function(pid, price, title, size, flavor, image) {
         var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
-        cart.push({
+        var item = {
             priceId: pid,
             title: title,
             size: size,
@@ -292,7 +292,9 @@
             quantity: 1,
             unitPrice: parseFloat(price),
             eligibleForDiscount: false
-        });
+        };
+        if (image) item.image = image;
+        cart.push(item);
         localStorage.setItem('cartV2', JSON.stringify(cart));
         // Open the cart drawer
         if (typeof window.ppOpenCartDrawer === 'function') {
@@ -315,7 +317,12 @@
         var pid = market === 'AU' ? (btn.dataset.ppPidAu || btn.dataset.ppPid) : btn.dataset.ppPid;
         var price = market === 'AU' ? (btn.dataset.ppPriceAu || btn.dataset.ppPrice) : btn.dataset.ppPrice;
 
-        window.ppAddToCart(pid, price, btn.dataset.ppTitle, btn.dataset.ppSize, btn.dataset.ppFlavor);
+        // Find product card image
+        var card = btn.closest('.pp-card');
+        var imgEl = card ? card.querySelector('.pp-card-img img') : null;
+        var image = imgEl ? imgEl.getAttribute('src') : '';
+
+        window.ppAddToCart(pid, price, btn.dataset.ppTitle, btn.dataset.ppSize, btn.dataset.ppFlavor, image);
 
         var orig = btn.textContent.trim();
         btn.textContent = 'Added \u2713';
@@ -448,7 +455,10 @@
             var size = submitBtn.dataset.resolvedSize || '';
 
             var flavorText = (data.flavorLabels && data.flavorLabels[scent]) ? data.flavorLabels[scent] : scent.charAt(0).toUpperCase() + scent.slice(1).replace(/-/g, ' ');
-            window.ppAddToCart(pid, price, data.title, size, flavorText);
+            // Find product card image
+            var imgEl = card.querySelector('.pp-card-img img');
+            var image = imgEl ? imgEl.getAttribute('src') : '';
+            window.ppAddToCart(pid, price, data.title, size, flavorText, image);
 
             submitBtn.textContent = 'Added \u2713';
             submitBtn.classList.add('added');

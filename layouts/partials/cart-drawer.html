@@ -88,8 +88,17 @@
 .pp-drawer-empty a:hover { background: #4A3728; color: #fff; }
 
 .pp-drawer-item {
-    display: grid; grid-template-columns: 1fr auto; gap: 4px 12px;
+    display: grid; grid-template-columns: 56px 1fr auto; gap: 4px 12px;
     padding: 14px 20px; border-bottom: 1px solid rgba(139,115,85,0.1);
+    align-items: center;
+}
+.pp-drawer-item-img {
+    width: 56px; height: 56px; border-radius: 8px; overflow: hidden;
+    background: #FAF7F2; border: 1px solid rgba(139,115,85,0.1);
+    flex-shrink: 0;
+}
+.pp-drawer-item-img img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
 }
 .pp-drawer-item-name { font-weight: 600; font-size: 0.88rem; color: #2D2A26; }
 .pp-drawer-item-meta { font-size: 0.75rem; color: #8B7355; margin-top: 2px; }
@@ -286,6 +295,17 @@
         }
         footerEl.style.display = '';
 
+        // Fallback image lookup for cart items without a stored image
+        var fallbackImages = {};
+        document.querySelectorAll('.pp-card').forEach(function(card) {
+            var nameEl = card.querySelector('.pp-card-name');
+            var imgEl = card.querySelector('.pp-card-img img');
+            if (nameEl && imgEl) {
+                var t = nameEl.textContent.trim();
+                fallbackImages[t] = imgEl.getAttribute('src');
+            }
+        });
+
         var html = '', subtotal = 0;
         cart.forEach(function(item, i) {
             var qty = parseInt(item.quantity) || 1;
@@ -302,7 +322,13 @@
                 meta += (meta ? ' \u00b7 ' : '') + item.orderType;
             }
 
+            var imgSrc = item.image || fallbackImages[item.title] || '';
+            var imgHtml = imgSrc
+                ? '<div class="pp-drawer-item-img"><img src="' + imgSrc + '" alt="' + (item.title || '') + '"></div>'
+                : '<div class="pp-drawer-item-img"></div>';
+
             html += '<div class="pp-drawer-item">'
+                + imgHtml
                 + '<div><div class="pp-drawer-item-name">' + (item.title || 'Product') + '</div>'
                 + '<div class="pp-drawer-item-meta">' + meta + '</div></div>'
                 + '<div class="pp-drawer-item-right">'

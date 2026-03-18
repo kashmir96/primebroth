@@ -196,6 +196,11 @@
                             <button class="qty-btn qty-plus" data-index="${index}">+</button>
                            </div>`;
 
+                    const imgSrc = item.image || '';
+                    const imgHtml = imgSrc
+                        ? `<div class="item-img"><img src="${imgSrc}" alt="${item.title || ''}"></div>`
+                        : '';
+
                     if (item.orderTypeVal === 'three_pack') {
                         const flavorList = item.flavors.map(f => f).join(', ');
                         let savingsText = 'Buy 2 Get 1 Free';
@@ -205,6 +210,7 @@
                         }
                         cartItem.innerHTML = `
                             <div class="item-product">
+                                ${imgHtml}
                                 <div class="item-details">
                                     <h3 class="item-title">${item.title || 'Unknown Product'} 3pk</h3>
                                     <p class="item-meta"><span class="savings-text">${savingsText}</span> • 3 jars • ${flavorList} ${item.size}</p>
@@ -224,7 +230,7 @@
                     } else {
                         const isItemThreePack = isThreePack(item);
                         const titleSuffix = isItemThreePack ? ' 3pk' : '';
-                        
+
                         let metaText;
                         if (isItemThreePack) {
                             let savingsText = 'Buy 2 Get 1 Free';
@@ -236,9 +242,10 @@
                         } else {
                             metaText = [item.flavor, item.size].filter(Boolean).join(' • ');
                         }
-                        
+
                         cartItem.innerHTML = `
                             <div class="item-product">
+                                ${imgHtml}
                                 <div class="item-details">
                                     <h3 class="item-title">${item.title || 'Unknown Product'}${titleSuffix}</h3>
                                     <p class="item-meta">${metaText}</p>
@@ -448,6 +455,15 @@
             display: flex;
             gap: 12px;
             align-items: center;
+        }
+
+        .item-img {
+            width: 64px; height: 64px; border-radius: 8px; overflow: hidden;
+            background: var(--cream); border: 1px solid var(--border-light);
+            flex-shrink: 0;
+        }
+        .item-img img {
+            width: 100%; height: 100%; object-fit: cover; display: block;
         }
 
         .item-details { flex: 1; }
