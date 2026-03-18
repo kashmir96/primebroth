@@ -216,6 +216,25 @@
 
 </footer>
 
+<!-- Thumbnail click-to-switch for old-layout product pages -->
+<script>
+(function(){
+    var thumbs = document.querySelectorAll('.product-image');
+    if (!thumbs.length) return;
+    var main = document.querySelector('.main-image');
+    if (!main) return;
+    main.style.transition = 'opacity 0.15s';
+    thumbs.forEach(function(thumb){
+        thumb.addEventListener('click', function(){
+            main.style.opacity = '0';
+            setTimeout(function(){ main.src = thumb.src; main.style.opacity = '1'; }, 150);
+            thumbs.forEach(function(t){ t.classList.remove('active'); });
+            thumb.classList.add('active');
+        });
+    });
+})();
+</script>
+
 
 
 
