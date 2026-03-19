@@ -50,7 +50,7 @@
             </div>
             <div class="col-12 col-lg-6 product-info">
 
-                <div class="trust-row">
+                <div class="trust-row" style="flex-wrap:nowrap;">
                     <div class="pp-stars">
                         <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
                         <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
@@ -58,7 +58,7 @@
                         <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
                         <svg viewBox="0 0 20 20"><defs><linearGradient id="star47"><stop offset="70%" stop-color="#B89830"/><stop offset="70%" stop-color="#D5D0C8"/></linearGradient></defs><path fill="url(#star47)" d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
                     </div>
-                    <span class="trust-text">PrimalCare — trusted by 90,000+ kiwis.</span>
+                    <span class="trust-text" style="white-space:nowrap;font-size:12px;">PrimalCare — trusted by 90,000+ kiwis.</span>
                 </div>
 
                 <h1 class="pp-product-title">Tallow & Honey Balm</h1>
@@ -82,6 +82,7 @@
                     <input type="radio" id="single_purchase" name="orderType" value="single_purchase" checked>
                     <input type="radio" id="three_pack" name="orderType" value="three_pack">
                     <input type="radio" id="size120ml" name="size" value="120ml" checked>
+                    <input type="radio" id="size250ml" name="size" value="250ml">
                     <input type="radio" id="inStock" name="stockStatus" checked>
                 </form>
 
@@ -100,6 +101,14 @@
                             <div style="font-size:10px;color:var(--pp-text-muted,#9A887A);">120ml jars</div>
                         </div>
                     </label>
+                </div>
+
+                <div class="pp-selector-group" id="wrap-sizes">
+                    <div class="pp-selector-label">Size</div>
+                    <div class="scent-pills">
+                        <div class="scent-pill active" id="wrap-size120ml" data-size="120ml">120ml</div>
+                        <div class="scent-pill" id="wrap-size250ml" data-size="250ml">250ml <span style="color:var(--pp-coral-500);font-size:11px;font-weight:600;">(best value)</span></div>
+                    </div>
                 </div>
 
                 <div class="pp-selector-group" id="single_unit_fragnance">
@@ -583,6 +592,24 @@ Watch as light and fluffy balm soaks deeply into your skin, going to work giving
                 const val = card.getAttribute('data-value');
                 document.getElementById(val).checked = true;
                 form.dispatchEvent(new Event('change'));
+                updateUIForOrderType();
+            });
+        });
+
+        document.querySelectorAll('#wrap-sizes .scent-pill').forEach(function(pill) {
+            pill.addEventListener('click', function() {
+                const sizeVal = pill.getAttribute('data-size');
+                const orderType = document.querySelector('input[name="orderType"]:checked').value;
+                if (orderType === 'three_pack' && sizeVal !== '120ml') {
+                    document.getElementById('single_purchase').checked = true;
+                    document.querySelectorAll('.purchase-option').forEach(c => c.classList.remove('selected'));
+                    document.querySelector('.purchase-option[data-value="single_purchase"]').classList.add('selected');
+                }
+                document.querySelectorAll('#wrap-sizes .scent-pill').forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+                document.getElementById('size' + sizeVal).checked = true;
+                form.dispatchEvent(new Event('change'));
+                updateUIForSize();
             });
         });
 
@@ -604,6 +631,37 @@ Watch as light and fluffy balm soaks deeply into your skin, going to work giving
             var val = parseInt(quantityInput.value);
             if (val > 1) quantityInput.value = val - 1;
         });
+
+        function updateUIForOrderType() {
+            var orderType = document.querySelector('input[name="orderType"]:checked').value;
+            var sizePills = document.querySelectorAll('#wrap-sizes .scent-pill');
+            if (orderType === 'three_pack') {
+                document.getElementById('size120ml').checked = true;
+                sizePills.forEach(function(pill) {
+                    pill.classList.remove('active');
+                    if (pill.getAttribute('data-size') === '120ml') { pill.classList.add('active'); pill.style.opacity = ''; }
+                    else { pill.style.opacity = '0.35'; }
+                    pill.style.pointerEvents = '';
+                });
+            } else {
+                sizePills.forEach(function(pill) { pill.style.opacity = ''; pill.style.pointerEvents = ''; });
+            }
+            form.dispatchEvent(new Event('change'));
+        }
+
+        function updateUIForSize() {
+            var size = document.querySelector('input[name="size"]:checked').value;
+            var threePackCard = document.querySelector('.purchase-option[data-value="three_pack"]');
+            if (size === '250ml') {
+                threePackCard.style.visibility = 'hidden';
+                threePackCard.style.pointerEvents = 'none';
+            } else {
+                threePackCard.style.visibility = '';
+                threePackCard.style.pointerEvents = '';
+            }
+        }
+
+        updateUIForSize();
     });
     </script>
 
@@ -642,7 +700,7 @@ Watch as light and fluffy balm soaks deeply into your skin, going to work giving
             if (orderType === 'three_pack') {
                 const singleEntry = productPricing.find(entry => entry.size.toLowerCase() === '120ml');
                 if (singleEntry && singleEntry.prices[country_code]['single_purchase']) {
-                    const wasPrice = singleEntry.prices[country_code]['single_purchase'] * 3;
+                    const wasPrice = 89.85;
                     if (specialEl) specialEl.style.display = 'inline-block';
                     if (wasEl) { wasEl.style.display = 'inline'; wasEl.textContent = '$' + wasPrice.toFixed(2); }
                 }
