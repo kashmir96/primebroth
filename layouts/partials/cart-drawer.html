@@ -307,7 +307,8 @@
             else if (item.orderType && item.orderType.indexOf('Monthly') > -1) priceSuffix = '/mo';
 
             var metaFlavor = (item.title === 'Tallow Soothing Routine') ? null : item.flavor;
-            var meta = [metaFlavor, item.size].filter(Boolean).join(' \u00b7 ');
+            var metaSize = (item.title === 'Tallow Soothing Routine') ? 'Balm, Shampoo bar & Lip balm' : item.size;
+            var meta = [metaFlavor, metaSize].filter(Boolean).join(' \u00b7 ');
             if (item.orderType && item.orderType !== 'Single') {
                 meta += (meta ? ' \u00b7 ' : '') + item.orderType;
             }
