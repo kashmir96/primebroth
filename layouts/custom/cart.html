@@ -240,7 +240,8 @@
                             }
                             metaText = `<span class="savings-text">${savingsText}</span> • 3 jars of ${item.flavor || ''} ${item.size || ''}`;
                         } else {
-                            metaText = [item.flavor, item.size].filter(Boolean).join(' • ');
+                            const cartFlavor = (item.title === 'Tallow Soothing Routine') ? null : item.flavor;
+                            metaText = [cartFlavor, item.size].filter(Boolean).join(' • ');
                         }
 
                         cartItem.innerHTML = `
