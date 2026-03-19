@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><script>
 (function(){
   
   window.MARKET = 'NZ';
@@ -23,15 +23,14 @@ document.addEventListener('DOMContentLoaded', function() {
 <link rel="icon" type="image/png" sizes="16x16" href='favicon-16x16.png'>
 <link rel="manifest" href='/site.webmanifest'>
 
-<link rel="canonical" href="https://www.primalpantry.co.nz/cosmetic-tallow-reviana/day-cream/">
+<link rel="canonical" href="http://localhost:1313/cosmetic-tallow-reviana/day-cream/">
 
 
   
   <link rel="stylesheet" href="/css/bootstrap.min.css" />
   
   
-  
-  <link rel="stylesheet" href="/css/style_new.min.cd7dbb9d6b693484b5e48e7799efef2628e92885982301cadbb4b66a5f4cbc98.css" />
+  <link rel="stylesheet" href="/css/style_new.css">
   
 
 
@@ -97,7 +96,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/css/product-page.min.6f5c13feacfeb9961b2e7a48e3f82d4986ab7b228d5bb4cd4fc4928e0f28ec6d.css">
+<link rel="stylesheet" href="/css/product-page.min.8987d6f043774fc9bdbbd8f2374339bae17e5e23abd9a1753a31908e79c3c993.css">
 <style>
 :root{--bark:#2E1A0E;--bark-light:#6B4D38;--sage:#6B8F5B;--sage-mid:#4E6840;--sage-pale:#E5EDDF;--cream:#FAF4EB;--cream-deep:#EEDED0;--stone:#C8A87A;--warm-gray:#877B71;--border:rgba(46,26,14,0.12);--white:#FDFBF8;}
 .rv-pdp{display:grid;grid-template-columns:1fr 1fr;gap:56px;max-width:1240px;margin:0 auto;padding:32px 40px 64px;align-items:start;}
@@ -380,7 +379,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             </div>
 
             <div class="d-flex align-items-center flex-shrink-0 text-xl text-grey-900">
-                <a href="https://www.primalpantry.co.nz/" aria-label="PrimalPantry">
+                <a href="http://localhost:1313/" aria-label="PrimalPantry">
                     <img alt="" class="sitelogo mr-3" src="/img/logo/logo.webp" width="120" height="36">
                 </a>
             </div>
@@ -753,7 +752,8 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             if (item.orderType && item.orderType.indexOf('Quarterly') > -1) priceSuffix = '/3mo';
             else if (item.orderType && item.orderType.indexOf('Monthly') > -1) priceSuffix = '/mo';
 
-            var meta = [item.flavor, item.size].filter(Boolean).join(' \u00b7 ');
+            var metaFlavor = (item.title === 'Tallow Soothing Routine') ? null : item.flavor;
+            var meta = [metaFlavor, item.size].filter(Boolean).join(' \u00b7 ');
             if (item.orderType && item.orderType !== 'Single') {
                 meta += (meta ? ' \u00b7 ' : '') + item.orderType;
             }
@@ -933,6 +933,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         "Tallow Balm Mixed Bundle":"/img/dec24/product-trio.webp",
         "Tallow Liquid Soap & Lotion Bundle":"/img/liquid-shop.webp",
         "The Golden Stack":"/img/shop/shop-gold.webp",
+        "Tallow Soothing Routine":"/img/shop/shop-gold.webp",
         "Sensitive Skin Tallow Stack":"/img/sensitive-stack-tub.webp",
         "Tallow Anti-aging Kit":"/img/wrinkleskinnew.webp",
         "Tallow Balm - DIY kit":"/img/tallow-balm.webp",
@@ -1314,8 +1315,7 @@ if (window.innerWidth <= 900) {
   
   
     
-    
-    <link rel="stylesheet" href="/css/webfonts.min.min.d4dac5b1ea952e43d923f20db7177335dafaee43cf8b43702471b8f867f3bb29.css" />
+    <link rel="stylesheet" href="/css/webfonts.min.css">
     
   
 

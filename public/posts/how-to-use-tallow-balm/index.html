@@ -522,7 +522,8 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             if (item.orderType && item.orderType.indexOf('Quarterly') > -1) priceSuffix = '/3mo';
             else if (item.orderType && item.orderType.indexOf('Monthly') > -1) priceSuffix = '/mo';
 
-            var meta = [item.flavor, item.size].filter(Boolean).join(' \u00b7 ');
+            var metaFlavor = (item.title === 'Tallow Soothing Routine') ? null : item.flavor;
+            var meta = [metaFlavor, item.size].filter(Boolean).join(' \u00b7 ');
             if (item.orderType && item.orderType !== 'Single') {
                 meta += (meta ? ' \u00b7 ' : '') + item.orderType;
             }
@@ -702,6 +703,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         "Tallow Balm Mixed Bundle":"/img/dec24/product-trio.webp",
         "Tallow Liquid Soap & Lotion Bundle":"/img/liquid-shop.webp",
         "The Golden Stack":"/img/shop/shop-gold.webp",
+        "Tallow Soothing Routine":"/img/shop/shop-gold.webp",
         "Sensitive Skin Tallow Stack":"/img/sensitive-stack-tub.webp",
         "Tallow Anti-aging Kit":"/img/wrinkleskinnew.webp",
         "Tallow Balm - DIY kit":"/img/tallow-balm.webp",
@@ -947,163 +949,6 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
       var hamburger = document.getElementById("hamburgerbtn");
       var overlay = document.getElementById("overlay");
       var body = document.body;
-
-      hamburger.addEventListener("click", function () {
-        overlay.classList.toggle("open");
-        hamburger.classList.toggle("is-open");
-        body.classList.toggle("scroll-lock");
-      });
-    }
-    toggleNav();
-  </script>
-
-  <script>
-    window.addEventListener('load', (event) => {
-      document.querySelectorAll('.buy-now').forEach(item => {
-        item.addEventListener('click', event => {
-          gtag('event', 'click', {
-            'event_category': 'ecommerce',
-            'event_label': 'buy-now',
-            'value': 1
-          });
-        });
-      });
-    });
-  </script>
-
-  
-  
-  
-    
-    
-    <link rel="stylesheet" href="/css/webfonts.min.min.d4dac5b1ea952e43d923f20db7177335dafaee43cf8b43702471b8f867f3bb29.css" />
-    
-  
-
-  
-  <style>
-    .pp-footer-inner {
-      background: #2E1A0E;
-      color: #FAF4EB;
-      padding: 64px 80px 32px;
-      font-family: 'DM Sans', sans-serif;
-    }
-    .pp-footer-inner a { text-decoration: none; color: inherit; }
-    .pp-f-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 40px;
-      margin-bottom: 48px;
-    }
-    .pp-f-brand h3 { font-family: 'Fraunces', serif; font-size: 1.3rem; color: #FAF4EB; margin-bottom: 10px; font-weight: 400; }
-    .pp-f-brand p { font-size: 0.82rem; opacity: 0.55; line-height: 1.6; max-width: 280px; margin-bottom: 16px; }
-    .pp-f-social { display: flex; gap: 10px; }
-    .pp-f-social a {
-      width: 36px; height: 36px; border-radius: 50%;
-      background: rgba(255,255,255,0.06);
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.3s;
-    }
-    .pp-f-social a:hover { background: rgba(255,255,255,0.12); }
-    .pp-f-social svg { width: 15px; height: 15px; fill: #FAF4EB; }
-    .pp-f-col h4 {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em;
-      font-weight: 700; margin-bottom: 16px; opacity: 0.4;
-    }
-    .pp-f-col a { display: block; font-size: 0.82rem; opacity: 0.6; margin-bottom: 10px; transition: opacity 0.2s; }
-    .pp-f-col a:hover { opacity: 1; }
-    .pp-f-bottom {
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding-top: 24px;
-      display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;
-    }
-    .pp-f-bottom p { font-size: 0.7rem; opacity: 0.3; margin: 0; }
-    .pp-f-disc { font-size: 0.6rem; opacity: 0.2; max-width: 560px; line-height: 1.5; }
-    .pp-f-badges { float: right; padding-right: 20px; max-height: 28px; }
-
-    @media (max-width: 1024px) {
-      .pp-f-grid { grid-template-columns: 1fr 1fr; }
-      .pp-footer-inner { padding: 48px 24px 24px; }
-      .pp-f-bottom { flex-direction: column; }
-    }
-    @media (max-width: 640px) {
-      .pp-f-grid { grid-template-columns: 1fr; gap: 24px; }
-    }
-  </style>
-
-  <div class="pp-footer-inner">
-    <div class="pp-f-grid">
-      <div class="pp-f-brand">
-        <h3>PrimalPantry</h3>
-        <p>Skincare that soothes, hydrates & moisturises sensitive skin. NZ made tallow balm, tallow cream & more — all natural, honestly affordable.</p>
-        <div class="pp-f-social">
-          <a href="https://www.facebook.com/profile.php?id=61560358912834" aria-label="Facebook">
-            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-          </a>
-          <a href="https://www.instagram.com/primalpantry.nz/" aria-label="Instagram">
-            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="#FAF4EB" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="#FAF4EB" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
-          </a>
-        </div>
-      </div>
-      <div class="pp-f-col">
-        <h4>Shop</h4>
-        <a href="/shop/">All Tallow Products</a>
-        <a href="/balm-of-the-month/">Balm of The Month Club</a>
-        <a href="/tallow-for-sensitive-skin/">Tallow for Eczema-Prone Skin</a>
-        <a href="/tallow-for-babies/">Tallow for Babies</a>
-        <a href="/tallow-for-wrinkles/">Tallow Cream & Anti-Aging</a>
-        <a href="/shop/">Tallow Shampoo & Haircare</a>
-        <a href="/shop/">Tallow Lip Balm</a>
-        <a href="/subscribe/">Subscribe &amp; Save</a>
-      </div>
-      <div class="pp-f-col">
-        <h4>Help</h4>
-        <a href="/support/">Customer Support</a>
-        <a href="/faq/">FAQs</a>
-        <a href="/pages/refund-policy/">Refund Policy</a>
-        <a href="https://billing.stripe.com/p/login/4gMeVd6XT3X0b9qabyco000" target="_blank">Manage Subscription</a>
-        <a href="/stockists/">Where to Buy — Stockists</a>
-      </div>
-      <div class="pp-f-col">
-        <h4>Company</h4>
-        <a href="/pages/about/">Our Story — Christchurch NZ</a>
-        <a href="/pages/reviews/">Primal Pantry Reviews</a>
-        <a href="/posts/">Blog</a>
-        <a href="/contact/">Contact</a>
-      </div>
-    </div>
-    
-  </div>
-
-</footer>
-
-
-<script>
-(function(){
-    var thumbs = document.querySelectorAll('.product-image');
-    if (!thumbs.length) return;
-    var main = document.querySelector('.main-image');
-    if (!main) return;
-    main.style.transition = 'opacity 0.15s';
-    thumbs.forEach(function(thumb){
-        thumb.addEventListener('click', function(){
-            main.style.opacity = '0';
-            setTimeout(function(){ main.src = thumb.src; main.style.opacity = '1'; }, 150);
-            thumbs.forEach(function(t){ t.classList.remove('active'); });
-            thumb.classList.add('active');
-        });
-    });
-})();
-</script>
-
-
-
-
-</body>
-
-</html>
-dy;
 
       hamburger.addEventListener("click", function () {
         overlay.classList.toggle("open");

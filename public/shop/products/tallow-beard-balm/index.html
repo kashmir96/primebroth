@@ -675,7 +675,8 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             if (item.orderType && item.orderType.indexOf('Quarterly') > -1) priceSuffix = '/3mo';
             else if (item.orderType && item.orderType.indexOf('Monthly') > -1) priceSuffix = '/mo';
 
-            var meta = [item.flavor, item.size].filter(Boolean).join(' \u00b7 ');
+            var metaFlavor = (item.title === 'Tallow Soothing Routine') ? null : item.flavor;
+            var meta = [metaFlavor, item.size].filter(Boolean).join(' \u00b7 ');
             if (item.orderType && item.orderType !== 'Single') {
                 meta += (meta ? ' \u00b7 ' : '') + item.orderType;
             }
@@ -855,6 +856,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         "Tallow Balm Mixed Bundle":"/img/dec24/product-trio.webp",
         "Tallow Liquid Soap & Lotion Bundle":"/img/liquid-shop.webp",
         "The Golden Stack":"/img/shop/shop-gold.webp",
+        "Tallow Soothing Routine":"/img/shop/shop-gold.webp",
         "Sensitive Skin Tallow Stack":"/img/sensitive-stack-tub.webp",
         "Tallow Anti-aging Kit":"/img/wrinkleskinnew.webp",
         "Tallow Balm - DIY kit":"/img/tallow-balm.webp",
@@ -1402,7 +1404,16 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             <div class="row text-center justify-content-around mt-0 mb-0">
                 <h3 class="h4">Meet your moisturiser match</h3>
             <p>See why <span class="attention-primalcare">90,000+ kiwis just like you</span> switched to PrimalCare</p>
-                            <img class="seventy" src="/img/comparison-card-primalcare-balm.svg" alt="balm">
+                <table class="comparison-table">
+                    <thead><tr><th></th><th>PrimalCare</th><th>Traditional Skincare</th></tr></thead>
+                    <tbody>
+                        <tr><td>Skin-identical</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+                        <tr><td>No nasty chemicals</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+                        <tr><td>Affordably priced</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+                        <tr><td>Quick & friendly service</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+                        <tr><td>Money back guarantee</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+                    </tbody>
+                </table>
                 </div>
                 
             

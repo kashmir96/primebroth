@@ -131,17 +131,23 @@ img { max-width: 100%; height: auto; }
 .pp-comparison-section { max-width: 700px; margin: 0 auto; padding: 80px 48px; text-align: center; }
 .pp-comparison-section h2 { font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 8px; }
 .pp-comparison-section .subtitle { color: var(--pp-text-muted); margin-bottom: 36px; font-size: 15px; }
-.comparison-table { width: 100%; border-collapse: separate; border-spacing: 0; text-align: left; table-layout: fixed; }
+.comparison-table { width: 100%; border-collapse: separate; border-spacing: 0; text-align: left; table-layout: fixed; margin-top: 50px; }
 .comparison-table thead th { padding: 14px 20px; font-size: 13px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
 .comparison-table thead th:first-child { background: none; }
 .comparison-table thead th:nth-child(2) { background: var(--pp-brown-900); color: #fff; border-radius: 12px 12px 0 0; text-align: center; }
-.comparison-table thead th:nth-child(3) { text-align: center; color: var(--pp-text-muted); }
+.comparison-table thead th:nth-child(3) { text-align: center; color: var(--pp-brown-700); }
 .comparison-table td { padding: 14px 20px; font-size: 14px; border-bottom: 1px solid var(--pp-cream-200); color: var(--pp-text-secondary); }
 .comparison-table td:nth-child(2) { background: #FFFBF5; text-align: center; font-weight: 600; color: var(--pp-green-600); }
 .comparison-table td:nth-child(3) { text-align: center; color: var(--pp-text-muted); }
 .comparison-table tbody tr:last-child td:nth-child(2) { border-radius: 0 0 12px 12px; }
 .check { color: var(--pp-green-600); font-size: 18px; }
 .cross { color: #ccc; font-size: 18px; }
+@media (max-width: 576px) {
+    .comparison-table thead th { padding: 10px 8px; font-size: 11px; letter-spacing: 0.3px; }
+    .comparison-table td { padding: 12px 8px; font-size: 13px; }
+    .comparison-table thead th:nth-child(2) { border-radius: 8px 8px 0 0; }
+    .comparison-table tbody tr:last-child td:nth-child(2) { border-radius: 0 0 8px 8px; }
+}
 
 .pp-reviews-section { background: var(--pp-cream-100); padding: 80px 48px; }
 .pp-reviews-inner { max-width: 1100px; margin: 0 auto; text-align: center; }

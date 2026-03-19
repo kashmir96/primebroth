@@ -129,7 +129,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     }
     </script>
     
-    <link rel="stylesheet" href="/css/product-page.min.6f5c13feacfeb9961b2e7a48e3f82d4986ab7b228d5bb4cd4fc4928e0f28ec6d.css">
+    <link rel="stylesheet" href="/css/product-page.min.8987d6f043774fc9bdbbd8f2374339bae17e5e23abd9a1753a31908e79c3c993.css">
     <link rel="stylesheet" href="/css/swiper-bundle.min.css">
 
     <style>
@@ -842,7 +842,8 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             if (item.orderType && item.orderType.indexOf('Quarterly') > -1) priceSuffix = '/3mo';
             else if (item.orderType && item.orderType.indexOf('Monthly') > -1) priceSuffix = '/mo';
 
-            var meta = [item.flavor, item.size].filter(Boolean).join(' \u00b7 ');
+            var metaFlavor = (item.title === 'Tallow Soothing Routine') ? null : item.flavor;
+            var meta = [metaFlavor, item.size].filter(Boolean).join(' \u00b7 ');
             if (item.orderType && item.orderType !== 'Single') {
                 meta += (meta ? ' \u00b7 ' : '') + item.orderType;
             }
@@ -1022,6 +1023,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         "Tallow Balm Mixed Bundle":"/img/dec24/product-trio.webp",
         "Tallow Liquid Soap & Lotion Bundle":"/img/liquid-shop.webp",
         "The Golden Stack":"/img/shop/shop-gold.webp",
+        "Tallow Soothing Routine":"/img/shop/shop-gold.webp",
         "Sensitive Skin Tallow Stack":"/img/sensitive-stack-tub.webp",
         "Tallow Anti-aging Kit":"/img/wrinkleskinnew.webp",
         "Tallow Balm - DIY kit":"/img/tallow-balm.webp",
