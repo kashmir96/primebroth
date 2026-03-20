@@ -125,7 +125,6 @@ async function addToAirtable({ session, market, fetch }) {
 
   // ── Step 1: Create the order record in "Online / Market Sales" ──
   const orderFields = {
-    'Delivery Reference':   session.id,
     'Contact':              session.customer_details?.name || '',
     'Order Date':           new Date().toISOString().split('T')[0],
     'Status':               'Ordered - Paid',
