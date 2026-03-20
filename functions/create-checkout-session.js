@@ -53,7 +53,21 @@ exports.handler = async (event, context) => {
     for (const item of cart) {
       try {
         console.log(`[${market}] Retrieving price: ${item.priceId}`);
-        const price = await stripe.prices.retrieve(item.priceId);
+        let price;
+        for (let attempt = 0; attempt < 2; attempt++) {
+          try {
+            price = await stripe.prices.retrieve(item.priceId);
+            break;
+          } catch (retryErr) {
+            // Retry once on connection errors (ECONNRESET, ETIMEDOUT, etc.)
+            if (attempt === 0 && retryErr.type === 'StripeConnectionError') {
+              console.log(`[${market}] Stripe connection error on ${item.priceId}, retrying...`);
+              await new Promise(r => setTimeout(r, 500));
+              continue;
+            }
+            throw retryErr;
+          }
+        }
 
         if (!price || price.unit_amount == null) {
           throw new Error(`Invalid price for priceId: ${item.priceId}`);
@@ -66,6 +80,7 @@ exports.handler = async (event, context) => {
         const err = new Error(`Failed to process item: ${priceError.message}`);
         err.stripeCode = priceError.code || priceError.decline_code || '';
         err.stripeType = priceError.type || '';
+        err.stripeStatus = priceError.statusCode || '';
         throw err;
       }
     }
