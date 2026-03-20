@@ -176,12 +176,12 @@ async function addToAirtable({ session, market, fetch }) {
   // Airtable batch API accepts up to 10 records at a time
   const records = lineItems.map(li => ({
     fields: {
-      'Units sold':         li.quantity,
-      'Unit price':         (li.amount_total || 0) / 100,
+      'Units sold':         String(li.quantity),
+      'Unit price':         String((li.amount_total || 0) / 100),
       'Description':        li.price?.product?.name || li.description || '',
       'SKU':                li.price?.nickname || '',
       'Sale Line Item ID':  li.id,
-      'OrderID New':        [orderRecordId], // Linked record field
+      'Order ID':           [orderRecordId], // Linked record field
       'Stripe Order ID':    session.id,
     },
   }));
