@@ -20,7 +20,7 @@ const getStripe = (market) => {
 
 exports.handler = async (event, context) => {
   try {
-    const { cart, countryCode } = JSON.parse(event.body);
+    const { cart, countryCode, osoMeta } = JSON.parse(event.body);
 
     // Only activate AU if the AU Stripe key is actually configured
     const market = (countryCode === 'AU' && process.env.STRIPE_SECRET_KEY_AU)
@@ -106,6 +106,12 @@ exports.handler = async (event, context) => {
       cancel_url: cancelUrl,
       metadata: {
         market, // passed to webhook so it knows which Stripe account fired
+        ...(osoMeta ? {
+          oso_lp: osoMeta.landing_page || '',
+          oso_src: osoMeta.analytics_source || '',
+          oso_magnet: osoMeta.magnet_product || '',
+          oso_last_product: osoMeta.last_product_page || '',
+        } : {}),
       },
     });
 

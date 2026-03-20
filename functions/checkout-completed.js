@@ -98,8 +98,9 @@ exports.handler = async (event, context) => {
         addToAirtable({ session: fullSession, market, fetch }),
         pushToEship({ session: fullSession, market, fetch }),
         addToSupabase({ session: fullSession, market, fetch }),
+        saveOsoMeta(fullSession, fetch),
       ]).then(results => {
-        const labels = ['FB CAPI', 'Airtable', 'eShip', 'Supabase'];
+        const labels = ['FB CAPI', 'Airtable', 'eShip', 'Supabase', 'Oso Meta'];
         results.forEach((r, i) => {
           if (r.status === 'rejected') {
             console.error(`[webhook] ${labels[i]} failed:`, r.reason);
@@ -384,11 +385,14 @@ async function addToSupabase({ session, market, fetch }) {
   const shipping = session.shipping_details || session.customer_details;
   const address = shipping?.address || {};
 
-  // Parse UTM params from thank_you_url
+  // Parse UTM params from the landing_url embedded in the thank-you URL
   const thankYouUrl = session.success_url || '';
   let utmSource = '', utmMedium = '', utmCampaign = '', utmTerm = '', utmContent = '';
   try {
-    const urlObj = new URL(thankYouUrl);
+    const tyUrl = new URL(thankYouUrl);
+    // UTMs live inside the landing_url param, not at the top level
+    const landingUrl = tyUrl.searchParams.get('landing_url') || '';
+    const urlObj = landingUrl ? new URL(landingUrl) : tyUrl;
     utmSource = urlObj.searchParams.get('utm_source') || '';
     utmMedium = urlObj.searchParams.get('utm_medium') || '';
     utmCampaign = urlObj.searchParams.get('utm_campaign') || '';
@@ -517,5 +521,49 @@ async function trackPurchase({ email, amount_total, currency }) {
     else console.log('[webhook] FB CAPI success:', data);
   } catch (err) {
     console.error('[webhook] FB CAPI exception:', err);
+  }
+}
+
+/**
+ * Persist Oso analytics attribution metadata to Supabase orders table
+ */
+async function saveOsoMeta(session, fetch) {
+  const SUPABASE_URL = process.env.SUPABASE_URL;
+  const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;
+  if (!SUPABASE_URL || !SUPABASE_KEY) return;
+
+  const meta = session.metadata || {};
+  const lp = meta.oso_lp;
+  const src = meta.oso_src;
+  const lastProduct = meta.oso_last_product;
+  if (!lp && !src && !lastProduct) return;
+
+  const patch = {};
+  if (lp) patch.landing_page = lp;
+  if (src) patch.analytics_source = src;
+  if (lastProduct) patch.last_product_page = lastProduct;
+
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/orders?stripe_session_id=eq.${encodeURIComponent(session.id)}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Prefer': 'return=minimal',
+        },
+        body: JSON.stringify(patch),
+      }
+    );
+    if (!res.ok) {
+      const data = await res.json();
+      console.error('[webhook] Oso meta PATCH error:', JSON.stringify(data));
+    } else {
+      console.log('[webhook] Oso meta saved for session:', session.id);
+    }
+  } catch (err) {
+    console.error('[webhook] Oso meta exception:', err);
   }
 }

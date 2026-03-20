@@ -393,6 +393,8 @@
                 })
             });
         }
+        // Oso Analytics: proceed to checkout
+        if (typeof oso === 'function') oso('event', 'proceed to checkout');
 
         doCheckout();
     });
@@ -403,12 +405,22 @@
         checkoutBtn.disabled = true;
         checkoutBtn.textContent = attempts > 0 ? 'Retrying\u2026' : 'Processing\u2026';
 
+        // Oso Analytics: gather attribution metadata from sessionStorage
+        var ss = sessionStorage;
+        var osoMeta = {
+            landing_page: ss.getItem('oso_lp') || '',
+            analytics_source: ss.getItem('oso_src') || '',
+            magnet_product: ss.getItem('oso_magnet') || '',
+            last_product_page: ss.getItem('oso_last_product') || ''
+        };
+
         fetch('/.netlify/functions/create-checkout-session', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 cart: cart.map(function(i) { return { priceId: i.priceId, quantity: parseInt(i.quantity) || 1 }; }),
-                countryCode: countryCode
+                countryCode: countryCode,
+                osoMeta: osoMeta
             })
         })
         .then(function(r) { return r.json(); })
@@ -533,6 +545,9 @@
                         });
                     }
                 }
+                // Oso Analytics: add to cart
+                var newest = newCart[newCart.length - 1];
+                if (typeof oso === 'function' && newest) oso('event', 'add to cart', newest.title);
             }
             _lastCartLen = newCart.length;
         }
