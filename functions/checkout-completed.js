@@ -438,6 +438,10 @@ async function addToSupabase({ session, market, fetch }) {
     utm_campaign: utmCampaign,
     utm_term: utmTerm,
     utm_content: utmContent,
+    client_browser: session.metadata?.client_browser || '',
+    client_device: session.metadata?.client_device || '',
+    client_os: session.metadata?.client_os || '',
+    client_screen: parseInt(session.metadata?.client_screen || '0', 10) || 0,
   };
 
   let orderId;

@@ -20,7 +20,7 @@ const getStripe = (market) => {
 
 exports.handler = async (event, context) => {
   try {
-    const { cart, countryCode, osoMeta } = JSON.parse(event.body);
+    const { cart, countryCode, osoMeta, clientInfo } = JSON.parse(event.body);
 
     // Only activate AU if the AU Stripe key is actually configured
     const market = (countryCode === 'AU' && process.env.STRIPE_SECRET_KEY_AU)
@@ -63,7 +63,10 @@ exports.handler = async (event, context) => {
         totalAmount += item.quantity * price.unit_amount;
       } catch (priceError) {
         console.error(`[${market}] Error on priceId ${item.priceId}:`, priceError);
-        throw new Error(`Failed to process item: ${priceError.message}`);
+        const err = new Error(`Failed to process item: ${priceError.message}`);
+        err.stripeCode = priceError.code || priceError.decline_code || '';
+        err.stripeType = priceError.type || '';
+        throw err;
       }
     }
 
@@ -112,6 +115,12 @@ exports.handler = async (event, context) => {
           oso_magnet: osoMeta.magnet_product || '',
           oso_last_product: osoMeta.last_product_page || '',
         } : {}),
+        ...(clientInfo ? {
+          client_browser: clientInfo.browser || '',
+          client_device: clientInfo.device || '',
+          client_os: clientInfo.os || '',
+          client_screen: String(clientInfo.screenWidth || 0),
+        } : {}),
       },
     });
 
@@ -125,36 +134,75 @@ exports.handler = async (event, context) => {
   } catch (error) {
     console.error('Error creating checkout session:', error.message);
 
-    // Send SMS alert for failed checkout (fire-and-forget, must never block the response)
+    // Detect card declines vs real integration errors
+    const declineCodes = [
+      'card_declined', 'insufficient_funds', 'expired_card', 'incorrect_cvc',
+      'authentication_required', 'processing_error', 'do_not_honor',
+      'lost_card', 'stolen_card', 'generic_decline', 'fraudulent',
+    ];
+    const errLower = (error.message + ' ' + (error.stripeCode || '') + ' ' + (error.stripeType || '')).toLowerCase();
+    const isCardDecline = declineCodes.some(p => errLower.includes(p))
+      || (error.stripeType === 'StripeCardError');
+
+    // Log ALL errors to Supabase (card declines + integration errors)
     try {
-      const SID = process.env.TWILIO_SID;
-      const TOKEN = process.env.TWILIO_API;
-      const FROM = process.env.TWILIO_FROM_NUMBER;
-      const numbers = (process.env.ALERT_PHONE_NUMBERS || '').split(',').map(n => n.trim()).filter(Boolean);
-
-      if (SID && TOKEN && FROM && numbers.length) {
-        let cartSummary = 'unknown';
-        try { cartSummary = (JSON.parse(event.body || '{}').cart || []).map(i => `${i.quantity}x ${i.priceId}`).join(', ') || 'unknown'; } catch {}
-        const nzTime = new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' });
-        const msg = `Primal Pantry Checkout Failed\nTime: ${nzTime}\nError: ${error.message}\nCart: ${cartSummary}`;
-
-        const timeout = (ms) => new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), ms));
-        for (const to of numbers) {
-          await Promise.race([
-            fetch(`https://api.twilio.com/2010-04-01/Accounts/${SID}/Messages.json`, {
-              method: 'POST',
-              headers: {
-                'Authorization': 'Basic ' + Buffer.from(`${SID}:${TOKEN}`).toString('base64'),
-                'Content-Type': 'application/x-www-form-urlencoded',
-              },
-              body: new URLSearchParams({ From: FROM, To: to, Body: msg }).toString(),
-            }),
-            timeout(5000),
-          ]).catch(() => {});
-        }
+      const sbUrl = process.env.SUPABASE_URL;
+      const sbKey = process.env.SUPABASE_SERVICE_KEY;
+      if (sbUrl && sbKey) {
+        let parsedBody = {};
+        try { parsedBody = JSON.parse(event.body || '{}'); } catch {}
+        const ci = parsedBody.clientInfo || {};
+        const ua = event.headers['user-agent'] || '';
+        await fetch(`${sbUrl}/rest/v1/checkout_errors`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'apikey': sbKey, 'Authorization': `Bearer ${sbKey}` },
+          body: JSON.stringify({
+            error_message: error.message,
+            error_code: error.stripeCode || '',
+            error_type: error.stripeType || '',
+            cart: JSON.stringify((parsedBody.cart || []).map(i => ({ qty: i.quantity, id: i.priceId }))),
+            browser: ci.browser || '',
+            device: ci.device || '',
+            os: ci.os || '',
+            screen_width: ci.screenWidth || 0,
+            country: parsedBody.countryCode || '',
+            user_agent: ua,
+            is_card_decline: isCardDecline,
+          }),
+        }).catch(() => {});
       }
-    } catch (smsErr) {
-      console.error('SMS alert failed:', smsErr.message);
+    } catch {}
+
+    if (!isCardDecline) {
+      try {
+        const SID = process.env.TWILIO_SID;
+        const TOKEN = process.env.TWILIO_API;
+        const FROM = process.env.TWILIO_FROM_NUMBER;
+        const numbers = (process.env.ALERT_PHONE_NUMBERS || '').split(',').map(n => n.trim()).filter(Boolean);
+
+        if (SID && TOKEN && FROM && numbers.length) {
+          let cartSummary = 'unknown';
+          try { cartSummary = (JSON.parse(event.body || '{}').cart || []).map(i => `${i.quantity}x ${i.priceId}`).join(', ') || 'unknown'; } catch {}
+          const msg = `PP checkout fail: ${error.message}\nCart: ${cartSummary}`;
+
+          const timeout = (ms) => new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), ms));
+          for (const to of numbers) {
+            await Promise.race([
+              fetch(`https://api.twilio.com/2010-04-01/Accounts/${SID}/Messages.json`, {
+                method: 'POST',
+                headers: {
+                  'Authorization': 'Basic ' + Buffer.from(`${SID}:${TOKEN}`).toString('base64'),
+                  'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({ From: FROM, To: to, Body: msg }).toString(),
+              }),
+              timeout(5000),
+            ]).catch(() => {});
+          }
+        }
+      } catch (smsErr) {
+        console.error('SMS alert failed:', smsErr.message);
+      }
     }
 
     return {

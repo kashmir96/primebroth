@@ -420,7 +420,13 @@
             body: JSON.stringify({
                 cart: cart.map(function(i) { return { priceId: i.priceId, quantity: parseInt(i.quantity) || 1 }; }),
                 countryCode: countryCode,
-                osoMeta: osoMeta
+                osoMeta: osoMeta,
+                clientInfo: {
+                    browser: (navigator.userAgent.match(/(Chrome|Firefox|Safari|Edge|Opera)[\/\s](\d+)/) || [])[1] || '',
+                    device: window.innerWidth < 768 ? 'Mobile' : window.innerWidth < 1024 ? 'Tablet' : 'Desktop',
+                    os: navigator.platform || '',
+                    screenWidth: window.innerWidth
+                }
             })
         })
         .then(function(r) { return r.json(); })
