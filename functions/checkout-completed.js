@@ -215,8 +215,7 @@ async function addToAirtable({ session, market, fetch }) {
  */
 async function trackPurchase({ email, amount_total, currency }) {
   const fetch = (await import('node-fetch')).default;
-  // Paste your existing Facebook access token here (the EAA... string from your old checkout-completed.js)
-  const ACCESS_TOKEN = 'EAAU9shr9R4gBO2r17GFpgNP9LpZAvq8EUkpetaJG75ZAxOXnLZBZCtUfjcs0BnTu17leRfZATGUYmGppK1BrfIBP94BZBdCzb5yCTrj2tw2AeDiHPERBZBXZCuQJAln3JPCqviVlxPVbDXZBq0F8n45cPbjBZAYioouT8kDR7xSAjqwP3UoOwRIP8CWYRFTcoWZBWjvsfMyqOw1sARtudxqcLwrtY2XckSmyc4uwQZDZD';
+  const ACCESS_TOKEN = 'EAALoG9CF1ZCYBQy2XRb1vtnFt41kUsKKzd0nQuhKnbEOqJSb1mPyub47ZAoHlEqOQuG7NgOPSRaD0ybTkMbOyNOSu29AIUP5tNBnLN3xqt1rFevpRdsWvY0Q5VT7NGKumeSZC4ZANi84OaF4HmEQFTfZAVOZCNAxZCd6J51fSaS9y8CLG0OlVJtDiz3NcyP0CGZC1wZDZD';
 
   const hashedEmail = crypto
     .createHash('sha256')
