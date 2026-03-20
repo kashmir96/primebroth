@@ -401,12 +401,22 @@ async function addToSupabase({ session, market, fetch }) {
   } catch (_) { /* invalid URL — skip */ }
 
   const now = new Date();
+  // Use NZ time for order_date and order_hour (fallback to UTC if conversion fails)
+  let nzDate, nzHour;
+  try {
+    const nzNow = new Date(now.toLocaleString('en-US', { timeZone: 'Pacific/Auckland' }));
+    nzDate = `${nzNow.getFullYear()}-${String(nzNow.getMonth() + 1).padStart(2, '0')}-${String(nzNow.getDate()).padStart(2, '0')}`;
+    nzHour = nzNow.getHours();
+  } catch (_) {
+    nzDate = now.toISOString().split('T')[0];
+    nzHour = now.getUTCHours();
+  }
 
   // Step 1: Insert the order
   const orderRow = {
     stripe_session_id: session.id,
-    order_date: now.toISOString().split('T')[0],
-    order_hour: now.getHours(),
+    order_date: nzDate,
+    order_hour: nzHour,
     status: 'Ordered - Paid',
     customer_name: session.customer_details?.name || '',
     email: session.customer_details?.email || '',
