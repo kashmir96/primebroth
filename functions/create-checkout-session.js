@@ -124,6 +124,39 @@ exports.handler = async (event, context) => {
 
   } catch (error) {
     console.error('Error creating checkout session:', error.message);
+
+    // Send SMS alert for failed checkout (fire-and-forget, must never block the response)
+    try {
+      const SID = process.env.TWILIO_SID;
+      const TOKEN = process.env.TWILIO_API;
+      const FROM = process.env.TWILIO_FROM_NUMBER;
+      const numbers = (process.env.ALERT_PHONE_NUMBERS || '').split(',').map(n => n.trim()).filter(Boolean);
+
+      if (SID && TOKEN && FROM && numbers.length) {
+        let cartSummary = 'unknown';
+        try { cartSummary = (JSON.parse(event.body || '{}').cart || []).map(i => `${i.quantity}x ${i.priceId}`).join(', ') || 'unknown'; } catch {}
+        const nzTime = new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' });
+        const msg = `Primal Pantry Checkout Failed\nTime: ${nzTime}\nError: ${error.message}\nCart: ${cartSummary}`;
+
+        const timeout = (ms) => new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), ms));
+        for (const to of numbers) {
+          await Promise.race([
+            fetch(`https://api.twilio.com/2010-04-01/Accounts/${SID}/Messages.json`, {
+              method: 'POST',
+              headers: {
+                'Authorization': 'Basic ' + Buffer.from(`${SID}:${TOKEN}`).toString('base64'),
+                'Content-Type': 'application/x-www-form-urlencoded',
+              },
+              body: new URLSearchParams({ From: FROM, To: to, Body: msg }).toString(),
+            }),
+            timeout(5000),
+          ]).catch(() => {});
+        }
+      }
+    } catch (smsErr) {
+      console.error('SMS alert failed:', smsErr.message);
+    }
+
     return {
       statusCode: 400,
       body: JSON.stringify({ error: `Error creating checkout session: ${error.message}` }),
