@@ -12,6 +12,8 @@
  *   AIRTABLE_TABLE_NAME           — Airtable table name (e.g. "Online / Market Sales")
  *   STARSHIPIT_API_KEY            — StarshipIt / eShip API key
  *   STARSHIPIT_SUBSCRIPTION_KEY   — StarshipIt / eShip subscription key
+ *   SUPABASE_URL                  — Supabase project URL
+ *   SUPABASE_SERVICE_KEY          — Supabase service_role secret key
  */
 
 const crypto = require('crypto');
@@ -95,8 +97,9 @@ exports.handler = async (event, context) => {
         }),
         addToAirtable({ session: fullSession, market, fetch }),
         pushToEship({ session: fullSession, market, fetch }),
+        addToSupabase({ session: fullSession, market, fetch }),
       ]).then(results => {
-        const labels = ['FB CAPI', 'Airtable', 'eShip'];
+        const labels = ['FB CAPI', 'Airtable', 'eShip', 'Supabase'];
         results.forEach((r, i) => {
           if (r.status === 'rejected') {
             console.error(`[webhook] ${labels[i]} failed:`, r.reason);
@@ -356,6 +359,101 @@ async function pushToEship({ session, market, fetch }) {
     }
   } catch (err) {
     console.error('[webhook] eShip exception:', err);
+  }
+}
+
+/**
+ * Store order in Supabase (Postgres) — future replacement for Airtable
+ */
+async function addToSupabase({ session, market, fetch }) {
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+
+  if (!supabaseUrl || !supabaseKey) {
+    console.error('[webhook] Supabase env vars missing — skipping');
+    return;
+  }
+
+  const headers = {
+    'apikey': supabaseKey,
+    'Authorization': `Bearer ${supabaseKey}`,
+    'Content-Type': 'application/json',
+    'Prefer': 'return=representation',
+  };
+
+  const shipping = session.shipping_details || session.customer_details;
+  const address = shipping?.address || {};
+
+  // Step 1: Insert the order
+  const orderRow = {
+    stripe_session_id: session.id,
+    order_date: new Date().toISOString().split('T')[0],
+    status: 'Ordered - Paid',
+    customer_name: session.customer_details?.name || '',
+    email: session.customer_details?.email || '',
+    phone: session.customer_details?.phone || '',
+    payment_method: 'Stripe',
+    shipping_cost: (session.total_details?.amount_shipping || 0) / 100,
+    discount_applied: (session.total_details?.amount_discount || 0) / 100,
+    total_value: (session.amount_total || 0) / 100,
+    currency: (session.currency || 'nzd').toUpperCase(),
+    market,
+    street_address: address.line1 || '',
+    suburb: address.line2 || '',
+    city: address.city || '',
+    postcode: address.postal_code || '',
+    country_code: address.country || market,
+    thank_you_url: session.success_url || '',
+  };
+
+  let orderId;
+  try {
+    const response = await fetch(`${supabaseUrl}/rest/v1/orders`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(orderRow),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      console.error('[webhook] Supabase order error:', JSON.stringify(data));
+      return;
+    }
+    orderId = data[0]?.id;
+    console.log('[webhook] Supabase order success:', orderId);
+  } catch (err) {
+    console.error('[webhook] Supabase order exception:', err);
+    return;
+  }
+
+  // Step 2: Insert line items
+  const lineItems = session.line_items?.data || [];
+  if (lineItems.length === 0 || !orderId) return;
+
+  const rows = lineItems.map(li => ({
+    order_id: orderId,
+    stripe_line_item_id: li.id,
+    description: li.price?.product?.name || li.description || '',
+    sku: li.price?.nickname || '',
+    quantity: li.quantity,
+    unit_price: (li.amount_total || 0) / 100,
+  }));
+
+  try {
+    const response = await fetch(`${supabaseUrl}/rest/v1/order_line_items`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(rows),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      console.error('[webhook] Supabase line items error:', JSON.stringify(data));
+    } else {
+      console.log(`[webhook] Supabase line items success: ${data.length} rows`);
+    }
+  } catch (err) {
+    console.error('[webhook] Supabase line items exception:', err);
   }
 }
 
