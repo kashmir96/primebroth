@@ -384,10 +384,25 @@ async function addToSupabase({ session, market, fetch }) {
   const shipping = session.shipping_details || session.customer_details;
   const address = shipping?.address || {};
 
+  // Parse UTM params from thank_you_url
+  const thankYouUrl = session.success_url || '';
+  let utmSource = '', utmMedium = '', utmCampaign = '', utmTerm = '', utmContent = '';
+  try {
+    const urlObj = new URL(thankYouUrl);
+    utmSource = urlObj.searchParams.get('utm_source') || '';
+    utmMedium = urlObj.searchParams.get('utm_medium') || '';
+    utmCampaign = urlObj.searchParams.get('utm_campaign') || '';
+    utmTerm = urlObj.searchParams.get('utm_term') || '';
+    utmContent = urlObj.searchParams.get('utm_content') || '';
+  } catch (_) { /* invalid URL — skip */ }
+
+  const now = new Date();
+
   // Step 1: Insert the order
   const orderRow = {
     stripe_session_id: session.id,
-    order_date: new Date().toISOString().split('T')[0],
+    order_date: now.toISOString().split('T')[0],
+    order_hour: now.getHours(),
     status: 'Ordered - Paid',
     customer_name: session.customer_details?.name || '',
     email: session.customer_details?.email || '',
@@ -403,7 +418,12 @@ async function addToSupabase({ session, market, fetch }) {
     city: address.city || '',
     postcode: address.postal_code || '',
     country_code: address.country || market,
-    thank_you_url: session.success_url || '',
+    thank_you_url: thankYouUrl,
+    utm_source: utmSource,
+    utm_medium: utmMedium,
+    utm_campaign: utmCampaign,
+    utm_term: utmTerm,
+    utm_content: utmContent,
   };
 
   let orderId;
