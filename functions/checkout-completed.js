@@ -130,7 +130,6 @@ async function addToAirtable({ session, market, fetch }) {
     'Status':               'Ordered - Paid',
     'Email':                session.customer_details?.email || '',
     'Payment Method':       'Stripe',
-    'Shipping':             (session.total_details?.amount_shipping || 0) / 100,
     'Discount Applied':     (session.total_details?.amount_discount || 0) / 100,
     'Value':                (session.amount_total || 0) / 100,
     'Sale Collected by':    'Website',
@@ -143,8 +142,6 @@ async function addToAirtable({ session, market, fetch }) {
     'Postcode':             address.postal_code || '',
     'Thank-you URL':        session.success_url || '',
     'Currency':             (session.currency || '').toUpperCase(),
-    'Sale Line Items':      lineItemsSummary,
-    'Total Items':          totalItems,
   };
 
   const orderUrl = `https://api.airtable.com/v0/${baseId}/${encodeURIComponent(tableName)}`;
