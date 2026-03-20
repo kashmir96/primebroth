@@ -10,6 +10,8 @@
  *   AIRTABLE_API_KEY              — Airtable Personal Access Token
  *   AIRTABLE_BASE_ID              — Airtable Base ID (e.g. appXXXXXXXXXXXXXX)
  *   AIRTABLE_TABLE_NAME           — Airtable table name (e.g. "Online / Market Sales")
+ *   STARSHIPIT_API_KEY            — StarshipIt / eShip API key
+ *   STARSHIPIT_SUBSCRIPTION_KEY   — StarshipIt / eShip subscription key
  */
 
 const crypto = require('crypto');
@@ -80,10 +82,12 @@ exports.handler = async (event, context) => {
           currency: session.currency,
         }),
         addToAirtable({ session: fullSession, market, fetch }),
+        pushToEship({ session: fullSession, market, fetch }),
       ]).then(results => {
+        const labels = ['FB CAPI', 'Airtable', 'eShip'];
         results.forEach((r, i) => {
           if (r.status === 'rejected') {
-            console.error(`[webhook] Task ${i} failed:`, r.reason);
+            console.error(`[webhook] ${labels[i]} failed:`, r.reason);
           }
         });
       });
@@ -205,6 +209,141 @@ async function addToAirtable({ session, market, fetch }) {
     } catch (err) {
       console.error('[webhook] Airtable line items exception:', err);
     }
+  }
+}
+
+/**
+ * Push order to eShip (NZ Post / StarshipIt) for label printing
+ */
+async function pushToEship({ session, market, fetch }) {
+  // Only push NZ domestic orders
+  if (market !== 'NZ') {
+    console.log('[webhook] eShip skipped — non-NZ order');
+    return;
+  }
+
+  const apiKey = process.env.STARSHIPIT_API_KEY;
+  const subscriptionKey = process.env.STARSHIPIT_SUBSCRIPTION_KEY;
+
+  if (!apiKey || !subscriptionKey) {
+    console.error('[webhook] eShip env vars missing — skipping');
+    return;
+  }
+
+  const shipping = session.shipping_details || session.customer_details;
+  const address = shipping?.address || {};
+  const lineItems = session.line_items?.data || [];
+
+  // ── Compute jar counts, goods desc, weight, size from SKUs ──
+  let totalJars = 0;
+  const goodsDescParts = [];
+  const items = [];
+
+  for (const li of lineItems) {
+    const sku = li.price?.nickname || li.price?.product?.name || '';
+    const qty = li.quantity;
+    const skuLower = sku.toLowerCase();
+
+    // Jar multiplier per unit (from Airtable "Units to pack" formula)
+    let jarsPerUnit = 1;
+    if (skuLower.includes('60ml') || skuLower.includes('lip')) {
+      jarsPerUnit = 0.5;
+    } else if (skuLower.includes('scalp-bundle')) {
+      jarsPerUnit = 9;
+    } else if (skuLower.includes('shampoo-bottle') || skuLower.includes('conditioner')) {
+      jarsPerUnit = 6;
+    }
+
+    // Pack multiplier (e.g. -3pk, trio)
+    let packMultiplier = 1;
+    if (skuLower.includes('-3pk') || skuLower.includes('trio')) {
+      packMultiplier = 3;
+    }
+
+    const unitJars = jarsPerUnit * packMultiplier;
+    totalJars += unitJars * qty;
+
+    // Goods desc: "1 x balm-cacao" (strip Olive/Jojoba like Airtable formula)
+    const cleanSku = sku.replace(/Olive/gi, '').replace(/Jojoba/gi, '').trim();
+    goodsDescParts.push(`${qty} x ${cleanSku}`);
+
+    items.push({
+      description: li.price?.product?.name || li.description || sku,
+      sku: sku,
+      quantity: qty,
+      weight: Math.ceil((unitJars * qty * 0.2) * 2) / 2,
+      value: (li.amount_total || 0) / 100,
+      country_of_origin: 'New Zealand',
+    });
+  }
+
+  // Weight: round up to nearest 0.5kg
+  const weight = Math.ceil((totalJars * 0.2) * 2) / 2;
+
+  // Size based on jar count
+  let size, carrierProduct;
+  if (totalJars > 9) {
+    size = 'L'; carrierProduct = 'CPOLTPA3';
+  } else if (totalJars > 6) {
+    size = 'M'; carrierProduct = 'CPOLTPA4';
+  } else if (totalJars > 3) {
+    size = 'S'; carrierProduct = 'CPOLTPA5';
+  } else {
+    size = 'XS'; carrierProduct = 'CPOLTPDL';
+  }
+
+  const goodsDesc = goodsDescParts.join(', ');
+
+  const orderBody = {
+    order: {
+      order_number: session.id,
+      order_date: new Date().toISOString(),
+      reference: goodsDesc,
+      shipping_method: carrierProduct,
+      signature_required: false,
+      authority_to_leave: true,
+      currency: 'NZD',
+      destination: {
+        name: shipping?.name || session.customer_details?.name || '',
+        email: session.customer_details?.email || '',
+        phone: session.customer_details?.phone || '',
+        street: address.line1 || '',
+        suburb: address.line2 || '',
+        city: address.city || '',
+        state: address.state || '',
+        post_code: address.postal_code || '',
+        country: 'New Zealand',
+        delivery_instructions: goodsDesc,
+      },
+      items,
+      packages: [{
+        weight,
+        height: 0.13,
+        width: 0.13,
+        length: 0.24,
+      }],
+    },
+  };
+
+  try {
+    const response = await fetch('https://api.starshipit.com/api/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'StarShipIT-Api-Key': apiKey,
+        'Ocp-Apim-Subscription-Key': subscriptionKey,
+      },
+      body: JSON.stringify(orderBody),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      console.error('[webhook] eShip error:', JSON.stringify(data));
+    } else {
+      console.log('[webhook] eShip success:', data.order?.order_id || JSON.stringify(data));
+    }
+  } catch (err) {
+    console.error('[webhook] eShip exception:', err);
   }
 }
 
