@@ -68,10 +68,22 @@ exports.handler = async (event, context) => {
     if (customerEmail) {
       console.log(`[webhook] Purchase: ${customerEmail} | Market: ${market} | Amount: ${session.amount_total}`);
 
-      // Retrieve the full session with line items for Airtable
-      const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
-        expand: ['line_items', 'line_items.data.price.product'],
-      });
+      // Retrieve the full session with line items (retry once on ECONNRESET)
+      let fullSession;
+      for (let attempt = 0; attempt < 2; attempt++) {
+        try {
+          fullSession = await stripe.checkout.sessions.retrieve(session.id, {
+            expand: ['line_items', 'line_items.data.price.product'],
+          });
+          break;
+        } catch (err) {
+          if (attempt === 0 && err.code === 'ECONNRESET') {
+            console.log('[webhook] Stripe ECONNRESET — retrying...');
+            continue;
+          }
+          throw err;
+        }
+      }
 
       // Run FB CAPI and Airtable in parallel — fire-and-forget so failures
       // never prevent Stripe from receiving the 200 OK
