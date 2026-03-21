@@ -152,9 +152,9 @@
     </div>
 
     <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container-fluid">
+        <div class="container-fluid d-flex flex-row flex-nowrap align-items-center justify-content-between">
 
-            <div class="d-block d-lg-none">
+            <div class="d-block d-lg-none flex-shrink-0">
                 <div id="hamburgerbtn" class="flex cursor-pointer items-center w-14 h-10 py-2 rounded mopen">
                     <span class="top"></span>
                     <span class="middle"></span>
@@ -162,13 +162,13 @@
                 </div>
             </div>
 
-            <div class="d-flex align-items-center flex-shrink-0 text-xl text-grey-900">
+            <div class="d-flex align-items-center flex-shrink-1 text-xl text-grey-900" style="min-width:0;">
                 <a href="{{ .Site.BaseURL }}" aria-label="PrimalPantry">
                     <img alt="{{ .Site.Params.logo.alt }}" class="sitelogo mr-3" src="{{ .Site.Params.logo.main | relURL }}" width="120" height="36">
                 </a>
             </div>
 
-            <button class="iglink d-lg-none pp-cart-trigger" aria-label="Open cart" style="background:none;border:none;cursor:pointer;padding:0;">
+            <button class="iglink d-lg-none pp-cart-trigger flex-shrink-0" aria-label="Open cart" style="background:none;border:none;cursor:pointer;padding:0;">
                 <div class="cart-icon-container" style="position: relative; display: inline-block;">
                     <img src="/img/cart.webp" alt="Cart for PrimalPantry" width="24" height="24">
                     <span class="cart-badge" style="display:none;position:absolute;top:0;right:0;background-color:#9CAF88;color:white;border-radius:50%;width:20px;height:20px;align-items:center;justify-content:center;font-size:12px;">0</span>
