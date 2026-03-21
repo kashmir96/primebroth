@@ -4,7 +4,11 @@
  * Env vars required in Netlify:
  *   STRIPE_SECRET_KEY      — NZ Stripe secret key (existing, no rename needed)
  *   STRIPE_SECRET_KEY_AU   — AU Stripe secret key (new)
+ *   SUPABASE_URL           — Supabase project URL (for visitor_hash salt)
+ *   SUPABASE_SERVICE_KEY   — Supabase service_role key
  */
+
+const crypto = require('crypto');
 
 const getStripe = (market) => {
   if (market === 'AU') {
@@ -21,6 +25,25 @@ const getStripe = (market) => {
 exports.handler = async (event, context) => {
   try {
     const { cart, countryCode, osoMeta, clientInfo } = JSON.parse(event.body);
+
+    // Generate visitor_hash for analytics journey linking
+    let visitorHash = '';
+    try {
+      const ip = event.headers['x-nf-client-connection-ip'] || event.headers['x-forwarded-for'] || '';
+      const ua = event.headers['user-agent'] || '';
+      const siteId = 'PrimalPantry.co.nz';
+      const supabaseUrl = process.env.SUPABASE_URL;
+      const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+      if (supabaseUrl && supabaseKey && ip) {
+        const saltRes = await fetch(`${supabaseUrl}/rest/v1/analytics_salt?id=eq.1&select=salt`, {
+          headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
+        });
+        const saltRows = await saltRes.json();
+        if (saltRows && saltRows[0]) {
+          visitorHash = crypto.createHash('sha256').update(ip + ua + siteId + saltRows[0].salt).digest('hex');
+        }
+      }
+    } catch (e) { console.warn('[checkout] visitor_hash generation failed:', e.message); }
 
     // Only activate AU if the AU Stripe key is actually configured
     const market = (countryCode === 'AU' && process.env.STRIPE_SECRET_KEY_AU)
@@ -124,6 +147,7 @@ exports.handler = async (event, context) => {
       cancel_url: cancelUrl,
       metadata: {
         market, // passed to webhook so it knows which Stripe account fired
+        ...(visitorHash ? { visitor_hash: visitorHash } : {}),
         ...(osoMeta ? {
           oso_lp: osoMeta.landing_page || '',
           oso_src: osoMeta.analytics_source || '',

@@ -442,6 +442,7 @@ async function addToSupabase({ session, market, fetch }) {
     client_device: session.metadata?.client_device || '',
     client_os: session.metadata?.client_os || '',
     client_screen: parseInt(session.metadata?.client_screen || '0', 10) || 0,
+    visitor_hash: session.metadata?.visitor_hash || null,
   };
 
   let orderId;
