@@ -246,14 +246,6 @@
   </div>
 </section>
 
-<div class="modal fade" id="addedToCartModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog"><div class="modal-content">
-    <div class="modal-header"><h5 class="modal-title">Item Added to Cart</h5><button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button></div>
-    <div class="modal-body">Reviana Serum has been added to your cart.</div>
-    <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button><a href="/cart" class="btn btn-black">Go to Cart</a></div>
-  </div></div>
-</div>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <script>
 function swImg(s,el){var i=document.getElementById('mainImg');i.style.opacity='0';setTimeout(function(){i.src=s;i.style.opacity='1';},150);document.querySelectorAll('.rv-gal-thumb').forEach(function(t){t.classList.remove('active');});el.classList.add('active');}
 function swTab(id,btn){document.querySelectorAll('.rv-tab-panel').forEach(function(p){p.classList.remove('active');});document.querySelectorAll('.rv-tab-btn').forEach(function(b){b.classList.remove('active');});document.getElementById('tab-'+id).classList.add('active');btn.classList.add('active');}
@@ -264,9 +256,9 @@ document.getElementById('qPlus').addEventListener('click',function(){q.value=par
 document.getElementById('qMinus').addEventListener('click',function(){if(parseInt(q.value)>1)q.value=parseInt(q.value)-1;});
 document.getElementById('atcBtn').addEventListener('click',function(){
   var cart=JSON.parse(localStorage.getItem('cartV2'))||[];
-  cart.push({priceId:selPid,title:'Reviana Serum',size:'15ml',flavor:'Complexion Serum',orderType:'Single',quantity:parseInt(q.value)||1,unitPrice:selPrice,eligibleForDiscount:false});
+  cart.push({priceId:selPid,title:'Reviana Serum',size:'15ml',flavor:'Complexion Serum',orderType:'Single',quantity:parseInt(q.value)||1,unitPrice:selPrice,eligibleForDiscount:false,image:'/img/reviana-serum-jar.webp'});
   localStorage.setItem('cartV2',JSON.stringify(cart));
-  $('#addedToCartModal').modal('show');
+  if(typeof window.ppOpenCartDrawer==='function') window.ppOpenCartDrawer();
 });
 </script>
 <script src="/js/swiper-bundle.min.js"></script>

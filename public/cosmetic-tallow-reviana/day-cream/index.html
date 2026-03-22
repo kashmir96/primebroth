@@ -91,7 +91,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     <meta property="og:type" content="product" />
     <link rel="canonical" href="https://primalpantry.co.nz/cosmetic-tallow-reviana/day-cream/" />
     
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Reviana Day Cream","brand":{"@type":"Brand","name":"PrimalPantry"},"offers":{"@type":"Offer","priceCurrency":"NZD","price":"64.95","availability":"https://schema.org/InStock"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Reviana Day Cream","brand":{"@type":"Brand","name":"PrimalPantry"},"offers":{"@type":"Offer","priceCurrency":"NZD","price":"49.95","availability":"https://schema.org/InStock"}}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -213,7 +213,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 <link rel="stylesheet" href="/css/swiper-bundle.min.css">
 </head>
 <body><header>
-    <link rel="preconnect" href="https://cdn.usefathom.com" crossorigin>
+    <link rel="preconnect" href="https://oso.nz" crossorigin>
     <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
     <link rel="preconnect" href="https://www.primalpantry.co.nz" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -222,7 +222,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     
     <link rel="preload" as="image" href="/img/logo/logo.webp" fetchpriority="high">
 
-    <script src="https://cdn.usefathom.com/script.js" data-site="SUFMJROW" defer></script>
+    <script defer src="https://oso.nz/t.js" data-site="PrimalPantry.co.nz"></script>
     
 
     <script>
@@ -368,9 +368,9 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     </div>
 
     <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container-fluid">
+        <div class="container-fluid d-flex flex-row flex-nowrap align-items-center justify-content-between">
 
-            <div class="d-block d-lg-none">
+            <div class="d-block d-lg-none flex-shrink-0">
                 <div id="hamburgerbtn" class="flex cursor-pointer items-center w-14 h-10 py-2 rounded mopen">
                     <span class="top"></span>
                     <span class="middle"></span>
@@ -378,13 +378,13 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                 </div>
             </div>
 
-            <div class="d-flex align-items-center flex-shrink-0 text-xl text-grey-900">
+            <div class="d-flex align-items-center flex-shrink-1 text-xl text-grey-900" style="min-width:0;">
                 <a href="http://localhost:1313/" aria-label="PrimalPantry">
                     <img alt="" class="sitelogo mr-3" src="/img/logo/logo.webp" width="120" height="36">
                 </a>
             </div>
 
-            <button class="iglink d-lg-none pp-cart-trigger" aria-label="Open cart" style="background:none;border:none;cursor:pointer;padding:0;">
+            <button class="iglink d-lg-none pp-cart-trigger flex-shrink-0" aria-label="Open cart" style="background:none;border:none;cursor:pointer;padding:0;">
                 <div class="cart-icon-container" style="position: relative; display: inline-block;">
                     <img src="/img/cart.webp" alt="Cart for PrimalPantry" width="24" height="24">
                     <span class="cart-badge" style="display:none;position:absolute;top:0;right:0;background-color:#9CAF88;color:white;border-radius:50%;width:20px;height:20px;align-items:center;justify-content:center;font-size:12px;">0</span>
@@ -753,7 +753,8 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             else if (item.orderType && item.orderType.indexOf('Monthly') > -1) priceSuffix = '/mo';
 
             var metaFlavor = (item.title === 'Tallow Soothing Routine') ? null : item.flavor;
-            var meta = [metaFlavor, item.size].filter(Boolean).join(' \u00b7 ');
+            var metaSize = (item.title === 'Tallow Soothing Routine') ? 'Balm, Shampoo bar & Lip balm' : item.size;
+            var meta = [metaFlavor, metaSize].filter(Boolean).join(' \u00b7 ');
             if (item.orderType && item.orderType !== 'Single') {
                 meta += (meta ? ' \u00b7 ' : '') + item.orderType;
             }
@@ -838,6 +839,8 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                 })
             });
         }
+        
+        if (typeof oso === 'function') oso('event', 'proceed to checkout');
 
         doCheckout();
     });
@@ -848,12 +851,28 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         checkoutBtn.disabled = true;
         checkoutBtn.textContent = attempts > 0 ? 'Retrying\u2026' : 'Processing\u2026';
 
+        
+        var ss = sessionStorage;
+        var osoMeta = {
+            landing_page: ss.getItem('oso_lp') || '',
+            analytics_source: ss.getItem('oso_src') || '',
+            magnet_product: ss.getItem('oso_magnet') || '',
+            last_product_page: ss.getItem('oso_last_product') || ''
+        };
+
         fetch('/.netlify/functions/create-checkout-session', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 cart: cart.map(function(i) { return { priceId: i.priceId, quantity: parseInt(i.quantity) || 1 }; }),
-                countryCode: countryCode
+                countryCode: countryCode,
+                osoMeta: osoMeta,
+                clientInfo: {
+                    browser: (navigator.userAgent.match(/(Chrome|Firefox|Safari|Edge|Opera)[\/\s](\d+)/) || [])[1] || '',
+                    device: window.innerWidth < 768 ? 'Mobile' : window.innerWidth < 1024 ? 'Tablet' : 'Desktop',
+                    os: navigator.platform || '',
+                    screenWidth: window.innerWidth
+                }
             })
         })
         .then(function(r) { return r.json(); })
@@ -937,6 +956,11 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         "Sensitive Skin Tallow Stack":"/img/sensitive-stack-tub.webp",
         "Tallow Anti-aging Kit":"/img/wrinkleskinnew.webp",
         "Tallow Balm - DIY kit":"/img/tallow-balm.webp",
+        "Reviana Day Cream":"/img/reviana-day-jar.webp",
+        "Reviana Night Cream":"/img/reviana-night-jar.webp",
+        "Reviana Eye Cream":"/img/reviana-eye-jar.webp",
+        "Reviana Serum":"/img/reviana-serum-jar.webp",
+        "Reviana Complete Ritual Bundle":"/img/r2-reviana-range-square.webp",
         "Reviana - Tallow Cosmetics":"/img/r2-reviana-range-square.webp",
         "Nourishing Tallow Conditioner":"/img/conditioner-shop.webp"
     };
@@ -978,6 +1002,9 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                         });
                     }
                 }
+                
+                var newest = newCart[newCart.length - 1];
+                if (typeof oso === 'function' && newest) oso('event', 'add to cart', newest.title);
             }
             _lastCartLen = newCart.length;
         }
@@ -1086,9 +1113,9 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     <div class="rv-pdp-stars">★★★★★ <span>4.7 · Verified Reviews</span></div>
     <p class="rv-pdp-desc">Your morning ritual, upgraded. This light, fast-absorbing day cream delivers Vitamin C, Niacinamide and Zinc Oxide in a bio-identical lipid base that your skin already recognises — supporting brighter-looking tone, a smoother-looking finish under makeup, and deeper daily hydration. No greasy residue. No heaviness.</p>
     <div class="rv-price-row">
-      <span class="rv-price-main" id="dispPrice">$64.95</span>
+      <span class="rv-price-main" id="dispPrice">$49.95</span>
     </div>
-    <p class="rv-afterpay">or 4 interest free payments of $<span id="afterpayPrice">16.24</span> with <img src="/img/afterpay.webp" height="20" alt="afterpay"></p>
+    <p class="rv-afterpay">or 4 interest free payments of $<span id="afterpayPrice">12.49</span> with <img src="/img/afterpay.webp" height="20" alt="afterpay"></p>
     <div class="rv-stock"><span class="rv-stock-dot"></span> In Stock · Ships 1–3 business days</div>
     <div class="rv-actions">
       <div class="rv-qty">
@@ -1098,7 +1125,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
       </div>
       <button class="rv-btn-atc" id="atcBtn">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-        <span id="atcText">Add to Cart — $64.95</span>
+        <span id="atcText">Add to Cart — $49.95</span>
       </button>
     </div>
     <p style="font-size:0.78rem;color:var(--warm-gray);margin-bottom:14px;">Money back guarantee · Speedy NZ-wide shipping</p>
@@ -1182,29 +1209,19 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
   </div>
 </section>
 
-<div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
-  <div class="modal-dialog"><div class="modal-content">
-    <div class="modal-header"><h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5><button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button></div>
-    <div class="modal-body">Your item has been added to the cart.</div>
-    <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button><a href="/cart" class="btn btn-black">Go to Cart</a></div>
-  </div></div>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <script>
 function swImg(s,el){var i=document.getElementById('mainImg');i.style.opacity='0';setTimeout(function(){i.src=s;i.style.opacity='1';},150);document.querySelectorAll('.rv-gal-thumb').forEach(function(t){t.classList.remove('active');});el.classList.add('active');}
 function swTab(id,btn){document.querySelectorAll('.rv-tab-panel').forEach(function(p){p.classList.remove('active');});document.querySelectorAll('.rv-tab-btn').forEach(function(b){b.classList.remove('active');});document.getElementById('tab-'+id).classList.add('active');btn.classList.add('active');}
-var selPrice =  64.95 ;
-var selPid = 'price_1TAbgkFZRwx5tlYmslzajduR';
+var selPrice =  49.95 ;
+var selPid = 'price_1TClPdFZRwx5tlYm9fzw2LQT';
 var q = document.getElementById('qty');
 document.getElementById('qPlus').addEventListener('click',function(){q.value=parseInt(q.value)+1;});
 document.getElementById('qMinus').addEventListener('click',function(){if(parseInt(q.value)>1)q.value=parseInt(q.value)-1;});
 document.getElementById('atcBtn').addEventListener('click',function(){
   var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
-  cart.push({priceId:selPid,title:'Reviana Day Cream',size:'50ml',flavor:'Day Formula',orderType:'Single',quantity:parseInt(q.value)||1,unitPrice:selPrice,eligibleForDiscount:false});
+  cart.push({priceId:selPid,title:'Reviana Day Cream',size:'50ml',flavor:'Day Formula',orderType:'Single',quantity:parseInt(q.value)||1,unitPrice:selPrice,eligibleForDiscount:false,image:'/img/reviana-day-jar.webp'});
   localStorage.setItem('cartV2',JSON.stringify(cart));
-  $('#addedToCartModal').modal('show');
+  if(typeof window.ppOpenCartDrawer==='function') window.ppOpenCartDrawer();
 });
 </script>
 
@@ -1388,7 +1405,6 @@ if (window.innerWidth <= 900) {
       <div class="pp-f-col">
         <h4>Shop</h4>
         <a href="/shop/">All Tallow Products</a>
-        <a href="/balm-of-the-month/">Balm of The Month Club</a>
         <a href="/tallow-for-sensitive-skin/">Tallow for Eczema-Prone Skin</a>
         <a href="/tallow-for-babies/">Tallow for Babies</a>
         <a href="/tallow-for-wrinkles/">Tallow Cream & Anti-Aging</a>

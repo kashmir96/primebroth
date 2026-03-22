@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><script>
 (function(){
   
   window.MARKET = 'NZ';
@@ -24,13 +24,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <link rel="icon" type="image/png" sizes="16x16" href='favicon-16x16.png'>
 <link rel="manifest" href='/site.webmanifest'>
 
-<link rel="canonical" href="https://www.primalpantry.co.nz/tags/beef-tallow-for-skin-nz/">
+<link rel="canonical" href="http://localhost:1313/tags/beef-tallow-for-skin-nz/">
 
 
 
   
-  
-  <link rel="stylesheet" href="/css/style.min.ad45b5509a812c5c3ba107e6062d363ac68fd1e318006dcb944591ebc38b7a43.css" />
+  <link rel="stylesheet" href="/css/style.css">
   
   <link href='/css/style.min.css' rel="stylesheet" type="text/css">
 
@@ -91,13 +90,13 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 <meta property="og:site_name" content="PrimalPantry" />
 <meta property="og:title" content="Beef Tallow for Skin NZ | PrimalPantry" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://www.primalpantry.co.nz/tags/beef-tallow-for-skin-nz/" />
+<meta property="og:url" content="http://localhost:1313/tags/beef-tallow-for-skin-nz/" />
 <meta property="og:locale" content="en_us" />
 <meta name="twitter:card" content="summary_large_image">
 <meta property="twitter:title" content="Beef Tallow for Skin NZ">
 
 
-<meta property="og:image" content="https://www.primalpantry.co.nz/img/about/header.webp">
+<meta property="og:image" content="http://localhost:1313/img/about/header.webp">
 
 <meta name="description" content="The tallow skincare company making the most silky smooth tallow in Christchurch for Kiwis around NZ." />
 <meta property="og:description" content="The tallow skincare company making the most silky smooth tallow in Christchurch for Kiwis around NZ." />
@@ -109,8 +108,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 <body class="flex flex-col min-h-screen">
   <main class="flex-grow"><header>
     
-    <script src="https://cdn.usefathom.com/script.js" data-site="SUFMJROW" defer></script>
-    
+    <script defer src="https://oso.nz/t.js" data-site="PrimalPantry.co.nz"></script>
 
     
     
@@ -176,7 +174,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         </div>
 
         <div class="flex items-center flex-shrink-0 text-xl text-grey-900">
-            <a href="https://www.primalpantry.co.nz/" aria-label="PrimalPantry">
+            <a href="http://localhost:1313/" aria-label="PrimalPantry">
                 <img alt="" class="sitelogo mr-3" src="/img/logo/logo.webp">
             </a>
         </div>
@@ -523,7 +521,8 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             else if (item.orderType && item.orderType.indexOf('Monthly') > -1) priceSuffix = '/mo';
 
             var metaFlavor = (item.title === 'Tallow Soothing Routine') ? null : item.flavor;
-            var meta = [metaFlavor, item.size].filter(Boolean).join(' \u00b7 ');
+            var metaSize = (item.title === 'Tallow Soothing Routine') ? 'Balm, Shampoo bar & Lip balm' : item.size;
+            var meta = [metaFlavor, metaSize].filter(Boolean).join(' \u00b7 ');
             if (item.orderType && item.orderType !== 'Single') {
                 meta += (meta ? ' \u00b7 ' : '') + item.orderType;
             }
@@ -608,6 +607,8 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                 })
             });
         }
+        
+        if (typeof oso === 'function') oso('event', 'proceed to checkout');
 
         doCheckout();
     });
@@ -618,12 +619,28 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         checkoutBtn.disabled = true;
         checkoutBtn.textContent = attempts > 0 ? 'Retrying\u2026' : 'Processing\u2026';
 
+        
+        var ss = sessionStorage;
+        var osoMeta = {
+            landing_page: ss.getItem('oso_lp') || '',
+            analytics_source: ss.getItem('oso_src') || '',
+            magnet_product: ss.getItem('oso_magnet') || '',
+            last_product_page: ss.getItem('oso_last_product') || ''
+        };
+
         fetch('/.netlify/functions/create-checkout-session', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 cart: cart.map(function(i) { return { priceId: i.priceId, quantity: parseInt(i.quantity) || 1 }; }),
-                countryCode: countryCode
+                countryCode: countryCode,
+                osoMeta: osoMeta,
+                clientInfo: {
+                    browser: (navigator.userAgent.match(/(Chrome|Firefox|Safari|Edge|Opera)[\/\s](\d+)/) || [])[1] || '',
+                    device: window.innerWidth < 768 ? 'Mobile' : window.innerWidth < 1024 ? 'Tablet' : 'Desktop',
+                    os: navigator.platform || '',
+                    screenWidth: window.innerWidth
+                }
             })
         })
         .then(function(r) { return r.json(); })
@@ -748,6 +765,9 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                         });
                     }
                 }
+                
+                var newest = newCart[newCart.length - 1];
+                if (typeof oso === 'function' && newest) oso('event', 'add to cart', newest.title);
             }
             _lastCartLen = newCart.length;
         }
@@ -822,7 +842,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     <div class="content py-1"></div>
     
     
-    <a href="https://www.primalpantry.co.nz/posts/what-is-tallow-balm-made-of/">
+    <a href="http://localhost:1313/posts/what-is-tallow-balm-made-of/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
@@ -840,7 +860,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 </div></div>
     </a>
     
-    <a href="https://www.primalpantry.co.nz/posts/what-is-tallow-balm/">
+    <a href="http://localhost:1313/posts/what-is-tallow-balm/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
@@ -858,7 +878,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 </div></div>
     </a>
     
-    <a href="https://www.primalpantry.co.nz/posts/what-types-of-eczema-is-tallow-balm-best-for/">
+    <a href="http://localhost:1313/posts/what-types-of-eczema-is-tallow-balm-best-for/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
@@ -876,7 +896,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 </div></div>
     </a>
     
-    <a href="https://www.primalpantry.co.nz/posts/how-does-tallow-balm-help-eczema/">
+    <a href="http://localhost:1313/posts/how-does-tallow-balm-help-eczema/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
@@ -894,7 +914,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 </div></div>
     </a>
     
-    <a href="https://www.primalpantry.co.nz/posts/where-to-buy-tallow-balm-in-nz/">
+    <a href="http://localhost:1313/posts/where-to-buy-tallow-balm-in-nz/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
@@ -912,7 +932,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 </div></div>
     </a>
     
-    <a href="https://www.primalpantry.co.nz/posts/will-tallow-balm-give-me-acne/">
+    <a href="http://localhost:1313/posts/will-tallow-balm-give-me-acne/">
       <div><div
   class="sans w-full px-2 lg:max-w-full lg:flex mt-3 lg:px-0 duration-500 transform hover:-translate-y-1 hover:shadow-md">
   
@@ -1092,8 +1112,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
   
   
     
-    
-    <link rel="stylesheet" href="/css/webfonts.min.min.d4dac5b1ea952e43d923f20db7177335dafaee43cf8b43702471b8f867f3bb29.css" />
+    <link rel="stylesheet" href="/css/webfonts.min.css">
     
   
 
@@ -1166,7 +1185,6 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
       <div class="pp-f-col">
         <h4>Shop</h4>
         <a href="/shop/">All Tallow Products</a>
-        <a href="/balm-of-the-month/">Balm of The Month Club</a>
         <a href="/tallow-for-sensitive-skin/">Tallow for Eczema-Prone Skin</a>
         <a href="/tallow-for-babies/">Tallow for Babies</a>
         <a href="/tallow-for-wrinkles/">Tallow Cream & Anti-Aging</a>
