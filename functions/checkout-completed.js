@@ -323,6 +323,8 @@ async function pushToEship({ session, market, fetch }) {
       order_date: new Date().toISOString(),
       reference: goodsDesc,
       shipping_method: carrierProduct,
+      carrier_service_code: carrierProduct,
+      carrier: 'CourierPost',
       signature_required: false,
       authority_to_leave: true,
       currency: 'NZD',
