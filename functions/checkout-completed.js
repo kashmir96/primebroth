@@ -260,14 +260,21 @@ async function pushToEship({ session, market, fetch }) {
     const qty = li.quantity;
     const skuLower = sku.toLowerCase();
 
-    // Jar multiplier per unit (from Airtable "Units to pack" formula)
+    // Jar multiplier per unit — determines bag size
+    // DL (≤3 jars), A5 (4-6), A4 (7-9), A3 (>9)
     let jarsPerUnit = 1;
     if (skuLower.includes('60ml') || skuLower.includes('lip')) {
       jarsPerUnit = 0.5;
-    } else if (skuLower.includes('scalp-bundle')) {
+    } else if (skuLower.includes('scalp-bundle') || skuLower.includes('black') || skuLower.includes('250') || skuLower.includes('sensitive-skin-kit')) {
       jarsPerUnit = 9;
-    } else if (skuLower.includes('shampoo-bottle') || skuLower.includes('conditioner')) {
+    } else if (skuLower.includes('anti-aging') || skuLower.includes('shampoo-bottle') || skuLower.includes('conditioner')) {
       jarsPerUnit = 6;
+    } else if (skuLower.includes('lotion') || skuLower.includes('liqsoap') || skuLower.includes('liquid-bundle')) {
+      jarsPerUnit = 4;
+    } else if (skuLower.includes('vitallow')) {
+      jarsPerUnit = 3;
+    } else if (skuLower.includes('200ml') || skuLower.includes('powder') || skuLower.includes('cleanser')) {
+      jarsPerUnit = 2;
     }
 
     // Pack multiplier (e.g. -3pk, trio)
