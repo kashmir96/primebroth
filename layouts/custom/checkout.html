@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{- partial "head.html" . -}}
+    <title>Checkout — PrimalPantry</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+
+<!-- Minimal checkout header -->
+<header class="pp-co-header">
+    <div class="pp-co-header-inner">
+        <a href="/" class="pp-co-logo">
+            <img src="{{ .Site.Params.logo.main | relURL }}" alt="PrimalPantry" class="pp-co-logo-img">
+        </a>
+        <a href="/cart/" class="pp-co-back">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+            Back to cart
+        </a>
+    </div>
+</header>
+
+<div class="pp-co-page">
+    <div class="pp-co-container">
+        <div id="checkout"></div>
+        <div id="coLoading" class="pp-co-loading">
+            <div class="pp-co-spinner"></div>
+            <p>Loading secure checkout...</p>
+        </div>
+        <div id="coError" class="pp-co-error" style="display:none;">
+            <p>Something went wrong loading checkout.</p>
+            <a href="/cart/" class="pp-co-error-back">Back to cart</a>
+            <button onclick="window.location.reload()">Try Again</button>
+        </div>
+    </div>
+</div>
+
+<!-- Minimal footer -->
+<footer class="pp-co-footer">
+    <div class="pp-co-footer-inner">
+        <span>&copy; {{ now.Year }} PrimalPantry. All rights reserved.</span>
+        <div class="pp-co-trust">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span>Secure checkout powered by Stripe</span>
+        </div>
+    </div>
+</footer>
+
+<style>
+/* ── Header ── */
+.pp-co-header {
+    background: #fff;
+    border-bottom: 1px solid rgba(139, 115, 85, 0.15);
+}
+.pp-co-header-inner {
+    max-width: 1100px; margin: 0 auto;
+    padding: 16px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+}
+.pp-co-logo { text-decoration: none; }
+.pp-co-logo-img {
+    height: 40px; width: auto;
+}
+.pp-co-back {
+    display: flex; align-items: center; gap: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem; color: #8B7355;
+    text-decoration: none; transition: color 0.2s;
+}
+.pp-co-back:hover { color: #4A3728; }
+
+/* ── Footer ── */
+.pp-co-footer {
+    background: #fff;
+    border-top: 1px solid rgba(139, 115, 85, 0.15);
+}
+.pp-co-footer-inner {
+    max-width: 1100px; margin: 0 auto;
+    padding: 20px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem; color: #8B7355;
+}
+.pp-co-trust {
+    display: flex; align-items: center; gap: 6px;
+}
+
+/* ── Page ── */
+body {
+    margin: 0;
+    background: #fff;
+}
+.pp-co-page {
+    background: #fff;
+    min-height: calc(100vh - 120px);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+.pp-co-container {
+    width: 100%;
+    max-width: 1100px;
+    min-height: 100vh;
+}
+
+/* Stripe embed fills the container */
+#checkout {
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Loading state */
+.pp-co-loading {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 120px 20px; color: #8B7355;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+}
+.pp-co-spinner {
+    width: 28px; height: 28px;
+    border: 2.5px solid rgba(139, 115, 85, 0.2);
+    border-top-color: #4A3728;
+    border-radius: 50%;
+    animation: ppSpin 0.7s linear infinite;
+    margin-bottom: 16px;
+}
+@keyframes ppSpin { to { transform: rotate(360deg); } }
+
+/* Error state */
+.pp-co-error {
+    text-align: center; padding: 80px 20px;
+    color: #8B7355;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+}
+.pp-co-error-back {
+    display: inline-block; margin-top: 12px;
+    color: #4A3728; text-decoration: none; font-size: 0.85rem;
+}
+.pp-co-error-back:hover { text-decoration: underline; }
+.pp-co-error button {
+    display: block; margin: 12px auto 0;
+    padding: 10px 24px;
+    background: #2D2A26; color: #fff; border: none;
+    border-radius: 6px; font-weight: 500; cursor: pointer;
+    font-size: 0.85rem;
+}
+.pp-co-error button:hover { background: #4A3728; }
+
+@media (max-width: 640px) {
+    .pp-co-header-inner { padding: 14px 20px; }
+    .pp-co-footer-inner { padding: 16px 20px; flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
+
+<script>
+(function() {
+    // Market-aware Stripe keys
+    var market = (typeof window.MARKET !== 'undefined') ? window.MARKET : 'NZ';
+    var stripeKey = market === 'AU'
+        ? 'pk_live_51T7LFcJzNO9WRf4JmC4gn05XRKUSJ4h8YQ8d93SGfArOteqfBBgWWGQRyPYNubwdgcgerXV6UjT6MyeHH1arTd8I007AaC7fyZ'
+        : 'pk_live_51QKEaJFZRwx5tlYmhyIEFR3mGroCdpqIHHVT68y9jGnizGDZXypuSfjilbCSkMarU39KeV4kUulC6HfpReRSJwb000fyIehR3I';
+
+    // Handle back-forward cache (user swiping back from thank-you)
+    window.addEventListener('pageshow', function(e) {
+        if (e.persisted) {
+            window.location.href = '/cart/';
+        }
+    });
+
+    // Read cart
+    var cart = [];
+    try { cart = JSON.parse(localStorage.getItem('cartV2')) || []; } catch(e) {}
+
+    if (!cart.length) {
+        // Cart is empty — show friendly message
+        document.getElementById('coLoading').style.display = 'none';
+        document.getElementById('coError').innerHTML = '<p>Your order has already been placed!</p><a href="/shop/" class="pp-co-error-back">Continue Shopping</a><a href="/cart/" class="pp-co-error-back" style="margin-left:16px;">Back to Cart</a>';
+        document.getElementById('coError').style.display = '';
+        return;
+    }
+
+    // Save cart snapshot for thank-you page
+    localStorage.setItem('previouscart', JSON.stringify(cart));
+
+    // Analytics
+    var countryCode = market || 'NZ';
+    var currencyCode = market === 'AU' ? 'AUD' : 'NZD';
+
+    if (typeof gtag !== 'undefined') {
+        var subtotal = cart.reduce(function(s, i) { return s + (parseFloat(i.unitPrice) || 0) * (parseInt(i.quantity) || 1); }, 0);
+        gtag('event', 'begin_checkout', {
+            currency: currencyCode, value: subtotal,
+            items: cart.map(function(i) {
+                return { item_id: i.priceId, item_name: i.title, item_variant: i.flavor || '', item_category: i.size || '', price: parseFloat(i.unitPrice), quantity: parseInt(i.quantity) || 1 };
+            })
+        });
+    }
+    if (typeof oso === 'function') oso('event', 'proceed to checkout');
+
+    // Oso attribution metadata
+    var ss = sessionStorage;
+    var osoMeta = {
+        landing_page: ss.getItem('oso_lp') || '',
+        analytics_source: ss.getItem('oso_src') || '',
+        magnet_product: ss.getItem('oso_magnet') || '',
+        last_product_page: ss.getItem('oso_last_product') || ''
+    };
+
+    // Client info for analytics
+    var clientInfo = {
+        browser: (navigator.userAgent.match(/(Chrome|Firefox|Safari|Edge|Opera)[\/\s](\d+)/) || [])[1] || '',
+        device: window.innerWidth < 768 ? 'Mobile' : window.innerWidth < 1024 ? 'Tablet' : 'Desktop',
+        os: navigator.platform || '',
+        screenWidth: window.innerWidth
+    };
+
+    // Create embedded checkout session
+    fetch('/.netlify/functions/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            cart: cart.map(function(i) { return { priceId: i.priceId, quantity: parseInt(i.quantity) || 1 }; }),
+            countryCode: countryCode,
+            osoMeta: osoMeta,
+            clientInfo: clientInfo
+        })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+        if (data.clientSecret) {
+            var stripe = Stripe(stripeKey);
+            stripe.initEmbeddedCheckout({ clientSecret: data.clientSecret })
+                .then(function(checkout) {
+                    document.getElementById('coLoading').style.display = 'none';
+                    checkout.mount('#checkout');
+                });
+        } else {
+            document.getElementById('coLoading').style.display = 'none';
+            document.getElementById('coError').style.display = '';
+        }
+    })
+    .catch(function() {
+        document.getElementById('coLoading').style.display = 'none';
+        document.getElementById('coError').style.display = '';
+    });
+})();
+</script>
+
+</body>
+</html>

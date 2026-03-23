@@ -129,12 +129,11 @@ exports.handler = async (event, context) => {
         : [{ shipping_rate: 'shr_1T7S91JzNO9WRf4JjAvxwbaj' }];          // standard AU
     }
 
-    // ── URLs ─────────────────────────────────────────────────────────────────
+    // ── Return URL (embedded checkout uses return_url instead of success/cancel) ──
     const baseURL = 'https://www.primalpantry.co.nz';
-    const successUrl = `${baseURL}/pages/thank-you?landing_url=${encodeURIComponent(decodedLandingURL)}&market=${market}`;
-    const cancelUrl = `${baseURL}/cart/`;
+    const returnUrl = `${baseURL}/pages/thank-you?session_id={CHECKOUT_SESSION_ID}&landing_url=${encodeURIComponent(decodedLandingURL)}&market=${market}`;
 
-    // ── Create session ────────────────────────────────────────────────────────
+    // ── Create session (embedded mode) ──────────────────────────────────────
     const session = await stripe.checkout.sessions.create({
       payment_method_types,
       shipping_address_collection: {
@@ -143,8 +142,8 @@ exports.handler = async (event, context) => {
       shipping_options: shippingOptions,
       line_items: lineItems,
       mode: 'payment',
-      success_url: successUrl,
-      cancel_url: cancelUrl,
+      ui_mode: 'embedded',
+      return_url: returnUrl,
       metadata: {
         market, // passed to webhook so it knows which Stripe account fired
         ...(visitorHash ? { visitor_hash: visitorHash } : {}),
@@ -167,7 +166,7 @@ exports.handler = async (event, context) => {
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ sessionId: session.id }),
+      body: JSON.stringify({ clientSecret: session.client_secret }),
     };
 
   } catch (error) {

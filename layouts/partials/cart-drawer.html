@@ -179,8 +179,7 @@
 .cart-icon-container.bounce .cart-badge { animation: ppBadgePop 0.4s ease-in-out; }
 </style>
 
-<!-- Stripe.js for drawer checkout (defer so it doesn't block cart drawer init) -->
-<script src="https://js.stripe.com/v3/" defer></script>
+<!-- Stripe loaded on /checkout/ page instead -->
 
 <script>
 (function() {
@@ -194,18 +193,6 @@
     var freeShipThreshold = market === 'AU' ? 150 : 80;
     var currencyCode = market === 'AU' ? 'AUD' : 'NZD';
     var countryCode = market || 'NZ';
-
-    // --- Stripe (lazy-init at checkout time) ---
-    var stripeKey = market === 'AU'
-        ? 'pk_live_51T7LFcJzNO9WRf4JmC4gn05XRKUSJ4h8YQ8d93SGfArOteqfBBgWWGQRyPYNubwdgcgerXV6UjT6MyeHH1arTd8I007AaC7fyZ'
-        : 'pk_live_51QKEaJFZRwx5tlYmhyIEFR3mGroCdpqIHHVT68y9jGnizGDZXypuSfjilbCSkMarU39KeV4kUulC6HfpReRSJwb000fyIehR3I';
-    var stripeInstance = null;
-    function getStripe() {
-        if (!stripeInstance && typeof Stripe !== 'undefined') {
-            try { stripeInstance = Stripe(stripeKey); } catch(e) {}
-        }
-        return stripeInstance;
-    }
 
     // --- DOM refs ---
     var overlay = document.getElementById('ppCartOverlay');
@@ -375,12 +362,10 @@
         });
     }
 
-    // --- Checkout ---
-    var attempts = 0;
+    // --- Checkout: navigate to embedded checkout page ---
     checkoutBtn.addEventListener('click', function() {
         var cart = getCart();
         if (!cart.length) return;
-        attempts = 0;
 
         // Analytics: GA
         if (typeof gtag !== 'undefined') {
@@ -396,60 +381,9 @@
         // Oso Analytics: proceed to checkout
         if (typeof oso === 'function') oso('event', 'proceed to checkout');
 
-        doCheckout();
+        // Navigate to embedded checkout page
+        window.location.href = '/checkout/';
     });
-
-    function doCheckout() {
-        var cart = getCart();
-        if (!cart.length) return;
-        checkoutBtn.disabled = true;
-        checkoutBtn.textContent = attempts > 0 ? 'Retrying\u2026' : 'Processing\u2026';
-
-        // Oso Analytics: gather attribution metadata from sessionStorage
-        var ss = sessionStorage;
-        var osoMeta = {
-            landing_page: ss.getItem('oso_lp') || '',
-            analytics_source: ss.getItem('oso_src') || '',
-            magnet_product: ss.getItem('oso_magnet') || '',
-            last_product_page: ss.getItem('oso_last_product') || ''
-        };
-
-        fetch('/.netlify/functions/create-checkout-session', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                cart: cart.map(function(i) { return { priceId: i.priceId, quantity: parseInt(i.quantity) || 1 }; }),
-                countryCode: countryCode,
-                osoMeta: osoMeta,
-                clientInfo: {
-                    browser: (navigator.userAgent.match(/(Chrome|Firefox|Safari|Edge|Opera)[\/\s](\d+)/) || [])[1] || '',
-                    device: window.innerWidth < 768 ? 'Mobile' : window.innerWidth < 1024 ? 'Tablet' : 'Desktop',
-                    os: navigator.platform || '',
-                    screenWidth: window.innerWidth
-                }
-            })
-        })
-        .then(function(r) { return r.json(); })
-        .then(function(data) {
-            var stripe = getStripe();
-            if (data.sessionId && stripe) {
-                localStorage.setItem('previouscart', JSON.stringify(cart));
-                stripe.redirectToCheckout({ sessionId: data.sessionId });
-            } else { handleErr(); }
-        })
-        .catch(function() { handleErr(); });
-    }
-
-    function handleErr() {
-        attempts++;
-        if (attempts < 2) setTimeout(doCheckout, 1000);
-        else {
-            checkoutBtn.disabled = false;
-            checkoutBtn.textContent = 'Proceed to Checkout';
-            alert('Something went wrong. Please try again or contact us.');
-            attempts = 0;
-        }
-    }
 
     // --- Event listeners ---
     // Cart trigger buttons (from both header.html and header_new.html)
