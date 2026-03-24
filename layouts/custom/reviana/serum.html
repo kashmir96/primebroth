@@ -120,6 +120,7 @@
         <div class="rv-gal-thumb active" onclick="swImg('/img/reviana-serum-jar.webp',this)"><img src="/img/reviana-serum-jar.webp" alt="Jar" loading="lazy"></div>
         <div class="rv-gal-thumb" onclick="swImg('/img/serum-texture-3.webp',this)"><img src="/img/serum-texture-3.webp" alt="Texture" loading="lazy"></div>
         <div class="rv-gal-thumb" onclick="swImg('/img/serum-benefits.webp',this)"><img src="/img/serum-benefits.webp" alt="Benefits" loading="lazy"></div>
+        <div class="rv-gal-thumb" onclick="swImg('/img/reviana-smell-lifestyle.webp',this)"><img src="/img/reviana-smell-lifestyle.webp" alt="Scent" loading="lazy"></div>
       </div>
     </div>
     <div class="gallery-mobile">
@@ -128,6 +129,7 @@
           <div class="swiper-slide"><img src="/img/reviana-serum-jar.webp" alt="Reviana Serum 15ml"></div>
           <div class="swiper-slide"><img src="/img/serum-texture-3.webp" alt="Texture"></div>
           <div class="swiper-slide"><img src="/img/serum-benefits.webp" alt="Benefits"></div>
+          <div class="swiper-slide"><img src="/img/reviana-smell-lifestyle.webp" alt="Scent"></div>
         </div>
         <div class="swiper-pagination"></div>
       </div>
@@ -269,6 +271,8 @@ if (window.innerWidth <= 900) {
   });
 }
 </script>
+
+{{ partial "founder-quote.html" (dict "quotes" (slice "The serum is where the real work happens. I wanted something lightweight that you'd barely feel, but that quietly transforms your skin over time." "Think of it as the foundation of the whole ritual — the thing that makes everything else work better.")) }}
 
 {{- partial "footer.html" . -}}
 </body>

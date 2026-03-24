@@ -1,0 +1,31 @@
+<!-- Founder Quote -->
+<style>
+.fq-section{padding:56px 0;background:linear-gradient(135deg,#F7F4EF 0%,#EDE5D8 100%);}
+.fq-inner{max-width:760px;margin:0 auto;padding:0 32px;display:flex;align-items:flex-start;gap:24px;}
+.fq-photo{width:64px;height:64px;border-radius:50%;overflow:hidden;flex-shrink:0;border:3px solid #fff;box-shadow:0 4px 16px rgba(0,0,0,0.1);}
+.fq-photo img{width:100%;height:100%;object-fit:cover;}
+.fq-bubble{position:relative;background:#fff;border-radius:18px;padding:28px 32px;box-shadow:0 4px 20px rgba(0,0,0,0.06);flex:1;}
+.fq-bubble::before{content:'';position:absolute;left:-10px;top:22px;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-right:10px solid #fff;}
+.fq-bubble blockquote{font-family:'Playfair Display',serif;font-size:1.05rem;font-style:italic;line-height:1.7;color:#2E1A0E;margin:0 0 16px;}
+.fq-bubble blockquote+blockquote{margin-top:12px;}
+.fq-attrib{font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:700;color:#6B8F5B;}
+.fq-attrib span{display:block;font-weight:400;color:#877B71;margin-top:2px;}
+@media(max-width:640px){
+  .fq-inner{flex-direction:column;align-items:center;text-align:center;gap:16px;}
+  .fq-bubble::before{display:none;}
+  .fq-bubble{border-radius:16px;padding:24px;}
+}
+</style>
+<section class="fq-section">
+  <div class="fq-inner">
+    <div class="fq-photo">
+      <img src="https://www.primalpantry.co.nz/img/about/founder.webp" alt="Curtis Fairweather" loading="lazy">
+    </div>
+    <div class="fq-bubble">
+      {{ range .quotes }}
+      <blockquote>{{ . }}</blockquote>
+      {{ end }}
+      <div class="fq-attrib">Curtis Fairweather<span>Founder</span></div>
+    </div>
+  </div>
+</section>
