@@ -140,6 +140,7 @@
       var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
       cart.push({ priceId: pid, title: title, size: size, flavor: flavor, orderType: 'Single', quantity: 1, unitPrice: parseFloat(price), eligibleForDiscount: false, image: image });
       localStorage.setItem('cartV2', JSON.stringify(cart));
+      if (typeof oso === 'function') oso('event', 'quick-add-reviana', title);
       if (typeof window.ppOpenCartDrawer === 'function') window.ppOpenCartDrawer();
       var orig = this.textContent.trim();
       this.classList.add('added');
