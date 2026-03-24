@@ -1,0 +1,20 @@
+{{ $eye := site.Data.pricing.reviana.eye_cream }}
+<div class="product-card pp-card" data-category="skincare" id="prodcard-reviana-eye">
+    <span class="pp-card-badge" style="background:rgba(45,61,34,0.12);color:#2D3D22;">New</span>
+    <div class="pp-card-img">
+        <a href="/cosmetic-tallow-reviana/eye-cream/">
+            <img src="/img/reviana-eye-jar.webp" alt="Reviana Eye Cream 15ml" loading="lazy">
+        </a>
+    </div>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/cosmetic-tallow-reviana/eye-cream/">Eye Cream</a></div>
+        <div class="pp-card-sub">Brightening eye treatment · 15ml</div>
+        <div class="pp-card-price">
+            <span class="nz-content">${{ $eye.price_nz }}</span>
+        </div>
+        <div class="pp-card-cta">
+            <button class="pp-card-atc" data-atc-pid="{{ $eye.price_id_nz }}" data-atc-price="{{ $eye.price_nz }}" data-atc-title="Reviana Eye Cream" data-atc-size="15ml" data-atc-flavor="Vitamin C" data-atc-image="/img/reviana-eye-jar.webp">Add to Cart</button>
+            <a href="/cosmetic-tallow-reviana/eye-cream/" class="pp-card-view">View</a>
+        </div>
+    </div>
+</div>

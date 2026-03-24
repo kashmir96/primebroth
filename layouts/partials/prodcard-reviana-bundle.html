@@ -1,0 +1,20 @@
+{{ $bundle := site.Data.pricing.reviana.complexion_bundle }}
+<div class="product-card pp-card" data-category="skincare bundle" id="prodcard-reviana-bundle">
+    <span class="pp-card-badge" style="background:rgba(45,61,34,0.12);color:#2D3D22;">Save 15%</span>
+    <div class="pp-card-img">
+        <a href="/cosmetic-tallow-reviana/">
+            <img src="/img/r2-reviana-range-square.webp" alt="Reviana Complexion Bundle" loading="lazy">
+        </a>
+    </div>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/cosmetic-tallow-reviana/">Reviana Complexion Bundle</a></div>
+        <div class="pp-card-sub">Day + Night + Eye + Serum</div>
+        <div class="pp-card-price">
+            <span class="nz-content">${{ $bundle.price_nz }}</span>
+        </div>
+        <div class="pp-card-cta">
+            <button class="pp-card-atc" data-atc-pid="{{ $bundle.price_id_nz }}" data-atc-price="{{ $bundle.price_nz }}" data-atc-title="Reviana Complexion Bundle" data-atc-size="Full Set" data-atc-flavor="All 4 Products" data-atc-image="/img/r2-reviana-range-square.webp">Add to Cart</button>
+            <a href="/cosmetic-tallow-reviana/" class="pp-card-view">View</a>
+        </div>
+    </div>
+</div>

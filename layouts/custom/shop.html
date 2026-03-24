@@ -141,6 +141,24 @@
 
     /* Product cards now use shared pp-card styles from prodcard-styles.html */
 
+    /* ── GRID SECTION HEADINGS ──────────────────────────── */
+    .pp-grid-heading {
+      grid-column: 1 / -1;
+      padding: 32px 0 8px;
+    }
+    .pp-grid-heading:first-child { padding-top: 0; }
+    .pp-grid-heading h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.3rem, 2vw, 1.6rem);
+      font-weight: 400; color: var(--pc-black);
+      margin: 0 0 4px; line-height: 1.2;
+    }
+    .pp-grid-heading h3 em { color: var(--pc-brown); font-style: italic; }
+    .pp-grid-heading p {
+      font-size: 0.82rem; color: var(--pc-warm-gray);
+      margin: 0; line-height: 1.5;
+    }
+
     /* ── RITUAL STRIP ────────────────────────────────────── */
     .soothe-ritual {
       background: var(--pc-white); border: 1px solid var(--pc-border);
@@ -381,15 +399,32 @@
         </div>
 
         <div class="pp-card-grid" id="product-grid">
-            <!-- Best Sellers -->
+            <!-- Section: Best Sellers for Soothing -->
+            <div class="pp-grid-heading" data-section-for="skincare balm">
+              <h3>Best Sellers for <em>Soothing</em></h3>
+              <p>Gentle tallow-based essentials for dry, sensitive & irritated skin</p>
+            </div>
             {{- partial "prodcardtallowskin.html" . -}}
-            {{- partial "prodcard-honeybalm.html" . -}}
-            {{- partial "prodcard-talloweye.html" . -}}
             {{- partial "prodcardshampoo.html" . -}}
-            {{- partial "prodcard-serum.html" . -}}
             {{- partial "prodcard-day-n-night.html" . -}}
-            {{- partial "prodcard-reviana.html" . -}}
-            <!-- All other products -->
+            {{- partial "prodcard-talloweye.html" . -}}
+
+            <!-- Section: Best Sellers for Glow & Fine Lines -->
+            <div class="pp-grid-heading" data-section-for="skincare">
+              <h3>Best Sellers for <em>Glow &amp; Fine Lines</em></h3>
+              <p>Tallow + active cosmeceuticals — Reviana by PrimalPantry</p>
+            </div>
+            {{- partial "prodcard-reviana-day.html" . -}}
+            {{- partial "prodcard-reviana-serum.html" . -}}
+            {{- partial "prodcard-reviana-eye.html" . -}}
+            {{- partial "prodcard-reviana-night.html" . -}}
+
+            <!-- Section: All Products -->
+            <div class="pp-grid-heading" data-section-for="all">
+              <h3>All Products</h3>
+            </div>
+            {{- partial "prodcard-honeybalm.html" . -}}
+            {{- partial "prodcard-serum.html" . -}}
             {{- partial "prodcard-baby-butter.html" . -}}
             {{- partial "prodcard-scalpbundle.html" . -}}
             {{- partial "prodcard-babies.html" . -}}
@@ -411,6 +446,7 @@
             {{- partial "prodcardtallowsoap.html" . -}}
             {{- partial "prodcard-hairclay.html" . -}}
             {{- partial "prodcardcolloidaloat.html" . -}}
+            {{- partial "prodcard-reviana-bundle.html" . -}}
         </div>
       </div>
     </section>
@@ -471,11 +507,18 @@
         var val = $(this).val();
         if (val === 'all') {
           $('.all-products-section .pp-card').show();
+          $('.all-products-section .pp-grid-heading').show();
         } else {
           $('.all-products-section .pp-card').hide();
           $('.all-products-section .pp-card').filter(function () {
             return ($(this).data('category') || '').split(' ').includes(val);
           }).show();
+          /* Hide section headings that have no visible cards after them */
+          $('.all-products-section .pp-grid-heading').each(function () {
+            var $heading = $(this);
+            var $next = $heading.nextUntil('.pp-grid-heading').filter('.pp-card');
+            $heading.toggle($next.filter(':visible').length > 0);
+          });
         }
       });
       $('input[name="product-filter"]:checked').change();
