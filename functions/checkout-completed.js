@@ -161,7 +161,7 @@ async function addToAirtable({ session, market, fetch }) {
     'State':                address.city || '',
     'Country Code':         address.country || market,
     'Postcode':             address.postal_code || '',
-    'Thank-you URL':        session.success_url || session.return_url || '',
+    'Thank-you URL':        (session.success_url || session.return_url || '').replace('{CHECKOUT_SESSION_ID}', session.id),
     'Currency':             (session.currency || '').toUpperCase(),
   };
 
@@ -395,7 +395,7 @@ async function addToSupabase({ session, market, fetch }) {
   const address = shipping?.address || {};
 
   // Parse UTM params from the landing_url embedded in the thank-you URL
-  const thankYouUrl = session.success_url || session.return_url || '';
+  const thankYouUrl = (session.success_url || session.return_url || '').replace('{CHECKOUT_SESSION_ID}', session.id);
   let utmSource = '', utmMedium = '', utmCampaign = '', utmTerm = '', utmContent = '';
   try {
     const tyUrl = new URL(thankYouUrl);
