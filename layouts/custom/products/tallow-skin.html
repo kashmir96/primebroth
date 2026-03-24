@@ -75,6 +75,20 @@
 .custom-radio.out-of-stock input[type="radio"]:checked + .custom-radio-label::before {
     background-color: red;
 }
+.pp-pair-with { max-width: 900px; margin: 20px auto 0; padding: 0 20px; }
+.pp-pair-card { display: flex; align-items: center; gap: 16px; background: var(--pp-warm-bg, #FDFBF7); border-radius: 12px; padding: 16px 20px; margin-top: 8px; }
+.pp-pair-label { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: var(--pp-text-muted, #94918A); margin-bottom: 0; text-transform: uppercase; }
+.pp-pair-img { width: 80px; height: 80px; border-radius: 8px; object-fit: cover; }
+.pp-pair-info { flex: 1; }
+.pp-pair-title { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 14px; color: var(--pp-text-primary, #2C2925); margin: 0 0 2px; }
+.pp-pair-title a { color: inherit; text-decoration: none; }
+.pp-pair-title a:hover { text-decoration: underline; }
+.pp-pair-desc { font-size: 12px; color: var(--pp-text-muted, #94918A); margin: 0 0 8px; }
+.pp-pair-row { display: flex; align-items: center; justify-content: space-between; }
+.pp-pair-price { font-weight: 700; font-size: 15px; }
+.pp-pair-btn { background: #000; color: #fff; border: none; padding: 7px 16px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+.pp-pair-btn:hover { background: #333; }
+.pp-pair-btn.added { background: #4CAF50; cursor: default; }
 
 .custom-radio.in-stock input[type="radio"]:checked + .custom-radio-label::before {
     background-color: green;
@@ -253,6 +267,40 @@
                         Money Back
                     </div>
                 </div>
+
+        <!-- Often Paired With: Shampoo Bar -->
+        <div class="pp-pair-with">
+            <p class="pp-pair-label">Often paired with</p>
+            <p style="font-size:13px;color:var(--pp-text-muted,#94918A);margin:0 0 4px;font-style:italic;">Soothe the itch, cleanse the hair</p>
+            <div class="pp-pair-card">
+                <a href="/shop/products/tallow-shampoo-bar">
+                    <img src="/img/shampoobar/shampoo-bar-prodcutpage.webp" alt="Tallow Shampoo Bar" class="pp-pair-img" loading="lazy">
+                </a>
+                <div class="pp-pair-info">
+                    <p class="pp-pair-title"><a href="/shop/products/tallow-shampoo-bar">Tallow Scalp Health Shampoo Bar</a></p>
+                    <p class="pp-pair-desc">Natural tallow bar that cleanses and soothes dry, irritated scalps</p>
+                    <div class="pp-pair-row">
+                        {{ with index site.Data.pricing.tallow.pricing.shampoo 0 }}
+                        <span class="pp-pair-price nz-content">${{ with .prices.NZ }}{{ .single_purchase }}{{ end }}</span>
+                        <span class="pp-pair-price au-content" style="display:none;">A${{ with .prices.AU }}{{ .single_purchase }}{{ end }}</span>
+                        {{ end }}
+                        <button class="pp-pair-btn pair-with-quick-add" data-pp-atc
+                            data-pp-pid="{{ index (index site.Data.pricing.tallow.ids.shampoo.single.peppermintrosemary "120g") "NZ" }}"
+                            data-pp-pid-au="{{ index (index site.Data.pricing.tallow.ids.shampoo.single.peppermintrosemary "120g") "AU" }}"
+                            {{ with index site.Data.pricing.tallow.pricing.shampoo 0 }}
+                            data-pp-price="{{ with .prices.NZ }}{{ .single_purchase }}{{ end }}"
+                            data-pp-price-au="{{ with .prices.AU }}{{ .single_purchase }}{{ end }}"
+                            {{ end }}
+                            data-pp-title="Tallow Shampoo Bar"
+                            data-pp-size="120g"
+                            data-pp-flavor="peppermintrosemary"
+                            data-pp-flavor-label="Unscented">Quick Add</button>
+                        <a href="/shop/products/tallow-shampoo-bar" class="pp-pair-view" style="background:none;border:1px solid #ccc;color:#2C2925;padding:7px 12px;border-radius:6px;font-size:12px;text-decoration:none;font-weight:500;">View</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 <!-- ===== EANZ PILL + MODAL — Embed on any page ===== -->
 <!-- Drop this snippet anywhere. Requires the PP fonts (Fraunces + DM Sans) already loaded on the page. -->
 
@@ -690,10 +738,7 @@
             </div>
         </div>
     </div>
-    <div class="section light-peach py-80 mt-5">
-            {{- partial "irritation-routine.html" . -}}
-
-    </div> 
+    {{- partial "reviana-crosssell.html" . -}} 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var tabs = document.querySelectorAll('.faq-nav-tab');
