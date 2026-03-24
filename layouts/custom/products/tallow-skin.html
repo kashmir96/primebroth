@@ -284,18 +284,15 @@
                         <span class="pp-pair-price nz-content">${{ with .prices.NZ }}{{ .single_purchase }}{{ end }}</span>
                         <span class="pp-pair-price au-content" style="display:none;">A${{ with .prices.AU }}{{ .single_purchase }}{{ end }}</span>
                         {{ end }}
-                        <button class="pp-pair-btn pair-with-quick-add" data-pp-atc
-                            data-pp-pid="{{ index (index site.Data.pricing.tallow.ids.shampoo.single.peppermintrosemary "120g") "NZ" }}"
-                            data-pp-pid-au="{{ index (index site.Data.pricing.tallow.ids.shampoo.single.peppermintrosemary "120g") "AU" }}"
-                            {{ with index site.Data.pricing.tallow.pricing.shampoo 0 }}
-                            data-pp-price="{{ with .prices.NZ }}{{ .single_purchase }}{{ end }}"
-                            data-pp-price-au="{{ with .prices.AU }}{{ .single_purchase }}{{ end }}"
-                            {{ end }}
-                            data-pp-title="Tallow Shampoo Bar"
-                            data-pp-size="120g"
-                            data-pp-flavor="peppermintrosemary"
-                            data-pp-flavor-label="Unscented">Quick Add</button>
-                        <a href="/shop/products/tallow-shampoo-bar" class="pp-pair-view" style="background:none;border:1px solid #ccc;color:#2C2925;padding:7px 12px;border-radius:6px;font-size:12px;text-decoration:none;font-weight:500;">View</a>
+                        {{ with index site.Data.pricing.tallow.pricing.shampoo 0 }}
+                        <button class="pp-pair-btn pair-with-quick-add"
+                            data-atc-pid="{{ index (index site.Data.pricing.tallow.ids.shampoo.single.peppermintrosemary "120g") "NZ" }}"
+                            data-atc-price="{{ with .prices.NZ }}{{ .single_purchase }}{{ end }}"
+                            data-atc-title="Tallow Shampoo Bar"
+                            data-atc-size="120g"
+                            data-atc-flavor="Peppermint & Rosemary"
+                            data-atc-image="/img/shampoobar/shampoo-bar-prodcutpage.webp">Quick Add</button>
+                        {{ end }}
                     </div>
                 </div>
             </div>
