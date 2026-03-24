@@ -144,6 +144,7 @@
       <div class="rv-gal-main"><img id="mainImg" src="/img/reviana-day-jar.webp" alt="Reviana Day Cream 50ml" style="width:100%;height:100%;object-fit:cover;" fetchpriority="high"></div>
       <div class="rv-gal-thumbs">
         <div class="rv-gal-thumb active" onclick="swImg('/img/reviana-day-jar.webp',this)"><img src="/img/reviana-day-jar.webp" alt="Jar" loading="lazy"></div>
+        <div class="rv-gal-thumb" onclick="swImg('/img/reviana-day-outdoor.webp',this)"><img src="/img/reviana-day-outdoor.webp" alt="Outdoor" loading="lazy"></div>
         <div class="rv-gal-thumb" onclick="swImg('/img/daycream-texture-2.webp',this)"><img src="/img/daycream-texture-2.webp" alt="Texture" loading="lazy"></div>
         <div class="rv-gal-thumb" onclick="swImg('/img/daycream-benefits.webp',this)"><img src="/img/daycream-benefits.webp" alt="Benefits" loading="lazy"></div>
       </div>
@@ -152,6 +153,7 @@
       <div class="swiper product-swiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide"><img src="/img/reviana-day-jar.webp" alt="Reviana Day Cream 50ml"></div>
+          <div class="swiper-slide"><img src="/img/reviana-day-outdoor.webp" alt="Outdoor" style="object-position:bottom;"></div>
           <div class="swiper-slide"><img src="/img/daycream-texture-2.webp" alt="Texture"></div>
           <div class="swiper-slide"><img src="/img/daycream-benefits.webp" alt="Benefits"></div>
         </div>
@@ -273,7 +275,7 @@
 </section>
 
 <script>
-function swImg(s,el){var i=document.getElementById('mainImg');i.style.opacity='0';setTimeout(function(){i.src=s;i.style.opacity='1';},150);document.querySelectorAll('.rv-gal-thumb').forEach(function(t){t.classList.remove('active');});el.classList.add('active');}
+function swImg(s,el){var i=document.getElementById('mainImg');i.style.opacity='0';setTimeout(function(){i.src=s;i.style.objectPosition=s.includes('outdoor')?'bottom':'center';i.style.opacity='1';},150);document.querySelectorAll('.rv-gal-thumb').forEach(function(t){t.classList.remove('active');});el.classList.add('active');}
 function swTab(id,btn){document.querySelectorAll('.rv-tab-panel').forEach(function(p){p.classList.remove('active');});document.querySelectorAll('.rv-tab-btn').forEach(function(b){b.classList.remove('active');});document.getElementById('tab-'+id).classList.add('active');btn.classList.add('active');}
 var selPrice = {{ $p.price_nz }};
 var selPid = '{{ $p.price_id_nz }}';
