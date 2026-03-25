@@ -65,7 +65,7 @@
     .rv-tab-panel{display:none;}.rv-tab-panel.active{display:block;}
     .rv-tab-panel h4{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:10px;}
     .rv-tab-panel p{font-size:0.9rem;color:var(--rv-bark-light);line-height:1.75;margin-bottom:10px;}
-    .rv-research{padding:64px 0;background:var(--rv-cream);border-top:1px solid var(--rv-border);}
+    .rv-research{padding:64px 0;background:var(--rv-white);}
     .rv-research-inner{max-width:1240px;margin:0 auto;padding:0 40px;}
     .rv-research-eyebrow{font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--rv-sage);margin-bottom:10px;text-align:center;display:block;}
     .rv-research-sub{font-size:0.88rem;color:var(--rv-warm-gray);text-align:center;margin-bottom:36px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.6;}
@@ -73,7 +73,7 @@
     .rv-research-card{padding:24px 20px;background:var(--rv-white);border-radius:14px;border:1px solid var(--rv-border);}
     .rv-research-card-icon{font-size:1.3rem;margin-bottom:12px;}.rv-research-card-name{font-weight:700;font-size:0.85rem;color:var(--rv-bark);margin-bottom:6px;}
     .rv-research-card-desc{font-size:0.78rem;color:var(--rv-warm-gray);line-height:1.55;}
-    .rv-why{padding:80px 0;background:var(--rv-white);}
+    .rv-why{padding:80px 0;background:var(--rv-cream);}
     .rv-why-inner{max-width:1240px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center;}
     .rv-why h2{font-size:1.8rem;margin-bottom:16px;}.rv-why p{font-size:0.92rem;color:var(--rv-bark-light);line-height:1.75;margin-bottom:12px;}
     .rv-ing-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
@@ -197,14 +197,6 @@
   <div class="rv-tab-panel active" id="tab-dir">
     <h4>Evening routine</h4>
     <p>After cleansing, apply a generous amount to face, neck and décolletage. Gently massage in upward motions. Allow to absorb — you'll feel the richness but it won't transfer to your pillow. Use nightly for best results. One jar typically lasts 2–3 months.</p>
-    <div style="margin-top:24px;padding-top:20px;border-top:1px solid rgba(0,0,0,0.08);display:flex;align-items:flex-start;gap:12px;">
-      <img src="https://www.primalpantry.co.nz/img/about/founder.webp" alt="Curtis" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.1);flex-shrink:0;">
-      <div>
-        <p style="font-style:italic;color:#5A4A3A;line-height:1.7;margin:0;font-size:0.9rem;">"I wanted something you'd actually look forward to putting on before bed. The kind of cream that makes you excited to wake up and see your skin."</p>
-        <p style="font-size:0.78rem;font-weight:700;color:var(--rv-sage,#6B8F5B);margin:8px 0 0;">Curtis Fairweather <span style="font-weight:400;color:#877B71;">· Founder</span></p>
-        <p style="font-size:0.8rem;color:#877B71;line-height:1.6;margin:8px 0 0;">We knew tallow alone wasn't enough for this. So we partnered with one of NZ's most awarded cosmetic formulators — someone who's spent decades developing for some of the world's largest billion-dollar beauty brands — then hired specialist in-house staff to manufacture every batch to the highest standard. It's cosmeceutical skincare, built to a level the NZ tallow industry has never seen — and it all starts with the ingredient your skin already trusts.</p>
-      </div>
-    </div>
   </div>
   <div class="rv-tab-panel" id="tab-ship">
     <h4>Shipping</h4>
@@ -215,40 +207,60 @@
 </div>
 
 <section style="padding:48px 0;background:var(--rv-cream,#F5F0E8);">
-  <div style="max-width:800px;margin:0 auto;padding:0 20px;text-align:center;">
-    <p style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--rv-sage,#7A8B6F);margin-bottom:8px;">Verified Reviews</p>
-    <h2 style="font-family:'Fraunces','DM Serif Display',serif;font-size:1.6rem;color:var(--rv-bark,#2C1810);margin:0 0 32px;font-weight:500;">Real reviews from real skin</h2>
-    <div style="display:grid;gap:16px;">
-      <div style="background:white;border-radius:12px;padding:20px 22px;margin:0;text-align:left;border-left:3px solid var(--rv-sage,#7A8B6F);">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-          <div style="width:36px;height:36px;border-radius:50%;background:#E8E2D8;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#5A4A3A;">K</div>
-          <div><p style="margin:0;font-weight:600;font-size:0.85rem;color:#2C1810;">Kerry <span style="color:#D4A853;">★★★★★</span></p><p style="margin:0;font-size:0.7rem;color:#94918A;">Age 56 · Mar 2026</p></div>
+  <div style="max-width:1100px;margin:0 auto;padding:0 20px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;">
+      <!-- Founder / formulator story -->
+      <div>
+        <p style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--rv-sage,#7A8B6F);margin-bottom:16px;">From the Founder</p>
+        <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:20px;">
+          <img src="https://www.primalpantry.co.nz/img/about/founder.webp" alt="Curtis" style="width:52px;height:52px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 4px 16px rgba(0,0,0,0.1);flex-shrink:0;">
+          <div>
+            <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.05rem;line-height:1.7;color:#2E1A0E;margin:0;">"I wanted something you'd actually look forward to putting on before bed. The kind of cream that makes you excited to wake up and see your skin."</p>
+            <p style="font-size:0.78rem;font-weight:700;color:var(--rv-sage,#6B8F5B);margin:10px 0 0;">Curtis Fairweather <span style="font-weight:400;color:#877B71;">· Founder</span></p>
+          </div>
         </div>
-        <p style="font-size:0.92rem;line-height:1.65;color:#3D2B1F;margin:0;font-style:italic;">"I was surprised when they told me there's tallow in here — there's no beef smell at all. It has a nice smooth texture that goes into the skin seamlessly."</p>
+        <div style="background:white;border-radius:12px;padding:20px 22px;border-left:3px solid var(--rv-sage,#7A8B6F);">
+          <p style="font-size:0.88rem;line-height:1.7;color:#5A4A3A;margin:0;">We knew tallow alone wasn't enough for this. So we partnered with one of NZ's most awarded cosmetic formulators — someone who's spent decades developing for some of the world's largest billion-dollar beauty brands — then hired specialist in-house staff to manufacture every batch to the highest standard.</p>
+          <p style="font-size:0.88rem;line-height:1.7;color:#5A4A3A;margin:12px 0 0;">It's cosmeceutical skincare, built to a level the NZ tallow industry has never seen — and it all starts with the ingredient your skin already trusts.</p>
+        </div>
       </div>
-      <div style="background:white;border-radius:12px;padding:20px 22px;margin:0;text-align:left;border-left:3px solid var(--rv-sage,#7A8B6F);">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-          <div style="width:36px;height:36px;border-radius:50%;background:#E8E2D8;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#5A4A3A;">B</div>
-          <div><p style="margin:0;font-weight:600;font-size:0.85rem;color:#2C1810;">Brenda <span style="color:#D4A853;">★★★★★</span></p><p style="margin:0;font-size:0.7rem;color:#94918A;">Age 69 · Mar 2026</p></div>
+      <!-- Reviews -->
+      <div>
+        <p style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--rv-sage,#7A8B6F);margin-bottom:16px;">Verified Reviews</p>
+        <div style="display:grid;gap:14px;">
+          <div style="background:white;border-radius:12px;padding:18px 20px;text-align:left;border-left:3px solid var(--rv-sage,#7A8B6F);">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <div style="width:34px;height:34px;border-radius:50%;background:#E8E2D8;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#5A4A3A;">K</div>
+              <div><p style="margin:0;font-weight:600;font-size:0.82rem;color:#2C1810;">Kerry <span style="color:#D4A853;">★★★★★</span></p><p style="margin:0;font-size:0.68rem;color:#94918A;">Age 56 · Mar 2026</p></div>
+            </div>
+            <p style="font-size:0.88rem;line-height:1.6;color:#3D2B1F;margin:0;font-style:italic;">"I was surprised when they told me there's tallow in here — there's no beef smell at all. It has a nice smooth texture that goes into the skin seamlessly."</p>
+          </div>
+          <div style="background:white;border-radius:12px;padding:18px 20px;text-align:left;border-left:3px solid var(--rv-sage,#7A8B6F);">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <div style="width:34px;height:34px;border-radius:50%;background:#E8E2D8;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#5A4A3A;">B</div>
+              <div><p style="margin:0;font-weight:600;font-size:0.82rem;color:#2C1810;">Brenda <span style="color:#D4A853;">★★★★★</span></p><p style="margin:0;font-size:0.68rem;color:#94918A;">Age 69 · Mar 2026</p></div>
+            </div>
+            <p style="font-size:0.88rem;line-height:1.6;color:#3D2B1F;margin:0;font-style:italic;">"The night cream smells amazing and feels so nice on my skin. It's rich without feeling too heavy, and it glides on really smoothly. My skin feels super soft and hydrated."</p>
+          </div>
+          <div style="background:white;border-radius:12px;padding:18px 20px;text-align:left;border-left:3px solid var(--rv-sage,#7A8B6F);">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <div style="width:34px;height:34px;border-radius:50%;background:#E8E2D8;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#5A4A3A;">A</div>
+              <div><p style="margin:0;font-weight:600;font-size:0.82rem;color:#2C1810;">Andrea <span style="color:#D4A853;">★★★★★</span></p><p style="margin:0;font-size:0.68rem;color:#94918A;">Age 40 · Mar 2026</p></div>
+            </div>
+            <p style="font-size:0.88rem;line-height:1.6;color:#3D2B1F;margin:0;font-style:italic;">"The night cream has a lovely texture."</p>
+          </div>
+          <div style="background:white;border-radius:12px;padding:18px 20px;text-align:left;border-left:3px solid var(--rv-sage,#7A8B6F);">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <div style="width:34px;height:34px;border-radius:50%;background:#E8E2D8;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#5A4A3A;">C</div>
+              <div><p style="margin:0;font-weight:600;font-size:0.82rem;color:#2C1810;">CJ <span style="color:#D4A853;">★★★★★</span></p><p style="margin:0;font-size:0.68rem;color:#94918A;">Age 46 · Mar 2026</p></div>
+            </div>
+            <p style="font-size:0.88rem;line-height:1.6;color:#3D2B1F;margin:0;font-style:italic;">"A real creamy thickness that feels substantial — it sinks into the skin beautifully but doesn't disappear, so you feel like it will keep working while you sleep. The scent reminds me of a flower garden blooming at night. Quite magical."</p>
+          </div>
         </div>
-        <p style="font-size:0.92rem;line-height:1.65;color:#3D2B1F;margin:0;font-style:italic;">"The night cream smells amazing and feels so nice on my skin. It's rich without feeling too heavy, and it glides on really smoothly. My skin feels super soft and hydrated."</p>
-      </div>
-      <div style="background:white;border-radius:12px;padding:20px 22px;margin:0;text-align:left;border-left:3px solid var(--rv-sage,#7A8B6F);">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-          <div style="width:36px;height:36px;border-radius:50%;background:#E8E2D8;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#5A4A3A;">A</div>
-          <div><p style="margin:0;font-weight:600;font-size:0.85rem;color:#2C1810;">Andrea <span style="color:#D4A853;">★★★★★</span></p><p style="margin:0;font-size:0.7rem;color:#94918A;">Age 40 · Mar 2026</p></div>
-        </div>
-        <p style="font-size:0.92rem;line-height:1.65;color:#3D2B1F;margin:0;font-style:italic;">"The night cream has a lovely texture."</p>
-      </div>
-      <div style="background:white;border-radius:12px;padding:20px 22px;margin:0;text-align:left;border-left:3px solid var(--rv-sage,#7A8B6F);">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-          <div style="width:36px;height:36px;border-radius:50%;background:#E8E2D8;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#5A4A3A;">C</div>
-          <div><p style="margin:0;font-weight:600;font-size:0.85rem;color:#2C1810;">CJ <span style="color:#D4A853;">★★★★★</span></p><p style="margin:0;font-size:0.7rem;color:#94918A;">Age 46 · Mar 2026</p></div>
-        </div>
-        <p style="font-size:0.92rem;line-height:1.65;color:#3D2B1F;margin:0;font-style:italic;">"A real creamy thickness that feels substantial — it sinks into the skin beautifully but doesn't disappear, so you feel like it will keep working while you sleep. The scent reminds me of a flower garden blooming at night. Quite magical."</p>
       </div>
     </div>
   </div>
+  <style>@media(max-width:768px){section > div > [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important;}}</style>
 </section>
 
 <section class="rv-research">
