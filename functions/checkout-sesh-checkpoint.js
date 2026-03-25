@@ -66,7 +66,7 @@ exports.handler = async (event, context) => {
 
     let shippingOptions = [];
 
-    if (totalAmount >= 8000) {
+    if (totalAmount >= 7500) {
       shippingOptions = [
         {
           shipping_rate: freeShippingRate,
