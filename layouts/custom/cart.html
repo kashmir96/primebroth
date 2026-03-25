@@ -86,7 +86,7 @@
             const countryCode = (window.MARKET) || getCountryCookie('country_code') || 'NZ';
             
             let shippingCost = 6.95;
-            let freeShippingThreshold = 80;
+            let freeShippingThreshold = 75;
             
             if (countryCode === 'AU') {
                 shippingCost = 9.95;
@@ -98,7 +98,7 @@
             if (shippingLabel) {
                 shippingLabel.textContent = countryCode === 'AU'
                     ? 'Shipping (Free over A$150)'
-                    : 'Shipping (Free over $80)';
+                    : 'Shipping (Free over $75)';
             }
 
             const cartItemsContainer = document.getElementById('cart-items');
