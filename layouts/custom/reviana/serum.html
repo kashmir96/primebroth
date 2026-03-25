@@ -196,6 +196,13 @@
     <h4>Morning and evening — before moisturiser</h4>
     <p>After cleansing, apply 3–4 drops to face and neck. Press gently into skin — don't rub. Allow 30–60 seconds to absorb, then follow with Reviana Day Cream (morning) or Night Cream (evening).</p>
     <p>A 15ml bottle lasts approximately 2–3 months with twice-daily use.</p>
+    <div style="margin-top:24px;padding-top:20px;border-top:1px solid rgba(0,0,0,0.08);display:flex;align-items:flex-start;gap:12px;">
+      <img src="https://www.primalpantry.co.nz/img/about/founder.webp" alt="Curtis" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.1);flex-shrink:0;">
+      <div>
+        <p style="font-style:italic;color:#5A4A3A;line-height:1.7;margin:0;font-size:0.9rem;">"The serum is where the real work happens. I wanted something lightweight that you'd barely feel, but that quietly transforms your skin over time."</p>
+        <p style="font-size:0.78rem;font-weight:700;color:var(--rv-sage,#6B8F5B);margin:8px 0 0;">Curtis Fairweather <span style="font-weight:400;color:#877B71;">· Founder</span></p>
+      </div>
+    </div>
   </div>
   <div class="rv-tab-panel" id="tab-ship">
     <h4>Shipping</h4>
@@ -276,8 +283,7 @@ if (window.innerWidth <= 900) {
 }
 </script>
 
-{{ partial "founder-quote.html" (dict "quotes" (slice "The serum is where the real work happens. I wanted something lightweight that you'd barely feel, but that quietly transforms your skin over time." "Think of it as the foundation of the whole ritual — the thing that makes everything else work better.")) }}
-
+{{- partial "reviana-crosssell.html" . -}}
 {{- partial "footer.html" . -}}
 </body>
 </html>
