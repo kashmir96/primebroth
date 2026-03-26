@@ -2355,71 +2355,68 @@ function renderRoutine(recs) {
     var s = '<div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--pc-green);margin-bottom:0.5rem;">';
     var tip = '<div style="background:rgba(74,94,56,0.06);border-radius:6px;padding:8px 12px;margin:8px 0;font-size:0.78rem;color:var(--pc-green);line-height:1.5;">';
 
-    // ── APPLICATION TIPS (shown first) ──
+    // ── APPLICATION TIPS (shown first, kept tight) ──
     html += '<div style="margin-bottom:1.5rem;padding:1rem;background:var(--pc-brown-pale);border-radius:10px;">';
-    html += '<p style="font-size:0.78rem;font-weight:700;color:var(--pc-brown);margin-bottom:0.5rem;">&#x1F4A1; How to get the most from your products</p>';
+    html += '<p style="font-size:0.78rem;font-weight:700;color:var(--pc-brown);margin-bottom:0.5rem;">&#x1F4A1; Quick tips to get the most from these products</p>';
     html += '<div style="font-size:0.82rem;line-height:1.7;color:var(--pc-black);">';
-    html += '&bull; <strong>Always apply to slightly damp skin</strong> — pat dry with a towel (never rub), then apply within 2 minutes. Damp skin absorbs product significantly better.<br>';
-    html += '&bull; <strong>Apply moisturiser with the direction of hair growth</strong>, not against it — this helps avoid follicle irritation and potential infection.<br>';
-    html += '&bull; <strong>Warm balms between your palms</strong> for 5-10 seconds before applying — body heat melts tallow into a silky texture that absorbs faster.<br>';
-    html += '&bull; <strong>Less is more.</strong> A pea-sized amount covers your whole face. Build up if needed — you can always add more, but too much sits on the surface.';
+    html += '&bull; Apply to <strong>slightly damp skin</strong> — it absorbs significantly better<br>';
+    html += '&bull; <strong>Less is more</strong> — a pea-sized amount covers your whole face<br>';
+    html += '&bull; Warm balms between your palms before applying — body heat helps it melt in';
     html += '</div></div>';
 
     // ── MORNING ──
     html += '<div style="margin-bottom:1.25rem;">';
-    html += s + '&#x2600;&#xFE0F; Morning — tie this to your coffee or breakfast</div>';
+    html += s + '&#x2600;&#xFE0F; Morning</div>';
     html += '<div style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);">';
 
     if (concerns.indexOf('baby') !== -1) {
-        html += 'After bath time, gently pat your little one dry (never rub — their skin is delicate). While their skin is still slightly damp, apply a thin layer of <strong>' + (prodMap['baby-butter'] || 'Baby Butter') + '</strong> to any dry patches. A little goes a long way — warm it between your palms first.';
+        html += 'After bath time, gently pat dry and apply a thin layer of <strong>' + (prodMap['baby-butter'] || 'Baby Butter') + '</strong> to any dry patches while their skin is still slightly damp.';
     } else {
-        html += 'While the kettle\'s boiling, splash your face with lukewarm water and gently pat dry. ';
-        if (prodMap['reviana-serum'] || prodMap['serum-primal']) {
-            var serumName = prodMap['reviana-serum'] || prodMap['serum-primal'];
-            html += '<strong>Step 1:</strong> While your skin is still slightly damp, apply 3-4 drops of <strong>' + serumName + '</strong> — press it into your skin, don\'t rub. Serums work best on damp skin because the moisture helps actives penetrate. ';
+        var stepNum = 1;
+        html += 'Splash your face with lukewarm water and pat dry. ';
+        if (prodMap['reviana-serum']) {
+            html += '<strong>Step ' + stepNum + ':</strong> Apply 3-4 drops of <strong>' + prodMap['reviana-serum'] + '</strong> to damp skin — press in gently, don\'t rub. The Vitamin C and Licorice Extract are most effective when applied to slightly damp skin. ';
+            stepNum++;
         }
         if (prodMap['reviana-day']) {
-            html += '<strong>' + (prodMap['reviana-serum'] ? 'Step 2:' : 'Step 1:') + '</strong> Apply a pea-sized amount of <strong>' + prodMap['reviana-day'] + '</strong> — work it in gently in the direction your facial hair grows. It absorbs fast and gives a smooth base. ';
+            html += '<strong>Step ' + stepNum + ':</strong> Follow with <strong>' + prodMap['reviana-day'] + '</strong> — this locks in the serum\'s actives and provides daytime protection. A pea-sized amount is all you need. ';
+            stepNum++;
         }
         if (prodMap['reviana-eye'] || prodMap['eye-cream-primal']) {
             var eyeName = prodMap['reviana-eye'] || prodMap['eye-cream-primal'];
-            html += 'Dab a rice-grain amount of <strong>' + eyeName + '</strong> under each eye using your ring finger (it applies the least pressure). Tap gently along the orbital bone — never drag or pull. ';
+            html += '<strong>Step ' + stepNum + ':</strong> Dab <strong>' + eyeName + '</strong> under each eye with your ring finger — gentle tapping along the bone, never drag. ';
+            stepNum++;
         }
         if (prodMap['lip-balm']) {
-            html += 'Finish with <strong>' + prodMap['lip-balm'] + '</strong>. Keep it in your pocket or bag and reapply 2-3 times through the day. ';
+            html += 'Finish with <strong>' + prodMap['lip-balm'] + '</strong> and reapply through the day. ';
         }
-        if (!prodMap['reviana-day'] && !prodMap['reviana-serum'] && !prodMap['serum-primal']) {
-            var balmName = prodMap['balm-natural-120'] || prodMap['balm-natural-250'] || prodMap['balm-frankincense-120'] || prodMap['balm-frankincense-250'] || prodMap['balm-lavender-120'] || prodMap['limited-midnight'] || prodMap['limited-sunrise'] || recs[0].product.name;
-            html += '<strong>Step 1:</strong> Warm a small amount of <strong>' + balmName + '</strong> between your palms for a few seconds, then press into your skin while it\'s still damp. Apply in the direction of hair growth. ';
+        if (!prodMap['reviana-day'] && !prodMap['reviana-serum']) {
+            var balmName = prodMap['balm-natural-250'] || prodMap['honeybalm-vanilla-250'] || prodMap['limited-midnight'] || prodMap['limited-sunrise'] || recs[0].product.name;
+            html += '<strong>Step 1:</strong> Warm a small amount of <strong>' + balmName + '</strong> between your palms, then press into damp skin. ';
         }
     }
-    html += '</div>';
-    html += tip + '<strong>Don\'t:</strong> Use hot water on your face, apply to bone-dry skin, or rub product in aggressively. Your skin barrier is delicate — treat it gently.</div>';
-    html += '</div>';
+    html += '</div></div>';
 
     // ── EVENING ──
     if (concerns.indexOf('baby') === -1) {
         html += '<div style="margin-bottom:1.25rem;">';
-        html += s + '&#x1F319; Evening — make this part of your wind-down</div>';
+        html += s + '&#x1F319; Evening</div>';
         html += '<div style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);">';
-        html += 'Right after you brush your teeth (anchor it to an existing habit), gently cleanse your face';
+        html += 'Cleanse your face';
         if (prodMap['cleanser']) html += ' with <strong>' + prodMap['cleanser'] + '</strong>';
-        html += '. Pat dry with a clean towel. ';
+        html += ' and pat dry. ';
 
         if (prodMap['reviana-night']) {
-            html += 'Apply <strong>' + prodMap['reviana-night'] + '</strong> to slightly damp skin — the Bakuchiol and Ceramides do their best work while you sleep. Your skin\'s cell turnover peaks between 10pm-2am, so this timing is ideal. ';
+            html += 'Apply <strong>' + prodMap['reviana-night'] + '</strong> — the Bakuchiol and Ceramides do their best work overnight while your skin\'s cell turnover is at its peak. ';
         }
-        if ((prodMap['reviana-serum'] || prodMap['serum-primal']) && !prodMap['reviana-day']) {
-            var serumNight = prodMap['reviana-serum'] || prodMap['serum-primal'];
-            html += 'Apply a few drops of <strong>' + serumNight + '</strong> first — evening is when your skin is most receptive to active ingredients. ';
+        if (prodMap['reviana-serum'] && !prodMap['reviana-day']) {
+            html += 'Apply <strong>' + prodMap['reviana-serum'] + '</strong> first — evening is when your skin absorbs actives most effectively. ';
         }
-        var bodyBalm = prodMap['honeybalm-vanilla-120'] || prodMap['honeybalm-vanilla-250'] || prodMap['balm-frankincense-120'] || prodMap['balm-frankincense-250'] || prodMap['balm-natural-120'] || prodMap['balm-natural-250'] || prodMap['limited-midnight'] || prodMap['limited-sunrise'];
+        var bodyBalm = prodMap['honeybalm-vanilla-250'] || prodMap['balm-natural-250'] || prodMap['limited-midnight'] || prodMap['limited-sunrise'];
         if (bodyBalm && (areas.indexOf('body') !== -1 || areas.indexOf('hands') !== -1 || areas.indexOf('elbows') !== -1)) {
-            html += 'After your evening shower (lukewarm, not hot), pat dry and apply <strong>' + bodyBalm + '</strong> generously to hands, elbows, or any areas that need extra attention. Apply with the hair, not against it. ';
+            html += 'After your shower, apply <strong>' + bodyBalm + '</strong> to damp skin on hands, elbows, or anywhere that needs it. ';
         }
-        html += '</div>';
-        html += tip + '<strong>Don\'t:</strong> Skip cleansing before bed, apply products to dry skin, or use hot showers (they strip natural oils your skin needs).</div>';
-        html += '</div>';
+        html += '</div></div>';
     }
 
     // ── SHOWER / HAIRCARE ──
@@ -2437,59 +2434,29 @@ function renderRoutine(recs) {
         html += '</div>';
     }
 
-    // ── WEEKLY ──
-    html += '<div style="margin-bottom:1.25rem;">';
-    html += s + '&#x1F4C5; Weekly rituals</div>';
-    html += '<div style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);">';
-    if (prodMap['oat-soak'] || concerns.indexOf('eczema') !== -1 || concerns.indexOf('rosacea') !== -1) {
-        html += '&bull; <strong>2-3x per week:</strong> Lukewarm oat bath for 15-20 mins — this is your skin\'s reset. Never hot water. Pat dry, then immediately apply balm to lock in moisture.<br>';
-        html += '&bull; <strong>Once per week:</strong> Apply a thicker layer of balm before bed as an overnight mask. Cover with cotton gloves for hands or old socks for feet.<br>';
+    // ── WEEKLY (product-focused only) ──
+    var hasWeekly = prodMap['oat-soak'] || concerns.indexOf('eczema') !== -1 || concerns.indexOf('acne') !== -1 || concerns.indexOf('wrinkles') !== -1 || concerns.indexOf('pigmentation') !== -1;
+    if (hasWeekly) {
+        html += '<div style="margin-bottom:1.25rem;">';
+        html += s + '&#x1F4C5; Weekly</div>';
+        html += '<div style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);">';
+        if (prodMap['oat-soak']) {
+            html += '&bull; <strong>2-3x per week:</strong> Lukewarm ' + prodMap['oat-soak'] + ' for 15-20 mins, then pat dry and apply balm immediately to lock in moisture.<br>';
+        }
+        if (concerns.indexOf('wrinkles') !== -1 || concerns.indexOf('pigmentation') !== -1) {
+            if (prodMap['reviana-serum']) html += '&bull; <strong>Once per week:</strong> Apply a generous layer of ' + prodMap['reviana-serum'] + ' and leave for 15 minutes as a treatment mask — your skin absorbs more when given extra time.<br>';
+        }
+        if (concerns.indexOf('acne') !== -1 && prodMap['cleanser']) {
+            html += '&bull; <strong>2x per week:</strong> Double-cleanse with ' + prodMap['cleanser'] + ' — first pass to break down SPF, second to deep clean.<br>';
+        }
+        html += '</div></div>';
     }
-    if (concerns.indexOf('acne') !== -1) {
-        html += '&bull; <strong>2x per week:</strong> Double-cleanse in the evening — oil-based cleanser first to break down SPF/makeup, then your regular cleanser.<br>';
-    }
-    if (concerns.indexOf('wrinkles') !== -1 || concerns.indexOf('pigmentation') !== -1) {
-        html += '&bull; <strong>Once per week:</strong> Apply a generous layer of serum and leave for 15 minutes as a treatment mask. Your skin absorbs more when given extra time.<br>';
-    }
-    html += '&bull; <strong>Every wash day:</strong> Change your pillowcase — bacteria and oil build up faster than you\'d think.<br>';
-    html += '&bull; <strong>Sunday evening:</strong> Do a quick skin check — how is your routine tracking? Adjust product amount based on how your skin feels.';
-    html += '</div></div>';
 
-    // ── LIFESTYLE ──
-    html += '<div style="margin-bottom:1.25rem;">';
-    html += s + '&#x1F957; Lifestyle ideas to consider</div>';
-    html += '<div style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);">';
-    if (concerns.indexOf('eczema') !== -1 || concerns.indexOf('rosacea') !== -1) {
-        html += '&bull; Some people find reducing dairy and processed sugar makes a noticeable difference to inflammation<br>';
-        html += '&bull; Switch to fragrance-free laundry detergent — your sheets and clothes sit against your skin all day<br>';
-        html += '&bull; Keep fingernails short to reduce damage from unconscious scratching at night<br>';
-    }
-    if (concerns.indexOf('acne') !== -1) {
-        html += '&bull; Clean your phone screen daily — it touches your face more than you think<br>';
-        html += '&bull; Avoid touching your face through the day (the average person does it 20+ times per hour)<br>';
-    }
-    if (concerns.indexOf('dry') !== -1) {
-        html += '&bull; Aim for 2L of water per day — hydration starts from the inside<br>';
-        html += '&bull; Consider a humidifier in winter — NZ homes get surprisingly dry<br>';
-    }
-    if (concerns.indexOf('wrinkles') !== -1) {
-        html += '&bull; Wear SPF every day — even on cloudy NZ days. UV damage is the #1 cause of premature aging<br>';
-        html += '&bull; Prioritise consistent sleep — your skin\'s repair cycle peaks between 10pm-2am<br>';
-    }
-    html += '&bull; Omega-3 rich foods (salmon, walnuts, flaxseed) support your skin\'s lipid barrier from within<br>';
-    html += '&bull; Stress management matters — cortisol directly impacts skin inflammation and barrier function';
-    html += '</div></div>';
-
-    // ── BUILDING THE HABIT ──
-    html += '<div style="padding:1rem;background:rgba(74,94,56,0.06);border-radius:10px;">';
-    html += '<p style="font-size:0.78rem;font-weight:700;color:var(--pc-green);margin-bottom:0.5rem;">&#x1F3AF; Making it stick — habit anchoring</p>';
-    html += '<div style="font-size:0.82rem;line-height:1.7;color:var(--pc-black);">';
-    html += 'The best routine is the one you actually do. Tie each step to something you already do every day:<br>';
-    html += '&bull; <strong>Morning:</strong> "After I make my coffee, I do my skin routine" (the kettle/machine is your trigger)<br>';
-    html += '&bull; <strong>Evening:</strong> "After I brush my teeth, I apply my night products" (brushing is your trigger)<br>';
-    html += '&bull; <strong>Shower:</strong> "Right after I turn off the water, I pat dry and apply" (the shower ending is your trigger)<br>';
-    html += 'It takes about 3 weeks for this to become automatic. Stick with it — your skin needs consistency more than perfection.';
-    html += '</div></div>';
+    // ── CONSISTENCY NOTE (brief, not preachy) ──
+    html += '<div style="padding:0.75rem 1rem;background:rgba(74,94,56,0.06);border-radius:10px;">';
+    html += '<p style="font-size:0.82rem;line-height:1.6;color:var(--pc-black);margin:0;">';
+    html += '<strong>Consistency is key.</strong> These products work best when used as a routine — morning and evening, every day. Give it 3-4 weeks to see results. Your skin needs time to respond to new ingredients.';
+    html += '</p></div>';
 
     container.innerHTML = html;
 }
@@ -2738,41 +2705,57 @@ function fetchBlurb(recs) {
         body: JSON.stringify({ answers: answers, products: productNames, email: answers.email || null })
     }).catch(function() {});
 
-    // Generate blurb locally based on selections
+    // Generate blurb — tallow-first education, then position products
     var concerns = answers.concerns || [];
     var areas = answers.areas || [];
     var sensitivity = parseInt(answers.sensitivity) || 5;
     var pref = answers.preference;
-    var blurb = 'Based on your skin profile, we\'ve matched you with ' + productNames.slice(0, 3).join(', ') + '. ';
+    var tried = answers.triedBefore || [];
+    var hasTriedTallow = tried.indexOf('tallow') !== -1;
+    var hasReviana = recs.some(function(r) { return r.key.indexOf('reviana') !== -1; });
+    var hasLimitedEd = recs.some(function(r) { return r.key.indexOf('limited') !== -1; });
 
-    if (concerns.indexOf('eczema') !== -1 || concerns.indexOf('rashy') !== -1 || concerns.indexOf('psoriasis') !== -1) {
-        if (sensitivity >= 7) {
-            blurb += 'Because your skin is quite reactive, we\'ve prioritised products with minimal ingredients — nothing unnecessary that might not agree with you. ';
-        } else {
-            blurb += 'We\'ve chosen products with ingredients that are well-suited to sensitive, reactive skin. ';
-        }
-        if (areas.indexOf('body') !== -1 || areas.indexOf('hands') !== -1 || areas.indexOf('elbows') !== -1) {
-            blurb += 'For the areas that bother you most, the larger size gives you enough to apply generously without worrying about running out. ';
-        }
-    } else if (concerns.indexOf('wrinkles') !== -1) {
-        blurb += 'This combination brings together ingredients like Bakuchiol, Vitamin C, and Kakadu Plum that work together to support skin renewal. ';
-        if (pref === 'premium') {
-            blurb += 'Our Reviana range is formulated with premium actives designed for visible results. ';
-        }
-    } else if (concerns.indexOf('acne') !== -1) {
-        blurb += 'Niacinamide and Vitamin C are key ingredients for skin that tends to break out — they help balance and brighten. ';
-    } else if (concerns.indexOf('pigmentation') !== -1) {
-        blurb += 'Licorice Extract and Vitamin C are known for their brightening properties — this routine is designed to support more even-looking skin over time. ';
-    } else if (concerns.indexOf('dry') !== -1) {
-        blurb += 'Tallow closely mirrors the oils your skin naturally produces, which makes it a great option for locking in moisture. ';
-    } else if (concerns.indexOf('baby') !== -1) {
-        blurb += 'For little ones, we\'ve kept it as simple and gentle as possible — fragrance-free, minimal ingredients, nothing harsh. ';
+    // Tallow foundation paragraph
+    var blurb = '';
+    if (concerns.indexOf('baby') !== -1) {
+        blurb += 'For little ones, simplicity is everything. Tallow is one of the most biocompatible moisturisers available — its fatty acid profile closely matches baby skin, so it absorbs naturally without any of the synthetic additives found in most baby products. We\'ve kept this routine as simple and gentle as possible.';
     } else {
-        blurb += 'These products complement each other well and are designed to work as a complete routine. ';
-    }
+        blurb += 'Tallow is the foundation of everything we make. Its fatty acid profile closely mirrors your skin\'s own lipids, which is why it absorbs so efficiently — your skin recognises it. ';
 
-    if (recs.length >= 3) {
-        blurb += 'Using them together as a routine gives your skin the best chance — each step builds on the last.';
+        if (hasTriedTallow) {
+            blurb += 'Since you\'ve already experienced tallow, you know how it feels. ';
+        }
+
+        // Position Reviana as the next level
+        if (hasReviana) {
+            blurb += 'Your routine includes products from our Reviana range — this is where we combine that tallow foundation with clinically-backed actives like Bakuchiol, Ceramides, and Vitamin C. ';
+            if (concerns.indexOf('wrinkles') !== -1) {
+                blurb += 'Bakuchiol activates the same retinoid pathways as retinol but without the irritation — peer-reviewed research shows comparable anti-aging results. Combined with Kakadu Plum (the highest natural source of Vitamin C), this routine actively supports collagen renewal. ';
+            } else if (concerns.indexOf('acne') !== -1) {
+                blurb += 'Niacinamide regulates oil production and reduces inflammation, while Vitamin C and Licorice Extract target post-breakout marks. It\'s a routine that addresses breakouts from multiple angles. ';
+            } else if (concerns.indexOf('pigmentation') !== -1) {
+                blurb += 'Licorice Extract inhibits melanin production at the source, while Vitamin C and Niacinamide work to even out existing dark spots. These are some of the most well-researched brightening actives available. ';
+            } else if (concerns.indexOf('eczema') !== -1 || concerns.indexOf('rosacea') !== -1) {
+                blurb += 'Ceramides rebuild your skin\'s damaged barrier overnight, while Panthenol and Bisabolol calm inflammation. This is targeted barrier repair — not just moisture on top. ';
+            } else if (concerns.indexOf('dry') !== -1) {
+                blurb += 'Hyaluronic Acid draws moisture deep into the skin while Ceramides lock it in — paired with tallow\'s natural compatibility, it\'s a hydration routine that works from multiple layers. ';
+            } else {
+                blurb += 'Think of it as the next step — tallow does the heavy lifting, and the actives in Reviana target your specific skin goals. It\'s only available direct from us, which means we can formulate without the compromises retail demands. ';
+            }
+
+            if (hasTriedTallow) {
+                blurb += 'If you\'re already using our tallow balms, Reviana is the perfect complement — use the balm for your body and let Reviana\'s targeted actives look after your face.';
+            } else {
+                blurb += 'Each product in this routine has a specific role — they\'re designed to work together, not as standalone items.';
+            }
+        } else {
+            // Pure tallow recommendations
+            blurb += 'We\'ve matched you with our purest tallow formulations — minimal ingredients, maximum compatibility with your skin. ';
+            if (hasLimitedEd) {
+                blurb += 'Your routine includes one of our Limited Edition balms — these are small-batch, seasonal formulations that combine tallow with premium botanicals. They won\'t be around forever. ';
+            }
+            blurb += 'Sometimes the simplest approach is the most effective — especially when the ingredients are this compatible with your skin.';
+        }
     }
 
     blurbEl.textContent = blurb;
