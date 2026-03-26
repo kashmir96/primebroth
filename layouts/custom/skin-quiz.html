@@ -776,20 +776,14 @@
         </div>
     </div>
 
-    <!-- AI Blurb -->
-    <div class="sq-blurb-card">
-        <div class="sq-blurb-label">Compatibility Analysis</div>
-        <div class="sq-blurb-text loading" id="sqBlurb">Building your personalised routine...</div>
-    </div>
-
-    <!-- Product Recommendations -->
+    <!-- 1. Product Recommendations -->
     <div class="sq-routine-section">
         <h2 class="sq-routine-title">Your Compatible Products</h2>
         <p class="sq-routine-sub">Each product has been matched to your skin profile based on your concerns, problem areas, and ingredient compatibility.</p>
         <div id="sqProductCards"></div>
     </div>
 
-    <!-- Bundle CTA -->
+    <!-- 2. Bundle CTA -->
     <div class="sq-bundle-card" id="sqBundleCard">
         <h3 id="sqBundleName">Your Complete Routine</h3>
         <div class="sq-bundle-why" id="sqBundleWhy">These products are specifically formulated to work in combination — each one enhances the absorption and effectiveness of the others for compounding results.</div>
@@ -801,67 +795,67 @@
         <p style="font-size:0.65rem;color:var(--pc-warm-gray);margin-top:0.25rem;" id="sqFreeGiftNote">*We'll pop a free lip balm stick in with your order when you buy the complete routine</p>
     </div>
 
-    <!-- Prescribed Routine -->
-    <div class="sq-chart-card" style="margin-bottom:1.5rem;" id="sqRoutineCard">
-        <h3 style="margin-bottom:0.25rem;" id="sqRoutineTitle">Your Personalised Tallow Routine</h3>
-        <p style="font-size:0.72rem;color:var(--pc-warm-gray);margin-bottom:1rem;">Based on your skin profile — adapt as needed for your lifestyle.</p>
-        <div id="sqRoutineContent"></div>
-        <div style="background:var(--pc-brown-pale);border-radius:8px;padding:0.75rem 1rem;margin-top:1rem;">
-            <p style="font-size:0.68rem;color:var(--pc-warm-gray);line-height:1.5;margin:0;"><strong>Please note:</strong> This is not certified dermatological advice. Adjust to your skin and personal preferences — as with any new skincare, we recommend a patch test first and stop use if irritation occurs. If you have concerns about your skin, please talk to your GP or dermatologist.</p>
+    <!-- 3. Combined: Why We Chose + Routine + Science + Social Proof -->
+    <div class="sq-chart-card" style="margin-bottom:1.5rem;" id="sqWhyTogether">
+        <h3 style="margin-bottom:0.5rem;">Why We Chose These For You</h3>
+        <p style="font-size:0.78rem;color:var(--pc-warm-gray);margin-bottom:1rem;line-height:1.5;">Every product in your routine was selected based on your specific answers — here's the reasoning.</p>
+        <div id="sqWhyTogetherContent" style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);"></div>
+
+        <!-- Compatibility blurb -->
+        <div style="margin-top:1.25rem;padding:1rem;background:linear-gradient(135deg, var(--rv-forest) 0%, #3a4d2c 100%);border-radius:10px;color:#fff;">
+            <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--rv-stone);margin-bottom:0.5rem;">Compatibility Analysis</div>
+            <div style="font-size:0.85rem;line-height:1.7;color:rgba(255,255,255,0.92);" id="sqBlurb">Building your personalised routine...</div>
+        </div>
+
+        <!-- Social proof -->
+        <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--pc-border);">
+            <p style="font-size:0.82rem;font-weight:600;color:var(--pc-brown);margin-bottom:0.75rem;">Customers with similar skin profiles</p>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;" id="sqReviews">
+                <div style="background:var(--pc-brown-pale);border-radius:8px;padding:0.75rem;">
+                    <div style="color:var(--pc-green);margin-bottom:0.25rem;font-size:0.75rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p style="font-size:0.72rem;line-height:1.5;color:var(--pc-black);margin:0;">"After two weeks we noticed a real difference in my daughter's skin. The results are amazing."</p>
+                    <p style="font-size:0.62rem;color:var(--pc-warm-gray);font-weight:600;margin-top:4px;">Trustpilot</p>
+                </div>
+                <div style="background:var(--pc-brown-pale);border-radius:8px;padding:0.75rem;">
+                    <div style="color:var(--pc-green);margin-bottom:0.25rem;font-size:0.75rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p style="font-size:0.72rem;line-height:1.5;color:var(--pc-black);margin:0;">"My boys have eczema and this helped ease the itching. I'll definitely be buying more."</p>
+                    <p style="font-size:0.62rem;color:var(--pc-warm-gray);font-weight:600;margin-top:4px;">Whakaaro</p>
+                </div>
+                <div style="background:var(--pc-brown-pale);border-radius:8px;padding:0.75rem;">
+                    <div style="color:var(--pc-green);margin-bottom:0.25rem;font-size:0.75rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p style="font-size:0.72rem;line-height:1.5;color:var(--pc-black);margin:0;">"My sis bought me a small one to try and I had to buy 3 large jars. So nice."</p>
+                    <p style="font-size:0.62rem;color:var(--pc-warm-gray);font-weight:600;margin-top:4px;">Steph</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prescribed Routine -->
+        <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--pc-border);" id="sqRoutineCard">
+            <h3 style="margin-bottom:0.25rem;font-family:'Playfair Display',serif;font-size:1.1rem;" id="sqRoutineTitle">Your Personalised Tallow Routine</h3>
+            <p style="font-size:0.72rem;color:var(--pc-warm-gray);margin-bottom:1rem;">How to use these products together for best results.</p>
+            <div id="sqRoutineContent"></div>
+        </div>
+
+        <!-- The Science -->
+        <div style="margin-top:1.5rem;padding:1.25rem;background:var(--rv-forest);border-radius:10px;color:#fff;">
+            <h3 style="color:var(--rv-stone);margin-bottom:0.5rem;font-family:'Playfair Display',serif;font-size:1rem;">The Science Behind Your Routine</h3>
+            <p style="font-size:0.68rem;color:rgba(255,255,255,0.5);margin-bottom:0.75rem;line-height:1.4;">Key research that informed your product match</p>
+            <div id="sqResearchCitations" style="font-size:0.78rem;line-height:1.7;color:rgba(255,255,255,0.85);"></div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div style="background:var(--pc-brown-pale);border-radius:8px;padding:0.75rem 1rem;margin-top:1.25rem;">
+            <p style="font-size:0.68rem;color:var(--pc-warm-gray);line-height:1.5;margin:0;"><strong>Please note:</strong> This is not certified dermatological advice. As with any new skincare, we recommend a patch test first. If you have concerns about your skin, please talk to your GP or dermatologist.</p>
         </div>
     </div>
 
-    <!-- Why What You've Tried May Not Have Worked -->
+    <!-- 6. Why What You've Tried May Not Have Worked -->
     <div class="sq-chart-card" style="margin-bottom:1.5rem;" id="sqWhyPastFailed">
         <h3 style="margin-bottom:0.5rem;">Why What You've Tried May Not Have Worked</h3>
         <p style="font-size:0.78rem;color:var(--pc-warm-gray);margin-bottom:1rem;line-height:1.5;">This isn't about blaming products — it's about understanding why some approaches fall short for certain skin types.</p>
         <div id="sqPastFailedContent" style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);"></div>
     </div>
 
-    <!-- Why These Products Work Together -->
-    <div class="sq-chart-card" style="margin-bottom:1.5rem;" id="sqWhyTogether">
-        <h3 style="margin-bottom:0.5rem;">Why We Chose These For You</h3>
-        <p style="font-size:0.78rem;color:var(--pc-warm-gray);margin-bottom:1rem;line-height:1.5;">Every product in your routine was selected based on your specific answers — here's the reasoning.</p>
-        <div id="sqWhyTogetherContent" style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);"></div>
-    </div>
-
-    <!-- Three Quick Wins -->
-    <div class="sq-chart-card" style="margin-bottom:1.5rem;border:2px solid var(--pc-green);">
-        <h3 style="margin-bottom:0.5rem;color:var(--pc-green);">&#x26A1; Three Quick Wins You Can Start Today</h3>
-        <p style="font-size:0.78rem;color:var(--pc-warm-gray);margin-bottom:1rem;line-height:1.5;">While you wait for your products, here are three things you can do right now.</p>
-        <div id="sqQuickWins" style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);"></div>
-    </div>
-
-    <!-- Research & Science Section -->
-    <div class="sq-chart-card" style="margin-bottom:1.5rem;background:var(--rv-forest);color:#fff;">
-        <h3 style="color:var(--rv-stone);margin-bottom:0.5rem;">The Science Behind Your Routine</h3>
-        <p style="font-size:0.72rem;color:rgba(255,255,255,0.6);margin-bottom:1rem;line-height:1.5;">Key research that informed your product match</p>
-        <div id="sqResearchCitations" style="font-size:0.82rem;line-height:1.75;color:rgba(255,255,255,0.88);"></div>
-        <p style="font-size:0.62rem;color:rgba(255,255,255,0.4);margin-top:1rem;line-height:1.5;">This quiz was developed using anonymised purchasing insights from 90,000+ Kiwis, peer-reviewed dermatological research, and AI-powered ingredient compatibility analysis. It is not a substitute for professional medical advice.</p>
-    </div>
-
-    <!-- Social Proof -->
-    <div style="margin-bottom:2rem;">
-        <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:0.25rem;text-align:center;">Customers With Similar Skin Profiles</h3>
-        <p style="font-size:0.78rem;color:var(--pc-warm-gray);text-align:center;margin-bottom:1rem;">Here's what Kiwis with your skin type are saying</p>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;" id="sqReviews">
-            <div class="sq-chart-card" style="padding:1.25rem;">
-                <div style="color:var(--pc-green);margin-bottom:0.5rem;font-size:0.85rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p style="font-size:0.78rem;line-height:1.6;color:var(--pc-black);margin-bottom:0.5rem;">"After two weeks of using Tallow PrimalCare we noticed a real difference in my daughter's skin. It is expensive but the results are amazing."</p>
-                <p style="font-size:0.68rem;color:var(--pc-warm-gray);font-weight:600;">Trustpilot Review</p>
-            </div>
-            <div class="sq-chart-card" style="padding:1.25rem;">
-                <div style="color:var(--pc-green);margin-bottom:0.5rem;font-size:0.85rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p style="font-size:0.78rem;line-height:1.6;color:var(--pc-black);margin-bottom:0.5rem;">"Love this stuff, only tried but it works. My boys have eczema and this helped ease the itching and smells so good. I'll definitely be buying some more."</p>
-                <p style="font-size:0.68rem;color:var(--pc-warm-gray);font-weight:600;">Whakaaro</p>
-            </div>
-            <div class="sq-chart-card" style="padding:1.25rem;">
-                <div style="color:var(--pc-green);margin-bottom:0.5rem;font-size:0.85rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p style="font-size:0.78rem;line-height:1.6;color:var(--pc-black);margin-bottom:0.5rem;">"Love it, my sis bought me a small one to try and I had to buy 3 large jars. So nice."</p>
-                <p style="font-size:0.68rem;color:var(--pc-warm-gray);font-weight:600;">Steph</p>
-            </div>
-        </div>
-    </div>
 
     <!-- Email & Referral — Single Card -->
     <div class="sq-email-card">
@@ -2081,7 +2075,6 @@ function showResults() {
     renderRoutine(recs);
     renderWhyPastFailed();
     renderWhyTogether(recs);
-    renderQuickWins();
     renderResearchCitations();
     fetchBlurb(recs);
 
