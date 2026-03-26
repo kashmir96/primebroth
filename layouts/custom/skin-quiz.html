@@ -696,11 +696,11 @@
 
     <!-- Prescribed Routine -->
     <div class="sq-chart-card" style="margin-bottom:1.5rem;" id="sqRoutineCard">
-        <h3 style="margin-bottom:0.25rem;">Your Personalised Routine</h3>
+        <h3 style="margin-bottom:0.25rem;" id="sqRoutineTitle">Your Personalised Tallow Routine</h3>
         <p style="font-size:0.72rem;color:var(--pc-warm-gray);margin-bottom:1rem;">Based on your skin profile — adapt as needed for your lifestyle.</p>
         <div id="sqRoutineContent"></div>
         <div style="background:var(--pc-brown-pale);border-radius:8px;padding:0.75rem 1rem;margin-top:1rem;">
-            <p style="font-size:0.68rem;color:var(--pc-warm-gray);line-height:1.5;margin:0;"><strong>Please note:</strong> This quiz is for general skincare guidance only and is not medical advice. Our suggestions are based on product knowledge, not clinical assessment. If you have concerns about your skin, please talk to your GP or dermatologist.</p>
+            <p style="font-size:0.68rem;color:var(--pc-warm-gray);line-height:1.5;margin:0;"><strong>Please note:</strong> This is not certified dermatological advice. Adjust to your skin and personal preferences — as with any new skincare, we recommend a patch test first and stop use if irritation occurs. If you have concerns about your skin, please talk to your GP or dermatologist.</p>
         </div>
     </div>
 
@@ -1170,10 +1170,17 @@ function getRecommendations() {
     var recs = [];
     var usedKeys = {};
 
+    var age = answers.ageGroup || 'adult';
+    var isChild = age === 'baby' || age === 'child';
+    var isAdult = age === 'adult' || age === 'mature' || age === 'senior';
+
     function addProduct(key, why) {
         if (usedKeys[key]) return;
         var p = PRODUCTS[key];
         if (!p) return;
+        // Age filtering — no deodorant/hair clay for kids, no baby butter for adults
+        if (isChild && (key === 'deodorant' || key === 'hair-clay' || key.indexOf('reviana') !== -1)) return;
+        if (isAdult && key === 'baby-butter') return;
         // Allergen check
         for (var i = 0; i < allergens.length; i++) {
             if (p.allergens.indexOf(allergens[i]) !== -1) return;
@@ -1182,6 +1189,8 @@ function getRecommendations() {
         recs.push({ key: key, product: p, why: why, step: recs.length === 0 ? 'Start here' : (recs.length === 1 ? 'Then apply' : 'Complete with') });
     }
 
+    var gender = answers.gender || '';
+    var isMale = gender === 'male';
     var hasFace = areas.indexOf('face') !== -1;
     var hasUnderEyes = areas.indexOf('undereyes') !== -1;
     var hasScalp = areas.indexOf('scalp') !== -1;
@@ -1190,8 +1199,12 @@ function getRecommendations() {
     // Push Reviana if: premium pref, wrinkles/pigmentation, OR they tried tallow and didn't like texture/smell
     var tallowFb = answers.tallowFeedback;
     var dislikedTallow = tallowFb === 'texture' || tallowFb === 'smell' || tallowFb === 'no-results';
+    var lovedTallow = tallowFb === 'loved-it';
     var useReviana = pref === 'premium' || concerns.indexOf('wrinkles') !== -1 || concerns.indexOf('pigmentation') !== -1 || dislikedTallow;
     var highSensitivity = sensitivity >= 8;
+
+    // If they loved tallow, push 250ml
+    if (lovedTallow) balmSize = '250';
 
     // Face concerns
     if (hasFace) {
@@ -1234,6 +1247,14 @@ function getRecommendations() {
                 addProduct('balm-natural-' + balmSize, 'Pure tallow mirrors your skin\'s natural oils for deep hydration');
             }
         }
+    }
+
+    // Full Reviana range push — if they suit Reviana, fill out the routine
+    if (useReviana && !highSensitivity && hasFace && isAdult) {
+        addProduct('reviana-night', 'Bakuchiol and Ceramides work overnight to support your skin barrier');
+        addProduct('reviana-day', 'Daytime moisture with Vitamin C and Niacinamide');
+        addProduct('reviana-serum', 'Concentrated Vitamin C serum — use morning or evening for best results');
+        addProduct('reviana-eye', 'Hexapeptide-8 and Niacinamide for the delicate eye area');
     }
 
     // Under eyes
@@ -1281,6 +1302,16 @@ function getRecommendations() {
     // Lips
     if (hasLips) {
         addProduct('lip-balm', 'Manuka honey and tallow — a rich combo for keeping your lips nourished');
+    }
+
+    // Male-specific — prefer frankincense, push hair clay and deodorant
+    if (isMale && isAdult) {
+        addProduct('hair-clay', 'Natural hold with a tallow base — no synthetic gunk');
+        addProduct('deodorant', 'No metals, no harsh chemicals — actually works without the irritation');
+        // Prefer frankincense balm for men (earthier scent)
+        if (hasBody && !usedKeys['balm-frankincense-' + balmSize]) {
+            addProduct('balm-frankincense-' + balmSize, 'Frankincense — a clean, earthy scent that\'s a solid daily option');
+        }
     }
 
     // Baby
@@ -1704,62 +1735,130 @@ function renderBundle(recs) {
 function renderRoutine(recs) {
     var concerns = answers.concerns || [];
     var areas = answers.areas || [];
+    var age = answers.ageGroup || 'adult';
     var container = document.getElementById('sqRoutineContent');
-    var productNames = recs.slice(0, 3).map(function(r) { return r.product.name; });
+    var titleEl = document.getElementById('sqRoutineTitle');
+
+    // Dynamic routine title based on primary concern
+    var routineType = 'Skincare';
+    if (concerns.indexOf('eczema') !== -1 || concerns.indexOf('rashy') !== -1 || concerns.indexOf('psoriasis') !== -1) routineType = 'Soothing';
+    else if (concerns.indexOf('wrinkles') !== -1) routineType = 'Anti-Aging';
+    else if (concerns.indexOf('acne') !== -1) routineType = 'Clear Skin';
+    else if (concerns.indexOf('pigmentation') !== -1) routineType = 'Brightening';
+    else if (concerns.indexOf('dry') !== -1) routineType = 'Deep Moisture';
+    else if (concerns.indexOf('rosacea') !== -1) routineType = 'Calming';
+    else if (concerns.indexOf('baby') !== -1) routineType = 'Baby Care';
+
+    titleEl.textContent = 'Your Personalised Tallow ' + routineType + ' Routine';
+
+    // Build product lookup for routine narrative
+    var prodMap = {};
+    recs.forEach(function(r) { prodMap[r.key] = r.product.name; });
 
     var html = '';
+    var s = '<div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--pc-green);margin-bottom:0.5rem;">';
 
-    // Daily routine
+    // ── Morning ──
     html += '<div style="margin-bottom:1.25rem;">';
-    html += '<div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--pc-green);margin-bottom:0.5rem;">Daily Routine</div>';
-    html += '<div style="font-size:0.82rem;line-height:1.8;color:var(--pc-black);">';
+    html += s + 'Morning</div>';
+    html += '<div style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);">';
 
-    if (recs.length >= 1) {
-        var morning = recs[0].product.name;
-        var night = recs.length >= 2 ? recs[1].product.name : recs[0].product.name;
-        html += '<strong>Morning:</strong> Cleanse with warm water, pat dry, apply ' + morning + ' to damp skin.<br>';
-        html += '<strong>Evening:</strong> Cleanse gently, apply ' + night + '. Let it absorb for 2-3 minutes before bed.<br>';
-        if (recs.length >= 3) {
-            html += '<strong>As needed:</strong> Apply ' + recs[2].product.name + ' to problem areas throughout the day.';
+    if (concerns.indexOf('baby') !== -1) {
+        html += 'After bath time, gently pat your little one dry and apply a thin layer of <strong>' + (prodMap['baby-butter'] || 'Baby Butter') + '</strong> to any dry patches. A little goes a long way.';
+    } else {
+        html += 'Start by splashing your face with lukewarm water and patting dry. ';
+        if (prodMap['reviana-day']) {
+            html += 'Apply a small amount of <strong>' + prodMap['reviana-day'] + '</strong> — it absorbs quickly and gives your skin a smooth base for the day. ';
+        } else if (prodMap['reviana-serum'] || prodMap['serum-primal']) {
+            var serumName = prodMap['reviana-serum'] || prodMap['serum-primal'];
+            html += 'Apply a few drops of <strong>' + serumName + '</strong> while your skin is still slightly damp — this helps it absorb better. ';
+        }
+        if (prodMap['reviana-eye'] || prodMap['eye-cream-primal']) {
+            var eyeName = prodMap['reviana-eye'] || prodMap['eye-cream-primal'];
+            html += 'Dab a tiny amount of <strong>' + eyeName + '</strong> under each eye using your ring finger — gentle tapping, no rubbing. Your under-eyes will feel fresh and you\'ll look more awake. ';
+        }
+        if (prodMap['lip-balm']) {
+            html += 'Finish with <strong>' + prodMap['lip-balm'] + '</strong> — keep it in your pocket and reapply through the day. ';
+        }
+        if (!prodMap['reviana-day'] && !prodMap['reviana-serum'] && !prodMap['serum-primal']) {
+            // Tallow balm user
+            var balmName = prodMap['balm-natural-120'] || prodMap['balm-natural-250'] || prodMap['balm-frankincense-120'] || prodMap['balm-frankincense-250'] || prodMap['balm-lavender-120'] || recs[0].product.name;
+            html += 'Apply a thin layer of <strong>' + balmName + '</strong> to damp skin — the warmth of your hands helps it melt in. ';
         }
     }
-
     html += '</div></div>';
 
-    // Weekly extras
-    html += '<div style="margin-bottom:1.25rem;">';
-    html += '<div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--pc-green);margin-bottom:0.5rem;">Weekly Extras</div>';
-    html += '<div style="font-size:0.82rem;line-height:1.8;color:var(--pc-black);">';
+    // ── Evening ──
+    if (concerns.indexOf('baby') === -1) {
+        html += '<div style="margin-bottom:1.25rem;">';
+        html += s + 'Evening</div>';
+        html += '<div style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);">';
+        html += 'Gently cleanse your face';
+        if (prodMap['cleanser']) html += ' with your <strong>' + prodMap['cleanser'] + '</strong>';
+        html += ' and pat dry. ';
 
-    if (concerns.indexOf('eczema') !== -1 || concerns.indexOf('rashy') !== -1) {
-        html += '&bull; 2-3x per week: Colloidal oat bath soak (15-20 mins lukewarm, not hot)<br>';
-        html += '&bull; Weekly: Apply a thicker layer of balm before bed as an overnight mask<br>';
+        if (prodMap['reviana-night']) {
+            html += 'Apply <strong>' + prodMap['reviana-night'] + '</strong> — the Bakuchiol and Ceramides work while you sleep. Let it absorb for a couple of minutes before bed. ';
+        }
+        if (prodMap['reviana-serum'] || prodMap['serum-primal']) {
+            var serumNight = prodMap['reviana-serum'] || prodMap['serum-primal'];
+            if (!prodMap['reviana-day']) {
+                html += 'Apply a few drops of <strong>' + serumNight + '</strong> — evening is a great time for serums as your skin is more receptive. ';
+            }
+        }
+        // Body balm
+        var bodyBalm = prodMap['honeybalm-vanilla-120'] || prodMap['honeybalm-vanilla-250'] || prodMap['balm-frankincense-120'] || prodMap['balm-frankincense-250'] || prodMap['limited-midnight'] || prodMap['limited-sunrise'];
+        if (bodyBalm && (areas.indexOf('body') !== -1 || areas.indexOf('hands') !== -1 || areas.indexOf('elbows') !== -1)) {
+            html += 'For your body, hands, or elbows — apply <strong>' + bodyBalm + '</strong> generously to any areas that need attention. ';
+        }
+        html += '</div></div>';
+    }
+
+    // ── Shower / Haircare ──
+    if (prodMap['shampoo'] || prodMap['conditioner'] || prodMap['hair-clay']) {
+        html += '<div style="margin-bottom:1.25rem;">';
+        html += s + 'Shower & Haircare</div>';
+        html += '<div style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);">';
+        if (prodMap['shampoo']) {
+            html += 'Use the <strong>' + prodMap['shampoo'] + '</strong> — we recommend every other day rather than daily, to let your scalp\'s natural oils do their thing. ';
+        }
+        if (prodMap['conditioner']) html += 'Follow with <strong>' + prodMap['conditioner'] + '</strong> on the ends. ';
+        if (prodMap['hair-clay']) html += 'Style with <strong>' + prodMap['hair-clay'] + '</strong> for a natural hold that nourishes instead of drying. ';
+        if (prodMap['liquid-soap']) html += 'The <strong>' + prodMap['liquid-soap'] + '</strong> makes a gentle hand & body wash. ';
+        html += '</div></div>';
+    }
+
+    // ── Weekly ──
+    html += '<div style="margin-bottom:1.25rem;">';
+    html += s + 'Weekly</div>';
+    html += '<div style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);">';
+    if (prodMap['oat-soak'] || concerns.indexOf('eczema') !== -1 || concerns.indexOf('rashy') !== -1) {
+        html += '&bull; 2-3x per week: Run a lukewarm oat bath (15-20 mins) — never hot, as that strips natural oils.<br>';
+        html += '&bull; Once a week: Apply a thicker layer of balm before bed as an overnight mask.<br>';
     }
     if (concerns.indexOf('acne') !== -1) {
-        html += '&bull; 2x per week: Double-cleanse in the evening (oil cleanse first, then gentle cleanser)<br>';
+        html += '&bull; 2x per week: Double-cleanse in the evening — oil first, then gentle cleanser.<br>';
     }
     if (concerns.indexOf('wrinkles') !== -1 || concerns.indexOf('pigmentation') !== -1) {
-        html += '&bull; Weekly: Apply serum as a 10-minute mask for deeper absorption<br>';
+        html += '&bull; Once a week: Apply serum as a 10-minute mask for deeper absorption.<br>';
     }
     if (concerns.indexOf('eczema') === -1 && concerns.indexOf('rashy') === -1 && concerns.indexOf('rosacea') === -1 && concerns.indexOf('psoriasis') === -1) {
-        html += '&bull; Weekly: Gently cleanse with a warm flannel — avoid harsh scrubs';
+        html += '&bull; Gently cleanse with a warm flannel — skip harsh scrubs.<br>';
     }
     html += '</div></div>';
 
-    // Lifestyle tips
-    html += '<div>';
-    html += '<div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--pc-green);margin-bottom:0.5rem;">Lifestyle Ideas to Consider</div>';
-    html += '<div style="font-size:0.82rem;line-height:1.8;color:var(--pc-black);">';
-
+    // ── Lifestyle tips ──
+    html += '<div style="margin-bottom:1.25rem;">';
+    html += s + 'Lifestyle Ideas</div>';
+    html += '<div style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);">';
     if (concerns.indexOf('eczema') !== -1 || concerns.indexOf('rashy') !== -1 || concerns.indexOf('rosacea') !== -1) {
-        html += '&bull; Some people find that reducing dairy and processed sugar makes a difference for their skin<br>';
+        html += '&bull; Some people find reducing dairy and processed sugar makes a difference<br>';
         html += '&bull; Shower lukewarm, not hot — hot water strips natural oils<br>';
         html += '&bull; Switch to fragrance-free laundry detergent<br>';
     }
     if (concerns.indexOf('acne') !== -1) {
         html += '&bull; Change pillowcases 2x per week<br>';
-        html += '&bull; Avoid touching your face throughout the day<br>';
-        html += '&bull; Consider reducing dairy intake — research links it to breakouts<br>';
+        html += '&bull; Avoid touching your face through the day<br>';
     }
     if (concerns.indexOf('dry') !== -1) {
         html += '&bull; Drink more water — hydration starts from inside<br>';
@@ -1769,7 +1868,7 @@ function renderRoutine(recs) {
         html += '&bull; Wear SPF daily — even on cloudy NZ days<br>';
         html += '&bull; Prioritise sleep — skin repairs itself overnight<br>';
     }
-    html += '&bull; Omega-3 rich foods (salmon, walnuts, flaxseed) support skin barrier health';
+    html += '&bull; Omega-3 rich foods (salmon, walnuts, flaxseed) support skin health';
     html += '</div></div>';
 
     container.innerHTML = html;
