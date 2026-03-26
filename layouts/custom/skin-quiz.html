@@ -88,6 +88,15 @@
     .sq-tooltip { background: var(--pc-brown-pale); border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1.5rem; font-size: 0.82rem; line-height: 1.6; color: var(--pc-brown); display: none; animation: sqFadeIn 0.3s ease; }
     .sq-tooltip.show { display: block; }
 
+    /* Sensitivity Slider */
+    .sq-slider-wrap { margin-bottom: 1rem; }
+    .sq-slider-label { font-size: 0.82rem; font-weight: 600; color: var(--pc-brown); display: block; margin-bottom: 0.5rem; }
+    .sq-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 8px; border-radius: 4px; background: linear-gradient(to right, var(--pc-green), var(--pc-brown-light), #c0392b); outline: none; cursor: pointer; }
+    .sq-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 3px solid var(--pc-brown); cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+    .sq-slider::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 3px solid var(--pc-brown); cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+    .sq-slider-ticks { display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--pc-warm-gray); margin-top: 4px; }
+    .sq-slider-desc { text-align: center; font-size: 0.85rem; color: var(--pc-brown); font-weight: 500; margin-top: 0.5rem; min-height: 1.5em; transition: opacity 0.2s; }
+
     /* ── Results Page ────────────────────────────── */
     .sq-results { max-width: 880px; margin: 0 auto; padding: 2rem 1.25rem 4rem; display: none; }
     .sq-results.active { display: block; }
@@ -221,9 +230,9 @@
     <p class="sq-hero-sub">Take our 2-minute quiz and we'll match you with the right routine for your skin. If we can't help, we'll tell you — and still give you a report to understand your skin better.</p>
 
     <div class="sq-hero-stats">
-        <div class="sq-hero-stat"><div class="sq-hero-stat-val">90,000+</div><div class="sq-hero-stat-lbl">Kiwis Helped & Counting</div></div>
+        <div class="sq-hero-stat"><div class="sq-hero-stat-val">90,000+</div><div class="sq-hero-stat-lbl">PrimalPantry Orders Shipped</div></div>
         <div class="sq-hero-stat"><div class="sq-hero-stat-val">2 min</div><div class="sq-hero-stat-lbl">Quick Quiz</div></div>
-        <div class="sq-hero-stat"><div class="sq-hero-stat-val">Free gift*</div><div class="sq-hero-stat-lbl">For Quizzers</div></div>
+        <div class="sq-hero-stat"><div class="sq-hero-stat-val">Free gift</div><div class="sq-hero-stat-lbl">For Quizzers*</div></div>
     </div>
 
     <button class="sq-btn sq-hero-start" id="sqStartBtn">Find My Match</button>
@@ -243,16 +252,6 @@
         </div>
     </div>
 
-    <!-- EANZ Gold Supporter Pill — exact match from homepage -->
-    <div style="display:inline-flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--pc-cream-deep);border-radius:16px;padding:12px 20px;margin:2rem auto 0;box-shadow:0 2px 12px rgba(0,0,0,0.04);text-align:left;">
-        <img src="/img/home/eanz.webp" alt="Eczema Association of New Zealand" width="52" height="52" style="flex-shrink:0;">
-        <div style="display:flex;flex-direction:column;">
-            <span style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.14em;font-weight:700;color:var(--pc-green);line-height:1.3;">Official Gold Supporters</span>
-            <span style="font-family:'Playfair Display',serif;font-size:0.95rem;color:var(--pc-brown);font-weight:700;line-height:1.25;">Eczema Association of New Zealand</span>
-            <span style="font-size:0.7rem;color:var(--pc-warm-gray);font-weight:600;line-height:1.4;margin-top:2px;">Committed to helping Kiwis with eczema</span>
-            <a href="https://www.eczema.org.nz/" target="_blank" rel="noopener" style="font-size:0.75rem;color:var(--pc-brown);font-weight:600;margin-top:4px;text-decoration:none;">What's this mean? &rarr;</a>
-        </div>
-    </div>
     <p style="text-align:right;font-size:0.6rem;color:var(--pc-warm-gray);margin-top:0.5rem;">*Free gift for quizzers who purchase any bundle after completing the quiz</p>
 </div>
 
@@ -400,7 +399,7 @@
             <div class="sq-opt" data-val="pharmacy-moisturisers">
                 <span class="sq-opt-icon">&#x1F3EA;</span>
                 <span class="sq-opt-label">Pharmacy Moisturisers</span>
-                <span class="sq-opt-desc">Cetaphil, QV, Aveeno etc.</span>
+                <span class="sq-opt-desc">Pharmacy brands, supermarket brands etc.</span>
             </div>
             <div class="sq-opt" data-val="natural-oils">
                 <span class="sq-opt-icon">&#x1FAD2;</span>
@@ -435,7 +434,7 @@
             <div class="sq-opt" data-val="baby-products" style="display:none;">
                 <span class="sq-opt-icon">&#x1F37C;</span>
                 <span class="sq-opt-label">Baby Products</span>
-                <span class="sq-opt-desc">Sudocrem, Weleda, Dermaveen, barrier creams etc.</span>
+                <span class="sq-opt-desc">Barrier creams, baby moisturisers etc.</span>
             </div>
             <div class="sq-opt" data-val="just-soap" style="display:none;">
                 <span class="sq-opt-icon">&#x1F9FC;</span>
@@ -593,39 +592,24 @@
         <div class="sq-btn-row"><button class="sq-btn sq-btn-back" onclick="sqBack()">Back</button><button class="sq-btn" id="sqNext4" disabled>Next</button></div>
     </div>
 
-    <!-- Step 4b: Sensitivity -->
-    <div class="sq-step" data-step="4b">
-        <h2 class="sq-title">How sensitive is your skin?</h2>
-        <p class="sq-subtitle">This helps us figure out which ingredients are right for you.</p>
-        <div class="sq-options" data-key="sensitivity" data-mode="single">
-            <div class="sq-opt" data-val="1">
-                <span class="sq-opt-label">Not sensitive</span>
-                <span class="sq-opt-desc">My skin handles pretty much anything</span>
-            </div>
-            <div class="sq-opt" data-val="3">
-                <span class="sq-opt-label">A little sensitive</span>
-                <span class="sq-opt-desc">Occasionally reacts to new products</span>
-            </div>
-            <div class="sq-opt" data-val="5">
-                <span class="sq-opt-label">Moderately sensitive</span>
-                <span class="sq-opt-desc">I have to be careful what I put on my skin</span>
-            </div>
-            <div class="sq-opt" data-val="7">
-                <span class="sq-opt-label">Very sensitive</span>
-                <span class="sq-opt-desc">Most products don't agree with my skin</span>
-            </div>
-            <div class="sq-opt" data-val="10">
-                <span class="sq-opt-label">Extremely sensitive</span>
-                <span class="sq-opt-desc">I struggle to find anything that works for me</span>
-            </div>
-        </div>
-        <div class="sq-btn-row"><button class="sq-btn sq-btn-back" onclick="sqBack()">Back</button><button class="sq-btn" disabled>Next</button></div>
-    </div>
-
-    <!-- Step 5: Allergens -->
+    <!-- Step 5: Sensitivity Slider + Allergens (merged) -->
     <div class="sq-step" data-step="5">
-        <h2 class="sq-title">Anything your skin doesn't get along with?</h2>
-        <p class="sq-subtitle" id="sqAllergenSub">These are common things people's skin doesn't agree with — tick any that apply to you.</p>
+        <h2 class="sq-title">Any known allergies or reactions?</h2>
+        <p class="sq-subtitle" id="sqAllergenSub">First, how sensitive is your skin? Then tick anything it doesn't get along with.</p>
+
+        <!-- Sensitivity Slider -->
+        <div class="sq-slider-wrap">
+            <label class="sq-slider-label">Skin Sensitivity</label>
+            <input type="range" min="1" max="10" value="5" class="sq-slider" id="sqSensitivitySlider">
+            <div class="sq-slider-ticks">
+                <span>Not sensitive</span>
+                <span>Extremely sensitive</span>
+            </div>
+            <div class="sq-slider-desc" id="sqSensitivityDesc">I have to be careful what I put on my skin</div>
+        </div>
+
+        <div style="border-top:1px solid var(--pc-border);margin:1.25rem 0;"></div>
+        <p style="font-size:0.82rem;font-weight:600;color:var(--pc-brown);margin-bottom:0.75rem;">Tick any that apply to you</p>
         <div class="sq-options" data-key="allergens" data-mode="multi" data-max="9">
             <div class="sq-opt" data-val="fragrance">
                 <span class="sq-opt-icon">&#x1F490;</span>
@@ -651,16 +635,6 @@
                 <span class="sq-opt-icon">&#x1F41D;</span>
                 <span class="sq-opt-label">Beeswax</span>
                 <span class="sq-opt-desc">Beeswax or propolis</span>
-            </div>
-            <div class="sq-opt" data-val="lanolin">
-                <span class="sq-opt-icon">&#x1F411;</span>
-                <span class="sq-opt-label">Lanolin</span>
-                <span class="sq-opt-desc">Wool-derived moisturisers</span>
-            </div>
-            <div class="sq-opt" data-val="sulfates">
-                <span class="sq-opt-icon">&#x1F9F4;</span>
-                <span class="sq-opt-label">Sulfates / SLS</span>
-                <span class="sq-opt-desc">Foaming agents in cleansers</span>
             </div>
             <div class="sq-opt" data-val="preservatives">
                 <span class="sq-opt-icon">&#x1F9EA;</span>
@@ -703,9 +677,6 @@
                 <span class="sq-opt-desc">Broken or weeping skin</span>
             </div>
         </div>
-        <div class="sq-disclaimer" id="sqOpenDisclaimer" style="display:none;background:#f0ebe3;border-color:var(--pc-border);color:var(--pc-brown);">
-            <strong>Heads up:</strong> Some of our customers do use our products on open skin, but we'd recommend having a chat with a professional first if this is you. Our partners at the <a href="https://www.eczema.org.nz/" target="_blank" rel="noopener">Eczema Association NZ</a> are also a great resource.
-        </div>
         <div class="sq-btn-row"><button class="sq-btn sq-btn-back" onclick="sqBack()">Back</button><button class="sq-btn" id="sqNext6" disabled>Next</button></div>
     </div>
 
@@ -735,14 +706,23 @@
                 <span class="sq-opt-desc">Constant reapplication</span>
             </div>
         </div>
+        <!-- Hydration slider (naturopath-style) -->
+        <div class="sq-slider-wrap" style="margin-top:1.5rem;">
+            <label class="sq-slider-label">💧 How much water do you drink daily?</label>
+            <p style="font-size:0.72rem;color:var(--pc-warm-gray);margin-bottom:0.5rem;">Skin health starts from the inside — a naturopath would always ask this.</p>
+            <input type="range" min="1" max="5" value="3" class="sq-slider" id="sqHydrationSlider" style="background:linear-gradient(to right, #c0392b, var(--pc-brown-light), var(--pc-green));">
+            <div class="sq-slider-ticks">
+                <span>Very little</span>
+                <span>2L+ daily</span>
+            </div>
+            <div class="sq-slider-desc" id="sqHydrationDesc">Around 1L — could be better</div>
+        </div>
+
         <div style="background:#fff;border:1px solid var(--pc-border);border-radius:12px;padding:1rem 1.25rem;margin-top:1.5rem;">
             <p style="font-size:0.82rem;color:var(--pc-warm-gray);margin-bottom:0.75rem;">Want your results emailed to you? (optional)</p>
             <input type="email" class="sq-input" id="sqEmailPreResults" placeholder="your@email.com" style="margin-top:0;">
         </div>
         <div class="sq-btn-row"><button class="sq-btn sq-btn-back" onclick="sqBack()">Back</button><button class="sq-btn" id="sqNext7" disabled>See My Results</button></div>
-        <p style="font-size:0.8rem;color:var(--pc-warm-gray);line-height:1.5;margin-top:1.25rem;text-align:center;max-width:480px;margin-left:auto;margin-right:auto;">
-            Our goal here isn't to sell you something. It's to help you understand your skin. If we think our products can help, we'll recommend them. If not, we'll tell you straight. Not everything works for everyone, and that's okay.
-        </p>
     </div>
 </div>
 
@@ -756,13 +736,6 @@
         <p class="sq-subtitle">We've matched your skin profile against our full product range. Here's what's compatible with your skin.</p>
     </div>
 
-    <!-- Open skin advisory — only shown for open-wounds severity -->
-    <div id="sqOpenSkinAdvisory" style="display:none;background:#fff;border:2px solid var(--pc-brown-light);border-radius:16px;padding:1.5rem;margin-bottom:2rem;text-align:center;">
-        <img src="/img/home/eanz.webp" alt="Eczema Association of New Zealand" style="height:48px;margin-bottom:0.75rem;">
-        <p style="font-size:0.9rem;color:var(--pc-black);line-height:1.6;margin:0;">
-            <strong>Heads up:</strong> Some of our customers do use our products on open skin, but we'd recommend having a chat with a professional first if this is you. Our partners at the <a href="https://www.eczema.org.nz/" target="_blank" rel="noopener" style="color:var(--pc-brown);font-weight:700;text-decoration:underline;">Eczema Association NZ</a> are also a great resource.
-        </p>
-    </div>
 
     <!-- Skin Profile Charts -->
     <div class="sq-profile-grid">
@@ -783,6 +756,11 @@
         <div id="sqProductCards"></div>
     </div>
 
+    <!-- Reroll -->
+    <div style="text-align:center;margin-bottom:1.5rem;">
+        <button id="sqRerollBtn" style="background:none;border:1px solid var(--pc-border);border-radius:8px;padding:8px 20px;font-size:0.78rem;color:var(--pc-warm-gray);cursor:pointer;transition:all 0.2s;">🔄 Not quite right? Show me different products</button>
+    </div>
+
     <!-- 2. Bundle CTA -->
     <div class="sq-bundle-card" id="sqBundleCard">
         <h3 id="sqBundleName">Your Complete Routine</h3>
@@ -795,20 +773,37 @@
         <p style="font-size:0.65rem;color:var(--pc-warm-gray);margin-top:0.25rem;" id="sqFreeGiftNote">*We'll pop a free lip balm stick in with your order when you buy the complete routine</p>
     </div>
 
-    <!-- 3. Combined: Why We Chose + Routine + Science + Social Proof -->
-    <div class="sq-chart-card" style="margin-bottom:1.5rem;" id="sqWhyTogether">
+    <!-- 3. Full Report Card -->
+    <div class="sq-chart-card" style="margin-bottom:1.5rem;padding:2rem;" id="sqWhyTogether">
+
+        <!-- Why We Chose These -->
         <h3 style="margin-bottom:0.5rem;">Why We Chose These For You</h3>
         <p style="font-size:0.78rem;color:var(--pc-warm-gray);margin-bottom:1rem;line-height:1.5;">Every product in your routine was selected based on your specific answers — here's the reasoning.</p>
         <div id="sqWhyTogetherContent" style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);"></div>
 
-        <!-- Compatibility blurb -->
-        <div style="margin-top:1.25rem;padding:1rem;background:linear-gradient(135deg, var(--rv-forest) 0%, #3a4d2c 100%);border-radius:10px;color:#fff;">
-            <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--rv-stone);margin-bottom:0.5rem;">Compatibility Analysis</div>
-            <div style="font-size:0.85rem;line-height:1.7;color:rgba(255,255,255,0.92);" id="sqBlurb">Building your personalised routine...</div>
+        <!-- Why We Probably Wouldn't Choose These -->
+        <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--pc-border);" id="sqWhyNotSection">
+            <h3 style="margin-bottom:0.5rem;">Products We Probably Wouldn't Choose For You</h3>
+            <p style="font-size:0.78rem;color:var(--pc-warm-gray);margin-bottom:1rem;line-height:1.5;">Based on your answers, these are less compatible with your skin right now — here's why.</p>
+            <div id="sqWhyNotContent" style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);"></div>
+        </div>
+
+        <!-- Why What You've Tried May Not Have Worked -->
+        <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--pc-border);" id="sqWhyPastFailed">
+            <h3 style="margin-bottom:0.5rem;">Why What You've Tried May Not Have Worked</h3>
+            <p style="font-size:0.78rem;color:var(--pc-warm-gray);margin-bottom:1rem;line-height:1.5;">This isn't about blaming products — it's about understanding why some approaches fall short for certain skin types.</p>
+            <div id="sqPastFailedContent" style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);"></div>
+        </div>
+
+        <!-- The Science -->
+        <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--pc-border);">
+            <h3 style="margin-bottom:0.5rem;">The Science Behind This Routine</h3>
+            <p style="font-size:0.68rem;color:var(--pc-warm-gray);margin-bottom:0.75rem;line-height:1.4;">Key research that informed your product match</p>
+            <div id="sqResearchCitations" style="font-size:0.78rem;line-height:1.7;color:var(--pc-black);"></div>
         </div>
 
         <!-- Social proof -->
-        <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--pc-border);">
+        <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--pc-border);">
             <p style="font-size:0.82rem;font-weight:600;color:var(--pc-brown);margin-bottom:0.75rem;">Customers with similar skin profiles</p>
             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;" id="sqReviews">
                 <div style="background:var(--pc-brown-pale);border-radius:8px;padding:0.75rem;">
@@ -836,24 +831,18 @@
             <div id="sqRoutineContent"></div>
         </div>
 
-        <!-- The Science -->
-        <div style="margin-top:1.5rem;padding:1.25rem;background:var(--rv-forest);border-radius:10px;color:#fff;">
-            <h3 style="color:var(--rv-stone);margin-bottom:0.5rem;font-family:'Playfair Display',serif;font-size:1rem;">The Science Behind Your Routine</h3>
-            <p style="font-size:0.68rem;color:rgba(255,255,255,0.5);margin-bottom:0.75rem;line-height:1.4;">Key research that informed your product match</p>
-            <div id="sqResearchCitations" style="font-size:0.78rem;line-height:1.7;color:rgba(255,255,255,0.85);"></div>
+        <!-- Eczema Association -->
+        <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--pc-border);display:none;" id="sqEczemaNote">
+            <div style="text-align:center;margin-bottom:0.75rem;">
+                <img src="/img/eczema-association-nz.webp" alt="Eczema Association NZ" style="height:60px;opacity:0.7;" onerror="this.style.display='none'">
+            </div>
+            <p style="font-size:0.82rem;line-height:1.6;color:var(--pc-brown);text-align:center;">Heads up: Some of our customers do use our products on open skin, but we'd recommend having a chat with a professional first if this is you. Our partners at the <a href="https://www.eczema.org.nz" target="_blank" rel="noopener" style="color:var(--pc-brown);font-weight:700;text-decoration:underline;">Eczema Association NZ</a> are also a great resource.</p>
         </div>
 
         <!-- Disclaimer -->
-        <div style="background:var(--pc-brown-pale);border-radius:8px;padding:0.75rem 1rem;margin-top:1.25rem;">
+        <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--pc-border);">
             <p style="font-size:0.68rem;color:var(--pc-warm-gray);line-height:1.5;margin:0;"><strong>Please note:</strong> This is not certified dermatological advice. As with any new skincare, we recommend a patch test first. If you have concerns about your skin, please talk to your GP or dermatologist.</p>
         </div>
-    </div>
-
-    <!-- 6. Why What You've Tried May Not Have Worked -->
-    <div class="sq-chart-card" style="margin-bottom:1.5rem;" id="sqWhyPastFailed">
-        <h3 style="margin-bottom:0.5rem;">Why What You've Tried May Not Have Worked</h3>
-        <p style="font-size:0.78rem;color:var(--pc-warm-gray);margin-bottom:1rem;line-height:1.5;">This isn't about blaming products — it's about understanding why some approaches fall short for certain skin types.</p>
-        <div id="sqPastFailedContent" style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);"></div>
     </div>
 
 
@@ -1137,6 +1126,71 @@ var allSteps = Array.from(document.querySelectorAll('.sq-step'));
 var currentStepIdx = 0;
 var TOTAL_STEPS = allSteps.length;
 
+/* ── Sensitivity Slider ── */
+var sensitivityDescs = {
+    1: 'My skin handles pretty much anything',
+    2: 'Rarely reacts to anything',
+    3: 'Occasionally reacts to new products',
+    4: 'Some products cause mild irritation',
+    5: 'I have to be careful what I put on my skin',
+    6: 'My skin reacts to most new products',
+    7: 'Most products don\'t agree with my skin',
+    8: 'Very few products work for me',
+    9: 'Almost everything irritates my skin',
+    10: 'I struggle to find anything that works'
+};
+function initSensitivitySlider() {
+    var slider = document.getElementById('sqSensitivitySlider');
+    var desc = document.getElementById('sqSensitivityDesc');
+    if (!slider || !desc || slider._sqInit) return;
+    slider._sqInit = true;
+    function update() {
+        var v = parseInt(slider.value);
+        answers.sensitivity = v;
+        desc.textContent = sensitivityDescs[v] || '';
+    }
+    slider.addEventListener('input', update);
+    update();
+}
+answers.sensitivity = 5; // default
+answers.hydration = 3; // default
+
+/* ── Hydration Slider ── */
+var hydrationDescs = {
+    1: 'Very little — your skin is probably crying out for moisture',
+    2: 'Less than 1L — below what most practitioners recommend',
+    3: 'Around 1L — could be better',
+    4: 'About 1.5-2L — solid hydration',
+    5: '2L+ daily — great, your skin thanks you'
+};
+function initHydrationSlider() {
+    var slider = document.getElementById('sqHydrationSlider');
+    var desc = document.getElementById('sqHydrationDesc');
+    if (!slider || !desc || slider._sqInit) return;
+    slider._sqInit = true;
+    function update() {
+        var v = parseInt(slider.value);
+        answers.hydration = v;
+        desc.textContent = hydrationDescs[v] || '';
+    }
+    slider.addEventListener('input', update);
+    update();
+}
+
+/* ── UTM capture ── */
+var quizUtm = (function() {
+    var p = new URLSearchParams(window.location.search);
+    return {
+        source: p.get('utm_source') || '',
+        medium: p.get('utm_medium') || '',
+        campaign: p.get('utm_campaign') || '',
+        term: p.get('utm_term') || '',
+        content: p.get('utm_content') || '',
+        referrer: document.referrer || '',
+        landingPage: window.location.pathname || ''
+    };
+})();
+
 // Progress
 function updateProgress() {
     var html = '';
@@ -1208,7 +1262,6 @@ function updateNextBtn() {
 // Severity step: show/hide open wounds disclaimer
 document.querySelectorAll('[data-key="severity"] .sq-opt').forEach(function(opt) {
     opt.addEventListener('click', function() {
-        document.getElementById('sqOpenDisclaimer').style.display = opt.dataset.val === 'open-wounds' ? 'block' : 'none';
     });
 });
 
@@ -1226,13 +1279,10 @@ function shouldSkipStep(idx) {
         var tried = answers.triedBefore || [];
         return tried.indexOf('tallow') === -1;
     }
-    // Skip preference step for baby/child — auto-set to simple
+    // Always skip preference step — default to premium
     if (key === 'preference') {
-        var ageForPref = answers.ageGroup;
-        if (ageForPref === 'baby' || ageForPref === 'child') {
-            answers.preference = 'simple';
-            return true;
-        }
+        answers.preference = 'premium';
+        return true;
     }
     return false;
 }
@@ -1385,7 +1435,7 @@ function tailorOptionsForStep() {
             tTitle.textContent = 'What have you already tried on your ' + (isBaby ? 'baby' : 'child') + '\'s skin?';
             tSub.textContent = 'No judgement here — knowing what hasn\'t worked helps us recommend something genuinely different.';
             showOpt('steroid-creams'); setDesc('steroid-creams', 'Hydrocortisone, prescribed creams from the GP');
-            showOpt('pharmacy-moisturisers'); setDesc('pharmacy-moisturisers', 'Cetaphil, QV, Aveeno, Dermaveen etc.');
+            showOpt('pharmacy-moisturisers'); setDesc('pharmacy-moisturisers', 'Pharmacy brands, supermarket moisturisers etc.');
             showOpt('natural-oils'); showOpt('baby-products'); showOpt('nothing');
             setDesc('nothing', 'This is our first time looking for something');
             showOpt('tallow');
@@ -1692,6 +1742,8 @@ document.querySelectorAll('.sq-step .sq-btn:not(.sq-btn-back)').forEach(function
 document.getElementById('sqStartBtn').addEventListener('click', function() {
     document.getElementById('sqHero').style.display = 'none';
     document.getElementById('sqQuiz').style.display = '';
+    initSensitivitySlider();
+    initHydrationSlider();
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
@@ -1758,7 +1810,8 @@ function getRecommendations() {
 
     var BALM_KEYS = ['balm-natural-120','balm-natural-250','balm-frankincense-120','balm-frankincense-250',
         'balm-lavender-120','honeybalm-vanilla-120','honeybalm-vanilla-250',
-        'limited-midnight','limited-sunrise','baby-butter'];
+        'limited-midnight','limited-sunrise','baby-butter',
+        'reviana-day','reviana-night'];
     function isBalm(key) { return BALM_KEYS.indexOf(key) !== -1; }
 
     function addProduct(key, why, priority) {
@@ -1969,6 +2022,19 @@ function getRecommendations() {
     // ═══════════════════════════════════════════════════
     candidates.sort(function(a, b) { return a.priority - b.priority; });
 
+    // On reroll, shuffle candidates with same priority to get different picks
+    if (answers._rerollSeed) {
+        var seed = answers._rerollSeed;
+        candidates.sort(function(a, b) {
+            if (a.priority !== b.priority) return a.priority - b.priority;
+            // Deterministic shuffle based on seed + key
+            var ha = 0, hb = 0;
+            for (var i = 0; i < a.key.length; i++) ha = ((ha << 5) - ha + a.key.charCodeAt(i) + seed) | 0;
+            for (var j = 0; j < b.key.length; j++) hb = ((hb << 5) - hb + b.key.charCodeAt(j) + seed) | 0;
+            return ha - hb;
+        });
+    }
+
     // ── ENFORCE: max 1 balm, no shop SKUs (120ml balm/honey) ──
     var SHOP_SKUS = ['balm-natural-120','balm-frankincense-120','balm-lavender-120','honeybalm-vanilla-120'];
     candidates = candidates.filter(function(r) { return SHOP_SKUS.indexOf(r.key) === -1 || isChild; });
@@ -2014,8 +2080,45 @@ function getRecommendations() {
         }
     }
 
+    // ENFORCE: always include at least one balm/cream (not lip balm)
+    var hasAnyBalm = final3.some(function(r) { return isBalm(r.key); });
+    if (!hasAnyBalm && !isChild) {
+        // Pick best balm/cream to inject
+        var balmFallbacks = useReviana ?
+            ['reviana-day', 'reviana-night', 'limited-midnight', 'limited-sunrise', 'honeybalm-vanilla-250', 'balm-natural-250'] :
+            ['reviana-night', 'reviana-day', 'balm-natural-250', 'honeybalm-vanilla-250', 'limited-midnight', 'limited-sunrise'];
+        for (var bi = 0; bi < balmFallbacks.length; bi++) {
+            var bk = balmFallbacks[bi];
+            if (usedKeys[bk]) continue;
+            var bp = PRODUCTS[bk];
+            if (!bp) continue;
+            var bSafe = true;
+            for (var bai = 0; bai < allergens.length; bai++) {
+                if (bp.allergens.indexOf(allergens[bai]) !== -1) { bSafe = false; break; }
+            }
+            if (bSafe) {
+                // Replace lowest priority item (last) with this balm
+                var removed = final3.pop();
+                usedKeys[bk] = true;
+                final3.push({ key: bk, product: bp, why: 'Every routine needs a moisturiser — this is the foundation that locks everything else in', priority: 3 });
+                break;
+            }
+        }
+    }
+
     // Sort by price ascending for display
     final3.sort(function(a, b) { return a.product.price - b.product.price; });
+
+    // Ensure balm/cream is in the middle position (index 1)
+    var balmIdx = -1;
+    for (var mi = 0; mi < final3.length; mi++) {
+        if (isBalm(final3[mi].key)) { balmIdx = mi; break; }
+    }
+    if (balmIdx !== -1 && balmIdx !== 1 && final3.length >= 3) {
+        var balmItem = final3.splice(balmIdx, 1)[0];
+        final3.splice(1, 0, balmItem);
+    }
+
     final3.forEach(function(r, i) {
         r.step = i === 0 ? 'Start here' : (i === 1 ? 'Then apply' : 'Complete with');
     });
@@ -2037,11 +2140,6 @@ function showResults() {
 
     // Show fixed asterisk
     document.getElementById('sqFixedAsterisk').style.display = 'block';
-
-    // Show open skin advisory if applicable
-    if (answers.severity === 'open-wounds') {
-        document.getElementById('sqOpenSkinAdvisory').style.display = 'block';
-    }
 
     var recs = getRecommendations();
 
@@ -2107,6 +2205,35 @@ function showResults() {
     setTimeout(function() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 50);
+
+    // Reroll button
+    var rerollBtn = document.getElementById('sqRerollBtn');
+    if (rerollBtn && !rerollBtn._sqInit) {
+        rerollBtn._sqInit = true;
+        var rerollCount = 0;
+        rerollBtn.addEventListener('click', function() {
+            rerollCount++;
+            answers._rerollSeed = rerollCount;
+            var newRecs = getRecommendations();
+            renderProductCards(newRecs);
+            renderBundle(newRecs);
+            renderRoutine(newRecs);
+            renderWhyTogether(newRecs);
+            renderResearchCitations();
+            requestAnimationFrame(function() {
+                drawIngredientBars(newRecs);
+            });
+            // Store reroll in Supabase
+            var productNames = newRecs.map(function(r) { return r.product.name + ' (' + r.product.size + ')'; });
+            fetch('/.netlify/functions/quiz-submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ answers: answers, products: productNames, email: answers.email || null, reroll: rerollCount })
+            }).catch(function() {});
+            rerollBtn.textContent = '🔄 Show me something else';
+            window.scrollTo({ top: document.getElementById('sqProductCards').offsetTop - 80, behavior: 'smooth' });
+        });
+    }
 }
 
 /* ── Radar Chart ─────────────────────────────────── */
@@ -2481,7 +2608,7 @@ function renderWhyPastFailed() {
     }
     if (tried.indexOf('pharmacy-moisturisers') !== -1) {
         html += '<div style="margin-bottom:1rem;padding-left:1rem;border-left:3px solid var(--pc-brown-light);">';
-        html += '<strong>Pharmacy moisturisers</strong> like Cetaphil, QV, and Aveeno are solid for general dryness, but many contain petroleum-derived occlusives (mineral oil, petrolatum) that sit on top of the skin rather than absorbing into it. ';
+        html += '<strong>Pharmacy moisturisers</strong> are solid for general dryness, but many contain petroleum-derived occlusives (mineral oil, petrolatum) that sit on top of the skin rather than absorbing into it.';
         html += 'They also often include preservatives like parabens and phenoxyethanol that some sensitive skin types react to. ';
         html += 'Tallow is biocompatible — your skin\'s lipid barrier is made of similar fatty acids, so it absorbs rather than just coating the surface.</div>';
     }
@@ -2540,26 +2667,55 @@ function renderWhyTogether(recs) {
         html += '</div></div>';
     });
 
-    // What we didn't include — kept short, one line per hint
-    var hints = [];
-    if (pref === 'premium' && sensitivity < 8 && (concerns.indexOf('wrinkles') !== -1 || concerns.indexOf('acne') !== -1 || concerns.indexOf('pigmentation') !== -1)) {
-        hints.push('Plain tallow moisturises but doesn\'t target ' + (concerns.indexOf('wrinkles') !== -1 ? 'collagen production' : concerns.indexOf('acne') !== -1 ? 'oil regulation' : 'melanin production') + ' — that\'s why we\'ve gone with targeted actives for your face.');
+    container.innerHTML = html;
+
+    // Populate "Products We Probably Wouldn't Choose"
+    renderWhyNot(recs);
+
+    // Show eczema note in report if relevant
+    if (concerns.indexOf('eczema') !== -1) {
+        var eczNote = document.getElementById('sqEczemaNote');
+        if (eczNote) eczNote.style.display = '';
     }
+}
+
+function renderWhyNot(recs) {
+    var container = document.getElementById('sqWhyNotContent');
+    if (!container) return;
+    var section = document.getElementById('sqWhyNotSection');
+    var concerns = answers.concerns || [];
+    var sensitivity = parseInt(answers.sensitivity) || 5;
+    var pref = answers.preference || 'premium';
+    var recKeys = recs.map(function(r) { return r.key; });
+
+    var excluded = [];
+
+    // Check what's NOT in the recommendations and explain why
     if (pref === 'simple' || sensitivity >= 8) {
-        hints.push('Our Reviana range is powerful but with your sensitivity level, fewer ingredients is the safer call right now.');
+        excluded.push({ name: 'Reviana Range', reason: 'With your sensitivity level, fewer ingredients is the safer call right now. Reviana\'s actives are powerful, but your skin needs to stabilise first. Once your barrier is stronger, these would be worth revisiting.' });
     }
-    if (concerns.indexOf('acne') !== -1) {
-        hints.push('Heavier balm formats were excluded for your face — lighter serums absorb faster on oilier skin.');
+    if (concerns.indexOf('acne') !== -1 && recKeys.indexOf('tallow-skin') === -1 && recKeys.indexOf('tallow-skin-50') === -1) {
+        excluded.push({ name: 'Heavy Tallow Balms', reason: 'Thicker balm formats can feel too occlusive on acne-prone skin. We\'ve gone with lighter formulations that absorb faster without risking clogged pores.' });
+    }
+    if (pref === 'premium' && sensitivity < 8 && recKeys.indexOf('tallow-skin') === -1 && (concerns.indexOf('wrinkles') !== -1 || concerns.indexOf('pigmentation') !== -1)) {
+        excluded.push({ name: 'Plain Tallow Moisturiser', reason: 'Tallow is an excellent moisturiser, but it doesn\'t target ' + (concerns.indexOf('wrinkles') !== -1 ? 'collagen production or fine lines' : 'melanin production or dark spots') + '. For your goals, the targeted actives in Reviana will deliver better results.' });
+    }
+    if (concerns.indexOf('baby') !== -1) {
+        excluded.push({ name: 'Reviana & Scented Products', reason: 'For babies and young children, we only recommend our most minimal, unscented formulations. Actives and essential oils aren\'t necessary and could irritate delicate skin.' });
     }
 
-    if (hints.length > 0) {
-        html += '<div style="margin-top:0.75rem;padding:0.5rem 0.75rem;background:rgba(123,92,58,0.04);border-radius:6px;">';
-        hints.forEach(function(hint) {
-            html += '<p style="font-size:0.72rem;color:var(--pc-warm-gray);line-height:1.5;margin:0 0 2px 0;">&bull; ' + hint + '</p>';
-        });
+    if (excluded.length === 0) {
+        if (section) section.style.display = 'none';
+        return;
+    }
+
+    var html = '';
+    excluded.forEach(function(item) {
+        html += '<div style="margin-bottom:0.75rem;padding:0.75rem 1rem;background:var(--pc-brown-pale);border-radius:8px;border:1px solid var(--pc-border);">';
+        html += '<strong style="font-size:0.85rem;">' + item.name + '</strong><br>';
+        html += '<span style="font-size:0.78rem;color:var(--pc-warm-gray);line-height:1.5;">' + item.reason + '</span>';
         html += '</div>';
-    }
-
+    });
     container.innerHTML = html;
 }
 
@@ -2670,71 +2826,14 @@ function renderResearchCitations() {
 
 /* ── Claude Blurb ──────────────────────────────────── */
 function fetchBlurb(recs) {
-    var blurbEl = document.getElementById('sqBlurb');
     var productNames = recs.map(function(r) { return r.product.name + ' (' + r.product.size + ')'; });
 
     // Auto-save every quiz completion to Supabase (even without email)
     fetch('/.netlify/functions/quiz-submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ answers: answers, products: productNames, email: answers.email || null })
+        body: JSON.stringify({ answers: answers, products: productNames, email: answers.email || null, utm: quizUtm })
     }).catch(function() {});
-
-    // Generate blurb — tallow-first education, then position products
-    var concerns = answers.concerns || [];
-    var areas = answers.areas || [];
-    var sensitivity = parseInt(answers.sensitivity) || 5;
-    var pref = answers.preference;
-    var tried = answers.triedBefore || [];
-    var hasTriedTallow = tried.indexOf('tallow') !== -1;
-    var hasReviana = recs.some(function(r) { return r.key.indexOf('reviana') !== -1; });
-    var hasLimitedEd = recs.some(function(r) { return r.key.indexOf('limited') !== -1; });
-
-    // Tallow foundation paragraph
-    var blurb = '';
-    if (concerns.indexOf('baby') !== -1) {
-        blurb += 'For little ones, simplicity is everything. Tallow is one of the most biocompatible moisturisers available — its fatty acid profile closely matches baby skin, so it absorbs naturally without any of the synthetic additives found in most baby products. We\'ve kept this routine as simple and gentle as possible.';
-    } else {
-        blurb += 'Tallow is the foundation of everything we make. Its fatty acid profile closely mirrors your skin\'s own lipids, which is why it absorbs so efficiently — your skin recognises it. ';
-
-        if (hasTriedTallow) {
-            blurb += 'Since you\'ve already experienced tallow, you know how it feels. ';
-        }
-
-        // Position Reviana as the next level
-        if (hasReviana) {
-            blurb += 'Your routine includes products from our Reviana range — this is where we combine that tallow foundation with clinically-backed actives like Bakuchiol, Ceramides, and Vitamin C. ';
-            if (concerns.indexOf('wrinkles') !== -1) {
-                blurb += 'Bakuchiol activates the same retinoid pathways as retinol but without the irritation — peer-reviewed research shows comparable anti-aging results. Combined with Kakadu Plum (the highest natural source of Vitamin C), this routine actively supports collagen renewal. ';
-            } else if (concerns.indexOf('acne') !== -1) {
-                blurb += 'Niacinamide regulates oil production and reduces inflammation, while Vitamin C and Licorice Extract target post-breakout marks. It\'s a routine that addresses breakouts from multiple angles. ';
-            } else if (concerns.indexOf('pigmentation') !== -1) {
-                blurb += 'Licorice Extract inhibits melanin production at the source, while Vitamin C and Niacinamide work to even out existing dark spots. These are some of the most well-researched brightening actives available. ';
-            } else if (concerns.indexOf('eczema') !== -1 || concerns.indexOf('rosacea') !== -1) {
-                blurb += 'Ceramides rebuild your skin\'s damaged barrier overnight, while Panthenol and Bisabolol calm inflammation. This is targeted barrier repair — not just moisture on top. ';
-            } else if (concerns.indexOf('dry') !== -1) {
-                blurb += 'Hyaluronic Acid draws moisture deep into the skin while Ceramides lock it in — paired with tallow\'s natural compatibility, it\'s a hydration routine that works from multiple layers. ';
-            } else {
-                blurb += 'Think of it as the next step — tallow does the heavy lifting, and the actives in Reviana target your specific skin goals. It\'s only available direct from us, which means we can formulate without the compromises retail demands. ';
-            }
-
-            if (hasTriedTallow) {
-                blurb += 'If you\'re already using our tallow balms, Reviana is the perfect complement — use the balm for your body and let Reviana\'s targeted actives look after your face.';
-            } else {
-                blurb += 'Each product in this routine has a specific role — they\'re designed to work together, not as standalone items.';
-            }
-        } else {
-            // Pure tallow recommendations
-            blurb += 'We\'ve matched you with our purest tallow formulations — minimal ingredients, maximum compatibility with your skin. ';
-            if (hasLimitedEd) {
-                blurb += 'Your routine includes one of our Limited Edition balms — these are small-batch, seasonal formulations that combine tallow with premium botanicals. They won\'t be around forever. ';
-            }
-            blurb += 'Sometimes the simplest approach is the most effective — especially when the ingredients are this compatible with your skin.';
-        }
-    }
-
-    blurbEl.textContent = blurb;
-    blurbEl.classList.remove('loading');
 }
 
 /* ── Email Capture ──────────────────────────────────── */
@@ -2747,7 +2846,7 @@ document.getElementById('sqEmailBtn').addEventListener('click', function() {
     fetch('/.netlify/functions/quiz-submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ answers: answers, email: email, action: 'email' })
+        body: JSON.stringify({ answers: answers, email: email, action: 'email', utm: quizUtm })
     })
     .then(function() {
         msg.textContent = 'Sent! Check your inbox.'; msg.className = 'sq-msg ok';
@@ -2771,12 +2870,15 @@ document.getElementById('sqReferralBtn').addEventListener('click', function() {
     fetch('/.netlify/functions/quiz-referral', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ referrerEmail: myEmail, friendEmail: friendEmail })
+        body: JSON.stringify({ referrerEmail: myEmail, friendEmail: friendEmail, utm: quizUtm })
     })
     .then(function(r) { return r.json(); })
     .then(function(data) {
         if (data.error) { msg.textContent = data.error; msg.className = 'sq-msg err'; }
-        else { msg.textContent = 'Done! You\'ll both receive a $5 voucher by email.'; msg.className = 'sq-msg ok'; }
+        else {
+            msg.innerHTML = '✅ Done! Your $5 code: <strong>' + data.referrerCode + '</strong> — Your friend\'s code: <strong>' + data.friendCode + '</strong>. Use at checkout!';
+            msg.className = 'sq-msg ok';
+        }
     })
     .catch(function() {
         msg.textContent = 'Something went wrong. Try again.'; msg.className = 'sq-msg err';

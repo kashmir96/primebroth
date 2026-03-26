@@ -27,7 +27,8 @@ exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') return reply(405, { error: 'Method not allowed' });
 
   try {
-    const { referrerEmail, friendEmail } = JSON.parse(event.body);
+    const { referrerEmail, friendEmail, utm } = JSON.parse(event.body);
+    const utmData = utm || {};
 
     if (!referrerEmail || !friendEmail) {
       return reply(400, { error: 'Both emails are required.' });
@@ -96,6 +97,11 @@ exports.handler = async (event) => {
           friend_email: friendEmail.toLowerCase(),
           referrer_code: referrerCode.code,
           friend_code: friendCode.code,
+          utm_source: utmData.source || null,
+          utm_medium: utmData.medium || null,
+          utm_campaign: utmData.campaign || null,
+          utm_term: utmData.term || null,
+          utm_content: utmData.content || null,
           created_at: new Date().toISOString(),
         }),
       });

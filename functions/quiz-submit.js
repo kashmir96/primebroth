@@ -81,7 +81,7 @@ Rules:
   }
 }
 
-async function saveToSupabase(answers, email, products) {
+async function saveToSupabase(answers, email, products, utm) {
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_KEY;
   if (!url || !key) return;
@@ -108,6 +108,13 @@ async function saveToSupabase(answers, email, products) {
         gender: answers.gender || null,
         tried_before: answers.triedBefore || [],
         recommended_products: products,
+        utm_source: utm.source || null,
+        utm_medium: utm.medium || null,
+        utm_campaign: utm.campaign || null,
+        utm_term: utm.term || null,
+        utm_content: utm.content || null,
+        referrer: utm.referrer || null,
+        landing_page: utm.landingPage || null,
         created_at: new Date().toISOString(),
       }),
     });
@@ -121,13 +128,13 @@ exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') return reply(405, { error: 'Method not allowed' });
 
   try {
-    const { answers, products, email, action } = JSON.parse(event.body);
+    const { answers, products, email, action, utm } = JSON.parse(event.body);
 
     // Generate blurb
     const blurb = await generateBlurb(answers, products || []);
 
     // Save lead
-    await saveToSupabase(answers, email, products || []);
+    await saveToSupabase(answers, email, products || [], utm || {});
 
     return reply(200, { blurb: blurb || '', saved: true });
   } catch (err) {
