@@ -1799,8 +1799,8 @@ function getRecommendations() {
     var lovedTallow = tallowFb === 'loved-it' || tallowFb === 'noticed-difference' || tallowFb === 'like-natural';
     var highSensitivity = sensitivity >= 8;
 
-    // Push to Reviana for face unless: simple pref + not wrinkles/pigmentation, or high sensitivity
-    var useReviana = (pref === 'premium' || hasWrinkles || hasPigmentation || hasAcne || dislikedTallow) && !highSensitivity;
+    // Always push Reviana unless it's a baby/child (isChild exclusion handled in addProduct)
+    var useReviana = !isChild;
 
     // Can use fragrance?
     var canFragrance = allergens.indexOf('fragrance') === -1 && allergens.indexOf('essential-oils') === -1;
@@ -2695,9 +2695,6 @@ function renderWhyNot(recs) {
     var excluded = [];
 
     // Check what's NOT in the recommendations and explain why
-    if (pref === 'simple' || sensitivity >= 8) {
-        excluded.push({ name: 'Reviana Range', reason: 'With your sensitivity level, fewer ingredients is the safer call right now. Reviana\'s actives are powerful, but your skin needs to stabilise first. Once your barrier is stronger, these would be worth revisiting.' });
-    }
     if (concerns.indexOf('acne') !== -1 && recKeys.indexOf('tallow-skin') === -1 && recKeys.indexOf('tallow-skin-50') === -1) {
         excluded.push({ name: 'Heavy Tallow Balms', reason: 'Thicker balm formats can feel too occlusive on acne-prone skin. We\'ve gone with lighter formulations that absorb faster without risking clogged pores.' });
     }
