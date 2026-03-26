@@ -2344,48 +2344,52 @@ function renderRoutine(recs) {
     var prodMap = {};
     recs.forEach(function(r) { prodMap[r.key] = r.product.name; });
 
-    var html = '';
-    var s = '<div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--pc-green);margin-bottom:0.5rem;">';
-    var tip = '<div style="background:rgba(74,94,56,0.06);border-radius:6px;padding:8px 12px;margin:8px 0;font-size:0.78rem;color:var(--pc-green);line-height:1.5;">';
+    // Build image lookup
+    var prodImg = {};
+    recs.forEach(function(r) { prodImg[r.key] = r.product.img; });
 
-    // ── APPLICATION TIPS (shown first, kept tight) ──
-    html += '<div style="margin-bottom:1.5rem;padding:1rem;background:var(--pc-brown-pale);border-radius:10px;">';
-    html += '<p style="font-size:0.78rem;font-weight:700;color:var(--pc-brown);margin-bottom:0.5rem;">&#x1F4A1; Quick tips to get the most from these products</p>';
-    html += '<div style="font-size:0.82rem;line-height:1.7;color:var(--pc-black);">';
-    html += '&bull; Apply to <strong>slightly damp skin</strong> — it absorbs significantly better<br>';
-    html += '&bull; <strong>Less is more</strong> — a pea-sized amount covers your whole face<br>';
-    html += '&bull; Warm balms between your palms before applying — body heat helps it melt in';
-    html += '</div></div>';
+    var html = '';
+    // Helper for step with product image
+    function stepWithImg(key, text) {
+        var img = prodImg[key] || '';
+        if (img) {
+            return '<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;">' +
+                '<img src="' + img + '" style="width:36px;height:36px;border-radius:6px;object-fit:cover;flex-shrink:0;margin-top:2px;">' +
+                '<span>' + text + '</span></div>';
+        }
+        return '<p style="margin-bottom:8px;">' + text + '</p>';
+    }
+
+    var badge = function(label, color) {
+        return '<span style="display:inline-block;background:' + (color || 'var(--pc-green)') + ';color:#fff;padding:3px 10px;border-radius:50px;font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">' + label + '</span>';
+    };
 
     // ── MORNING ──
     html += '<div style="margin-bottom:1.25rem;">';
-    html += s + '&#x2600;&#xFE0F; Morning</div>';
-    html += '<div style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);">';
+    html += badge('AM · Morning');
+    html += '<div style="font-size:0.85rem;line-height:1.65;color:var(--pc-black);">';
+    html += '<p style="font-size:0.78rem;color:var(--pc-warm-gray);margin-bottom:0.5rem;">Splash face with lukewarm water, pat dry, apply to damp skin.</p>';
 
     if (concerns.indexOf('baby') !== -1) {
-        html += 'After bath time, gently pat dry and apply a thin layer of <strong>' + (prodMap['baby-butter'] || 'Baby Butter') + '</strong> to any dry patches while their skin is still slightly damp.';
+        html += stepWithImg('baby-butter', 'Apply a thin layer of <strong>' + (prodMap['baby-butter'] || 'Baby Butter') + '</strong> to dry patches while skin is still damp.');
     } else {
-        var stepNum = 1;
-        html += 'Splash your face with lukewarm water and pat dry. ';
         if (prodMap['reviana-serum']) {
-            html += '<strong>Step ' + stepNum + ':</strong> Apply 3-4 drops of <strong>' + prodMap['reviana-serum'] + '</strong> to damp skin — press in gently, don\'t rub. The Vitamin C and Licorice Extract are most effective when applied to slightly damp skin. ';
-            stepNum++;
+            html += stepWithImg('reviana-serum', '<strong>' + prodMap['reviana-serum'] + '</strong> — 3-4 drops pressed into damp skin. Vitamin C is most effective on slightly damp skin.');
         }
         if (prodMap['reviana-day']) {
-            html += '<strong>Step ' + stepNum + ':</strong> Follow with <strong>' + prodMap['reviana-day'] + '</strong> — this locks in the serum\'s actives and provides daytime protection. A pea-sized amount is all you need. ';
-            stepNum++;
+            html += stepWithImg('reviana-day', '<strong>' + prodMap['reviana-day'] + '</strong> — locks in actives and provides daytime protection. Pea-sized amount.');
         }
         if (prodMap['reviana-eye'] || prodMap['eye-cream-primal']) {
-            var eyeName = prodMap['reviana-eye'] || prodMap['eye-cream-primal'];
-            html += '<strong>Step ' + stepNum + ':</strong> Dab <strong>' + eyeName + '</strong> under each eye with your ring finger — gentle tapping along the bone, never drag. ';
-            stepNum++;
+            var eyeKey = prodMap['reviana-eye'] ? 'reviana-eye' : 'eye-cream-primal';
+            var eyeName = prodMap[eyeKey];
+            html += stepWithImg(eyeKey, '<strong>' + eyeName + '</strong> — dab under each eye with ring finger. Tap gently, never drag.');
         }
         if (prodMap['lip-balm']) {
-            html += 'Finish with <strong>' + prodMap['lip-balm'] + '</strong> and reapply through the day. ';
+            html += stepWithImg('lip-balm', '<strong>' + prodMap['lip-balm'] + '</strong> — reapply through the day.');
         }
         if (!prodMap['reviana-day'] && !prodMap['reviana-serum']) {
-            var balmName = prodMap['balm-natural-250'] || prodMap['honeybalm-vanilla-250'] || prodMap['limited-midnight'] || prodMap['limited-sunrise'] || recs[0].product.name;
-            html += '<strong>Step 1:</strong> Warm a small amount of <strong>' + balmName + '</strong> between your palms, then press into damp skin. ';
+            var balmKey = prodMap['balm-natural-250'] ? 'balm-natural-250' : (prodMap['honeybalm-vanilla-250'] ? 'honeybalm-vanilla-250' : (prodMap['limited-midnight'] ? 'limited-midnight' : (prodMap['limited-sunrise'] ? 'limited-sunrise' : recs[0].key)));
+            html += stepWithImg(balmKey, '<strong>' + (prodMap[balmKey] || recs[0].product.name) + '</strong> — warm between palms, press into damp skin.');
         }
     }
     html += '</div></div>';
@@ -2393,63 +2397,51 @@ function renderRoutine(recs) {
     // ── EVENING ──
     if (concerns.indexOf('baby') === -1) {
         html += '<div style="margin-bottom:1.25rem;">';
-        html += s + '&#x1F319; Evening</div>';
-        html += '<div style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);">';
-        html += 'Cleanse your face';
-        if (prodMap['cleanser']) html += ' with <strong>' + prodMap['cleanser'] + '</strong>';
-        html += ' and pat dry. ';
-
-        if (prodMap['reviana-night']) {
-            html += 'Apply <strong>' + prodMap['reviana-night'] + '</strong> — the Bakuchiol and Ceramides do their best work overnight while your skin\'s cell turnover is at its peak. ';
+        html += badge('PM · Evening', '#3a4d2c');
+        html += '<div style="font-size:0.85rem;line-height:1.65;color:var(--pc-black);">';
+        if (prodMap['cleanser']) {
+            html += '<p style="font-size:0.78rem;color:var(--pc-warm-gray);margin-bottom:0.5rem;">Cleanse, pat dry, apply to damp skin.</p>';
+            html += stepWithImg('cleanser', '<strong>' + prodMap['cleanser'] + '</strong> — gentle cleanse to remove the day\'s buildup.');
+        } else {
+            html += '<p style="font-size:0.78rem;color:var(--pc-warm-gray);margin-bottom:0.5rem;">Cleanse your face and pat dry.</p>';
         }
         if (prodMap['reviana-serum'] && !prodMap['reviana-day']) {
-            html += 'Apply <strong>' + prodMap['reviana-serum'] + '</strong> first — evening is when your skin absorbs actives most effectively. ';
+            html += stepWithImg('reviana-serum', '<strong>' + prodMap['reviana-serum'] + '</strong> — evening is when your skin absorbs actives most effectively.');
         }
-        var bodyBalm = prodMap['honeybalm-vanilla-250'] || prodMap['balm-natural-250'] || prodMap['limited-midnight'] || prodMap['limited-sunrise'];
-        if (bodyBalm && (areas.indexOf('body') !== -1 || areas.indexOf('hands') !== -1 || areas.indexOf('elbows') !== -1)) {
-            html += 'After your shower, apply <strong>' + bodyBalm + '</strong> to damp skin on hands, elbows, or anywhere that needs it. ';
+        if (prodMap['reviana-night']) {
+            html += stepWithImg('reviana-night', '<strong>' + prodMap['reviana-night'] + '</strong> — Bakuchiol and Ceramides work overnight while your skin\'s cell turnover peaks.');
+        }
+        var bodyBalmKey = prodMap['honeybalm-vanilla-250'] ? 'honeybalm-vanilla-250' : (prodMap['balm-natural-250'] ? 'balm-natural-250' : (prodMap['limited-midnight'] ? 'limited-midnight' : (prodMap['limited-sunrise'] ? 'limited-sunrise' : null)));
+        if (bodyBalmKey && prodMap[bodyBalmKey] && (areas.indexOf('body') !== -1 || areas.indexOf('hands') !== -1 || areas.indexOf('elbows') !== -1)) {
+            html += stepWithImg(bodyBalmKey, '<strong>' + prodMap[bodyBalmKey] + '</strong> — apply to damp skin after showering on hands, elbows, or problem areas.');
         }
         html += '</div></div>';
     }
 
     // ── SHOWER / HAIRCARE ──
-    if (prodMap['shampoo'] || prodMap['conditioner'] || prodMap['hair-clay']) {
+    if (prodMap['shampoo'] || prodMap['hair-clay']) {
         html += '<div style="margin-bottom:1.25rem;">';
-        html += s + '&#x1F6BF; Shower & Haircare</div>';
-        html += '<div style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);">';
-        if (prodMap['shampoo']) {
-            html += 'Use the <strong>' + prodMap['shampoo'] + '</strong> every other day rather than daily — your scalp produces natural oils that keep hair healthy. Alternate days, just rinse with water. ';
-        }
-        if (prodMap['conditioner']) html += 'Follow with <strong>' + prodMap['conditioner'] + '</strong> on the mid-lengths and ends only — avoid the scalp. ';
-        if (prodMap['hair-clay']) html += 'Once dry, work a small amount of <strong>' + prodMap['hair-clay'] + '</strong> through your hair — it gives hold without the crunch of synthetic alternatives. ';
-        html += '</div>';
-        html += tip + '<strong>Don\'t:</strong> Shampoo daily (it strips natural oils), apply conditioner to your scalp, or use hot water on your hair.</div>';
-        html += '</div>';
+        html += badge('Shower', 'var(--pc-brown)');
+        html += '<div style="font-size:0.85rem;line-height:1.65;color:var(--pc-black);">';
+        if (prodMap['shampoo']) html += stepWithImg('shampoo', '<strong>' + prodMap['shampoo'] + '</strong> — every other day. Let your scalp\'s natural oils do their thing on off days.');
+        if (prodMap['hair-clay']) html += stepWithImg('hair-clay', '<strong>' + prodMap['hair-clay'] + '</strong> — natural hold without the crunch of synthetics.');
+        html += '</div></div>';
     }
 
-    // ── WEEKLY (product-focused only) ──
-    var hasWeekly = prodMap['oat-soak'] || concerns.indexOf('eczema') !== -1 || concerns.indexOf('acne') !== -1 || concerns.indexOf('wrinkles') !== -1 || concerns.indexOf('pigmentation') !== -1;
-    if (hasWeekly) {
+    // ── WEEKLY (only if relevant products) ──
+    if (prodMap['oat-soak'] || (prodMap['reviana-serum'] && (concerns.indexOf('wrinkles') !== -1 || concerns.indexOf('pigmentation') !== -1))) {
         html += '<div style="margin-bottom:1.25rem;">';
-        html += s + '&#x1F4C5; Weekly</div>';
-        html += '<div style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);">';
-        if (prodMap['oat-soak']) {
-            html += '&bull; <strong>2-3x per week:</strong> Lukewarm ' + prodMap['oat-soak'] + ' for 15-20 mins, then pat dry and apply balm immediately to lock in moisture.<br>';
-        }
-        if (concerns.indexOf('wrinkles') !== -1 || concerns.indexOf('pigmentation') !== -1) {
-            if (prodMap['reviana-serum']) html += '&bull; <strong>Once per week:</strong> Apply a generous layer of ' + prodMap['reviana-serum'] + ' and leave for 15 minutes as a treatment mask — your skin absorbs more when given extra time.<br>';
-        }
-        if (concerns.indexOf('acne') !== -1 && prodMap['cleanser']) {
-            html += '&bull; <strong>2x per week:</strong> Double-cleanse with ' + prodMap['cleanser'] + ' — first pass to break down SPF, second to deep clean.<br>';
+        html += badge('Weekly', 'var(--pc-warm-gray)');
+        html += '<div style="font-size:0.82rem;line-height:1.6;color:var(--pc-black);">';
+        if (prodMap['oat-soak']) html += stepWithImg('oat-soak', '<strong>' + prodMap['oat-soak'] + '</strong> — lukewarm, 15-20 mins, 2-3x per week. Apply balm immediately after.');
+        if (prodMap['reviana-serum'] && (concerns.indexOf('wrinkles') !== -1 || concerns.indexOf('pigmentation') !== -1)) {
+            html += stepWithImg('reviana-serum', '<strong>' + prodMap['reviana-serum'] + '</strong> — once per week, apply a generous layer and leave 15 mins as a treatment mask.');
         }
         html += '</div></div>';
     }
 
-    // ── CONSISTENCY NOTE (brief, not preachy) ──
-    html += '<div style="padding:0.75rem 1rem;background:rgba(74,94,56,0.06);border-radius:10px;">';
-    html += '<p style="font-size:0.82rem;line-height:1.6;color:var(--pc-black);margin:0;">';
-    html += '<strong>Consistency is key.</strong> These products work best when used as a routine — morning and evening, every day. Give it 3-4 weeks to see results. Your skin needs time to respond to new ingredients.';
-    html += '</p></div>';
+    // ── CONSISTENCY (one line) ──
+    html += '<p style="font-size:0.78rem;color:var(--pc-warm-gray);line-height:1.5;margin:0;padding-top:0.5rem;border-top:1px solid var(--pc-border);"><strong>Give it 3-4 weeks.</strong> These products work best as a consistent routine — your skin needs time to respond.</p>';
 
     container.innerHTML = html;
 }
@@ -2518,65 +2510,40 @@ function renderWhyTogether(recs) {
     var pref = answers.preference || 'premium';
     var html = '';
 
-    // Why each product was chosen
+    // Product cards with images — visual and scannable
     recs.forEach(function(rec, i) {
         var p = rec.product;
-        html += '<div style="margin-bottom:1rem;padding:0.75rem 1rem;background:' + (i % 2 === 0 ? 'var(--pc-brown-pale)' : '#fff') + ';border-radius:8px;">';
-        html += '<strong>' + p.name + ' (' + p.size + ')</strong><br>';
-        html += '<span style="color:var(--pc-brown);">' + rec.why + '</span>';
-        // How they work together
-        if (i === 0 && recs.length >= 2) {
-            html += '<br><span style="font-size:0.78rem;color:var(--pc-warm-gray);font-style:italic;">This prepares your skin for better absorption of ' + recs[1].product.name + '.</span>';
-        }
-        if (i === 1 && recs.length >= 3) {
-            html += '<br><span style="font-size:0.78rem;color:var(--pc-warm-gray);font-style:italic;">Works in combination with ' + recs[0].product.name + ' — each enhances the other\'s effectiveness.</span>';
-        }
-        if (i === 2) {
-            html += '<br><span style="font-size:0.78rem;color:var(--pc-warm-gray);font-style:italic;">Completes your routine — filling the gaps the other two don\'t cover.</span>';
-        }
+        var stepLabels = ['Your foundation', 'Builds on it', 'Completes the routine'];
+        html += '<div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:1rem;padding:0.75rem;background:' + (i % 2 === 0 ? 'var(--pc-brown-pale)' : '#fff') + ';border-radius:10px;border:1px solid var(--pc-border);">';
+        html += '<img src="' + p.img + '" alt="' + p.name + '" style="width:56px;height:56px;border-radius:8px;object-fit:cover;flex-shrink:0;">';
+        html += '<div style="flex:1;min-width:0;">';
+        html += '<div style="display:flex;align-items:center;gap:6px;margin-bottom:2px;">';
+        html += '<span style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--pc-green);background:rgba(74,94,56,0.1);padding:2px 6px;border-radius:4px;">' + stepLabels[i] + '</span>';
         html += '</div>';
+        html += '<strong style="font-size:0.88rem;">' + p.name + '</strong> <span style="font-size:0.72rem;color:var(--pc-warm-gray);">' + p.size + '</span><br>';
+        html += '<span style="font-size:0.78rem;color:var(--pc-brown);line-height:1.5;">' + rec.why + '</span>';
+        html += '</div></div>';
     });
 
-    // Subtle hints about what we DIDN'T include (always cheaper/simpler products)
-    html += '<div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--pc-border);">';
-    html += '<p style="font-size:0.78rem;color:var(--pc-warm-gray);margin-bottom:0.75rem;font-weight:600;">A note on what we didn\'t include:</p>';
-
+    // What we didn't include — kept short, one line per hint
     var hints = [];
-    if (pref === 'premium' && sensitivity < 8) {
-        // They got Reviana — explain why plain tallow wasn't recommended for face
-        if (concerns.indexOf('wrinkles') !== -1 || concerns.indexOf('acne') !== -1 || concerns.indexOf('pigmentation') !== -1) {
-            hints.push('We considered our plain Tallow Balm for your face, but for your specific concern (' + (concerns.indexOf('wrinkles') !== -1 ? 'wrinkles' : concerns.indexOf('acne') !== -1 ? 'acne' : 'pigmentation') + '), you\'ll see better results with targeted actives like Bakuchiol and Vitamin C. Tallow alone moisturises well but doesn\'t actively address ' + (concerns.indexOf('wrinkles') !== -1 ? 'collagen production' : concerns.indexOf('acne') !== -1 ? 'oil regulation' : 'melanin production') + '.');
-        }
+    if (pref === 'premium' && sensitivity < 8 && (concerns.indexOf('wrinkles') !== -1 || concerns.indexOf('acne') !== -1 || concerns.indexOf('pigmentation') !== -1)) {
+        hints.push('Plain tallow moisturises but doesn\'t target ' + (concerns.indexOf('wrinkles') !== -1 ? 'collagen production' : concerns.indexOf('acne') !== -1 ? 'oil regulation' : 'melanin production') + ' — that\'s why we\'ve gone with targeted actives for your face.');
     }
     if (pref === 'simple' || sensitivity >= 8) {
-        // They got tallow — explain why Reviana wasn't right for them
-        hints.push('Our Reviana range has powerful actives, but with your sensitivity level, the simpler formula is a better fit right now. Fewer ingredients means fewer potential triggers — and tallow\'s lipid profile does most of the heavy lifting on its own.');
-    }
-    if (concerns.indexOf('eczema') !== -1 || concerns.indexOf('rosacea') !== -1) {
-        hints.push('We didn\'t include any products with synthetic fragrances or strong essential oils — even though some of our scented balms are beautiful, for reactive skin the priority is reducing potential triggers.');
+        hints.push('Our Reviana range is powerful but with your sensitivity level, fewer ingredients is the safer call right now.');
     }
     if (concerns.indexOf('acne') !== -1) {
-        hints.push('We avoided heavier balm formats for your face — while tallow is non-comedogenic for most people, lighter serums and creams absorb faster and work better for oilier, breakout-prone skin.');
+        hints.push('Heavier balm formats were excluded for your face — lighter serums absorb faster on oilier skin.');
     }
 
     if (hints.length > 0) {
+        html += '<div style="margin-top:0.75rem;padding:0.5rem 0.75rem;background:rgba(123,92,58,0.04);border-radius:6px;">';
         hints.forEach(function(hint) {
-            html += '<p style="font-size:0.82rem;color:var(--pc-brown);line-height:1.6;margin-bottom:0.5rem;">&bull; ' + hint + '</p>';
+            html += '<p style="font-size:0.72rem;color:var(--pc-warm-gray);line-height:1.5;margin:0 0 2px 0;">&bull; ' + hint + '</p>';
         });
+        html += '</div>';
     }
-    html += '</div>';
-
-    // Customers with similar profiles
-    html += '<div style="margin-top:1.25rem;padding:0.75rem 1rem;background:rgba(74,94,56,0.06);border-radius:8px;">';
-    html += '<p style="font-size:0.82rem;color:var(--pc-green);font-weight:600;margin-bottom:0.25rem;">&#x1F4CA; Customers with similar skin profiles</p>';
-    var socialProof = 'Customers with a similar profile ';
-    if (concerns.indexOf('eczema') !== -1) socialProof += 'commonly pair a tallow balm with the Oat Soak — the combination of barrier repair and inflammation support tends to deliver the most consistent results.';
-    else if (concerns.indexOf('wrinkles') !== -1) socialProof += 'tend to see the best results when using the Night Cream and Serum together — the Bakuchiol and Vitamin C complement each other\'s renewal pathways.';
-    else if (concerns.indexOf('acne') !== -1) socialProof += 'often find that a consistent cleanse-serum-moisturise routine makes a bigger difference than any single product alone.';
-    else if (concerns.indexOf('dry') !== -1) socialProof += 'typically notice a difference within the first week of consistent use — tallow absorbs fast because your skin recognises the fatty acids.';
-    else socialProof += 'tend to stick with their recommended routine once they see how the products work together — each one enhances the others.';
-    html += '<p style="font-size:0.82rem;color:var(--pc-black);line-height:1.6;">' + socialProof + '</p>';
-    html += '</div>';
 
     container.innerHTML = html;
 }
