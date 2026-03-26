@@ -483,6 +483,20 @@ async function addToSupabase({ session, market, fetch }) {
     }
     orderId = data[0]?.id;
     console.log('[webhook] Supabase order success:', orderId);
+
+    // Link quiz submission to this order (if email matches a quiz lead)
+    if (orderId && customerEmail) {
+      try {
+        await fetch(`${supabaseUrl}/rest/v1/quiz_leads?email=eq.${encodeURIComponent(customerEmail.toLowerCase())}&order_id=is.null`, {
+          method: 'PATCH',
+          headers,
+          body: JSON.stringify({ order_id: orderId, converted_at: new Date().toISOString() }),
+        });
+        console.log('[webhook] Quiz lead linked to order:', orderId);
+      } catch (e) {
+        console.warn('[webhook] Quiz-order link failed (non-fatal):', e.message);
+      }
+    }
   } catch (err) {
     console.error('[webhook] Supabase order exception:', err);
     return;
