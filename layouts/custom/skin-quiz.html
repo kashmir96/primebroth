@@ -1969,8 +1969,20 @@ function getRecommendations() {
     // ═══════════════════════════════════════════════════
     candidates.sort(function(a, b) { return a.priority - b.priority; });
 
-    // Take top 3 by priority
-    var final3 = candidates.slice(0, 3);
+    // ── ENFORCE: max 1 balm, no shop SKUs (120ml balm/honey) ──
+    var SHOP_SKUS = ['balm-natural-120','balm-frankincense-120','balm-lavender-120','honeybalm-vanilla-120'];
+    candidates = candidates.filter(function(r) { return SHOP_SKUS.indexOf(r.key) === -1 || isChild; });
+
+    var balmCount = 0;
+    var final3 = [];
+    candidates.forEach(function(r) {
+        if (final3.length >= 3) return;
+        if (isBalm(r.key)) {
+            if (balmCount >= 1) return; // HARD LIMIT: 1 balm max
+            balmCount++;
+        }
+        final3.push(r);
+    });
 
     // If under 3, add smart fallbacks (never shop SKUs)
     var fallbacks = [
@@ -1995,8 +2007,8 @@ function getRecommendations() {
         for (var ai = 0; ai < allergens.length; ai++) {
             if (p.allergens.indexOf(allergens[ai]) !== -1) { safe = false; break; }
         }
-        if (safe && !(isBalm(fb[0]) && hasBalm)) {
-            if (isBalm(fb[0])) hasBalm = true;
+        if (safe && !(isBalm(fb[0]) && balmCount >= 1) && SHOP_SKUS.indexOf(fb[0]) === -1) {
+            if (isBalm(fb[0])) balmCount++;
             usedKeys[fb[0]] = true;
             final3.push({ key: fb[0], product: p, why: fb[1], priority: 9 });
         }
