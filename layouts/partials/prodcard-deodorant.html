@@ -1,5 +1,4 @@
 <div class="product-card pp-card" data-category="skincare" id="prodcardtallowbundle">
-    <span class="pp-card-badge special">25% Off</span>
     <div class="pp-card-img">
         <a href="/shop/products/tallow-deodorant">
             <img src="/img/shop/deod.webp" alt="Tallow Deodorant" loading="lazy">
@@ -11,8 +10,8 @@
         <div class="pp-card-price">
             {{ with index site.Data.pricing.tallow.pricing.deodorant 0 }}
             {{ $nzPrice := .prices.NZ.single_purchase }}
-            <span class="nz-content"><span class="pp-card-price-was">${{ printf "%.2f" (div $nzPrice 0.75) }}</span>${{ $nzPrice }}</span>
-            {{ if .prices.AU }}{{ $auPrice := .prices.AU.single_purchase }}<span class="au-content" style="display:none;"><span class="pp-card-price-was">A${{ printf "%.2f" (div $auPrice 0.75) }}</span>A${{ $auPrice }}</span>{{ end }}
+            <span class="nz-content">${{ $nzPrice }}</span>
+            {{ if .prices.AU }}{{ $auPrice := .prices.AU.single_purchase }}<span class="au-content" style="display:none;">A${{ $auPrice }}</span>{{ end }}
             {{ end }}
         </div>
         <div class="pp-card-cta">

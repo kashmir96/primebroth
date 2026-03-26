@@ -454,6 +454,11 @@ async function addToSupabase({ session, market, fetch }) {
     visitor_hash: session.metadata?.visitor_hash || null,
   };
 
+  // Only include quiz_bundle if flagged — column may not exist yet
+  if (session.metadata?.quiz_bundle === 'true') {
+    orderRow.quiz_bundle = true;
+  }
+
   let orderId;
   try {
     const response = await fetch(`${supabaseUrl}/rest/v1/orders`, {
@@ -462,10 +467,19 @@ async function addToSupabase({ session, market, fetch }) {
       body: JSON.stringify(orderRow),
     });
 
-    const data = await response.json();
+    let data = await response.json();
     if (!response.ok) {
-      console.error('[webhook] Supabase order error:', JSON.stringify(data));
-      return;
+      // If quiz_bundle column doesn't exist yet, retry without it
+      if (orderRow.quiz_bundle && JSON.stringify(data).includes('quiz_bundle')) {
+        console.warn('[webhook] quiz_bundle column not found, retrying without it');
+        delete orderRow.quiz_bundle;
+        const retry = await fetch(`${supabaseUrl}/rest/v1/orders`, { method: 'POST', headers, body: JSON.stringify(orderRow) });
+        data = await retry.json();
+        if (!retry.ok) { console.error('[webhook] Supabase order error (retry):', JSON.stringify(data)); return; }
+      } else {
+        console.error('[webhook] Supabase order error:', JSON.stringify(data));
+        return;
+      }
     }
     orderId = data[0]?.id;
     console.log('[webhook] Supabase order success:', orderId);

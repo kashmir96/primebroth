@@ -8,7 +8,7 @@
     <meta property="og:type" content="{{ .Site.Params.homepage_meta_tags.meta_og_type }}" />
     <meta property="og:url" content="https://primalpantry.co.nz/shop/products/tallow-deodorant/" />
     <meta property="og:image" content="https://primalpantry.co.nz/img/shop/deod4.webp" />
-    <meta property="og:description" content="A naturally gentle deodorant designed for sensitive skin. Made with grass-fed tallow base — hydrating, nourishing, and free from chemical nasties. 25% off now." />
+    <meta property="og:description" content="A naturally gentle deodorant designed for sensitive skin. Made with grass-fed tallow base — hydrating, nourishing, and free from chemical nasties." />
     <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
     <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
     <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
@@ -293,8 +293,6 @@
 
         <div class="pp-pricing-section">
             <span class="pp-price-main">
-                <span class="sale-badge">25% Off</span>
-                <span class="pp-price-was" id="priceWas"></span>
                 <span id="price">-</span>
             </span>
             <p class="afterpay-note">or 4 interest free payments of $<span id="afterpay_price"></span> with <img src="/img/afterpay.webp" class="d-inline" height="18" alt="afterpay"></p>
@@ -628,10 +626,6 @@
             document.getElementById("price").textContent = `$${price.toFixed(2)}`;
             document.getElementById("afterpay_price").textContent = `${(price / 4).toFixed(2)}`;
             document.getElementById("option-price-display").textContent = price.toFixed(2);
-
-            // Calculate and show the original price (before 25% off)
-            const originalPrice = (price / 0.75);
-            document.getElementById("priceWas").textContent = `$${originalPrice.toFixed(2)}`;
 
             // Update cart button text
             document.getElementById("cartBtnText").textContent = `Add To Cart — $${price.toFixed(2)}`;

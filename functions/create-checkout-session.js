@@ -24,7 +24,7 @@ const getStripe = (market) => {
 
 exports.handler = async (event, context) => {
   try {
-    const { cart, countryCode, osoMeta, clientInfo } = JSON.parse(event.body);
+    const { cart, countryCode, osoMeta, clientInfo, quizBundle } = JSON.parse(event.body);
 
     // Generate visitor_hash for analytics journey linking
     let visitorHash = '';
@@ -146,6 +146,7 @@ exports.handler = async (event, context) => {
       return_url: returnUrl,
       metadata: {
         market, // passed to webhook so it knows which Stripe account fired
+        ...(quizBundle ? { quiz_bundle: 'true' } : {}),
         ...(visitorHash ? { visitor_hash: visitorHash } : {}),
         ...(osoMeta ? {
           oso_lp: osoMeta.landing_page || '',

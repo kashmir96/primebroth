@@ -227,7 +227,15 @@ body {
             cart: cart.map(function(i) { return { priceId: i.priceId, quantity: parseInt(i.quantity) || 1 }; }),
             countryCode: countryCode,
             osoMeta: osoMeta,
-            clientInfo: clientInfo
+            clientInfo: clientInfo,
+            quizBundle: (function() {
+                try {
+                    var pids = JSON.parse(localStorage.getItem('quiz_bundle_pids') || '[]');
+                    if (!pids.length) return false;
+                    var cartPids = cart.map(function(i) { return i.priceId; });
+                    return pids.every(function(pid) { return cartPids.indexOf(pid) !== -1; });
+                } catch(e) { return false; }
+            })()
         })
     })
     .then(function(r) { return r.json(); })

@@ -2325,6 +2325,9 @@ function renderBundle(recs) {
             var p = r.product;
             window.ppAddToCart(p.priceId, p.price, p.name, p.size, '', p.img);
         });
+        // Store bundle price IDs — checkout validates all are still in cart
+        var bundlePids = bundleRecs.map(function(r) { return r.product.priceId; });
+        localStorage.setItem('quiz_bundle_pids', JSON.stringify(bundlePids));
         this.textContent = 'Added All \u2713';
         this.classList.add('added');
         var self = this;
