@@ -235,12 +235,6 @@
         <div class="sq-hero-stat"><div class="sq-hero-stat-val">Free gift</div><div class="sq-hero-stat-lbl">For Quizzers*</div></div>
     </div>
 
-    <!-- Live quiz stats -->
-    <div id="sqLiveStats" class="sq-hero-stats" style="display:none;margin-top:0.5rem;opacity:0.7;font-size:0.85em;">
-        <div class="sq-hero-stat"><div class="sq-hero-stat-val" id="sqStatQuizzes">–</div><div class="sq-hero-stat-lbl">Quizzes Taken</div></div>
-        <div class="sq-hero-stat"><div class="sq-hero-stat-val" id="sqStatOrders">–</div><div class="sq-hero-stat-lbl">Orders From Quiz</div></div>
-        <div class="sq-hero-stat"><div class="sq-hero-stat-val" id="sqStatRevenue">–</div><div class="sq-hero-stat-lbl">Revenue Generated</div></div>
-    </div>
 
     <button class="sq-btn sq-hero-start" id="sqStartBtn">Find My Match</button>
 
@@ -2895,20 +2889,6 @@ document.getElementById('sqReferralBtn').addEventListener('click', function() {
     });
 });
 
-/* ── Load live quiz stats ── */
-(function() {
-    fetch('/.netlify/functions/quiz-stats')
-        .then(function(r) { return r.json(); })
-        .then(function(d) {
-            if (d.quizzes > 0) {
-                document.getElementById('sqStatQuizzes').textContent = d.quizzes.toLocaleString();
-                document.getElementById('sqStatOrders').textContent = d.orders.toLocaleString();
-                document.getElementById('sqStatRevenue').textContent = '$' + d.revenue.toLocaleString();
-                document.getElementById('sqLiveStats').style.display = '';
-            }
-        })
-        .catch(function() {});
-})();
 </script>
 </body>
 </html>
