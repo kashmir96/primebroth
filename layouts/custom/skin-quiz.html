@@ -143,7 +143,9 @@
     @media (max-width: 640px) { .sq-products { grid-template-columns: 1fr 1fr; gap: 12px; } }
     @media (max-width: 420px) { .sq-products { grid-template-columns: 1fr 1fr; gap: 10px; } }
 
-    .sq-prod-why { font-size: 0.78rem; color: var(--pc-brown); background: var(--pc-brown-pale); padding: 6px 12px; border-radius: 0 0 10px 10px; margin: -1px 0 0; line-height: 1.4; font-style: italic; }
+    .sq-prod-why { font-size: 0.78rem; color: var(--pc-brown); background: var(--pc-brown-pale); padding: 6px 12px; border-radius: 0; margin: -1px 0 0; line-height: 1.4; font-style: italic; }
+    .sq-reroll-btn { display: block; width: 100%; background: none; border: 1px dashed var(--pc-brown-light, #c4b39a); color: var(--pc-brown-light, #9a8b76); font-size: 0.72rem; padding: 6px 0; border-radius: 0 0 10px 10px; cursor: pointer; transition: all 0.2s; letter-spacing: 0.02em; }
+    .sq-reroll-btn:hover { background: var(--pc-brown-pale, #f5efe8); color: var(--pc-brown, #4a3728); border-color: var(--pc-brown, #4a3728); }
 
     /* Bundle CTA */
     .sq-bundle-card { background: #fff; border: 2px solid var(--pc-green); border-radius: 16px; padding: 1.5rem; text-align: center; margin-bottom: 2rem; }
@@ -2127,6 +2129,11 @@ function getRecommendations() {
         r.step = i === 0 ? 'Start here' : (i === 1 ? 'Then apply' : 'Complete with');
     });
 
+    // Store all candidates globally for re-roll
+    window._quizAllCandidates = candidates;
+    window._quizCurrent = final3.slice();
+    window._quizAllergens = allergens;
+
     return final3;
 }
 
@@ -2398,6 +2405,7 @@ function renderProductCards(recs) {
         html += '<a href="' + p.url + '" class="pp-card-view">View</a>';
         html += '</div></div></div>';
         html += '<div class="sq-prod-why">' + rec.why + '</div>';
+        html += '<button class="sq-reroll-btn" data-slot="' + i + '" title="Show me a different product">&#x1f504; Try a different one</button>';
         html += '</div>';
     });
 
@@ -2412,6 +2420,45 @@ function renderProductCards(recs) {
             btn.textContent = 'Added \u2713';
             btn.classList.add('added');
             setTimeout(function() { btn.textContent = orig; btn.classList.remove('added'); }, 2500);
+        });
+    });
+
+    // Wire up re-roll buttons
+    container.querySelectorAll('.sq-reroll-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var slot = parseInt(btn.dataset.slot, 10);
+            var current = window._quizCurrent;
+            var allCands = window._quizAllCandidates || [];
+            if (!current || !current[slot]) return;
+
+            var currentKeys = current.map(function(r) { return r.key; });
+            // Find next candidate not already in the current 3
+            var replacement = null;
+            for (var ci = 0; ci < allCands.length; ci++) {
+                if (currentKeys.indexOf(allCands[ci].key) === -1) {
+                    replacement = allCands[ci];
+                    // Move used candidate to the end so next re-roll gets a different one
+                    allCands.splice(ci, 1);
+                    allCands.push(replacement);
+                    break;
+                }
+            }
+            if (!replacement) {
+                btn.textContent = 'No more alternatives';
+                btn.disabled = true;
+                setTimeout(function() { btn.textContent = '\u{1f504} Try a different one'; btn.disabled = false; }, 2000);
+                return;
+            }
+
+            // Swap in the replacement
+            current[slot] = replacement;
+            current[slot].step = slot === 0 ? 'Start here' : (slot === 1 ? 'Then apply' : 'Complete with');
+            window._quizCurrent = current;
+
+            // Re-render cards
+            renderProductCards(current);
+            // Also re-render bundle with new products
+            renderBundle(current);
         });
     });
 }
