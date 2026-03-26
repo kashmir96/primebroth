@@ -5,4 +5,5 @@ type: custom
 layout: products/body-oil-sample
 wipe: true
 bootstrap5: true
+draft: true
 ---
