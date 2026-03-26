@@ -13,14 +13,16 @@
 .rv-xs-sub { font-size: 0.9rem; color: #C4B8A8; margin: 0 0 10px; max-width: 520px; display: inline-block; line-height: 1.6; }
 .rv-xs-tagline { font-size: 0.75rem; color: #8A7D6E; margin: 0 0 36px; font-style: italic; }
 .rv-xs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
-.rv-xs-card { background: #F5F0E8; border-radius: 14px; overflow: hidden; text-align: center; transition: transform 0.2s; }
+.rv-xs-card { background: #F5F0E8; border-radius: 14px; overflow: hidden; text-align: center; transition: transform 0.2s; position: relative; }
 .rv-xs-card:hover { transform: translateY(-3px); }
 .rv-xs-card img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
 .rv-xs-card-serum img { object-position: center 30%; }
+.rv-xs-card-badge { position: absolute; top: 10px; left: 10px; font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 10px; border-radius: 50px; z-index: 3; background: #6B8F5B; color: #fff; }
 .rv-xs-card-body { padding: 12px 10px 14px; }
 .rv-xs-card-name { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 13px; color: #2C1810; margin: 0 0 2px; }
 .rv-xs-card-meta { font-size: 11px; color: #94918A; margin: 0 0 6px; }
 .rv-xs-card-price { font-weight: 700; font-size: 14px; color: #2C1810; margin: 0 0 8px; }
+.rv-xs-card-price-was { text-decoration: line-through; color: #877B71; font-weight: 400; font-size: 0.85em; margin-left: 4px; }
 .rv-xs-card-cta { display: flex; gap: 6px; }
 .rv-xs-card-atc { flex: 1; background: #3D2B1F; color: #F5F0E8; border: none; padding: 8px 6px; border-radius: 8px; font-size: 11px; font-weight: 600; cursor: pointer; transition: background 0.2s; font-family: 'DM Sans', sans-serif; }
 .rv-xs-card-atc:hover { background: #5A4535; }
@@ -55,11 +57,12 @@
 
             <!-- Day Cream -->
             <div class="rv-xs-card">
+                <span class="rv-xs-card-badge">-20% Launch Deal</span>
                 <a href="/cosmetic-tallow-reviana/day-cream/"><img src="/img/reviana-day-jar.webp" alt="Reviana Day Cream" loading="lazy"></a>
                 <div class="rv-xs-card-body">
                     <p class="rv-xs-card-name">Day Cream</p>
                     <p class="rv-xs-card-meta">Barrier building moisturiser · 50ml</p>
-                    <p class="rv-xs-card-price">NZ${{ $day.price_nz }}</p>
+                    <p class="rv-xs-card-price">NZ${{ $day.price_nz }}{{ if $day.compare_price }} <span class="rv-xs-card-price-was">NZ${{ $day.compare_price }}</span>{{ end }}</p>
                     <div class="rv-xs-card-cta">
                         <button class="rv-xs-card-atc" data-atc-pid="{{ $day.price_id_nz }}" data-atc-price="{{ $day.price_nz }}" data-atc-title="Reviana Day Cream" data-atc-size="50ml" data-atc-flavor="Day Formula" data-atc-image="/img/reviana-day-jar.webp">Add to Cart</button>
                         <a href="/cosmetic-tallow-reviana/day-cream/" class="rv-xs-card-view">View</a>
@@ -69,11 +72,12 @@
 
             <!-- Night Cream -->
             <div class="rv-xs-card">
+                <span class="rv-xs-card-badge">-20% Launch Deal</span>
                 <a href="/cosmetic-tallow-reviana/night-cream/"><img src="/img/reviana-night-jar.webp" alt="Reviana Night Cream" loading="lazy"></a>
                 <div class="rv-xs-card-body">
                     <p class="rv-xs-card-name">Night Cream</p>
                     <p class="rv-xs-card-meta">Overnight renewal · 50ml</p>
-                    <p class="rv-xs-card-price">NZ${{ $night.price_nz }}</p>
+                    <p class="rv-xs-card-price">NZ${{ $night.price_nz }}{{ if $night.compare_price }} <span class="rv-xs-card-price-was">NZ${{ $night.compare_price }}</span>{{ end }}</p>
                     <div class="rv-xs-card-cta">
                         <button class="rv-xs-card-atc" data-atc-pid="{{ $night.price_id_nz }}" data-atc-price="{{ $night.price_nz }}" data-atc-title="Reviana Night Cream" data-atc-size="50ml" data-atc-flavor="Night Formula" data-atc-image="/img/reviana-night-jar.webp">Add to Cart</button>
                         <a href="/cosmetic-tallow-reviana/night-cream/" class="rv-xs-card-view">View</a>
@@ -83,11 +87,12 @@
 
             <!-- Eye Cream -->
             <div class="rv-xs-card">
+                <span class="rv-xs-card-badge">-20% Launch Deal</span>
                 <a href="/cosmetic-tallow-reviana/eye-cream/"><img src="/img/reviana-eye-jar.webp" alt="Reviana Eye Cream" loading="lazy"></a>
                 <div class="rv-xs-card-body">
                     <p class="rv-xs-card-name">Eye Cream</p>
                     <p class="rv-xs-card-meta">Brightening eye treatment · 15ml</p>
-                    <p class="rv-xs-card-price">NZ${{ $eye.price_nz }}</p>
+                    <p class="rv-xs-card-price">NZ${{ $eye.price_nz }}{{ if $eye.compare_price }} <span class="rv-xs-card-price-was">NZ${{ $eye.compare_price }}</span>{{ end }}</p>
                     <div class="rv-xs-card-cta">
                         <button class="rv-xs-card-atc" data-atc-pid="{{ $eye.price_id_nz }}" data-atc-price="{{ $eye.price_nz }}" data-atc-title="Reviana Eye Cream" data-atc-size="15ml" data-atc-flavor="Vitamin C" data-atc-image="/img/reviana-eye-jar.webp">Add to Cart</button>
                         <a href="/cosmetic-tallow-reviana/eye-cream/" class="rv-xs-card-view">View</a>
@@ -97,11 +102,12 @@
 
             <!-- Serum -->
             <div class="rv-xs-card rv-xs-card-serum">
+                <span class="rv-xs-card-badge">-20% Launch Deal</span>
                 <a href="/cosmetic-tallow-reviana/serum/"><img src="/img/reviana-serum-jar.webp" alt="Reviana Serum" loading="lazy"></a>
                 <div class="rv-xs-card-body">
                     <p class="rv-xs-card-name">Serum</p>
                     <p class="rv-xs-card-meta">Complexion-refining · 15ml</p>
-                    <p class="rv-xs-card-price">NZ${{ $serum.price_nz }}</p>
+                    <p class="rv-xs-card-price">NZ${{ $serum.price_nz }}{{ if $serum.compare_price }} <span class="rv-xs-card-price-was">NZ${{ $serum.compare_price }}</span>{{ end }}</p>
                     <div class="rv-xs-card-cta">
                         <button class="rv-xs-card-atc" data-atc-pid="{{ $serum.price_id_nz }}" data-atc-price="{{ $serum.price_nz }}" data-atc-title="Reviana Serum" data-atc-size="15ml" data-atc-flavor="Complexion Serum" data-atc-image="/img/reviana-serum-jar.webp">Add to Cart</button>
                         <a href="/cosmetic-tallow-reviana/serum/" class="rv-xs-card-view">View</a>
