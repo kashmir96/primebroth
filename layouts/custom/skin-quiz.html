@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
     {{- partial "head.html" . -}}
+    <meta property="og:title" content="Skin Compatibility Quiz — Find Your Perfect Match | PrimalPantry">
+    <meta property="og:description" content="Take our 2-minute AI-driven quiz and we'll match you with the perfect skincare routine. Free gift with every bundle.">
+    <meta property="og:image" content="https://primalpantry.co.nz/img/tallow-before-after24.webp">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://primalpantry.co.nz/img/tallow-before-after24.webp">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -126,7 +132,7 @@
     /* Product Cards — single row of 3 */
     .sq-products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 1rem; }
     @media (max-width: 640px) { .sq-products { grid-template-columns: 1fr 1fr; gap: 12px; } }
-    @media (max-width: 420px) { .sq-products { grid-template-columns: 1fr; } }
+    @media (max-width: 420px) { .sq-products { grid-template-columns: 1fr 1fr; gap: 10px; } }
 
     .sq-prod-why { font-size: 0.78rem; color: var(--pc-brown); background: var(--pc-brown-pale); padding: 6px 12px; border-radius: 0 0 10px 10px; margin: -1px 0 0; line-height: 1.4; font-style: italic; }
 
@@ -191,10 +197,10 @@
 <!-- ═══════════════════════════════════════════════ -->
 <div class="sq-hero" id="sqHero">
     <div class="sq-hero-badge">
-        <span>AI-Informed Skin Compatibility Quiz</span>
+        <span>Helping Kiwis understand their skin</span>
     </div>
     <h1>Find Your <em>Perfect Match</em></h1>
-    <p class="sq-hero-sub">We'll match you the perfect skincare routine based on insights from serving over 90,000 Kiwis. If we don't think something will help, we'll tell you straight.</p>
+    <p class="sq-hero-sub">We'll match you the perfect skincare routine based on AI-driven insights from serving over 90,000 Kiwis. If we don't have something that'll help, we'll tell you straight — but still give you a detailed report to understand your skin better.</p>
 
     <div class="sq-hero-stats">
         <div class="sq-hero-stat"><div class="sq-hero-stat-val">90,000+</div><div class="sq-hero-stat-lbl">Kiwis Helped & Counting</div></div>
@@ -664,8 +670,7 @@
     <!-- AI Blurb -->
     <div class="sq-blurb-card">
         <div class="sq-blurb-label">Compatibility Analysis</div>
-        <div class="sq-blurb-text loading" id="sqBlurb">Running compatibility analysis against our full product range...</div>
-        <span class="sq-exclusive-tag">Only available direct from us</span>
+        <div class="sq-blurb-text loading" id="sqBlurb">Building your personalised routine...</div>
     </div>
 
     <!-- Product Recommendations -->
@@ -1736,7 +1741,9 @@ function renderRoutine(recs) {
     if (concerns.indexOf('wrinkles') !== -1 || concerns.indexOf('pigmentation') !== -1) {
         html += '&bull; Weekly: Apply serum as a 10-minute mask for deeper absorption<br>';
     }
-    html += '&bull; Weekly: Exfoliate gently with a warm flannel — avoid harsh scrubs';
+    if (concerns.indexOf('eczema') === -1 && concerns.indexOf('rashy') === -1 && concerns.indexOf('rosacea') === -1 && concerns.indexOf('psoriasis') === -1) {
+        html += '&bull; Weekly: Gently cleanse with a warm flannel — avoid harsh scrubs';
+    }
     html += '</div></div>';
 
     // Lifestyle tips
@@ -1777,32 +1784,47 @@ function fetchBlurb(recs) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ answers: answers, products: productNames, email: answers.email || null })
-    })
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-        if (data.blurb) {
-            blurbEl.textContent = data.blurb;
-            blurbEl.classList.remove('loading');
+    }).catch(function() {});
+
+    // Generate blurb locally based on selections
+    var concerns = answers.concerns || [];
+    var areas = answers.areas || [];
+    var sensitivity = parseInt(answers.sensitivity) || 5;
+    var pref = answers.preference;
+    var blurb = 'Based on your skin profile, we\'ve matched you with ' + productNames.slice(0, 3).join(', ') + '. ';
+
+    if (concerns.indexOf('eczema') !== -1 || concerns.indexOf('rashy') !== -1 || concerns.indexOf('psoriasis') !== -1) {
+        if (sensitivity >= 7) {
+            blurb += 'Because your skin is quite reactive, we\'ve prioritised products with minimal ingredients — nothing unnecessary that might not agree with you. ';
+        } else {
+            blurb += 'We\'ve chosen products with ingredients that are well-suited to sensitive, reactive skin. ';
         }
-    })
-    .catch(function() {
-        // Fallback blurb
-        var concerns = answers.concerns || [];
-        var areas = answers.areas || [];
-        var fallback = 'Based on your skin profile, we\'ve selected ';
-        fallback += productNames.slice(0, 3).join(', ');
-        fallback += ' as your recommended routine. ';
-        if (concerns.indexOf('eczema') !== -1 || concerns.indexOf('psoriasis') !== -1) {
-            fallback += 'These products are designed with simple, quality ingredients that are compatible with sensitive skin. ';
-        } else if (concerns.indexOf('wrinkles') !== -1) {
-            fallback += 'This combination delivers clinically-backed actives that target fine lines and stimulate collagen renewal. ';
-        } else if (concerns.indexOf('acne') !== -1) {
-            fallback += 'This routine regulates oil production while brightening post-acne marks with Vitamin C and Niacinamide. ';
+        if (areas.indexOf('body') !== -1 || areas.indexOf('hands') !== -1 || areas.indexOf('elbows') !== -1) {
+            blurb += 'For the areas that bother you most, the larger size gives you enough to apply generously without worrying about running out. ';
         }
-        fallback += 'Our Reviana range is only available direct from us \u2014 you won\'t find it in stores.';
-        blurbEl.textContent = fallback;
-        blurbEl.classList.remove('loading');
-    });
+    } else if (concerns.indexOf('wrinkles') !== -1) {
+        blurb += 'This combination brings together ingredients like Bakuchiol, Vitamin C, and Kakadu Plum that work together to support skin renewal. ';
+        if (pref === 'premium') {
+            blurb += 'Our Reviana range is formulated with premium actives designed for visible results. ';
+        }
+    } else if (concerns.indexOf('acne') !== -1) {
+        blurb += 'Niacinamide and Vitamin C are key ingredients for skin that tends to break out — they help balance and brighten. ';
+    } else if (concerns.indexOf('pigmentation') !== -1) {
+        blurb += 'Licorice Extract and Vitamin C are known for their brightening properties — this routine is designed to support more even-looking skin over time. ';
+    } else if (concerns.indexOf('dry') !== -1) {
+        blurb += 'Tallow closely mirrors the oils your skin naturally produces, which makes it a great option for locking in moisture. ';
+    } else if (concerns.indexOf('baby') !== -1) {
+        blurb += 'For little ones, we\'ve kept it as simple and gentle as possible — fragrance-free, minimal ingredients, nothing harsh. ';
+    } else {
+        blurb += 'These products complement each other well and are designed to work as a complete routine. ';
+    }
+
+    if (recs.length >= 3) {
+        blurb += 'Using them together as a routine gives your skin the best chance — each step builds on the last.';
+    }
+
+    blurbEl.textContent = blurb;
+    blurbEl.classList.remove('loading');
 }
 
 /* ── Email Capture ──────────────────────────────────── */
