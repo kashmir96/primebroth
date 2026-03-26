@@ -1,0 +1,1855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{- partial "head.html" . -}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+    :root {
+        --pc-cream: #F7F2EB;
+        --pc-cream-deep: #EDE3D3;
+        --pc-black: #1C1A17;
+        --pc-brown: #7B5C3A;
+        --pc-brown-mid: #9B7550;
+        --pc-brown-light: #C4A07A;
+        --pc-brown-pale: #F0E6D8;
+        --pc-green: #4A5E38;
+        --pc-border: rgba(123,92,58,0.14);
+        --pc-warm-gray: #8A7D70;
+        --pc-white: #FDFAF6;
+        --rv-forest: #2D3D22;
+        --rv-stone: #C4A07A;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--pc-cream); color: var(--pc-black); }
+
+    /* ── Quiz Container ──────────────────────────── */
+    .sq-wrap { max-width: 680px; margin: 0 auto; padding: 2rem 1.25rem 4rem; min-height: 80vh; }
+
+    /* Progress */
+    .sq-progress { display: flex; gap: 6px; margin-bottom: 2.5rem; }
+    .sq-progress-bar { flex: 1; height: 4px; border-radius: 4px; background: var(--pc-brown-pale); transition: background 0.4s; }
+    .sq-progress-bar.active { background: var(--pc-brown); }
+    .sq-progress-bar.done { background: var(--pc-green); }
+
+    /* Steps */
+    .sq-step { display: none; animation: sqFadeIn 0.4s ease; }
+    .sq-step.active { display: block; }
+    @keyframes sqFadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+    .sq-title { font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 600; color: var(--pc-black); margin-bottom: 0.5rem; line-height: 1.3; }
+    .sq-subtitle { font-size: 0.9rem; color: var(--pc-warm-gray); margin-bottom: 1.75rem; line-height: 1.5; }
+
+    /* Option Cards */
+    .sq-options { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+    .sq-options.two-col { grid-template-columns: 1fr 1fr; }
+    .sq-options.three-col { grid-template-columns: repeat(3, 1fr); }
+    .sq-opt {
+        background: #fff; border: 2px solid var(--pc-border); border-radius: 14px;
+        padding: 1.25rem 1rem; text-align: center; cursor: pointer;
+        transition: all 0.25s; position: relative;
+    }
+    .sq-opt:hover { border-color: var(--pc-brown-light); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.06); }
+    .sq-opt.selected { border-color: var(--pc-green); background: rgba(74,94,56,0.04); }
+    .sq-opt.selected::after { content: '\2713'; position: absolute; top: 8px; right: 10px; color: var(--pc-green); font-weight: 700; font-size: 0.85rem; }
+    .sq-opt-icon { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
+    .sq-opt-label { font-weight: 600; font-size: 0.88rem; color: var(--pc-black); }
+    .sq-opt-desc { font-size: 0.72rem; color: var(--pc-warm-gray); margin-top: 4px; line-height: 1.4; }
+
+    /* Buttons */
+    .sq-btn { display: inline-block; background: var(--pc-green); color: #fff; border: none; padding: 14px 36px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: all 0.25s; font-family: 'DM Sans', sans-serif; }
+    .sq-btn:hover { background: #3a4d2c; }
+    .sq-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .sq-btn-row { display: flex; gap: 12px; margin-top: 2rem; }
+    .sq-btn-back { background: none; color: var(--pc-warm-gray); border: 1px solid var(--pc-border); }
+    .sq-btn-back:hover { background: rgba(0,0,0,0.03); }
+
+    /* Slider */
+    .sq-slider-wrap { margin: 1.5rem 0; }
+    .sq-slider { width: 100%; accent-color: var(--pc-green); height: 6px; }
+    .sq-slider-labels { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--pc-warm-gray); margin-top: 6px; }
+    .sq-slider-val { text-align: center; font-size: 1.5rem; font-weight: 700; color: var(--pc-green); margin-bottom: 0.5rem; }
+
+    /* Allergen free text */
+    .sq-input { width: 100%; padding: 12px 14px; border: 1px solid var(--pc-border); border-radius: 8px; font-size: 0.85rem; font-family: 'DM Sans', sans-serif; margin-top: 12px; }
+    .sq-input:focus { border-color: var(--pc-green); outline: none; }
+
+    /* Disclaimer */
+    .sq-disclaimer { background: #FFF3CD; border: 1px solid #FFE69C; border-radius: 10px; padding: 1rem 1.25rem; margin-top: 1rem; font-size: 0.82rem; line-height: 1.6; color: #664D03; }
+    .sq-disclaimer a { color: var(--pc-brown); font-weight: 600; }
+
+    /* Tooltip */
+    .sq-tooltip { background: var(--pc-brown-pale); border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1.5rem; font-size: 0.82rem; line-height: 1.6; color: var(--pc-brown); display: none; animation: sqFadeIn 0.3s ease; }
+    .sq-tooltip.show { display: block; }
+
+    /* ── Results Page ────────────────────────────── */
+    .sq-results { max-width: 880px; margin: 0 auto; padding: 2rem 1.25rem 4rem; display: none; }
+    .sq-results.active { display: block; }
+
+    /* Report Header */
+    .sq-report-header { text-align: center; margin-bottom: 2.5rem; }
+    .sq-report-header .sq-title { font-size: 2rem; margin-bottom: 0.25rem; }
+    .sq-report-tag { display: inline-block; background: var(--pc-green); color: #fff; padding: 4px 14px; border-radius: 50px; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem; }
+
+    /* Skin Profile Section */
+    .sq-profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2.5rem; }
+    @media (max-width: 640px) { .sq-profile-grid { grid-template-columns: 1fr; } }
+
+    .sq-chart-card { background: #fff; border-radius: 16px; border: 1px solid var(--pc-border); padding: 1.5rem; }
+    .sq-chart-card h3 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; margin-bottom: 1rem; color: var(--pc-black); }
+    .sq-chart-card canvas { width: 100% !important; height: auto !important; }
+
+    /* Ingredient need bars */
+    .sq-ing-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .sq-ing-name { font-size: 0.75rem; font-weight: 600; width: 110px; flex-shrink: 0; color: var(--pc-brown); }
+    .sq-ing-track { flex: 1; height: 8px; background: var(--pc-brown-pale); border-radius: 4px; overflow: hidden; }
+    .sq-ing-fill { height: 100%; border-radius: 4px; transition: width 0.8s ease; }
+    .sq-ing-fill.high { background: var(--pc-green); }
+    .sq-ing-fill.med { background: var(--pc-brown-light); }
+    .sq-ing-fill.low { background: var(--pc-brown-pale); }
+    .sq-ing-level { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; width: 40px; }
+
+    /* AI Blurb */
+    .sq-blurb-card { background: linear-gradient(135deg, var(--rv-forest) 0%, #3a4d2c 100%); border-radius: 16px; padding: 1.75rem; margin-bottom: 2rem; color: #fff; position: relative; overflow: hidden; }
+    .sq-blurb-card::before { content: ''; position: absolute; top: -40px; right: -40px; width: 120px; height: 120px; background: rgba(255,255,255,0.05); border-radius: 50%; }
+    .sq-blurb-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--rv-stone); margin-bottom: 0.75rem; }
+    .sq-blurb-text { font-size: 0.9rem; line-height: 1.7; color: rgba(255,255,255,0.92); }
+    .sq-blurb-text.loading { opacity: 0.5; }
+    .sq-exclusive-tag { display: inline-block; background: rgba(196,160,122,0.2); color: var(--rv-stone); padding: 4px 12px; border-radius: 50px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 1rem; }
+
+    /* Routine Section */
+    .sq-routine-section { margin-bottom: 2.5rem; }
+    .sq-routine-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .sq-routine-sub { font-size: 0.82rem; color: var(--pc-warm-gray); margin-bottom: 1.5rem; }
+    .sq-routine-step { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--pc-green); margin-bottom: 0.5rem; }
+
+    /* Product Cards — single row of 3 */
+    .sq-products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 1rem; }
+    @media (max-width: 640px) { .sq-products { grid-template-columns: 1fr 1fr; gap: 12px; } }
+    @media (max-width: 420px) { .sq-products { grid-template-columns: 1fr; } }
+
+    .sq-prod-why { font-size: 0.78rem; color: var(--pc-brown); background: var(--pc-brown-pale); padding: 6px 12px; border-radius: 0 0 10px 10px; margin: -1px 0 0; line-height: 1.4; font-style: italic; }
+
+    /* Bundle CTA */
+    .sq-bundle-card { background: #fff; border: 2px solid var(--pc-green); border-radius: 16px; padding: 1.5rem; text-align: center; margin-bottom: 2rem; }
+    .sq-bundle-card h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; margin-bottom: 0.25rem; }
+    .sq-bundle-savings { font-size: 0.82rem; color: var(--pc-green); font-weight: 600; margin-bottom: 0.5rem; }
+    .sq-bundle-why { font-size: 0.78rem; color: var(--pc-warm-gray); margin-bottom: 1rem; line-height: 1.5; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .sq-bundle-prices { display: flex; align-items: baseline; justify-content: center; gap: 10px; margin-bottom: 1rem; }
+    .sq-bundle-was { text-decoration: line-through; color: #aaa; font-size: 1rem; }
+    .sq-bundle-now { font-size: 1.5rem; font-weight: 700; color: var(--pc-green); }
+
+    /* Email / Referral */
+    .sq-email-card { background: #fff; border: 1px solid var(--pc-border); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .sq-email-card h3 { font-family: 'Playfair Display', serif; font-size: 1rem; margin-bottom: 0.75rem; }
+    .sq-email-row { display: flex; gap: 10px; }
+    .sq-email-row input { flex: 1; }
+    .sq-email-row button { flex-shrink: 0; }
+    .sq-msg { font-size: 0.78rem; margin-top: 8px; }
+    .sq-msg.ok { color: var(--pc-green); }
+    .sq-msg.err { color: #C2185B; }
+
+    /* Hero Intro */
+    .sq-hero { text-align: center; padding: 2rem 1.25rem 2rem; max-width: 640px; margin: 0 auto; position: relative; }
+    .sq-hero-badge { display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 1px solid var(--pc-border); border-radius: 50px; padding: 6px 16px; margin-bottom: 1.25rem; font-size: 0.72rem; font-weight: 600; color: var(--pc-brown); }
+    .sq-hero h1 { font-family: 'Playfair Display', serif; font-size: 2.25rem; font-weight: 700; color: var(--pc-black); margin-bottom: 0.75rem; line-height: 1.2; }
+    .sq-hero h1 em { font-style: italic; color: var(--pc-green); }
+    .sq-hero-sub { font-size: 1rem; color: var(--pc-warm-gray); margin-bottom: 1.5rem; line-height: 1.6; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .sq-hero-mission { display: flex; align-items: center; gap: 12px; background: var(--pc-brown-pale); border-radius: 12px; padding: 1rem 1.25rem; margin-top: 1.5rem; text-align: left; }
+    .sq-hero-mission-icon { font-size: 1.75rem; flex-shrink: 0; }
+    .sq-hero-mission p { font-size: 0.82rem; color: var(--pc-brown); line-height: 1.5; }
+    .sq-hero-mission strong { color: var(--pc-black); }
+    .sq-hero-stats { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.75rem; }
+    .sq-hero-stat { text-align: center; }
+    .sq-hero-stat-val { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--pc-green); }
+    .sq-hero-stat-lbl { font-size: 0.68rem; color: var(--pc-warm-gray); text-transform: uppercase; letter-spacing: 0.06em; }
+    .sq-hero-eanz { position: absolute; top: 2rem; right: -160px; display: inline-flex; align-items: center; gap: 12px; background: #fff; border: 1px solid var(--pc-cream-deep); border-radius: 14px; padding: 12px 18px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); text-align: left; }
+    .sq-hero-eanz img { height: 44px; width: auto; flex-shrink: 0; }
+    .sq-hero-eanz-text { display: flex; flex-direction: column; }
+    .sq-hero-eanz-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; color: var(--pc-green); line-height: 1.3; }
+    .sq-hero-eanz-title { font-family: 'Playfair Display', serif; font-size: 0.82rem; color: var(--pc-brown); font-weight: 700; line-height: 1.25; }
+    .sq-hero-eanz-commit { font-size: 0.7rem; color: var(--pc-warm-gray); font-weight: 600; line-height: 1.4; margin-top: 2px; }
+    .sq-hero-start { margin-top: 0.5rem; }
+
+    @media (max-width: 480px) {
+        .sq-title { font-size: 1.35rem; }
+        .sq-options { grid-template-columns: 1fr 1fr; }
+        .sq-options.two-col { grid-template-columns: 1fr 1fr; }
+        .sq-email-row { flex-direction: column; }
+        .sq-hero h1 { font-size: 1.75rem; }
+        .sq-hero-stats { gap: 1.25rem; }
+        .sq-hero-eanz { position: static; margin-bottom: 1.25rem; }
+    }
+    </style>
+</head>
+<body>
+{{- partial "header_new.html" . -}}
+{{- partial "prodcard-styles.html" . -}}
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- HERO INTRO                                      -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="sq-hero" id="sqHero">
+    <div class="sq-hero-badge">
+        <span>AI-Informed Skin Compatibility Quiz</span>
+    </div>
+    <h1>Find Your <em>Perfect Match</em></h1>
+    <p class="sq-hero-sub">We'll match you the perfect skincare routine based on insights from serving over 90,000 Kiwis. If we don't think something will help, we'll tell you straight.</p>
+
+    <div class="sq-hero-stats">
+        <div class="sq-hero-stat"><div class="sq-hero-stat-val">90,000+</div><div class="sq-hero-stat-lbl">Kiwis Helped & Counting</div></div>
+        <div class="sq-hero-stat"><div class="sq-hero-stat-val">2 min</div><div class="sq-hero-stat-lbl">Quick Quiz</div></div>
+        <div class="sq-hero-stat"><div class="sq-hero-stat-val">Free gift*</div><div class="sq-hero-stat-lbl">For Quizzers</div></div>
+    </div>
+
+    <button class="sq-btn sq-hero-start" id="sqStartBtn">Find My Match</button>
+
+    <div class="sq-hero-mission">
+        <span class="sq-hero-mission-icon">&#x1F33F;</span>
+        <p><strong>Our mission:</strong> Help as many Kiwis as possible feel comfortable in their own skin. We make honest, affordable tallow skincare right here in Christchurch — because looking after your skin shouldn't be complicated or cost a fortune.</p>
+    </div>
+
+    <!-- Before & Afters -->
+    <div style="margin-top:2rem;">
+        <p style="font-size:0.72rem;color:var(--pc-warm-gray);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-bottom:1rem;">Real results from real Kiwis</p>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:680px;margin:0 auto;">
+            <img src="/img/tallow-before-after24.webp" alt="Before and after tallow skincare results" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;" loading="lazy">
+            <img src="/img/tallow-before-after1.webp" alt="Before and after tallow skincare results" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;" loading="lazy">
+            <img src="/img/tallow-before-after9.webp" alt="Before and after tallow skincare results" style="width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover;" loading="lazy">
+        </div>
+    </div>
+
+    <!-- EANZ Gold Supporter Pill — exact match from homepage -->
+    <div style="display:inline-flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--pc-cream-deep);border-radius:16px;padding:12px 20px;margin:2rem auto 0;box-shadow:0 2px 12px rgba(0,0,0,0.04);text-align:left;">
+        <img src="/img/home/eanz.webp" alt="Eczema Association of New Zealand" width="52" height="52" style="flex-shrink:0;">
+        <div style="display:flex;flex-direction:column;">
+            <span style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.14em;font-weight:700;color:var(--pc-green);line-height:1.3;">Official Gold Supporters</span>
+            <span style="font-family:'Playfair Display',serif;font-size:0.95rem;color:var(--pc-brown);font-weight:700;line-height:1.25;">Eczema Association of New Zealand</span>
+            <span style="font-size:0.7rem;color:var(--pc-warm-gray);font-weight:600;line-height:1.4;margin-top:2px;">$70,000 committed to Kiwis with eczema</span>
+            <a href="https://www.eczema.org.nz/" target="_blank" rel="noopener" style="font-size:0.75rem;color:var(--pc-brown);font-weight:600;margin-top:4px;text-decoration:none;">What's this mean? &rarr;</a>
+        </div>
+    </div>
+    <p style="text-align:right;font-size:0.6rem;color:var(--pc-warm-gray);margin-top:0.5rem;">*Free gift for quizzers who purchase any bundle after completing the quiz</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- QUIZ SECTION                                    -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="sq-wrap" id="sqQuiz" style="display:none;">
+    <!-- Progress -->
+    <div class="sq-progress" id="sqProgress"></div>
+
+    <!-- Step 0: Age Group -->
+    <div class="sq-step active" data-step="0">
+        <h2 class="sq-title">First up — who's the skincare for?</h2>
+        <p class="sq-subtitle">Different ages need different things. Let's get this right from the start.</p>
+        <div class="sq-options" data-key="ageGroup" data-mode="single">
+            <div class="sq-opt" data-val="baby">
+                <span class="sq-opt-icon">&#x1F476;</span>
+                <span class="sq-opt-label">Baby</span>
+                <span class="sq-opt-desc">Under 3 years</span>
+            </div>
+            <div class="sq-opt" data-val="child">
+                <span class="sq-opt-icon">&#x1F9D2;</span>
+                <span class="sq-opt-label">Child</span>
+                <span class="sq-opt-desc">3 — 12 years</span>
+            </div>
+            <div class="sq-opt" data-val="teen">
+                <span class="sq-opt-icon">&#x1F9D1;</span>
+                <span class="sq-opt-label">Teen</span>
+                <span class="sq-opt-desc">13 — 19 years</span>
+            </div>
+            <div class="sq-opt" data-val="adult">
+                <span class="sq-opt-icon">&#x1F9D4;</span>
+                <span class="sq-opt-label">Adult</span>
+                <span class="sq-opt-desc">20 — 45 years</span>
+            </div>
+            <div class="sq-opt" data-val="mature">
+                <span class="sq-opt-icon">&#x1F9D3;</span>
+                <span class="sq-opt-label">Mature</span>
+                <span class="sq-opt-desc">45 — 60 years</span>
+            </div>
+            <div class="sq-opt" data-val="senior">
+                <span class="sq-opt-icon">&#x1F474;</span>
+                <span class="sq-opt-label">Senior</span>
+                <span class="sq-opt-desc">60+ years</span>
+            </div>
+        </div>
+        <div class="sq-btn-row"><button class="sq-btn" id="sqNext0" disabled>Next</button></div>
+    </div>
+
+    <!-- Step 0b: Gender -->
+    <div class="sq-step" data-step="0b">
+        <h2 class="sq-title">And are you...</h2>
+        <p class="sq-subtitle">Some products suit different skin types — this helps us fine-tune your match.</p>
+        <div class="sq-options two-col" data-key="gender" data-mode="single">
+            <div class="sq-opt" data-val="female">
+                <span class="sq-opt-icon">&#x2640;&#xFE0F;</span>
+                <span class="sq-opt-label">Female</span>
+            </div>
+            <div class="sq-opt" data-val="male">
+                <span class="sq-opt-icon">&#x2642;&#xFE0F;</span>
+                <span class="sq-opt-label">Male</span>
+            </div>
+            <div class="sq-opt" data-val="other">
+                <span class="sq-opt-icon">&#x2B50;</span>
+                <span class="sq-opt-label">Other</span>
+            </div>
+            <div class="sq-opt" data-val="skip">
+                <span class="sq-opt-icon">&#x1F6AB;</span>
+                <span class="sq-opt-label">Prefer not to say</span>
+            </div>
+        </div>
+        <div class="sq-btn-row"><button class="sq-btn sq-btn-back" onclick="sqBack()">Back</button><button class="sq-btn" id="sqNext0b" disabled>Next</button></div>
+    </div>
+
+    <!-- Step 1: Skin Concern -->
+    <div class="sq-step" data-step="2">
+        <h2 class="sq-title">What's bugging your skin?</h2>
+        <p class="sq-subtitle">Pick up to two — we'll find the products that are actually compatible with what you're dealing with.</p>
+        <div class="sq-options" data-key="concerns" data-mode="multi" data-max="2">
+            <div class="sq-opt" data-val="eczema">
+                <span class="sq-opt-icon">&#x1FA79;</span>
+                <span class="sq-opt-label">Red & Rashy</span>
+                <span class="sq-opt-desc">Eczema-prone, psoriasis, or other red rashy conditions</span>
+            </div>
+            <div class="sq-opt" data-val="rosacea">
+                <span class="sq-opt-icon">&#x1F33A;</span>
+                <span class="sq-opt-label">Rosacea</span>
+                <span class="sq-opt-desc">Persistent facial redness and flushing</span>
+            </div>
+            <div class="sq-opt" data-val="acne">
+                <span class="sq-opt-icon">&#x1F4A2;</span>
+                <span class="sq-opt-label">Acne & Breakouts</span>
+                <span class="sq-opt-desc">Pimples, blackheads, oily skin</span>
+            </div>
+            <div class="sq-opt" data-val="dry">
+                <span class="sq-opt-icon">&#x1F3DC;</span>
+                <span class="sq-opt-label">Dry & Flaky</span>
+                <span class="sq-opt-desc">Tight, rough, peeling skin</span>
+            </div>
+            <div class="sq-opt" data-val="wrinkles">
+                <span class="sq-opt-icon">&#x2728;</span>
+                <span class="sq-opt-label">Wrinkles & Fine Lines</span>
+                <span class="sq-opt-desc">Signs of aging, loss of firmness</span>
+            </div>
+            <div class="sq-opt" data-val="pigmentation">
+                <span class="sq-opt-icon">&#x1F308;</span>
+                <span class="sq-opt-label">Uneven Skin Tone</span>
+                <span class="sq-opt-desc">Dark spots, hyperpigmentation</span>
+            </div>
+            <div class="sq-opt" data-val="general">
+                <span class="sq-opt-icon">&#x1F9F4;</span>
+                <span class="sq-opt-label">Just Like Skincare</span>
+                <span class="sq-opt-desc">No major issues — want the best routine</span>
+            </div>
+            <div class="sq-opt" data-val="other-concern">
+                <span class="sq-opt-icon">&#x270F;</span>
+                <span class="sq-opt-label">Something Else</span>
+                <span class="sq-opt-desc">Tell our custom-built AI in your own words</span>
+            </div>
+        </div>
+        <input type="text" class="sq-input" id="sqConcernOther" placeholder="Describe your skin concern in your own words..." style="display:none;">
+        <div class="sq-btn-row"><button class="sq-btn sq-btn-back" onclick="sqBack()">Back</button><button class="sq-btn" id="sqNext2" disabled>Next</button></div>
+    </div>
+
+    <!-- Step 2b: What have you tried? -->
+    <div class="sq-step" data-step="2b">
+        <h2 class="sq-title">What have you tried in the past?</h2>
+        <p class="sq-subtitle">This helps us understand what hasn't worked — so we don't recommend more of the same.</p>
+        <div class="sq-options" data-key="triedBefore" data-mode="multi" data-max="6">
+            <div class="sq-opt" data-val="steroid-creams">
+                <span class="sq-opt-icon">&#x1F48A;</span>
+                <span class="sq-opt-label">Steroid Creams</span>
+                <span class="sq-opt-desc">Prescribed or over-the-counter</span>
+            </div>
+            <div class="sq-opt" data-val="pharmacy-moisturisers">
+                <span class="sq-opt-icon">&#x1F3EA;</span>
+                <span class="sq-opt-label">Pharmacy Moisturisers</span>
+                <span class="sq-opt-desc">Cetaphil, QV, Aveeno etc.</span>
+            </div>
+            <div class="sq-opt" data-val="natural-oils">
+                <span class="sq-opt-icon">&#x1FAD2;</span>
+                <span class="sq-opt-label">Natural Oils</span>
+                <span class="sq-opt-desc">Coconut oil, olive oil, etc.</span>
+            </div>
+            <div class="sq-opt" data-val="department-store">
+                <span class="sq-opt-icon">&#x1F6CD;</span>
+                <span class="sq-opt-label">Department Store Brands</span>
+                <span class="sq-opt-desc">Premium retail skincare</span>
+            </div>
+            <div class="sq-opt" data-val="nothing">
+                <span class="sq-opt-icon">&#x1F937;</span>
+                <span class="sq-opt-label">Nothing yet</span>
+                <span class="sq-opt-desc">First time looking for a solution</span>
+            </div>
+            <div class="sq-opt" data-val="tallow">
+                <span class="sq-opt-icon">&#x1F33F;</span>
+                <span class="sq-opt-label">Tallow Products</span>
+                <span class="sq-opt-desc">Already tried tallow skincare</span>
+            </div>
+        </div>
+        <div class="sq-btn-row"><button class="sq-btn sq-btn-back" onclick="sqBack()">Back</button><button class="sq-btn">Next</button></div>
+    </div>
+
+    <!-- Step 2c: Tallow feedback (conditional — only if they selected tallow in 2b) -->
+    <div class="sq-step" data-step="2c">
+        <h2 class="sq-title">You've tried tallow — what did you think?</h2>
+        <p class="sq-subtitle">We'd love to know your experience. This helps us recommend the right product for you.</p>
+        <div class="sq-options" data-key="tallowFeedback" data-mode="single">
+            <div class="sq-opt" data-val="loved-it">
+                <span class="sq-opt-icon">&#x2764;</span>
+                <span class="sq-opt-label">Loved it</span>
+                <span class="sq-opt-desc">It worked well, want more of the same</span>
+            </div>
+            <div class="sq-opt" data-val="texture">
+                <span class="sq-opt-icon">&#x1F44E;</span>
+                <span class="sq-opt-label">Didn't love the texture</span>
+                <span class="sq-opt-desc">Too thick, greasy, or hard to apply</span>
+            </div>
+            <div class="sq-opt" data-val="smell">
+                <span class="sq-opt-icon">&#x1F443;</span>
+                <span class="sq-opt-label">Didn't love the smell</span>
+                <span class="sq-opt-desc">The natural tallow scent wasn't for me</span>
+            </div>
+            <div class="sq-opt" data-val="no-results">
+                <span class="sq-opt-icon">&#x1F614;</span>
+                <span class="sq-opt-label">Didn't notice a difference</span>
+                <span class="sq-opt-desc">Used it but didn't see results</span>
+            </div>
+        </div>
+        <input type="text" class="sq-input" id="sqTallowFeedbackOther" placeholder="Anything else you'd change? (optional)">
+        <div class="sq-btn-row"><button class="sq-btn sq-btn-back" onclick="sqBack()">Back</button><button class="sq-btn" disabled>Next</button></div>
+    </div>
+
+    <!-- Step 3: Problem Areas -->
+    <div class="sq-step" data-step="3">
+        <h2 class="sq-title">Where does it bother you most?</h2>
+        <p class="sq-subtitle">Tick everything that gives you grief — we'll make sure each area is covered.</p>
+        <div class="sq-options" data-key="areas" data-mode="multi" data-max="7">
+            <div class="sq-opt" data-val="face">
+                <span class="sq-opt-icon">&#x1F610;</span>
+                <span class="sq-opt-label">Face</span>
+            </div>
+            <div class="sq-opt" data-val="undereyes">
+                <span class="sq-opt-icon">&#x1F441;</span>
+                <span class="sq-opt-label">Under Eyes</span>
+            </div>
+            <div class="sq-opt" data-val="lips">
+                <span class="sq-opt-icon">&#x1F444;</span>
+                <span class="sq-opt-label">Lips</span>
+            </div>
+            <div class="sq-opt" data-val="scalp">
+                <span class="sq-opt-icon">&#x1F9D2;</span>
+                <span class="sq-opt-label">Scalp</span>
+            </div>
+            <div class="sq-opt" data-val="hands">
+                <span class="sq-opt-icon">&#x270B;</span>
+                <span class="sq-opt-label">Hands</span>
+            </div>
+            <div class="sq-opt" data-val="elbows">
+                <span class="sq-opt-icon">&#x1F4AA;</span>
+                <span class="sq-opt-label">Elbows & Knees</span>
+            </div>
+            <div class="sq-opt" data-val="body">
+                <span class="sq-opt-icon">&#x1F9CD;</span>
+                <span class="sq-opt-label">Full Body</span>
+            </div>
+        </div>
+        <div class="sq-btn-row"><button class="sq-btn sq-btn-back" onclick="sqBack()">Back</button><button class="sq-btn" id="sqNext3" disabled>Next</button></div>
+    </div>
+
+    <!-- Step 4: Preference + Sensitivity -->
+    <div class="sq-step" data-step="4">
+        <h2 class="sq-title">What matters more to you?</h2>
+        <p class="sq-subtitle">Both approaches work — it's about what feels right for your skin and your vibe.</p>
+        <div class="sq-options two-col" data-key="preference" data-mode="single">
+            <div class="sq-opt" data-val="simple">
+                <span class="sq-opt-icon">&#x1F33F;</span>
+                <span class="sq-opt-label">Simple & traditional</span>
+                <span class="sq-opt-desc">Fewer, natural ingredients — let tallow do the work</span>
+            </div>
+            <div class="sq-opt" data-val="premium">
+                <span class="sq-opt-icon">&#x1F48E;</span>
+                <span class="sq-opt-label">Maximum results</span>
+                <span class="sq-opt-desc">Premium active ingredients for visible improvement</span>
+            </div>
+        </div>
+        <div class="sq-btn-row"><button class="sq-btn sq-btn-back" onclick="sqBack()">Back</button><button class="sq-btn" id="sqNext4" disabled>Next</button></div>
+    </div>
+
+    <!-- Step 4b: Sensitivity -->
+    <div class="sq-step" data-step="4b">
+        <h2 class="sq-title">How sensitive is your skin?</h2>
+        <p class="sq-subtitle">This helps us figure out which ingredients are right for you.</p>
+        <div class="sq-options" data-key="sensitivity" data-mode="single">
+            <div class="sq-opt" data-val="1">
+                <span class="sq-opt-label">Not sensitive</span>
+                <span class="sq-opt-desc">My skin handles pretty much anything</span>
+            </div>
+            <div class="sq-opt" data-val="3">
+                <span class="sq-opt-label">A little sensitive</span>
+                <span class="sq-opt-desc">Occasionally reacts to new products</span>
+            </div>
+            <div class="sq-opt" data-val="5">
+                <span class="sq-opt-label">Moderately sensitive</span>
+                <span class="sq-opt-desc">I have to be careful what I put on my skin</span>
+            </div>
+            <div class="sq-opt" data-val="7">
+                <span class="sq-opt-label">Very sensitive</span>
+                <span class="sq-opt-desc">Most products don't agree with my skin</span>
+            </div>
+            <div class="sq-opt" data-val="10">
+                <span class="sq-opt-label">Extremely sensitive</span>
+                <span class="sq-opt-desc">I struggle to find anything that works for me</span>
+            </div>
+        </div>
+        <div class="sq-btn-row"><button class="sq-btn sq-btn-back" onclick="sqBack()">Back</button><button class="sq-btn" disabled>Next</button></div>
+    </div>
+
+    <!-- Step 5: Allergens -->
+    <div class="sq-step" data-step="5">
+        <h2 class="sq-title">Anything your skin doesn't get along with?</h2>
+        <p class="sq-subtitle" id="sqAllergenSub">These are common things people's skin doesn't agree with — tick any that apply to you.</p>
+        <div class="sq-options" data-key="allergens" data-mode="multi" data-max="9">
+            <div class="sq-opt" data-val="fragrance">
+                <span class="sq-opt-icon">&#x1F490;</span>
+                <span class="sq-opt-label">Fragrances</span>
+                <span class="sq-opt-desc">Synthetic scents & perfumes</span>
+            </div>
+            <div class="sq-opt" data-val="essential-oils">
+                <span class="sq-opt-icon">&#x1F33F;</span>
+                <span class="sq-opt-label">Essential Oils</span>
+                <span class="sq-opt-desc">Lavender, tea tree, etc.</span>
+            </div>
+            <div class="sq-opt" data-val="coconut">
+                <span class="sq-opt-icon">&#x1F965;</span>
+                <span class="sq-opt-label">Coconut</span>
+                <span class="sq-opt-desc">Coconut oil or derivatives</span>
+            </div>
+            <div class="sq-opt" data-val="nuts">
+                <span class="sq-opt-icon">&#x1F95C;</span>
+                <span class="sq-opt-label">Nuts (Almond/Argan)</span>
+                <span class="sq-opt-desc">Tree nut oils & butters</span>
+            </div>
+            <div class="sq-opt" data-val="beeswax">
+                <span class="sq-opt-icon">&#x1F41D;</span>
+                <span class="sq-opt-label">Beeswax</span>
+                <span class="sq-opt-desc">Beeswax or propolis</span>
+            </div>
+            <div class="sq-opt" data-val="lanolin">
+                <span class="sq-opt-icon">&#x1F411;</span>
+                <span class="sq-opt-label">Lanolin</span>
+                <span class="sq-opt-desc">Wool-derived moisturisers</span>
+            </div>
+            <div class="sq-opt" data-val="sulfates">
+                <span class="sq-opt-icon">&#x1F9F4;</span>
+                <span class="sq-opt-label">Sulfates / SLS</span>
+                <span class="sq-opt-desc">Foaming agents in cleansers</span>
+            </div>
+            <div class="sq-opt" data-val="preservatives">
+                <span class="sq-opt-icon">&#x1F9EA;</span>
+                <span class="sq-opt-label">Parabens / Preservatives</span>
+                <span class="sq-opt-desc">Chemical preservatives</span>
+            </div>
+            <div class="sq-opt" data-val="none">
+                <span class="sq-opt-icon">&#x2705;</span>
+                <span class="sq-opt-label">None of these</span>
+                <span class="sq-opt-desc">My skin's pretty chill</span>
+            </div>
+        </div>
+        <input type="text" class="sq-input" id="sqAllergenOther" placeholder="Anything else your skin doesn't like? (optional)">
+        <div class="sq-btn-row"><button class="sq-btn sq-btn-back" onclick="sqBack()">Back</button><button class="sq-btn" id="sqNext5">Next</button></div>
+    </div>
+
+    <!-- Step 6: Severity (conditional — eczema/psoriasis only) -->
+    <div class="sq-step" data-step="6">
+        <h2 class="sq-title">How's your skin tracking right now?</h2>
+        <p class="sq-subtitle">Be honest — it helps us figure out what level of support you need.</p>
+        <div class="sq-options two-col" data-key="severity" data-mode="single">
+            <div class="sq-opt" data-val="recovered">
+                <span class="sq-opt-icon">&#x2705;</span>
+                <span class="sq-opt-label">Recovered / Maintaining</span>
+                <span class="sq-opt-desc">Skin is mostly clear, want to keep it that way</span>
+            </div>
+            <div class="sq-opt" data-val="recurring">
+                <span class="sq-opt-icon">&#x1F504;</span>
+                <span class="sq-opt-label">Recurring Rashes</span>
+                <span class="sq-opt-desc">Comes and goes, up and down</span>
+            </div>
+            <div class="sq-opt" data-val="active">
+                <span class="sq-opt-icon">&#x1F525;</span>
+                <span class="sq-opt-label">Really struggling right now</span>
+                <span class="sq-opt-desc">Currently dealing with inflamed skin</span>
+            </div>
+            <div class="sq-opt" data-val="open-wounds">
+                <span class="sq-opt-icon">&#x1F4A7;</span>
+                <span class="sq-opt-label">Open / Weeping</span>
+                <span class="sq-opt-desc">Broken or weeping skin</span>
+            </div>
+        </div>
+        <div class="sq-disclaimer" id="sqOpenDisclaimer" style="display:none;background:#f0ebe3;border-color:var(--pc-border);color:var(--pc-brown);">
+            <strong>Heads up:</strong> Some of our customers do use our products on open skin, but we'd recommend having a chat with a professional first if this is you. Our partners at the <a href="https://www.eczema.org.nz/" target="_blank" rel="noopener">Eczema Association NZ</a> are also a great resource.
+        </div>
+        <div class="sq-btn-row"><button class="sq-btn sq-btn-back" onclick="sqBack()">Back</button><button class="sq-btn" id="sqNext6" disabled>Next</button></div>
+    </div>
+
+    <!-- Step 7: Moisturising Frequency + Email capture before results -->
+    <div class="sq-step" data-step="7">
+        <h2 class="sq-title">Last one — how often are you moisturising?</h2>
+        <p class="sq-subtitle">This helps us figure out the right size — nothing worse than running out mid-routine!</p>
+        <div class="sq-options two-col" data-key="frequency" data-mode="single">
+            <div class="sq-opt" data-val="rarely">
+                <span class="sq-opt-icon">&#x1F4A4;</span>
+                <span class="sq-opt-label">Rarely</span>
+                <span class="sq-opt-desc">When I remember</span>
+            </div>
+            <div class="sq-opt" data-val="once">
+                <span class="sq-opt-icon">&#x2600;</span>
+                <span class="sq-opt-label">Once Daily</span>
+                <span class="sq-opt-desc">Morning or night</span>
+            </div>
+            <div class="sq-opt" data-val="twice">
+                <span class="sq-opt-icon">&#x1F319;</span>
+                <span class="sq-opt-label">Twice Daily</span>
+                <span class="sq-opt-desc">Morning and night</span>
+            </div>
+            <div class="sq-opt" data-val="3plus">
+                <span class="sq-opt-icon">&#x1F4A7;</span>
+                <span class="sq-opt-label">3+ Times</span>
+                <span class="sq-opt-desc">Constant reapplication</span>
+            </div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--pc-border);border-radius:12px;padding:1rem 1.25rem;margin-top:1.5rem;">
+            <p style="font-size:0.82rem;color:var(--pc-warm-gray);margin-bottom:0.75rem;">Want your results emailed to you? (optional)</p>
+            <input type="email" class="sq-input" id="sqEmailPreResults" placeholder="your@email.com" style="margin-top:0;">
+        </div>
+        <div class="sq-btn-row"><button class="sq-btn sq-btn-back" onclick="sqBack()">Back</button><button class="sq-btn" id="sqNext7" disabled>See My Results</button></div>
+        <p style="font-size:0.8rem;color:var(--pc-warm-gray);line-height:1.5;margin-top:1.25rem;text-align:center;max-width:480px;margin-left:auto;margin-right:auto;">
+            Our goal here isn't to sell you something. It's to help you understand your skin. If we think our products can help, we'll recommend them. If not, we'll tell you straight. Not everything works for everyone, and that's okay.
+        </p>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- RESULTS SECTION                                 -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="sq-results" id="sqResults">
+    <div class="sq-report-header">
+        <span class="sq-report-tag">Compatibility Report</span>
+        <h1 class="sq-title">Your Skin Compatibility Results</h1>
+        <p class="sq-subtitle">We've matched your skin profile against our full product range. Here's what's compatible with your skin.</p>
+    </div>
+
+    <!-- Open skin advisory — only shown for open-wounds severity -->
+    <div id="sqOpenSkinAdvisory" style="display:none;background:#fff;border:2px solid var(--pc-brown-light);border-radius:16px;padding:1.5rem;margin-bottom:2rem;text-align:center;">
+        <img src="/img/home/eanz.webp" alt="Eczema Association of New Zealand" style="height:48px;margin-bottom:0.75rem;">
+        <p style="font-size:0.9rem;color:var(--pc-black);line-height:1.6;margin:0;">
+            <strong>Heads up:</strong> Some of our customers do use our products on open skin, but we'd recommend having a chat with a professional first if this is you. Our partners at the <a href="https://www.eczema.org.nz/" target="_blank" rel="noopener" style="color:var(--pc-brown);font-weight:700;text-decoration:underline;">Eczema Association NZ</a> are also a great resource.
+        </p>
+    </div>
+
+    <!-- Skin Profile Charts -->
+    <div class="sq-profile-grid">
+        <div class="sq-chart-card">
+            <h3>Your Skin Profile</h3>
+            <canvas id="sqRadar" width="300" height="300"></canvas>
+        </div>
+        <div class="sq-chart-card">
+            <h3>What Your Skin Needs</h3>
+            <div id="sqIngBars"></div>
+        </div>
+    </div>
+
+    <!-- AI Blurb -->
+    <div class="sq-blurb-card">
+        <div class="sq-blurb-label">Compatibility Analysis</div>
+        <div class="sq-blurb-text loading" id="sqBlurb">Running compatibility analysis against our full product range...</div>
+        <span class="sq-exclusive-tag">Only available direct from us</span>
+    </div>
+
+    <!-- Product Recommendations -->
+    <div class="sq-routine-section">
+        <h2 class="sq-routine-title">Your Compatible Products</h2>
+        <p class="sq-routine-sub">Each product has been matched to your skin profile based on your concerns, problem areas, and ingredient compatibility.</p>
+        <div id="sqProductCards"></div>
+    </div>
+
+    <!-- Bundle CTA -->
+    <div class="sq-bundle-card" id="sqBundleCard">
+        <h3 id="sqBundleName">Your Complete Compatible Routine</h3>
+        <div class="sq-bundle-savings" id="sqBundleSavings">Save 10% when you buy all compatible products together</div>
+        <div class="sq-bundle-why" id="sqBundleWhy">These products are specifically formulated to work in combination — each one enhances the absorption and effectiveness of the others for compounding results.</div>
+        <div class="sq-bundle-prices">
+            <span class="sq-bundle-was" id="sqBundleWas"></span>
+            <span class="sq-bundle-now" id="sqBundleNow"></span>
+        </div>
+        <button class="sq-btn" id="sqBundleBtn" style="width:100%;max-width:360px;">Add Compatible Routine to Cart</button>
+        <p style="font-size:0.78rem;color:var(--pc-green);margin-top:0.75rem;font-weight:600;" id="sqFreeGift">+ Free special gift included with your bundle*</p>
+        <p style="font-size:0.65rem;color:var(--pc-warm-gray);margin-top:0.25rem;" id="sqFreeGiftNote">*We'll include a free Manuka Honey Lip Balm with your order</p>
+    </div>
+
+    <!-- Prescribed Routine -->
+    <div class="sq-chart-card" style="margin-bottom:1.5rem;" id="sqRoutineCard">
+        <h3 style="margin-bottom:0.25rem;">Your Personalised Routine</h3>
+        <p style="font-size:0.72rem;color:var(--pc-warm-gray);margin-bottom:1rem;">Based on your skin profile — adapt as needed for your lifestyle.</p>
+        <div id="sqRoutineContent"></div>
+        <div style="background:var(--pc-brown-pale);border-radius:8px;padding:0.75rem 1rem;margin-top:1rem;">
+            <p style="font-size:0.68rem;color:var(--pc-warm-gray);line-height:1.5;margin:0;"><strong>Please note:</strong> This quiz is for general skincare guidance only and is not medical advice. Our suggestions are based on product knowledge, not clinical assessment. If you have concerns about your skin, please talk to your GP or dermatologist.</p>
+        </div>
+    </div>
+
+    <!-- Customer Reviews -->
+    <div style="margin-bottom:2rem;">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:1rem;text-align:center;">What Kiwis Are Saying</h3>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;" id="sqReviews">
+            <div class="sq-chart-card" style="padding:1.25rem;">
+                <div style="color:var(--pc-green);margin-bottom:0.5rem;font-size:0.85rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p style="font-size:0.78rem;line-height:1.6;color:var(--pc-black);margin-bottom:0.5rem;">"After two weeks of using Tallow PrimalCare we noticed a real difference in my daughter's skin. It is expensive but the results are amazing."</p>
+                <p style="font-size:0.68rem;color:var(--pc-warm-gray);font-weight:600;">Trustpilot Review</p>
+            </div>
+            <div class="sq-chart-card" style="padding:1.25rem;">
+                <div style="color:var(--pc-green);margin-bottom:0.5rem;font-size:0.85rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p style="font-size:0.78rem;line-height:1.6;color:var(--pc-black);margin-bottom:0.5rem;">"Love this stuff, only tried but it works. My boys have eczema and this helped ease the itching and smells so good. I'll definitely be buying some more."</p>
+                <p style="font-size:0.68rem;color:var(--pc-warm-gray);font-weight:600;">Whakaaro</p>
+            </div>
+            <div class="sq-chart-card" style="padding:1.25rem;">
+                <div style="color:var(--pc-green);margin-bottom:0.5rem;font-size:0.85rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p style="font-size:0.78rem;line-height:1.6;color:var(--pc-black);margin-bottom:0.5rem;">"Love it, my sis bought me a small one to try and I had to buy 3 large jars. So nice."</p>
+                <p style="font-size:0.68rem;color:var(--pc-warm-gray);font-weight:600;">Steph</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Email & Referral Combined -->
+    <div class="sq-email-card">
+        <h3>Send Yourself This Report</h3>
+        <p class="sq-subtitle" style="margin-bottom:0.75rem;">We'll email your compatibility results and product links so you can come back to them.</p>
+        <div class="sq-email-row">
+            <input type="email" class="sq-input" id="sqEmail" placeholder="your@email.com" style="margin-top:0;">
+            <button class="sq-btn" id="sqEmailBtn" style="padding:12px 20px;">Send</button>
+        </div>
+        <div class="sq-msg" id="sqEmailMsg"></div>
+    </div>
+
+    <div class="sq-email-card">
+        <h3>Share With a Friend — You Both Get $5 Off</h3>
+        <p class="sq-subtitle" style="margin-bottom:0.75rem;">Send the quiz to a mate. When they complete it, you'll both get a $5 voucher to use on your next order.</p>
+        <div class="sq-email-row">
+            <input type="email" class="sq-input" id="sqReferralEmail" placeholder="friend@email.com" style="margin-top:0;">
+            <button class="sq-btn" id="sqReferralBtn" style="padding:12px 20px;background:var(--pc-brown);">Share</button>
+        </div>
+        <div class="sq-msg" id="sqReferralMsg"></div>
+    </div>
+</div>
+
+{{- partial "cart-drawer.html" . -}}
+{{- partial "footer.html" . -}}
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   PRODUCT CATALOG — all products with Stripe IDs, prices,
+   ingredients, and allergen flags
+   ═══════════════════════════════════════════════════════ */
+var PRODUCTS = {
+    'reviana-night': {
+        name: 'Reviana Night Cream', sub: 'Overnight renewal with Bakuchiol & Ceramides', size: '50ml',
+        price: {{ site.Data.pricing.reviana.night_cream.price_nz }}, priceId: '{{ site.Data.pricing.reviana.night_cream.price_id_nz }}',
+        comparePrice: {{ site.Data.pricing.reviana.night_cream.compare_price }},
+        img: '/img/reviana-night-jar.webp', url: '/cosmetic-tallow-reviana/night-cream/',
+        range: 'reviana', allergens: [],
+        actives: ['Niacinamide','Bakuchiol','Kakadu Plum','Ceramide','Vitamin C','Hyaluronic Acid'],
+        forConcerns: ['wrinkles','acne','pigmentation','dry','eczema','psoriasis'],
+        forAreas: ['face']
+    },
+    'reviana-eye': {
+        name: 'Reviana Eye Cream', sub: 'Brightening eye treatment with Hexapeptide-8', size: '15ml',
+        price: {{ site.Data.pricing.reviana.eye_cream.price_nz }}, priceId: '{{ site.Data.pricing.reviana.eye_cream.price_id_nz }}',
+        comparePrice: {{ site.Data.pricing.reviana.eye_cream.compare_price }},
+        img: '/img/reviana-eye-jar.webp', url: '/cosmetic-tallow-reviana/eye-cream/',
+        range: 'reviana', allergens: [],
+        actives: ['Niacinamide','Hexapeptide-8','Vitamin C','Hyaluronic Acid'],
+        forConcerns: ['wrinkles','pigmentation'],
+        forAreas: ['undereyes']
+    },
+    'reviana-serum': {
+        name: 'Reviana Serum', sub: 'Vitamin C brightening serum with Licorice Extract', size: '15ml',
+        price: {{ site.Data.pricing.reviana.serum.price_nz }}, priceId: '{{ site.Data.pricing.reviana.serum.price_id_nz }}',
+        comparePrice: {{ site.Data.pricing.reviana.serum.compare_price }},
+        img: '/img/reviana-serum-jar.webp', url: '/cosmetic-tallow-reviana/serum/',
+        range: 'reviana', allergens: [],
+        actives: ['Vitamin C','Hyaluronic Acid','Licorice Extract'],
+        forConcerns: ['acne','pigmentation','wrinkles'],
+        forAreas: ['face']
+    },
+    'reviana-day': {
+        name: 'Reviana Day Cream', sub: 'Daily moisture with Vitamin C & Niacinamide', size: '50ml',
+        price: {{ site.Data.pricing.reviana.day_cream.price_nz }}, priceId: '{{ site.Data.pricing.reviana.day_cream.price_id_nz }}',
+        comparePrice: {{ site.Data.pricing.reviana.day_cream.compare_price }},
+        img: '/img/reviana-day-jar.webp', url: '/cosmetic-tallow-reviana/day-cream/',
+        range: 'reviana', allergens: [],
+        actives: ['Niacinamide','Vitamin C','Hyaluronic Acid'],
+        forConcerns: ['wrinkles','pigmentation','acne','dry'],
+        forAreas: ['face']
+    },
+    'balm-natural-120': {
+        name: 'Tallow Balm — Unscented', sub: 'Pure & simple — just 2 ingredients', size: '120ml',
+        price: 24.95, priceId: '{{ index (index (index site.Data.pricing.tallow.ids.balm.single "neutral") "120ml") "NZ" }}',
+        img: '/img/shop/balm.webp', url: '/shop/products/tallow-skin',
+        range: 'tallow', allergens: [],
+        actives: [],
+        forConcerns: ['eczema','psoriasis','dry'],
+        forAreas: ['face','hands','elbows','body']
+    },
+    'balm-natural-250': {
+        name: 'Tallow Balm — Unscented', sub: 'Pure & simple — just 2 ingredients', size: '250ml',
+        price: 39.95, priceId: '{{ index (index (index site.Data.pricing.tallow.ids.balm.single "neutral") "250ml") "NZ" }}',
+        img: '/img/shop/balm.webp', url: '/shop/products/tallow-skin',
+        range: 'tallow', allergens: [],
+        actives: [],
+        forConcerns: ['eczema','psoriasis','dry'],
+        forAreas: ['hands','elbows','body']
+    },
+    'balm-frankincense-120': {
+        name: 'Tallow Balm — Frankincense', sub: 'Rich & nourishing with frankincense', size: '120ml',
+        price: 24.95, priceId: '{{ index (index (index site.Data.pricing.tallow.ids.balm.single "frankincense") "120ml") "NZ" }}',
+        img: '/img/shop/balm.webp', url: '/shop/products/tallow-skin',
+        range: 'tallow', allergens: ['essential-oils','fragrance'],
+        actives: ['Frankincense'],
+        forConcerns: ['eczema','psoriasis','dry'],
+        forAreas: ['hands','elbows','body']
+    },
+    'balm-frankincense-250': {
+        name: 'Tallow Balm — Frankincense', sub: 'Best value for daily use', size: '250ml',
+        price: 39.95, priceId: '{{ index (index (index site.Data.pricing.tallow.ids.balm.single "frankincense") "250ml") "NZ" }}',
+        img: '/img/shop/balm.webp', url: '/shop/products/tallow-skin',
+        range: 'tallow', allergens: ['essential-oils','fragrance'],
+        actives: ['Frankincense'],
+        forConcerns: ['eczema','psoriasis','dry'],
+        forAreas: ['hands','elbows','body']
+    },
+    'balm-lavender-120': {
+        name: 'Tallow Balm — Lavender', sub: 'Gentle & calming with NZ lavender', size: '120ml',
+        price: 24.95, priceId: '{{ index (index (index site.Data.pricing.tallow.ids.balm.single "lavender") "120ml") "NZ" }}',
+        img: '/img/shop/balm.webp', url: '/shop/products/tallow-skin',
+        range: 'tallow', allergens: ['essential-oils','fragrance'],
+        actives: ['Lavender'],
+        forConcerns: ['dry','eczema'],
+        forAreas: ['hands','elbows','body']
+    },
+    'honeybalm-vanilla-120': {
+        name: 'Tallow & Honey Balm — Vanilla', sub: 'Nourishing with Manuka honey & vanilla', size: '120ml',
+        price: 29.95, priceId: '{{ index (index (index site.Data.pricing.tallow.ids.honeybalm.single "vanilla") "120ml") "NZ" }}',
+        img: '/img/shop/honeyshop.webp', url: '/shop/products/tallow-honey-balm',
+        range: 'tallow', allergens: ['fragrance'],
+        actives: ['Manuka Honey'],
+        forConcerns: ['wrinkles','dry'],
+        forAreas: ['body','hands','elbows']
+    },
+    'honeybalm-vanilla-250': {
+        name: 'Tallow & Honey Balm — Vanilla', sub: 'Nourishing Manuka honey — best value', size: '250ml',
+        price: 49.95, priceId: '{{ index (index (index site.Data.pricing.tallow.ids.honeybalm.single "vanilla") "250ml") "NZ" }}',
+        img: '/img/shop/honeyshop.webp', url: '/shop/products/tallow-honey-balm',
+        range: 'tallow', allergens: ['fragrance'],
+        actives: ['Manuka Honey'],
+        forConcerns: ['wrinkles','dry'],
+        forAreas: ['body','hands','elbows']
+    },
+    'cleanser': {
+        name: 'Tallow Cleanser', sub: 'Gentle daily cleanser with Rose Geranium', size: '100ml',
+        price: 24.95, priceId: '{{ index (index (index site.Data.pricing.tallow.ids.cleanser.single "geranium") "100ml") "NZ" }}',
+        img: '/img/cleanser/tallow-cleasner-productpage.webp', url: '/shop/products/tallow-cleanser',
+        range: 'tallow', allergens: ['essential-oils','fragrance'],
+        actives: [],
+        forConcerns: ['acne'],
+        forAreas: ['face']
+    },
+    'baby-butter': {
+        name: 'Baby Butter', sub: 'Fragrance-free with Chamomile & Aloe', size: '120ml',
+        price: 29.95, priceId: '{{ index (index (index site.Data.pricing.tallow.ids.baby_butter.single "natural") "120ml") "NZ" }}',
+        img: '/img/baby-butter-shop.webp', url: '/shop/products/baby-body-butter',
+        range: 'tallow', allergens: ['nuts','beeswax'],
+        actives: ['Chamomile','Aloe Vera'],
+        forConcerns: ['baby'],
+        forAreas: ['face','body','hands']
+    },
+    'oat-soak': {
+        name: 'Colloidal Oat Bath Soak', sub: 'Gentle oat bath for sensitive skin', size: '200g',
+        price: 19.95, priceId: '{{ index (index (index site.Data.pricing.tallow.ids.colloidal_oat.single "unscented") "200g") "NZ" }}',
+        img: '/img/colloidal_oat1.webp', url: '/shop/products/colloidal-oat-bath-soak',
+        range: 'tallow', allergens: [],
+        actives: ['Colloidal Oat'],
+        forConcerns: ['eczema','psoriasis','baby','dry'],
+        forAreas: ['body']
+    },
+    'shampoo': {
+        name: 'Tallow Shampoo Bar', sub: '68% grass-fed tallow — no harsh surfactants', size: '120g',
+        price: 17.95, priceId: '{{ index (index (index site.Data.pricing.tallow.ids.shampoo.single "peppermintrosemary") "120g") "NZ" }}',
+        img: '/img/shampoobar/shampoo-bar-prodcutpage.webp', url: '/shop/products/tallow-shampoo-bar',
+        range: 'tallow', allergens: [],
+        actives: [],
+        forConcerns: ['eczema','psoriasis','dry'],
+        forAreas: ['scalp']
+    },
+    'conditioner': {
+        name: 'Tallow Conditioner', sub: '12% tallow — deep conditioning', size: '500ml',
+        price: 34.95, priceId: '{{ index (index (index site.Data.pricing.tallow.ids.conditioner.single "geranium") "500ml") "NZ" }}',
+        img: '/img/conditioner-shop.webp', url: '/shop/products/tallow-conditioner',
+        range: 'tallow', allergens: ['nuts','coconut','essential-oils'],
+        actives: [],
+        forConcerns: ['dry'],
+        forAreas: ['scalp']
+    },
+    'hair-clay': {
+        name: 'Tallow Hair Clay', sub: 'Natural hold with tallow base', size: '60ml',
+        price: 18.95, priceId: '{{ index (index (index site.Data.pricing.tallow.ids.hairclay.single "medium-hold") "60ml") "NZ" }}',
+        img: '/img/shop/hair-clay-shop.webp', url: '/shop/products/tallow-hair-clay',
+        range: 'tallow', allergens: [],
+        actives: [],
+        forConcerns: ['dry'],
+        forAreas: ['scalp']
+    },
+    'liquid-lotion': {
+        name: 'Aloe Tallow Body Lotion', sub: '15% tallow — lightweight daily moisture', size: '220ml',
+        price: 24.95, priceId: '{{ index (index (index site.Data.pricing.tallow.ids.liquid_lotion.single "natural") "220ml") "NZ" }}',
+        img: '/img/body-lotion-natural-cutout.webp', url: '/shop/products/tallow-lotion',
+        range: 'tallow', allergens: [],
+        actives: ['Bisabolol','Aloe Vera'],
+        forConcerns: ['eczema','psoriasis','dry'],
+        forAreas: ['body','hands','elbows']
+    },
+    'lip-balm': {
+        name: 'Tallow Lip Balm — Manuka', sub: 'Deep moisture for dry, cracked lips', size: '15ml',
+        price: 12.95, priceId: '{{ index (index (index site.Data.pricing.tallow.ids.lipbalm.single "manuka-tub") "15ml") "NZ" }}',
+        img: '/img/lip-balm-images1.webp', url: '/shop/products/tallow-lip-balm',
+        range: 'tallow', allergens: [],
+        actives: ['Manuka Honey'],
+        forConcerns: ['dry'],
+        forAreas: ['lips']
+    },
+    'eye-cream-primal': {
+        name: 'Tallow Eye Cream', sub: 'Vitamin C & Manuka Honey eye treatment', size: '10ml',
+        price: 24.95, priceId: '{{ index (index (index site.Data.pricing.tallow.ids.eyecream.single "manukahoney_vitc") "10ml") "NZ" }}',
+        img: '/img/reviana-eye-jar.webp', url: '/shop/products/tallow-eye-cream',
+        range: 'tallow', allergens: [],
+        actives: ['Vitamin C','Manuka Honey'],
+        forConcerns: ['wrinkles','dry'],
+        forAreas: ['undereyes']
+    },
+    'serum-primal': {
+        name: 'Tallow Vitamin C Serum', sub: 'Brightening serum with Hyaluronic Acid', size: '30ml',
+        price: 34.95, priceId: '{{ index (index (index site.Data.pricing.tallow.ids.serum.single "vitc") "30ml") "NZ" }}',
+        img: '/img/reviana-serum-jar.webp', url: '/shop/products/tallow-serum',
+        range: 'tallow', allergens: ['essential-oils'],
+        actives: ['Vitamin C','Hyaluronic Acid','Licorice Extract'],
+        forConcerns: ['acne','pigmentation','wrinkles'],
+        forAreas: ['face']
+    },
+    'deodorant': {
+        name: 'Tallow Deodorant', sub: 'Metal-free, no harsh chemicals', size: '60ml',
+        price: 13.46, priceId: '{{ index (index site.Data.pricing.tallow.ids.deodorant.single.frankincense "60ml") "NZ" }}',
+        img: '/img/shop/deod.webp', url: '/shop/products/tallow-deodorant',
+        range: 'tallow', allergens: ['essential-oils','fragrance'],
+        actives: [],
+        forConcerns: ['eczema','psoriasis','dry','rosacea'],
+        forAreas: ['body']
+    },
+    'limited-midnight': {
+        name: 'Midnight Mousse', sub: 'Limited Edition — Cacao & Blood Orange', size: '120ml',
+        price: 29.95, priceId: 'price_1T6yIxFZRwx5tlYmyPkzCHof',
+        img: '/img/limited-shop.webp', url: '/shop/products/tallow-day-n-night-duo',
+        range: 'tallow', allergens: ['fragrance'],
+        actives: ['Cacao','Blood Orange','Manuka Honey'],
+        forConcerns: ['dry','wrinkles','eczema'],
+        forAreas: ['face','hands','body']
+    },
+    'limited-sunrise': {
+        name: 'Sunrise Glow', sub: 'Limited Edition — Ylang Ylang & Buckthorn', size: '120ml',
+        price: 29.95, priceId: 'price_1T6zWoFZRwx5tlYm705284wk',
+        img: '/img/limited-shop.webp', url: '/shop/products/tallow-day-n-night-duo',
+        range: 'tallow', allergens: ['fragrance'],
+        actives: ['Ylang Ylang','Sea Buckthorn','Manuka Honey'],
+        forConcerns: ['dry','wrinkles','pigmentation'],
+        forAreas: ['face','hands','body']
+    },
+    'liquid-soap': {
+        name: 'Tallow Liquid Soap', sub: 'Gentle tallow-based hand & body wash', size: '220ml',
+        price: 29.95, priceId: '{{ index (index site.Data.pricing.tallow.ids.liquid_soap.single.natural "220ml") "NZ" }}',
+        img: '/img/body-lotion-natural-cutout.webp', url: '/shop/products/tallow-liquid-soap',
+        range: 'tallow', allergens: [],
+        actives: [],
+        forConcerns: ['dry','eczema'],
+        forAreas: ['body','hands']
+    }
+};
+
+
+/* ═══════════════════════════════════════════════════════
+   QUIZ ENGINE
+   ═══════════════════════════════════════════════════════ */
+var answers = {};
+var allSteps = Array.from(document.querySelectorAll('.sq-step'));
+var currentStepIdx = 0;
+var TOTAL_STEPS = allSteps.length;
+
+// Progress
+function updateProgress() {
+    var html = '';
+    for (var i = 0; i < TOTAL_STEPS; i++) {
+        var cls = i < currentStepIdx ? 'done' : (i === currentStepIdx ? 'active' : '');
+        html += '<div class="sq-progress-bar ' + cls + '"></div>';
+    }
+    document.getElementById('sqProgress').innerHTML = html;
+}
+updateProgress();
+
+// Option click handlers
+document.querySelectorAll('.sq-options').forEach(function(grid) {
+    var mode = grid.dataset.mode;
+    var key = grid.dataset.key;
+    var max = parseInt(grid.dataset.max) || 99;
+    grid.querySelectorAll('.sq-opt').forEach(function(opt) {
+        opt.addEventListener('click', function() {
+            if (mode === 'single') {
+                grid.querySelectorAll('.sq-opt').forEach(function(o) { o.classList.remove('selected'); });
+                opt.classList.toggle('selected');
+                answers[key] = opt.classList.contains('selected') ? opt.dataset.val : null;
+            } else {
+                // "None" clears others
+                if (opt.dataset.val === 'none') {
+                    grid.querySelectorAll('.sq-opt').forEach(function(o) { o.classList.remove('selected'); });
+                    opt.classList.add('selected');
+                    answers[key] = ['none'];
+                } else {
+                    grid.querySelector('[data-val="none"]') && grid.querySelector('[data-val="none"]').classList.remove('selected');
+                    if (opt.classList.contains('selected')) {
+                        opt.classList.remove('selected');
+                    } else {
+                        var selected = grid.querySelectorAll('.sq-opt.selected').length;
+                        if (selected < max) opt.classList.add('selected');
+                    }
+                    answers[key] = Array.from(grid.querySelectorAll('.sq-opt.selected')).map(function(o) { return o.dataset.val; });
+                }
+            }
+            updateNextBtn();
+
+            // Show "something else" text input
+            if (key === 'concerns') {
+                var otherInput = document.getElementById('sqConcernOther');
+                if (otherInput) {
+                    var hasOther = Array.from(grid.querySelectorAll('.sq-opt.selected')).some(function(o) { return o.dataset.val === 'other-concern'; });
+                    otherInput.style.display = hasOther ? '' : 'none';
+                }
+            }
+        });
+    });
+});
+
+// Sensitivity is handled by regular option click handler (data-key="sensitivity")
+// Convert string val to int when used in recommendation engine
+
+// Next button state
+function updateNextBtn() {
+    var step = document.querySelector('.sq-step.active');
+    var key = step.querySelector('.sq-options') ? step.querySelector('.sq-options').dataset.key : null;
+    var btn = step.querySelector('.sq-btn:not(.sq-btn-back)');
+    if (!btn || !key) return;
+
+    if (key === 'allergens') { btn.disabled = false; return; } // allergens optional
+    var val = answers[key];
+    btn.disabled = !val || (Array.isArray(val) && val.length === 0);
+}
+
+// Severity step: show/hide open wounds disclaimer
+document.querySelectorAll('[data-key="severity"] .sq-opt').forEach(function(opt) {
+    opt.addEventListener('click', function() {
+        document.getElementById('sqOpenDisclaimer').style.display = opt.dataset.val === 'open-wounds' ? 'block' : 'none';
+    });
+});
+
+// Should we skip this step?
+function shouldSkipStep(idx) {
+    var step = allSteps[idx];
+    var key = step.querySelector('.sq-options') ? step.querySelector('.sq-options').dataset.key : null;
+    // Skip severity if no eczema/psoriasis/rashy/rosacea
+    if (key === 'severity') {
+        var concerns = answers.concerns || [];
+        return concerns.indexOf('eczema') === -1 && concerns.indexOf('rashy') === -1 && concerns.indexOf('rosacea') === -1;
+    }
+    // Skip tallow feedback if they didn't select "tallow" in what they've tried
+    if (key === 'tallowFeedback') {
+        var tried = answers.triedBefore || [];
+        return tried.indexOf('tallow') === -1;
+    }
+    return false;
+}
+
+// Navigation
+function sqNext() {
+    allSteps[currentStepIdx].classList.remove('active');
+    currentStepIdx++;
+
+    // Skip steps that aren't relevant
+    while (currentStepIdx < TOTAL_STEPS && shouldSkipStep(currentStepIdx)) {
+        currentStepIdx++;
+    }
+
+    // If baby/child selected, auto-set baby concern
+    var step = allSteps[currentStepIdx];
+    if (step && step.querySelector('[data-key="concerns"]') && (answers.ageGroup === 'baby' || answers.ageGroup === 'child')) {
+        answers.concerns = ['baby'];
+    }
+
+    if (currentStepIdx >= TOTAL_STEPS) {
+        var preEmail = document.getElementById('sqEmailPreResults');
+        if (preEmail && preEmail.value.trim()) answers.email = preEmail.value.trim();
+        document.getElementById('sqQuiz').style.display = 'none';
+        document.getElementById('sqHero').style.display = 'none';
+        showResults();
+        return;
+    }
+
+    allSteps[currentStepIdx].classList.add('active');
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function sqBack() {
+    allSteps[currentStepIdx].classList.remove('active');
+    currentStepIdx--;
+
+    while (currentStepIdx > 0 && shouldSkipStep(currentStepIdx)) {
+        currentStepIdx--;
+    }
+
+    if (currentStepIdx < 0) currentStepIdx = 0;
+    allSteps[currentStepIdx].classList.add('active');
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Wire up all Next buttons (find them by class, not ID)
+document.querySelectorAll('.sq-step .sq-btn:not(.sq-btn-back)').forEach(function(btn) {
+    btn.addEventListener('click', sqNext);
+});
+
+// Hero start button
+document.getElementById('sqStartBtn').addEventListener('click', function() {
+    document.getElementById('sqHero').style.display = 'none';
+    document.getElementById('sqQuiz').style.display = '';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+
+
+/* ═══════════════════════════════════════════════════════
+   RECOMMENDATION ENGINE
+   ═══════════════════════════════════════════════════════ */
+function getRecommendations() {
+    var concerns = answers.concerns || [];
+    var areas = answers.areas || [];
+    var pref = answers.preference || 'premium';
+    var sensitivity = parseInt(answers.sensitivity) || 5;
+    var allergens = (answers.allergens || []).filter(function(a) { return a !== 'none'; });
+    var severity = answers.severity || 'recovered';
+    var frequency = answers.frequency || 'once';
+
+    // Determine size
+    var needLargeSize = frequency === '3plus' || frequency === 'twice' ||
+        severity === 'active' || severity === 'open-wounds' ||
+        areas.indexOf('body') !== -1 ||
+        (areas.indexOf('hands') !== -1 && areas.indexOf('elbows') !== -1);
+
+    var balmSize = needLargeSize ? '250' : '120';
+
+    var recs = [];
+    var usedKeys = {};
+
+    function addProduct(key, why) {
+        if (usedKeys[key]) return;
+        var p = PRODUCTS[key];
+        if (!p) return;
+        // Allergen check
+        for (var i = 0; i < allergens.length; i++) {
+            if (p.allergens.indexOf(allergens[i]) !== -1) return;
+        }
+        usedKeys[key] = true;
+        recs.push({ key: key, product: p, why: why, step: recs.length === 0 ? 'Start here' : (recs.length === 1 ? 'Then apply' : 'Complete with') });
+    }
+
+    var hasFace = areas.indexOf('face') !== -1;
+    var hasUnderEyes = areas.indexOf('undereyes') !== -1;
+    var hasScalp = areas.indexOf('scalp') !== -1;
+    var hasLips = areas.indexOf('lips') !== -1;
+    var hasBody = areas.indexOf('body') !== -1 || areas.indexOf('hands') !== -1 || areas.indexOf('elbows') !== -1;
+    // Push Reviana if: premium pref, wrinkles/pigmentation, OR they tried tallow and didn't like texture/smell
+    var tallowFb = answers.tallowFeedback;
+    var dislikedTallow = tallowFb === 'texture' || tallowFb === 'smell' || tallowFb === 'no-results';
+    var useReviana = pref === 'premium' || concerns.indexOf('wrinkles') !== -1 || concerns.indexOf('pigmentation') !== -1 || dislikedTallow;
+    var highSensitivity = sensitivity >= 8;
+
+    // Face concerns
+    if (hasFace) {
+        if (concerns.indexOf('acne') !== -1) {
+            if (useReviana && !highSensitivity) {
+                addProduct('reviana-serum', 'Vitamin C & Licorice Extract target breakouts and post-acne marks');
+                addProduct('reviana-night', 'Niacinamide regulates oil production overnight while Bakuchiol renews skin');
+            } else {
+                addProduct('serum-primal', 'Vitamin C targets breakouts while Hyaluronic Acid hydrates without clogging pores');
+            }
+            addProduct('cleanser', 'Gentle tallow cleanser removes impurities without stripping your skin barrier');
+        }
+        if (concerns.indexOf('wrinkles') !== -1) {
+            addProduct('reviana-night', 'Bakuchiol (natural retinol alternative) + Kakadu Plum stimulate collagen renewal');
+            addProduct('reviana-serum', 'Concentrated Vitamin C brightens and firms with daily use');
+            addProduct('reviana-day', 'Daytime protection with Niacinamide and Vitamin C');
+        }
+        if (concerns.indexOf('pigmentation') !== -1) {
+            addProduct('reviana-serum', 'Licorice Extract is clinically proven to inhibit melanin production');
+            addProduct('reviana-night', 'Kakadu Plum has the highest natural Vitamin C concentration — fades dark spots');
+        }
+        if (concerns.indexOf('eczema') !== -1) {
+            if (useReviana && !highSensitivity) {
+                addProduct('reviana-night', 'Ceramides and Panthenol rebuild the damaged skin barrier overnight');
+            } else {
+                addProduct('balm-natural-' + balmSize, 'Just 2 ingredients — as simple as it gets for sensitive skin');
+            }
+        }
+        if (concerns.indexOf('rashy') !== -1 || concerns.indexOf('rosacea') !== -1) {
+            if (useReviana && !highSensitivity) {
+                addProduct('reviana-night', 'Ceramides and Bisabolol work together to support your skin barrier overnight');
+            } else {
+                addProduct('balm-natural-' + balmSize, 'Just 2 ingredients — nothing to trigger a reaction');
+            }
+        }
+        if (concerns.indexOf('dry') !== -1) {
+            if (useReviana && !highSensitivity) {
+                addProduct('reviana-night', 'Hyaluronic Acid draws moisture in while Ceramides lock it in');
+            } else {
+                addProduct('balm-natural-' + balmSize, 'Pure tallow mirrors your skin\'s natural oils for deep hydration');
+            }
+        }
+    }
+
+    // Under eyes
+    if (hasUnderEyes) {
+        if (useReviana && !highSensitivity) {
+            addProduct('reviana-eye', 'Hexapeptide-8 targets fine lines around the delicate eye area');
+        } else {
+            addProduct('eye-cream-primal', 'Vitamin C & Manuka Honey brighten and nourish the under-eye area');
+        }
+    }
+
+    // Body concerns
+    if (hasBody) {
+        if (concerns.indexOf('eczema') !== -1 || concerns.indexOf('rashy') !== -1 || concerns.indexOf('rosacea') !== -1) {
+            if (allergens.indexOf('essential-oils') === -1 && allergens.indexOf('fragrance') === -1) {
+                addProduct('balm-frankincense-' + balmSize, 'Frankincense has been used for centuries in skincare — a beautiful option for problem areas');
+            } else {
+                addProduct('balm-natural-' + balmSize, 'Zero additives — compatible with even the most reactive skin');
+            }
+            addProduct('liquid-lotion', 'Lightweight daily layer with Bisabolol — easy to apply between balm applications');
+            addProduct('oat-soak', 'Colloidal oat baths are a gentle way to support your skin — great as part of a weekly routine');
+        }
+        if (concerns.indexOf('wrinkles') !== -1 || concerns.indexOf('dry') !== -1) {
+            // Limited edition balms — offer as a treat
+            addProduct('limited-midnight', 'Limited Edition — Cacao & Blood Orange whipped tallow with Manuka honey. Once they\'re gone, they\'re gone');
+            addProduct('limited-sunrise', 'Limited Edition — Ylang Ylang & Sea Buckthorn for a natural glow. Only available for a limited time');
+            addProduct('honeybalm-vanilla-' + balmSize, 'Manuka honey nourishes while vanilla adds a beautiful scent — ideal for body');
+        }
+        if (concerns.indexOf('dry') !== -1 && !usedKeys['honeybalm-vanilla-' + balmSize]) {
+            addProduct('balm-lavender-120', 'Lavender calms while tallow delivers long-lasting hydration');
+        }
+        // Deodorant — great for people whose skin reacts to conventional products
+        if (sensitivity >= 5 || concerns.indexOf('eczema') !== -1 || concerns.indexOf('rashy') !== -1 || concerns.indexOf('rosacea') !== -1) {
+            addProduct('deodorant', 'No metals, no harsh chemicals — designed for skin that reacts to conventional deodorants');
+        }
+    }
+
+    // Scalp — always include shampoo bar if head/scalp mentioned
+    if (hasScalp) {
+        addProduct('shampoo', '68% grass-fed tallow with zero harsh surfactants — a great foundation for your scalp');
+        addProduct('hair-clay', 'Natural hold that nourishes instead of drying out');
+        addProduct('conditioner', 'Deep conditioning with 12% tallow for moisture');
+    }
+
+    // Lips
+    if (hasLips) {
+        addProduct('lip-balm', 'Manuka honey and tallow — a rich combo for keeping your lips nourished');
+    }
+
+    // Baby
+    if (concerns.indexOf('baby') !== -1) {
+        addProduct('baby-butter', 'Fragrance-free with Chamomile — gentle enough for newborns');
+        addProduct('oat-soak', 'Gentle oat bath — a lovely addition to bath time for little ones');
+        if (!usedKeys['balm-natural-120']) {
+            addProduct('balm-natural-120', 'The simplest option for baby — just tallow and jojoba');
+        }
+    }
+
+    // If nothing selected yet, fallback
+    if (recs.length === 0) {
+        addProduct('balm-natural-120', 'Our most versatile product — pure grass-fed tallow for any skin type');
+    }
+
+    // For active flare-ups, prioritize oat soak as first product
+    if (severity === 'active' || severity === 'open-wounds') {
+        var oatIdx = -1;
+        for (var ri = 0; ri < recs.length; ri++) {
+            if (recs[ri].key === 'oat-soak') { oatIdx = ri; break; }
+        }
+        if (oatIdx === -1) {
+            // Add it if not already there
+            addProduct('oat-soak', 'Start with gentle oat baths before layering on product — a great foundation for your routine');
+            oatIdx = recs.length - 1;
+        }
+        if (oatIdx > 0) {
+            var oatRec = recs.splice(oatIdx, 1)[0];
+            oatRec.why = 'Start with gentle oat baths before layering on product — a great foundation for your routine';
+            recs.unshift(oatRec);
+        }
+    }
+
+    // ── Price tier enforcement: 1 under $20, 1 between $20-35, 1 over $35 ──
+    // This targets a bundle total of ~$60-70 (just under $75 free shipping threshold)
+    var tierUnder20 = [];
+    var tier20to35 = [];
+    var tierOver35 = [];
+
+    recs.forEach(function(r) {
+        var price = r.product.price;
+        if (price < 20) tierUnder20.push(r);
+        else if (price <= 35) tier20to35.push(r);
+        else tierOver35.push(r);
+    });
+
+    // Build final 3 — one from each tier, ordered: under $20 (left), $20-35 (middle), $35+ (right)
+    var final3 = [];
+    if (tierUnder20.length > 0) final3.push(tierUnder20[0]);
+    if (tier20to35.length > 0) final3.push(tier20to35[0]);
+    if (tierOver35.length > 0) final3.push(tierOver35[0]);
+
+    // Fill remaining slots from whatever tier has extras
+    var allSorted = recs.filter(function(r) { return final3.indexOf(r) === -1; });
+    while (final3.length < 3 && allSorted.length > 0) {
+        final3.push(allSorted.shift());
+    }
+
+    // If still under 3, add fallbacks
+    var fallbacks = [
+        ['oat-soak', 'Colloidal oat baths are compatible with every skin type — a great weekly addition'],
+        ['lip-balm', 'Manuka honey lip balm keeps lips nourished — pairs with any routine'],
+        ['liquid-lotion', 'A lightweight daily moisturiser that layers under balm for all-day hydration'],
+        ['limited-midnight', 'Limited Edition Midnight Mousse — Cacao & Blood Orange whipped tallow with Manuka honey'],
+        ['limited-sunrise', 'Limited Edition Sunrise Glow — Ylang Ylang & Sea Buckthorn for a natural glow'],
+        ['honeybalm-vanilla-120', 'Manuka honey and vanilla — a nourishing treat for hands and body'],
+        ['deodorant', 'No metals, no harsh chemicals — designed for skin that reacts to conventional deodorants'],
+        ['balm-natural-120', 'Our pure tallow balm — just 2 ingredients, compatible with any skin type']
+    ];
+    var fi = 0;
+    while (final3.length < 3 && fi < fallbacks.length) {
+        var fb = fallbacks[fi];
+        if (!usedKeys[fb[0]]) {
+            var p = PRODUCTS[fb[0]];
+            if (p) {
+                var safe = true;
+                for (var ai = 0; ai < allergens.length; ai++) {
+                    if (p.allergens.indexOf(allergens[ai]) !== -1) { safe = false; break; }
+                }
+                if (safe) {
+                    usedKeys[fb[0]] = true;
+                    final3.push({ key: fb[0], product: p, why: fb[1], step: 'Complete with' });
+                }
+            }
+        }
+        fi++;
+    }
+
+    // Keep any extras beyond 3 as secondary recommendations
+    var extras = recs.filter(function(r) { return final3.indexOf(r) === -1; });
+
+    // ── Magnet product — always ensure a compelling "Also compatible" item ──
+    // Priority: 250ml balm, limited edition, shampoo bar, Reviana day cream
+    var magnetCandidates = [
+        { key: 'balm-natural-250', why: 'Our 250ml is the best value for daily use — lasts months' },
+        { key: 'limited-midnight', why: 'Limited Edition Midnight Mousse — once they\'re gone, they\'re gone' },
+        { key: 'limited-sunrise', why: 'Limited Edition Sunrise Glow — only available for a limited time' },
+        { key: 'reviana-day', why: 'Our premium day cream with Vitamin C & Niacinamide — only available online' }
+    ];
+    var hasMagnet = false;
+    for (var mi = 0; mi < magnetCandidates.length; mi++) {
+        var mc = magnetCandidates[mi];
+        if (usedKeys[mc.key]) { hasMagnet = true; break; }
+    }
+    if (!hasMagnet) {
+        for (var mi2 = 0; mi2 < magnetCandidates.length; mi2++) {
+            var mc2 = magnetCandidates[mi2];
+            var mp = PRODUCTS[mc2.key];
+            if (!mp) continue;
+            var magnetSafe = true;
+            for (var ai = 0; ai < allergens.length; ai++) {
+                if (mp.allergens.indexOf(allergens[ai]) !== -1) { magnetSafe = false; break; }
+            }
+            if (magnetSafe) {
+                extras.unshift({ key: mc2.key, product: mp, why: mc2.why, step: 'Also great' });
+                usedKeys[mc2.key] = true;
+                break;
+            }
+        }
+    }
+
+    // If they didn't mention scalp, add shampoo bar as "Also compatible"; if scalp was already covered, add liquid soap
+    if (!hasScalp && !usedKeys['shampoo']) {
+        var shampooP = PRODUCTS['shampoo'];
+        if (shampooP) {
+            extras.push({ key: 'shampoo', product: shampooP, why: '68% grass-fed tallow — a great foundation for any haircare routine', step: 'Also great' });
+            usedKeys['shampoo'] = true;
+        }
+    } else if (hasScalp && !usedKeys['liquid-soap']) {
+        var soapP = PRODUCTS['liquid-soap'];
+        if (soapP) {
+            extras.push({ key: 'liquid-soap', product: soapP, why: 'Gentle tallow-based hand & body wash — pairs well with your skincare routine', step: 'Also great' });
+            usedKeys['liquid-soap'] = true;
+        }
+    }
+
+    // Re-label steps
+    final3.forEach(function(r, i) {
+        r.step = i === 0 ? 'Start here' : (i === 1 ? 'Then apply' : 'Complete with');
+    });
+
+    // Return primary 3 + extras
+    return final3.concat(extras);
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   RESULTS PAGE
+   ═══════════════════════════════════════════════════════ */
+function showResults() {
+    var results = document.getElementById('sqResults');
+    results.classList.add('active');
+
+    // Show open skin advisory if applicable
+    if (answers.severity === 'open-wounds') {
+        document.getElementById('sqOpenSkinAdvisory').style.display = 'block';
+    }
+
+    var recs = getRecommendations();
+
+    // Draw radar chart
+    drawRadarChart();
+
+    // Draw ingredient need bars
+    drawIngredientBars(recs);
+
+    // Render product cards
+    renderProductCards(recs);
+
+    // Bundle CTA
+    renderBundle(recs);
+
+    // Fetch Claude blurb
+    // Render personalised routine
+    renderRoutine(recs);
+
+    fetchBlurb(recs);
+
+    // Scroll to results after a tick so layout settles
+    setTimeout(function() {
+        results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+}
+
+/* ── Radar Chart ─────────────────────────────────── */
+function drawRadarChart() {
+    var canvas = document.getElementById('sqRadar');
+    var ctx = canvas.getContext('2d');
+    var w = 300, h = 300;
+    canvas.width = w * 2; canvas.height = h * 2;
+    ctx.scale(2, 2);
+    var cx = w/2, cy = h/2, r = 110;
+
+    var concerns = answers.concerns || [];
+    var sensitivity = parseInt(answers.sensitivity) || 5;
+    var severity = answers.severity || 'recovered';
+
+    // Calculate axes values (0-10)
+    var axes = [
+        { label: 'Sensitivity', val: sensitivity },
+        { label: 'Dryness', val: (concerns.indexOf('dry') !== -1 || concerns.indexOf('eczema') !== -1) ? 8 : (concerns.indexOf('psoriasis') !== -1 ? 7 : 3) },
+        { label: 'Oiliness', val: concerns.indexOf('acne') !== -1 ? 7 : 2 },
+        { label: 'Reactivity', val: (function() {
+            if (severity === 'open-wounds') return 10;
+            if (severity === 'active') return 8;
+            if (concerns.indexOf('eczema') !== -1 || concerns.indexOf('psoriasis') !== -1) return 6;
+            return 2;
+        })() },
+        { label: 'Aging', val: concerns.indexOf('wrinkles') !== -1 ? 8 : (concerns.indexOf('pigmentation') !== -1 ? 6 : 2) }
+    ];
+    var n = axes.length;
+
+    // Draw grid rings
+    ctx.strokeStyle = 'rgba(123,92,58,0.12)';
+    ctx.lineWidth = 1;
+    for (var ring = 1; ring <= 5; ring++) {
+        ctx.beginPath();
+        for (var i = 0; i <= n; i++) {
+            var angle = (Math.PI * 2 / n) * i - Math.PI / 2;
+            var rr = r * ring / 5;
+            var x = cx + rr * Math.cos(angle);
+            var y = cy + rr * Math.sin(angle);
+            if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+    }
+
+    // Draw axes
+    ctx.strokeStyle = 'rgba(123,92,58,0.2)';
+    for (var i = 0; i < n; i++) {
+        var angle = (Math.PI * 2 / n) * i - Math.PI / 2;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(cx + r * Math.cos(angle), cy + r * Math.sin(angle));
+        ctx.stroke();
+    }
+
+    // Draw data
+    ctx.fillStyle = 'rgba(74,94,56,0.15)';
+    ctx.strokeStyle = '#4A5E38';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    for (var i = 0; i <= n; i++) {
+        var idx = i % n;
+        var angle = (Math.PI * 2 / n) * idx - Math.PI / 2;
+        var val = axes[idx].val / 10;
+        var x = cx + r * val * Math.cos(angle);
+        var y = cy + r * val * Math.sin(angle);
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.fill();
+    ctx.stroke();
+
+    // Draw dots
+    for (var i = 0; i < n; i++) {
+        var angle = (Math.PI * 2 / n) * i - Math.PI / 2;
+        var val = axes[i].val / 10;
+        var x = cx + r * val * Math.cos(angle);
+        var y = cy + r * val * Math.sin(angle);
+        ctx.beginPath();
+        ctx.arc(x, y, 4, 0, Math.PI * 2);
+        ctx.fillStyle = '#4A5E38';
+        ctx.fill();
+    }
+
+    // Labels
+    ctx.fillStyle = '#7B5C3A';
+    ctx.font = '600 11px DM Sans, sans-serif';
+    ctx.textAlign = 'center';
+    for (var i = 0; i < n; i++) {
+        var angle = (Math.PI * 2 / n) * i - Math.PI / 2;
+        var lx = cx + (r + 20) * Math.cos(angle);
+        var ly = cy + (r + 20) * Math.sin(angle);
+        ctx.fillText(axes[i].label, lx, ly + 4);
+    }
+}
+
+/* ── Ingredient Need Bars ─────────────────────────── */
+function drawIngredientBars(recs) {
+    var concerns = answers.concerns || [];
+    var ingredients = {};
+
+    // Score ingredients based on concerns
+    var concernIngredients = {
+        'wrinkles': { 'Bakuchiol': 9, 'Vitamin C': 8, 'Niacinamide': 8, 'Hyaluronic Acid': 7, 'Ceramides': 6 },
+        'acne': { 'Niacinamide': 9, 'Vitamin C': 7, 'Licorice Extract': 6, 'Hyaluronic Acid': 5 },
+        'pigmentation': { 'Vitamin C': 9, 'Licorice Extract': 9, 'Niacinamide': 7, 'Kakadu Plum': 8 },
+        'eczema': { 'Ceramides': 8, 'Colloidal Oat': 8, 'Bisabolol': 7, 'Panthenol': 7, 'Chamomile': 6 },
+        'psoriasis': { 'Colloidal Oat': 8, 'Bisabolol': 7, 'Frankincense': 7, 'Panthenol': 6 },
+        'dry': { 'Hyaluronic Acid': 8, 'Ceramides': 7, 'Manuka Honey': 7, 'Jojoba Oil': 5 },
+        'baby': { 'Chamomile': 8, 'Colloidal Oat': 7, 'Aloe Vera': 6 }
+    };
+
+    concerns.forEach(function(c) {
+        var ings = concernIngredients[c] || {};
+        Object.keys(ings).forEach(function(ing) {
+            ingredients[ing] = Math.max(ingredients[ing] || 0, ings[ing]);
+        });
+    });
+
+    // Sort by score desc, take top 6
+    var sorted = Object.keys(ingredients).sort(function(a, b) { return ingredients[b] - ingredients[a]; }).slice(0, 6);
+
+    var container = document.getElementById('sqIngBars');
+    container.innerHTML = sorted.map(function(ing) {
+        var score = ingredients[ing];
+        var level = score >= 8 ? 'high' : (score >= 6 ? 'med' : 'low');
+        var levelText = score >= 8 ? 'High' : (score >= 6 ? 'Med' : 'Low');
+        return '<div class="sq-ing-bar">' +
+            '<span class="sq-ing-name">' + ing + '</span>' +
+            '<div class="sq-ing-track"><div class="sq-ing-fill ' + level + '" style="width:' + (score * 10) + '%"></div></div>' +
+            '<span class="sq-ing-level" style="color:' + (level === 'high' ? 'var(--pc-green)' : 'var(--pc-brown-light)') + ';">' + levelText + '</span>' +
+            '</div>';
+    }).join('');
+}
+
+/* ── Product Cards ─────────────────────────────────── */
+function renderProductCards(recs) {
+    var container = document.getElementById('sqProductCards');
+    var html = '<div class="sq-products">';
+
+    recs.slice(0, 3).forEach(function(rec, i) {
+        var p = rec.product;
+        var hasCompare = p.comparePrice && p.comparePrice > p.price;
+        html += '<div style="display:flex;flex-direction:column;">';
+        html += '<div class="pp-card" style="flex:1;">';
+        if (p.range === 'reviana') html += '<span class="pp-card-badge" style="background:#6B8F5B;color:#fff;">Best Match</span>';
+        html += '<div class="pp-card-img"><a href="' + p.url + '"><img src="' + p.img + '" alt="' + p.name + '" loading="lazy"></a></div>';
+        html += '<div class="pp-card-body">';
+        html += '<div class="pp-card-name"><a href="' + p.url + '">' + p.name + '</a></div>';
+        html += '<div class="pp-card-sub">' + p.sub + ' &middot; ' + p.size + '</div>';
+        html += '<div class="pp-card-price">';
+        if (hasCompare) html += '<span class="pp-card-price-was">$' + p.comparePrice.toFixed(2) + '</span>';
+        html += '$' + p.price.toFixed(2) + '</div>';
+        html += '<div class="pp-card-cta">';
+        html += '<button class="pp-card-atc" data-atc-pid="' + p.priceId + '" data-atc-price="' + p.price + '" data-atc-title="' + p.name + '" data-atc-size="' + p.size + '" data-atc-flavor="" data-atc-image="' + p.img + '">Add to Cart</button>';
+        html += '<a href="' + p.url + '" class="pp-card-view">View</a>';
+        html += '</div></div></div>';
+        html += '<div class="sq-prod-why">' + rec.why + '</div>';
+        html += '</div>';
+    });
+
+    html += '</div>';
+
+    // Any extra products beyond 3
+    if (recs.length > 3) {
+        html += '<p style="font-size:0.78rem;color:var(--pc-warm-gray);margin:1rem 0 0.5rem;">Also compatible with your skin:</p>';
+        html += '<div class="sq-products">';
+        recs.slice(3).forEach(function(rec) {
+            var p = rec.product;
+            html += '<div class="pp-card">';
+            html += '<div class="pp-card-img"><a href="' + p.url + '"><img src="' + p.img + '" alt="' + p.name + '" loading="lazy"></a></div>';
+            html += '<div class="pp-card-body">';
+            html += '<div class="pp-card-name"><a href="' + p.url + '">' + p.name + '</a></div>';
+            html += '<div class="pp-card-sub">' + p.sub + ' &middot; ' + p.size + '</div>';
+            html += '<div class="pp-card-price">$' + p.price.toFixed(2) + '</div>';
+            html += '<div class="pp-card-cta">';
+            html += '<button class="pp-card-atc" data-atc-pid="' + p.priceId + '" data-atc-price="' + p.price + '" data-atc-title="' + p.name + '" data-atc-size="' + p.size + '" data-atc-flavor="" data-atc-image="' + p.img + '">Add to Cart</button>';
+            html += '<a href="' + p.url + '" class="pp-card-view">View</a>';
+            html += '</div></div></div>';
+        });
+        html += '</div>';
+    }
+
+    container.innerHTML = html;
+
+    // Wire up ATC buttons (same pattern as shop.html)
+    container.querySelectorAll('button[data-atc-pid]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            window.ppAddToCart(btn.dataset.atcPid, btn.dataset.atcPrice, btn.dataset.atcTitle, btn.dataset.atcSize, btn.dataset.atcFlavor, btn.dataset.atcImage);
+            var orig = btn.textContent.trim();
+            btn.textContent = 'Added \u2713';
+            btn.classList.add('added');
+            setTimeout(function() { btn.textContent = orig; btn.classList.remove('added'); }, 2500);
+        });
+    });
+}
+
+/* ── Bundle CTA ────────────────────────────────────── */
+function renderBundle(recs) {
+    if (recs.length < 2) { document.getElementById('sqBundleCard').style.display = 'none'; return; }
+
+    var totalFull = 0;
+    recs.forEach(function(r) { totalFull += r.product.price; });
+    var totalDiscount = totalFull * 0.9;
+
+    document.getElementById('sqBundleWas').textContent = '$' + totalFull.toFixed(2);
+    document.getElementById('sqBundleNow').textContent = '$' + totalDiscount.toFixed(2);
+    document.getElementById('sqBundleSavings').textContent = 'Save $' + (totalFull - totalDiscount).toFixed(2) + ' when you buy the complete routine';
+
+    // Why text based on count
+    var whyTexts = [
+        'Using these products together amplifies results \u2014 each product enhances the others.',
+        'Your ' + recs[0].product.name + ' prepares the skin for better absorption of ' + (recs[1] ? recs[1].product.name : 'the next step') + '.',
+        'This routine gives your skin everything it needs from morning to night \u2014 no gaps, no guesswork.'
+    ];
+    document.getElementById('sqBundleWhy').textContent = whyTexts[Math.min(recs.length - 2, 2)];
+
+    // Free gift logic — lip balm unless beeswax allergen, then shampoo sample
+    var allergens = answers.allergens || [];
+    var giftNote = document.getElementById('sqFreeGiftNote');
+    if (allergens.indexOf('beeswax') !== -1) {
+        giftNote.textContent = '*We\'ll include a free Shampoo Bar sample with your order (swapped from our usual lip balm as it contains beeswax)';
+    }
+
+    document.getElementById('sqBundleBtn').addEventListener('click', function() {
+        recs.forEach(function(r) {
+            var p = r.product;
+            window.ppAddToCart(p.priceId, p.price, p.name, p.size, '', p.img);
+        });
+        this.textContent = 'Added All \u2713';
+        this.classList.add('added');
+        var self = this;
+        setTimeout(function() { self.textContent = 'Add Compatible Routine to Cart'; self.classList.remove('added'); }, 3000);
+    });
+}
+
+/* ── Claude Blurb ──────────────────────────────────── */
+/* ── Personalised Routine ─────────────────────────── */
+function renderRoutine(recs) {
+    var concerns = answers.concerns || [];
+    var areas = answers.areas || [];
+    var container = document.getElementById('sqRoutineContent');
+    var productNames = recs.slice(0, 3).map(function(r) { return r.product.name; });
+
+    var html = '';
+
+    // Daily routine
+    html += '<div style="margin-bottom:1.25rem;">';
+    html += '<div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--pc-green);margin-bottom:0.5rem;">Daily Routine</div>';
+    html += '<div style="font-size:0.82rem;line-height:1.8;color:var(--pc-black);">';
+
+    if (recs.length >= 1) {
+        var morning = recs[0].product.name;
+        var night = recs.length >= 2 ? recs[1].product.name : recs[0].product.name;
+        html += '<strong>Morning:</strong> Cleanse with warm water, pat dry, apply ' + morning + ' to damp skin.<br>';
+        html += '<strong>Evening:</strong> Cleanse gently, apply ' + night + '. Let it absorb for 2-3 minutes before bed.<br>';
+        if (recs.length >= 3) {
+            html += '<strong>As needed:</strong> Apply ' + recs[2].product.name + ' to problem areas throughout the day.';
+        }
+    }
+
+    html += '</div></div>';
+
+    // Weekly extras
+    html += '<div style="margin-bottom:1.25rem;">';
+    html += '<div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--pc-green);margin-bottom:0.5rem;">Weekly Extras</div>';
+    html += '<div style="font-size:0.82rem;line-height:1.8;color:var(--pc-black);">';
+
+    if (concerns.indexOf('eczema') !== -1 || concerns.indexOf('rashy') !== -1) {
+        html += '&bull; 2-3x per week: Colloidal oat bath soak (15-20 mins lukewarm, not hot)<br>';
+        html += '&bull; Weekly: Apply a thicker layer of balm before bed as an overnight mask<br>';
+    }
+    if (concerns.indexOf('acne') !== -1) {
+        html += '&bull; 2x per week: Double-cleanse in the evening (oil cleanse first, then gentle cleanser)<br>';
+    }
+    if (concerns.indexOf('wrinkles') !== -1 || concerns.indexOf('pigmentation') !== -1) {
+        html += '&bull; Weekly: Apply serum as a 10-minute mask for deeper absorption<br>';
+    }
+    html += '&bull; Weekly: Exfoliate gently with a warm flannel — avoid harsh scrubs';
+    html += '</div></div>';
+
+    // Lifestyle tips
+    html += '<div>';
+    html += '<div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--pc-green);margin-bottom:0.5rem;">Lifestyle Ideas to Consider</div>';
+    html += '<div style="font-size:0.82rem;line-height:1.8;color:var(--pc-black);">';
+
+    if (concerns.indexOf('eczema') !== -1 || concerns.indexOf('rashy') !== -1 || concerns.indexOf('rosacea') !== -1) {
+        html += '&bull; Some people find that reducing dairy and processed sugar makes a difference for their skin<br>';
+        html += '&bull; Shower lukewarm, not hot — hot water strips natural oils<br>';
+        html += '&bull; Switch to fragrance-free laundry detergent<br>';
+    }
+    if (concerns.indexOf('acne') !== -1) {
+        html += '&bull; Change pillowcases 2x per week<br>';
+        html += '&bull; Avoid touching your face throughout the day<br>';
+        html += '&bull; Consider reducing dairy intake — research links it to breakouts<br>';
+    }
+    if (concerns.indexOf('dry') !== -1) {
+        html += '&bull; Drink more water — hydration starts from inside<br>';
+        html += '&bull; Use a humidifier in winter — NZ homes can get very dry<br>';
+    }
+    if (concerns.indexOf('wrinkles') !== -1) {
+        html += '&bull; Wear SPF daily — even on cloudy NZ days<br>';
+        html += '&bull; Prioritise sleep — skin repairs itself overnight<br>';
+    }
+    html += '&bull; Omega-3 rich foods (salmon, walnuts, flaxseed) support skin barrier health';
+    html += '</div></div>';
+
+    container.innerHTML = html;
+}
+
+function fetchBlurb(recs) {
+    var blurbEl = document.getElementById('sqBlurb');
+    var productNames = recs.map(function(r) { return r.product.name + ' (' + r.product.size + ')'; });
+
+    // Auto-save every quiz completion to Supabase (even without email)
+    fetch('/.netlify/functions/quiz-submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ answers: answers, products: productNames, email: answers.email || null })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+        if (data.blurb) {
+            blurbEl.textContent = data.blurb;
+            blurbEl.classList.remove('loading');
+        }
+    })
+    .catch(function() {
+        // Fallback blurb
+        var concerns = answers.concerns || [];
+        var areas = answers.areas || [];
+        var fallback = 'Based on your skin profile, we\'ve selected ';
+        fallback += productNames.slice(0, 3).join(', ');
+        fallback += ' as your recommended routine. ';
+        if (concerns.indexOf('eczema') !== -1 || concerns.indexOf('psoriasis') !== -1) {
+            fallback += 'These products are designed with simple, quality ingredients that are compatible with sensitive skin. ';
+        } else if (concerns.indexOf('wrinkles') !== -1) {
+            fallback += 'This combination delivers clinically-backed actives that target fine lines and stimulate collagen renewal. ';
+        } else if (concerns.indexOf('acne') !== -1) {
+            fallback += 'This routine regulates oil production while brightening post-acne marks with Vitamin C and Niacinamide. ';
+        }
+        fallback += 'Our Reviana range is only available direct from us \u2014 you won\'t find it in stores.';
+        blurbEl.textContent = fallback;
+        blurbEl.classList.remove('loading');
+    });
+}
+
+/* ── Email Capture ──────────────────────────────────── */
+document.getElementById('sqEmailBtn').addEventListener('click', function() {
+    var email = document.getElementById('sqEmail').value.trim();
+    var msg = document.getElementById('sqEmailMsg');
+    if (!email || !email.match(/.+@.+\..+/)) {
+        msg.textContent = 'Please enter a valid email.'; msg.className = 'sq-msg err'; return;
+    }
+    fetch('/.netlify/functions/quiz-submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ answers: answers, email: email, action: 'email' })
+    })
+    .then(function() {
+        msg.textContent = 'Sent! Check your inbox.'; msg.className = 'sq-msg ok';
+    })
+    .catch(function() {
+        msg.textContent = 'Something went wrong. Try again.'; msg.className = 'sq-msg err';
+    });
+});
+
+/* ── Referral ────────────────────────────────────────── */
+document.getElementById('sqReferralBtn').addEventListener('click', function() {
+    var myEmail = document.getElementById('sqEmail').value.trim();
+    var friendEmail = document.getElementById('sqReferralEmail').value.trim();
+    var msg = document.getElementById('sqReferralMsg');
+    if (!friendEmail || !friendEmail.match(/.+@.+\..+/)) {
+        msg.textContent = 'Please enter your friend\'s email.'; msg.className = 'sq-msg err'; return;
+    }
+    if (!myEmail) {
+        msg.textContent = 'Please enter your email above first.'; msg.className = 'sq-msg err'; return;
+    }
+    fetch('/.netlify/functions/quiz-referral', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ referrerEmail: myEmail, friendEmail: friendEmail })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+        if (data.error) { msg.textContent = data.error; msg.className = 'sq-msg err'; }
+        else { msg.textContent = 'Done! You\'ll both receive a $5 voucher by email.'; msg.className = 'sq-msg ok'; }
+    })
+    .catch(function() {
+        msg.textContent = 'Something went wrong. Try again.'; msg.className = 'sq-msg err';
+    });
+});
+</script>
+</body>
+</html>
