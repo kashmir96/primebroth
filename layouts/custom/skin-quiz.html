@@ -177,6 +177,24 @@
     .sq-hero-eanz-commit { font-size: 0.7rem; color: var(--pc-warm-gray); font-weight: 600; line-height: 1.4; margin-top: 2px; }
     .sq-hero-start { margin-top: 0.5rem; }
 
+    /* Print styles */
+    @media print {
+        .sq-hero, .sq-wrap, #sqShareBtn, .sq-email-card, .sq-fixed-asterisk,
+        button, .pp-card-cta { display: none !important; }
+        .sq-results { padding: 1rem !important; }
+        .sq-blurb-card { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        .sq-chart-card { break-inside: avoid; }
+    }
+
+    /* Fixed asterisk — bottom right */
+    .sq-fixed-asterisk {
+        position: fixed; bottom: 20px; right: 20px; z-index: 100;
+        background: #fff; border: 1px solid var(--pc-border); border-radius: 10px;
+        padding: 8px 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        font-size: 0.62rem; color: var(--pc-warm-gray); max-width: 200px;
+        line-height: 1.4; display: none;
+    }
+
     @media (max-width: 480px) {
         .sq-title { font-size: 1.35rem; }
         .sq-options { grid-template-columns: 1fr 1fr; }
@@ -200,7 +218,7 @@
         <span>Helping Kiwis understand their skin</span>
     </div>
     <h1>Find Your <em>Perfect Match</em></h1>
-    <p class="sq-hero-sub">We'll match you the perfect skincare routine based on AI-driven insights from serving over 90,000 Kiwis. If we don't have something that'll help, we'll tell you straight — but still give you a detailed report to understand your skin better.</p>
+    <p class="sq-hero-sub">We'll match you the perfect skincare routine based on AI-driven insights from serving over 90,000 Kiwis, and peer reviewed research into ingredients and skincare. If we don't have something that'll help, this tool will tell you straight — but it'll still give you a detailed report to understand your skin better.</p>
 
     <div class="sq-hero-stats">
         <div class="sq-hero-stat"><div class="sq-hero-stat-val">90,000+</div><div class="sq-hero-stat-lbl">Kiwis Helped & Counting</div></div>
@@ -231,7 +249,7 @@
         <div style="display:flex;flex-direction:column;">
             <span style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.14em;font-weight:700;color:var(--pc-green);line-height:1.3;">Official Gold Supporters</span>
             <span style="font-family:'Playfair Display',serif;font-size:0.95rem;color:var(--pc-brown);font-weight:700;line-height:1.25;">Eczema Association of New Zealand</span>
-            <span style="font-size:0.7rem;color:var(--pc-warm-gray);font-weight:600;line-height:1.4;margin-top:2px;">$70,000 committed to Kiwis with eczema</span>
+            <span style="font-size:0.7rem;color:var(--pc-warm-gray);font-weight:600;line-height:1.4;margin-top:2px;">Committed to helping Kiwis with eczema</span>
             <a href="https://www.eczema.org.nz/" target="_blank" rel="noopener" style="font-size:0.75rem;color:var(--pc-brown);font-weight:600;margin-top:4px;text-decoration:none;">What's this mean? &rarr;</a>
         </div>
     </div>
@@ -276,9 +294,9 @@
                 <span class="sq-opt-desc">45 — 60 years</span>
             </div>
             <div class="sq-opt" data-val="senior">
-                <span class="sq-opt-icon">&#x1F474;</span>
-                <span class="sq-opt-label">Senior</span>
-                <span class="sq-opt-desc">60+ years</span>
+                <span class="sq-opt-icon">&#x1F9D3;</span>
+                <span class="sq-opt-label">60+</span>
+                <span class="sq-opt-desc">Experienced skin — we'll tailor accordingly</span>
             </div>
         </div>
         <div class="sq-btn-row"><button class="sq-btn" id="sqNext0" disabled>Next</button></div>
@@ -311,13 +329,23 @@
 
     <!-- Step 1: Skin Concern -->
     <div class="sq-step" data-step="2">
-        <h2 class="sq-title">What's bugging your skin?</h2>
-        <p class="sq-subtitle">Pick up to two — we'll find the products that are actually compatible with what you're dealing with.</p>
+        <h2 class="sq-title" id="sqConcernsTitle">What's bugging your skin?</h2>
+        <p class="sq-subtitle" id="sqConcernsSub">Pick up to two — we'll find the products that are actually compatible with what you're dealing with.</p>
         <div class="sq-options" data-key="concerns" data-mode="multi" data-max="2">
             <div class="sq-opt" data-val="eczema">
                 <span class="sq-opt-icon">&#x1FA79;</span>
                 <span class="sq-opt-label">Red & Rashy</span>
                 <span class="sq-opt-desc">Eczema-prone, psoriasis, or other red rashy conditions</span>
+            </div>
+            <div class="sq-opt" data-val="cradle-cap" style="display:none;">
+                <span class="sq-opt-icon">&#x1F476;</span>
+                <span class="sq-opt-label">Cradle Cap</span>
+                <span class="sq-opt-desc">Flaky, scaly patches on the scalp</span>
+            </div>
+            <div class="sq-opt" data-val="nappy-rash" style="display:none;">
+                <span class="sq-opt-icon">&#x1F6BC;</span>
+                <span class="sq-opt-label">Nappy Rash</span>
+                <span class="sq-opt-desc">Red, irritated skin in the nappy area</span>
             </div>
             <div class="sq-opt" data-val="rosacea">
                 <span class="sq-opt-icon">&#x1F33A;</span>
@@ -361,9 +389,9 @@
 
     <!-- Step 2b: What have you tried? -->
     <div class="sq-step" data-step="2b">
-        <h2 class="sq-title">What have you tried in the past?</h2>
-        <p class="sq-subtitle">This helps us understand what hasn't worked — so we don't recommend more of the same.</p>
-        <div class="sq-options" data-key="triedBefore" data-mode="multi" data-max="6">
+        <h2 class="sq-title" id="sqTriedTitle">What have you tried in the past?</h2>
+        <p class="sq-subtitle" id="sqTriedSub">This helps us understand what hasn't worked — so we don't recommend more of the same.</p>
+        <div class="sq-options" data-key="triedBefore" data-mode="multi" data-max="8">
             <div class="sq-opt" data-val="steroid-creams">
                 <span class="sq-opt-icon">&#x1F48A;</span>
                 <span class="sq-opt-label">Steroid Creams</span>
@@ -383,6 +411,41 @@
                 <span class="sq-opt-icon">&#x1F6CD;</span>
                 <span class="sq-opt-label">Department Store Brands</span>
                 <span class="sq-opt-desc">Premium retail skincare</span>
+            </div>
+            <div class="sq-opt" data-val="retinol" style="display:none;">
+                <span class="sq-opt-icon">&#x1F9EA;</span>
+                <span class="sq-opt-label">Retinol / Retinoids</span>
+                <span class="sq-opt-desc">Prescription or OTC anti-aging</span>
+            </div>
+            <div class="sq-opt" data-val="vitamin-c" style="display:none;">
+                <span class="sq-opt-icon">&#x1F34A;</span>
+                <span class="sq-opt-label">Vitamin C Serums</span>
+                <span class="sq-opt-desc">Brightening or anti-aging serums</span>
+            </div>
+            <div class="sq-opt" data-val="acne-treatments" style="display:none;">
+                <span class="sq-opt-icon">&#x1F9F4;</span>
+                <span class="sq-opt-label">Acne Treatments</span>
+                <span class="sq-opt-desc">Salicylic acid, benzoyl peroxide etc.</span>
+            </div>
+            <div class="sq-opt" data-val="rosacea-rx" style="display:none;">
+                <span class="sq-opt-icon">&#x1F489;</span>
+                <span class="sq-opt-label">Rosacea Treatments</span>
+                <span class="sq-opt-desc">Metronidazole, azelaic acid etc.</span>
+            </div>
+            <div class="sq-opt" data-val="baby-products" style="display:none;">
+                <span class="sq-opt-icon">&#x1F37C;</span>
+                <span class="sq-opt-label">Baby Products</span>
+                <span class="sq-opt-desc">Sudocrem, Weleda, Dermaveen, barrier creams etc.</span>
+            </div>
+            <div class="sq-opt" data-val="just-soap" style="display:none;">
+                <span class="sq-opt-icon">&#x1F9FC;</span>
+                <span class="sq-opt-label">Just Soap / Face Wash</span>
+                <span class="sq-opt-desc">Whatever's in the shower — nothing specific</span>
+            </div>
+            <div class="sq-opt" data-val="mums-stuff" style="display:none;">
+                <span class="sq-opt-icon">&#x1F6C1;</span>
+                <span class="sq-opt-label">Whatever's in the Bathroom</span>
+                <span class="sq-opt-desc">Borrowed products, nothing specifically for me</span>
             </div>
             <div class="sq-opt" data-val="nothing">
                 <span class="sq-opt-icon">&#x1F937;</span>
@@ -408,6 +471,16 @@
                 <span class="sq-opt-label">Loved it</span>
                 <span class="sq-opt-desc">It worked well, want more of the same</span>
             </div>
+            <div class="sq-opt" data-val="noticed-difference">
+                <span class="sq-opt-icon">&#x2728;</span>
+                <span class="sq-opt-label">Noticed a real difference</span>
+                <span class="sq-opt-desc">My skin improved — want to build on that</span>
+            </div>
+            <div class="sq-opt" data-val="like-natural">
+                <span class="sq-opt-icon">&#x1F33F;</span>
+                <span class="sq-opt-label">Love the natural approach</span>
+                <span class="sq-opt-desc">Keen to go deeper with fewer chemicals</span>
+            </div>
             <div class="sq-opt" data-val="texture">
                 <span class="sq-opt-icon">&#x1F44E;</span>
                 <span class="sq-opt-label">Didn't love the texture</span>
@@ -430,8 +503,8 @@
 
     <!-- Step 3: Problem Areas -->
     <div class="sq-step" data-step="3">
-        <h2 class="sq-title">Where does it bother you most?</h2>
-        <p class="sq-subtitle">Tick everything that gives you grief — we'll make sure each area is covered.</p>
+        <h2 class="sq-title" id="sqAreasTitle">Where does it bother you most?</h2>
+        <p class="sq-subtitle" id="sqAreasSub">Tick everything that gives you grief — we'll make sure each area is covered.</p>
         <div class="sq-options" data-key="areas" data-mode="multi" data-max="7">
             <div class="sq-opt" data-val="face">
                 <span class="sq-opt-icon">&#x1F610;</span>
@@ -460,6 +533,42 @@
             <div class="sq-opt" data-val="body">
                 <span class="sq-opt-icon">&#x1F9CD;</span>
                 <span class="sq-opt-label">Full Body</span>
+            </div>
+            <div class="sq-opt" data-val="nappy-area" style="display:none;">
+                <span class="sq-opt-icon">&#x1F476;</span>
+                <span class="sq-opt-label">Nappy Area</span>
+            </div>
+            <div class="sq-opt" data-val="behind-ears" style="display:none;">
+                <span class="sq-opt-icon">&#x1F442;</span>
+                <span class="sq-opt-label">Behind Ears</span>
+            </div>
+            <div class="sq-opt" data-val="skin-folds" style="display:none;">
+                <span class="sq-opt-icon">&#x1F90F;</span>
+                <span class="sq-opt-label">Skin Folds</span>
+            </div>
+            <div class="sq-opt" data-val="back" style="display:none;">
+                <span class="sq-opt-icon">&#x1F9CD;</span>
+                <span class="sq-opt-label">Back / Shoulders</span>
+            </div>
+            <div class="sq-opt" data-val="beard" style="display:none;">
+                <span class="sq-opt-icon">&#x1F9D4;</span>
+                <span class="sq-opt-label">Beard / Jaw Area</span>
+            </div>
+            <div class="sq-opt" data-val="chest" style="display:none;">
+                <span class="sq-opt-icon">&#x1F455;</span>
+                <span class="sq-opt-label">Chest</span>
+            </div>
+            <div class="sq-opt" data-val="cheeks" style="display:none;">
+                <span class="sq-opt-icon">&#x1F60A;</span>
+                <span class="sq-opt-label">Cheeks</span>
+            </div>
+            <div class="sq-opt" data-val="neck" style="display:none;">
+                <span class="sq-opt-icon">&#x1F9E3;</span>
+                <span class="sq-opt-label">Neck & Décolletage</span>
+            </div>
+            <div class="sq-opt" data-val="forehead" style="display:none;">
+                <span class="sq-opt-icon">&#x1F9E0;</span>
+                <span class="sq-opt-label">Forehead / T-Zone</span>
             </div>
         </div>
         <div class="sq-btn-row"><button class="sq-btn sq-btn-back" onclick="sqBack()">Back</button><button class="sq-btn" id="sqNext3" disabled>Next</button></div>
@@ -561,7 +670,7 @@
             <div class="sq-opt" data-val="none">
                 <span class="sq-opt-icon">&#x2705;</span>
                 <span class="sq-opt-label">None of these</span>
-                <span class="sq-opt-desc">My skin's pretty chill</span>
+                <span class="sq-opt-desc" id="sqAllergenNoneDesc">None that I'm aware of</span>
             </div>
         </div>
         <input type="text" class="sq-input" id="sqAllergenOther" placeholder="Anything else your skin doesn't like? (optional)">
@@ -682,16 +791,14 @@
 
     <!-- Bundle CTA -->
     <div class="sq-bundle-card" id="sqBundleCard">
-        <h3 id="sqBundleName">Your Complete Compatible Routine</h3>
-        <div class="sq-bundle-savings" id="sqBundleSavings">Save 10% when you buy all compatible products together</div>
+        <h3 id="sqBundleName">Your Complete Routine</h3>
         <div class="sq-bundle-why" id="sqBundleWhy">These products are specifically formulated to work in combination — each one enhances the absorption and effectiveness of the others for compounding results.</div>
         <div class="sq-bundle-prices">
-            <span class="sq-bundle-was" id="sqBundleWas"></span>
-            <span class="sq-bundle-now" id="sqBundleNow"></span>
+            <span class="sq-bundle-now" id="sqBundleNow" style="font-size:1.5rem;font-weight:700;color:var(--pc-green);"></span>
         </div>
-        <button class="sq-btn" id="sqBundleBtn" style="width:100%;max-width:360px;">Add Compatible Routine to Cart</button>
-        <p style="font-size:0.78rem;color:var(--pc-green);margin-top:0.75rem;font-weight:600;" id="sqFreeGift">+ Free special gift included with your bundle*</p>
-        <p style="font-size:0.65rem;color:var(--pc-warm-gray);margin-top:0.25rem;" id="sqFreeGiftNote">*We'll include a free Manuka Honey Lip Balm with your order</p>
+        <button class="sq-btn" id="sqBundleBtn" style="width:100%;max-width:360px;">Add Complete Routine to Cart</button>
+        <p style="font-size:0.82rem;color:var(--pc-green);margin-top:0.75rem;font-weight:600;" id="sqFreeGift">+ Free Manuka Honey Lip Balm Stick included with your routine*</p>
+        <p style="font-size:0.65rem;color:var(--pc-warm-gray);margin-top:0.25rem;" id="sqFreeGiftNote">*We'll pop a free lip balm stick in with your order when you buy the complete routine</p>
     </div>
 
     <!-- Prescribed Routine -->
@@ -704,9 +811,39 @@
         </div>
     </div>
 
-    <!-- Customer Reviews -->
+    <!-- Why What You've Tried May Not Have Worked -->
+    <div class="sq-chart-card" style="margin-bottom:1.5rem;" id="sqWhyPastFailed">
+        <h3 style="margin-bottom:0.5rem;">Why What You've Tried May Not Have Worked</h3>
+        <p style="font-size:0.78rem;color:var(--pc-warm-gray);margin-bottom:1rem;line-height:1.5;">This isn't about blaming products — it's about understanding why some approaches fall short for certain skin types.</p>
+        <div id="sqPastFailedContent" style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);"></div>
+    </div>
+
+    <!-- Why These Products Work Together -->
+    <div class="sq-chart-card" style="margin-bottom:1.5rem;" id="sqWhyTogether">
+        <h3 style="margin-bottom:0.5rem;">Why We Chose These For You</h3>
+        <p style="font-size:0.78rem;color:var(--pc-warm-gray);margin-bottom:1rem;line-height:1.5;">Every product in your routine was selected based on your specific answers — here's the reasoning.</p>
+        <div id="sqWhyTogetherContent" style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);"></div>
+    </div>
+
+    <!-- Three Quick Wins -->
+    <div class="sq-chart-card" style="margin-bottom:1.5rem;border:2px solid var(--pc-green);">
+        <h3 style="margin-bottom:0.5rem;color:var(--pc-green);">&#x26A1; Three Quick Wins You Can Start Today</h3>
+        <p style="font-size:0.78rem;color:var(--pc-warm-gray);margin-bottom:1rem;line-height:1.5;">While you wait for your products, here are three things you can do right now.</p>
+        <div id="sqQuickWins" style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);"></div>
+    </div>
+
+    <!-- Research & Science Section -->
+    <div class="sq-chart-card" style="margin-bottom:1.5rem;background:var(--rv-forest);color:#fff;">
+        <h3 style="color:var(--rv-stone);margin-bottom:0.5rem;">The Science Behind Your Routine</h3>
+        <p style="font-size:0.72rem;color:rgba(255,255,255,0.6);margin-bottom:1rem;line-height:1.5;">Key research that informed your product match</p>
+        <div id="sqResearchCitations" style="font-size:0.82rem;line-height:1.75;color:rgba(255,255,255,0.88);"></div>
+        <p style="font-size:0.62rem;color:rgba(255,255,255,0.4);margin-top:1rem;line-height:1.5;">This quiz was developed using anonymised purchasing insights from 90,000+ Kiwis, peer-reviewed dermatological research, and AI-powered ingredient compatibility analysis. It is not a substitute for professional medical advice.</p>
+    </div>
+
+    <!-- Social Proof -->
     <div style="margin-bottom:2rem;">
-        <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:1rem;text-align:center;">What Kiwis Are Saying</h3>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:0.25rem;text-align:center;">Customers With Similar Skin Profiles</h3>
+        <p style="font-size:0.78rem;color:var(--pc-warm-gray);text-align:center;margin-bottom:1rem;">Here's what Kiwis with your skin type are saying</p>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;" id="sqReviews">
             <div class="sq-chart-card" style="padding:1.25rem;">
                 <div style="color:var(--pc-green);margin-bottom:0.5rem;font-size:0.85rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
@@ -726,26 +863,35 @@
         </div>
     </div>
 
-    <!-- Email & Referral Combined -->
+    <!-- Email & Referral — Single Card -->
     <div class="sq-email-card">
         <h3>Send Yourself This Report</h3>
-        <p class="sq-subtitle" style="margin-bottom:0.75rem;">We'll email your compatibility results and product links so you can come back to them.</p>
-        <div class="sq-email-row">
-            <input type="email" class="sq-input" id="sqEmail" placeholder="your@email.com" style="margin-top:0;">
-            <button class="sq-btn" id="sqEmailBtn" style="padding:12px 20px;">Send</button>
+        <p class="sq-subtitle" style="margin-bottom:0.75rem;">We'll email your compatibility results so you can come back to them. Chuck a friend's email in too — if they complete the quiz, you'll both get a $5 voucher.</p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+            <div class="sq-email-row">
+                <input type="email" class="sq-input" id="sqEmail" placeholder="your@email.com" style="margin-top:0;">
+                <button class="sq-btn" id="sqEmailBtn" style="padding:12px 20px;">Send</button>
+            </div>
+            <div class="sq-email-row">
+                <input type="email" class="sq-input" id="sqReferralEmail" placeholder="friend@email.com (optional — $5 voucher for both)" style="margin-top:0;">
+                <button class="sq-btn" id="sqReferralBtn" style="padding:12px 20px;background:var(--pc-brown);">Share</button>
+            </div>
         </div>
         <div class="sq-msg" id="sqEmailMsg"></div>
-    </div>
-
-    <div class="sq-email-card">
-        <h3>Share With a Friend — You Both Get $5 Off</h3>
-        <p class="sq-subtitle" style="margin-bottom:0.75rem;">Send the quiz to a mate. When they complete it, you'll both get a $5 voucher to use on your next order.</p>
-        <div class="sq-email-row">
-            <input type="email" class="sq-input" id="sqReferralEmail" placeholder="friend@email.com" style="margin-top:0;">
-            <button class="sq-btn" id="sqReferralBtn" style="padding:12px 20px;background:var(--pc-brown);">Share</button>
-        </div>
         <div class="sq-msg" id="sqReferralMsg"></div>
     </div>
+
+    <!-- Social Share + Print -->
+    <div style="display:flex;gap:12px;justify-content:center;margin-top:1.5rem;flex-wrap:wrap;">
+        <button class="sq-btn" onclick="window.print();" style="background:var(--pc-brown);padding:10px 24px;font-size:0.82rem;">&#x1F5A8; Print This Report</button>
+        <button class="sq-btn" id="sqShareBtn" style="background:var(--pc-warm-gray);padding:10px 24px;font-size:0.82rem;">&#x1F4E4; Share With Friends</button>
+    </div>
+    <p style="font-size:0.72rem;color:var(--pc-warm-gray);text-align:center;margin-top:0.75rem;">Share your results to help spread the word — the more Kiwis we help, the better</p>
+</div>
+
+<!-- Fixed asterisk — shown on results page -->
+<div class="sq-fixed-asterisk" id="sqFixedAsterisk">
+    *Free gift included when you purchase any bundle after completing this quiz
 </div>
 
 {{- partial "cart-drawer.html" . -}}
@@ -888,7 +1034,7 @@ var PRODUCTS = {
         forAreas: ['body']
     },
     'shampoo': {
-        name: 'Tallow Shampoo Bar', sub: '68% grass-fed tallow — no harsh surfactants', size: '120g',
+        name: 'Tallow Shampoo Bar', sub: 'Grass-fed tallow base — no harsh surfactants', size: '120g',
         price: 17.95, priceId: '{{ index (index (index site.Data.pricing.tallow.ids.shampoo.single "peppermintrosemary") "120g") "NZ" }}',
         img: '/img/shampoobar/shampoo-bar-prodcutpage.webp', url: '/shop/products/tallow-shampoo-bar',
         range: 'tallow', allergens: [],
@@ -897,7 +1043,7 @@ var PRODUCTS = {
         forAreas: ['scalp']
     },
     'conditioner': {
-        name: 'Tallow Conditioner', sub: '12% tallow — deep conditioning', size: '500ml',
+        name: 'Tallow Conditioner', sub: 'Tallow-based deep conditioning', size: '500ml',
         price: 34.95, priceId: '{{ index (index (index site.Data.pricing.tallow.ids.conditioner.single "geranium") "500ml") "NZ" }}',
         img: '/img/conditioner-shop.webp', url: '/shop/products/tallow-conditioner',
         range: 'tallow', allergens: ['nuts','coconut','essential-oils'],
@@ -915,7 +1061,7 @@ var PRODUCTS = {
         forAreas: ['scalp']
     },
     'liquid-lotion': {
-        name: 'Aloe Tallow Body Lotion', sub: '15% tallow — lightweight daily moisture', size: '220ml',
+        name: 'Aloe Tallow Body Lotion', sub: 'Lightweight daily moisture with Bisabolol', size: '220ml',
         price: 24.95, priceId: '{{ index (index (index site.Data.pricing.tallow.ids.liquid_lotion.single "natural") "220ml") "NZ" }}',
         img: '/img/body-lotion-natural-cutout.webp', url: '/shop/products/tallow-lotion',
         range: 'tallow', allergens: [],
@@ -1086,6 +1232,14 @@ function shouldSkipStep(idx) {
         var tried = answers.triedBefore || [];
         return tried.indexOf('tallow') === -1;
     }
+    // Skip preference step for baby/child — auto-set to simple
+    if (key === 'preference') {
+        var ageForPref = answers.ageGroup;
+        if (ageForPref === 'baby' || ageForPref === 'child') {
+            answers.preference = 'simple';
+            return true;
+        }
+    }
     return false;
 }
 
@@ -1099,10 +1253,14 @@ function sqNext() {
         currentStepIdx++;
     }
 
-    // If baby/child selected, auto-set baby concern
+    // If baby/child selected, add 'baby' flag to concerns WITHOUT overwriting their selections
     var step = allSteps[currentStepIdx];
     if (step && step.querySelector('[data-key="concerns"]') && (answers.ageGroup === 'baby' || answers.ageGroup === 'child')) {
-        answers.concerns = ['baby'];
+        if (!answers.concerns || answers.concerns.length === 0) {
+            answers.concerns = ['baby'];
+        } else if (answers.concerns.indexOf('baby') === -1) {
+            answers.concerns.push('baby');
+        }
     }
 
     if (currentStepIdx >= TOTAL_STEPS) {
@@ -1115,8 +1273,406 @@ function sqNext() {
     }
 
     allSteps[currentStepIdx].classList.add('active');
+    tailorOptionsForStep();
     updateProgress();
     window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Tailor visible options based on ALL previous answers — dynamic back-referencing
+function tailorOptionsForStep() {
+    var step = allSteps[currentStepIdx];
+    var key = step.querySelector('.sq-options') ? step.querySelector('.sq-options').dataset.key : null;
+    var age = answers.ageGroup || 'adult';
+    var gender = answers.gender || '';
+    var concerns = answers.concerns || [];
+    var tried = answers.triedBefore || [];
+    var areas = answers.areas || [];
+    var isBaby = age === 'baby';
+    var isChild = age === 'child';
+    var isTeen = age === 'teen';
+    var isMature = age === 'mature' || age === 'senior';
+    var isMale = gender === 'male';
+    var isFemale = gender === 'female';
+    var hasEczema = concerns.indexOf('eczema') !== -1;
+    var hasAcne = concerns.indexOf('acne') !== -1;
+    var hasRosacea = concerns.indexOf('rosacea') !== -1;
+    var hasWrinkles = concerns.indexOf('wrinkles') !== -1;
+    var hasPigmentation = concerns.indexOf('pigmentation') !== -1;
+    var hasDry = concerns.indexOf('dry') !== -1;
+    var hasCradleCap = concerns.indexOf('cradle-cap') !== -1;
+    var hasNappyRash = concerns.indexOf('nappy-rash') !== -1;
+
+    function showOpt(val) { var el = step.querySelector('[data-val="' + val + '"]'); if (el) el.style.display = ''; }
+    function hideOpt(val) { var el = step.querySelector('[data-val="' + val + '"]'); if (el) { el.style.display = 'none'; el.classList.remove('selected'); } }
+    function setDesc(val, text) { var el = step.querySelector('[data-val="' + val + '"] .sq-opt-desc'); if (el) el.textContent = text; }
+    function setLabel(val, text) { var el = step.querySelector('[data-val="' + val + '"] .sq-opt-label'); if (el) el.textContent = text; }
+
+    // Build a readable concern string for back-referencing
+    var concernNames = [];
+    if (hasEczema) concernNames.push('eczema');
+    if (hasRosacea) concernNames.push('rosacea');
+    if (hasAcne) concernNames.push('breakouts');
+    if (hasDry) concernNames.push('dry skin');
+    if (hasWrinkles) concernNames.push('fine lines');
+    if (hasPigmentation) concernNames.push('uneven tone');
+    var concernStr = concernNames.join(' and ');
+
+    // ═══════════════════════════════════════════
+    // GENDER — tailor for baby
+    // ═══════════════════════════════════════════
+    if (key === 'gender') {
+        var gTitle = step.querySelector('.sq-title');
+        var gSub = step.querySelector('.sq-subtitle');
+        if (isBaby || isChild) {
+            gTitle.textContent = 'And your little one is...';
+            gSub.textContent = 'Baby skin can differ between boys and girls — this helps us fine-tune the recommendation.';
+        } else if (isMature) {
+            gSub.textContent = 'Hormones play a big role in how skin behaves — especially as we age. This helps us get your match right.';
+        } else if (isTeen) {
+            gSub.textContent = 'Guys and girls deal with different skin stuff — this helps us get it right.';
+        } else {
+            gSub.textContent = 'Men and women have different skin thickness and oil production — this helps us fine-tune your match.';
+        }
+    }
+
+    // ═══════════════════════════════════════════
+    // CONCERNS — based on age + gender
+    // ═══════════════════════════════════════════
+    if (key === 'concerns') {
+        step.querySelectorAll('.sq-opt').forEach(function(o) { o.style.display = 'none'; });
+        var cTitle = document.getElementById('sqConcernsTitle');
+        var cSub = document.getElementById('sqConcernsSub');
+
+        if (isBaby) {
+            cTitle.textContent = 'What\'s going on with your baby\'s skin?';
+            cSub.textContent = 'Pick what best describes it — we\'ll only recommend products safe and gentle enough for babies.';
+            showOpt('eczema'); setLabel('eczema', 'Eczema / Red & Rashy'); setDesc('eczema', 'Eczema-prone, irritated, or persistently red skin');
+            showOpt('dry'); setDesc('dry', 'Dry patches, rough texture, flaking');
+            showOpt('cradle-cap'); showOpt('nappy-rash'); showOpt('general');
+        } else if (isChild) {
+            cTitle.textContent = 'What\'s going on with their skin?';
+            cSub.textContent = 'Pick up to two — we\'ll match the right products for their skin.';
+            showOpt('eczema'); showOpt('dry'); showOpt('acne'); showOpt('general'); showOpt('other-concern');
+        } else if (isTeen) {
+            cTitle.textContent = 'What\'s going on with your skin?';
+            cSub.textContent = 'No judgement — just pick what you\'re dealing with so we can match you properly.';
+            showOpt('acne'); setLabel('acne', 'Breakouts & Acne'); setDesc('acne', 'Pimples, oily skin, blackheads — the usual teen stuff');
+            showOpt('eczema'); showOpt('dry'); showOpt('rosacea'); showOpt('general'); showOpt('other-concern');
+        } else if (isMature) {
+            cTitle.textContent = 'What\'s your skin dealing with right now?';
+            cSub.textContent = 'Pick up to two. We\'ll look at how these interact — because they often do.';
+            showOpt('wrinkles'); setLabel('wrinkles', 'Fine Lines & Wrinkles'); setDesc('wrinkles', 'Loss of firmness, deeper lines, skin that doesn\'t bounce back like it used to');
+            showOpt('pigmentation'); setDesc('pigmentation', 'Sun damage, age spots, or patchy areas that won\'t fade');
+            showOpt('dry'); setDesc('dry', 'Tight, rough, or papery-feeling skin');
+            showOpt('eczema'); showOpt('rosacea'); showOpt('acne'); showOpt('general'); showOpt('other-concern');
+        } else {
+            // Adult
+            if (isMale) {
+                cTitle.textContent = 'What are you dealing with?';
+                cSub.textContent = 'Pick up to two. We\'ll match you with products that are actually compatible — no guesswork.';
+            } else {
+                cTitle.textContent = 'What\'s your skin dealing with?';
+                cSub.textContent = 'Pick up to two — we\'ll find the products that are actually compatible with what you\'re going through.';
+            }
+            showOpt('eczema'); showOpt('rosacea'); showOpt('acne'); showOpt('dry');
+            showOpt('wrinkles'); showOpt('pigmentation'); showOpt('general'); showOpt('other-concern');
+        }
+    }
+
+    // ═══════════════════════════════════════════
+    // "WHAT HAVE YOU TRIED" — age + concerns + back-reference
+    // ═══════════════════════════════════════════
+    if (key === 'triedBefore') {
+        step.querySelectorAll('.sq-opt').forEach(function(o) { o.style.display = 'none'; });
+        var tTitle = document.getElementById('sqTriedTitle');
+        var tSub = document.getElementById('sqTriedSub');
+
+        if (isBaby || isChild) {
+            tTitle.textContent = 'What have you already tried on your ' + (isBaby ? 'baby' : 'child') + '\'s skin?';
+            tSub.textContent = 'No judgement here — knowing what hasn\'t worked helps us recommend something genuinely different.';
+            showOpt('steroid-creams'); setDesc('steroid-creams', 'Hydrocortisone, prescribed creams from the GP');
+            showOpt('pharmacy-moisturisers'); setDesc('pharmacy-moisturisers', 'Cetaphil, QV, Aveeno, Dermaveen etc.');
+            showOpt('natural-oils'); showOpt('baby-products'); showOpt('nothing');
+            setDesc('nothing', 'This is our first time looking for something');
+            showOpt('tallow');
+        } else if (isTeen) {
+            tTitle.textContent = 'What have you tried so far?';
+            tSub.textContent = 'Even if nothing worked — or you haven\'t tried anything — that\'s useful info.';
+            showOpt('just-soap'); showOpt('mums-stuff'); showOpt('pharmacy-moisturisers');
+            if (hasAcne) { showOpt('acne-treatments'); setDesc('acne-treatments', 'Clearasil, benzoyl peroxide, salicylic acid — that kind of thing'); }
+            showOpt('natural-oils'); showOpt('nothing'); setDesc('nothing', 'Haven\'t really tried anything specific');
+            showOpt('tallow');
+        } else {
+            if (isMale && hasEczema) {
+                tTitle.textContent = 'What have you tried so far?';
+                tSub.textContent = 'No judgement — we just need to know what hasn\'t cut it, so we don\'t waste your time with more of the same.';
+            } else if (isMature && (hasWrinkles || hasPigmentation)) {
+                tTitle.textContent = 'What have you already tried for your skin?';
+                tSub.textContent = 'No judgement here — most people have tried a few things before finding what actually works. This helps us avoid what you\'ve already been through.';
+            } else {
+                tTitle.textContent = 'What have you tried in the past?';
+                tSub.textContent = 'This helps us understand what hasn\'t worked — so we don\'t recommend more of the same.';
+            }
+            showOpt('pharmacy-moisturisers'); showOpt('natural-oils'); showOpt('nothing'); showOpt('tallow');
+            if (hasEczema || hasDry) { showOpt('steroid-creams'); setDesc('steroid-creams', 'Hydrocortisone, Dermol, Elocon, etc.'); }
+            if (hasRosacea) { showOpt('rosacea-rx'); showOpt('steroid-creams'); }
+            if (hasAcne) showOpt('acne-treatments');
+            if (hasWrinkles || hasPigmentation) {
+                showOpt('retinol'); showOpt('vitamin-c');
+                showOpt('department-store'); setDesc('department-store', 'Clinique, Estée Lauder, Lancôme, or similar');
+            }
+            if (!isTeen) showOpt('department-store');
+        }
+    }
+
+    // ═══════════════════════════════════════════
+    // AREAS — age + gender + concerns + back-reference
+    // ═══════════════════════════════════════════
+    if (key === 'areas') {
+        step.querySelectorAll('.sq-opt').forEach(function(o) { o.style.display = 'none'; });
+        var aTitle = document.getElementById('sqAreasTitle');
+        var aSub = document.getElementById('sqAreasSub');
+
+        if (isBaby) {
+            aTitle.textContent = 'Where on your baby\'s body is it worst?';
+            aSub.textContent = 'Tick all the areas that flare up — even if it comes and goes, include it.';
+            showOpt('face'); showOpt('cheeks'); showOpt('body'); showOpt('hands'); showOpt('elbows');
+            showOpt('nappy-area'); showOpt('behind-ears'); setDesc('behind-ears', 'A very common spot for baby eczema');
+            showOpt('skin-folds'); setDesc('skin-folds', 'Neck creases, wrists, ankles, inner elbows');
+            if (hasCradleCap) showOpt('scalp');
+        } else if (isChild) {
+            aTitle.textContent = 'Where on their body is it worst?';
+            aSub.textContent = 'Tick everything that needs attention — even areas that come and go.';
+            showOpt('face'); showOpt('hands'); showOpt('elbows'); showOpt('body');
+            showOpt('scalp'); showOpt('behind-ears'); showOpt('skin-folds');
+            setDesc('skin-folds', 'Neck creases, wrists, inner elbows');
+        } else if (isTeen && hasAcne) {
+            aTitle.textContent = 'Where do you break out?';
+            aSub.textContent = 'Tick everywhere that gets hit — different areas need different approaches.';
+            showOpt('face'); showOpt('forehead'); showOpt('back'); setDesc('back', '"Bacne" — we\'ve got you');
+            if (isMale) { showOpt('beard'); setLabel('beard', 'Jawline'); setDesc('beard', 'Along the jaw and chin'); showOpt('chest'); }
+            showOpt('body'); showOpt('scalp');
+        } else {
+            // Adults — back-reference concerns
+            if (hasEczema || hasRosacea) {
+                aTitle.textContent = 'Where does it flare up?';
+            } else if (hasAcne) {
+                aTitle.textContent = 'Where do you break out most?';
+            } else {
+                aTitle.textContent = 'Where do you notice it most?';
+            }
+            if (concernStr) {
+                aSub.textContent = 'Since you\'re dealing with ' + concernStr + ', we want to know exactly where — so we can match the right products to the right areas.';
+            } else {
+                aSub.textContent = 'Tick everything that gives you grief — we\'ll make sure each area is covered.';
+            }
+
+            showOpt('face'); showOpt('hands'); showOpt('elbows'); showOpt('body');
+            showOpt('scalp'); showOpt('lips');
+
+            if (hasWrinkles || hasPigmentation || hasRosacea) { showOpt('undereyes'); showOpt('neck'); }
+            if (hasDry || hasEczema) { showOpt('undereyes'); showOpt('skin-folds'); setDesc('skin-folds', 'Inner elbows, backs of knees, skin creases'); }
+            if (hasAcne) { showOpt('back'); showOpt('forehead'); }
+            if (isMale) { showOpt('beard'); showOpt('scalp'); if (hasAcne) { showOpt('chest'); showOpt('neck'); } }
+            if (isFemale) { showOpt('undereyes'); showOpt('neck'); }
+            if (isMature) { showOpt('neck'); showOpt('undereyes'); }
+        }
+    }
+
+    // ═══════════════════════════════════════════
+    // PREFERENCE — concerns + back-reference
+    // ═══════════════════════════════════════════
+    if (key === 'preference') {
+        var prefTitle = step.querySelector('.sq-title');
+        var prefSub = step.querySelector('.sq-subtitle');
+        var simpleDesc = step.querySelector('[data-val="simple"] .sq-opt-desc');
+        var premDesc = step.querySelector('[data-val="premium"] .sq-opt-desc');
+        var premLabel = step.querySelector('[data-val="premium"] .sq-opt-label');
+
+        if (hasEczema || hasRosacea) {
+            prefTitle.textContent = isMale ? 'What approach do you want to take?' : 'What approach feels right for your skin?';
+            prefSub.textContent = 'Some people with ' + (hasEczema ? 'eczema' : 'rosacea') + ' want the simplest possible formula — fewer ingredients, fewer variables. Others want targeted actives that rebuild the skin barrier. Both work.';
+            if (simpleDesc) simpleDesc.textContent = 'Fewer ingredients, fewer variables. Let tallow do the heavy lifting.';
+            if (premDesc) premDesc.textContent = 'Ceramides and barrier-repair actives to rebuild what ' + (hasEczema ? 'eczema' : 'rosacea') + ' breaks down';
+            if (premLabel) premLabel.textContent = 'Targeted ingredients';
+        } else if (hasWrinkles || hasPigmentation) {
+            prefTitle.textContent = 'What kind of routine feels right for you?';
+            var hasTried = tried.indexOf('retinol') !== -1;
+            prefSub.textContent = 'You mentioned ' + concernStr + ' — both respond well to the right approach. ' +
+                (hasTried ? 'Since you\'ve tried retinol, you\'ll appreciate Bakuchiol — a gentle alternative that activates the same pathways without the irritation.' :
+                'A simple tallow routine nourishes. A targeted routine with actives like Bakuchiol and Vitamin C can deliver visible change.');
+            if (premLabel) premLabel.textContent = 'Targeted results';
+            if (premDesc) premDesc.textContent = 'Clinically-backed actives designed to reduce fine lines and even out skin tone';
+        } else if (hasAcne) {
+            prefTitle.textContent = isTeen ? 'How do you want to tackle your breakouts?' : 'What approach suits you?';
+            prefSub.textContent = isTeen ? 'Both options work. The simple route keeps things easy. The active route targets breakouts harder with ingredients backed by research.' :
+                'Tallow alone helps regulate your skin\'s oil balance. For stubborn breakouts, active ingredients like Niacinamide and Vitamin C can accelerate results.';
+            if (isTeen) {
+                if (simpleDesc) simpleDesc.textContent = 'One product, natural ingredients, no fuss';
+                if (premLabel) premLabel.textContent = 'Go harder on breakouts';
+                if (premDesc) premDesc.textContent = 'Targeted ingredients that fight acne at the source';
+            }
+        }
+    }
+
+    // ═══════════════════════════════════════════
+    // SENSITIVITY — age + concerns + persona descriptions
+    // ═══════════════════════════════════════════
+    if (key === 'sensitivity') {
+        var sensTitle = step.querySelector('.sq-title');
+        var sensSub = step.querySelector('.sq-subtitle');
+
+        if (isBaby || isChild) {
+            sensTitle.textContent = 'How sensitive is your ' + (isBaby ? 'baby' : 'child') + '\'s skin?';
+            sensSub.textContent = 'When in doubt, go higher — we\'d rather be cautious.';
+            setDesc('1', 'Their skin seems to tolerate most products fine');
+            setDesc('3', 'Sometimes reacts to new products or fabrics');
+            setDesc('5', 'We have to be quite careful with what goes on their skin');
+            setDesc('7', 'Most products seem to make it worse');
+            setDesc('10', 'We\'ve struggled to find anything that doesn\'t irritate their skin');
+        } else if (isTeen) {
+            sensTitle.textContent = 'How does your skin react to new stuff?';
+            sensSub.textContent = 'Some skin freaks out at everything, some can handle anything. Where are you at?';
+            setDesc('1', 'I can put anything on my face — no drama');
+            setDesc('3', 'Sometimes a new product makes me break out more');
+            setDesc('5', 'A lot of stuff makes it worse before it gets better');
+            setDesc('7', 'Most things I\'ve tried made it redder or more irritated');
+            setDesc('10', 'Honestly, everything seems to make it worse');
+        } else if (hasEczema || hasRosacea) {
+            sensTitle.textContent = 'How reactive is your skin right now?';
+            sensSub.textContent = 'This helps us figure out which ingredients are safe for you — we\'d rather be cautious than trigger a flare.';
+            setDesc('7', isMature ? 'My skin has become more reactive over the years' : 'Most products sting, burn, or cause a flare within hours');
+            setDesc('10', 'I\'ve given up trying new products because they almost always make it worse');
+        } else if (isMature) {
+            sensTitle.textContent = 'How does your skin react to new products?';
+            sensSub.textContent = 'After years of trying different products, you probably know your skin pretty well. This helps us make sure we recommend things that\'ll actually agree with it.';
+            setDesc('7', 'My skin has become more reactive over the years');
+        } else {
+            sensTitle.textContent = 'How sensitive is your skin?';
+            sensSub.textContent = 'This helps us figure out which ingredients are right for you.';
+        }
+    }
+
+    // ═══════════════════════════════════════════
+    // ALLERGENS — age + concerns + back-reference
+    // ═══════════════════════════════════════════
+    if (key === 'allergens') {
+        var allergTitle = step.querySelector('.sq-title');
+        var allergSub = document.getElementById('sqAllergenSub');
+        var noneDesc = document.getElementById('sqAllergenNoneDesc');
+
+        if (isBaby || isChild) {
+            allergTitle.textContent = 'Any known allergies or reactions?';
+            if (allergSub) allergSub.textContent = 'Babies can react to unexpected ingredients. Tick any you know about — if you\'re not sure, that\'s okay, we\'ll keep things simple.';
+            if (noneDesc) noneDesc.textContent = 'No known reactions yet';
+        } else if (isTeen) {
+            allergTitle.textContent = 'Any ingredients that make your skin worse?';
+            if (allergSub) allergSub.textContent = 'If you don\'t know, that\'s totally fine — just hit "None of these" and move on.';
+            if (noneDesc) noneDesc.textContent = 'No idea / nothing that I know of';
+        } else if (isMature && tried.length > 0) {
+            allergTitle.textContent = 'Any ingredients you know don\'t agree with your skin?';
+            var triedNames = [];
+            if (tried.indexOf('retinol') !== -1) triedNames.push('retinol');
+            if (tried.indexOf('department-store') !== -1) triedNames.push('department store brands');
+            if (tried.indexOf('steroid-creams') !== -1) triedNames.push('steroid creams');
+            if (triedNames.length > 0) {
+                if (allergSub) allergSub.textContent = 'After trying ' + triedNames.join(' and ') + ', you may have discovered some sensitivities. Tick anything that\'s caused a reaction.';
+            }
+            if (noneDesc) noneDesc.textContent = 'Nothing I\'ve noticed so far';
+        } else if (hasEczema || hasRosacea) {
+            allergTitle.textContent = 'Any known triggers or irritants?';
+            if (allergSub) allergSub.textContent = 'Tick anything you know sets your skin off. If you\'re not sure, skip ahead — we\'ll err on the side of caution.';
+            if (noneDesc) noneDesc.textContent = 'Haven\'t identified specific triggers yet';
+        } else {
+            allergTitle.textContent = 'Anything your skin doesn\'t get along with?';
+            if (noneDesc) noneDesc.textContent = 'None that I\'m aware of';
+        }
+    }
+
+    // ═══════════════════════════════════════════
+    // SEVERITY — concerns + tried back-reference
+    // ═══════════════════════════════════════════
+    if (key === 'severity') {
+        var sevTitle = step.querySelector('.sq-title');
+        var sevSub = step.querySelector('.sq-subtitle');
+
+        if (isBaby || isChild) {
+            sevTitle.textContent = 'How is your ' + (isBaby ? 'baby' : 'child') + '\'s skin right now?';
+            sevSub.textContent = 'Be honest — there\'s no wrong answer here. It helps us recommend the right level of care.';
+            setDesc('recovered', 'Their skin is mostly clear right now — we want to keep it that way');
+            setDesc('recurring', 'Flares up and down — good weeks and bad weeks');
+            setDesc('active', 'Red, inflamed, and they\'re clearly uncomfortable');
+            setDesc('open-wounds', 'Broken, weeping, or cracked skin');
+        } else if (hasRosacea) {
+            sevTitle.textContent = 'How is your rosacea right now?';
+            sevSub.textContent = 'Rosacea comes and goes. Where you are today helps us decide whether to focus on calming a current flare or building long-term resilience.';
+            setDesc('recurring', 'Flares up with triggers like weather, stress, or certain products');
+            setDesc('active', 'Persistent redness, bumps, or burning right now');
+        } else if (hasEczema) {
+            sevTitle.textContent = 'How\'s your eczema right now?';
+            if (tried.indexOf('steroid-creams') !== -1) {
+                sevSub.textContent = 'We know steroid creams can be a double-edged sword — they calm things down but your skin can become dependent. Where are things at right now?';
+            } else {
+                sevSub.textContent = 'Be honest — it helps us figure out what level of support you need.';
+            }
+            setDesc('recurring', 'Flares come and go — sometimes clear for weeks, then it\'s back');
+            setDesc('active', 'Currently in a bad flare — red, itchy, can\'t leave it alone');
+            setDesc('open-wounds', 'Cracked, weeping, or bleeding skin that won\'t heal');
+        }
+    }
+
+    // ═══════════════════════════════════════════
+    // FREQUENCY — age + concerns + areas back-reference
+    // ═══════════════════════════════════════════
+    if (key === 'frequency') {
+        var freqTitle = step.querySelector('.sq-title');
+        var freqSub = step.querySelector('.sq-subtitle');
+
+        if (isBaby || isChild) {
+            freqTitle.textContent = 'How often are you moisturising your ' + (isBaby ? 'baby' : 'child') + '\'s skin?';
+            freqSub.textContent = hasEczema ? 'With eczema-prone skin, running out mid-routine can mean a setback. This helps us recommend the right size.' :
+                'This helps us recommend the right size — nothing worse than running out mid-routine!';
+            setDesc('rarely', isBaby ? 'Only when it flares up' : 'When I remember');
+            setDesc('once', isBaby ? 'Usually after bath time' : 'Morning or night');
+            setDesc('twice', isBaby ? 'Morning and after bath / before bed' : 'Morning and night');
+            setDesc('3plus', isBaby ? 'Multiple times — after every nappy change, bath, or flare' : 'Constant reapplication');
+        } else if (isTeen) {
+            freqTitle.textContent = 'Last one — how often would you actually use this?';
+            freqSub.textContent = 'Be real — we\'d rather recommend the right size than have a jar sitting in your bathroom going to waste.';
+            setDesc('rarely', 'A few times a week, max');
+            setDesc('once', 'Probably after a shower');
+            setDesc('twice', 'Morning and before bed');
+        } else if (hasEczema) {
+            freqTitle.textContent = 'How often are you having to moisturise?';
+            freqSub.textContent = 'Eczema usually means constant reapplication — we get it. This helps us recommend the right size so you\'re not running out mid-week.';
+            setDesc('rarely', 'Only when it gets really bad');
+            setDesc('3plus', 'After every hand wash, shower, and before bed');
+        } else if (hasRosacea && hasDry) {
+            freqTitle.textContent = 'How often do you moisturise?';
+            freqSub.textContent = 'Rosacea-prone dry skin often needs more frequent application than you\'d think. This helps us recommend the right product size.';
+        } else {
+            freqTitle.textContent = 'Last one — how often do you moisturise?';
+            if (areas.length > 0) {
+                var areaNames = [];
+                if (areas.indexOf('face') !== -1) areaNames.push('face');
+                if (areas.indexOf('undereyes') !== -1) areaNames.push('under-eyes');
+                if (areas.indexOf('hands') !== -1) areaNames.push('hands');
+                if (areas.indexOf('body') !== -1) areaNames.push('body');
+                freqSub.textContent = areaNames.length > 0 ?
+                    'You mentioned ' + areaNames.join(', ') + ' — this helps us recommend the right product sizes so you won\'t run out.' :
+                    'This helps us figure out the right size — nothing worse than running out mid-routine!';
+            }
+        }
+
+        // Tailor email capture + disclaimer for baby
+        if (isBaby || isChild) {
+            var emailLabel = step.querySelector('.sq-input[type="email"]');
+            if (emailLabel) {
+                var emailP = emailLabel.previousElementSibling;
+                if (emailP) emailP.textContent = 'Want your baby\'s results emailed? Handy for sharing with your partner or Plunket nurse. (optional)';
+            }
+        }
+    }
 }
 
 function sqBack() {
@@ -1158,304 +1714,307 @@ function getRecommendations() {
     var allergens = (answers.allergens || []).filter(function(a) { return a !== 'none'; });
     var severity = answers.severity || 'recovered';
     var frequency = answers.frequency || 'once';
-
-    // Determine size
-    var needLargeSize = frequency === '3plus' || frequency === 'twice' ||
-        severity === 'active' || severity === 'open-wounds' ||
-        areas.indexOf('body') !== -1 ||
-        (areas.indexOf('hands') !== -1 && areas.indexOf('elbows') !== -1);
-
-    var balmSize = needLargeSize ? '250' : '120';
-
-    var recs = [];
-    var usedKeys = {};
-
+    var tried = answers.triedBefore || [];
     var age = answers.ageGroup || 'adult';
-    var isChild = age === 'baby' || age === 'child';
-    var isAdult = age === 'adult' || age === 'mature' || age === 'senior';
+    var gender = answers.gender || '';
 
-    function addProduct(key, why) {
+    var isBabyAge = age === 'baby';
+    var isChildAge = age === 'child';
+    var isChild = isBabyAge || isChildAge;
+    var isTeen = age === 'teen';
+    var isAdult = age === 'adult' || age === 'mature' || age === 'senior';
+    var isMature = age === 'mature' || age === 'senior';
+    var isMale = gender === 'male';
+
+    var hasFace = areas.indexOf('face') !== -1 || areas.indexOf('beard') !== -1 || areas.indexOf('forehead') !== -1 || areas.indexOf('cheeks') !== -1;
+    var hasUnderEyes = areas.indexOf('undereyes') !== -1;
+    var hasScalp = areas.indexOf('scalp') !== -1;
+    var hasLips = areas.indexOf('lips') !== -1;
+    var hasBody = areas.indexOf('body') !== -1 || areas.indexOf('hands') !== -1 || areas.indexOf('elbows') !== -1 ||
+        areas.indexOf('nappy-area') !== -1 || areas.indexOf('behind-ears') !== -1 || areas.indexOf('skin-folds') !== -1 ||
+        areas.indexOf('back') !== -1 || areas.indexOf('chest') !== -1 || areas.indexOf('neck') !== -1;
+
+    var hasEczema = concerns.indexOf('eczema') !== -1;
+    var hasRosacea = concerns.indexOf('rosacea') !== -1;
+    var hasAcne = concerns.indexOf('acne') !== -1;
+    var hasDry = concerns.indexOf('dry') !== -1;
+    var hasWrinkles = concerns.indexOf('wrinkles') !== -1;
+    var hasPigmentation = concerns.indexOf('pigmentation') !== -1;
+    var hasGeneral = concerns.indexOf('general') !== -1;
+    var hasCradleCap = concerns.indexOf('cradle-cap') !== -1;
+    var hasNappyRash = concerns.indexOf('nappy-rash') !== -1;
+
+    var tallowFb = answers.tallowFeedback;
+    var dislikedTallow = tallowFb === 'texture' || tallowFb === 'smell' || tallowFb === 'no-results';
+    var lovedTallow = tallowFb === 'loved-it' || tallowFb === 'noticed-difference' || tallowFb === 'like-natural';
+    var highSensitivity = sensitivity >= 8;
+
+    // Push to Reviana for face unless: simple pref + not wrinkles/pigmentation, or high sensitivity
+    var useReviana = (pref === 'premium' || hasWrinkles || hasPigmentation || hasAcne || dislikedTallow) && !highSensitivity;
+
+    // Can use fragrance?
+    var canFragrance = allergens.indexOf('fragrance') === -1 && allergens.indexOf('essential-oils') === -1;
+
+    // ── SHOP SKU AVOIDANCE: never recommend 120ml balm or 120ml honey (shops carry these)
+    // Always prefer: limited editions, 250ml sizes, or Reviana
+
+    var candidates = [];
+    var usedKeys = {};
+    var hasBalm = false;
+
+    var BALM_KEYS = ['balm-natural-120','balm-natural-250','balm-frankincense-120','balm-frankincense-250',
+        'balm-lavender-120','honeybalm-vanilla-120','honeybalm-vanilla-250',
+        'limited-midnight','limited-sunrise','baby-butter'];
+    function isBalm(key) { return BALM_KEYS.indexOf(key) !== -1; }
+
+    function addProduct(key, why, priority) {
         if (usedKeys[key]) return;
         var p = PRODUCTS[key];
         if (!p) return;
-        // Age filtering — no deodorant/hair clay for kids, no baby butter for adults
         if (isChild && (key === 'deodorant' || key === 'hair-clay' || key.indexOf('reviana') !== -1)) return;
         if (isAdult && key === 'baby-butter') return;
-        // Allergen check
+        if (isBalm(key) && hasBalm) return;
         for (var i = 0; i < allergens.length; i++) {
             if (p.allergens.indexOf(allergens[i]) !== -1) return;
         }
         usedKeys[key] = true;
-        recs.push({ key: key, product: p, why: why, step: recs.length === 0 ? 'Start here' : (recs.length === 1 ? 'Then apply' : 'Complete with') });
+        if (isBalm(key)) hasBalm = true;
+        candidates.push({ key: key, product: p, why: why, priority: priority || 5 });
     }
 
-    var gender = answers.gender || '';
-    var isMale = gender === 'male';
-    var hasFace = areas.indexOf('face') !== -1;
-    var hasUnderEyes = areas.indexOf('undereyes') !== -1;
-    var hasScalp = areas.indexOf('scalp') !== -1;
-    var hasLips = areas.indexOf('lips') !== -1;
-    var hasBody = areas.indexOf('body') !== -1 || areas.indexOf('hands') !== -1 || areas.indexOf('elbows') !== -1;
-    // Push Reviana if: premium pref, wrinkles/pigmentation, OR they tried tallow and didn't like texture/smell
-    var tallowFb = answers.tallowFeedback;
-    var dislikedTallow = tallowFb === 'texture' || tallowFb === 'smell' || tallowFb === 'no-results';
-    var lovedTallow = tallowFb === 'loved-it';
-    var useReviana = pref === 'premium' || concerns.indexOf('wrinkles') !== -1 || concerns.indexOf('pigmentation') !== -1 || dislikedTallow;
-    var highSensitivity = sensitivity >= 8;
-
-    // If they loved tallow, push 250ml
-    if (lovedTallow) balmSize = '250';
-
-    // Face concerns
-    if (hasFace) {
-        if (concerns.indexOf('acne') !== -1) {
-            if (useReviana && !highSensitivity) {
-                addProduct('reviana-serum', 'Vitamin C & Licorice Extract target breakouts and post-acne marks');
-                addProduct('reviana-night', 'Niacinamide regulates oil production overnight while Bakuchiol renews skin');
-            } else {
-                addProduct('serum-primal', 'Vitamin C targets breakouts while Hyaluronic Acid hydrates without clogging pores');
-            }
-            addProduct('cleanser', 'Gentle tallow cleanser removes impurities without stripping your skin barrier');
-        }
-        if (concerns.indexOf('wrinkles') !== -1) {
-            addProduct('reviana-night', 'Bakuchiol (natural retinol alternative) + Kakadu Plum stimulate collagen renewal');
-            addProduct('reviana-serum', 'Concentrated Vitamin C brightens and firms with daily use');
-            addProduct('reviana-day', 'Daytime protection with Niacinamide and Vitamin C');
-        }
-        if (concerns.indexOf('pigmentation') !== -1) {
-            addProduct('reviana-serum', 'Licorice Extract is clinically proven to inhibit melanin production');
-            addProduct('reviana-night', 'Kakadu Plum has the highest natural Vitamin C concentration — fades dark spots');
-        }
-        if (concerns.indexOf('eczema') !== -1) {
-            if (useReviana && !highSensitivity) {
-                addProduct('reviana-night', 'Ceramides and Panthenol rebuild the damaged skin barrier overnight');
-            } else {
-                addProduct('balm-natural-' + balmSize, 'Just 2 ingredients — as simple as it gets for sensitive skin');
-            }
-        }
-        if (concerns.indexOf('rashy') !== -1 || concerns.indexOf('rosacea') !== -1) {
-            if (useReviana && !highSensitivity) {
-                addProduct('reviana-night', 'Ceramides and Bisabolol work together to support your skin barrier overnight');
-            } else {
-                addProduct('balm-natural-' + balmSize, 'Just 2 ingredients — nothing to trigger a reaction');
-            }
-        }
-        if (concerns.indexOf('dry') !== -1) {
-            if (useReviana && !highSensitivity) {
-                addProduct('reviana-night', 'Hyaluronic Acid draws moisture in while Ceramides lock it in');
-            } else {
-                addProduct('balm-natural-' + balmSize, 'Pure tallow mirrors your skin\'s natural oils for deep hydration');
-            }
-        }
-    }
-
-    // Full Reviana range push — if they suit Reviana, fill out the routine
-    if (useReviana && !highSensitivity && hasFace && isAdult) {
-        addProduct('reviana-night', 'Bakuchiol and Ceramides work overnight to support your skin barrier');
-        addProduct('reviana-day', 'Daytime moisture with Vitamin C and Niacinamide');
-        addProduct('reviana-serum', 'Concentrated Vitamin C serum — use morning or evening for best results');
-        addProduct('reviana-eye', 'Hexapeptide-8 and Niacinamide for the delicate eye area');
-    }
-
-    // Under eyes
-    if (hasUnderEyes) {
-        if (useReviana && !highSensitivity) {
-            addProduct('reviana-eye', 'Hexapeptide-8 targets fine lines around the delicate eye area');
+    // Helper: pick best body balm (limited ed > honey 250 > natural 250)
+    function addBodyBalm(why, pri) {
+        if (canFragrance) {
+            addProduct('limited-midnight', why || 'Limited Edition whipped tallow with Cacao, Blood Orange & Manuka honey — a nourishing treat for your skin', pri || 2);
+            addProduct('limited-sunrise', why || 'Limited Edition whipped tallow with Sea Buckthorn & Ylang Ylang — deeply nourishing for dry skin', pri || 2);
+            addProduct('honeybalm-vanilla-250', why || 'Manuka honey draws moisture into the skin while vanilla adds a beautiful scent — our best value body balm', pri || 3);
         } else {
-            addProduct('eye-cream-primal', 'Vitamin C & Manuka Honey brighten and nourish the under-eye area');
+            addProduct('balm-natural-250', why || 'Pure tallow — just 2 ingredients, no fragrances, nothing to trigger a reaction. Our largest size for daily body use', pri || 2);
         }
     }
 
-    // Body concerns
-    if (hasBody) {
-        if (concerns.indexOf('eczema') !== -1 || concerns.indexOf('rashy') !== -1 || concerns.indexOf('rosacea') !== -1) {
-            if (allergens.indexOf('essential-oils') === -1 && allergens.indexOf('fragrance') === -1) {
-                addProduct('balm-frankincense-' + balmSize, 'Frankincense has been used for centuries in skincare — a beautiful option for problem areas');
+    // ═══════════════════════════════════════════════════
+    // 1. BABY / CHILD — separate path entirely
+    // ═══════════════════════════════════════════════════
+    if (isChild) {
+        addProduct('baby-butter', 'Fragrance-free with Chamomile & Aloe Vera — gentle enough for newborns and formulated specifically for delicate baby skin', 1);
+
+        if (hasCradleCap) {
+            addProduct('shampoo', 'Our tallow shampoo bar gently softens and lifts cradle cap flakes without harsh surfactants or chemicals', 1);
+        }
+
+        // Oat soak ONLY for active flare / open wounds in babies
+        if (severity === 'active' || severity === 'open-wounds') {
+            addProduct('oat-soak', 'Colloidal oat baths calm inflamed, stinging skin — run lukewarm (never hot) for 15 minutes before gently patting dry and applying balm', 1);
+        }
+
+        if (hasNappyRash) {
+            addProduct('balm-natural-250', 'Creates a protective tallow barrier on clean skin at each nappy change — the 250ml means you won\'t run out', 2);
+        } else {
+            addProduct('balm-natural-250', 'Just 2 ingredients — tallow and jojoba. The simplest thing you can put on delicate skin, and the 250ml lasts months', 2);
+        }
+
+        // Only add lip balm for babies if they have dry/cracked lips area selected
+        if (hasLips) addProduct('lip-balm', 'Manuka honey lip balm — great for dry patches on little cheeks and lips too', 3);
+
+        // Baby path: take top 3 by priority and return
+        candidates.sort(function(a, b) { return a.priority - b.priority; });
+        var baby3 = candidates.slice(0, 3);
+        baby3.sort(function(a, b) { return a.product.price - b.product.price; });
+        baby3.forEach(function(r, i) { r.step = i === 0 ? 'Start here' : (i === 1 ? 'Then apply' : 'Complete with'); });
+        return baby3;
+    }
+
+    // ═══════════════════════════════════════════════════
+    // 2. OAT SOAK — ONLY for active stinging flare / open wounds
+    // ═══════════════════════════════════════════════════
+    if ((hasEczema || hasRosacea) && (severity === 'open-wounds')) {
+        addProduct('oat-soak', 'Start with gentle colloidal oat baths to calm stinging, inflamed skin before layering on any product — this is your foundation', 1);
+    }
+
+    // ═══════════════════════════════════════════════════
+    // 3. ACNE — Cleanser + Reviana range
+    // ═══════════════════════════════════════════════════
+    if (hasAcne && hasFace) {
+        addProduct('cleanser', 'A gentle tallow-based cleanser that removes impurities without stripping your skin barrier — the foundation of any acne routine', 1);
+        if (useReviana) {
+            addProduct('reviana-serum', 'Vitamin C and Licorice Extract target breakouts and post-acne marks — clinically studied actives that work without irritation', 1);
+            addProduct('reviana-night', 'Niacinamide regulates oil production overnight while Bakuchiol renews skin — a natural retinol alternative without the harsh side effects', 2);
+        } else {
+            addProduct('reviana-serum', 'Vitamin C and Licorice Extract target breakouts — even for sensitive skin, these are gentle enough to use daily', 1);
+            addProduct('cleanser', 'Gentle tallow cleanser — the most important step for acne-prone skin', 1);
+        }
+    }
+
+    // ═══════════════════════════════════════════════════
+    // 4. FACE — Reviana Day/Night for most, balm 250 for high sensitivity
+    // ═══════════════════════════════════════════════════
+    if (hasFace && !isChild && !hasAcne) {
+        if (hasWrinkles) {
+            addProduct('reviana-night', 'Bakuchiol stimulates collagen renewal the same way retinol does, but without irritation — peer-reviewed research confirms comparable anti-aging results', 1);
+            addProduct('reviana-serum', 'Concentrated Vitamin C brightens and firms — topical Vitamin C is one of the most well-researched anti-aging actives', 2);
+            addProduct('reviana-day', 'Daytime protection with Niacinamide and Vitamin C — shields against environmental damage while keeping skin hydrated', 3);
+        } else if (hasPigmentation) {
+            addProduct('reviana-serum', 'Licorice Extract inhibits tyrosinase — the enzyme that causes dark spots. One of the most well-researched natural brightening actives', 1);
+            addProduct('reviana-night', 'Kakadu Plum delivers the highest natural Vitamin C concentration of any fruit — supports gradual fading of dark spots and uneven tone', 2);
+            addProduct('reviana-day', 'Niacinamide reduces melanin transfer to skin cells — a proven daytime brightener that works with your skin\'s natural cycle', 3);
+        } else if (hasEczema || hasRosacea) {
+            if (useReviana) {
+                addProduct('reviana-night', 'Ceramides and Panthenol work together to rebuild the damaged skin barrier overnight — ceramide therapy is a cornerstone of ' + (hasEczema ? 'eczema' : 'rosacea') + ' management', 1);
+                addProduct('reviana-day', 'Gentle daytime moisture with Niacinamide — supports your skin barrier throughout the day without triggering a reaction', 2);
             } else {
-                addProduct('balm-natural-' + balmSize, 'Zero additives — compatible with even the most reactive skin');
+                addProduct('balm-natural-250', 'Just 2 ingredients — tallow\'s fatty acid profile closely mirrors human skin lipids, making it deeply compatible with reactive skin. The 250ml is your daily workhorse', 1);
             }
-            addProduct('liquid-lotion', 'Lightweight daily layer with Bisabolol — easy to apply between balm applications');
-            addProduct('oat-soak', 'Colloidal oat baths are a gentle way to support your skin — great as part of a weekly routine');
-        }
-        if (concerns.indexOf('wrinkles') !== -1 || concerns.indexOf('dry') !== -1) {
-            // Limited edition balms — offer as a treat
-            addProduct('limited-midnight', 'Limited Edition — Cacao & Blood Orange whipped tallow with Manuka honey. Once they\'re gone, they\'re gone');
-            addProduct('limited-sunrise', 'Limited Edition — Ylang Ylang & Sea Buckthorn for a natural glow. Only available for a limited time');
-            addProduct('honeybalm-vanilla-' + balmSize, 'Manuka honey nourishes while vanilla adds a beautiful scent — ideal for body');
-        }
-        if (concerns.indexOf('dry') !== -1 && !usedKeys['honeybalm-vanilla-' + balmSize]) {
-            addProduct('balm-lavender-120', 'Lavender calms while tallow delivers long-lasting hydration');
-        }
-        // Deodorant — great for people whose skin reacts to conventional products
-        if (sensitivity >= 5 || concerns.indexOf('eczema') !== -1 || concerns.indexOf('rashy') !== -1 || concerns.indexOf('rosacea') !== -1) {
-            addProduct('deodorant', 'No metals, no harsh chemicals — designed for skin that reacts to conventional deodorants');
+        } else if (hasDry) {
+            if (useReviana) {
+                addProduct('reviana-night', 'Hyaluronic Acid draws moisture in while Ceramides lock it in — a proven combination for skin that feels tight and dehydrated', 1);
+                addProduct('reviana-day', 'Lightweight daytime hydration that absorbs cleanly — keeps your skin comfortable all day without greasy residue', 2);
+            } else if (highSensitivity) {
+                addProduct('balm-natural-250', 'Just 2 ingredients for highly sensitive dry skin — tallow\'s lipid profile closely mirrors your skin\'s natural oils', 1);
+            } else {
+                // Even simple pref, push Reviana for face (better experience) + body balm for body
+                addProduct('reviana-night', 'For your face, the Reviana Night Cream absorbs beautifully without the traditional tallow texture — Ceramides and Hyaluronic Acid lock in moisture overnight', 1);
+                addProduct('reviana-day', 'Pairs with the Night Cream — lightweight daily hydration that won\'t feel heavy', 2);
+            }
+        } else if (hasGeneral) {
+            // General skincare — always push Reviana (better tolerance for smell/texture than balms, premium experience)
+            addProduct('reviana-night', 'Bakuchiol, Ceramides, and Vitamin C — a well-rounded overnight formula that supports healthy skin long-term. More refined than traditional tallow balms with the same skin-compatible base', 1);
+            addProduct('reviana-day', 'Lightweight daily moisture with Vitamin C and Niacinamide — absorbs cleanly, no tallow scent, and only available direct from us', 2);
+            if (isMature || hasUnderEyes) {
+                addProduct('reviana-eye', 'Hexapeptide-8 for the delicate eye area — a targeted treatment that complements your day and night routine', 3);
+            } else {
+                addProduct('reviana-serum', 'Layer this under your day or night cream for enhanced results — Vitamin C and Hyaluronic Acid boost what the creams are already doing', 3);
+            }
         }
     }
 
-    // Scalp — always include shampoo bar if head/scalp mentioned
-    if (hasScalp) {
-        addProduct('shampoo', '68% grass-fed tallow with zero harsh surfactants — a great foundation for your scalp');
-        addProduct('hair-clay', 'Natural hold that nourishes instead of drying out');
-        addProduct('conditioner', 'Deep conditioning with 12% tallow for moisture');
+    // ═══════════════════════════════════════════════════
+    // 5. UNDER EYES — eye cream
+    // ═══════════════════════════════════════════════════
+    if (hasUnderEyes && !isChild) {
+        if (useReviana) {
+            addProduct('reviana-eye', 'Hexapeptide-8 targets fine lines around the delicate eye area — peptides signal your skin to produce more collagen where it matters most', 2);
+        } else {
+            addProduct('eye-cream-primal', 'Vitamin C and Manuka Honey brighten and nourish the under-eye area — our tallow-based treatment designed specifically for sensitive eye skin', 2);
+        }
+    }
+    // Also add eye cream for mature women and wrinkles even if they didn't tick undereyes
+    if (isMature && (hasWrinkles || hasGeneral) && !hasUnderEyes && !isChild) {
+        if (useReviana) {
+            addProduct('reviana-eye', 'We\'ve included our eye cream because fine lines around the eyes are often the first sign of aging — Hexapeptide-8 targets this area specifically', 3);
+        } else {
+            addProduct('eye-cream-primal', 'Vitamin C and Manuka Honey for the delicate under-eye area — worth adding even if it\'s not your main concern', 3);
+        }
     }
 
-    // Lips
+    // ═══════════════════════════════════════════════════
+    // 6. BODY — Limited Edition or Honey Vanilla 250ml (never shop 120ml SKUs)
+    // ═══════════════════════════════════════════════════
+    if (hasBody && !isChild) {
+        if (hasEczema || hasRosacea) {
+            if (highSensitivity) {
+                addProduct('balm-natural-250', 'Zero additives, zero fragrance — compatible with even the most reactive skin. The 250ml is essential for daily body application', 2);
+            } else {
+                addBodyBalm('A nourishing body balm that supports your skin barrier — applied to damp skin after showering, it locks in moisture throughout the day', 2);
+            }
+        } else if (hasDry || hasWrinkles) {
+            addBodyBalm(null, 2);
+        } else if (hasGeneral) {
+            addBodyBalm(null, 3);
+        }
+
+        // Deodorant for reactive skin
+        if (sensitivity >= 5 || hasEczema || hasRosacea) {
+            addProduct('deodorant', 'No aluminium, no baking soda, no synthetic fragrance — designed for skin that reacts to conventional deodorants', 4);
+        }
+    }
+
+    // ═══════════════════════════════════════════════════
+    // 7. SCALP
+    // ═══════════════════════════════════════════════════
+    if (hasScalp && !isChild) {
+        addProduct('shampoo', 'A tallow-based shampoo bar with no sulfates or harsh surfactants — sulfate-free cleansing is shown to support scalp health long-term', 2);
+        if (isMale) addProduct('hair-clay', 'Natural hold that nourishes your hair instead of drying it out — no synthetic polymers or gunk', 4);
+    }
+
+    // ═══════════════════════════════════════════════════
+    // 8. LIPS
+    // ═══════════════════════════════════════════════════
     if (hasLips) {
-        addProduct('lip-balm', 'Manuka honey and tallow — a rich combo for keeping your lips nourished');
+        addProduct('lip-balm', 'Manuka honey is a natural humectant — draws moisture in and keeps your lips hydrated longer than petroleum-based alternatives', 3);
     }
 
-    // Male-specific — prefer frankincense, push hair clay and deodorant
+    // ═══════════════════════════════════════════════════
+    // 9. MALE-SPECIFIC additions
+    // ═══════════════════════════════════════════════════
     if (isMale && isAdult) {
-        addProduct('hair-clay', 'Natural hold with a tallow base — no synthetic gunk');
-        addProduct('deodorant', 'No metals, no harsh chemicals — actually works without the irritation');
-        // Prefer frankincense balm for men (earthier scent)
-        if (hasBody && !usedKeys['balm-frankincense-' + balmSize]) {
-            addProduct('balm-frankincense-' + balmSize, 'Frankincense — a clean, earthy scent that\'s a solid daily option');
-        }
+        addProduct('deodorant', 'No aluminium, no harsh chemicals — actually works without the irritation that conventional deodorants cause', 4);
+        addProduct('hair-clay', 'Natural hold with a tallow base — replaces synthetic styling products that can irritate your scalp', 4);
     }
 
-    // Baby
-    if (concerns.indexOf('baby') !== -1) {
-        addProduct('baby-butter', 'Fragrance-free with Chamomile — gentle enough for newborns');
-        addProduct('oat-soak', 'Gentle oat bath — a lovely addition to bath time for little ones');
-        if (!usedKeys['balm-natural-120']) {
-            addProduct('balm-natural-120', 'The simplest option for baby — just tallow and jojoba');
-        }
+    // ═══════════════════════════════════════════════════
+    // 10. TEEN additions
+    // ═══════════════════════════════════════════════════
+    if (isTeen && !hasAcne) {
+        // Teens without acne — still push cleanser and something useful
+        if (hasFace) addProduct('cleanser', 'A gentle daily cleanser is the foundation of any skincare routine — especially when your skin is still figuring itself out', 2);
+        addProduct('shampoo', 'A natural tallow shampoo bar — no harsh sulfates that strip your hair and irritate your scalp', 3);
     }
 
-    // If nothing selected yet, fallback
-    if (recs.length === 0) {
-        addProduct('balm-natural-120', 'Our most versatile product — pure grass-fed tallow for any skin type');
+    // ═══════════════════════════════════════════════════
+    // FALLBACK — if nothing matched
+    // ═══════════════════════════════════════════════════
+    if (candidates.length === 0) {
+        addProduct('reviana-night', 'Our most versatile premium product — Bakuchiol, Ceramides, and Vitamin C support every skin type', 1);
+        addProduct('reviana-day', 'Lightweight daily moisture with active ingredients — only available direct from us', 2);
+        addBodyBalm('A nourishing body balm to complement your face routine — applied to damp skin after showering', 3);
     }
 
-    // For active flare-ups, prioritize oat soak as first product
-    if (severity === 'active' || severity === 'open-wounds') {
-        var oatIdx = -1;
-        for (var ri = 0; ri < recs.length; ri++) {
-            if (recs[ri].key === 'oat-soak') { oatIdx = ri; break; }
-        }
-        if (oatIdx === -1) {
-            // Add it if not already there
-            addProduct('oat-soak', 'Start with gentle oat baths before layering on product — a great foundation for your routine');
-            oatIdx = recs.length - 1;
-        }
-        if (oatIdx > 0) {
-            var oatRec = recs.splice(oatIdx, 1)[0];
-            oatRec.why = 'Start with gentle oat baths before layering on product — a great foundation for your routine';
-            recs.unshift(oatRec);
-        }
-    }
+    // ═══════════════════════════════════════════════════
+    // PICK FINAL 3 — priority first, then price-tiered
+    // ═══════════════════════════════════════════════════
+    candidates.sort(function(a, b) { return a.priority - b.priority; });
 
-    // ── Price tier enforcement: 1 under $20, 1 between $20-35, 1 over $35 ──
-    // This targets a bundle total of ~$60-70 (just under $75 free shipping threshold)
-    var tierUnder20 = [];
-    var tier20to35 = [];
-    var tierOver35 = [];
+    // Take top 3 by priority
+    var final3 = candidates.slice(0, 3);
 
-    recs.forEach(function(r) {
-        var price = r.product.price;
-        if (price < 20) tierUnder20.push(r);
-        else if (price <= 35) tier20to35.push(r);
-        else tierOver35.push(r);
-    });
-
-    // Build final 3 — one from each tier, ordered: under $20 (left), $20-35 (middle), $35+ (right)
-    var final3 = [];
-    if (tierUnder20.length > 0) final3.push(tierUnder20[0]);
-    if (tier20to35.length > 0) final3.push(tier20to35[0]);
-    if (tierOver35.length > 0) final3.push(tierOver35[0]);
-
-    // Fill remaining slots from whatever tier has extras
-    var allSorted = recs.filter(function(r) { return final3.indexOf(r) === -1; });
-    while (final3.length < 3 && allSorted.length > 0) {
-        final3.push(allSorted.shift());
-    }
-
-    // If still under 3, add fallbacks
+    // If under 3, add smart fallbacks (never shop SKUs)
     var fallbacks = [
-        ['oat-soak', 'Colloidal oat baths are compatible with every skin type — a great weekly addition'],
-        ['lip-balm', 'Manuka honey lip balm keeps lips nourished — pairs with any routine'],
-        ['liquid-lotion', 'A lightweight daily moisturiser that layers under balm for all-day hydration'],
-        ['limited-midnight', 'Limited Edition Midnight Mousse — Cacao & Blood Orange whipped tallow with Manuka honey'],
-        ['limited-sunrise', 'Limited Edition Sunrise Glow — Ylang Ylang & Sea Buckthorn for a natural glow'],
-        ['honeybalm-vanilla-120', 'Manuka honey and vanilla — a nourishing treat for hands and body'],
-        ['deodorant', 'No metals, no harsh chemicals — designed for skin that reacts to conventional deodorants'],
-        ['balm-natural-120', 'Our pure tallow balm — just 2 ingredients, compatible with any skin type']
+        ['reviana-day', 'Our premium day cream with Vitamin C and Niacinamide — completes your morning routine and is only available direct from us'],
+        ['reviana-night', 'Bakuchiol and Ceramides work overnight to support your skin — pairs perfectly with a day cream for a complete routine'],
+        ['reviana-serum', 'Concentrated Vitamin C serum — layer under your day or night cream for enhanced results'],
+        ['reviana-eye', 'Hexapeptide-8 targets the delicate eye area — worth adding to any face routine'],
+        ['limited-midnight', 'Limited Edition whipped tallow with Cacao & Blood Orange — a nourishing body balm that won\'t be around forever'],
+        ['limited-sunrise', 'Limited Edition whipped tallow with Sea Buckthorn & Ylang Ylang — deeply nourishing and only available for a limited time'],
+        ['shampoo', 'Our tallow shampoo bar — a great addition to any routine, even if scalp isn\'t your main concern'],
+        ['deodorant', 'No aluminium, no harsh chemicals — a natural alternative if conventional deodorants irritate your skin'],
+        ['honeybalm-vanilla-250', 'Our Manuka honey and vanilla body balm — a nourishing treat in our best-value size'],
+        ['balm-natural-250', 'Pure tallow in our largest size — just 2 ingredients, compatible with any skin type']
     ];
     var fi = 0;
     while (final3.length < 3 && fi < fallbacks.length) {
-        var fb = fallbacks[fi];
-        if (!usedKeys[fb[0]]) {
-            var p = PRODUCTS[fb[0]];
-            if (p) {
-                var safe = true;
-                for (var ai = 0; ai < allergens.length; ai++) {
-                    if (p.allergens.indexOf(allergens[ai]) !== -1) { safe = false; break; }
-                }
-                if (safe) {
-                    usedKeys[fb[0]] = true;
-                    final3.push({ key: fb[0], product: p, why: fb[1], step: 'Complete with' });
-                }
-            }
+        var fb = fallbacks[fi]; fi++;
+        if (usedKeys[fb[0]]) continue;
+        var p = PRODUCTS[fb[0]];
+        if (!p) continue;
+        var safe = true;
+        for (var ai = 0; ai < allergens.length; ai++) {
+            if (p.allergens.indexOf(allergens[ai]) !== -1) { safe = false; break; }
         }
-        fi++;
-    }
-
-    // Keep any extras beyond 3 as secondary recommendations
-    var extras = recs.filter(function(r) { return final3.indexOf(r) === -1; });
-
-    // ── Magnet product — always ensure a compelling "Also compatible" item ──
-    // Priority: 250ml balm, limited edition, shampoo bar, Reviana day cream
-    var magnetCandidates = [
-        { key: 'balm-natural-250', why: 'Our 250ml is the best value for daily use — lasts months' },
-        { key: 'limited-midnight', why: 'Limited Edition Midnight Mousse — once they\'re gone, they\'re gone' },
-        { key: 'limited-sunrise', why: 'Limited Edition Sunrise Glow — only available for a limited time' },
-        { key: 'reviana-day', why: 'Our premium day cream with Vitamin C & Niacinamide — only available online' }
-    ];
-    var hasMagnet = false;
-    for (var mi = 0; mi < magnetCandidates.length; mi++) {
-        var mc = magnetCandidates[mi];
-        if (usedKeys[mc.key]) { hasMagnet = true; break; }
-    }
-    if (!hasMagnet) {
-        for (var mi2 = 0; mi2 < magnetCandidates.length; mi2++) {
-            var mc2 = magnetCandidates[mi2];
-            var mp = PRODUCTS[mc2.key];
-            if (!mp) continue;
-            var magnetSafe = true;
-            for (var ai = 0; ai < allergens.length; ai++) {
-                if (mp.allergens.indexOf(allergens[ai]) !== -1) { magnetSafe = false; break; }
-            }
-            if (magnetSafe) {
-                extras.unshift({ key: mc2.key, product: mp, why: mc2.why, step: 'Also great' });
-                usedKeys[mc2.key] = true;
-                break;
-            }
+        if (safe && !(isBalm(fb[0]) && hasBalm)) {
+            if (isBalm(fb[0])) hasBalm = true;
+            usedKeys[fb[0]] = true;
+            final3.push({ key: fb[0], product: p, why: fb[1], priority: 9 });
         }
     }
 
-    // If they didn't mention scalp, add shampoo bar as "Also compatible"; if scalp was already covered, add liquid soap
-    if (!hasScalp && !usedKeys['shampoo']) {
-        var shampooP = PRODUCTS['shampoo'];
-        if (shampooP) {
-            extras.push({ key: 'shampoo', product: shampooP, why: '68% grass-fed tallow — a great foundation for any haircare routine', step: 'Also great' });
-            usedKeys['shampoo'] = true;
-        }
-    } else if (hasScalp && !usedKeys['liquid-soap']) {
-        var soapP = PRODUCTS['liquid-soap'];
-        if (soapP) {
-            extras.push({ key: 'liquid-soap', product: soapP, why: 'Gentle tallow-based hand & body wash — pairs well with your skincare routine', step: 'Also great' });
-            usedKeys['liquid-soap'] = true;
-        }
-    }
-
-    // Re-label steps
+    // Sort by price ascending for display
+    final3.sort(function(a, b) { return a.product.price - b.product.price; });
     final3.forEach(function(r, i) {
         r.step = i === 0 ? 'Start here' : (i === 1 ? 'Then apply' : 'Complete with');
     });
 
-    // Return primary 3 + extras
-    return final3.concat(extras);
+    return final3;
 }
 
 
@@ -1464,7 +2023,14 @@ function getRecommendations() {
    ═══════════════════════════════════════════════════════ */
 function showResults() {
     var results = document.getElementById('sqResults');
+    // Hide hero and quiz, show results
+    document.getElementById('sqHero').style.display = 'none';
+    document.getElementById('sqQuiz').style.display = 'none';
+    results.style.display = 'block';
     results.classList.add('active');
+
+    // Show fixed asterisk
+    document.getElementById('sqFixedAsterisk').style.display = 'block';
 
     // Show open skin advisory if applicable
     if (answers.severity === 'open-wounds') {
@@ -1473,27 +2039,68 @@ function showResults() {
 
     var recs = getRecommendations();
 
-    // Draw radar chart
-    drawRadarChart();
+    // Set dynamic routine title in report header
+    var concerns = answers.concerns || [];
+    var routineType = 'Skincare';
+    if (concerns.indexOf('eczema') !== -1 || concerns.indexOf('rashy') !== -1) routineType = 'Soothing';
+    else if (concerns.indexOf('wrinkles') !== -1) routineType = 'Anti-Aging';
+    else if (concerns.indexOf('acne') !== -1) routineType = 'Clear Skin';
+    else if (concerns.indexOf('pigmentation') !== -1) routineType = 'Brightening';
+    else if (concerns.indexOf('dry') !== -1) routineType = 'Deep Moisture';
+    else if (concerns.indexOf('rosacea') !== -1) routineType = 'Calming';
+    else if (concerns.indexOf('baby') !== -1) routineType = 'Baby Care';
 
-    // Draw ingredient need bars
-    drawIngredientBars(recs);
+    var age = answers.ageGroup || 'adult';
+    var isBaby = age === 'baby';
+    var isChild = age === 'child';
 
-    // Render product cards
+    var routineTitle = (isBaby || isChild) ? 'Your ' + (isBaby ? 'Baby' : 'Child') + '\'s Personalised Tallow ' + routineType + ' Routine' :
+        'Your Personalised Tallow ' + routineType + ' Routine';
+    document.querySelector('.sq-report-header .sq-title').textContent = routineTitle;
+    var reportSub = document.querySelector('.sq-report-header .sq-subtitle');
+    if (reportSub) {
+        var cNames = [];
+        if (concerns.indexOf('eczema') !== -1) cNames.push('eczema');
+        if (concerns.indexOf('rosacea') !== -1) cNames.push('rosacea');
+        if (concerns.indexOf('acne') !== -1) cNames.push('breakouts');
+        if (concerns.indexOf('dry') !== -1) cNames.push('dry skin');
+        if (concerns.indexOf('wrinkles') !== -1) cNames.push('fine lines');
+        if (concerns.indexOf('pigmentation') !== -1) cNames.push('uneven tone');
+        reportSub.textContent = cNames.length > 0 ?
+            'Based on everything you\'ve told us — your skin type, your concerns about ' + cNames.join(' and ') + ', and what you\'ve already tried — here\'s what we\'ve found.' :
+            'We\'ve matched your skin profile against our full product range. Here\'s what\'s compatible with your skin.';
+    }
+
+    // Delay chart drawing until layout has settled (canvas needs visible dimensions)
+    requestAnimationFrame(function() {
+        drawRadarChart();
+        drawIngredientBars(recs);
+    });
     renderProductCards(recs);
-
-    // Bundle CTA
     renderBundle(recs);
-
-    // Fetch Claude blurb
-    // Render personalised routine
     renderRoutine(recs);
-
+    renderWhyPastFailed();
+    renderWhyTogether(recs);
+    renderQuickWins();
+    renderResearchCitations();
     fetchBlurb(recs);
 
-    // Scroll to results after a tick so layout settles
+    // Share button
+    document.getElementById('sqShareBtn').addEventListener('click', function() {
+        var url = window.location.href;
+        if (navigator.share) {
+            navigator.share({ title: 'Skin Compatibility Quiz — Primal Pantry', text: 'Take the quiz and find your perfect tallow skincare match!', url: url });
+        } else {
+            navigator.clipboard.writeText(url);
+            this.textContent = 'Link Copied!';
+            var self = this;
+            setTimeout(function() { self.innerHTML = '&#x1F4E4; Share With Friends'; }, 2500);
+        }
+    });
+
+    // Scroll to top of results
     setTimeout(function() {
-        results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 50);
 }
 
@@ -1603,7 +2210,10 @@ function drawIngredientBars(recs) {
         'eczema': { 'Ceramides': 8, 'Colloidal Oat': 8, 'Bisabolol': 7, 'Panthenol': 7, 'Chamomile': 6 },
         'psoriasis': { 'Colloidal Oat': 8, 'Bisabolol': 7, 'Frankincense': 7, 'Panthenol': 6 },
         'dry': { 'Hyaluronic Acid': 8, 'Ceramides': 7, 'Manuka Honey': 7, 'Jojoba Oil': 5 },
-        'baby': { 'Chamomile': 8, 'Colloidal Oat': 7, 'Aloe Vera': 6 }
+        'rosacea': { 'Bisabolol': 9, 'Ceramides': 8, 'Niacinamide': 7, 'Colloidal Oat': 6, 'Aloe Vera': 5 },
+        'baby': { 'Chamomile': 8, 'Colloidal Oat': 7, 'Aloe Vera': 6 },
+        'cradle-cap': { 'Colloidal Oat': 7, 'Chamomile': 6 },
+        'nappy-rash': { 'Chamomile': 7, 'Aloe Vera': 6 }
     };
 
     concerns.forEach(function(c) {
@@ -1656,27 +2266,6 @@ function renderProductCards(recs) {
     });
 
     html += '</div>';
-
-    // Any extra products beyond 3
-    if (recs.length > 3) {
-        html += '<p style="font-size:0.78rem;color:var(--pc-warm-gray);margin:1rem 0 0.5rem;">Also compatible with your skin:</p>';
-        html += '<div class="sq-products">';
-        recs.slice(3).forEach(function(rec) {
-            var p = rec.product;
-            html += '<div class="pp-card">';
-            html += '<div class="pp-card-img"><a href="' + p.url + '"><img src="' + p.img + '" alt="' + p.name + '" loading="lazy"></a></div>';
-            html += '<div class="pp-card-body">';
-            html += '<div class="pp-card-name"><a href="' + p.url + '">' + p.name + '</a></div>';
-            html += '<div class="pp-card-sub">' + p.sub + ' &middot; ' + p.size + '</div>';
-            html += '<div class="pp-card-price">$' + p.price.toFixed(2) + '</div>';
-            html += '<div class="pp-card-cta">';
-            html += '<button class="pp-card-atc" data-atc-pid="' + p.priceId + '" data-atc-price="' + p.price + '" data-atc-title="' + p.name + '" data-atc-size="' + p.size + '" data-atc-flavor="" data-atc-image="' + p.img + '">Add to Cart</button>';
-            html += '<a href="' + p.url + '" class="pp-card-view">View</a>';
-            html += '</div></div></div>';
-        });
-        html += '</div>';
-    }
-
     container.innerHTML = html;
 
     // Wire up ATC buttons (same pattern as shop.html)
@@ -1695,38 +2284,46 @@ function renderProductCards(recs) {
 function renderBundle(recs) {
     if (recs.length < 2) { document.getElementById('sqBundleCard').style.display = 'none'; return; }
 
-    var totalFull = 0;
-    recs.forEach(function(r) { totalFull += r.product.price; });
-    var totalDiscount = totalFull * 0.9;
+    var bundleRecs = recs.slice(0, 3);
+    var total = 0;
+    bundleRecs.forEach(function(r) { total += r.product.price; });
 
-    document.getElementById('sqBundleWas').textContent = '$' + totalFull.toFixed(2);
-    document.getElementById('sqBundleNow').textContent = '$' + totalDiscount.toFixed(2);
-    document.getElementById('sqBundleSavings').textContent = 'Save $' + (totalFull - totalDiscount).toFixed(2) + ' when you buy the complete routine';
+    document.getElementById('sqBundleNow').textContent = '$' + total.toFixed(2);
 
-    // Why text based on count
-    var whyTexts = [
-        'Using these products together amplifies results \u2014 each product enhances the others.',
-        'Your ' + recs[0].product.name + ' prepares the skin for better absorption of ' + (recs[1] ? recs[1].product.name : 'the next step') + '.',
-        'This routine gives your skin everything it needs from morning to night \u2014 no gaps, no guesswork.'
-    ];
-    document.getElementById('sqBundleWhy').textContent = whyTexts[Math.min(recs.length - 2, 2)];
+    // Dynamic "why" text
+    if (bundleRecs.length >= 3) {
+        document.getElementById('sqBundleWhy').textContent = 'This routine gives your skin everything it needs from morning to night — ' +
+            bundleRecs[0].product.name + ' starts it, ' + bundleRecs[1].product.name + ' builds on it, and ' + bundleRecs[2].product.name + ' completes it. No gaps, no guesswork.';
+    } else {
+        document.getElementById('sqBundleWhy').textContent = 'These products are designed to work together — each one enhances the effectiveness of the other.';
+    }
 
-    // Free gift logic — lip balm unless beeswax allergen, then shampoo sample
+    // Free gift logic — lip balm stick unless beeswax allergen
     var allergens = answers.allergens || [];
     var giftNote = document.getElementById('sqFreeGiftNote');
+    var giftText = document.getElementById('sqFreeGift');
     if (allergens.indexOf('beeswax') !== -1) {
+        giftText.textContent = '+ Free Shampoo Bar sample included with your routine*';
         giftNote.textContent = '*We\'ll include a free Shampoo Bar sample with your order (swapped from our usual lip balm as it contains beeswax)';
     }
 
+    // Free shipping nudge
+    if (total < 75 && total >= 55) {
+        var gap = (75 - total).toFixed(2);
+        giftNote.textContent += ' · You\'re only $' + gap + ' from free shipping!';
+    } else if (total >= 75) {
+        giftNote.textContent += ' · Free shipping included!';
+    }
+
     document.getElementById('sqBundleBtn').addEventListener('click', function() {
-        recs.forEach(function(r) {
+        bundleRecs.forEach(function(r) {
             var p = r.product;
             window.ppAddToCart(p.priceId, p.price, p.name, p.size, '', p.img);
         });
         this.textContent = 'Added All \u2713';
         this.classList.add('added');
         var self = this;
-        setTimeout(function() { self.textContent = 'Add Compatible Routine to Cart'; self.classList.remove('added'); }, 3000);
+        setTimeout(function() { self.textContent = 'Add Complete Routine to Cart'; self.classList.remove('added'); }, 3000);
     });
 }
 
@@ -1751,129 +2348,385 @@ function renderRoutine(recs) {
 
     titleEl.textContent = 'Your Personalised Tallow ' + routineType + ' Routine';
 
-    // Build product lookup for routine narrative
     var prodMap = {};
     recs.forEach(function(r) { prodMap[r.key] = r.product.name; });
 
     var html = '';
     var s = '<div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--pc-green);margin-bottom:0.5rem;">';
+    var tip = '<div style="background:rgba(74,94,56,0.06);border-radius:6px;padding:8px 12px;margin:8px 0;font-size:0.78rem;color:var(--pc-green);line-height:1.5;">';
 
-    // ── Morning ──
+    // ── APPLICATION TIPS (shown first) ──
+    html += '<div style="margin-bottom:1.5rem;padding:1rem;background:var(--pc-brown-pale);border-radius:10px;">';
+    html += '<p style="font-size:0.78rem;font-weight:700;color:var(--pc-brown);margin-bottom:0.5rem;">&#x1F4A1; How to get the most from your products</p>';
+    html += '<div style="font-size:0.82rem;line-height:1.7;color:var(--pc-black);">';
+    html += '&bull; <strong>Always apply to slightly damp skin</strong> — pat dry with a towel (never rub), then apply within 2 minutes. Damp skin absorbs product significantly better.<br>';
+    html += '&bull; <strong>Apply moisturiser with the direction of hair growth</strong>, not against it — this helps avoid follicle irritation and potential infection.<br>';
+    html += '&bull; <strong>Warm balms between your palms</strong> for 5-10 seconds before applying — body heat melts tallow into a silky texture that absorbs faster.<br>';
+    html += '&bull; <strong>Less is more.</strong> A pea-sized amount covers your whole face. Build up if needed — you can always add more, but too much sits on the surface.';
+    html += '</div></div>';
+
+    // ── MORNING ──
     html += '<div style="margin-bottom:1.25rem;">';
-    html += s + 'Morning</div>';
+    html += s + '&#x2600;&#xFE0F; Morning — tie this to your coffee or breakfast</div>';
     html += '<div style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);">';
 
     if (concerns.indexOf('baby') !== -1) {
-        html += 'After bath time, gently pat your little one dry and apply a thin layer of <strong>' + (prodMap['baby-butter'] || 'Baby Butter') + '</strong> to any dry patches. A little goes a long way.';
+        html += 'After bath time, gently pat your little one dry (never rub — their skin is delicate). While their skin is still slightly damp, apply a thin layer of <strong>' + (prodMap['baby-butter'] || 'Baby Butter') + '</strong> to any dry patches. A little goes a long way — warm it between your palms first.';
     } else {
-        html += 'Start by splashing your face with lukewarm water and patting dry. ';
-        if (prodMap['reviana-day']) {
-            html += 'Apply a small amount of <strong>' + prodMap['reviana-day'] + '</strong> — it absorbs quickly and gives your skin a smooth base for the day. ';
-        } else if (prodMap['reviana-serum'] || prodMap['serum-primal']) {
+        html += 'While the kettle\'s boiling, splash your face with lukewarm water and gently pat dry. ';
+        if (prodMap['reviana-serum'] || prodMap['serum-primal']) {
             var serumName = prodMap['reviana-serum'] || prodMap['serum-primal'];
-            html += 'Apply a few drops of <strong>' + serumName + '</strong> while your skin is still slightly damp — this helps it absorb better. ';
+            html += '<strong>Step 1:</strong> While your skin is still slightly damp, apply 3-4 drops of <strong>' + serumName + '</strong> — press it into your skin, don\'t rub. Serums work best on damp skin because the moisture helps actives penetrate. ';
+        }
+        if (prodMap['reviana-day']) {
+            html += '<strong>' + (prodMap['reviana-serum'] ? 'Step 2:' : 'Step 1:') + '</strong> Apply a pea-sized amount of <strong>' + prodMap['reviana-day'] + '</strong> — work it in gently in the direction your facial hair grows. It absorbs fast and gives a smooth base. ';
         }
         if (prodMap['reviana-eye'] || prodMap['eye-cream-primal']) {
             var eyeName = prodMap['reviana-eye'] || prodMap['eye-cream-primal'];
-            html += 'Dab a tiny amount of <strong>' + eyeName + '</strong> under each eye using your ring finger — gentle tapping, no rubbing. Your under-eyes will feel fresh and you\'ll look more awake. ';
+            html += 'Dab a rice-grain amount of <strong>' + eyeName + '</strong> under each eye using your ring finger (it applies the least pressure). Tap gently along the orbital bone — never drag or pull. ';
         }
         if (prodMap['lip-balm']) {
-            html += 'Finish with <strong>' + prodMap['lip-balm'] + '</strong> — keep it in your pocket and reapply through the day. ';
+            html += 'Finish with <strong>' + prodMap['lip-balm'] + '</strong>. Keep it in your pocket or bag and reapply 2-3 times through the day. ';
         }
         if (!prodMap['reviana-day'] && !prodMap['reviana-serum'] && !prodMap['serum-primal']) {
-            // Tallow balm user
-            var balmName = prodMap['balm-natural-120'] || prodMap['balm-natural-250'] || prodMap['balm-frankincense-120'] || prodMap['balm-frankincense-250'] || prodMap['balm-lavender-120'] || recs[0].product.name;
-            html += 'Apply a thin layer of <strong>' + balmName + '</strong> to damp skin — the warmth of your hands helps it melt in. ';
+            var balmName = prodMap['balm-natural-120'] || prodMap['balm-natural-250'] || prodMap['balm-frankincense-120'] || prodMap['balm-frankincense-250'] || prodMap['balm-lavender-120'] || prodMap['limited-midnight'] || prodMap['limited-sunrise'] || recs[0].product.name;
+            html += '<strong>Step 1:</strong> Warm a small amount of <strong>' + balmName + '</strong> between your palms for a few seconds, then press into your skin while it\'s still damp. Apply in the direction of hair growth. ';
         }
     }
-    html += '</div></div>';
+    html += '</div>';
+    html += tip + '<strong>Don\'t:</strong> Use hot water on your face, apply to bone-dry skin, or rub product in aggressively. Your skin barrier is delicate — treat it gently.</div>';
+    html += '</div>';
 
-    // ── Evening ──
+    // ── EVENING ──
     if (concerns.indexOf('baby') === -1) {
         html += '<div style="margin-bottom:1.25rem;">';
-        html += s + 'Evening</div>';
+        html += s + '&#x1F319; Evening — make this part of your wind-down</div>';
         html += '<div style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);">';
-        html += 'Gently cleanse your face';
-        if (prodMap['cleanser']) html += ' with your <strong>' + prodMap['cleanser'] + '</strong>';
-        html += ' and pat dry. ';
+        html += 'Right after you brush your teeth (anchor it to an existing habit), gently cleanse your face';
+        if (prodMap['cleanser']) html += ' with <strong>' + prodMap['cleanser'] + '</strong>';
+        html += '. Pat dry with a clean towel. ';
 
         if (prodMap['reviana-night']) {
-            html += 'Apply <strong>' + prodMap['reviana-night'] + '</strong> — the Bakuchiol and Ceramides work while you sleep. Let it absorb for a couple of minutes before bed. ';
+            html += 'Apply <strong>' + prodMap['reviana-night'] + '</strong> to slightly damp skin — the Bakuchiol and Ceramides do their best work while you sleep. Your skin\'s cell turnover peaks between 10pm-2am, so this timing is ideal. ';
         }
-        if (prodMap['reviana-serum'] || prodMap['serum-primal']) {
+        if ((prodMap['reviana-serum'] || prodMap['serum-primal']) && !prodMap['reviana-day']) {
             var serumNight = prodMap['reviana-serum'] || prodMap['serum-primal'];
-            if (!prodMap['reviana-day']) {
-                html += 'Apply a few drops of <strong>' + serumNight + '</strong> — evening is a great time for serums as your skin is more receptive. ';
-            }
+            html += 'Apply a few drops of <strong>' + serumNight + '</strong> first — evening is when your skin is most receptive to active ingredients. ';
         }
-        // Body balm
-        var bodyBalm = prodMap['honeybalm-vanilla-120'] || prodMap['honeybalm-vanilla-250'] || prodMap['balm-frankincense-120'] || prodMap['balm-frankincense-250'] || prodMap['limited-midnight'] || prodMap['limited-sunrise'];
+        var bodyBalm = prodMap['honeybalm-vanilla-120'] || prodMap['honeybalm-vanilla-250'] || prodMap['balm-frankincense-120'] || prodMap['balm-frankincense-250'] || prodMap['balm-natural-120'] || prodMap['balm-natural-250'] || prodMap['limited-midnight'] || prodMap['limited-sunrise'];
         if (bodyBalm && (areas.indexOf('body') !== -1 || areas.indexOf('hands') !== -1 || areas.indexOf('elbows') !== -1)) {
-            html += 'For your body, hands, or elbows — apply <strong>' + bodyBalm + '</strong> generously to any areas that need attention. ';
+            html += 'After your evening shower (lukewarm, not hot), pat dry and apply <strong>' + bodyBalm + '</strong> generously to hands, elbows, or any areas that need extra attention. Apply with the hair, not against it. ';
         }
-        html += '</div></div>';
+        html += '</div>';
+        html += tip + '<strong>Don\'t:</strong> Skip cleansing before bed, apply products to dry skin, or use hot showers (they strip natural oils your skin needs).</div>';
+        html += '</div>';
     }
 
-    // ── Shower / Haircare ──
+    // ── SHOWER / HAIRCARE ──
     if (prodMap['shampoo'] || prodMap['conditioner'] || prodMap['hair-clay']) {
         html += '<div style="margin-bottom:1.25rem;">';
-        html += s + 'Shower & Haircare</div>';
+        html += s + '&#x1F6BF; Shower & Haircare</div>';
         html += '<div style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);">';
         if (prodMap['shampoo']) {
-            html += 'Use the <strong>' + prodMap['shampoo'] + '</strong> — we recommend every other day rather than daily, to let your scalp\'s natural oils do their thing. ';
+            html += 'Use the <strong>' + prodMap['shampoo'] + '</strong> every other day rather than daily — your scalp produces natural oils that keep hair healthy. Alternate days, just rinse with water. ';
         }
-        if (prodMap['conditioner']) html += 'Follow with <strong>' + prodMap['conditioner'] + '</strong> on the ends. ';
-        if (prodMap['hair-clay']) html += 'Style with <strong>' + prodMap['hair-clay'] + '</strong> for a natural hold that nourishes instead of drying. ';
-        if (prodMap['liquid-soap']) html += 'The <strong>' + prodMap['liquid-soap'] + '</strong> makes a gentle hand & body wash. ';
-        html += '</div></div>';
+        if (prodMap['conditioner']) html += 'Follow with <strong>' + prodMap['conditioner'] + '</strong> on the mid-lengths and ends only — avoid the scalp. ';
+        if (prodMap['hair-clay']) html += 'Once dry, work a small amount of <strong>' + prodMap['hair-clay'] + '</strong> through your hair — it gives hold without the crunch of synthetic alternatives. ';
+        html += '</div>';
+        html += tip + '<strong>Don\'t:</strong> Shampoo daily (it strips natural oils), apply conditioner to your scalp, or use hot water on your hair.</div>';
+        html += '</div>';
     }
 
-    // ── Weekly ──
+    // ── WEEKLY ──
     html += '<div style="margin-bottom:1.25rem;">';
-    html += s + 'Weekly</div>';
+    html += s + '&#x1F4C5; Weekly rituals</div>';
     html += '<div style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);">';
-    if (prodMap['oat-soak'] || concerns.indexOf('eczema') !== -1 || concerns.indexOf('rashy') !== -1) {
-        html += '&bull; 2-3x per week: Run a lukewarm oat bath (15-20 mins) — never hot, as that strips natural oils.<br>';
-        html += '&bull; Once a week: Apply a thicker layer of balm before bed as an overnight mask.<br>';
+    if (prodMap['oat-soak'] || concerns.indexOf('eczema') !== -1 || concerns.indexOf('rosacea') !== -1) {
+        html += '&bull; <strong>2-3x per week:</strong> Lukewarm oat bath for 15-20 mins — this is your skin\'s reset. Never hot water. Pat dry, then immediately apply balm to lock in moisture.<br>';
+        html += '&bull; <strong>Once per week:</strong> Apply a thicker layer of balm before bed as an overnight mask. Cover with cotton gloves for hands or old socks for feet.<br>';
     }
     if (concerns.indexOf('acne') !== -1) {
-        html += '&bull; 2x per week: Double-cleanse in the evening — oil first, then gentle cleanser.<br>';
+        html += '&bull; <strong>2x per week:</strong> Double-cleanse in the evening — oil-based cleanser first to break down SPF/makeup, then your regular cleanser.<br>';
     }
     if (concerns.indexOf('wrinkles') !== -1 || concerns.indexOf('pigmentation') !== -1) {
-        html += '&bull; Once a week: Apply serum as a 10-minute mask for deeper absorption.<br>';
+        html += '&bull; <strong>Once per week:</strong> Apply a generous layer of serum and leave for 15 minutes as a treatment mask. Your skin absorbs more when given extra time.<br>';
     }
-    if (concerns.indexOf('eczema') === -1 && concerns.indexOf('rashy') === -1 && concerns.indexOf('rosacea') === -1 && concerns.indexOf('psoriasis') === -1) {
-        html += '&bull; Gently cleanse with a warm flannel — skip harsh scrubs.<br>';
-    }
+    html += '&bull; <strong>Every wash day:</strong> Change your pillowcase — bacteria and oil build up faster than you\'d think.<br>';
+    html += '&bull; <strong>Sunday evening:</strong> Do a quick skin check — how is your routine tracking? Adjust product amount based on how your skin feels.';
     html += '</div></div>';
 
-    // ── Lifestyle tips ──
+    // ── LIFESTYLE ──
     html += '<div style="margin-bottom:1.25rem;">';
-    html += s + 'Lifestyle Ideas</div>';
+    html += s + '&#x1F957; Lifestyle ideas to consider</div>';
     html += '<div style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);">';
-    if (concerns.indexOf('eczema') !== -1 || concerns.indexOf('rashy') !== -1 || concerns.indexOf('rosacea') !== -1) {
-        html += '&bull; Some people find reducing dairy and processed sugar makes a difference<br>';
-        html += '&bull; Shower lukewarm, not hot — hot water strips natural oils<br>';
-        html += '&bull; Switch to fragrance-free laundry detergent<br>';
+    if (concerns.indexOf('eczema') !== -1 || concerns.indexOf('rosacea') !== -1) {
+        html += '&bull; Some people find reducing dairy and processed sugar makes a noticeable difference to inflammation<br>';
+        html += '&bull; Switch to fragrance-free laundry detergent — your sheets and clothes sit against your skin all day<br>';
+        html += '&bull; Keep fingernails short to reduce damage from unconscious scratching at night<br>';
     }
     if (concerns.indexOf('acne') !== -1) {
-        html += '&bull; Change pillowcases 2x per week<br>';
-        html += '&bull; Avoid touching your face through the day<br>';
+        html += '&bull; Clean your phone screen daily — it touches your face more than you think<br>';
+        html += '&bull; Avoid touching your face through the day (the average person does it 20+ times per hour)<br>';
     }
     if (concerns.indexOf('dry') !== -1) {
-        html += '&bull; Drink more water — hydration starts from inside<br>';
-        html += '&bull; Use a humidifier in winter — NZ homes can get very dry<br>';
+        html += '&bull; Aim for 2L of water per day — hydration starts from the inside<br>';
+        html += '&bull; Consider a humidifier in winter — NZ homes get surprisingly dry<br>';
     }
     if (concerns.indexOf('wrinkles') !== -1) {
-        html += '&bull; Wear SPF daily — even on cloudy NZ days<br>';
-        html += '&bull; Prioritise sleep — skin repairs itself overnight<br>';
+        html += '&bull; Wear SPF every day — even on cloudy NZ days. UV damage is the #1 cause of premature aging<br>';
+        html += '&bull; Prioritise consistent sleep — your skin\'s repair cycle peaks between 10pm-2am<br>';
     }
-    html += '&bull; Omega-3 rich foods (salmon, walnuts, flaxseed) support skin health';
+    html += '&bull; Omega-3 rich foods (salmon, walnuts, flaxseed) support your skin\'s lipid barrier from within<br>';
+    html += '&bull; Stress management matters — cortisol directly impacts skin inflammation and barrier function';
+    html += '</div></div>';
+
+    // ── BUILDING THE HABIT ──
+    html += '<div style="padding:1rem;background:rgba(74,94,56,0.06);border-radius:10px;">';
+    html += '<p style="font-size:0.78rem;font-weight:700;color:var(--pc-green);margin-bottom:0.5rem;">&#x1F3AF; Making it stick — habit anchoring</p>';
+    html += '<div style="font-size:0.82rem;line-height:1.7;color:var(--pc-black);">';
+    html += 'The best routine is the one you actually do. Tie each step to something you already do every day:<br>';
+    html += '&bull; <strong>Morning:</strong> "After I make my coffee, I do my skin routine" (the kettle/machine is your trigger)<br>';
+    html += '&bull; <strong>Evening:</strong> "After I brush my teeth, I apply my night products" (brushing is your trigger)<br>';
+    html += '&bull; <strong>Shower:</strong> "Right after I turn off the water, I pat dry and apply" (the shower ending is your trigger)<br>';
+    html += 'It takes about 3 weeks for this to become automatic. Stick with it — your skin needs consistency more than perfection.';
     html += '</div></div>';
 
     container.innerHTML = html;
 }
 
+/* ── Why What You've Tried May Not Have Worked ────── */
+function renderWhyPastFailed() {
+    var tried = answers.triedBefore || [];
+    var concerns = answers.concerns || [];
+    var container = document.getElementById('sqPastFailedContent');
+    if (tried.length === 0 || (tried.length === 1 && tried[0] === 'nothing')) {
+        document.getElementById('sqWhyPastFailed').style.display = 'none';
+        return;
+    }
+
+    var html = '';
+    if (tried.indexOf('steroid-creams') !== -1) {
+        html += '<div style="margin-bottom:1rem;padding-left:1rem;border-left:3px solid var(--pc-brown-light);">';
+        html += '<strong>Steroid creams</strong> reduce inflammation quickly, but they don\'t address the underlying skin barrier damage. ';
+        html += 'Research published in the <em>Journal of Clinical Medicine</em> shows that long-term topical corticosteroid use can thin the skin and impair its ability to retain moisture. ';
+        html += 'Tallow\'s fatty acid profile — rich in palmitic, stearic, and oleic acids — closely mirrors the lipid composition of healthy human skin, which supports barrier repair rather than masking the problem. ';
+        html += 'That\'s why we\'ve focused your routine on rebuilding what\'s been stripped, not just suppressing symptoms.</div>';
+    }
+    if (tried.indexOf('pharmacy-moisturisers') !== -1) {
+        html += '<div style="margin-bottom:1rem;padding-left:1rem;border-left:3px solid var(--pc-brown-light);">';
+        html += '<strong>Pharmacy moisturisers</strong> like Cetaphil, QV, and Aveeno are solid for general dryness, but many contain petroleum-derived occlusives (mineral oil, petrolatum) that sit on top of the skin rather than absorbing into it. ';
+        html += 'They also often include preservatives like parabens and phenoxyethanol that some sensitive skin types react to. ';
+        html += 'Tallow is biocompatible — your skin\'s lipid barrier is made of similar fatty acids, so it absorbs rather than just coating the surface.</div>';
+    }
+    if (tried.indexOf('natural-oils') !== -1) {
+        html += '<div style="margin-bottom:1rem;padding-left:1rem;border-left:3px solid var(--pc-brown-light);">';
+        html += '<strong>Natural oils</strong> like coconut or olive oil are popular, but they have a very different fatty acid profile to human skin. ';
+        html += 'Coconut oil is ~50% lauric acid, which can be comedogenic (pore-clogging) for some people. ';
+        html += 'A 2014 study in the <em>International Journal of Dermatology</em> found coconut oil can disrupt the skin barrier in eczema-prone individuals. ';
+        html += 'Tallow\'s composition is closer to human sebum — particularly its balance of saturated and monounsaturated fats — making it more biocompatible for most skin types.</div>';
+    }
+    if (tried.indexOf('department-store') !== -1) {
+        html += '<div style="margin-bottom:1rem;padding-left:1rem;border-left:3px solid var(--pc-brown-light);">';
+        html += '<strong>Premium retail brands</strong> often deliver on texture and scent, but the long ingredient lists mean more potential triggers. ';
+        html += 'Many use synthetic fragrances (listed simply as "parfum") which the <em>Contact Dermatitis</em> journal identifies as the most common cause of cosmetic skin reactions. ';
+        html += 'Your recommended routine focuses on ingredients with clear purpose — nothing included for marketing appeal alone.</div>';
+    }
+    if (tried.indexOf('tallow') !== -1) {
+        var fb = answers.tallowFeedback;
+        html += '<div style="margin-bottom:1rem;padding-left:1rem;border-left:3px solid var(--pc-green);">';
+        html += '<strong>You\'ve tried tallow before</strong> — ';
+        if (fb === 'loved-it' || fb === 'noticed-difference' || fb === 'like-natural') {
+            html += 'and had a positive experience. We\'ve built on that — your routine doubles down on what\'s already working, with a size that matches your usage so you won\'t run out.';
+        } else if (fb === 'smell') {
+            html += 'but the scent wasn\'t for you. That\'s common. Our Reviana range uses tallow as a base but masks the natural scent with premium botanicals — same skin benefits, better experience.';
+        } else if (fb === 'texture') {
+            html += 'but the texture wasn\'t quite right. Our whipped and liquid formulations absorb faster and feel lighter — same active benefits in a more refined format.';
+        } else if (fb === 'no-results') {
+            html += 'but didn\'t see results. Plain tallow works for many people, but for specific concerns like yours, you need targeted actives working alongside it. That\'s why we\'ve included products with ingredients like Bakuchiol, Niacinamide, or Ceramides — they do the heavy lifting while tallow supports absorption.';
+        }
+        html += '</div>';
+    }
+
+    container.innerHTML = html;
+}
+
+/* ── Why These Products + What We Didn't Include ──── */
+function renderWhyTogether(recs) {
+    var container = document.getElementById('sqWhyTogetherContent');
+    var concerns = answers.concerns || [];
+    var sensitivity = parseInt(answers.sensitivity) || 5;
+    var pref = answers.preference || 'premium';
+    var html = '';
+
+    // Why each product was chosen
+    recs.forEach(function(rec, i) {
+        var p = rec.product;
+        html += '<div style="margin-bottom:1rem;padding:0.75rem 1rem;background:' + (i % 2 === 0 ? 'var(--pc-brown-pale)' : '#fff') + ';border-radius:8px;">';
+        html += '<strong>' + p.name + ' (' + p.size + ')</strong><br>';
+        html += '<span style="color:var(--pc-brown);">' + rec.why + '</span>';
+        // How they work together
+        if (i === 0 && recs.length >= 2) {
+            html += '<br><span style="font-size:0.78rem;color:var(--pc-warm-gray);font-style:italic;">This prepares your skin for better absorption of ' + recs[1].product.name + '.</span>';
+        }
+        if (i === 1 && recs.length >= 3) {
+            html += '<br><span style="font-size:0.78rem;color:var(--pc-warm-gray);font-style:italic;">Works in combination with ' + recs[0].product.name + ' — each enhances the other\'s effectiveness.</span>';
+        }
+        if (i === 2) {
+            html += '<br><span style="font-size:0.78rem;color:var(--pc-warm-gray);font-style:italic;">Completes your routine — filling the gaps the other two don\'t cover.</span>';
+        }
+        html += '</div>';
+    });
+
+    // Subtle hints about what we DIDN'T include (always cheaper/simpler products)
+    html += '<div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--pc-border);">';
+    html += '<p style="font-size:0.78rem;color:var(--pc-warm-gray);margin-bottom:0.75rem;font-weight:600;">A note on what we didn\'t include:</p>';
+
+    var hints = [];
+    if (pref === 'premium' && sensitivity < 8) {
+        // They got Reviana — explain why plain tallow wasn't recommended for face
+        if (concerns.indexOf('wrinkles') !== -1 || concerns.indexOf('acne') !== -1 || concerns.indexOf('pigmentation') !== -1) {
+            hints.push('We considered our plain Tallow Balm for your face, but for your specific concern (' + (concerns.indexOf('wrinkles') !== -1 ? 'wrinkles' : concerns.indexOf('acne') !== -1 ? 'acne' : 'pigmentation') + '), you\'ll see better results with targeted actives like Bakuchiol and Vitamin C. Tallow alone moisturises well but doesn\'t actively address ' + (concerns.indexOf('wrinkles') !== -1 ? 'collagen production' : concerns.indexOf('acne') !== -1 ? 'oil regulation' : 'melanin production') + '.');
+        }
+    }
+    if (pref === 'simple' || sensitivity >= 8) {
+        // They got tallow — explain why Reviana wasn't right for them
+        hints.push('Our Reviana range has powerful actives, but with your sensitivity level, the simpler formula is a better fit right now. Fewer ingredients means fewer potential triggers — and tallow\'s lipid profile does most of the heavy lifting on its own.');
+    }
+    if (concerns.indexOf('eczema') !== -1 || concerns.indexOf('rosacea') !== -1) {
+        hints.push('We didn\'t include any products with synthetic fragrances or strong essential oils — even though some of our scented balms are beautiful, for reactive skin the priority is reducing potential triggers.');
+    }
+    if (concerns.indexOf('acne') !== -1) {
+        hints.push('We avoided heavier balm formats for your face — while tallow is non-comedogenic for most people, lighter serums and creams absorb faster and work better for oilier, breakout-prone skin.');
+    }
+
+    if (hints.length > 0) {
+        hints.forEach(function(hint) {
+            html += '<p style="font-size:0.82rem;color:var(--pc-brown);line-height:1.6;margin-bottom:0.5rem;">&bull; ' + hint + '</p>';
+        });
+    }
+    html += '</div>';
+
+    // Customers with similar profiles
+    html += '<div style="margin-top:1.25rem;padding:0.75rem 1rem;background:rgba(74,94,56,0.06);border-radius:8px;">';
+    html += '<p style="font-size:0.82rem;color:var(--pc-green);font-weight:600;margin-bottom:0.25rem;">&#x1F4CA; Customers with similar skin profiles</p>';
+    var socialProof = 'Customers with a similar profile ';
+    if (concerns.indexOf('eczema') !== -1) socialProof += 'commonly pair a tallow balm with the Oat Soak — the combination of barrier repair and inflammation support tends to deliver the most consistent results.';
+    else if (concerns.indexOf('wrinkles') !== -1) socialProof += 'tend to see the best results when using the Night Cream and Serum together — the Bakuchiol and Vitamin C complement each other\'s renewal pathways.';
+    else if (concerns.indexOf('acne') !== -1) socialProof += 'often find that a consistent cleanse-serum-moisturise routine makes a bigger difference than any single product alone.';
+    else if (concerns.indexOf('dry') !== -1) socialProof += 'typically notice a difference within the first week of consistent use — tallow absorbs fast because your skin recognises the fatty acids.';
+    else socialProof += 'tend to stick with their recommended routine once they see how the products work together — each one enhances the others.';
+    html += '<p style="font-size:0.82rem;color:var(--pc-black);line-height:1.6;">' + socialProof + '</p>';
+    html += '</div>';
+
+    container.innerHTML = html;
+}
+
+/* ── Three Quick Wins ─────────────────────────────── */
+function renderQuickWins() {
+    var concerns = answers.concerns || [];
+    var areas = answers.areas || [];
+    var container = document.getElementById('sqQuickWins');
+    var wins = [];
+
+    if (concerns.indexOf('eczema') !== -1 || concerns.indexOf('rosacea') !== -1 || concerns.indexOf('dry') !== -1) {
+        wins.push('<strong>Switch your shower temperature.</strong> Turn it down from hot to lukewarm — hot water strips the natural oils your skin needs. This alone can make a noticeable difference within a few days.');
+        wins.push('<strong>Pat dry, never rub.</strong> After washing, gently pat your skin with a towel instead of rubbing. If you\'re going to moisturise, apply while your skin is still slightly damp — this helps lock in moisture.');
+        wins.push('<strong>Check your laundry detergent.</strong> Many Kiwi households use heavily fragranced detergent that sits against your skin all day. Switch to a fragrance-free option and see if it makes a difference.');
+    } else if (concerns.indexOf('acne') !== -1) {
+        wins.push('<strong>Change your pillowcase tonight.</strong> Bacteria and oil build up on pillowcases faster than most people think. Swap yours every 2-3 days — you can flip it over halfway through.');
+        wins.push('<strong>Stop touching your face.</strong> Sounds simple, but the average person touches their face 20+ times per hour. Set a mental reminder every time you notice yourself doing it.');
+        wins.push('<strong>Cleanse before bed, no exceptions.</strong> Even if you\'re tired. Sleeping with the day\'s oil and grime on your face is one of the biggest contributors to breakouts.');
+    } else if (concerns.indexOf('wrinkles') !== -1 || concerns.indexOf('pigmentation') !== -1) {
+        wins.push('<strong>Wear SPF every single day.</strong> Even on cloudy NZ days — UV penetrates cloud cover. Sun damage is the #1 cause of premature aging and pigmentation. This is the single most impactful thing you can do.');
+        wins.push('<strong>Apply products in the right order.</strong> Thinnest to thickest: serum first (while skin is slightly damp), then moisturiser, then SPF. This maximises absorption of the active ingredients.');
+        wins.push('<strong>Prioritise sleep.</strong> Your skin does most of its repair between 10pm and 2am. Aim for consistent sleep times — irregular sleep patterns are linked to accelerated skin aging.');
+    } else {
+        wins.push('<strong>Moisturise on damp skin.</strong> Apply any moisturiser within 2 minutes of washing — damp skin absorbs product better. Pat dry, don\'t rub, then apply immediately.');
+        wins.push('<strong>Drink more water.</strong> Hydration starts from the inside. Most Kiwis don\'t drink enough — aim for 2L per day, more if you\'re active.');
+        wins.push('<strong>Eat more omega-3s.</strong> Salmon, walnuts, flaxseed — these support your skin\'s lipid barrier from within. Your skin is a reflection of what you put in your body, not just on it.');
+    }
+
+    var html = '';
+    wins.forEach(function(win, i) {
+        html += '<div style="margin-bottom:0.75rem;padding:0.75rem 1rem;background:#fff;border-radius:8px;border:1px solid var(--pc-border);">';
+        html += '<span style="display:inline-block;background:var(--pc-green);color:#fff;border-radius:50%;width:22px;height:22px;text-align:center;line-height:22px;font-size:0.72rem;font-weight:700;margin-right:8px;">' + (i + 1) + '</span>';
+        html += '<span style="font-size:0.85rem;line-height:1.6;">' + win + '</span>';
+        html += '</div>';
+    });
+    container.innerHTML = html;
+}
+
+/* ── Research Citations ───────────────────────────── */
+function renderResearchCitations() {
+    var concerns = answers.concerns || [];
+    var container = document.getElementById('sqResearchCitations');
+    var citations = [];
+
+    // Always include tallow biocompatibility
+    citations.push({
+        title: 'Tallow & Skin Lipid Compatibility',
+        text: 'Beef tallow\'s fatty acid profile closely mirrors the composition of human skin lipids (sebum). This biological similarity is why tallow absorbs efficiently rather than sitting on the surface — your skin recognises it.',
+        source: 'Cheng & Russell, 2004 — <em>Journal of Lipid Research</em>'
+    });
+
+    if (concerns.indexOf('eczema') !== -1 || concerns.indexOf('rosacea') !== -1) {
+        citations.push({
+            title: 'Ceramides & Skin Barrier Function',
+            text: 'Ceramide-based topical treatments have been shown to significantly improve skin barrier function in atopic dermatitis. The stratum corneum (outer skin layer) is ~50% ceramides by weight — replenishing them is a cornerstone of eczema management.',
+            source: 'Coderch et al., 2003 — <em>American Journal of Clinical Dermatology</em>'
+        });
+        citations.push({
+            title: 'Colloidal Oatmeal for Eczema',
+            text: 'The FDA has recognised colloidal oatmeal as a skin protectant. Studies show it reduces inflammatory markers (cytokines) and provides immediate relief from itching. Regular use supports the skin barrier over time.',
+            source: 'Reynertson et al., 2015 — <em>Journal of Drugs in Dermatology</em>'
+        });
+    }
+    if (concerns.indexOf('wrinkles') !== -1) {
+        citations.push({
+            title: 'Bakuchiol vs Retinol',
+            text: 'A randomised, double-blind study found that Bakuchiol and retinol both significantly improved wrinkles and pigmentation over 12 weeks — but Bakuchiol caused significantly less scaling and stinging. It activates the same retinoid-receptor pathways without the irritation.',
+            source: 'Dhaliwal et al., 2019 — <em>British Journal of Dermatology</em>'
+        });
+        citations.push({
+            title: 'Topical Vitamin C & Collagen',
+            text: 'Vitamin C (L-ascorbic acid) is essential for collagen synthesis. Topical application at concentrations of 5-15% has been shown to stimulate collagen production and provide photoprotection against UV damage.',
+            source: 'Pullar et al., 2017 — <em>Nutrients</em>'
+        });
+    }
+    if (concerns.indexOf('acne') !== -1) {
+        citations.push({
+            title: 'Niacinamide for Acne',
+            text: 'Topical niacinamide (Vitamin B3) at 4% concentration was shown to be comparable to 1% clindamycin (a prescription antibiotic) for reducing acne lesions, while also reducing sebum production and improving skin barrier function.',
+            source: 'Draelos et al., 2006 — <em>International Journal of Dermatology</em>'
+        });
+    }
+    if (concerns.indexOf('pigmentation') !== -1) {
+        citations.push({
+            title: 'Licorice Extract for Pigmentation',
+            text: 'Glabridin, the active compound in licorice root extract, inhibits tyrosinase activity — the enzyme responsible for melanin production. Multiple studies confirm it reduces hyperpigmentation without the irritation of hydroquinone.',
+            source: 'Amer & Metwalli, 2000 — <em>Journal of Cosmetic Dermatology</em>'
+        });
+    }
+    if (concerns.indexOf('dry') !== -1) {
+        citations.push({
+            title: 'Hyaluronic Acid & Skin Hydration',
+            text: 'Hyaluronic acid can hold up to 1,000 times its weight in water. Topical application has been shown to significantly increase skin hydration within 15 minutes, with sustained effects over 72 hours.',
+            source: 'Papakonstantinou et al., 2012 — <em>Dermato-Endocrinology</em>'
+        });
+    }
+
+    var html = '';
+    citations.forEach(function(c) {
+        html += '<div style="margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:1px solid rgba(255,255,255,0.1);">';
+        html += '<strong style="color:var(--rv-stone);">' + c.title + '</strong><br>';
+        html += c.text + '<br>';
+        html += '<span style="font-size:0.68rem;color:rgba(255,255,255,0.5);font-style:italic;">' + c.source + '</span>';
+        html += '</div>';
+    });
+    container.innerHTML = html;
+}
+
+/* ── Claude Blurb ──────────────────────────────────── */
 function fetchBlurb(recs) {
     var blurbEl = document.getElementById('sqBlurb');
     var productNames = recs.map(function(r) { return r.product.name + ' (' + r.product.size + ')'; });
