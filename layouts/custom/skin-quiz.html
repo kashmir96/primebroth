@@ -2242,6 +2242,17 @@ function showResults() {
 
     // Facebook conversion event — quiz completed
     if (typeof fbq === 'function') {
+        // Re-init with user data for advanced matching if email captured
+        var email = answers.email || '';
+        var gender = answers.gender || '';
+        var fbGender = gender === 'male' ? 'm' : (gender === 'female' ? 'f' : '');
+        if (email) {
+            fbq('init', '782322663734369', {
+                em: email.toLowerCase().trim(),
+                ge: fbGender,
+                country: 'nz'
+            });
+        }
         fbq('trackCustom', 'QuizCompleted', {
             concerns: (answers.concerns || []).join(','),
             age_group: answers.ageGroup || '',
