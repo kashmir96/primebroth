@@ -290,17 +290,6 @@
                 <span class="sq-opt-label">Red & Rashy</span>
                 <span class="sq-opt-desc">Eczema-prone, psoriasis, or other red rashy conditions</span>
             </div>
-            <!-- cradle-cap and nappy-rash removed -->
-            <div class="sq-opt" data-val="rosacea">
-                <span class="sq-opt-icon">&#x1F33A;</span>
-                <span class="sq-opt-label">Rosacea</span>
-                <span class="sq-opt-desc">Persistent facial redness and flushing</span>
-            </div>
-            <div class="sq-opt" data-val="acne">
-                <span class="sq-opt-icon">&#x1F4A2;</span>
-                <span class="sq-opt-label">Acne & Breakouts</span>
-                <span class="sq-opt-desc">Pimples, blackheads, oily skin</span>
-            </div>
             <div class="sq-opt" data-val="dry">
                 <span class="sq-opt-icon">&#x1F3DC;</span>
                 <span class="sq-opt-label">Dry & Flaky</span>
@@ -310,6 +299,16 @@
                 <span class="sq-opt-icon">&#x2728;</span>
                 <span class="sq-opt-label">Wrinkles & Fine Lines</span>
                 <span class="sq-opt-desc">Signs of aging, loss of firmness</span>
+            </div>
+            <div class="sq-opt" data-val="acne">
+                <span class="sq-opt-icon">&#x1F4A2;</span>
+                <span class="sq-opt-label">Acne & Breakouts</span>
+                <span class="sq-opt-desc">Pimples, blackheads, oily skin</span>
+            </div>
+            <div class="sq-opt" data-val="rosacea">
+                <span class="sq-opt-icon">&#x1F33A;</span>
+                <span class="sq-opt-label">Rosacea</span>
+                <span class="sq-opt-desc">Persistent facial redness and flushing</span>
             </div>
             <div class="sq-opt" data-val="pigmentation">
                 <span class="sq-opt-icon">&#x1F308;</span>
@@ -871,7 +870,7 @@
    ═══════════════════════════════════════════════════════ */
 var PRODUCTS = {
     'reviana-night': {
-        name: 'Reviana Night Cream', sub: 'Overnight renewal with Bakuchiol & Ceramides', size: '50ml',
+        name: 'Tallow Night Cream', sub: 'Overnight renewal with Bakuchiol & Ceramides', size: '50ml',
         price: {{ site.Data.pricing.reviana.night_cream.price_nz }}, priceId: '{{ site.Data.pricing.reviana.night_cream.price_id_nz }}',
         comparePrice: {{ site.Data.pricing.reviana.night_cream.compare_price }},
         img: '/img/reviana-night-jar.webp', url: '/cosmetic-tallow-reviana/night-cream/',
@@ -881,7 +880,7 @@ var PRODUCTS = {
         forAreas: ['face']
     },
     'reviana-eye': {
-        name: 'Reviana Eye Cream', sub: 'Brightening eye treatment with Hexapeptide-8', size: '15ml',
+        name: 'Tallow Eye Cream', sub: 'Brightening eye treatment with Hexapeptide-8', size: '15ml',
         price: {{ site.Data.pricing.reviana.eye_cream.price_nz }}, priceId: '{{ site.Data.pricing.reviana.eye_cream.price_id_nz }}',
         comparePrice: {{ site.Data.pricing.reviana.eye_cream.compare_price }},
         img: '/img/reviana-eye-jar.webp', url: '/cosmetic-tallow-reviana/eye-cream/',
@@ -891,7 +890,7 @@ var PRODUCTS = {
         forAreas: ['undereyes']
     },
     'reviana-serum': {
-        name: 'Reviana Serum', sub: 'Vitamin C brightening serum with Licorice Extract', size: '15ml',
+        name: 'Tallow Serum', sub: 'Vitamin C brightening serum with Licorice Extract', size: '15ml',
         price: {{ site.Data.pricing.reviana.serum.price_nz }}, priceId: '{{ site.Data.pricing.reviana.serum.price_id_nz }}',
         comparePrice: {{ site.Data.pricing.reviana.serum.compare_price }},
         img: '/img/reviana-serum-jar.webp', url: '/cosmetic-tallow-reviana/serum/',
@@ -901,7 +900,7 @@ var PRODUCTS = {
         forAreas: ['face']
     },
     'reviana-day': {
-        name: 'Reviana Day Cream', sub: 'Daily moisture with Vitamin C & Niacinamide', size: '50ml',
+        name: 'Tallow Day Cream', sub: 'Daily moisture with Vitamin C & Niacinamide', size: '50ml',
         price: {{ site.Data.pricing.reviana.day_cream.price_nz }}, priceId: '{{ site.Data.pricing.reviana.day_cream.price_id_nz }}',
         comparePrice: {{ site.Data.pricing.reviana.day_cream.compare_price }},
         img: '/img/reviana-day-jar.webp', url: '/cosmetic-tallow-reviana/day-cream/',
@@ -1372,9 +1371,8 @@ function shouldSkipStep(idx) {
         var tried = answers.triedBefore || [];
         return tried.indexOf('tallow') === -1;
     }
-    // Always skip preference step — default to premium
+    // Always skip preference step
     if (key === 'preference') {
-        answers.preference = 'premium';
         return true;
     }
     return false;
@@ -1876,12 +1874,13 @@ function getRecommendations() {
     var candidates = [];
     var usedKeys = {};
     var hasBalm = false;
+    var revianaCount = 0;
 
     var BALM_KEYS = ['balm-natural-120','balm-natural-250','balm-frankincense-120','balm-frankincense-250',
         'balm-lavender-120','honeybalm-vanilla-120','honeybalm-vanilla-250',
-        'limited-midnight','limited-sunrise','baby-butter',
-        'reviana-day','reviana-night'];
+        'limited-midnight','limited-sunrise','baby-butter'];
     function isBalm(key) { return BALM_KEYS.indexOf(key) !== -1; }
+    function isReviana(key) { return key.indexOf('reviana') === 0; }
 
     function addProduct(key, why, priority) {
         if (usedKeys[key]) return;
@@ -1889,12 +1888,15 @@ function getRecommendations() {
         if (!p) return;
         if (isChild && (key === 'deodorant' || key === 'hair-clay' || key.indexOf('reviana') !== -1)) return;
         if (isAdult && key === 'baby-butter') return;
+        // Max 1 Reviana product
+        if (isReviana(key) && revianaCount >= 1) return;
         if (isBalm(key) && hasBalm) return;
         for (var i = 0; i < allergens.length; i++) {
             if (p.allergens.indexOf(allergens[i]) !== -1) return;
         }
         usedKeys[key] = true;
         if (isBalm(key)) hasBalm = true;
+        if (isReviana(key)) revianaCount++;
         candidates.push({ key: key, product: p, why: why, priority: priority || 5 });
     }
 
@@ -1990,7 +1992,7 @@ function getRecommendations() {
                 addProduct('balm-natural-250', 'Just 2 ingredients for highly sensitive dry skin — tallow\'s lipid profile closely mirrors your skin\'s natural oils', 1);
             } else {
                 // Even simple pref, push Reviana for face (better experience) + body balm for body
-                addProduct('reviana-night', 'For your face, the Reviana Night Cream absorbs beautifully without the traditional tallow texture — Ceramides and Hyaluronic Acid lock in moisture overnight', 1);
+                addProduct('reviana-night', 'For your face, the Tallow Night Cream absorbs beautifully without the traditional tallow texture — Ceramides and Hyaluronic Acid lock in moisture overnight', 1);
                 addProduct('reviana-day', 'Pairs with the Night Cream — lightweight daily hydration that won\'t feel heavy', 2);
             }
         } else if (hasGeneral) {
@@ -2109,85 +2111,106 @@ function getRecommendations() {
     var SHOP_SKUS = ['balm-natural-120','balm-frankincense-120','balm-lavender-120','honeybalm-vanilla-120'];
     candidates = candidates.filter(function(r) { return SHOP_SKUS.indexOf(r.key) === -1 || isChild; });
 
-    var balmCount = 0;
-    var final3 = [];
-    candidates.forEach(function(r) {
-        if (final3.length >= 3) return;
-        if (isBalm(r.key)) {
-            if (balmCount >= 1) return; // HARD LIMIT: 1 balm max
-            balmCount++;
+    // ── FINAL 3: Split into 3 slots: 1 Reviana, 1 Balm, 1 Other (cheaper) ──
+    var SHOP_SKUS_SET = {'balm-natural-120':1,'balm-frankincense-120':1,'balm-lavender-120':1,'honeybalm-vanilla-120':1};
+    function isSafe(key) {
+        if (SHOP_SKUS_SET[key] && !isChild) return false;
+        var p = PRODUCTS[key];
+        if (!p) return false;
+        for (var ai = 0; ai < allergens.length; ai++) {
+            if (p.allergens.indexOf(allergens[ai]) !== -1) return false;
         }
-        final3.push(r);
+        return true;
+    }
+
+    // Separate candidates into buckets
+    var revCandidates = [];
+    var balmCandidates = [];
+    var otherCandidates = [];
+    candidates.forEach(function(r) {
+        if (!isSafe(r.key)) return;
+        if (isReviana(r.key)) revCandidates.push(r);
+        else if (isBalm(r.key)) balmCandidates.push(r);
+        else otherCandidates.push(r);
     });
 
-    // If under 3, add smart fallbacks (never shop SKUs)
-    var fallbacks = [
-        ['reviana-day', 'Our premium day cream with Vitamin C and Niacinamide — completes your morning routine and is only available direct from us'],
-        ['reviana-night', 'Bakuchiol and Ceramides work overnight to support your skin — pairs perfectly with a day cream for a complete routine'],
-        ['reviana-serum', 'Concentrated Vitamin C serum — layer under your day or night cream for enhanced results'],
-        ['reviana-eye', 'Hexapeptide-8 targets the delicate eye area — worth adding to any face routine'],
-        ['limited-midnight', 'Limited Edition whipped tallow with Cacao & Blood Orange — a nourishing body balm that won\'t be around forever'],
-        ['limited-sunrise', 'Limited Edition whipped tallow with Sea Buckthorn & Ylang Ylang — deeply nourishing and only available for a limited time'],
-        ['shampoo', 'Our tallow shampoo bar — a great addition to any routine, even if scalp isn\'t your main concern'],
-        ['deodorant', 'No aluminium, no harsh chemicals — a natural alternative if conventional deodorants irritate your skin'],
-        ['honeybalm-vanilla-250', 'Our Manuka honey and vanilla body balm — a nourishing treat in our best-value size'],
-        ['balm-natural-250', 'Pure tallow in our largest size — just 2 ingredients, compatible with any skin type']
+    // Pick 1 from each bucket (by priority)
+    revCandidates.sort(function(a,b){ return a.priority - b.priority; });
+    balmCandidates.sort(function(a,b){ return a.priority - b.priority; });
+    otherCandidates.sort(function(a,b){ return a.priority - b.priority; });
+
+    var final3 = [];
+    var pickedKeys = {};
+
+    // Slot 1: Reviana (unless baby/child)
+    if (!isChild && revCandidates.length > 0) {
+        final3.push(revCandidates[0]);
+        pickedKeys[revCandidates[0].key] = true;
+    }
+
+    // Slot 2: Balm
+    if (balmCandidates.length > 0) {
+        final3.push(balmCandidates[0]);
+        pickedKeys[balmCandidates[0].key] = true;
+    }
+
+    // Slot 3: Other (cheaper option — shampoo, cleanser, deodorant, lip balm, oat soak, etc.)
+    for (var oi = 0; oi < otherCandidates.length && final3.length < 3; oi++) {
+        if (!pickedKeys[otherCandidates[oi].key]) {
+            final3.push(otherCandidates[oi]);
+            pickedKeys[otherCandidates[oi].key] = true;
+        }
+    }
+
+    // Fallbacks if any slot is empty
+    var revFallbacks = [
+        ['reviana-night', 'Bakuchiol and Ceramides support your skin overnight — our premium tallow formula only available direct from us'],
+        ['reviana-day', 'Lightweight daily moisture with Vitamin C and Niacinamide — only available direct from us'],
+        ['reviana-serum', 'Concentrated Vitamin C serum — layer under your cream for enhanced results'],
+        ['reviana-eye', 'Hexapeptide-8 targets the delicate eye area — worth adding to any face routine']
     ];
-    var fi = 0;
-    while (final3.length < 3 && fi < fallbacks.length) {
-        var fb = fallbacks[fi]; fi++;
-        if (usedKeys[fb[0]]) continue;
-        var p = PRODUCTS[fb[0]];
-        if (!p) continue;
-        var safe = true;
-        for (var ai = 0; ai < allergens.length; ai++) {
-            if (p.allergens.indexOf(allergens[ai]) !== -1) { safe = false; break; }
-        }
-        if (safe && !(isBalm(fb[0]) && balmCount >= 1) && SHOP_SKUS.indexOf(fb[0]) === -1) {
-            if (isBalm(fb[0])) balmCount++;
-            usedKeys[fb[0]] = true;
+    var balmFallbacks = [
+        ['limited-midnight', 'Limited Edition whipped tallow with Cacao & Blood Orange — once they\'re gone, they\'re gone'],
+        ['limited-sunrise', 'Limited Edition whipped tallow with Sea Buckthorn & Ylang Ylang — only available for a limited time'],
+        ['honeybalm-vanilla-250', 'Manuka honey draws moisture in while vanilla adds a beautiful scent — our best value body balm'],
+        ['balm-natural-250', 'Pure tallow — just 2 ingredients, nothing to trigger a reaction. Our largest size for daily use']
+    ];
+    var otherFallbacks = [
+        ['shampoo', 'A tallow shampoo bar — sulfate-free cleansing that supports scalp health'],
+        ['cleanser', 'A gentle tallow-based cleanser — the foundation of any good skincare routine'],
+        ['deodorant', 'No aluminium, no harsh chemicals — a natural alternative that actually works'],
+        ['lip-balm', 'Manuka honey lip balm — keeps your lips hydrated naturally'],
+        ['oat-soak', 'Colloidal oat baths to calm and soothe irritated skin']
+    ];
+
+    function fillSlot(fallbackList) {
+        for (var fi = 0; fi < fallbackList.length; fi++) {
+            var fb = fallbackList[fi];
+            if (pickedKeys[fb[0]] || !isSafe(fb[0])) continue;
+            var p = PRODUCTS[fb[0]];
+            if (!p) continue;
+            pickedKeys[fb[0]] = true;
             final3.push({ key: fb[0], product: p, why: fb[1], priority: 9 });
+            return true;
         }
+        return false;
     }
 
-    // ENFORCE: always include at least one balm/cream (not lip balm)
-    var hasAnyBalm = final3.some(function(r) { return isBalm(r.key); });
-    if (!hasAnyBalm && !isChild) {
-        // Pick best balm/cream to inject
-        var balmFallbacks = useReviana ?
-            ['reviana-day', 'reviana-night', 'limited-midnight', 'limited-sunrise', 'honeybalm-vanilla-250', 'balm-natural-250'] :
-            ['reviana-night', 'reviana-day', 'balm-natural-250', 'honeybalm-vanilla-250', 'limited-midnight', 'limited-sunrise'];
-        for (var bi = 0; bi < balmFallbacks.length; bi++) {
-            var bk = balmFallbacks[bi];
-            if (usedKeys[bk]) continue;
-            var bp = PRODUCTS[bk];
-            if (!bp) continue;
-            var bSafe = true;
-            for (var bai = 0; bai < allergens.length; bai++) {
-                if (bp.allergens.indexOf(allergens[bai]) !== -1) { bSafe = false; break; }
-            }
-            if (bSafe) {
-                // Replace lowest priority item (last) with this balm
-                var removed = final3.pop();
-                usedKeys[bk] = true;
-                final3.push({ key: bk, product: bp, why: 'Every routine needs a moisturiser — this is the foundation that locks everything else in', priority: 3 });
-                break;
-            }
-        }
+    // Ensure we have 1 Reviana (unless baby)
+    if (!isChild && !final3.some(function(r){ return isReviana(r.key); })) {
+        fillSlot(revFallbacks);
+    }
+    // Ensure we have 1 Balm
+    if (!final3.some(function(r){ return isBalm(r.key); })) {
+        fillSlot(balmFallbacks);
+    }
+    // Fill remaining with other/cheaper options
+    while (final3.length < 3) {
+        if (!fillSlot(otherFallbacks) && !fillSlot(balmFallbacks) && !fillSlot(revFallbacks)) break;
     }
 
-    // Sort by price ascending for display
+    // Sort: cheapest first, balm in middle, Reviana last (premium position)
     final3.sort(function(a, b) { return a.product.price - b.product.price; });
-
-    // Ensure balm/cream is in the middle position (index 1)
-    var balmIdx = -1;
-    for (var mi = 0; mi < final3.length; mi++) {
-        if (isBalm(final3[mi].key)) { balmIdx = mi; break; }
-    }
-    if (balmIdx !== -1 && balmIdx !== 1 && final3.length >= 3) {
-        var balmItem = final3.splice(balmIdx, 1)[0];
-        final3.splice(1, 0, balmItem);
-    }
 
     final3.forEach(function(r, i) {
         r.step = i === 0 ? 'Start here' : (i === 1 ? 'Then apply' : 'Complete with');
@@ -2747,7 +2770,7 @@ function renderWhyPastFailed() {
         if (fb === 'loved-it' || fb === 'noticed-difference' || fb === 'like-natural') {
             html += 'and had a positive experience. We\'ve built on that — your routine doubles down on what\'s already working, with a size that matches your usage so you won\'t run out.';
         } else if (fb === 'smell') {
-            html += 'but the scent wasn\'t for you. That\'s common. Our Reviana range uses tallow as a base but masks the natural scent with premium botanicals — same skin benefits, better experience.';
+            html += 'but the scent wasn\'t for you. That\'s common. Our premium tallow range uses tallow as a base but masks the natural scent with premium botanicals — same skin benefits, better experience.';
         } else if (fb === 'texture') {
             html += 'but the texture wasn\'t quite right. Our whipped and liquid formulations absorb faster and feel lighter — same active benefits in a more refined format.';
         } else if (fb === 'no-results') {
@@ -2810,10 +2833,10 @@ function renderWhyNot(recs) {
         excluded.push({ name: 'Heavy Tallow Balms', reason: 'Thicker balm formats can feel too occlusive on acne-prone skin. We\'ve gone with lighter formulations that absorb faster without risking clogged pores.' });
     }
     if (pref === 'premium' && sensitivity < 8 && recKeys.indexOf('tallow-skin') === -1 && (concerns.indexOf('wrinkles') !== -1 || concerns.indexOf('pigmentation') !== -1)) {
-        excluded.push({ name: 'Plain Tallow Moisturiser', reason: 'Tallow is an excellent moisturiser, but it doesn\'t target ' + (concerns.indexOf('wrinkles') !== -1 ? 'collagen production or fine lines' : 'melanin production or dark spots') + '. For your goals, the targeted actives in Reviana will deliver better results.' });
+        excluded.push({ name: 'Plain Tallow Moisturiser', reason: 'Tallow is an excellent moisturiser, but it doesn\'t target ' + (concerns.indexOf('wrinkles') !== -1 ? 'collagen production or fine lines' : 'melanin production or dark spots') + '. For your goals, the targeted actives in our premium tallow range will deliver better results.' });
     }
     if (concerns.indexOf('baby') !== -1) {
-        excluded.push({ name: 'Reviana & Scented Products', reason: 'For babies and young children, we only recommend our most minimal, unscented formulations. Actives and essential oils aren\'t necessary and could irritate delicate skin.' });
+        excluded.push({ name: 'Premium & Scented Products', reason: 'For babies and young children, we only recommend our most minimal, unscented formulations. Actives and essential oils aren\'t necessary and could irritate delicate skin.' });
     }
 
     if (excluded.length === 0) {
