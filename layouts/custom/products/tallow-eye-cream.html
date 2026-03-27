@@ -152,6 +152,8 @@
 
         <div class="pp-pricing-section">
             <span class="pp-price-main">
+                <span class="sale-badge">20% Off</span>
+                <span class="pp-price-was" id="priceWas"></span>
                 <span id="price">$27.95</span>
             </span>
             <p class="afterpay-note">or 4 interest free payments of $<span id="afterpay_price">6.99</span> with <img src="/img/afterpay.webp" class="d-inline" height="18" alt="afterpay"></p>
@@ -681,6 +683,9 @@
             document.getElementById("afterpay_price").textContent = `${(price / 4).toFixed(2)}`;
             document.getElementById("option-price-display").textContent = price.toFixed(2);
             document.querySelector('.btn-add-to-cart span').textContent = `Add To Cart — $${price.toFixed(2)}`;
+
+            // Show the original price (before 20% off)
+            document.getElementById("priceWas").textContent = `$${(price / 0.80).toFixed(2)}`;
         }
     }
 
