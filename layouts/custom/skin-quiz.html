@@ -1121,6 +1121,30 @@ var allSteps = Array.from(document.querySelectorAll('.sq-step'));
 var currentStepIdx = 0;
 var TOTAL_STEPS = allSteps.length;
 
+/* ── Quiz Session Tracking ── */
+var _quizSessionId = (function() {
+    var id = Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+    return id;
+})();
+var _sqStepNames = ['Age', 'Concerns', 'Tried Before', 'Tallow Feedback', 'Problem Areas', 'Severity', 'Sensitivity & Allergens', 'Hydration', 'Email'];
+function _saveQuizProgress(completed) {
+    var stepName = _sqStepNames[currentStepIdx] || ('Step ' + currentStepIdx);
+    fetch('/.netlify/functions/quiz-progress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            sessionId: _quizSessionId,
+            stepIndex: currentStepIdx,
+            stepName: completed ? 'Completed' : stepName,
+            answers: answers,
+            completed: completed === true,
+            utm: quizUtm || {}
+        })
+    }).catch(function() {});
+}
+// Save on quiz start
+_saveQuizProgress(false);
+
 /* ── Sensitivity Slider ── */
 var sensitivityDescs = {
     1: 'My skin handles pretty much anything',
@@ -1389,6 +1413,7 @@ function sqNext() {
     allSteps[currentStepIdx].classList.add('active');
     tailorOptionsForStep();
     updateProgress();
+    _saveQuizProgress(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -2206,6 +2231,7 @@ function getRecommendations() {
    RESULTS PAGE
    ═══════════════════════════════════════════════════════ */
 function showResults() {
+    _saveQuizProgress(true);
     var results = document.getElementById('sqResults');
     // Hide hero and quiz, show results
     document.getElementById('sqHero').style.display = 'none';
