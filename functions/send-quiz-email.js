@@ -254,7 +254,42 @@ function friendEmailHtml({ code, expiryDate, referrerEmail }) {
 </html>`;
 }
 
-module.exports = { sendEmail, resultsEmailHtml, referrerEmailHtml, friendEmailHtml };
+function referrerRewardEmailHtml({ code, expiryDate }) {
+  return `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#F7F2EB;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+  <div style="max-width:600px;margin:0 auto;padding:32px 16px;">
+    <div style="background:#fff;border-radius:16px;overflow:hidden;border:1px solid rgba(123,92,58,0.12);">
+      <div style="background:#4A5E38;padding:28px 32px;text-align:center;">
+        <p style="margin:0 0 6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:rgba(255,255,255,0.7);">Referral Reward Unlocked</p>
+        <h1 style="margin:0;font-family:Georgia,serif;font-size:24px;font-weight:400;color:#fff;">Your friend placed an order!</h1>
+      </div>
+      <div style="padding:32px;text-align:center;">
+        <p style="font-size:15px;color:#1C1A17;line-height:1.6;margin:0 0 8px;">Your friend used their referral code — so here's your $5 off as a thank you for spreading the word.</p>
+        <p style="font-size:13px;color:#8A7D70;margin:0 0 24px;">Valid on orders over $25.</p>
+
+        <div style="background:#F0EBE3;border:2px dashed #C4A07A;border-radius:12px;padding:20px;margin-bottom:24px;">
+          <p style="margin:0 0 6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#9B7550;">Your Code</p>
+          <p style="margin:0;font-family:Georgia,serif;font-size:28px;font-weight:700;color:#1C1A17;letter-spacing:0.05em;">${code}</p>
+          <p style="margin:8px 0 0;font-size:12px;color:#8A7D70;">Expires ${expiryDate} · One use only · Orders over $25</p>
+        </div>
+
+        <p style="font-size:13px;color:#8A7D70;margin:0 0 20px;">Enter this code in the <strong style="color:#1C1A17;">promo code field</strong> at checkout on primalpantry.co.nz</p>
+
+        <a href="https://www.primalpantry.co.nz/shop/" style="display:inline-block;background:#4A5E38;color:#fff;text-decoration:none;padding:14px 32px;border-radius:10px;font-weight:700;font-size:14px;">Shop Now</a>
+      </div>
+      <div style="background:#F7F2EB;padding:20px 32px;text-align:center;border-top:1px solid rgba(123,92,58,0.1);">
+        <p style="margin:0;font-size:12px;color:#8A7D70;">PrimalPantry · Made in Christchurch, NZ · <a href="https://www.primalpantry.co.nz" style="color:#7B5C3A;">primalpantry.co.nz</a></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>`;
+}
+
+module.exports = { sendEmail, resultsEmailHtml, referrerEmailHtml, referrerRewardEmailHtml, friendEmailHtml };
 
 // ── Netlify handler (for direct HTTP calls if needed) ──
 exports.handler = async (event) => {

@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
-    <script src="https://platform-api.sharethis.com/js/sharethis.js#property=667c998f7bead90019480329&product=inline-share-buttons&source=platform" async="async"></script>
+    <script src="https://js.stripe.com/v3/"></script>
     <script>
         window.addEventListener('load', function() {
           if (typeof oso === 'function') oso('event', 'checkout completed');
@@ -28,6 +28,406 @@
     });
   </script>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400;1,9..144,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --cream: #FAF4EB;
+  --cream-deep: #EEDED0;
+  --bark: #2E1A0E;
+  --bark-mid: #442A16;
+  --bark-light: #6B4D38;
+  --sage: #6B8F5B;
+  --sage-light: #8CB47A;
+  --sage-muted: #A3B898;
+  --sage-pale: #E5EDDF;
+  --honey: #D4A84B;
+  --blush: #DBBFA8;
+  --charcoal: #1E1E1E;
+  --warm-gray: #877B71;
+  --off-white: #FEFCF8;
+  --white: #FFFFFF;
+}
+
+.pp-ty {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--charcoal);
+  -webkit-font-smoothing: antialiased;
+}
+.pp-ty h1, .pp-ty h2, .pp-ty h3 {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0;
+  padding: 0;
+}
+
+/* Hero */
+.pp-ty-hero {
+  background: var(--cream);
+  text-align: center;
+  padding: 72px 24px 56px;
+  position: relative;
+  overflow: hidden;
+}
+.pp-ty-hero::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: var(--sage-pale);
+  opacity: 0.5;
+}
+.pp-ty-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -40px;
+  left: -40px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: var(--blush);
+  opacity: 0.3;
+}
+
+.pp-ty-checkmark {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--sage);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  animation: pp-ty-pop 0.5s ease both;
+  position: relative;
+  z-index: 1;
+}
+.pp-ty-checkmark svg {
+  width: 32px;
+  height: 32px;
+  color: white;
+}
+
+@keyframes pp-ty-pop {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.pp-ty-hero h1 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  color: var(--bark);
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+  animation: pp-ty-rise 0.6s ease both 0.15s;
+}
+.pp-ty-hero p {
+  font-size: 1.05rem;
+  color: var(--warm-gray);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+  animation: pp-ty-rise 0.6s ease both 0.25s;
+}
+
+@keyframes pp-ty-rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Content area */
+.pp-ty-content {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 48px 24px 56px;
+}
+
+/* Order card */
+.pp-ty-order-card {
+  background: var(--white);
+  border: 1px solid var(--cream-deep);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 2px 12px rgba(46, 26, 14, 0.06);
+}
+.pp-ty-order-card h2 {
+  font-size: 1.35rem;
+  color: var(--bark);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pp-ty-order-card h2 svg {
+  width: 22px;
+  height: 22px;
+  color: var(--bark-light);
+}
+
+.pp-ty-order-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.pp-ty-order-list li {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--cream-deep);
+  font-size: 0.95rem;
+  color: var(--charcoal);
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pp-ty-order-list li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.pp-ty-order-list li .pp-ty-qty {
+  background: var(--cream);
+  color: var(--bark);
+  font-weight: 600;
+  font-size: 0.82rem;
+  padding: 3px 10px;
+  border-radius: 100px;
+  flex-shrink: 0;
+}
+
+/* Shipping block */
+.pp-ty-shipping-block {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--cream-deep);
+}
+.pp-ty-shipping-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--warm-gray);
+  margin-bottom: 8px;
+}
+.pp-ty-shipping-label svg {
+  width: 16px;
+  height: 16px;
+  color: var(--sage);
+}
+.pp-ty-shipping-address {
+  font-size: 0.95rem;
+  color: var(--charcoal);
+  line-height: 1.7;
+  padding-left: 24px;
+}
+
+/* Receipt note */
+.pp-ty-receipt {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--cream-deep);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--warm-gray);
+  font-size: 0.9rem;
+}
+.pp-ty-receipt svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--sage);
+}
+
+/* Support banner */
+.pp-ty-support {
+  background: var(--sage-pale);
+  text-align: center;
+  padding: 40px 24px;
+}
+.pp-ty-support-inner {
+  max-width: 520px;
+  margin: 0 auto;
+}
+.pp-ty-support p {
+  font-size: 1rem;
+  color: var(--bark);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.pp-ty-support a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bark);
+  color: var(--cream);
+  padding: 13px 28px;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  letter-spacing: 0.02em;
+}
+.pp-ty-support a:hover {
+  background: var(--bark-mid);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(46, 26, 14, 0.16);
+}
+.pp-ty-support a svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Share section */
+.pp-ty-share {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 24px 56px;
+  text-align: center;
+}
+.pp-ty-share h5 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--bark);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+/* Referral section */
+.pp-ty-referral {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 24px 56px;
+}
+.pp-ty-referral-card {
+  background: linear-gradient(145deg, #fdfbf8 0%, #eef5e8 100%);
+  border: 1.5px solid var(--sage-muted);
+  border-radius: 16px;
+  padding: 28px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.pp-ty-referral-card::before {
+  content: '';
+  position: absolute;
+  top: -30px; right: -30px;
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  background: var(--sage);
+  opacity: 0.08;
+}
+.pp-ty-referral-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--sage-pale);
+  color: var(--sage);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 4px 12px;
+  border-radius: 100px;
+  margin-bottom: 14px;
+  border: 1px solid var(--sage-muted);
+}
+.pp-ty-referral-badge svg { width: 13px; height: 13px; }
+.pp-ty-referral-card h3 {
+  font-size: 1.25rem;
+  color: var(--bark);
+  margin-bottom: 6px;
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+}
+.pp-ty-referral-card > p {
+  font-size: 0.92rem;
+  color: var(--warm-gray);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.pp-ty-referral-input-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.pp-ty-referral-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1.5px solid var(--cream-deep);
+  border-radius: 100px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.92rem;
+  color: var(--charcoal);
+  background: var(--white);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.pp-ty-referral-input:focus { border-color: var(--sage); }
+.pp-ty-referral-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bark);
+  color: var(--cream);
+  padding: 12px 22px;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+.pp-ty-referral-btn:hover {
+  background: var(--bark-mid);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(46,26,14,0.14);
+}
+.pp-ty-referral-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.pp-ty-referral-msg {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  min-height: 20px;
+  margin-top: 4px;
+  padding: 0 4px;
+}
+.pp-ty-referral-msg.ok { color: var(--sage); }
+.pp-ty-referral-msg.err { color: #b91c1c; }
+.pp-ty-referral-fine {
+  font-size: 0.72rem;
+  color: var(--warm-gray);
+  margin-top: 12px;
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .pp-ty-hero {
+    padding: 48px 20px 40px;
+  }
+  .pp-ty-content {
+    padding: 32px 20px 40px;
+  }
+  .pp-ty-order-card {
+    padding: 24px;
+  }
+  .pp-ty-support {
+    padding: 32px 20px;
+  }
+}
+</style>
 </head>
 <body>
     {{- partial "header.html" . -}}
@@ -38,166 +438,153 @@
     {{- partial "strip.html" . -}}
     <!-- Add html below -->
 
-    <div class="container-fluid p-0">
-        <div class="p-5 peach text-center">
-            <h1 class="fade-in-element">Thank you for your order!</h1>
+    <div class="pp-ty">
+        <!-- Hero -->
+        <div class="pp-ty-hero">
+            <div class="pp-ty-checkmark">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+            </div>
+            <h1>Thank you for your order!</h1>
             <p>We have received your order and will ship it out to you as soon as possible.</p>
         </div>
-        <div class="row my-0">
-            <div class="col-12 col-md-8 offset-md-2">
-                <!-- <p>Thanks for your order of PrimalPantry!</p>
-                <p>We will process your order as soon as possible. Keep an eye on your inbox, we'll let you know when your goods are on the way! </p>
-            -->
-            <h2>Your Order:</h2>
-            <ul id="ordered-items" class="list-group"></ul>
-            
-        
-            <script>
-                // Function to get URL parameters
-                function getUrlParameter(name) {
-                    const urlParams = new URLSearchParams(window.location.search);
-                    return urlParams.get(name);
-                }
-        
-                // Get the cart data from the URL
-                const encodedCartData =  JSON.parse(localStorage.getItem('previouscart')) || [];
-                console.log("previous cart:",encodedCartData);
-                let totalCost = 0;
-                if (encodedCartData) {
-                    // Decode and parse the cart data
-        
-                    // Display cart items
-                    const cartItemsList = document.getElementById('ordered-items');
-                    encodedCartData.forEach(item => {
-                        const li = document.createElement('li');
-                        li.classList.add('list-group-item');
-                        li.textContent = `${item.quantity || 'Unknown'} X ${item.title || 'Unknown Product'} - ${item.flavor || 'N/A'}  ${item.size || 'N/A'} (${item.orderType || 'N/A'})`;
-                        cartItemsList.appendChild(li);
-                        const quantity = parseInt(item.quantity, 10);
-                        const unitPrice = parseFloat(item.unitPrice).toFixed(2);
-                        const lineItemTotal = (unitPrice * quantity).toFixed(2);
-                        totalCost += parseFloat(lineItemTotal);
-                    });
-                    localStorage.removeItem('previouscart');
-                    localStorage.removeItem('cartV2');
-                    localStorage.removeItem('quiz_bundle_pids');
-                } else {
-                    console.log("No cart data available.");
-                }
-                console.log("totalcost: "+ totalCost);
-                const url_params = new URLSearchParams(window.location.search);
-                const landing_url = url_params.get('landing_url');
-                // Step 1: Decode the URL
-                const decodedlanding_url = decodeURIComponent(landing_url);
 
-                // Step 2: Extract the query string
-                const urlObj = new URL(decodedlanding_url);
-                const params = new URLSearchParams(urlObj.search);
+        <!-- Order details -->
+        <div class="pp-ty-content">
+            <div class="pp-ty-order-card">
+                <h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                    </svg>
+                    Your Order
+                </h2>
+                <ul id="ordered-items" class="pp-ty-order-list"></ul>
 
-                // Step 3: Get ttclid
-                const ttclid = params.get('ttclid');
-               // const ttclid = localStorage.getItem('ttclid');
-                console.log("ttclid: "+ ttclid);
-                if(ttclid){
-                    ttq.track('CompletePayment', {
-                    value: totalCost,
-                    ttclid: ttclid
-                    });
+                <script>
+                    // Function to get URL parameters
+                    function getUrlParameter(name) {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        return urlParams.get(name);
+                    }
 
-                    localStorage.removeItem('ttclid');
-                }
-                        
-            </script>
-            
-            <p>You will be sent a receipt to 
-                    the email used at checkout within an hour.
-                </p>
+                    // Get the cart data from the URL
+                    const encodedCartData =  JSON.parse(localStorage.getItem('previouscart')) || [];
+                    console.log("previous cart:",encodedCartData);
+                    let totalCost = 0;
+                    if (encodedCartData) {
+                        // Decode and parse the cart data
 
+                        // Display cart items
+                        const cartItemsList = document.getElementById('ordered-items');
+                        encodedCartData.forEach(item => {
+                            const li = document.createElement('li');
+                            const qtySpan = document.createElement('span');
+                            qtySpan.className = 'pp-ty-qty';
+                            qtySpan.textContent = `${item.quantity || 1}x`;
+                            li.appendChild(qtySpan);
+                            const textSpan = document.createElement('span');
+                            textSpan.textContent = `${item.title || 'Unknown Product'} - ${item.flavor || 'N/A'}  ${item.size || 'N/A'} (${item.orderType || 'N/A'})`;
+                            li.appendChild(textSpan);
+                            cartItemsList.appendChild(li);
+                            const quantity = parseInt(item.quantity, 10);
+                            const unitPrice = parseFloat(item.unitPrice).toFixed(2);
+                            const lineItemTotal = (unitPrice * quantity).toFixed(2);
+                            totalCost += parseFloat(lineItemTotal);
+                        });
+                        localStorage.removeItem('previouscart');
+                        localStorage.removeItem('cartV2');
+                        localStorage.removeItem('quiz_bundle_pids');
+                    } else {
+                        console.log("No cart data available.");
+                    }
+                    console.log("totalcost: "+ totalCost);
+                    const url_params = new URLSearchParams(window.location.search);
+                    const landing_url = url_params.get('landing_url');
+                    // Step 1: Decode the URL
+                    const decodedlanding_url = landing_url ? decodeURIComponent(landing_url) : '';
+
+                    // Step 2: Extract the query string
+                    if (!decodedlanding_url) { console.log('No landing_url param — skipping TikTok ttclid'); }
+                    const urlObj = decodedlanding_url ? new URL(decodedlanding_url) : null;
+                    if (!urlObj) { return; }
+                    const params = new URLSearchParams(urlObj.search);
+
+                    // Step 3: Get ttclid
+                    const ttclid = params.get('ttclid');
+                   // const ttclid = localStorage.getItem('ttclid');
+                    console.log("ttclid: "+ ttclid);
+                    if(ttclid){
+                        ttq.track('CompletePayment', {
+                        value: totalCost,
+                        ttclid: ttclid
+                        });
+
+                        localStorage.removeItem('ttclid');
+                    }
+
+                </script>
+
+                <!-- Shipping address (populated by JS if session_id is present) -->
+                <div id="pp-ty-shipping" style="display:none;">
+                    <div class="pp-ty-shipping-block">
+                        <div class="pp-ty-shipping-label">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
+                            </svg>
+                            Shipping to
+                        </div>
+                        <div id="pp-ty-shipping-address" class="pp-ty-shipping-address"></div>
+                    </div>
+                </div>
+
+                <div class="pp-ty-receipt">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                    </svg>
+                    You will be sent a receipt to the email used at checkout within an hour.
+                </div>
+            </div>
+
+            <div id="shareThisContainer" style="display:none;"></div>
+        </div>
+
+        <!-- Referral section (shown when session_id present + customer email retrieved) -->
+        <div id="pp-ty-referral-section" class="pp-ty-referral" style="display:none;">
+            <div class="pp-ty-referral-card">
+                <div class="pp-ty-referral-badge">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                    </svg>
+                    Share the love
+                </div>
+                <h3>Give a friend $5 off their first order</h3>
+                <p>Enter a friend's email and they'll receive a $5 off code instantly. When they use it, you'll get your $5 off code by email too. Codes are valid for 30 days.</p>
+                <div class="pp-ty-referral-input-row">
+                    <input type="email" class="pp-ty-referral-input" id="pp-referral-friend-email" placeholder="friend@email.com">
+                    <button class="pp-ty-referral-btn" id="pp-referral-btn" onclick="ppSendReferral()">
+                        Send $5
+                    </button>
+                </div>
+                <div class="pp-ty-referral-msg" id="pp-referral-msg"></div>
+                <p class="pp-ty-referral-fine">Friend's code is emailed immediately — valid 30 days, new customers only, orders over $25. You'll receive your $5 code by email once your friend places their order. Max 3 referrals per person.</p>
             </div>
         </div>
-        <div class="lightpeach p-4 text-center">
-            <div class="col-12 ">
-                <b>If you have any questions or would like hand with
-                     your order, <br/> please visit our <a href="/support" class="text-decoration-underline">customer support page here.</a></b>
+
+        <!-- Support banner -->
+        <div class="pp-ty-support">
+            <div class="pp-ty-support-inner">
+                <p>Have any questions or need help with your order?</p>
+                <a href="/support">
+                    Customer Support
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                </a>
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const pgurl = localStorage.getItem('pgurl');
-            const charity = localStorage.getItem('charity');
-            console.log('pgurl retrieved:', pgurl);  // Debugging line
-            console.log('charity retrieved:', charity);  // Debugging line
-            const shareThisContainer = document.getElementById('shareThisContainer');
-            if (pgurl && charity) {
-                // Display charity information
-                const charityInfo = document.createElement('h5');
-                charityInfo.className = 'charity-message';
-                charityInfo.textContent = `Help us support ${charity} further by sharing the fundraiser with your friends!`;
-                shareThisContainer.appendChild(charityInfo);
-                console.log('Charity message added:', charityInfo.textContent);  // Debugging line
-    
-                const shareThisButton = document.createElement('div');
-                shareThisButton.className = 'sharethis-inline-share-buttons';
-                shareThisButton.setAttribute('data-url', `https://www.PrimalPantry.co.nz/${pgurl}`);
-                shareThisContainer.appendChild(shareThisButton);
-                console.log('ShareThis button created with URL:', `https://www.PrimalPantry.co.nz/${pgurl}`);  // Debugging line
-    
-                // Initialize ShareThis buttons
-                window.__sharethis__.load('inline-share-buttons', {
-                    alignment: 'center',
-                    id: 'sharethis-inline-share-buttons',
-                    url: `https://www.PrimalPantry.co.nz/${pgurl}`
-                });
-            } else {
-                // Fallback message and link
-                const fallbackMessage = document.createElement('h5');
-                fallbackMessage.className = 'fallback-message';
-    
-                // Create the first line
-                const line1 = document.createElement('span');
-                line1.textContent = 'Who else do you know who might enjoy PrimalPantry?';
-                fallbackMessage.appendChild(line1);
-    
-                // Create a line break
-                fallbackMessage.appendChild(document.createElement('br'));
-    
-                // Create the second line
-                const line2 = document.createElement('span');
-                line2.textContent = 'Gift a free sample to a friend.';
-                fallbackMessage.appendChild(line2);
-    
-                shareThisContainer.appendChild(fallbackMessage);
-                console.log('Fallback message added:', fallbackMessage.textContent);  // Debugging line
-    
-                const shareThisButton = document.createElement('div');
-                shareThisButton.className = 'sharethis-inline-share-buttons st-btn';
-                shareThisButton.setAttribute('data-url', `https://www.PrimalPantry.co.nz/products/free-pets-powder`);
-                shareThisContainer.appendChild(shareThisButton);
-                console.log('ShareThis button created with fallback URL:', `https://www.PrimalPantry.co.nz/products/free-pets-powder`);  // Debugging line
-    
-                // Initialize ShareThis buttons
-                window.__sharethis__.load('inline-share-buttons', {
-                    alignment: 'center',
-                    id: 'sharethis-inline-share-buttons',
-                    url: `https://www.PrimalPantry.co.nz/products/free-pets-powder`
-                });
-            }
-    
-                // Add click event listener to ShareThis buttons
-                window.addEventListener('load', () => {
-                document.querySelectorAll('.st-btn').forEach(element => {
-                    element.addEventListener('click', () => {
-                        gtag('event', 'sharethis_click', {
-                            'event_category': 'share',
-                            'event_label': 'sharethis',
-                            'value': 1
-                        });
-                    });
-                });
-            });
-        });
-    </script>
+
  <script>
   // ---- GA4 purchase dataLayer push ----
   window.dataLayer = window.dataLayer || [];
@@ -249,20 +636,106 @@
   });
 </script>
 
+    <script>
+    // ---- Referral logic ----
+    var ppReferrerEmail = null;
 
+    function ppSendReferral() {
+        var friendEmail = document.getElementById('pp-referral-friend-email').value.trim();
+        var msg = document.getElementById('pp-referral-msg');
+        var btn = document.getElementById('pp-referral-btn');
 
+        if (!friendEmail || !friendEmail.match(/.+@.+\..+/)) {
+            msg.textContent = "Please enter your friend's email.";
+            msg.className = 'pp-ty-referral-msg err';
+            return;
+        }
+        if (!ppReferrerEmail) {
+            msg.textContent = 'Unable to identify your email — please contact support.';
+            msg.className = 'pp-ty-referral-msg err';
+            return;
+        }
 
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+        msg.textContent = '';
+        msg.className = 'pp-ty-referral-msg';
 
+        fetch('/.netlify/functions/quiz-referral', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ referrerEmail: ppReferrerEmail, friendEmail: friendEmail }),
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            if (data.error) {
+                msg.textContent = data.error;
+                msg.className = 'pp-ty-referral-msg err';
+                btn.disabled = false;
+                btn.textContent = 'Send $5';
+            } else {
+                var sentCount = (window.ppReferralsSent = (window.ppReferralsSent || 0) + 1);
+                var prevMsgs = msg.innerHTML ? msg.innerHTML + '<br>' : '';
+                msg.innerHTML = prevMsgs + '✅ Code sent to ' + friendEmail + '! You\'ll get yours by email when they place an order. Expires ' + (data.expiryDate || 'in 30 days') + '.';
+                msg.className = 'pp-ty-referral-msg ok';
+                document.getElementById('pp-referral-friend-email').value = '';
+                if (sentCount >= 3) {
+                    btn.disabled = true;
+                    btn.textContent = 'Max reached';
+                } else {
+                    btn.disabled = false;
+                    btn.textContent = 'Send to another friend';
+                }
+                gtag('event', 'referral_sent', { event_category: 'referral', value: sentCount });
+            }
+        })
+        .catch(function() {
+            msg.textContent = 'Something went wrong. Please try again.';
+            msg.className = 'pp-ty-referral-msg err';
+            btn.disabled = false;
+            btn.textContent = 'Send $5';
+        });
+    }
+    </script>
 
+    <script>
+    // ---- Fetch shipping address from Stripe session ----
+    (function() {
+        const params = new URLSearchParams(window.location.search);
+        const sessionId = params.get('session_id');
+        const market = params.get('market') || 'NZ';
+        if (!sessionId) return;
 
+        fetch(`/.netlify/functions/get-session-details?session_id=${encodeURIComponent(sessionId)}&market=${encodeURIComponent(market)}`)
+            .then(r => r.json())
+            .then(data => {
+                if (data.error) return;
 
-  
-      
-    
-    
-    
+                // Shipping address
+                if (data.address) {
+                    const a = data.address;
+                    const parts = [
+                        data.shipping_name,
+                        a.line1,
+                        a.line2,
+                        [a.city, a.postal_code].filter(Boolean).join(' '),
+                    ].filter(Boolean);
+                    if (parts.length > 0) {
+                        document.getElementById('pp-ty-shipping-address').innerHTML =
+                            parts.map(p => `<div>${p}</div>`).join('');
+                        document.getElementById('pp-ty-shipping').style.display = 'block';
+                    }
+                }
 
-
+                // Referral section — show once we have the customer's email
+                if (data.email) {
+                    ppReferrerEmail = data.email;
+                    document.getElementById('pp-ty-referral-section').style.display = 'block';
+                }
+            })
+            .catch(() => {}); // silently fail — not critical
+    })();
+    </script>
 
     <!-- Add html above -->
     {{- partial "footer.html" . -}}

@@ -116,35 +116,29 @@ exports.handler = async (event) => {
     const expiresAt = Math.floor(expiryDate.getTime() / 1000); // Unix timestamp for Stripe
     const suffix = Date.now().toString(36).toUpperCase() + Math.random().toString(36).slice(2, 5).toUpperCase();
 
-    const [referrerPromo, friendPromo] = await Promise.all([
-      stripe.promotionCodes.create({
-        coupon: couponId,
-        code: 'QUIZ-' + suffix + '-YOU',
-        max_redemptions: 1,
-        expires_at: expiresAt,
-        metadata: {
-          type: 'referrer',
-          referrer_email: referrerEmail.toLowerCase(),
-          friend_email: friendEmail.toLowerCase(),
-        },
-      }),
-      stripe.promotionCodes.create({
-        coupon: couponId,
-        code: 'QUIZ-' + suffix + '-FRIEND',
-        max_redemptions: 1,
-        expires_at: expiresAt,
-        restrictions: { first_time_transaction: true },
-        metadata: {
-          type: 'friend',
-          referrer_email: referrerEmail.toLowerCase(),
-          friend_email: friendEmail.toLowerCase(),
-        },
-      }),
-    ]);
+    // Only create the friend's code now.
+    // The referrer's code is created by stripe-webhook.js when the friend redeems.
+    const friendPromo = await stripe.promotionCodes.create({
+      coupon: couponId,
+      code: 'QUIZ-' + suffix + '-FRIEND',
+      max_redemptions: 1,
+      expires_at: expiresAt,
+      restrictions: {
+        first_time_transaction: true,
+        minimum_amount: 2500,
+        minimum_amount_currency: 'nzd',
+      },
+      metadata: {
+        type: 'friend',
+        referrer_email: referrerEmail.toLowerCase(),
+        friend_email: friendEmail.toLowerCase(),
+      },
+    });
 
     const expiryFormatted = formatExpiryDate(expiryDate);
 
     // ── Save referral to Supabase ──
+    // NOTE: quiz_referrals table requires columns: referrer_rewarded (boolean), referrer_code (text nullable)
     if (supabaseUrl && supabaseKey) {
       await sbFetch('/rest/v1/quiz_referrals', {
         method: 'POST',
@@ -152,7 +146,8 @@ exports.handler = async (event) => {
         body: {
           referrer_email: referrerEmail.toLowerCase(),
           friend_email: friendEmail.toLowerCase(),
-          referrer_code: referrerPromo.code,
+          referrer_code: null,
+          referrer_rewarded: false,
           friend_code: friendPromo.code,
           expires_at: expiryDate.toISOString(),
           utm_source: utmData.source || null,
@@ -165,23 +160,15 @@ exports.handler = async (event) => {
       });
     }
 
-    // ── Send emails (non-blocking — don't fail the response if email fails) ──
-    Promise.all([
-      sendEmail({
-        to: referrerEmail,
-        subject: 'Your $5 off referral code — PrimalPantry',
-        html: referrerEmailHtml({ code: referrerPromo.code, expiryDate: expiryFormatted }),
-      }),
-      sendEmail({
-        to: friendEmail,
-        subject: 'Someone shared $5 off PrimalPantry with you',
-        html: friendEmailHtml({ code: friendPromo.code, expiryDate: expiryFormatted, referrerEmail }),
-      }),
-    ]).catch(err => console.error('[quiz-referral] Email send error:', err.message));
+    // ── Send friend's code email only (referrer gets theirs when friend redeems) ──
+    sendEmail({
+      to: friendEmail,
+      subject: 'Someone shared $5 off PrimalPantry with you',
+      html: friendEmailHtml({ code: friendPromo.code, expiryDate: expiryFormatted, referrerEmail }),
+    }).catch(err => console.error('[quiz-referral] Email send error:', err.message));
 
     return reply(200, {
       success: true,
-      referrerCode: referrerPromo.code,
       friendCode: friendPromo.code,
       expiryDate: expiryFormatted,
     });
