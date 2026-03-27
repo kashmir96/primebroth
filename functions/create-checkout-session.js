@@ -143,6 +143,7 @@ exports.handler = async (event, context) => {
       line_items: lineItems,
       mode: 'payment',
       ui_mode: 'embedded',
+      allow_promotion_codes: true,
       return_url: returnUrl,
       metadata: {
         market, // passed to webhook so it knows which Stripe account fired
