@@ -711,6 +711,24 @@
             .then(data => {
                 if (data.error) return;
 
+                // Order line items from Stripe (overrides/supplements localStorage cart)
+                if (data.line_items && data.line_items.length > 0) {
+                    const list = document.getElementById('ordered-items');
+                    if (list && list.children.length === 0) {
+                        data.line_items.forEach(item => {
+                            const li = document.createElement('li');
+                            const qtySpan = document.createElement('span');
+                            qtySpan.className = 'pp-ty-qty';
+                            qtySpan.textContent = `${item.quantity}x`;
+                            li.appendChild(qtySpan);
+                            const textSpan = document.createElement('span');
+                            textSpan.textContent = item.name || 'Product';
+                            li.appendChild(textSpan);
+                            list.appendChild(li);
+                        });
+                    }
+                }
+
                 // Shipping address
                 if (data.address) {
                     const a = data.address;
