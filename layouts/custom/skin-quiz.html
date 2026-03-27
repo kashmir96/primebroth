@@ -1615,7 +1615,7 @@ function tailorOptionsForStep() {
                 (hasTried ? 'Since you\'ve tried retinol, you\'ll appreciate Bakuchiol — a gentle alternative that activates the same pathways without the irritation.' :
                 'A simple tallow routine nourishes. A targeted routine with actives like Bakuchiol and Vitamin C can deliver visible change.');
             if (premLabel) premLabel.textContent = 'Targeted results';
-            if (premDesc) premDesc.textContent = 'Clinically-backed actives designed to reduce fine lines and even out skin tone';
+            if (premDesc) premDesc.textContent = 'Science-informed actives chosen to support smoother, more even-looking skin';
         } else if (hasAcne) {
             prefTitle.textContent = isTeen ? 'How do you want to tackle your breakouts?' : 'What approach suits you?';
             prefSub.textContent = isTeen ? 'Both options work. The simple route keeps things easy. The active route targets breakouts harder with ingredients backed by research.' :
@@ -1623,7 +1623,7 @@ function tailorOptionsForStep() {
             if (isTeen) {
                 if (simpleDesc) simpleDesc.textContent = 'One product, natural ingredients, no fuss';
                 if (premLabel) premLabel.textContent = 'Go harder on breakouts';
-                if (premDesc) premDesc.textContent = 'Targeted ingredients that fight acne at the source';
+                if (premDesc) premDesc.textContent = 'Targeted ingredients chosen to support clearer-looking skin';
             }
         }
     }
@@ -1955,10 +1955,10 @@ function getRecommendations() {
     if (hasAcne && hasFace) {
         addProduct('cleanser', 'A gentle tallow-based cleanser that removes impurities without stripping your skin barrier — the foundation of any acne routine', 1);
         if (useReviana) {
-            addProduct('reviana-serum', 'Vitamin C and Licorice Extract target breakouts and post-acne marks — clinically studied actives that work without irritation', 1);
-            addProduct('reviana-night', 'Niacinamide regulates oil production overnight while Bakuchiol renews skin — a natural retinol alternative without the harsh side effects', 2);
+            addProduct('reviana-serum', 'Vitamin C and Licorice Extract are chosen to support clearer, more even-looking skin — gentle enough for daily use', 1);
+            addProduct('reviana-night', 'Niacinamide supports balanced-looking skin overnight while Bakuchiol is a gentle botanical alternative to retinol — without the harshness', 2);
         } else {
-            addProduct('reviana-serum', 'Vitamin C and Licorice Extract target breakouts — even for sensitive skin, these are gentle enough to use daily', 1);
+            addProduct('reviana-serum', 'Vitamin C and Licorice Extract support a more even, clearer-looking complexion — gentle enough for sensitive skin', 1);
             addProduct('cleanser', 'Gentle tallow cleanser — the most important step for acne-prone skin', 1);
         }
     }
@@ -1968,16 +1968,16 @@ function getRecommendations() {
     // ═══════════════════════════════════════════════════
     if (hasFace && !isChild && !hasAcne) {
         if (hasWrinkles) {
-            addProduct('reviana-night', 'Bakuchiol stimulates collagen renewal the same way retinol does, but without irritation — peer-reviewed research confirms comparable anti-aging results', 1);
-            addProduct('reviana-serum', 'Concentrated Vitamin C brightens and firms — topical Vitamin C is one of the most well-researched anti-aging actives', 2);
+            addProduct('reviana-night', 'Bakuchiol is a gentle botanical that supports smoother, more youthful-looking skin — often compared to retinol but without the irritation', 1);
+            addProduct('reviana-serum', 'Concentrated Vitamin C supports a brighter, more radiant-looking complexion — a well-known skincare active for tone and glow', 2);
             addProduct('reviana-day', 'Daytime protection with Niacinamide and Vitamin C — shields against environmental damage while keeping skin hydrated', 3);
         } else if (hasPigmentation) {
-            addProduct('reviana-serum', 'Licorice Extract inhibits tyrosinase — the enzyme that causes dark spots. One of the most well-researched natural brightening actives', 1);
-            addProduct('reviana-night', 'Kakadu Plum delivers the highest natural Vitamin C concentration of any fruit — supports gradual fading of dark spots and uneven tone', 2);
-            addProduct('reviana-day', 'Niacinamide reduces melanin transfer to skin cells — a proven daytime brightener that works with your skin\'s natural cycle', 3);
+            addProduct('reviana-serum', 'Licorice Extract is known for supporting a more even-looking skin tone — one of the most popular natural brightening ingredients', 1);
+            addProduct('reviana-night', 'Kakadu Plum is rich in natural Vitamin C — chosen to support a brighter, more even-looking complexion over time', 2);
+            addProduct('reviana-day', 'Niacinamide supports a more even-looking complexion during the day — a popular ingredient known for its brightening properties', 3);
         } else if (hasEczema || hasRosacea) {
             if (useReviana) {
-                addProduct('reviana-night', 'Ceramides and Panthenol work together to rebuild the damaged skin barrier overnight — ceramide therapy is a cornerstone of ' + (hasEczema ? 'eczema' : 'rosacea') + ' management', 1);
+                addProduct('reviana-night', 'Ceramides and Panthenol support your skin\'s natural moisture barrier overnight — ingredients chosen for their gentle, nourishing properties', 1);
                 addProduct('reviana-day', 'Gentle daytime moisture with Niacinamide — supports your skin barrier throughout the day without triggering a reaction', 2);
             } else {
                 addProduct('balm-natural-250', 'Just 2 ingredients — tallow\'s fatty acid profile closely mirrors human skin lipids, making it deeply compatible with reactive skin. The 250ml is your daily workhorse', 1);
@@ -2010,7 +2010,7 @@ function getRecommendations() {
     // ═══════════════════════════════════════════════════
     if (hasUnderEyes && !isChild) {
         if (useReviana) {
-            addProduct('reviana-eye', 'Hexapeptide-8 targets fine lines around the delicate eye area — peptides signal your skin to produce more collagen where it matters most', 2);
+            addProduct('reviana-eye', 'Hexapeptide-8 supports smoother-looking skin around the delicate eye area — a gentle peptide known for its skin-smoothing properties', 2);
         } else {
             addProduct('eye-cream-primal', 'Vitamin C and Manuka Honey brighten and nourish the under-eye area — our tallow-based treatment designed specifically for sensitive eye skin', 2);
         }
@@ -2018,7 +2018,7 @@ function getRecommendations() {
     // Also add eye cream for mature women and wrinkles even if they didn't tick undereyes
     if (isMature && (hasWrinkles || hasGeneral) && !hasUnderEyes && !isChild) {
         if (useReviana) {
-            addProduct('reviana-eye', 'We\'ve included our eye cream because fine lines around the eyes are often the first sign of aging — Hexapeptide-8 targets this area specifically', 3);
+            addProduct('reviana-eye', 'We\'ve included our eye cream because the eye area is often where skin shows its age first — Hexapeptide-8 supports a smoother, more refreshed look', 3);
         } else {
             addProduct('eye-cream-primal', 'Vitamin C and Manuka Honey for the delicate under-eye area — worth adding even if it\'s not your main concern', 3);
         }
@@ -2716,10 +2716,9 @@ function renderWhyPastFailed() {
     var html = '';
     if (tried.indexOf('steroid-creams') !== -1) {
         html += '<div style="margin-bottom:1rem;padding-left:1rem;border-left:3px solid var(--pc-brown-light);">';
-        html += '<strong>Steroid creams</strong> reduce inflammation quickly, but they don\'t address the underlying skin barrier damage. ';
-        html += 'Research published in the <em>Journal of Clinical Medicine</em> shows that long-term topical corticosteroid use can thin the skin and impair its ability to retain moisture. ';
-        html += 'Tallow\'s fatty acid profile — rich in palmitic, stearic, and oleic acids — closely mirrors the lipid composition of healthy human skin, which supports barrier repair rather than masking the problem. ';
-        html += 'That\'s why we\'ve focused your routine on rebuilding what\'s been stripped, not just suppressing symptoms.</div>';
+        html += '<strong>Steroid creams</strong> are prescribed for flare-ups, but many people find they\'re looking for something gentler for everyday use. ';
+        html += 'Tallow\'s fatty acid profile — rich in palmitic, stearic, and oleic acids — closely mirrors the lipid composition of healthy human skin. ';
+        html += 'Your routine focuses on supporting your skin\'s natural moisture barrier with ingredients your skin already recognises.</div>';
     }
     if (tried.indexOf('pharmacy-moisturisers') !== -1) {
         html += '<div style="margin-bottom:1rem;padding-left:1rem;border-left:3px solid var(--pc-brown-light);">';
@@ -2730,8 +2729,8 @@ function renderWhyPastFailed() {
     if (tried.indexOf('natural-oils') !== -1) {
         html += '<div style="margin-bottom:1rem;padding-left:1rem;border-left:3px solid var(--pc-brown-light);">';
         html += '<strong>Natural oils</strong> like coconut or olive oil are popular, but they have a very different fatty acid profile to human skin. ';
-        html += 'Coconut oil is ~50% lauric acid, which can be comedogenic (pore-clogging) for some people. ';
-        html += 'A 2014 study in the <em>International Journal of Dermatology</em> found coconut oil can disrupt the skin barrier in eczema-prone individuals. ';
+        html += 'Coconut oil is ~50% lauric acid, which some people find too heavy or pore-clogging. ';
+        html += 'Many people with sensitive skin find that coconut oil doesn\'t agree with their skin. ';
         html += 'Tallow\'s composition is closer to human sebum — particularly its balance of saturated and monounsaturated fats — making it more biocompatible for most skin types.</div>';
     }
     if (tried.indexOf('department-store') !== -1) {
@@ -2882,45 +2881,45 @@ function renderResearchCitations() {
     if (concerns.indexOf('eczema') !== -1 || concerns.indexOf('rosacea') !== -1) {
         citations.push({
             title: 'Ceramides & Skin Barrier Function',
-            text: 'Ceramide-based topical treatments have been shown to significantly improve skin barrier function in atopic dermatitis. The stratum corneum (outer skin layer) is ~50% ceramides by weight — replenishing them is a cornerstone of eczema management.',
+            text: 'Ceramides make up a significant portion of the skin\'s outer layer and play a key role in moisture retention. Topical ceramide-based products are widely used to support the skin\'s natural barrier — particularly for skin that tends to feel dry or reactive.',
             source: 'Coderch et al., 2003 — <em>American Journal of Clinical Dermatology</em>'
         });
         citations.push({
             title: 'Colloidal Oatmeal for Eczema',
-            text: 'The FDA has recognised colloidal oatmeal as a skin protectant. Studies show it reduces inflammatory markers (cytokines) and provides immediate relief from itching. Regular use supports the skin barrier over time.',
+            text: 'Colloidal oatmeal has a long history of use as a gentle, soothing ingredient for sensitive skin. It\'s known for its calming properties and is widely used in products designed for skin that feels dry, itchy, or irritated.',
             source: 'Reynertson et al., 2015 — <em>Journal of Drugs in Dermatology</em>'
         });
     }
     if (concerns.indexOf('wrinkles') !== -1) {
         citations.push({
             title: 'Bakuchiol vs Retinol',
-            text: 'A randomised, double-blind study found that Bakuchiol and retinol both significantly improved wrinkles and pigmentation over 12 weeks — but Bakuchiol caused significantly less scaling and stinging. It activates the same retinoid-receptor pathways without the irritation.',
+            text: 'Bakuchiol is a plant-based ingredient that\'s become popular as a gentler alternative to retinol. Research suggests it may support smoother, more even-looking skin over time — without the dryness and irritation often associated with retinol.',
             source: 'Dhaliwal et al., 2019 — <em>British Journal of Dermatology</em>'
         });
         citations.push({
             title: 'Topical Vitamin C & Collagen',
-            text: 'Vitamin C (L-ascorbic acid) is essential for collagen synthesis. Topical application at concentrations of 5-15% has been shown to stimulate collagen production and provide photoprotection against UV damage.',
+            text: 'Vitamin C is one of the most widely used skincare actives, known for its antioxidant properties and role in supporting brighter, more radiant-looking skin. It\'s a popular choice for people looking to support their skin\'s natural glow.',
             source: 'Pullar et al., 2017 — <em>Nutrients</em>'
         });
     }
     if (concerns.indexOf('acne') !== -1) {
         citations.push({
             title: 'Niacinamide for Acne',
-            text: 'Topical niacinamide (Vitamin B3) at 4% concentration was shown to be comparable to 1% clindamycin (a prescription antibiotic) for reducing acne lesions, while also reducing sebum production and improving skin barrier function.',
+            text: 'Niacinamide (Vitamin B3) is a popular skincare ingredient known for supporting balanced, healthier-looking skin. It\'s gentle enough for daily use and is widely included in products designed for skin that tends to be oily or blemish-prone.',
             source: 'Draelos et al., 2006 — <em>International Journal of Dermatology</em>'
         });
     }
     if (concerns.indexOf('pigmentation') !== -1) {
         citations.push({
             title: 'Licorice Extract for Pigmentation',
-            text: 'Glabridin, the active compound in licorice root extract, inhibits tyrosinase activity — the enzyme responsible for melanin production. Multiple studies confirm it reduces hyperpigmentation without the irritation of hydroquinone.',
+            text: 'Licorice root extract is a popular natural ingredient in brightening skincare. It\'s known for supporting a more even-looking complexion and is gentler than many other brightening ingredients.',
             source: 'Amer & Metwalli, 2000 — <em>Journal of Cosmetic Dermatology</em>'
         });
     }
     if (concerns.indexOf('dry') !== -1) {
         citations.push({
             title: 'Hyaluronic Acid & Skin Hydration',
-            text: 'Hyaluronic acid can hold up to 1,000 times its weight in water. Topical application has been shown to significantly increase skin hydration within 15 minutes, with sustained effects over 72 hours.',
+            text: 'Hyaluronic acid is a naturally occurring molecule known for its moisture-binding properties. It\'s one of the most popular hydrating ingredients in skincare, helping skin feel plumper and more comfortable.',
             source: 'Papakonstantinou et al., 2012 — <em>Dermato-Endocrinology</em>'
         });
     }
