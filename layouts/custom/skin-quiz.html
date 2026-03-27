@@ -2248,6 +2248,15 @@ function showResults() {
             products: recs.map(function(r){ return r.key; }).join(',')
         });
     }
+    // Also push to GTM dataLayer so GTM pixel can pick it up too
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        event: 'QuizCompleted',
+        quiz_concerns: (answers.concerns || []).join(','),
+        quiz_age_group: answers.ageGroup || '',
+        quiz_products: recs.map(function(r){ return r.key; }).join(','),
+        quiz_email: answers.email || ''
+    });
     // Google Analytics event
     if (typeof gtag === 'function') {
         gtag('event', 'quiz_completed', {
