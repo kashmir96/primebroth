@@ -287,7 +287,7 @@
 
         <div class="sq-section-label" style="font-weight:600;font-size:0.82rem;color:var(--pc-brown);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;">Age</div>
         <div class="sq-age-slider-wrap">
-            <input type="range" min="0" max="100" value="30" class="sq-age-slider" id="sqAgeSlider">
+            <input type="range" min="1" max="100" value="30" class="sq-age-slider" id="sqAgeSlider">
             <div class="sq-age-labels">
                 <span>Baby</span><span>Child</span><span>Teen</span><span>Adult</span><span>Mature</span><span>60+</span>
             </div>
@@ -1195,9 +1195,7 @@ function initHydrationSlider() {
         return 'Gentle yet effective — tailored for experienced skin';
     }
     function ageLabel(age) {
-        if (age < 1) return 'Newborn';
         if (age === 1) return '1 year old';
-        if (age < 3) return age + ' years old';
         return age + ' years old';
     }
     function update() {
@@ -1885,7 +1883,7 @@ function getRecommendations() {
     // 1. BABY / CHILD — separate path entirely
     // ═══════════════════════════════════════════════════
     if (isChild) {
-        addProduct('baby-butter', 'Fragrance-free with Chamomile & Aloe Vera — gentle enough for newborns and formulated specifically for delicate baby skin', 1);
+        addProduct('baby-butter', 'Fragrance-free with Chamomile & Aloe Vera — gentle enough for little ones and formulated specifically for delicate baby skin', 1);
         addProduct('balm-natural-120', 'Pure tallow with just 2 ingredients — no fragrance, no essential oils, nothing to irritate delicate skin. A simple, safe option for babies and children', 2);
 
         if (hasCradleCap) {
@@ -2002,7 +2000,7 @@ function getRecommendations() {
     if (hasBody && !isChild) {
         if (hasEczema || hasRosacea) {
             if (highSensitivity) {
-                addProduct('balm-natural-250', 'Zero additives, zero fragrance — compatible with even the most reactive skin. The 250ml is essential for daily body application', 2);
+                addProduct('honeybalm-vanilla-250', 'Manuka honey draws moisture into reactive skin while vanilla adds a gentle, soothing scent — our best value body balm for daily use', 2);
             } else {
                 addBodyBalm('A nourishing body balm that supports your skin barrier — applied to damp skin after showering, it locks in moisture throughout the day', 2);
             }
