@@ -4,13 +4,18 @@
  * Handles skin compatibility quiz submissions:
  * 1. Generates a personalised blurb via Claude API
  * 2. Saves quiz lead to Supabase
- * 3. Optionally sends results email
+ * 3. Sends results email via Gmail if email provided
  *
  * Env vars required:
  *   ANTHROPIC_API_KEY     — Claude API key
  *   SUPABASE_URL          — Supabase project URL
  *   SUPABASE_SERVICE_KEY  — Supabase service_role key
+ *   GOOGLE_CLIENT_ID      — Google OAuth client ID
+ *   GOOGLE_CLIENT_SECRET  — Google OAuth client secret
+ *   GMAIL_ACCOUNT_ID      — (optional) ID of gmail_accounts row to send from
  */
+
+const { sendEmail, resultsEmailHtml } = require('./send-quiz-email');
 
 const HEADERS = {
   'Access-Control-Allow-Origin': '*',
@@ -131,13 +136,22 @@ exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') return reply(405, { error: 'Method not allowed' });
 
   try {
-    const { answers, products, email, action, utm } = JSON.parse(event.body);
+    const { answers, products, email, utm } = JSON.parse(event.body);
 
-    // Generate blurb
-    const blurb = await generateBlurb(answers, products || []);
+    // Generate blurb and save lead in parallel
+    const [blurb] = await Promise.all([
+      generateBlurb(answers, products || []),
+      saveToSupabase(answers, email, products || [], utm || {}),
+    ]);
 
-    // Save lead
-    await saveToSupabase(answers, email, products || [], utm || {});
+    // Send results email if email provided (non-blocking)
+    if (email && email.match(/.+@.+\..+/)) {
+      sendEmail({
+        to: email,
+        subject: 'Your PrimalPantry Skin Profile Report',
+        html: resultsEmailHtml({ products: products || [], blurb }),
+      }).catch(err => console.error('[quiz-submit] Email send error:', err.message));
+    }
 
     return reply(200, { blurb: blurb || '', saved: true });
   } catch (err) {

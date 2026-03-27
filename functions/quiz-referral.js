@@ -2,15 +2,23 @@
  * quiz-referral.js
  *
  * Handles the refer-a-friend flow from the skin compatibility quiz:
- * 1. Validates friend email is not an existing customer
- * 2. Generates unique $5 Stripe promo codes for both parties
- * 3. Returns success/error
+ * 1. Validates referrer hasn't exceeded 3 referrals
+ * 2. Validates friend email is not an existing customer
+ * 3. Creates unique promo codes against one master coupon (QUIZ_REFERRAL_COUPON_ID)
+ * 4. Codes expire in 30 days, max 1 redemption each
+ * 5. Emails both parties their codes via Gmail
  *
  * Env vars required:
- *   STRIPE_SECRET_KEY     — NZ Stripe secret key
- *   SUPABASE_URL          — Supabase project URL
- *   SUPABASE_SERVICE_KEY  — Supabase service_role key
+ *   STRIPE_SECRET_KEY         — NZ Stripe secret key
+ *   SUPABASE_URL              — Supabase project URL
+ *   SUPABASE_SERVICE_KEY      — Supabase service_role key
+ *   QUIZ_REFERRAL_COUPON_ID   — Stripe coupon ID to attach promo codes to
+ *   GOOGLE_CLIENT_ID          — Google OAuth client ID
+ *   GOOGLE_CLIENT_SECRET      — Google OAuth client secret
+ *   GMAIL_ACCOUNT_ID          — (optional) ID of gmail_accounts row to send from
  */
+
+const { sendEmail, referrerEmailHtml, friendEmailHtml } = require('./send-quiz-email');
 
 const HEADERS = {
   'Access-Control-Allow-Origin': '*',
@@ -18,8 +26,30 @@ const HEADERS = {
   'Content-Type': 'application/json',
 };
 
+const MAX_REFERRALS_PER_EMAIL = 3;
+const EXPIRY_DAYS = 30;
+
 function reply(code, body) {
   return { statusCode: code, headers: HEADERS, body: JSON.stringify(body) };
+}
+
+function sbFetch(path, opts = {}) {
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_KEY;
+  return fetch(`${url}${path}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      apikey: key,
+      Authorization: `Bearer ${key}`,
+      ...(opts.prefer ? { Prefer: opts.prefer } : {}),
+    },
+    method: opts.method || 'GET',
+    body: opts.body ? JSON.stringify(opts.body) : undefined,
+  });
+}
+
+function formatExpiryDate(date) {
+  return date.toLocaleDateString('en-NZ', { day: 'numeric', month: 'long', year: 'numeric' });
 }
 
 exports.handler = async (event) => {
@@ -30,10 +60,13 @@ exports.handler = async (event) => {
     const { referrerEmail, friendEmail, utm } = JSON.parse(event.body);
     const utmData = utm || {};
 
+    // ── Basic validation ──
     if (!referrerEmail || !friendEmail) {
       return reply(400, { error: 'Both emails are required.' });
     }
-
+    if (!referrerEmail.match(/.+@.+\..+/) || !friendEmail.match(/.+@.+\..+/)) {
+      return reply(400, { error: 'Please enter valid email addresses.' });
+    }
     if (referrerEmail.toLowerCase() === friendEmail.toLowerCase()) {
       return reply(400, { error: 'You can\'t refer yourself!' });
     }
@@ -41,16 +74,28 @@ exports.handler = async (event) => {
     const supabaseUrl = process.env.SUPABASE_URL;
     const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
 
-    // Check if friend email already exists in orders table
     if (supabaseUrl && supabaseKey) {
-      const checkRes = await fetch(
-        `${supabaseUrl}/rest/v1/orders?email=eq.${encodeURIComponent(friendEmail.toLowerCase())}&select=id&limit=1`,
-        {
-          headers: {
-            apikey: supabaseKey,
-            Authorization: `Bearer ${supabaseKey}`,
-          },
-        }
+      // ── Check referrer hasn't exceeded max referrals ──
+      const referralCountRes = await sbFetch(
+        `/rest/v1/quiz_referrals?referrer_email=eq.${encodeURIComponent(referrerEmail.toLowerCase())}&select=id`
+      );
+      const existingReferrals = await referralCountRes.json();
+      if (existingReferrals && existingReferrals.length >= MAX_REFERRALS_PER_EMAIL) {
+        return reply(400, { error: `You've already referred ${MAX_REFERRALS_PER_EMAIL} friends — that's the maximum. Thanks for spreading the word!` });
+      }
+
+      // ── Check friend hasn't already been referred ──
+      const friendReferredRes = await sbFetch(
+        `/rest/v1/quiz_referrals?friend_email=eq.${encodeURIComponent(friendEmail.toLowerCase())}&select=id&limit=1`
+      );
+      const alreadyReferred = await friendReferredRes.json();
+      if (alreadyReferred && alreadyReferred.length > 0) {
+        return reply(400, { error: 'This friend has already received a referral code.' });
+      }
+
+      // ── Check friend isn't an existing customer ──
+      const checkRes = await sbFetch(
+        `/rest/v1/orders?email=eq.${encodeURIComponent(friendEmail.toLowerCase())}&select=id&limit=1`
       );
       const existing = await checkRes.json();
       if (existing && existing.length > 0) {
@@ -58,60 +103,89 @@ exports.handler = async (event) => {
       }
     }
 
-    // Create Stripe coupon and promo codes
+    // ── Create Stripe promo codes against master coupon ──
     const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+    const couponId = process.env.QUIZ_REFERRAL_COUPON_ID;
 
-    // Create a shared coupon ($5 off)
-    const coupon = await stripe.coupons.create({
-      amount_off: 500, // $5.00 in cents
-      currency: 'nzd',
-      duration: 'once',
-      name: 'Skin Quiz Referral - $5 Off',
-    });
+    if (!couponId) {
+      console.error('[quiz-referral] QUIZ_REFERRAL_COUPON_ID env var not set');
+      return reply(500, { error: 'Referral system not configured. Please contact us.' });
+    }
 
-    // Generate unique promo codes for each person
-    const suffix = Date.now().toString(36).toUpperCase();
-    const referrerCode = await stripe.promotionCodes.create({
-      coupon: coupon.id,
-      code: 'REFER-' + suffix + '-A',
-      max_redemptions: 1,
-    });
-    const friendCode = await stripe.promotionCodes.create({
-      coupon: coupon.id,
-      code: 'REFER-' + suffix + '-B',
-      max_redemptions: 1,
-    });
+    const expiryDate = new Date(Date.now() + EXPIRY_DAYS * 24 * 60 * 60 * 1000);
+    const expiresAt = Math.floor(expiryDate.getTime() / 1000); // Unix timestamp for Stripe
+    const suffix = Date.now().toString(36).toUpperCase() + Math.random().toString(36).slice(2, 5).toUpperCase();
 
-    // Save referral to Supabase
-    if (supabaseUrl && supabaseKey) {
-      await fetch(`${supabaseUrl}/rest/v1/quiz_referrals`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          apikey: supabaseKey,
-          Authorization: `Bearer ${supabaseKey}`,
-          Prefer: 'return=minimal',
-        },
-        body: JSON.stringify({
+    const [referrerPromo, friendPromo] = await Promise.all([
+      stripe.promotionCodes.create({
+        coupon: couponId,
+        code: 'QUIZ-' + suffix + '-YOU',
+        max_redemptions: 1,
+        expires_at: expiresAt,
+        metadata: {
+          type: 'referrer',
           referrer_email: referrerEmail.toLowerCase(),
           friend_email: friendEmail.toLowerCase(),
-          referrer_code: referrerCode.code,
-          friend_code: friendCode.code,
+        },
+      }),
+      stripe.promotionCodes.create({
+        coupon: couponId,
+        code: 'QUIZ-' + suffix + '-FRIEND',
+        max_redemptions: 1,
+        expires_at: expiresAt,
+        restrictions: { first_time_transaction: true },
+        metadata: {
+          type: 'friend',
+          referrer_email: referrerEmail.toLowerCase(),
+          friend_email: friendEmail.toLowerCase(),
+        },
+      }),
+    ]);
+
+    const expiryFormatted = formatExpiryDate(expiryDate);
+
+    // ── Save referral to Supabase ──
+    if (supabaseUrl && supabaseKey) {
+      await sbFetch('/rest/v1/quiz_referrals', {
+        method: 'POST',
+        prefer: 'return=minimal',
+        body: {
+          referrer_email: referrerEmail.toLowerCase(),
+          friend_email: friendEmail.toLowerCase(),
+          referrer_code: referrerPromo.code,
+          friend_code: friendPromo.code,
+          expires_at: expiryDate.toISOString(),
           utm_source: utmData.source || null,
           utm_medium: utmData.medium || null,
           utm_campaign: utmData.campaign || null,
           utm_term: utmData.term || null,
           utm_content: utmData.content || null,
           created_at: new Date().toISOString(),
-        }),
+        },
       });
     }
 
+    // ── Send emails (non-blocking — don't fail the response if email fails) ──
+    Promise.all([
+      sendEmail({
+        to: referrerEmail,
+        subject: 'Your $5 off referral code — PrimalPantry',
+        html: referrerEmailHtml({ code: referrerPromo.code, expiryDate: expiryFormatted }),
+      }),
+      sendEmail({
+        to: friendEmail,
+        subject: 'Someone shared $5 off PrimalPantry with you',
+        html: friendEmailHtml({ code: friendPromo.code, expiryDate: expiryFormatted, referrerEmail }),
+      }),
+    ]).catch(err => console.error('[quiz-referral] Email send error:', err.message));
+
     return reply(200, {
       success: true,
-      referrerCode: referrerCode.code,
-      friendCode: friendCode.code,
+      referrerCode: referrerPromo.code,
+      friendCode: friendPromo.code,
+      expiryDate: expiryFormatted,
     });
+
   } catch (err) {
     console.error('[quiz-referral] Error:', err.message);
     return reply(500, { error: 'Something went wrong. Please try again.' });
