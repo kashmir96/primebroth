@@ -2032,8 +2032,8 @@ function getRecommendations() {
     // 7. SCALP
     // ═══════════════════════════════════════════════════
     if (hasScalp && !isChild) {
-        addProduct('shampoo', 'A tallow-based shampoo bar with no sulfates or harsh surfactants — sulfate-free cleansing is shown to support scalp health long-term', 2);
-        if (isMale) addProduct('hair-clay', 'Natural hold that nourishes your hair instead of drying it out — no synthetic polymers or gunk', 4);
+        addProduct('shampoo', 'A tallow-based shampoo bar with no sulfates or harsh surfactants — sulfate-free cleansing is shown to support scalp health long-term', 1);
+        // Hair clay only appears on reroll for men — not in initial recommendations
     }
 
     // ═══════════════════════════════════════════════════
@@ -2048,7 +2048,7 @@ function getRecommendations() {
     // ═══════════════════════════════════════════════════
     if (isMale && isAdult) {
         addProduct('deodorant', 'No aluminium, no harsh chemicals — actually works without the irritation that conventional deodorants cause', 4);
-        addProduct('hair-clay', 'Natural hold with a tallow base — replaces synthetic styling products that can irritate your scalp', 4);
+        // Hair clay excluded from initial picks — available on reroll only
     }
 
     // ═══════════════════════════════════════════════════
@@ -2134,11 +2134,12 @@ function getRecommendations() {
         pickedKeys[balmCandidates[0].key] = true;
     }
 
-    // Slot 3: Other (cheaper option — shampoo, cleanser, deodorant, lip balm, oat soak, etc.)
-    for (var oi = 0; oi < otherCandidates.length && final3.length < 3; oi++) {
-        if (!pickedKeys[otherCandidates[oi].key]) {
-            final3.push(otherCandidates[oi]);
-            pickedKeys[otherCandidates[oi].key] = true;
+    // Slot 3: One other product (shampoo, cleanser, deodorant, etc.) — pick highest priority
+    if (final3.length < 3 && otherCandidates.length > 0) {
+        var bestOther = otherCandidates[0]; // already sorted by priority
+        if (!pickedKeys[bestOther.key]) {
+            final3.push(bestOther);
+            pickedKeys[bestOther.key] = true;
         }
     }
 
@@ -2162,6 +2163,10 @@ function getRecommendations() {
         ['lip-balm', 'Manuka honey lip balm — keeps your lips hydrated naturally'],
         ['oat-soak', 'Colloidal oat baths to calm and soothe irritated skin']
     ];
+    // Hair clay available on reroll for men
+    if (isMale && isAdult) {
+        otherFallbacks.splice(1, 0, ['hair-clay', 'Natural hold with a tallow base — replaces synthetic styling products that can irritate your scalp']);
+    }
 
     function fillSlot(fallbackList) {
         for (var fi = 0; fi < fallbackList.length; fi++) {
@@ -2193,9 +2198,9 @@ function getRecommendations() {
     var ordered = [];
     var revItem = null, balmItem = null, otherItem = null;
     final3.forEach(function(r) {
-        if (isReviana(r.key)) revItem = r;
-        else if (isBalm(r.key)) balmItem = r;
-        else otherItem = r;
+        if (isReviana(r.key)) { if (!revItem) revItem = r; }
+        else if (isBalm(r.key)) { if (!balmItem) balmItem = r; }
+        else { if (!otherItem) otherItem = r; }
     });
     // Left: other/cheaper, Middle: balm, Right: Reviana
     if (otherItem) ordered.push(otherItem);
@@ -2234,6 +2239,22 @@ function showResults() {
     document.getElementById('sqFixedAsterisk').style.display = 'block';
 
     var recs = getRecommendations();
+
+    // Facebook conversion event — quiz completed
+    if (typeof fbq === 'function') {
+        fbq('trackCustom', 'QuizCompleted', {
+            concerns: (answers.concerns || []).join(','),
+            age_group: answers.ageGroup || '',
+            products: recs.map(function(r){ return r.key; }).join(',')
+        });
+    }
+    // Google Analytics event
+    if (typeof gtag === 'function') {
+        gtag('event', 'quiz_completed', {
+            event_category: 'skin_quiz',
+            event_label: (answers.concerns || []).join(',')
+        });
+    }
 
     // Set dynamic routine title in report header
     var concerns = answers.concerns || [];
