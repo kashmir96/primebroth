@@ -162,6 +162,26 @@ exports.handler = async (event) => {
       }).catch(err => console.error('[quiz-referral] Supabase insert error:', err.message));
     }
 
+    // ── Store friend as a lead in quiz_leads (non-blocking) ──
+    // This ensures order-linking in checkout-completed.js picks them up automatically.
+    // Only insert if no existing record — ignore duplicate email errors.
+    if (supabaseUrl && supabaseKey) {
+      sbFetch('/rest/v1/quiz_leads', {
+        method: 'POST',
+        prefer: 'return=minimal,resolution=ignore-duplicates',
+        body: {
+          email: friendEmail.toLowerCase(),
+          utm_source: 'referral',
+          utm_medium: 'email',
+          utm_campaign: 'friend-voucher',
+          referrer: referrerEmail.toLowerCase(),
+          landing_page: '/referral',
+          recommended_products: [],
+          created_at: new Date().toISOString(),
+        },
+      }).catch(err => console.error('[quiz-referral] Lead insert error:', err.message));
+    }
+
     // ── Send friend's code email only (referrer gets theirs when friend redeems) ──
     sendEmail({
       to: friendEmail,

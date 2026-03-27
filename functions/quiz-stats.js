@@ -63,10 +63,25 @@ exports.handler = async (event) => {
       revenue = (orders || []).reduce((sum, o) => sum + (o.total_value || 0), 0);
     }
 
+    // Referral stats
+    const referralSentRes = await fetch(`${supabaseUrl}/rest/v1/quiz_referrals?select=id`, {
+      headers: { ...headers, Prefer: 'count=exact' },
+      method: 'HEAD',
+    });
+    const referralSentCount = parseInt(referralSentRes.headers.get('content-range')?.split('/')[1] || '0', 10);
+
+    const referralRedeemedRes = await fetch(`${supabaseUrl}/rest/v1/quiz_referrals?referrer_rewarded=eq.true&select=id`, {
+      headers: { ...headers, Prefer: 'count=exact' },
+      method: 'HEAD',
+    });
+    const referralRedeemedCount = parseInt(referralRedeemedRes.headers.get('content-range')?.split('/')[1] || '0', 10);
+
     cachedStats = {
       quizzes: quizCount,
       orders: orderIds.length,
       revenue: Math.round(revenue),
+      referrals_sent: referralSentCount,
+      referrals_redeemed: referralRedeemedCount,
     };
     cacheTime = Date.now();
 

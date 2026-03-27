@@ -243,7 +243,7 @@ function friendEmailHtml({ code, expiryDate, referrerEmail }) {
 
         <p style="font-size:13px;color:#8A7D70;margin:0 0 20px;">Enter this code in the <strong style="color:#1C1A17;">promo code field</strong> at checkout on primalpantry.co.nz</p>
 
-        <a href="https://www.primalpantry.co.nz/skin-quiz/" style="display:inline-block;background:#4A5E38;color:#fff;text-decoration:none;padding:14px 32px;border-radius:10px;font-weight:700;font-size:14px;">Take the Free Skin Quiz</a>
+        <a href="https://www.primalpantry.co.nz/skin-quiz/?utm_source=referral&utm_medium=email&utm_campaign=friend-voucher" style="display:inline-block;background:#4A5E38;color:#fff;text-decoration:none;padding:14px 32px;border-radius:10px;font-weight:700;font-size:14px;">Take the Free Skin Quiz</a>
       </div>
       <div style="background:#F7F2EB;padding:20px 32px;text-align:center;border-top:1px solid rgba(123,92,58,0.1);">
         <p style="margin:0;font-size:12px;color:#8A7D70;">PrimalPantry · Made in Christchurch, NZ · <a href="https://www.primalpantry.co.nz" style="color:#7B5C3A;">primalpantry.co.nz</a></p>

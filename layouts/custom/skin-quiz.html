@@ -1283,11 +1283,22 @@ var utmConcernMap = {
 };
 var utmPrefilledConcern = utmConcernMap[quizUtm.content] || null;
 
-// Progress
-function updateProgress() {
-    var html = '';
+// Progress — tracks user-visible steps only (skipped steps don't count)
+var userStepNumber = 0;
+
+function countVisibleSteps() {
+    var count = 0;
     for (var i = 0; i < TOTAL_STEPS; i++) {
-        var cls = i < currentStepIdx ? 'done' : (i === currentStepIdx ? 'active' : '');
+        if (!shouldSkipStep(i)) count++;
+    }
+    return count;
+}
+
+function updateProgress() {
+    var visibleTotal = countVisibleSteps();
+    var html = '';
+    for (var i = 0; i < visibleTotal; i++) {
+        var cls = i < userStepNumber ? 'done' : (i === userStepNumber ? 'active' : '');
         html += '<div class="sq-progress-bar ' + cls + '"></div>';
     }
     document.getElementById('sqProgress').innerHTML = html;
@@ -1431,6 +1442,7 @@ function sqNext() {
 
     allSteps[currentStepIdx].classList.add('active');
     tailorOptionsForStep();
+    userStepNumber++;
     updateProgress();
     _saveQuizProgress(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1842,6 +1854,8 @@ function sqBack() {
 
     if (currentStepIdx < 0) currentStepIdx = 0;
     allSteps[currentStepIdx].classList.add('active');
+    userStepNumber--;
+    if (userStepNumber < 0) userStepNumber = 0;
     updateProgress();
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
