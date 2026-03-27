@@ -674,19 +674,24 @@
                 btn.disabled = false;
                 btn.textContent = 'Send $5';
             } else {
-                var sentCount = (window.ppReferralsSent = (window.ppReferralsSent || 0) + 1);
                 var prevMsgs = msg.innerHTML ? msg.innerHTML + '<br>' : '';
-                msg.innerHTML = prevMsgs + '✅ Code sent to ' + friendEmail + '! You\'ll get yours by email when they place an order. Expires ' + (data.expiryDate || 'in 30 days') + '.';
+                if (data.alreadySent) {
+                    msg.innerHTML = prevMsgs + '✅ If ' + friendEmail + ' is a new customer, they\'ll receive a $5 off code by email.';
+                } else {
+                    var sentCount = (window.ppReferralsSent = (window.ppReferralsSent || 0) + 1);
+                    msg.innerHTML = prevMsgs + '✅ Code sent to ' + friendEmail + '! You\'ll get yours by email when they place an order. Expires ' + (data.expiryDate || 'in 30 days') + '.';
+                    if (sentCount >= 3) {
+                        btn.disabled = true;
+                        btn.textContent = 'Max reached';
+                    } else {
+                        btn.disabled = false;
+                        btn.textContent = 'Send to another friend';
+                    }
+                    gtag('event', 'referral_sent', { event_category: 'referral', value: sentCount });
+                }
                 msg.className = 'pp-ty-referral-msg ok';
                 document.getElementById('pp-referral-friend-email').value = '';
-                if (sentCount >= 3) {
-                    btn.disabled = true;
-                    btn.textContent = 'Max reached';
-                } else {
-                    btn.disabled = false;
-                    btn.textContent = 'Send to another friend';
-                }
-                gtag('event', 'referral_sent', { event_category: 'referral', value: sentCount });
+                if (!data.alreadySent) btn.disabled = false;
             }
         })
         .catch(function() {

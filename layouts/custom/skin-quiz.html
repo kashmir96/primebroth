@@ -3031,7 +3031,10 @@ document.getElementById('sqReferralBtn').addEventListener('click', function() {
     .then(function(r) { return r.json(); })
     .then(function(data) {
         if (data.error) { msg.textContent = data.error; msg.className = 'sq-msg err'; }
-        else {
+        else if (data.alreadySent) {
+            msg.innerHTML = '✅ If that email belongs to a new customer, they\'ll receive a $5 off code shortly.';
+            msg.className = 'sq-msg ok';
+        } else {
             msg.innerHTML = '✅ Code sent to your friend! They\'ll receive it by email. You\'ll get your $5 off code once they place an order. Codes valid 30 days, orders over $25.';
             msg.className = 'sq-msg ok';
         }

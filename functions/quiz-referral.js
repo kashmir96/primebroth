@@ -85,21 +85,23 @@ exports.handler = async (event) => {
       }
 
       // ── Check friend hasn't already been referred ──
+      // Silent success — don't reveal whether this email is in the system
       const friendReferredRes = await sbFetch(
         `/rest/v1/quiz_referrals?friend_email=eq.${encodeURIComponent(friendEmail.toLowerCase())}&select=id&limit=1`
       );
       const alreadyReferred = await friendReferredRes.json();
       if (alreadyReferred && alreadyReferred.length > 0) {
-        return reply(400, { error: 'This friend has already received a referral code.' });
+        return reply(200, { success: true, alreadySent: true, friendCode: null, expiryDate: null });
       }
 
       // ── Check friend isn't an existing customer ──
+      // Silent success — don't reveal customer status
       const checkRes = await sbFetch(
         `/rest/v1/orders?email=eq.${encodeURIComponent(friendEmail.toLowerCase())}&select=id&limit=1`
       );
       const existing = await checkRes.json();
       if (existing && existing.length > 0) {
-        return reply(400, { error: 'This email belongs to an existing customer. Referrals are for new customers only.' });
+        return reply(200, { success: true, alreadySent: true, friendCode: null, expiryDate: null });
       }
     }
 
