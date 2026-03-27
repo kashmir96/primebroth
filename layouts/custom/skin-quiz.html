@@ -770,30 +770,25 @@
     <!-- 3. Full Report Card -->
     <div class="sq-chart-card" style="margin-bottom:1.5rem;padding:2rem;" id="sqWhyTogether">
 
+        <!-- Why What You've Tried May Not Have Worked -->
+        <div id="sqWhyPastFailed">
+            <h3 style="margin-bottom:0.5rem;">Why What You've Tried May Not Have Worked</h3>
+            <p style="font-size:0.78rem;color:var(--pc-warm-gray);margin-bottom:1rem;line-height:1.5;">This isn't about blaming products — it's about understanding why some approaches fall short for certain skin types.</p>
+            <div id="sqPastFailedContent" style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);"></div>
+        </div>
+
         <!-- Why We Chose These -->
-        <h3 style="margin-bottom:0.5rem;">Why We Chose These For You</h3>
-        <p style="font-size:0.78rem;color:var(--pc-warm-gray);margin-bottom:1rem;line-height:1.5;">Every product in your routine was selected based on your specific answers — here's the reasoning.</p>
-        <div id="sqWhyTogetherContent" style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);"></div>
+        <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--pc-border);">
+            <h3 style="margin-bottom:0.5rem;">Why We Chose These For You</h3>
+            <p style="font-size:0.78rem;color:var(--pc-warm-gray);margin-bottom:1rem;line-height:1.5;">Every product in your routine was selected based on your specific answers — here's the reasoning.</p>
+            <div id="sqWhyTogetherContent" style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);"></div>
+        </div>
 
         <!-- Why We Probably Wouldn't Choose These -->
         <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--pc-border);" id="sqWhyNotSection">
             <h3 style="margin-bottom:0.5rem;">Products We Probably Wouldn't Choose For You</h3>
             <p style="font-size:0.78rem;color:var(--pc-warm-gray);margin-bottom:1rem;line-height:1.5;">Based on your answers, these are less compatible with your skin right now — here's why.</p>
             <div id="sqWhyNotContent" style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);"></div>
-        </div>
-
-        <!-- Why What You've Tried May Not Have Worked -->
-        <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--pc-border);" id="sqWhyPastFailed">
-            <h3 style="margin-bottom:0.5rem;">Why What You've Tried May Not Have Worked</h3>
-            <p style="font-size:0.78rem;color:var(--pc-warm-gray);margin-bottom:1rem;line-height:1.5;">This isn't about blaming products — it's about understanding why some approaches fall short for certain skin types.</p>
-            <div id="sqPastFailedContent" style="font-size:0.85rem;line-height:1.75;color:var(--pc-black);"></div>
-        </div>
-
-        <!-- The Science -->
-        <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--pc-border);">
-            <h3 style="margin-bottom:0.5rem;">The Science Behind This Routine</h3>
-            <p style="font-size:0.68rem;color:var(--pc-warm-gray);margin-bottom:0.75rem;line-height:1.4;">Key research that informed your product match</p>
-            <div id="sqResearchCitations" style="font-size:0.78rem;line-height:1.7;color:var(--pc-black);"></div>
         </div>
 
         <!-- Social proof -->
@@ -820,9 +815,16 @@
 
         <!-- Prescribed Routine -->
         <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--pc-border);" id="sqRoutineCard">
-            <h3 style="margin-bottom:0.25rem;font-family:'Playfair Display',serif;font-size:1.1rem;" id="sqRoutineTitle">Your Personalised Tallow Routine</h3>
+            <h3 style="margin-bottom:0.25rem;font-family:'Playfair Display',serif;font-size:1.1rem;" id="sqRoutineTitle">Your Personalised Tallow Calming Routine</h3>
             <p style="font-size:0.72rem;color:var(--pc-warm-gray);margin-bottom:1rem;">How to use these products together for best results.</p>
             <div id="sqRoutineContent"></div>
+        </div>
+
+        <!-- The Science -->
+        <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--pc-border);">
+            <h3 style="margin-bottom:0.5rem;">The Science Behind This Routine</h3>
+            <p style="font-size:0.68rem;color:var(--pc-warm-gray);margin-bottom:0.75rem;line-height:1.4;">Key research that informed your product match</p>
+            <div id="sqResearchCitations" style="font-size:0.78rem;line-height:1.7;color:var(--pc-black);"></div>
         </div>
 
         <!-- Eczema Association -->
@@ -1225,6 +1227,19 @@ var quizUtm = (function() {
     };
 })();
 
+// Pre-fill concern from utm_content (Google Ads skin quiz campaign)
+// utm_content carries the ad group slug, utm_term carries the actual keyword via {keyword}
+var utmConcernMap = {
+    'eczema-research': 'eczema', 'psoriasis-research': 'eczema',
+    'rosacea-research': 'rosacea',
+    'acne-research': 'acne',
+    'dry-skin-research': 'dry',
+    'anti-aging-research': 'wrinkles',
+    'pigmentation-research': 'pigmentation',
+    'general-skincare': null
+};
+var utmPrefilledConcern = utmConcernMap[quizUtm.content] || null;
+
 // Progress
 function updateProgress() {
     var html = '';
@@ -1333,8 +1348,23 @@ function sqNext() {
         currentStepIdx++;
     }
 
-    // If baby/child selected, add 'baby' flag to concerns WITHOUT overwriting their selections
+    // Auto-fill concern from Google Ads utm_term and skip the concern step
     var step = allSteps[currentStepIdx];
+    if (utmPrefilledConcern && step && step.querySelector('[data-key="concerns"]')) {
+        answers.concerns = [utmPrefilledConcern];
+        // Visually select the option so if they go back it looks right
+        var opt = step.querySelector('.sq-opt[data-val="' + utmPrefilledConcern + '"]');
+        if (opt) opt.classList.add('selected');
+        // Skip past this step
+        allSteps[currentStepIdx].classList.remove('active');
+        currentStepIdx++;
+        while (currentStepIdx < TOTAL_STEPS && shouldSkipStep(currentStepIdx)) {
+            currentStepIdx++;
+        }
+        step = allSteps[currentStepIdx];
+    }
+
+    // If baby/child selected, add 'baby' flag to concerns WITHOUT overwriting their selections
     if (step && step.querySelector('[data-key="concerns"]') && (answers.ageGroup === 'baby' || answers.ageGroup === 'child')) {
         if (!answers.concerns || answers.concerns.length === 0) {
             answers.concerns = ['baby'];
