@@ -1912,36 +1912,16 @@ function getRecommendations() {
     }
 
     // ═══════════════════════════════════════════════════
-    // 1. BABY / CHILD — separate path entirely
+    // 1. BABY / CHILD — hardcoded: Baby Balm + Natural 120ml + Oat Soak
     // ═══════════════════════════════════════════════════
     if (isChild) {
-        addProduct('baby-butter', 'Fragrance-free with Chamomile & Aloe Vera — gentle enough for little ones and formulated specifically for delicate baby skin', 1);
-        addProduct('balm-natural-120', 'Pure tallow with just 2 ingredients — no fragrance, no essential oils, nothing to irritate delicate skin. A simple, safe option for babies and children', 2);
-
-        if (hasCradleCap) {
-            addProduct('shampoo', 'Our tallow shampoo bar gently softens and lifts cradle cap flakes without harsh surfactants or chemicals', 1);
-        }
-
-        // Oat soak ONLY for active flare / open wounds in babies
-        if (severity === 'active' || severity === 'open-wounds') {
-            addProduct('oat-soak', 'Colloidal oat baths calm inflamed, stinging skin — run lukewarm (never hot) for 15 minutes before gently patting dry and applying balm', 1);
-        }
-
-        if (hasNappyRash) {
-            addProduct('balm-natural-250', 'Creates a protective tallow barrier on clean skin at each nappy change — the 250ml means you won\'t run out', 2);
-        } else {
-            addProduct('balm-natural-250', 'Just 2 ingredients — tallow and jojoba. The simplest thing you can put on delicate skin, and the 250ml lasts months', 2);
-        }
-
-        // Only add lip balm for babies if they have dry/cracked lips area selected
-        if (hasLips) addProduct('lip-balm', 'Manuka honey lip balm — great for dry patches on little cheeks and lips too', 3);
-
-        // Baby path: take top 3 by priority and return
-        candidates.sort(function(a, b) { return a.priority - b.priority; });
-        var baby3 = candidates.slice(0, 3);
-        baby3.sort(function(a, b) { return a.product.price - b.product.price; });
-        baby3.forEach(function(r, i) { r.step = i === 0 ? 'Start here' : (i === 1 ? 'Then apply' : 'Complete with'); });
-        return baby3;
+        var babyProducts = [
+            { key: 'oat-soak', product: PRODUCTS['oat-soak'], why: 'Colloidal oat baths soothe and calm sensitive skin — run lukewarm (never hot) for 15 minutes before gently patting dry and applying balm', priority: 1, step: 'Start here' },
+            { key: 'balm-natural-250', product: PRODUCTS['balm-natural-250'], why: 'Pure tallow with just 2 ingredients — no fragrance, no essential oils, nothing to irritate delicate skin. The 250ml lasts months with daily use', priority: 2, step: 'Then apply' },
+            { key: 'baby-butter', product: PRODUCTS['baby-butter'], why: 'Fragrance-free with Chamomile & Aloe Vera — gentle enough for little ones and formulated specifically for delicate baby skin', priority: 3, step: 'Complete with' }
+        ];
+        babyProducts.sort(function(a, b) { return a.product.price - b.product.price; });
+        return babyProducts;
     }
 
     // ═══════════════════════════════════════════════════
@@ -2447,12 +2427,18 @@ function drawIngredientBars(recs) {
         'nappy-rash': { 'Chamomile': 7, 'Aloe Vera': 6 }
     };
 
-    concerns.forEach(function(c) {
-        var ings = concernIngredients[c] || {};
-        Object.keys(ings).forEach(function(ing) {
-            ingredients[ing] = Math.max(ingredients[ing] || 0, ings[ing]);
+    // For babies/children, always show baby-safe ingredients
+    var age = answers.ageGroup || 'adult';
+    if (age === 'baby' || age === 'child') {
+        ingredients = { 'Chamomile': 8, 'Colloidal Oat': 7, 'Aloe Vera': 6, 'Jojoba Oil': 5, 'Tallow': 9 };
+    } else {
+        concerns.forEach(function(c) {
+            var ings = concernIngredients[c] || {};
+            Object.keys(ings).forEach(function(ing) {
+                ingredients[ing] = Math.max(ingredients[ing] || 0, ings[ing]);
+            });
         });
-    });
+    }
 
     // Sort by score desc, take top 6
     var sorted = Object.keys(ingredients).sort(function(a, b) { return ingredients[b] - ingredients[a]; }).slice(0, 6);
