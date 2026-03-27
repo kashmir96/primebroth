@@ -137,10 +137,10 @@ exports.handler = async (event) => {
 
     const expiryFormatted = formatExpiryDate(expiryDate);
 
-    // ── Save referral to Supabase ──
-    // NOTE: quiz_referrals table requires columns: referrer_rewarded (boolean), referrer_code (text nullable)
+    // ── Save referral to Supabase (non-blocking — never let a DB error kill the flow) ──
+    // NOTE: quiz_referrals table requires: referrer_rewarded boolean DEFAULT false, referrer_code text nullable
     if (supabaseUrl && supabaseKey) {
-      await sbFetch('/rest/v1/quiz_referrals', {
+      sbFetch('/rest/v1/quiz_referrals', {
         method: 'POST',
         prefer: 'return=minimal',
         body: {
@@ -157,7 +157,7 @@ exports.handler = async (event) => {
           utm_content: utmData.content || null,
           created_at: new Date().toISOString(),
         },
-      });
+      }).catch(err => console.error('[quiz-referral] Supabase insert error:', err.message));
     }
 
     // ── Send friend's code email only (referrer gets theirs when friend redeems) ──
