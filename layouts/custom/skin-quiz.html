@@ -910,7 +910,7 @@ var PRODUCTS = {
         forAreas: ['face']
     },
     'balm-natural-120': {
-        name: 'Tallow Balm — Unscented', sub: 'Pure & simple — just 2 ingredients', size: '120ml',
+        name: 'Tallow Balm (Natural)', sub: 'Pure & simple — just 2 ingredients', size: '120ml',
         price: 24.95, priceId: '{{ index (index (index site.Data.pricing.tallow.ids.balm.single "neutral") "120ml") "NZ" }}',
         img: '/img/shop/balm.webp', url: '/shop/products/tallow-skin',
         range: 'tallow', allergens: [],
@@ -919,7 +919,7 @@ var PRODUCTS = {
         forAreas: ['face','hands','elbows','body']
     },
     'balm-natural-250': {
-        name: 'Tallow Balm — Unscented', sub: 'Pure & simple — just 2 ingredients', size: '250ml',
+        name: 'Tallow Balm (Natural)', sub: 'Pure & simple — just 2 ingredients', size: '250ml',
         price: 39.95, priceId: '{{ index (index (index site.Data.pricing.tallow.ids.balm.single "neutral") "250ml") "NZ" }}',
         img: '/img/shop/balm.webp', url: '/shop/products/tallow-skin',
         range: 'tallow', allergens: [],
@@ -982,7 +982,7 @@ var PRODUCTS = {
         forAreas: ['face']
     },
     'baby-butter': {
-        name: 'Baby Butter', sub: 'Fragrance-free with Chamomile & Aloe', size: '120ml',
+        name: 'Tallow Baby Butter', sub: 'Fragrance-free with Chamomile & Aloe', size: '120ml',
         price: 29.95, priceId: '{{ index (index (index site.Data.pricing.tallow.ids.baby_butter.single "natural") "120ml") "NZ" }}',
         img: '/img/baby-butter-shop.webp', url: '/shop/products/baby-body-butter',
         range: 'tallow', allergens: ['nuts','beeswax'],
@@ -991,7 +991,7 @@ var PRODUCTS = {
         forAreas: ['face','body','hands']
     },
     'oat-soak': {
-        name: 'Colloidal Oat Bath Soak', sub: 'Gentle oat bath for sensitive skin', size: '200g',
+        name: 'Tallow Oat Bath Soak', sub: 'Gentle oat bath for sensitive skin', size: '200g',
         price: 19.95, priceId: '{{ index (index (index site.Data.pricing.tallow.ids.colloidal_oat.single "unscented") "200g") "NZ" }}',
         img: '/img/colloidal_oat1.webp', url: '/shop/products/colloidal-oat-bath-soak',
         range: 'tallow', allergens: [],
@@ -1072,7 +1072,7 @@ var PRODUCTS = {
         forAreas: ['body']
     },
     'limited-midnight': {
-        name: 'Midnight Mousse', sub: 'Limited Edition — Cacao & Blood Orange', size: '120ml',
+        name: 'Tallow Midnight Mousse', sub: 'Limited Edition — Cacao & Blood Orange', size: '120ml',
         price: 29.95, priceId: 'price_1T6yIxFZRwx5tlYmyPkzCHof',
         img: '/img/limited-shop.webp', url: '/shop/products/tallow-day-n-night-duo',
         range: 'tallow', allergens: ['fragrance'],
@@ -1081,7 +1081,7 @@ var PRODUCTS = {
         forAreas: ['face','hands','body']
     },
     'limited-sunrise': {
-        name: 'Sunrise Glow', sub: 'Limited Edition — Ylang Ylang & Buckthorn', size: '120ml',
+        name: 'Tallow Sunrise Glow', sub: 'Limited Edition — Ylang Ylang & Buckthorn', size: '120ml',
         price: 29.95, priceId: 'price_1T6zWoFZRwx5tlYm705284wk',
         img: '/img/limited-shop.webp', url: '/shop/products/tallow-day-n-night-duo',
         range: 'tallow', allergens: ['fragrance'],
@@ -2189,8 +2189,21 @@ function getRecommendations() {
         if (!fillSlot(otherFallbacks) && !fillSlot(balmFallbacks) && !fillSlot(revFallbacks)) break;
     }
 
-    // Sort: cheapest first, balm in middle, Reviana last (premium position)
-    final3.sort(function(a, b) { return a.product.price - b.product.price; });
+    // Order: Other (left) → Balm (middle) → Reviana (right)
+    var ordered = [];
+    var revItem = null, balmItem = null, otherItem = null;
+    final3.forEach(function(r) {
+        if (isReviana(r.key)) revItem = r;
+        else if (isBalm(r.key)) balmItem = r;
+        else otherItem = r;
+    });
+    // Left: other/cheaper, Middle: balm, Right: Reviana
+    if (otherItem) ordered.push(otherItem);
+    if (balmItem) ordered.push(balmItem);
+    if (revItem) ordered.push(revItem);
+    // Fill any missing slots
+    final3.forEach(function(r) { if (ordered.indexOf(r) === -1) ordered.push(r); });
+    final3 = ordered.slice(0, 3);
 
     final3.forEach(function(r, i) {
         r.step = i === 0 ? 'Start here' : (i === 1 ? 'Then apply' : 'Complete with');
