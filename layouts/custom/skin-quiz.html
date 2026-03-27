@@ -2242,10 +2242,17 @@ function showResults() {
 
     // Facebook conversion event — quiz completed
     if (typeof fbq === 'function') {
+        var _codeMap = {
+            'eczema':'C1','acne':'C2','wrinkles':'C3','rosacea':'C4',
+            'dry':'C5','pigmentation':'C6','general':'C7','other-concern':'C8',
+            'baby':'A1','child':'A2','teen':'A3','adult':'A4','mature':'A5','senior':'A6'
+        };
+        var _concerns = (answers.concerns || []).map(function(c){ return _codeMap[c] || c; }).join(',');
+        var _age = _codeMap[answers.ageGroup] || answers.ageGroup || '';
         fbq('trackCustom', 'QuizCompleted', {
-            concerns: (answers.concerns || []).join(','),
-            age_group: answers.ageGroup || '',
-            products: recs.map(function(r){ return r.key; }).join(',')
+            segment: _concerns,
+            profile: _age,
+            items: recs.map(function(r){ return r.key; }).join(',')
         });
     }
     // Also push to GTM dataLayer so GTM pixel can pick it up too
