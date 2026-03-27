@@ -60,6 +60,21 @@
     .sq-opt.selected::after { content: '\2713'; position: absolute; top: 8px; right: 10px; color: var(--pc-green); font-weight: 700; font-size: 0.85rem; }
     .sq-opt-icon { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
     .sq-opt-label { font-weight: 600; font-size: 0.88rem; color: var(--pc-black); }
+
+    /* ── Age Slider ──────────────────────────── */
+    .sq-age-slider-wrap { margin: 1.5rem 0 0.5rem; }
+    .sq-age-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 3px; background: linear-gradient(to right, var(--pc-brown-pale), var(--pc-brown)); outline: none; cursor: pointer; }
+    .sq-age-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 28px; height: 28px; border-radius: 50%; background: var(--pc-green); border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.18); cursor: pointer; transition: transform 0.15s; }
+    .sq-age-slider::-webkit-slider-thumb:hover { transform: scale(1.15); }
+    .sq-age-slider::-moz-range-thumb { width: 28px; height: 28px; border-radius: 50%; background: var(--pc-green); border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.18); cursor: pointer; }
+    .sq-age-labels { display: flex; justify-content: space-between; margin-top: 8px; font-size: 0.72rem; color: var(--pc-warm-gray); }
+    .sq-age-display { text-align: center; margin-top: 1rem; }
+    .sq-age-display .sq-age-val { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 600; color: var(--pc-green); }
+    .sq-age-display .sq-age-desc { font-size: 0.8rem; color: var(--pc-warm-gray); margin-top: 2px; }
+    .sq-combined-section { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--pc-border); }
+    .sq-combined-section .sq-section-label { font-weight: 600; font-size: 0.82rem; color: var(--pc-brown); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem; }
+
+    /* ── Body Map ──────────────────────────── */
     .sq-opt-desc { font-size: 0.72rem; color: var(--pc-warm-gray); margin-top: 4px; line-height: 1.4; }
 
     /* Buttons */
@@ -229,7 +244,7 @@
         <span>Helping Kiwis understand their skin</span>
     </div>
     <h1>Find Your <em>Perfect Match</em></h1>
-    <p class="sq-hero-sub">Take our 2-minute quiz and we'll match you with the right routine for your skin. If we can't help, we'll tell you — and still give you a report to understand your skin better.</p>
+    <p class="sq-hero-sub">Answer a few quick questions about your skin and we'll build you a personalised tallow skincare routine — backed by research, not guesswork.</p>
 
     <div class="sq-hero-stats">
         <div class="sq-hero-stat"><div class="sq-hero-stat-val">90,000+</div><div class="sq-hero-stat-lbl">Kiwis Served</div></div>
@@ -265,69 +280,45 @@
     <!-- Progress -->
     <div class="sq-progress" id="sqProgress"></div>
 
-    <!-- Step 0: Age Group -->
+    <!-- Step 0: Age + Gender combined -->
     <div class="sq-step active" data-step="0">
-        <h2 class="sq-title">First up — who's the skincare for?</h2>
-        <p class="sq-subtitle">Different ages need different things. Let's get this right from the start.</p>
-        <div class="sq-options" data-key="ageGroup" data-mode="single">
-            <div class="sq-opt" data-val="baby">
-                <span class="sq-opt-icon">&#x1F476;</span>
-                <span class="sq-opt-label">Baby</span>
-                <span class="sq-opt-desc">Under 3 years</span>
+        <h2 class="sq-title">Let's start with the basics</h2>
+        <p class="sq-subtitle">This helps us recommend products that are safe and effective for your age and skin type.</p>
+
+        <div class="sq-section-label" style="font-weight:600;font-size:0.82rem;color:var(--pc-brown);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;">Age</div>
+        <div class="sq-age-slider-wrap">
+            <input type="range" min="0" max="100" value="30" class="sq-age-slider" id="sqAgeSlider">
+            <div class="sq-age-labels">
+                <span>Baby</span><span>Child</span><span>Teen</span><span>Adult</span><span>Mature</span><span>60+</span>
             </div>
-            <div class="sq-opt" data-val="child">
-                <span class="sq-opt-icon">&#x1F9D2;</span>
-                <span class="sq-opt-label">Child</span>
-                <span class="sq-opt-desc">3 — 12 years</span>
+            <div class="sq-age-display">
+                <div class="sq-age-val" id="sqAgeVal">30 years old</div>
+                <div class="sq-age-desc" id="sqAgeDesc">We'll tailor your routine for adult skin</div>
             </div>
-            <div class="sq-opt" data-val="teen">
-                <span class="sq-opt-icon">&#x1F9D1;</span>
-                <span class="sq-opt-label">Teen</span>
-                <span class="sq-opt-desc">13 — 19 years</span>
-            </div>
-            <div class="sq-opt" data-val="adult">
-                <span class="sq-opt-icon">&#x1F9D4;</span>
-                <span class="sq-opt-label">Adult</span>
-                <span class="sq-opt-desc">20 — 45 years</span>
-            </div>
-            <div class="sq-opt" data-val="mature">
-                <span class="sq-opt-icon">&#x1F9D3;</span>
-                <span class="sq-opt-label">Mature</span>
-                <span class="sq-opt-desc">45 — 60 years</span>
-            </div>
-            <div class="sq-opt" data-val="senior">
-                <span class="sq-opt-icon">&#x1F9D3;</span>
-                <span class="sq-opt-label">60+</span>
-                <span class="sq-opt-desc">Experienced skin — we'll tailor accordingly</span>
+        </div>
+
+        <div class="sq-combined-section">
+            <div class="sq-section-label">I am...</div>
+            <div class="sq-options two-col" data-key="gender" data-mode="single">
+                <div class="sq-opt" data-val="female">
+                    <span class="sq-opt-label">Female</span>
+                </div>
+                <div class="sq-opt" data-val="male">
+                    <span class="sq-opt-label">Male</span>
+                </div>
+                <div class="sq-opt" data-val="other">
+                    <span class="sq-opt-label">Other</span>
+                </div>
+                <div class="sq-opt" data-val="skip">
+                    <span class="sq-opt-label">Prefer not to say</span>
+                </div>
             </div>
         </div>
         <div class="sq-btn-row"><button class="sq-btn" id="sqNext0" disabled>Next</button></div>
     </div>
 
-    <!-- Step 0b: Gender -->
-    <div class="sq-step" data-step="0b">
-        <h2 class="sq-title">And are you...</h2>
-        <p class="sq-subtitle">Some products suit different skin types — this helps us fine-tune your match.</p>
-        <div class="sq-options two-col" data-key="gender" data-mode="single">
-            <div class="sq-opt" data-val="female">
-                <span class="sq-opt-icon">&#x2640;&#xFE0F;</span>
-                <span class="sq-opt-label">Female</span>
-            </div>
-            <div class="sq-opt" data-val="male">
-                <span class="sq-opt-icon">&#x2642;&#xFE0F;</span>
-                <span class="sq-opt-label">Male</span>
-            </div>
-            <div class="sq-opt" data-val="other">
-                <span class="sq-opt-icon">&#x2B50;</span>
-                <span class="sq-opt-label">Other</span>
-            </div>
-            <div class="sq-opt" data-val="skip">
-                <span class="sq-opt-icon">&#x1F6AB;</span>
-                <span class="sq-opt-label">Prefer not to say</span>
-            </div>
-        </div>
-        <div class="sq-btn-row"><button class="sq-btn sq-btn-back" onclick="sqBack()">Back</button><button class="sq-btn" id="sqNext0b" disabled>Next</button></div>
-    </div>
+    <!-- Step 0b kept as hidden placeholder so step indices don't break -->
+    <div class="sq-step" data-step="0b" style="display:none !important;"></div>
 
     <!-- Step 1: Skin Concern -->
     <div class="sq-step" data-step="2">
@@ -530,7 +521,7 @@
             </div>
             <div class="sq-opt" data-val="elbows">
                 <span class="sq-opt-icon">&#x1F4AA;</span>
-                <span class="sq-opt-label">Elbows & Knees</span>
+                <span class="sq-opt-label">Elbows &amp; Knees</span>
             </div>
             <div class="sq-opt" data-val="body">
                 <span class="sq-opt-icon">&#x1F9CD;</span>
@@ -566,7 +557,7 @@
             </div>
             <div class="sq-opt" data-val="neck" style="display:none;">
                 <span class="sq-opt-icon">&#x1F9E3;</span>
-                <span class="sq-opt-label">Neck & Décolletage</span>
+                <span class="sq-opt-label">Neck &amp; D&#233;colletage</span>
             </div>
             <div class="sq-opt" data-val="forehead" style="display:none;">
                 <span class="sq-opt-icon">&#x1F9E0;</span>
@@ -1179,6 +1170,49 @@ function initHydrationSlider() {
     update();
 }
 
+/* ── Age Slider ──────────────────────────── */
+(function() {
+    var slider = document.getElementById('sqAgeSlider');
+    var valEl = document.getElementById('sqAgeVal');
+    var descEl = document.getElementById('sqAgeDesc');
+    if (!slider) return;
+
+    function ageToGroup(age) {
+        if (age < 3) return 'baby';
+        if (age < 13) return 'child';
+        if (age < 20) return 'teen';
+        if (age < 45) return 'adult';
+        if (age < 60) return 'mature';
+        return 'senior';
+    }
+    function ageDesc(age) {
+        var g = ageToGroup(age);
+        if (g === 'baby') return 'We\'ll only recommend products safe for babies';
+        if (g === 'child') return 'Gentle products suitable for children\'s skin';
+        if (g === 'teen') return 'Targeted for teenage skin — breakouts, oil, and all that';
+        if (g === 'adult') return 'We\'ll tailor your routine for adult skin';
+        if (g === 'mature') return 'Focused on renewal, firmness, and deep nourishment';
+        return 'Gentle yet effective — tailored for experienced skin';
+    }
+    function ageLabel(age) {
+        if (age < 1) return 'Newborn';
+        if (age === 1) return '1 year old';
+        if (age < 3) return age + ' years old';
+        return age + ' years old';
+    }
+    function update() {
+        var age = parseInt(slider.value);
+        valEl.textContent = ageLabel(age);
+        descEl.textContent = ageDesc(age);
+        answers.ageGroup = ageToGroup(age);
+        answers._rawAge = age;
+        updateNextBtn();
+    }
+    slider.addEventListener('input', update);
+    update();
+})();
+
+
 /* ── UTM capture ── */
 var quizUtm = (function() {
     var p = new URLSearchParams(window.location.search);
@@ -1270,6 +1304,8 @@ document.querySelectorAll('[data-key="severity"] .sq-opt').forEach(function(opt)
 // Should we skip this step?
 function shouldSkipStep(idx) {
     var step = allSteps[idx];
+    // Skip the old gender step (now combined into step 0)
+    if (step && step.dataset.step === '0b') return true;
     var key = step.querySelector('.sq-options') ? step.querySelector('.sq-options').dataset.key : null;
     // Skip severity if no eczema/psoriasis/rashy/rosacea
     if (key === 'severity') {
@@ -1503,7 +1539,6 @@ function tailorOptionsForStep() {
             if (isMale) { showOpt('beard'); setLabel('beard', 'Jawline'); setDesc('beard', 'Along the jaw and chin'); showOpt('chest'); }
             showOpt('body'); showOpt('scalp');
         } else {
-            // Adults — back-reference concerns
             if (hasEczema || hasRosacea) {
                 aTitle.textContent = 'Where does it flare up?';
             } else if (hasAcne) {
