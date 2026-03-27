@@ -280,66 +280,17 @@
     <!-- Progress -->
     <div class="sq-progress" id="sqProgress"></div>
 
-    <!-- Step 0: Age + Gender combined -->
-    <div class="sq-step active" data-step="0">
-        <h2 class="sq-title">Let's start with the basics</h2>
-        <p class="sq-subtitle">This helps us recommend products that are safe and effective for your age and skin type.</p>
-
-        <div class="sq-section-label" style="font-weight:600;font-size:0.82rem;color:var(--pc-brown);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;">Age</div>
-        <div class="sq-age-slider-wrap">
-            <input type="range" min="1" max="100" value="30" class="sq-age-slider" id="sqAgeSlider">
-            <div class="sq-age-labels">
-                <span>Baby</span><span>Child</span><span>Teen</span><span>Adult</span><span>Mature</span><span>60+</span>
-            </div>
-            <div class="sq-age-display">
-                <div class="sq-age-val" id="sqAgeVal">30 years old</div>
-                <div class="sq-age-desc" id="sqAgeDesc">We'll tailor your routine for adult skin</div>
-            </div>
-        </div>
-
-        <div class="sq-combined-section">
-            <div class="sq-section-label">I am...</div>
-            <div class="sq-options two-col" data-key="gender" data-mode="single">
-                <div class="sq-opt" data-val="female">
-                    <span class="sq-opt-label">Female</span>
-                </div>
-                <div class="sq-opt" data-val="male">
-                    <span class="sq-opt-label">Male</span>
-                </div>
-                <div class="sq-opt" data-val="other">
-                    <span class="sq-opt-label">Other</span>
-                </div>
-                <div class="sq-opt" data-val="skip">
-                    <span class="sq-opt-label">Prefer not to say</span>
-                </div>
-            </div>
-        </div>
-        <div class="sq-btn-row"><button class="sq-btn" id="sqNext0" disabled>Next</button></div>
-    </div>
-
-    <!-- Step 0b kept as hidden placeholder so step indices don't break -->
-    <div class="sq-step" data-step="0b" style="display:none !important;"></div>
-
-    <!-- Step 1: Skin Concern -->
-    <div class="sq-step" data-step="2">
-        <h2 class="sq-title" id="sqConcernsTitle">What's bugging your skin?</h2>
-        <p class="sq-subtitle" id="sqConcernsSub">Pick up to two — we'll find the products that are actually compatible with what you're dealing with.</p>
+    <!-- Step 1: Skin Concern (FIRST — hook them immediately) -->
+    <div class="sq-step active" data-step="1">
+        <h2 class="sq-title" id="sqConcernsTitle">What's going on with your skin?</h2>
+        <p class="sq-subtitle" id="sqConcernsSub">Pick up to two — this is what we'll build your routine around.</p>
         <div class="sq-options" data-key="concerns" data-mode="multi" data-max="2">
             <div class="sq-opt" data-val="eczema">
                 <span class="sq-opt-icon">&#x1FA79;</span>
                 <span class="sq-opt-label">Red & Rashy</span>
                 <span class="sq-opt-desc">Eczema-prone, psoriasis, or other red rashy conditions</span>
             </div>
-            <div class="sq-opt" data-val="cradle-cap" style="display:none;">
-                <span class="sq-opt-icon">&#x1F476;</span>
-                <span class="sq-opt-label">Cradle Cap</span>
-                <span class="sq-opt-desc">Flaky, scaly patches on the scalp</span>
-            </div>
-            <div class="sq-opt" data-val="nappy-rash" style="display:none;">
-                <span class="sq-opt-icon">&#x1F6BC;</span>
-                <span class="sq-opt-label">Nappy Rash</span>
-                <span class="sq-opt-desc">Red, irritated skin in the nappy area</span>
-            </div>
+            <!-- cradle-cap and nappy-rash removed -->
             <div class="sq-opt" data-val="rosacea">
                 <span class="sq-opt-icon">&#x1F33A;</span>
                 <span class="sq-opt-label">Rosacea</span>
@@ -377,11 +328,48 @@
             </div>
         </div>
         <input type="text" class="sq-input" id="sqConcernOther" placeholder="Describe your skin concern in your own words..." style="display:none;">
+        <div class="sq-btn-row"><button class="sq-btn" id="sqNext1" disabled>Next</button></div>
+    </div>
+
+    <!-- Step 2: Age + Gender -->
+    <div class="sq-step" data-step="2">
+        <h2 class="sq-title" id="sqAgeTitle">Who's this routine for?</h2>
+        <p class="sq-subtitle" id="sqAgeSub">Age and skin type go hand in hand — this helps us get the match right.</p>
+
+        <div class="sq-section-label" style="font-weight:600;font-size:0.82rem;color:var(--pc-brown);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;">Age</div>
+        <div class="sq-age-slider-wrap">
+            <input type="range" min="1" max="100" value="30" class="sq-age-slider" id="sqAgeSlider">
+            <div class="sq-age-labels">
+                <span>Baby</span><span>Child</span><span>Teen</span><span>Adult</span><span>Mature</span><span>60+</span>
+            </div>
+            <div class="sq-age-display">
+                <div class="sq-age-val" id="sqAgeVal">30 years old</div>
+                <div class="sq-age-desc" id="sqAgeDesc">We'll tailor your routine for adult skin</div>
+            </div>
+        </div>
+
+        <div class="sq-combined-section">
+            <div class="sq-section-label">I am...</div>
+            <div class="sq-options two-col" data-key="gender" data-mode="single">
+                <div class="sq-opt" data-val="female">
+                    <span class="sq-opt-label">Female</span>
+                </div>
+                <div class="sq-opt" data-val="male">
+                    <span class="sq-opt-label">Male</span>
+                </div>
+                <div class="sq-opt" data-val="other">
+                    <span class="sq-opt-label">Other</span>
+                </div>
+                <div class="sq-opt" data-val="skip">
+                    <span class="sq-opt-label">Prefer not to say</span>
+                </div>
+            </div>
+        </div>
         <div class="sq-btn-row"><button class="sq-btn sq-btn-back" onclick="sqBack()">Back</button><button class="sq-btn" id="sqNext2" disabled>Next</button></div>
     </div>
 
-    <!-- Step 2b: What have you tried? -->
-    <div class="sq-step" data-step="2b">
+    <!-- Step 3: What have you tried? -->
+    <div class="sq-step" data-step="3">
         <h2 class="sq-title" id="sqTriedTitle">What have you tried in the past?</h2>
         <p class="sq-subtitle" id="sqTriedSub">This helps us understand what hasn't worked — so we don't recommend more of the same.</p>
         <div class="sq-options" data-key="triedBefore" data-mode="multi" data-max="8">
@@ -454,8 +442,8 @@
         <div class="sq-btn-row"><button class="sq-btn sq-btn-back" onclick="sqBack()">Back</button><button class="sq-btn">Next</button></div>
     </div>
 
-    <!-- Step 2c: Tallow feedback (conditional — only if they selected tallow in 2b) -->
-    <div class="sq-step" data-step="2c">
+    <!-- Step 3b: Tallow feedback (conditional — only if they selected tallow in step 3) -->
+    <div class="sq-step" data-step="3b">
         <h2 class="sq-title">You've tried tallow — what did you think?</h2>
         <p class="sq-subtitle">We'd love to know your experience. This helps us recommend the right product for you.</p>
         <div class="sq-options" data-key="tallowFeedback" data-mode="single">
@@ -494,8 +482,8 @@
         <div class="sq-btn-row"><button class="sq-btn sq-btn-back" onclick="sqBack()">Back</button><button class="sq-btn" disabled>Next</button></div>
     </div>
 
-    <!-- Step 3: Problem Areas -->
-    <div class="sq-step" data-step="3">
+    <!-- Step 4: Problem Areas -->
+    <div class="sq-step" data-step="4">
         <h2 class="sq-title" id="sqAreasTitle">Where does it bother you most?</h2>
         <p class="sq-subtitle" id="sqAreasSub">Tick everything that gives you grief — we'll make sure each area is covered.</p>
         <div class="sq-options" data-key="areas" data-mode="multi" data-max="7">
@@ -567,8 +555,8 @@
         <div class="sq-btn-row"><button class="sq-btn sq-btn-back" onclick="sqBack()">Back</button><button class="sq-btn" id="sqNext3" disabled>Next</button></div>
     </div>
 
-    <!-- Step 4: Preference + Sensitivity -->
-    <div class="sq-step" data-step="4">
+    <!-- Step 5: Preference + Sensitivity (auto-skipped, default premium) -->
+    <div class="sq-step" data-step="5">
         <h2 class="sq-title">What matters more to you?</h2>
         <p class="sq-subtitle">Both approaches work — it's about what feels right for your skin and your vibe.</p>
         <div class="sq-options two-col" data-key="preference" data-mode="single">
@@ -586,8 +574,8 @@
         <div class="sq-btn-row"><button class="sq-btn sq-btn-back" onclick="sqBack()">Back</button><button class="sq-btn" id="sqNext4" disabled>Next</button></div>
     </div>
 
-    <!-- Step 5: Sensitivity Slider + Allergens (merged) -->
-    <div class="sq-step" data-step="5">
+    <!-- Step 6: Sensitivity Slider + Allergens (merged) -->
+    <div class="sq-step" data-step="6">
         <h2 class="sq-title">Any known allergies or reactions?</h2>
         <p class="sq-subtitle" id="sqAllergenSub">First, how sensitive is your skin? Then tick anything it doesn't get along with.</p>
 
@@ -645,8 +633,8 @@
         <div class="sq-btn-row"><button class="sq-btn sq-btn-back" onclick="sqBack()">Back</button><button class="sq-btn" id="sqNext5">Next</button></div>
     </div>
 
-    <!-- Step 6: Severity (conditional — eczema/psoriasis only) -->
-    <div class="sq-step" data-step="6">
+    <!-- Step 7: Severity (conditional — eczema/psoriasis only) -->
+    <div class="sq-step" data-step="7">
         <h2 class="sq-title">How's your skin tracking right now?</h2>
         <p class="sq-subtitle">Be honest — it helps us figure out what level of support you need.</p>
         <div class="sq-options two-col" data-key="severity" data-mode="single">
@@ -674,8 +662,8 @@
         <div class="sq-btn-row"><button class="sq-btn sq-btn-back" onclick="sqBack()">Back</button><button class="sq-btn" id="sqNext6" disabled>Next</button></div>
     </div>
 
-    <!-- Step 7: Moisturising Frequency + Email capture before results -->
-    <div class="sq-step" data-step="7">
+    <!-- Step 8: Moisturising Frequency + Email capture before results -->
+    <div class="sq-step" data-step="8">
         <h2 class="sq-title">Last one — how often are you moisturising?</h2>
         <p class="sq-subtitle">This helps us figure out the right size — nothing worse than running out mid-routine!</p>
         <div class="sq-options two-col" data-key="frequency" data-mode="single">
@@ -1127,7 +1115,7 @@ var _quizSessionId = (function() {
     var id = Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
     return id;
 })();
-var _sqStepNames = ['Age', 'Concerns', 'Tried Before', 'Tallow Feedback', 'Problem Areas', 'Severity', 'Sensitivity & Allergens', 'Hydration', 'Email'];
+var _sqStepNames = ['Concerns', 'Age & Gender', 'Tried Before', 'Tallow Feedback', 'Problem Areas', 'Preference', 'Sensitivity & Allergens', 'Severity', 'Frequency & Email'];
 function _saveQuizProgress(completed) {
     var stepName = _sqStepNames[currentStepIdx] || ('Step ' + currentStepIdx);
     fetch('/.netlify/functions/quiz-progress', {
@@ -1231,6 +1219,7 @@ function initHydrationSlider() {
         descEl.textContent = ageDesc(age);
         answers.ageGroup = ageToGroup(age);
         answers._rawAge = age;
+        // Age is always valid (slider has default), so Next depends on gender selection
         updateNextBtn();
     }
     slider.addEventListener('input', update);
@@ -1371,8 +1360,7 @@ document.querySelectorAll('[data-key="severity"] .sq-opt').forEach(function(opt)
 // Should we skip this step?
 function shouldSkipStep(idx) {
     var step = allSteps[idx];
-    // Skip the old gender step (now combined into step 0)
-    if (step && step.dataset.step === '0b') return true;
+    if (!step) return true;
     var key = step.querySelector('.sq-options') ? step.querySelector('.sq-options').dataset.key : null;
     // Skip severity if no eczema/psoriasis/rashy/rosacea
     if (key === 'severity') {
@@ -1402,30 +1390,7 @@ function sqNext() {
         currentStepIdx++;
     }
 
-    // Auto-fill concern from Google Ads utm_term and skip the concern step
     var step = allSteps[currentStepIdx];
-    if (utmPrefilledConcern && step && step.querySelector('[data-key="concerns"]')) {
-        answers.concerns = [utmPrefilledConcern];
-        // Visually select the option so if they go back it looks right
-        var opt = step.querySelector('.sq-opt[data-val="' + utmPrefilledConcern + '"]');
-        if (opt) opt.classList.add('selected');
-        // Skip past this step
-        allSteps[currentStepIdx].classList.remove('active');
-        currentStepIdx++;
-        while (currentStepIdx < TOTAL_STEPS && shouldSkipStep(currentStepIdx)) {
-            currentStepIdx++;
-        }
-        step = allSteps[currentStepIdx];
-    }
-
-    // If baby/child selected, add 'baby' flag to concerns WITHOUT overwriting their selections
-    if (step && step.querySelector('[data-key="concerns"]') && (answers.ageGroup === 'baby' || answers.ageGroup === 'child')) {
-        if (!answers.concerns || answers.concerns.length === 0) {
-            answers.concerns = ['baby'];
-        } else if (answers.concerns.indexOf('baby') === -1) {
-            answers.concerns.push('baby');
-        }
-    }
 
     // Capture text inputs before advancing
     var allergenOther = document.getElementById('sqAllergenOther');
@@ -1488,64 +1453,32 @@ function tailorOptionsForStep() {
     var concernStr = concernNames.join(' and ');
 
     // ═══════════════════════════════════════════
-    // GENDER — tailor for baby
+    // CONCERNS — step 1, no age known yet. Show all options.
     // ═══════════════════════════════════════════
-    if (key === 'gender') {
-        var gTitle = step.querySelector('.sq-title');
-        var gSub = step.querySelector('.sq-subtitle');
-        if (isBaby || isChild) {
-            gTitle.textContent = 'And your little one is...';
-            gSub.textContent = 'Baby skin can differ between boys and girls — this helps us fine-tune the recommendation.';
-        } else if (isMature) {
-            gSub.textContent = 'Hormones play a big role in how skin behaves — especially as we age. This helps us get your match right.';
-        } else if (isTeen) {
-            gSub.textContent = 'Guys and girls deal with different skin stuff — this helps us get it right.';
-        } else {
-            gSub.textContent = 'Men and women have different skin thickness and oil production — this helps us fine-tune your match.';
-        }
-    }
+    // Concerns is now the first step — all options visible in HTML by default.
+    // No tailoring needed here since age isn't known yet.
 
     // ═══════════════════════════════════════════
-    // CONCERNS — based on age + gender
+    // AGE + GENDER — step 2, tailor based on concerns
     // ═══════════════════════════════════════════
-    if (key === 'concerns') {
-        step.querySelectorAll('.sq-opt').forEach(function(o) { o.style.display = 'none'; });
-        var cTitle = document.getElementById('sqConcernsTitle');
-        var cSub = document.getElementById('sqConcernsSub');
-
-        if (isBaby) {
-            cTitle.textContent = 'What\'s going on with your baby\'s skin?';
-            cSub.textContent = 'Pick what best describes it — we\'ll only recommend products safe and gentle enough for babies.';
-            showOpt('eczema'); setLabel('eczema', 'Eczema / Red & Rashy'); setDesc('eczema', 'Eczema-prone, irritated, or persistently red skin');
-            showOpt('dry'); setDesc('dry', 'Dry patches, rough texture, flaking');
-            showOpt('cradle-cap'); showOpt('nappy-rash'); showOpt('general');
-        } else if (isChild) {
-            cTitle.textContent = 'What\'s going on with their skin?';
-            cSub.textContent = 'Pick up to two — we\'ll match the right products for their skin.';
-            showOpt('eczema'); showOpt('dry'); showOpt('acne'); showOpt('general'); showOpt('other-concern');
-        } else if (isTeen) {
-            cTitle.textContent = 'What\'s going on with your skin?';
-            cSub.textContent = 'No judgement — just pick what you\'re dealing with so we can match you properly.';
-            showOpt('acne'); setLabel('acne', 'Breakouts & Acne'); setDesc('acne', 'Pimples, oily skin, blackheads — the usual teen stuff');
-            showOpt('eczema'); showOpt('dry'); showOpt('rosacea'); showOpt('general'); showOpt('other-concern');
-        } else if (isMature) {
-            cTitle.textContent = 'What\'s your skin dealing with right now?';
-            cSub.textContent = 'Pick up to two. We\'ll look at how these interact — because they often do.';
-            showOpt('wrinkles'); setLabel('wrinkles', 'Fine Lines & Wrinkles'); setDesc('wrinkles', 'Loss of firmness, deeper lines, skin that doesn\'t bounce back like it used to');
-            showOpt('pigmentation'); setDesc('pigmentation', 'Sun damage, age spots, or patchy areas that won\'t fade');
-            showOpt('dry'); setDesc('dry', 'Tight, rough, or papery-feeling skin');
-            showOpt('eczema'); showOpt('rosacea'); showOpt('acne'); showOpt('general'); showOpt('other-concern');
+    if (step.dataset.step === '2') {
+        var ageTitle = document.getElementById('sqAgeTitle');
+        var ageSub = document.getElementById('sqAgeSub');
+        if (hasCradleCap || hasNappyRash) {
+            ageTitle.textContent = 'How old is your little one?';
+            ageSub.textContent = 'We\'ll make sure we only recommend products that are safe and gentle enough for their age.';
+        } else if (hasEczema || hasRosacea) {
+            ageTitle.textContent = 'Who\'s this routine for?';
+            ageSub.textContent = 'Skin behaves differently at different ages — especially with ' + (hasEczema ? 'eczema' : 'rosacea') + '. This helps us get the match right.';
+        } else if (hasAcne) {
+            ageTitle.textContent = 'Who\'s this routine for?';
+            ageSub.textContent = 'Breakouts look different at 16 vs 35 — this helps us recommend the right approach.';
+        } else if (hasWrinkles || hasPigmentation) {
+            ageTitle.textContent = 'Tell us a bit about you';
+            ageSub.textContent = 'Age matters for how we approach ' + (hasWrinkles ? 'fine lines' : 'uneven tone') + ' — skin responds to different actives at different stages.';
         } else {
-            // Adult
-            if (isMale) {
-                cTitle.textContent = 'What are you dealing with?';
-                cSub.textContent = 'Pick up to two. We\'ll match you with products that are actually compatible — no guesswork.';
-            } else {
-                cTitle.textContent = 'What\'s your skin dealing with?';
-                cSub.textContent = 'Pick up to two — we\'ll find the products that are actually compatible with what you\'re going through.';
-            }
-            showOpt('eczema'); showOpt('rosacea'); showOpt('acne'); showOpt('dry');
-            showOpt('wrinkles'); showOpt('pigmentation'); showOpt('general'); showOpt('other-concern');
+            ageTitle.textContent = 'Who\'s this routine for?';
+            ageSub.textContent = 'Age and skin type go hand in hand — this helps us get the match right.';
         }
     }
 
@@ -1871,6 +1804,15 @@ document.getElementById('sqStartBtn').addEventListener('click', function() {
     document.getElementById('sqQuiz').style.display = '';
     initSensitivitySlider();
     initHydrationSlider();
+    // Pre-select concern from Google Ads UTM
+    if (utmPrefilledConcern) {
+        var opt = document.querySelector('[data-key="concerns"] [data-val="' + utmPrefilledConcern + '"]');
+        if (opt) {
+            opt.classList.add('selected');
+            answers.concerns = [utmPrefilledConcern];
+            updateNextBtn();
+        }
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
@@ -1937,8 +1879,7 @@ function getRecommendations() {
 
     var BALM_KEYS = ['balm-natural-120','balm-natural-250','balm-frankincense-120','balm-frankincense-250',
         'balm-lavender-120','honeybalm-vanilla-120','honeybalm-vanilla-250',
-        'limited-midnight','limited-sunrise','baby-butter',
-        'reviana-day','reviana-night'];
+        'limited-midnight','limited-sunrise','baby-butter'];
     function isBalm(key) { return BALM_KEYS.indexOf(key) !== -1; }
 
     function addProduct(key, why, priority) {
