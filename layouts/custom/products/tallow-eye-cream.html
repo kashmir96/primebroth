@@ -70,6 +70,11 @@
         font-size: 0.95rem;
         margin-right: 6px;
     }
+    .pp-points-hint{position:absolute;top:-14px;right:0;font-size:0.72rem;color:#9C8E84;font-weight:400;margin:0;display:inline-flex;align-items:center;gap:4px;line-height:1;}
+    .pp-points-hint strong{color:#6B8F5B;font-weight:600;}
+    .pp-pts-info{position:relative;display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;border-radius:50%;background:rgba(107,143,91,0.1);border:1px solid rgba(107,143,91,0.22);color:#6B8F5B;font-size:0.58rem;font-weight:800;cursor:help;flex-shrink:0;font-style:normal;}
+    .pp-pts-info::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);background:#2E1A0E;color:rgba(255,255,255,0.85);font-size:0.72rem;font-weight:400;line-height:1.45;padding:7px 11px;border-radius:8px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity 0.15s;z-index:200;}
+    .pp-pts-info:hover::after{opacity:1;}
     </style>
 </head>
 <body>
@@ -190,7 +195,8 @@
             <span class="stock-dot"></span> In Stock · Ships within 1–3 business days
         </div>
 
-        <div class="action-row">
+        <div class="action-row" style="position:relative;">
+            <p class="pp-points-hint">~<strong id="pp-pts-label">PrimalPoints</strong> <i class="pp-pts-info" data-tip="Earn points on every purchase — redeem on your next order">i</i></p>
             <div class="pp-qty-selector">
                 <button type="button" class="btn-decrease">−</button>
                 <input type="number" class="form-control" id="quantityAll" name="quantity" min="1" value="1" readonly>
@@ -686,6 +692,9 @@
 
             // Show the original price (before 20% off)
             document.getElementById("priceWas").textContent = `$${(price / 0.80).toFixed(2)}`;
+
+            var ppPtsEl = document.getElementById('pp-pts-label');
+            if (ppPtsEl) ppPtsEl.textContent = Math.ceil(price) * 10 + ' PrimalPoints';
         }
     }
 

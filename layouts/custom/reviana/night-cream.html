@@ -37,8 +37,11 @@
     .rv-stars{display:flex;align-items:center;gap:8px;margin-bottom:16px;color:var(--rv-sage);}.rv-stars span{font-size:0.82rem;color:var(--rv-warm-gray);}
     .rv-desc{font-size:0.92rem;color:var(--rv-bark-light);line-height:1.78;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--rv-border);}
     .rv-price-row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
-    .pp-points-hint{font-size:0.78rem;color:#6B8F5B;font-weight:600;margin:2px 0 10px;display:flex;align-items:center;gap:5px;line-height:1.4;}
-    .pp-pts-info{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:rgba(107,143,91,0.15);border:1px solid rgba(107,143,91,0.3);color:#6B8F5B;font-size:0.62rem;font-weight:800;cursor:help;flex-shrink:0;}
+    .pp-points-hint{position:absolute;top:-14px;right:0;font-size:0.72rem;color:#9C8E84;font-weight:400;margin:0;display:inline-flex;align-items:center;gap:4px;line-height:1;}
+    .pp-points-hint strong{color:#6B8F5B;font-weight:600;}
+    .pp-pts-info{position:relative;display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;border-radius:50%;background:rgba(107,143,91,0.1);border:1px solid rgba(107,143,91,0.22);color:#6B8F5B;font-size:0.58rem;font-weight:800;cursor:help;flex-shrink:0;font-style:normal;}
+    .pp-pts-info::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);background:#2E1A0E;color:rgba(255,255,255,0.85);font-size:0.72rem;font-weight:400;line-height:1.45;padding:7px 11px;border-radius:8px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity 0.15s;z-index:200;}
+    .pp-pts-info:hover::after{opacity:1;}
     .rv-price{font-family:'Playfair Display',serif;font-size:1.85rem;font-weight:600;color:var(--rv-bark);}
     .rv-afterpay{font-size:0.82rem;color:var(--rv-warm-gray);margin-bottom:24px;}.rv-afterpay img{vertical-align:middle;display:inline;}
     .rv-opt{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border:2px solid var(--rv-border);border-radius:12px;cursor:pointer;transition:all 0.2s;margin-bottom:8px;}
@@ -50,7 +53,7 @@
     .rv-opt-label{font-weight:600;font-size:0.88rem;}.rv-opt-sublabel{font-size:0.78rem;color:var(--rv-warm-gray);}.rv-opt-price{font-weight:700;font-size:0.92rem;}
     .rv-stock{font-size:0.82rem;color:var(--rv-sage);font-weight:600;margin:18px 0;display:flex;align-items:center;gap:6px;}
     .rv-stock-dot{width:7px;height:7px;border-radius:50%;background:var(--rv-sage);}
-    .rv-actions{display:flex;gap:12px;margin-bottom:16px;}
+    .rv-actions{position:relative;display:flex;gap:12px;margin-bottom:16px;}
     .rv-qty{display:flex;border:2px solid var(--rv-border);border-radius:10px;overflow:hidden;}
     .rv-qty button{width:42px;height:48px;border:none;background:var(--rv-white);font-size:1rem;cursor:pointer;color:var(--rv-bark);transition:background 0.2s;}.rv-qty button:hover{background:var(--rv-cream);}
     .rv-qty input{width:44px;text-align:center;border:none;border-left:1px solid var(--rv-border);border-right:1px solid var(--rv-border);font-size:0.9rem;font-weight:600;-moz-appearance:textfield;}
@@ -164,7 +167,6 @@
       {{ if $p.compare_price }}<span style="text-decoration:line-through;color:var(--rv-warm-gray,#877B71);font-size:0.95rem;margin-left:8px;">${{ $p.compare_price }}</span>{{ end }}
     </div>
     <p class="rv-afterpay">or 4 interest free payments of $<span id="afterpayPrice">{{ printf "%.2f" (math.Div (float $p.price_nz) 4) }}</span> with <img src="/img/afterpay.webp" height="20" alt="afterpay"></p>
-    <p class="pp-points-hint" title="Earn PrimalPoints on every purchase — 100 pts = $1 off your next order">🌿 Earn ~{{ math.Round (math.Mul (float $p.price_nz) 100) }} PrimalPoints on this order <span class="pp-pts-info">?</span></p>
     <div style="margin-bottom:24px;">
       <div class="rv-opt sel" data-pid="{{ $p.price_id_nz }}" data-price="{{ $p.price_nz }}" onclick="selOpt(this)">
         <div class="rv-opt-left"><div class="rv-opt-radio"><div class="rv-opt-dot"></div></div><div><div class="rv-opt-label">One-Time Purchase</div><div class="rv-opt-sublabel">50ml · 2–3 months supply</div></div></div>
@@ -182,6 +184,7 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
         <span id="atcText">Add to Cart — ${{ $p.price_nz }}</span>
       </button>
+      <p class="pp-points-hint">~<strong>{{ math.Round (math.Mul (float $p.price_nz) 10) }} PrimalPoints</strong> <i class="pp-pts-info" data-tip="Earn points on every purchase — redeem on your next order">i</i></p>
     </div>
     <p class="sub-cta">Money back guarantee · Speedy NZ-wide shipping</p>
     <div class="rv-guarantees">

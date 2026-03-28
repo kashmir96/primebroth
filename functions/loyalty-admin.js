@@ -163,7 +163,7 @@ exports.handler = async (event) => {
         ]);
         const rows = await rowsRes.json();
         const settingsArr = await settingsRes.json();
-        const settings = settingsArr?.[0] || { points_to_dollar_rate: 100, min_redemption_points: 500 };
+        const settings = settingsArr?.[0] || { points_to_dollar_rate: 1000, min_redemption_points: 1000 };
 
         const balance = Array.isArray(rows) ? rows.reduce((sum, r) => {
           if (r.expires_at === null || r.expires_at > now) return sum + r.points;
@@ -337,7 +337,7 @@ exports.handler = async (event) => {
 
       const settingsRes = await sbFetch('/rest/v1/loyalty_settings?id=eq.1&select=*');
       const settingsArr = await settingsRes.json();
-      const settings = settingsArr?.[0] || { points_to_dollar_rate: 100, min_redemption_points: 500 };
+      const settings = settingsArr?.[0] || { points_to_dollar_rate: 1000, min_redemption_points: 1000 };
 
       let sent = 0;
       for (const email of emails) {

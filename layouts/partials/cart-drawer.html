@@ -37,6 +37,7 @@
             <span style="font-weight:700;font-size:0.95rem;">Total</span>
             <span id="ppDrawerTotal" style="font-weight:700;font-size:0.95rem;">$0.00</span>
         </div>
+        <div id="ppDrawerPoints" class="pp-drawer-points" style="display:none;"></div>
         <button class="pp-drawer-checkout-btn" id="ppDrawerCheckout">Proceed to Checkout</button>
         <a href="/cart" class="pp-drawer-viewcart" id="ppDrawerViewCart">View Full Cart</a>
         <button class="pp-drawer-continue" id="ppDrawerContinue">Continue Shopping</button>
@@ -160,6 +161,15 @@
     text-underline-offset: 3px;
 }
 .pp-drawer-continue:hover { color: #4A3728; }
+
+/* PrimalPoints drawer hint */
+.pp-drawer-points {
+    font-size: 0.75rem; color: #8B7355; text-align: center;
+    margin: 10px 0 2px; padding: 7px 12px;
+    background: rgba(156,175,136,0.08); border-radius: 6px;
+    border: 1px solid rgba(156,175,136,0.2);
+}
+.pp-drawer-points strong { color: #6B8F5B; font-weight: 600; }
 
 /* Badge bounce */
 @keyframes ppCartBounce {
@@ -339,6 +349,16 @@
         if (shipCostEl) shipCostEl.textContent = '$' + shippingCost.toFixed(2);
 
         renderShipProgress(subtotal);
+
+        // PrimalPoints hint (NZ only)
+        var ptsEl = document.getElementById('ppDrawerPoints');
+        if (ptsEl && market === 'NZ' && subtotal > 0) {
+            var pts = Math.ceil(subtotal * 10 / 10) * 10;
+            ptsEl.innerHTML = '~ <strong>' + pts.toLocaleString() + ' PrimalPoints</strong> earned on this order';
+            ptsEl.style.display = '';
+        } else if (ptsEl) {
+            ptsEl.style.display = 'none';
+        }
 
         // Qty +/- handlers
         itemsEl.querySelectorAll('.pp-drawer-qty-btn').forEach(function(btn) {
