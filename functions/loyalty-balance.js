@@ -49,7 +49,7 @@ exports.handler = async (event) => {
 
     const rows = await rowsRes.json();
     const settingsArr = await settingsRes.json();
-    const settings = settingsArr?.[0] || { points_to_dollar_rate: 100, min_redemption_points: 100, points_per_dollar: 10 };
+    const settings = settingsArr?.[0] || { points_to_dollar_rate: 1000, min_redemption_points: 1000, points_per_dollar: 10 };
 
     if (!Array.isArray(rows)) {
       return { statusCode: 200, headers: HEADERS, body: JSON.stringify({ balance: 0, pending_expiry: 0, expiry_date: null, ...settings }) };

@@ -792,7 +792,7 @@
                     🌿 PrimalPoints
                     <span class="pp-pts-tooltip-wrap">
                         <span class="pp-pts-tooltip-icon">?</span>
-                        <span class="pp-pts-tooltip">Earn points on every purchase and redeem them for dollars off future orders. 100 pts = $1 off.</span>
+                        <span class="pp-pts-tooltip">Earn points on every purchase and redeem them for dollars off future orders. 1,000 pts = $1 off.</span>
                     </span>
                 </div>
 
@@ -813,9 +813,9 @@
 
                 <!-- Redeem section -->
                 <div class="pp-pts-redeem-section" id="ppRedeemSection" style="display:none;">
-                    <p class="pp-pts-redeem-hint">Redeem your points for dollars off your next order — 100 pts = $1.</p>
+                    <p class="pp-pts-redeem-hint">Redeem your points for dollars off your next order — 1,000 pts = $1.</p>
                     <div class="pp-pts-redeem-row">
-                        <input type="number" class="pp-pts-redeem-input" id="ppRedeemInput" placeholder="100" min="100" step="100">
+                        <input type="number" class="pp-pts-redeem-input" id="ppRedeemInput" placeholder="1000" min="1000" step="1000">
                         <button class="pp-pts-redeem-btn" id="ppRedeemBtn" onclick="ppRedeem()">Redeem</button>
                         <span class="pp-pts-redeem-val" id="ppRedeemVal"></span>
                     </div>
@@ -1060,9 +1060,9 @@
     // ── PrimalPoints widget ────────────────────────────────────
     var ppEmail = null;
     var ppBalance = 0;
-    var ppMinRedeem = 100;
+    var ppMinRedeem = 1000;
     var ppRate = 10; // pts per $1
-    var ppRedeemRate = 100; // pts needed per $1 off
+    var ppRedeemRate = 1000; // pts needed per $1 off
 
     function ppLoadLoyalty(email, orderAmountDollars) {
         ppEmail = email;
@@ -1072,9 +1072,9 @@
                 if (data.error) return;
 
                 ppBalance = data.balance || 0;
-                ppMinRedeem = data.min_redemption_points || 100;
+                ppMinRedeem = data.min_redemption_points || 1000;
                 ppRate = data.points_per_dollar || 10;
-                ppRedeemRate = data.points_to_dollar_rate || 100;
+                ppRedeemRate = data.points_to_dollar_rate || 1000;
 
                 // Calculate points earned this order (amount_total is already in dollars)
                 var orderTotal = orderAmountDollars || 0;

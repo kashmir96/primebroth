@@ -42,8 +42,8 @@ async function getSettings() {
   const rows = await res.json();
   return rows && rows[0] ? rows[0] : {
     points_per_dollar: 10,
-    points_to_dollar_rate: 100,
-    min_redemption_points: 100,
+    points_to_dollar_rate: 1000,
+    min_redemption_points: 1000,
     double_points_active: false,
     double_points_sku: null,
     double_points_until: null,
@@ -96,7 +96,7 @@ function purchaseEmailHtml({ email, pointsEarned, newBalance, orderTotal, expiry
 
     <p style="margin:0 0 8px;font-size:0.85rem;color:#877B71;line-height:1.6;">
       PrimalPoints can be redeemed for dollars off your next order.
-      ${newBalance >= 100 ? `<strong style="color:#3D5230;">You have enough to redeem right now!</strong>` : `Keep earning — you're ${(100 - newBalance).toLocaleString()} pts away from your first redemption.`}
+      ${newBalance >= 1000 ? `<strong style="color:#3D5230;">You have enough to redeem right now!</strong>` : `Keep earning — you're ${(1000 - newBalance).toLocaleString()} pts away from your first redemption.`}
     </p>
 
     <p style="margin:16px 0 0;font-size:0.78rem;color:#C8A87A;">
