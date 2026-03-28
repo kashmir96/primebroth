@@ -309,12 +309,12 @@
 .pp-pts-widget {
   max-width: 640px;
   margin: 0 auto;
-  padding: 0 24px 40px;
+  padding: 0 24px 24px;
 }
 .pp-pts-card {
   background: linear-gradient(145deg, #1a1008 0%, #2a1a0e 100%);
-  border-radius: 16px;
-  padding: 28px 28px 24px;
+  border-radius: 14px;
+  padding: 20px 22px 18px;
   border: 1px solid rgba(200,168,122,0.22);
   color: #fff;
   font-family: 'DM Sans', sans-serif;
@@ -351,13 +351,13 @@
   margin-bottom: 6px;
 }
 .pp-pts-earned-num {
-  font-size: 2.6rem;
+  font-size: 2rem;
   font-weight: 800;
   color: #C8A87A;
   line-height: 1;
 }
 .pp-pts-earned-label {
-  font-size: 0.88rem;
+  font-size: 0.82rem;
   color: rgba(255,255,255,0.55);
 }
 .pp-pts-balance-row {
@@ -365,9 +365,9 @@
   align-items: center;
   justify-content: space-between;
   background: rgba(255,255,255,0.05);
-  border-radius: 10px;
-  padding: 12px 16px;
-  margin: 16px 0;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 12px 0;
   gap: 12px;
 }
 .pp-pts-balance-info { flex: 1; }
@@ -792,7 +792,7 @@
                     🌿 PrimalPoints
                     <span class="pp-pts-tooltip-wrap">
                         <span class="pp-pts-tooltip-icon">?</span>
-                        <span class="pp-pts-tooltip">Earn points on every purchase and redeem them for real dollars off future orders. 1,000 points = $1 off.</span>
+                        <span class="pp-pts-tooltip">Earn points on every purchase and redeem them for dollars off future orders. 100 pts = $1 off.</span>
                     </span>
                 </div>
 
@@ -813,9 +813,9 @@
 
                 <!-- Redeem section -->
                 <div class="pp-pts-redeem-section" id="ppRedeemSection" style="display:none;">
-                    <p class="pp-pts-redeem-hint">Redeem your points for dollars off your next order — 1,000 pts = $1.</p>
+                    <p class="pp-pts-redeem-hint">Redeem your points for dollars off your next order — 100 pts = $1.</p>
                     <div class="pp-pts-redeem-row">
-                        <input type="number" class="pp-pts-redeem-input" id="ppRedeemInput" placeholder="1000" min="1000" step="1000">
+                        <input type="number" class="pp-pts-redeem-input" id="ppRedeemInput" placeholder="100" min="100" step="100">
                         <button class="pp-pts-redeem-btn" id="ppRedeemBtn" onclick="ppRedeem()">Redeem</button>
                         <span class="pp-pts-redeem-val" id="ppRedeemVal"></span>
                     </div>
@@ -1060,11 +1060,11 @@
     // ── PrimalPoints widget ────────────────────────────────────
     var ppEmail = null;
     var ppBalance = 0;
-    var ppMinRedeem = 500;
-    var ppRate = 100; // pts per $1
+    var ppMinRedeem = 100;
+    var ppRate = 10; // pts per $1
     var ppRedeemRate = 100; // pts needed per $1 off
 
-    function ppLoadLoyalty(email, orderAmountCents) {
+    function ppLoadLoyalty(email, orderAmountDollars) {
         ppEmail = email;
         fetch('/.netlify/functions/loyalty-balance?email=' + encodeURIComponent(email))
             .then(function(r) { return r.json(); })
@@ -1072,16 +1072,20 @@
                 if (data.error) return;
 
                 ppBalance = data.balance || 0;
-                ppMinRedeem = data.min_redemption_points || 500;
-                ppRate = data.points_per_dollar || 100;
+                ppMinRedeem = data.min_redemption_points || 100;
+                ppRate = data.points_per_dollar || 10;
                 ppRedeemRate = data.points_to_dollar_rate || 100;
 
-                // Calculate points earned this order
-                var orderTotal = orderAmountCents ? orderAmountCents / 100 : 0;
-                var earned = Math.round(orderTotal * ppRate);
+                // Calculate points earned this order (amount_total is already in dollars)
+                var orderTotal = orderAmountDollars || 0;
+                var earned = Math.ceil(orderTotal * ppRate / 10) * 10;
+
+                // New balance = previous + earned this order (webhook awards same amount)
+                var newBalance = ppBalance + earned;
 
                 document.getElementById('ppEarnedNum').textContent = '+' + earned.toLocaleString();
-                document.getElementById('ppBalanceVal').textContent = ppBalance.toLocaleString() + ' pts';
+                document.getElementById('ppBalanceVal').textContent = newBalance.toLocaleString() + ' pts';
+                ppBalance = newBalance; // use projected balance for redeem logic
 
                 if (data.expiry_date) {
                     var d = new Date(data.expiry_date);
