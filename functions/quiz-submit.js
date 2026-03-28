@@ -89,10 +89,13 @@ Rules:
 async function saveToSupabase(answers, email, products, utm) {
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_KEY;
-  if (!url || !key) return;
+  if (!url || !key) {
+    console.error('[quiz-submit] Missing SUPABASE_URL or SUPABASE_SERVICE_KEY');
+    return;
+  }
 
   try {
-    await fetch(`${url}/rest/v1/quiz_leads`, {
+    const res = await fetch(`${url}/rest/v1/quiz_leads`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -126,6 +129,10 @@ async function saveToSupabase(answers, email, products, utm) {
         created_at: new Date().toISOString(),
       }),
     });
+    if (!res.ok) {
+      const body = await res.text();
+      console.error(`[quiz-submit] Supabase insert failed ${res.status}:`, body);
+    }
   } catch (err) {
     console.error('[quiz-submit] Supabase save error:', err.message);
   }
