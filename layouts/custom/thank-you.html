@@ -749,6 +749,14 @@
                     }
                 }
 
+                // Facebook Purchase event (direct pixel call with real order value)
+                if (typeof fbq === 'function' && data.amount_total) {
+                    fbq('track', 'Purchase', {
+                        value: data.amount_total,
+                        currency: 'NZD'
+                    });
+                }
+
                 // Referral section — show once we have the customer's email
                 if (data.email) {
                     ppReferrerEmail = data.email;
