@@ -1061,7 +1061,7 @@
     var ppEmail = null;
     var ppBalance = 0;
     var ppMinRedeem = 1000;
-    var ppRate = 10; // pts per $1
+    var ppRate = 50; // pts per $1
     var ppRedeemRate = 1000; // pts needed per $1 off
 
     function ppLoadLoyalty(email, orderAmountDollars) {
@@ -1073,7 +1073,7 @@
 
                 ppBalance = data.balance || 0;
                 ppMinRedeem = data.min_redemption_points || 1000;
-                ppRate = data.points_per_dollar || 10;
+                ppRate = data.points_per_dollar || 50;
                 ppRedeemRate = data.points_to_dollar_rate || 1000;
 
                 // Calculate points earned this order (amount_total is already in dollars)

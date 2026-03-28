@@ -41,7 +41,7 @@ async function getSettings() {
   const res = await sbFetch('/rest/v1/loyalty_settings?id=eq.1&select=*');
   const rows = await res.json();
   return rows && rows[0] ? rows[0] : {
-    points_per_dollar: 10,
+    points_per_dollar: 50,
     points_to_dollar_rate: 1000,
     min_redemption_points: 1000,
     double_points_active: false,
