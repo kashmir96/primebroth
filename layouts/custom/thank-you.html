@@ -507,20 +507,19 @@
                     // Step 2: Extract the query string
                     if (!decodedlanding_url) { console.log('No landing_url param — skipping TikTok ttclid'); }
                     const urlObj = decodedlanding_url ? new URL(decodedlanding_url) : null;
-                    if (!urlObj) { return; }
-                    const params = new URLSearchParams(urlObj.search);
+                    if (urlObj) {
+                        const params = new URLSearchParams(urlObj.search);
 
-                    // Step 3: Get ttclid
-                    const ttclid = params.get('ttclid');
-                   // const ttclid = localStorage.getItem('ttclid');
-                    console.log("ttclid: "+ ttclid);
-                    if(ttclid){
-                        ttq.track('CompletePayment', {
-                        value: totalCost,
-                        ttclid: ttclid
-                        });
-
-                        localStorage.removeItem('ttclid');
+                        // Step 3: Get ttclid
+                        const ttclid = params.get('ttclid');
+                        console.log("ttclid: "+ ttclid);
+                        if (ttclid) {
+                            ttq.track('CompletePayment', {
+                                value: totalCost,
+                                ttclid: ttclid
+                            });
+                            localStorage.removeItem('ttclid');
+                        }
                     }
 
                 </script>
