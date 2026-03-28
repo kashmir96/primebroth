@@ -19,9 +19,9 @@ CREATE INDEX IF NOT EXISTS loyalty_points_expires_idx ON loyalty_points(expires_
 -- 2. Global settings (single row)
 CREATE TABLE IF NOT EXISTS loyalty_settings (
   id                    INTEGER PRIMARY KEY DEFAULT 1,
-  points_per_dollar     INTEGER NOT NULL DEFAULT 100,   -- pts earned per $1 spent
-  points_to_dollar_rate INTEGER NOT NULL DEFAULT 100,   -- pts needed for $1 redemption
-  min_redemption_points INTEGER NOT NULL DEFAULT 500,   -- minimum to redeem
+  points_per_dollar     INTEGER NOT NULL DEFAULT 10,    -- pts earned per $1 spent
+  points_to_dollar_rate INTEGER NOT NULL DEFAULT 1000,  -- pts needed for $1 redemption
+  min_redemption_points INTEGER NOT NULL DEFAULT 1000,  -- minimum to redeem
   double_points_active  BOOLEAN NOT NULL DEFAULT FALSE,
   double_points_sku     TEXT,                           -- null = all products
   double_points_until   TIMESTAMPTZ,
