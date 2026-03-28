@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{- partial "head.html" . -}}
+    <title>Affiliate Login — PrimalPantry</title>
+</head>
+<body>
+    {{- partial "header.html" . -}}
+
+    <div style="min-height:70vh;display:flex;align-items:center;justify-content:center;background:#F7F2EB;padding:40px 16px;">
+      <div style="width:100%;max-width:420px;">
+        <div style="background:#fff;border-radius:16px;padding:32px;border:1px solid rgba(123,92,58,0.12);">
+
+          <!-- Login Form -->
+          <div id="loginForm">
+            <h1 style="font-family:Georgia,serif;font-size:24px;color:#1C1A17;margin:0 0 8px;text-align:center;">Affiliate Login</h1>
+            <p style="text-align:center;color:#8A7D70;font-size:14px;margin:0 0 24px;">We'll email you a magic link — no password needed.</p>
+
+            <form onsubmit="return requestMagicLink(event)">
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:600;color:#1C1A17;margin-bottom:4px;">Email Address</label>
+                <input type="email" id="loginEmail" required style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:14px;box-sizing:border-box;">
+              </div>
+              <div id="loginError" style="display:none;background:#fce4e4;color:#c0392b;padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:16px;"></div>
+              <button type="submit" id="loginBtn" style="width:100%;padding:14px;background:#4A5E38;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;">Send Magic Link</button>
+            </form>
+
+            <p style="text-align:center;margin-top:20px;font-size:13px;color:#8A7D70;">
+              Not an affiliate yet? <a href="/affiliates" style="color:#4A5E38;font-weight:600;">Apply here</a>
+            </p>
+          </div>
+
+          <!-- Success State -->
+          <div id="loginSent" style="display:none;text-align:center;padding:20px 0;">
+            <div style="font-size:32px;margin-bottom:12px;">📧</div>
+            <h2 style="font-family:Georgia,serif;color:#1C1A17;margin:0 0 8px;">Check Your Email</h2>
+            <p style="color:#8A7D70;font-size:14px;margin:0 0 16px;">If an approved affiliate account exists for this email, we've sent a login link. It expires in 1 hour.</p>
+            <p style="color:#8A7D70;font-size:13px;margin:0;">Check your spam folder if you don't see it.</p>
+          </div>
+
+          <!-- Verifying State -->
+          <div id="loginVerifying" style="display:none;text-align:center;padding:20px 0;">
+            <p style="color:#8A7D70;font-size:14px;">Verifying your login link...</p>
+          </div>
+
+          <!-- Verify Error -->
+          <div id="loginVerifyError" style="display:none;text-align:center;padding:20px 0;">
+            <div style="font-size:32px;margin-bottom:12px;">⚠️</div>
+            <h2 style="font-family:Georgia,serif;color:#1C1A17;margin:0 0 8px;">Link Expired</h2>
+            <p style="color:#8A7D70;font-size:14px;margin:0 0 16px;" id="verifyErrorMsg">This login link has expired or is invalid.</p>
+            <a href="/affiliates/login" style="color:#4A5E38;font-weight:600;font-size:14px;">Request a new link</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script>
+    (function() {
+      // Check for token in URL (magic link click)
+      var params = new URLSearchParams(window.location.search);
+      var token = params.get('token');
+
+      if (token) {
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('loginVerifying').style.display = 'block';
+
+        fetch('/.netlify/functions/affiliate-auth', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'verify_token', token: token }),
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          if (data.success && data.session_token) {
+            localStorage.setItem('pp_affiliate_token', data.session_token);
+            localStorage.setItem('pp_affiliate_name', data.affiliate.name);
+            window.location.href = '/affiliates/dashboard';
+          } else {
+            document.getElementById('loginVerifying').style.display = 'none';
+            document.getElementById('loginVerifyError').style.display = 'block';
+            if (data.error) document.getElementById('verifyErrorMsg').textContent = data.error;
+          }
+        })
+        .catch(function() {
+          document.getElementById('loginVerifying').style.display = 'none';
+          document.getElementById('loginVerifyError').style.display = 'block';
+        });
+      }
+    })();
+
+    function requestMagicLink(e) {
+      e.preventDefault();
+      var email = document.getElementById('loginEmail').value.trim();
+      var btn = document.getElementById('loginBtn');
+      var errEl = document.getElementById('loginError');
+      errEl.style.display = 'none';
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+
+      fetch('/.netlify/functions/affiliate-auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'request_link', email: email }),
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data.error) {
+          errEl.textContent = data.error;
+          errEl.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = 'Send Magic Link';
+        } else {
+          document.getElementById('loginForm').style.display = 'none';
+          document.getElementById('loginSent').style.display = 'block';
+        }
+      })
+      .catch(function() {
+        errEl.textContent = 'Something went wrong. Please try again.';
+        errEl.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Send Magic Link';
+      });
+      return false;
+    }
+    </script>
+
+    {{- partial "footer.html" . -}}
+</body>
+</html>

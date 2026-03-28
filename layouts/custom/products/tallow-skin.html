@@ -153,6 +153,7 @@
                         <span id="price">-</span>
                     </span>
                     <p class="afterpay-note" style="white-space:nowrap;font-size:12px;">or 4 interest free payments of $<span id="afterpay_price"></span> with <img src="/img/afterpay.webp" class="d-inline" height="14" alt="afterpay"></p>
+                    <p id="pp-points-hint-balm" style="font-size:0.78rem;color:#6B8F5B;font-weight:600;margin:6px 0 0;display:flex;align-items:center;gap:5px;">🌿 <span id="pp-pts-label">Earn PrimalPoints on this order</span> <span title="Earn PrimalPoints on every purchase — 100 pts = $1 off your next order" style="display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:rgba(107,143,91,0.15);border:1px solid rgba(107,143,91,0.3);color:#6B8F5B;font-size:0.62rem;font-weight:800;cursor:help;flex-shrink:0;">?</span></p>
                 </div>
 
                 <!-- Hidden form for data binding -->
@@ -909,6 +910,8 @@
             const price = pricingEntry.prices[country_code][orderType];
             document.getElementById("price").textContent = `$${price.toFixed(2)}`;
             document.getElementById("afterpay_price").textContent = `${(price/4).toFixed(2)}`;
+            var ppPtsEl = document.getElementById('pp-pts-label');
+            if (ppPtsEl) ppPtsEl.textContent = `Earn ~${Math.round(price * 100).toLocaleString()} PrimalPoints on this order`;
 
             // Update cart button price
             var cartDisplay = document.getElementById('cartPriceDisplay');

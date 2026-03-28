@@ -37,6 +37,8 @@
 .rv-pdp-stars span{font-size:0.82rem;color:var(--warm-gray);}
 .rv-pdp-desc{font-size:0.92rem;color:var(--bark-light);line-height:1.75;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border);}
 .rv-price-row{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;}
+.pp-points-hint{font-size:0.78rem;color:#6B8F5B;font-weight:600;margin:6px 0 0;display:flex;align-items:center;gap:5px;line-height:1.4;}
+.pp-pts-info{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:rgba(107,143,91,0.15);border:1px solid rgba(107,143,91,0.3);color:#6B8F5B;font-size:0.62rem;font-weight:800;cursor:help;flex-shrink:0;}
 .rv-price-main{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:600;color:var(--bark);}
 .rv-afterpay{font-size:0.82rem;color:var(--warm-gray);margin-bottom:20px;}
 .rv-afterpay img{vertical-align:middle;display:inline;}
@@ -195,6 +197,7 @@
       {{ if $p.compare_price }}<span style="text-decoration:line-through;color:var(--warm-gray,#877B71);font-size:0.95rem;margin-left:8px;">${{ $p.compare_price }}</span>{{ end }}
     </div>
     <p class="rv-afterpay">or 4 interest free payments of $<span id="afterpayPrice">{{ printf "%.2f" (math.Div (float $p.price_nz) 4) }}</span> with <img src="/img/afterpay.webp" height="20" alt="afterpay"></p>
+    <p class="pp-points-hint" title="Earn PrimalPoints on every purchase — 100 pts = $1 off your next order">🌿 Earn ~{{ math.Round (math.Mul (float $p.price_nz) 100) }} PrimalPoints on this order <span class="pp-pts-info">?</span></p>
     <div class="rv-stock"><span class="rv-stock-dot"></span> In Stock · Ships 1–3 business days</div>
     <div class="rv-actions">
       <div class="rv-qty">

@@ -305,6 +305,243 @@
   margin-bottom: 16px;
 }
 
+/* PrimalPoints widget */
+.pp-pts-widget {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 24px 40px;
+}
+.pp-pts-card {
+  background: linear-gradient(145deg, #1a1008 0%, #2a1a0e 100%);
+  border-radius: 16px;
+  padding: 28px 28px 24px;
+  border: 1px solid rgba(200,168,122,0.22);
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+.pp-pts-card::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: rgba(200,168,122,0.07);
+}
+.pp-pts-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(200,168,122,0.12);
+  border: 1px solid rgba(200,168,122,0.25);
+  color: #C8A87A;
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 4px 12px;
+  border-radius: 100px;
+  margin-bottom: 14px;
+}
+.pp-pts-earned-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.pp-pts-earned-num {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #C8A87A;
+  line-height: 1;
+}
+.pp-pts-earned-label {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.55);
+}
+.pp-pts-balance-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin: 16px 0;
+  gap: 12px;
+}
+.pp-pts-balance-info { flex: 1; }
+.pp-pts-balance-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 3px;
+}
+.pp-pts-balance-val {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #fff;
+}
+.pp-pts-expiry {
+  font-size: 0.7rem;
+  color: rgba(200,168,122,0.6);
+  margin-top: 3px;
+}
+.pp-pts-redeem-section { margin-top: 16px; }
+.pp-pts-redeem-hint {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.pp-pts-redeem-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.pp-pts-redeem-input {
+  width: 100px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 100px;
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  text-align: center;
+}
+.pp-pts-redeem-input:focus { border-color: #C8A87A; }
+.pp-pts-redeem-btn {
+  background: linear-gradient(135deg, #C8A87A 0%, #D4A84B 100%);
+  color: #1a1008;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 100px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+.pp-pts-redeem-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(200,168,122,0.4);
+}
+.pp-pts-redeem-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+.pp-pts-redeem-val {
+  font-size: 0.88rem;
+  color: rgba(200,168,122,0.8);
+  padding: 0 4px;
+}
+.pp-pts-code-box {
+  display: none;
+  margin-top: 14px;
+  background: rgba(61,82,48,0.3);
+  border: 1px solid rgba(107,143,91,0.35);
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+.pp-pts-code-box.visible { display: block; }
+.pp-pts-code-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 8px;
+}
+.pp-pts-code-val {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.12em;
+  font-family: monospace;
+  margin-bottom: 8px;
+}
+.pp-pts-copy-btn {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.8);
+  padding: 7px 16px;
+  border-radius: 100px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pp-pts-copy-btn:hover { background: rgba(255,255,255,0.18); }
+.pp-pts-msg {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  min-height: 18px;
+  margin-top: 8px;
+  padding: 0 2px;
+}
+.pp-pts-msg.ok { color: #6B8F5B; }
+.pp-pts-msg.err { color: #f87171; }
+.pp-pts-insufficient {
+  font-size: 0.82rem;
+  color: rgba(200,168,122,0.6);
+  margin-top: 12px;
+  line-height: 1.5;
+}
+.pp-pts-tooltip-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.pp-pts-tooltip-icon {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: rgba(200,168,122,0.2);
+  border: 1px solid rgba(200,168,122,0.35);
+  color: #C8A87A;
+  font-size: 0.65rem;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: help;
+  margin-left: 6px;
+  flex-shrink: 0;
+}
+.pp-pts-tooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1008;
+  border: 1px solid rgba(200,168,122,0.25);
+  color: rgba(255,255,255,0.8);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  padding: 10px 14px;
+  border-radius: 10px;
+  width: 220px;
+  white-space: normal;
+  z-index: 100;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+.pp-pts-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid rgba(200,168,122,0.25);
+}
+.pp-pts-tooltip-wrap:hover .pp-pts-tooltip { display: block; }
+
 /* Referral section */
 .pp-ty-referral {
   max-width: 640px;
@@ -548,6 +785,55 @@
             <div id="shareThisContainer" style="display:none;"></div>
         </div>
 
+        <!-- PrimalPoints widget (shown after email retrieved from session) -->
+        <div id="pp-pts-widget" class="pp-pts-widget" style="display:none;">
+            <div class="pp-pts-card">
+                <div class="pp-pts-badge">
+                    🌿 PrimalPoints
+                    <span class="pp-pts-tooltip-wrap">
+                        <span class="pp-pts-tooltip-icon">?</span>
+                        <span class="pp-pts-tooltip">Earn points on every purchase and redeem them for real dollars off future orders. 100 points = $1 off.</span>
+                    </span>
+                </div>
+
+                <!-- Points earned this order -->
+                <div class="pp-pts-earned-row">
+                    <div class="pp-pts-earned-num" id="ppEarnedNum">+0</div>
+                    <div class="pp-pts-earned-label">PrimalPoints earned this order</div>
+                </div>
+
+                <!-- Running balance -->
+                <div class="pp-pts-balance-row">
+                    <div class="pp-pts-balance-info">
+                        <div class="pp-pts-balance-label">Your total balance</div>
+                        <div class="pp-pts-balance-val" id="ppBalanceVal">— pts</div>
+                        <div class="pp-pts-expiry" id="ppExpiry"></div>
+                    </div>
+                </div>
+
+                <!-- Redeem section -->
+                <div class="pp-pts-redeem-section" id="ppRedeemSection" style="display:none;">
+                    <p class="pp-pts-redeem-hint">Redeem your points for dollars off your next order — 100 pts = $1.</p>
+                    <div class="pp-pts-redeem-row">
+                        <input type="number" class="pp-pts-redeem-input" id="ppRedeemInput" placeholder="500" min="500" step="100">
+                        <button class="pp-pts-redeem-btn" id="ppRedeemBtn" onclick="ppRedeem()">Redeem</button>
+                        <span class="pp-pts-redeem-val" id="ppRedeemVal"></span>
+                    </div>
+                    <div class="pp-pts-msg" id="ppRedeemMsg"></div>
+
+                    <div class="pp-pts-code-box" id="ppCodeBox">
+                        <div class="pp-pts-code-label">Your discount code</div>
+                        <div class="pp-pts-code-val" id="ppCodeVal"></div>
+                        <button class="pp-pts-copy-btn" onclick="ppCopyCode()">Copy code</button>
+                        <div style="font-size:0.72rem;color:rgba(255,255,255,0.35);margin-top:8px;">Valid 60 days · One use · Enter at checkout</div>
+                    </div>
+                </div>
+
+                <!-- Not enough to redeem yet -->
+                <div class="pp-pts-insufficient" id="ppInsufficientMsg" style="display:none;"></div>
+            </div>
+        </div>
+
         <!-- Referral section (shown when session_id present + customer email retrieved) -->
         <div id="pp-ty-referral-section" class="pp-ty-referral" style="display:none;">
             <div class="pp-ty-referral-card">
@@ -761,10 +1047,158 @@
                 if (data.email) {
                     ppReferrerEmail = data.email;
                     document.getElementById('pp-ty-referral-section').style.display = 'block';
+
+                    // PrimalPoints widget
+                    ppLoadLoyalty(data.email, data.amount_total);
                 }
             })
             .catch(() => {}); // silently fail — not critical
     })();
+    </script>
+
+    <script>
+    // ── PrimalPoints widget ────────────────────────────────────
+    var ppEmail = null;
+    var ppBalance = 0;
+    var ppMinRedeem = 500;
+    var ppRate = 100; // pts per $1
+    var ppRedeemRate = 100; // pts needed per $1 off
+
+    function ppLoadLoyalty(email, orderAmountCents) {
+        ppEmail = email;
+        fetch('/.netlify/functions/loyalty-balance?email=' + encodeURIComponent(email))
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data.error) return;
+
+                ppBalance = data.balance || 0;
+                ppMinRedeem = data.min_redemption_points || 500;
+                ppRate = data.points_per_dollar || 100;
+                ppRedeemRate = data.points_to_dollar_rate || 100;
+
+                // Calculate points earned this order
+                var orderTotal = orderAmountCents ? orderAmountCents / 100 : 0;
+                var earned = Math.round(orderTotal * ppRate);
+
+                document.getElementById('ppEarnedNum').textContent = '+' + earned.toLocaleString();
+                document.getElementById('ppBalanceVal').textContent = ppBalance.toLocaleString() + ' pts';
+
+                if (data.expiry_date) {
+                    var d = new Date(data.expiry_date);
+                    var exp = d.toLocaleDateString('en-NZ', { day: 'numeric', month: 'short', year: 'numeric' });
+                    document.getElementById('ppExpiry').textContent = 'Points expire ' + exp;
+                }
+
+                // Show widget
+                document.getElementById('pp-pts-widget').style.display = 'block';
+
+                // Redeem section
+                var redeemSection = document.getElementById('ppRedeemSection');
+                var insufficientMsg = document.getElementById('ppInsufficientMsg');
+                if (ppBalance >= ppMinRedeem) {
+                    redeemSection.style.display = 'block';
+                    document.getElementById('ppRedeemInput').value = Math.min(ppBalance, ppMinRedeem);
+                    ppUpdateRedeemVal();
+                } else {
+                    insufficientMsg.style.display = 'block';
+                    var needed = ppMinRedeem - ppBalance;
+                    insufficientMsg.textContent = 'Keep earning — you\'re ' + needed.toLocaleString() + ' pts away from your first redemption ($' + Math.floor(ppMinRedeem / ppRedeemRate) + ' off).';
+                }
+            })
+            .catch(function() {});
+    }
+
+    function ppUpdateRedeemVal() {
+        var input = document.getElementById('ppRedeemInput');
+        var val = parseInt(input.value, 10) || 0;
+        var dollars = Math.floor(val / ppRedeemRate);
+        var el = document.getElementById('ppRedeemVal');
+        if (dollars > 0) {
+            el.textContent = '= $' + dollars + ' off';
+        } else {
+            el.textContent = '';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var inp = document.getElementById('ppRedeemInput');
+        if (inp) inp.addEventListener('input', ppUpdateRedeemVal);
+    });
+
+    function ppRedeem() {
+        var pts = parseInt(document.getElementById('ppRedeemInput').value, 10) || 0;
+        var msg = document.getElementById('ppRedeemMsg');
+        var btn = document.getElementById('ppRedeemBtn');
+
+        if (pts < ppMinRedeem) {
+            msg.textContent = 'Minimum redemption is ' + ppMinRedeem.toLocaleString() + ' points.';
+            msg.className = 'pp-pts-msg err';
+            return;
+        }
+        if (pts > ppBalance) {
+            msg.textContent = 'You only have ' + ppBalance.toLocaleString() + ' points.';
+            msg.className = 'pp-pts-msg err';
+            return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Generating...';
+        msg.textContent = '';
+        msg.className = 'pp-pts-msg';
+
+        fetch('/.netlify/functions/loyalty-redeem', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: ppEmail, points_to_redeem: pts }),
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            if (data.error) {
+                msg.textContent = data.error;
+                msg.className = 'pp-pts-msg err';
+                btn.disabled = false;
+                btn.textContent = 'Redeem';
+            } else {
+                // Show promo code
+                document.getElementById('ppCodeVal').textContent = data.promo_code;
+                document.getElementById('ppCodeBox').classList.add('visible');
+                msg.textContent = '✅ $' + data.dollar_value + ' discount code generated!';
+                msg.className = 'pp-pts-msg ok';
+
+                // Update balance display
+                ppBalance = data.new_balance || 0;
+                document.getElementById('ppBalanceVal').textContent = ppBalance.toLocaleString() + ' pts';
+
+                btn.disabled = true;
+                btn.textContent = 'Redeemed!';
+                document.getElementById('ppRedeemInput').disabled = true;
+            }
+        })
+        .catch(function() {
+            msg.textContent = 'Something went wrong. Try again.';
+            msg.className = 'pp-pts-msg err';
+            btn.disabled = false;
+            btn.textContent = 'Redeem';
+        });
+    }
+
+    function ppCopyCode() {
+        var code = document.getElementById('ppCodeVal').textContent;
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(code).then(function() {
+                var btn = document.querySelector('.pp-pts-copy-btn');
+                btn.textContent = 'Copied!';
+                setTimeout(function() { btn.textContent = 'Copy code'; }, 2000);
+            });
+        } else {
+            var el = document.getElementById('ppCodeVal');
+            var sel = window.getSelection();
+            var range = document.createRange();
+            range.selectNodeContents(el);
+            sel.removeAllRanges();
+            sel.addRange(range);
+        }
+    }
     </script>
 
     <!-- Add html above -->

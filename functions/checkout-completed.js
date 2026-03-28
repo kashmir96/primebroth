@@ -89,6 +89,17 @@ exports.handler = async (event, context) => {
 
       // Run FB CAPI and Airtable in parallel — fire-and-forget so failures
       // never prevent Stripe from receiving the 200 OK
+      // Award loyalty points (NZ only — not AU)
+      const { awardLoyaltyPoints } = require('./loyalty-earn');
+      const loyaltyPromise = market === 'NZ'
+        ? awardLoyaltyPoints({
+            email: customerEmail,
+            totalValue: (session.amount_total || 0) / 100,
+            lineItems: fullSession?.line_items?.data || [],
+            orderId: session.id,
+          }).catch(err => console.error('[webhook] loyalty-earn failed:', err.message))
+        : Promise.resolve();
+
       await Promise.allSettled([
         trackPurchase({
           email: customerEmail,
@@ -99,8 +110,9 @@ exports.handler = async (event, context) => {
         pushToEship({ session: fullSession, market, fetch }),
         addToSupabase({ session: fullSession, market, fetch }),
         saveOsoMeta(fullSession, fetch),
+        loyaltyPromise,
       ]).then(results => {
-        const labels = ['FB CAPI', 'Airtable', 'eShip', 'Supabase', 'Oso Meta'];
+        const labels = ['FB CAPI', 'Airtable', 'eShip', 'Supabase', 'Oso Meta', 'Loyalty'];
         results.forEach((r, i) => {
           if (r.status === 'rejected') {
             console.error(`[webhook] ${labels[i]} failed:`, r.reason);

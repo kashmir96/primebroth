@@ -37,6 +37,8 @@
     .rv-stars{display:flex;align-items:center;gap:8px;margin-bottom:16px;color:var(--rv-sage);}.rv-stars span{font-size:0.82rem;color:var(--rv-warm-gray);}
     .rv-desc{font-size:0.92rem;color:var(--rv-bark-light);line-height:1.78;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--rv-border);}
     .rv-price-row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
+    .pp-points-hint{font-size:0.78rem;color:#6B8F5B;font-weight:600;margin:2px 0 10px;display:flex;align-items:center;gap:5px;line-height:1.4;}
+    .pp-pts-info{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:rgba(107,143,91,0.15);border:1px solid rgba(107,143,91,0.3);color:#6B8F5B;font-size:0.62rem;font-weight:800;cursor:help;flex-shrink:0;}
     .rv-price{font-family:'Playfair Display',serif;font-size:1.85rem;font-weight:600;color:var(--rv-bark);}
     .rv-afterpay{font-size:0.82rem;color:var(--rv-warm-gray);margin-bottom:24px;}.rv-afterpay img{vertical-align:middle;display:inline;}
     .rv-opt{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border:2px solid var(--rv-border);border-radius:12px;cursor:pointer;transition:all 0.2s;margin-bottom:8px;}
@@ -160,6 +162,7 @@
       {{ if $p.compare_price }}<span style="text-decoration:line-through;color:var(--rv-warm-gray,#877B71);font-size:0.95rem;margin-left:8px;">${{ $p.compare_price }}</span>{{ end }}
     </div>
     <p class="rv-afterpay">or 4 interest free payments of $<span id="afterpayPrice">{{ printf "%.2f" (math.Div (float $p.price_nz) 4) }}</span> with <img src="/img/afterpay.webp" height="20" alt="afterpay"></p>
+    <p class="pp-points-hint" title="Earn PrimalPoints on every purchase — 100 pts = $1 off your next order">🌿 Earn ~{{ math.Round (math.Mul (float $p.price_nz) 100) }} PrimalPoints on this order <span class="pp-pts-info">?</span></p>
     <div style="margin-bottom:24px;">
       <div class="rv-opt sel" data-pid="{{ $p.price_id_nz }}" data-price="{{ $p.price_nz }}" onclick="selOpt(this)">
         <div class="rv-opt-left"><div class="rv-opt-radio"><div class="rv-opt-dot"></div></div><div><div class="rv-opt-label">One-Time Purchase</div><div class="rv-opt-sublabel">15ml · 2–3 months supply</div></div></div>

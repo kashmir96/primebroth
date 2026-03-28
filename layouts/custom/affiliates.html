@@ -175,14 +175,111 @@
                 </div>                         
             </div>
         </div>
-        <h3>Partner Resources</h3>
-<p>Regardless of your partnership type, we're dedicated to supporting you in achieving the best results with our products. Explore our partner resources page for valuable information and templates to assist with marketing and answering customer questions about PrimalPantry products.</p>
-<a href="/partner-resources">Visit Partner Resources</a>
     </div>
-<div class="row peach mb-0 text-center">
-    <h3>Ready to become an affiliate and earn commission selling PrimalPantry?</h3>
-    <p>Complete our <a style="color:palevioletred; text-decoration: underline;" href="/partner-request">partner request form</a> to express your interest.</p>
-</div>
+
+    <!-- Application Form -->
+    <div class="container" style="max-width:640px;margin:40px auto;padding:0 16px;">
+      <div style="background:#fff;border-radius:16px;padding:32px;border:1px solid rgba(123,92,58,0.12);">
+        <h2 style="font-family:Georgia,serif;font-size:24px;color:#1C1A17;margin:0 0 8px;text-align:center;">Apply to Join</h2>
+        <p style="text-align:center;color:#8A7D70;font-size:14px;margin:0 0 24px;">20% commission on every sale. 10% discount for your audience.</p>
+
+        <form id="affForm" onsubmit="return submitAffiliateForm(event)">
+          <div style="margin-bottom:16px;">
+            <label style="display:block;font-size:13px;font-weight:600;color:#1C1A17;margin-bottom:4px;">Full Name *</label>
+            <input type="text" name="name" required style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:14px;box-sizing:border-box;">
+          </div>
+          <div style="margin-bottom:16px;">
+            <label style="display:block;font-size:13px;font-weight:600;color:#1C1A17;margin-bottom:4px;">Email *</label>
+            <input type="email" name="email" required style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:14px;box-sizing:border-box;">
+          </div>
+          <div style="margin-bottom:16px;">
+            <label style="display:block;font-size:13px;font-weight:600;color:#1C1A17;margin-bottom:4px;">Social Media Links</label>
+            <textarea name="social_links" rows="2" placeholder="Instagram, TikTok, YouTube, etc." style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:14px;box-sizing:border-box;resize:vertical;"></textarea>
+          </div>
+          <div style="margin-bottom:16px;">
+            <label style="display:block;font-size:13px;font-weight:600;color:#1C1A17;margin-bottom:4px;">Website URL</label>
+            <input type="url" name="website" placeholder="https://" style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:14px;box-sizing:border-box;">
+          </div>
+          <div style="margin-bottom:16px;">
+            <label style="display:block;font-size:13px;font-weight:600;color:#1C1A17;margin-bottom:4px;">Audience Size</label>
+            <select name="audience_size" style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:14px;box-sizing:border-box;background:#fff;">
+              <option value="">Select...</option>
+              <option value="Under 1,000">Under 1,000</option>
+              <option value="1,000 - 5,000">1,000 - 5,000</option>
+              <option value="5,000 - 10,000">5,000 - 10,000</option>
+              <option value="10,000 - 50,000">10,000 - 50,000</option>
+              <option value="50,000+">50,000+</option>
+            </select>
+          </div>
+          <div style="margin-bottom:16px;">
+            <label style="display:block;font-size:13px;font-weight:600;color:#1C1A17;margin-bottom:4px;">Why do you want to partner with us? *</label>
+            <textarea name="reason" rows="3" required style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:14px;box-sizing:border-box;resize:vertical;"></textarea>
+          </div>
+          <div style="margin-bottom:20px;">
+            <label style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#1C1A17;cursor:pointer;">
+              <input type="checkbox" name="terms_accepted" required style="margin-top:2px;">
+              <span>I agree to the <a href="/pages/terms-of-use" target="_blank" style="color:#4A5E38;text-decoration:underline;">Terms & Conditions</a> and the affiliate programme terms outlined above.</span>
+            </label>
+          </div>
+          <div id="affError" style="display:none;background:#fce4e4;color:#c0392b;padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:16px;"></div>
+          <button type="submit" id="affSubmitBtn" style="width:100%;padding:14px;background:#4A5E38;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;">Submit Application</button>
+        </form>
+
+        <div id="affSuccess" style="display:none;text-align:center;padding:20px 0;">
+          <div style="font-size:32px;margin-bottom:12px;">✓</div>
+          <h3 style="font-family:Georgia,serif;color:#1C1A17;margin:0 0 8px;">Application Submitted</h3>
+          <p style="color:#8A7D70;font-size:14px;margin:0;">We'll review your application and be in touch within 48 hours.</p>
+        </div>
+
+        <p style="text-align:center;margin-top:20px;font-size:13px;color:#8A7D70;">
+          Already an affiliate? <a href="/affiliates/login" style="color:#4A5E38;font-weight:600;">Log in here</a>
+        </p>
+      </div>
+    </div>
+
+    <script>
+    async function submitAffiliateForm(e) {
+      e.preventDefault();
+      var form = document.getElementById('affForm');
+      var btn = document.getElementById('affSubmitBtn');
+      var errEl = document.getElementById('affError');
+      errEl.style.display = 'none';
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+
+      try {
+        var res = await fetch('/.netlify/functions/affiliate-apply', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: form.name.value.trim(),
+            email: form.email.value.trim(),
+            social_links: form.social_links.value.trim(),
+            website: form.website.value.trim(),
+            audience_size: form.audience_size.value,
+            reason: form.reason.value.trim(),
+            terms_accepted: form.terms_accepted.checked,
+          }),
+        });
+        var data = await res.json();
+        if (data.error) {
+          errEl.textContent = data.error;
+          errEl.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = 'Submit Application';
+          return false;
+        }
+        form.style.display = 'none';
+        document.getElementById('affSuccess').style.display = 'block';
+      } catch (err) {
+        errEl.textContent = 'Something went wrong. Please try again.';
+        errEl.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Submit Application';
+      }
+      return false;
+    }
+    </script>
    
     <!-- Add html above -->
     {{- partial "footer.html" . -}}

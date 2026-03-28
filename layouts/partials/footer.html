@@ -66,9 +66,13 @@
 
     if (!getCookie('landingURL')) {
         setCookie('landingURL', window.location.href, 30);
-        console.log('Landing URL stored:', window.location.href);
-    } else {
-        console.log('Landing URL already exists:', getCookie('landingURL'));
+    }
+
+    // Affiliate ref tracking — set cookie + log click
+    var refParam = new URLSearchParams(window.location.search).get('ref');
+    if (refParam) {
+        setCookie('pp_ref', refParam, 30);
+        fetch('/.netlify/functions/affiliate-track?code=' + encodeURIComponent(refParam) + '&page=' + encodeURIComponent(window.location.pathname)).catch(function(){});
     }
 });
   </script>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{- partial "head.html" . -}}
+    <title>Affiliate Dashboard — PrimalPantry</title>
+    <style>
+      .aff-wrap { max-width:900px;margin:0 auto;padding:32px 16px; }
+      .aff-header { display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px; }
+      .aff-header h1 { font-family:Georgia,serif;font-size:24px;color:#1C1A17;margin:0; }
+      .aff-logout { background:none;border:1px solid #ccc;border-radius:8px;padding:8px 16px;font-size:13px;cursor:pointer;color:#8A7D70; }
+      .aff-stats { display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:24px; }
+      .aff-stat { background:#fff;border-radius:12px;padding:16px;border:1px solid rgba(123,92,58,0.12);text-align:center; }
+      .aff-stat-label { font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:#8A7D70;margin-bottom:4px; }
+      .aff-stat-value { font-family:Georgia,serif;font-size:22px;color:#1C1A17;font-weight:700; }
+      .aff-card { background:#fff;border-radius:12px;padding:24px;border:1px solid rgba(123,92,58,0.12);margin-bottom:16px; }
+      .aff-card h3 { font-family:Georgia,serif;font-size:18px;color:#1C1A17;margin:0 0 12px; }
+      .aff-code-box { background:#F0EBE3;border:2px dashed #C4A07A;border-radius:12px;padding:16px;text-align:center;margin-bottom:8px;cursor:pointer;position:relative; }
+      .aff-code-box code { font-size:20px;font-weight:700;color:#1C1A17;letter-spacing:0.05em; }
+      .aff-copy-hint { font-size:12px;color:#8A7D70;margin-top:4px; }
+      .aff-link-box { background:#F7F2EB;border-radius:8px;padding:10px 14px;font-size:13px;color:#1C1A17;word-break:break-all;cursor:pointer; }
+      .aff-table { width:100%;border-collapse:collapse;font-size:13px; }
+      .aff-table th { text-align:left;padding:8px 10px;border-bottom:2px solid #eee;color:#8A7D70;font-weight:600;font-size:11px;text-transform:uppercase; }
+      .aff-table td { padding:8px 10px;border-bottom:1px solid #f2f0ec; }
+      .aff-balance { color:#4A5E38;font-weight:700; }
+      @media(max-width:600px) { .aff-stats { grid-template-columns:1fr 1fr; } }
+    </style>
+</head>
+<body>
+    {{- partial "header.html" . -}}
+
+    <div style="background:#F7F2EB;min-height:80vh;">
+      <div class="aff-wrap" id="affDash" style="display:none;">
+
+        <div class="aff-header">
+          <h1 id="affWelcome">Welcome back</h1>
+          <button class="aff-logout" onclick="affLogout()">Log out</button>
+        </div>
+
+        <!-- Code + Link -->
+        <div class="aff-card">
+          <h3>Your Affiliate Code</h3>
+          <div class="aff-code-box" onclick="copyCode()" id="affCodeBox">
+            <code id="affCode">-</code>
+            <div class="aff-copy-hint">Click to copy</div>
+          </div>
+          <h3 style="margin-top:16px;">Your Referral Link</h3>
+          <div class="aff-link-box" onclick="copyLink()" id="affLinkBox">
+            <span id="affLink">-</span>
+          </div>
+          <div class="aff-copy-hint" style="text-align:center;margin-top:4px;">Click to copy</div>
+        </div>
+
+        <!-- Stats -->
+        <div class="aff-stats">
+          <div class="aff-stat"><div class="aff-stat-label">Clicks</div><div class="aff-stat-value" id="affClicks">-</div></div>
+          <div class="aff-stat"><div class="aff-stat-label">Orders</div><div class="aff-stat-value" id="affOrders">-</div></div>
+          <div class="aff-stat"><div class="aff-stat-label">Revenue</div><div class="aff-stat-value" id="affRevenue">-</div></div>
+          <div class="aff-stat"><div class="aff-stat-label">Commission</div><div class="aff-stat-value" id="affCommission">-</div></div>
+          <div class="aff-stat"><div class="aff-stat-label">Paid Out</div><div class="aff-stat-value" id="affPaid">-</div></div>
+          <div class="aff-stat"><div class="aff-stat-label">Balance</div><div class="aff-stat-value aff-balance" id="affBalance">-</div></div>
+        </div>
+
+        <!-- Recent Orders -->
+        <div class="aff-card">
+          <h3>Recent Orders</h3>
+          <div id="affOrdersTable"><p style="color:#8A7D70;font-size:13px;">No orders yet. Share your link to start earning!</p></div>
+        </div>
+
+        <!-- Payout History -->
+        <div class="aff-card">
+          <h3>Payout History</h3>
+          <div id="affPayoutsTable"><p style="color:#8A7D70;font-size:13px;">No payouts yet.</p></div>
+        </div>
+
+      </div>
+
+      <!-- Loading -->
+      <div id="affLoading" style="text-align:center;padding:80px 16px;">
+        <p style="color:#8A7D70;font-size:14px;">Loading your dashboard...</p>
+      </div>
+    </div>
+
+    <script>
+    var affToken = localStorage.getItem('pp_affiliate_token');
+
+    if (!affToken) {
+      window.location.href = '/affiliates/login';
+    } else {
+      loadDashboard();
+    }
+
+    async function affFetch(action) {
+      var res = await fetch('/.netlify/functions/affiliate-dashboard-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ session_token: affToken, action: action }),
+      });
+      var data = await res.json();
+      if (data.error && res.status === 401) {
+        localStorage.removeItem('pp_affiliate_token');
+        localStorage.removeItem('pp_affiliate_name');
+        window.location.href = '/affiliates/login';
+        return null;
+      }
+      return data;
+    }
+
+    async function loadDashboard() {
+      try {
+        var [profileData, ordersData, payoutsData] = await Promise.all([
+          affFetch('profile'),
+          affFetch('orders'),
+          affFetch('payouts'),
+        ]);
+
+        if (!profileData || !profileData.affiliate) return;
+
+        var a = profileData.affiliate;
+        var orders = (ordersData && ordersData.orders) || [];
+        var payouts = (payoutsData && payoutsData.payouts) || [];
+
+        // Header
+        document.getElementById('affWelcome').textContent = 'Welcome back, ' + a.name;
+
+        // Code + Link
+        document.getElementById('affCode').textContent = a.affiliate_code || '-';
+        document.getElementById('affLink').textContent = a.referral_link || '-';
+
+        // Stats
+        document.getElementById('affClicks').textContent = a.total_clicks || 0;
+        document.getElementById('affOrders').textContent = a.total_orders || 0;
+        document.getElementById('affRevenue').textContent = '$' + (a.total_revenue || 0).toFixed(2);
+        document.getElementById('affCommission').textContent = '$' + (a.total_commission || 0).toFixed(2);
+        document.getElementById('affPaid').textContent = '$' + (a.total_paid || 0).toFixed(2);
+        var balance = (a.total_commission || 0) - (a.total_paid || 0);
+        document.getElementById('affBalance').textContent = '$' + balance.toFixed(2);
+
+        // Orders table
+        if (orders.length > 0) {
+          var html = '<table class="aff-table"><thead><tr><th>Date</th><th>Order Total</th><th>Commission</th><th>Source</th></tr></thead><tbody>';
+          orders.forEach(function(o) {
+            html += '<tr>';
+            html += '<td>' + new Date(o.created_at).toLocaleDateString('en-NZ') + '</td>';
+            html += '<td>$' + (o.order_total || 0).toFixed(2) + '</td>';
+            html += '<td>$' + (o.commission_amount || 0).toFixed(2) + '</td>';
+            html += '<td>' + (o.attribution_method || '-') + '</td>';
+            html += '</tr>';
+          });
+          html += '</tbody></table>';
+          document.getElementById('affOrdersTable').innerHTML = html;
+        }
+
+        // Payouts table
+        if (payouts.length > 0) {
+          var phtml = '<table class="aff-table"><thead><tr><th>Date</th><th>Amount</th><th>Period</th><th>Notes</th></tr></thead><tbody>';
+          payouts.forEach(function(p) {
+            phtml += '<tr>';
+            phtml += '<td>' + new Date(p.created_at).toLocaleDateString('en-NZ') + '</td>';
+            phtml += '<td>$' + (p.amount || 0).toFixed(2) + '</td>';
+            phtml += '<td>' + (p.period_from || '') + (p.period_to ? ' — ' + p.period_to : '') + '</td>';
+            phtml += '<td>' + (p.notes || '-') + '</td>';
+            phtml += '</tr>';
+          });
+          phtml += '</tbody></table>';
+          document.getElementById('affPayoutsTable').innerHTML = phtml;
+        }
+
+        // Show dashboard
+        document.getElementById('affLoading').style.display = 'none';
+        document.getElementById('affDash').style.display = 'block';
+
+      } catch (err) {
+        document.getElementById('affLoading').innerHTML = '<p style="color:#c0392b;">Failed to load dashboard. Please try again.</p>';
+      }
+    }
+
+    function copyCode() {
+      var code = document.getElementById('affCode').textContent;
+      navigator.clipboard.writeText(code).then(function() {
+        document.getElementById('affCodeBox').querySelector('.aff-copy-hint').textContent = 'Copied!';
+        setTimeout(function() { document.getElementById('affCodeBox').querySelector('.aff-copy-hint').textContent = 'Click to copy'; }, 2000);
+      });
+    }
+
+    function copyLink() {
+      var link = document.getElementById('affLink').textContent;
+      navigator.clipboard.writeText(link).then(function() {
+        document.getElementById('affLinkBox').nextElementSibling.textContent = 'Copied!';
+        setTimeout(function() { document.getElementById('affLinkBox').nextElementSibling.textContent = 'Click to copy'; }, 2000);
+      });
+    }
+
+    function affLogout() {
+      localStorage.removeItem('pp_affiliate_token');
+      localStorage.removeItem('pp_affiliate_name');
+      window.location.href = '/affiliates/login';
+    }
+    </script>
+
+    {{- partial "footer.html" . -}}
+</body>
+</html>
