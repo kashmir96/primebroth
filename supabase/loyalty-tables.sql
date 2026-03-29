@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS loyalty_points (
   email         TEXT NOT NULL,
   points        INTEGER NOT NULL,        -- positive = earn, negative = redeem/expire
   type          TEXT NOT NULL,           -- 'purchase' | 'spin' | 'bonus' | 'redeem' | 'expire'
-  order_id      BIGINT,                  -- references orders.id if applicable
+  order_id      TEXT,                    -- Stripe session ID (cs_live_xxx)
   description   TEXT,
   expires_at    TIMESTAMPTZ,             -- 60 days from earn date (null for redeem/expire rows)
   created_at    TIMESTAMPTZ DEFAULT NOW()
