@@ -146,19 +146,16 @@ exports.handler = async (event, context) => {
     }
 
     // ── Create session (embedded mode) ──────────────────────────────────────
-    const session = await stripe.checkout.sessions.create({
+    const sessionParams = {
       payment_method_types,
-      shipping_address_collection: {
-        allowed_countries: [market],
-      },
+      shipping_address_collection: { allowed_countries: [market] },
       shipping_options: shippingOptions,
       line_items: lineItems,
       mode: 'payment',
       ui_mode: 'embedded',
-      ...(giftPromoId ? { discounts: [{ promotion_code: giftPromoId }] } : { allow_promotion_codes: true }),
       return_url: returnUrl,
       metadata: {
-        market, // passed to webhook so it knows which Stripe account fired
+        market,
         ...(quizBundle ? { quiz_bundle: 'true' } : {}),
         ...(visitorHash ? { visitor_hash: visitorHash } : {}),
         ...(osoMeta ? {
@@ -174,9 +171,33 @@ exports.handler = async (event, context) => {
           client_screen: String(clientInfo.screenWidth || 0),
         } : {}),
       },
-    });
+    };
 
-    console.log(`[${market}] Session created: ${session.id}`);
+    // Try with gift discount first — if Stripe rejects it (expired/used/invalid),
+    // fall back gracefully to allow_promotion_codes so checkout always loads.
+    let session;
+    if (giftPromoId) {
+      try {
+        session = await stripe.checkout.sessions.create({
+          ...sessionParams,
+          discounts: [{ promotion_code: giftPromoId }],
+        });
+        console.log(`[${market}] Session created with gift discount: ${session.id}`);
+      } catch (discountErr) {
+        console.warn(`[${market}] Gift promo rejected (${discountErr.message}) — retrying without discount`);
+        session = await stripe.checkout.sessions.create({
+          ...sessionParams,
+          allow_promotion_codes: true,
+        });
+        console.log(`[${market}] Session created (fallback, no discount): ${session.id}`);
+      }
+    } else {
+      session = await stripe.checkout.sessions.create({
+        ...sessionParams,
+        allow_promotion_codes: true,
+      });
+      console.log(`[${market}] Session created: ${session.id}`);
+    }
 
     return {
       statusCode: 200,
