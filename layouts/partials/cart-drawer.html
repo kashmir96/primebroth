@@ -33,9 +33,14 @@
             </span>
             <span style="font-weight:700;color:var(--pp-sage,#9CAF88);">$0.00</span>
         </div>
-        <div class="pp-drawer-subtotal" id="ppDrawerGiftRow" style="margin-top:6px;display:none;color:#3a5c2e;">
-            <span style="display:flex;align-items:center;gap:5px;font-size:0.82rem;">🎁 Gift voucher</span>
-            <span style="font-weight:700;font-size:0.82rem;">−$5.00</span>
+        <div id="ppDrawerGiftRow" style="margin-top:8px;display:none;">
+            <div class="pp-drawer-subtotal" id="ppDrawerGiftApplied" style="color:#3a5c2e;display:none;">
+                <span style="display:flex;align-items:center;gap:5px;font-size:0.82rem;">🎁 Gift voucher</span>
+                <span style="font-weight:700;font-size:0.82rem;">−$5.00</span>
+            </div>
+            <div id="ppDrawerGiftNudge" style="display:none;background:#f5f8f2;border:1px solid #c8d9b8;border-radius:8px;padding:8px 12px;font-size:0.78rem;color:#3a5c2e;line-height:1.4;">
+                🎁 You have a <strong>$5 voucher</strong> — add <strong id="ppDrawerGiftNeeded">$25</strong> more to unlock it
+            </div>
         </div>
         <div class="pp-drawer-subtotal" style="margin-top:10px;padding-top:10px;border-top:1px solid var(--pp-border,rgba(139,115,85,0.15));">
             <span style="font-weight:700;font-size:0.95rem;">Total</span>
@@ -336,9 +341,17 @@
         var freeShip = subtotal >= freeShipThreshold;
         var shipping = freeShip ? 0 : shippingCost;
         var giftCode = (typeof sessionStorage !== 'undefined') ? sessionStorage.getItem('pp_gift_code') : null;
-        var giftDiscount = (giftCode && market === 'NZ') ? 5 : 0;
+        var giftMinimum = 25;
+        var giftMet = giftCode && market === 'NZ' && subtotal >= giftMinimum;
+        var giftDiscount = giftMet ? 5 : 0;
         var giftRow = document.getElementById('ppDrawerGiftRow');
-        if (giftRow) giftRow.style.display = giftDiscount ? '' : 'none';
+        var giftApplied = document.getElementById('ppDrawerGiftApplied');
+        var giftNudge = document.getElementById('ppDrawerGiftNudge');
+        var giftNeeded = document.getElementById('ppDrawerGiftNeeded');
+        if (giftRow) giftRow.style.display = giftCode && market === 'NZ' ? '' : 'none';
+        if (giftApplied) giftApplied.style.display = giftMet ? '' : 'none';
+        if (giftNudge) giftNudge.style.display = (giftCode && market === 'NZ' && !giftMet) ? '' : 'none';
+        if (giftNeeded && !giftMet) giftNeeded.textContent = '$' + (giftMinimum - subtotal).toFixed(2);
         var total = Math.max(0, subtotal + shipping - giftDiscount);
 
         subtotalEl.textContent = '$' + subtotal.toFixed(2);

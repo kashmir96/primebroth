@@ -18,29 +18,32 @@
     .then(function(d) {
       if (d.code) {
         sessionStorage.setItem('pp_gift_code', d.code);
-        ppShowGiftBubble();
-        setTimeout(function(){ var b = document.getElementById('pp-gift-bubble'); if(b) b.classList.remove('pp-gift-bubble-in'); }, 4000);
+        sessionStorage.removeItem('pp_gift_dismissed');
+        document.addEventListener('DOMContentLoaded', ppShowGiftPill);
       }
     }).catch(function(){});
 })();
 
-function ppShowGiftBubble() {
-  var code = sessionStorage.getItem('pp_gift_code');
-  if (!code || document.getElementById('pp-gift-bubble')) return;
+function ppShowGiftPill() {
+  if (!sessionStorage.getItem('pp_gift_code')) return;
+  if (sessionStorage.getItem('pp_gift_dismissed')) return;
+  if (document.getElementById('pp-gift-pill')) return;
   var el = document.createElement('div');
-  el.id = 'pp-gift-bubble';
-  el.innerHTML = '🎁 <strong>$5 off applied</strong> — voucher ready at checkout';
+  el.id = 'pp-gift-pill';
+  el.innerHTML = '🎁 <strong>$5 voucher ready</strong> — spend $25+ and it auto-applies'
+    + '<button onclick="ppDismissGiftPill()" aria-label="Dismiss">✕</button>';
   document.body.appendChild(el);
-  setTimeout(function(){ el.classList.add('pp-gift-bubble-in'); }, 80);
+  setTimeout(function(){ el.classList.add('pp-gift-pill-in'); }, 80);
 }
 
-// Show gift bubble if code already stored (navigating after redemption link)
-document.addEventListener('DOMContentLoaded', function() {
-  if (sessionStorage.getItem('pp_gift_code') && !new URLSearchParams(window.location.search).get('pp_gift')) {
-    ppShowGiftBubble();
-    setTimeout(function(){ var b = document.getElementById('pp-gift-bubble'); if(b) b.classList.remove('pp-gift-bubble-in'); }, 4000);
-  }
-});
+function ppDismissGiftPill() {
+  sessionStorage.setItem('pp_gift_dismissed', '1');
+  var el = document.getElementById('pp-gift-pill');
+  if (el) { el.classList.remove('pp-gift-pill-in'); setTimeout(function(){ el.remove(); }, 350); }
+}
+
+// Show pill on every page while code is active (unless dismissed)
+document.addEventListener('DOMContentLoaded', ppShowGiftPill);
 
 // Toggle nz-content / au-content spans site-wide
 document.addEventListener('DOMContentLoaded', function() {
@@ -59,8 +62,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <link rel="canonical" href="{{ .Permalink }}">
 <style>
-#pp-gift-bubble{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#2E3D1F;color:#fff;padding:12px 20px;border-radius:100px;font-size:0.85rem;font-family:'DM Sans',sans-serif;white-space:nowrap;z-index:9999;opacity:0;transition:opacity 0.35s,transform 0.35s;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,0.25);}
-#pp-gift-bubble.pp-gift-bubble-in{opacity:1;transform:translateX(-50%) translateY(0);}
+#pp-gift-pill{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(16px);background:#2E3D1F;color:#fff;padding:11px 14px 11px 18px;border-radius:100px;font-size:0.83rem;font-family:'DM Sans',sans-serif;white-space:nowrap;z-index:9999;opacity:0;transition:opacity 0.35s,transform 0.35s;box-shadow:0 4px 20px rgba(0,0,0,0.28);display:flex;align-items:center;gap:10px;}
+#pp-gift-pill.pp-gift-pill-in{opacity:1;transform:translateX(-50%) translateY(0);}
+#pp-gift-pill button{background:rgba(255,255,255,0.15);border:none;color:#fff;width:20px;height:20px;border-radius:50%;font-size:0.65rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;line-height:1;}
+#pp-gift-pill button:hover{background:rgba(255,255,255,0.28);}
 </style>
 {{- /* Styles */}}
 {{ if .Site.Params.icon.fontawesome }}
