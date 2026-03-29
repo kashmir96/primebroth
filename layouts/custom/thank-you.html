@@ -435,6 +435,76 @@
   margin-top: 12px;
   line-height: 1.5;
 }
+.pp-ty-voucher-slots {
+  display: flex;
+  gap: 10px;
+  margin: 18px 0 12px;
+}
+.pp-ty-voucher-card {
+  flex: 1;
+  border: 1.5px dashed var(--sage-muted);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: opacity 0.35s, border-color 0.35s;
+}
+.pp-ty-voucher-card.used {
+  opacity: 0.45;
+  border-color: #ccc;
+  border-style: solid;
+}
+.pp-ty-voucher-top {
+  background: var(--sage-pale);
+  padding: 16px 8px 14px;
+  text-align: center;
+  border-bottom: 1.5px dashed var(--sage-muted);
+}
+.pp-ty-voucher-card.used .pp-ty-voucher-top { border-bottom-color: #ccc; }
+.pp-ty-voucher-amt {
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--sage);
+  display: block;
+}
+.pp-ty-voucher-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--sage);
+  opacity: 0.6;
+  margin-top: 3px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: block;
+}
+.pp-ty-vc-copy {
+  width: 100%;
+  border: none;
+  background: #3a5c2e;
+  color: #fff;
+  padding: 12px 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  letter-spacing: 0.02em;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+}
+.pp-ty-vc-copy:hover { background: #2e4a24; box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), 0 2px 8px rgba(0,0,0,0.18); }
+.pp-ty-vc-copy:active { background: #243d1c; }
+.pp-ty-vc-copy.done { background: var(--sage); cursor: default; }
+.pp-ty-vc-copy svg { flex-shrink: 0; }
+.pp-ty-voucher-remaining {
+  font-size: 0.75rem;
+  color: var(--warm-gray);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
 
 /* Responsive */
 @media (max-width: 640px) {
@@ -584,21 +654,36 @@
         <div id="pp-ty-referral-section" class="pp-ty-referral" style="display:none;">
             <div class="pp-ty-referral-card">
                 <div class="pp-ty-referral-badge">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                    </svg>
-                    Share the love
+                    🎁 Your order unlocked 3 vouchers
                 </div>
-                <h3>Give a friend $5 off their first order</h3>
-                <p>Enter a friend's email and they'll receive a $5 off code instantly. When they use it, you'll get your $5 off code by email too. Codes are valid for 30 days.</p>
-                <div class="pp-ty-referral-input-row">
-                    <input type="email" class="pp-ty-referral-input" id="pp-referral-friend-email" placeholder="friend@email.com">
-                    <button class="pp-ty-referral-btn" id="pp-referral-btn" onclick="ppSendReferral()">
-                        Send $5
-                    </button>
+                <h3>You've earned 3 × $5 vouchers to give away</h3>
+                <p>Copy a link and send it to a friend who hasn't tried PrimalPantry. Each link expires in 7 days — if they don't use it, it's gone.</p>
+
+                <div class="pp-ty-voucher-slots">
+                    <div class="pp-ty-voucher-card" id="ppCard1">
+                        <div class="pp-ty-voucher-top">
+                            <span class="pp-ty-voucher-amt">$5 off</span>
+                            <span class="pp-ty-voucher-label">Voucher 1</span>
+                        </div>
+                        <button class="pp-ty-vc-copy" id="ppVCCopy1" onclick="ppCopyLink(1)">🔗 Copy link</button>
+                    </div>
+                    <div class="pp-ty-voucher-card" id="ppCard2">
+                        <div class="pp-ty-voucher-top">
+                            <span class="pp-ty-voucher-amt">$5 off</span>
+                            <span class="pp-ty-voucher-label">Voucher 2</span>
+                        </div>
+                        <button class="pp-ty-vc-copy" id="ppVCCopy2" onclick="ppCopyLink(2)">🔗 Copy link</button>
+                    </div>
+                    <div class="pp-ty-voucher-card" id="ppCard3">
+                        <div class="pp-ty-voucher-top">
+                            <span class="pp-ty-voucher-amt">$5 off</span>
+                            <span class="pp-ty-voucher-label">Voucher 3</span>
+                        </div>
+                        <button class="pp-ty-vc-copy" id="ppVCCopy3" onclick="ppCopyLink(3)">🔗 Copy link</button>
+                    </div>
                 </div>
-                <div class="pp-ty-referral-msg" id="pp-referral-msg"></div>
-                <p class="pp-ty-referral-fine">Friend's code is emailed immediately — valid 30 days, new customers only, orders over $25. You'll receive your $5 code by email once your friend places their order. Max 3 referrals per person.</p>
+                <p class="pp-ty-voucher-remaining"><strong><span id="ppVouchersLeft">3</span> of 3 vouchers remaining</strong> · links expire in 7 days</p>
+                <p class="pp-ty-referral-fine">New customers only · orders over $25 · one use per link</p>
             </div>
         </div>
 
@@ -668,69 +753,66 @@
 </script>
 
     <script>
-    // ---- Referral logic ----
+    // ---- Gift link referral logic ----
     var ppReferrerEmail = null;
+    var ppGiftLinks = [null, null, null];
 
-    function ppSendReferral() {
-        var friendEmail = document.getElementById('pp-referral-friend-email').value.trim();
-        var msg = document.getElementById('pp-referral-msg');
-        var btn = document.getElementById('pp-referral-btn');
+    function ppGenToken() {
+        var arr = new Uint8Array(8);
+        crypto.getRandomValues(arr);
+        return Array.from(arr).map(function(b){ return b.toString(16).padStart(2,'0'); }).join('');
+    }
 
-        if (!friendEmail || !friendEmail.match(/.+@.+\..+/)) {
-            msg.textContent = "Please enter your friend's email.";
-            msg.className = 'pp-ty-referral-msg err';
-            return;
-        }
-        if (!ppReferrerEmail) {
-            msg.textContent = 'Unable to identify your email — please contact support.';
-            msg.className = 'pp-ty-referral-msg err';
-            return;
-        }
+    function ppInitGiftLinks(referrerEmail) {
+        ppReferrerEmail = referrerEmail;
+        var base = 'https://primalpantry.co.nz/shop/?pp_gift=';
+        [1,2,3].forEach(function(i) {
+            var token = ppGenToken();
+            ppGiftLinks[i-1] = base + token;
+            var linkEl = document.getElementById('ppVCLink' + i);
+            if (linkEl) linkEl.textContent = base + token;
 
-        btn.disabled = true;
-        btn.textContent = 'Sending...';
-        msg.textContent = '';
-        msg.className = 'pp-ty-referral-msg';
-
-        fetch('/.netlify/functions/quiz-referral', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ referrerEmail: ppReferrerEmail, friendEmail: friendEmail }),
-        })
-        .then(function(r) { return r.json(); })
-        .then(function(data) {
-            if (data.error) {
-                msg.textContent = data.error;
-                msg.className = 'pp-ty-referral-msg err';
-                btn.disabled = false;
-                btn.textContent = 'Send $5';
-            } else {
-                var prevMsgs = msg.innerHTML ? msg.innerHTML + '<br>' : '';
-                if (data.alreadySent) {
-                    msg.innerHTML = prevMsgs + '✅ If ' + friendEmail + ' is a new customer, they\'ll receive a $5 off code by email.';
-                } else {
-                    var sentCount = (window.ppReferralsSent = (window.ppReferralsSent || 0) + 1);
-                    msg.innerHTML = prevMsgs + '✅ Code sent to ' + friendEmail + '! You\'ll get yours by email when they place an order. Expires ' + (data.expiryDate || 'in 30 days') + '.';
-                    if (sentCount >= 3) {
-                        btn.disabled = true;
-                        btn.textContent = 'Max reached';
-                    } else {
-                        btn.disabled = false;
-                        btn.textContent = 'Send to another friend';
-                    }
-                    gtag('event', 'referral_sent', { event_category: 'referral', value: sentCount });
-                }
-                msg.className = 'pp-ty-referral-msg ok';
-                document.getElementById('pp-referral-friend-email').value = '';
-                if (!data.alreadySent) btn.disabled = false;
-            }
-        })
-        .catch(function() {
-            msg.textContent = 'Something went wrong. Please try again.';
-            msg.className = 'pp-ty-referral-msg err';
-            btn.disabled = false;
-            btn.textContent = 'Send $5';
+            // Register token with backend (fire & forget)
+            fetch('/.netlify/functions/quiz-referral', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'generate_link', referrerEmail: referrerEmail, token: token }),
+            }).catch(function(){});
         });
+    }
+
+    window.ppSharedSlots = {};
+
+    function ppMarkShared(n) {
+        if (window.ppSharedSlots[n]) return;
+        window.ppSharedSlots[n] = true;
+        var card = document.getElementById('ppCard' + n);
+        if (card) card.classList.add('used');
+        var copyBtn = document.getElementById('ppVCCopy' + n);
+        if (copyBtn) { copyBtn.classList.add('done'); copyBtn.textContent = '✓ Copied!'; }
+        var left = 3 - Object.keys(window.ppSharedSlots).length;
+        var leftEl = document.getElementById('ppVouchersLeft');
+        if (leftEl) leftEl.textContent = left;
+        gtag('event', 'gift_link_copied', { event_category: 'referral', value: n });
+    }
+
+    function ppCopyLink(n) {
+        var link = ppGiftLinks[n-1];
+        if (!link || window.ppSharedSlots[n]) return;
+        var doSuccess = function() { ppMarkShared(n); };
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(link).then(doSuccess).catch(function() {
+                var ta = document.createElement('textarea');
+                ta.value = link; ta.style.cssText = 'position:fixed;opacity:0';
+                document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+                document.body.removeChild(ta); doSuccess();
+            });
+        } else {
+            var ta = document.createElement('textarea');
+            ta.value = link; ta.style.cssText = 'position:fixed;opacity:0';
+            document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+            document.body.removeChild(ta); doSuccess();
+        }
     }
     </script>
 
@@ -791,8 +873,8 @@
 
                 // Referral section — show once we have the customer's email
                 if (data.email) {
-                    ppReferrerEmail = data.email;
                     document.getElementById('pp-ty-referral-section').style.display = 'block';
+                    ppInitGiftLinks(data.email);
 
                     // PrimalPoints widget
                     ppLoadLoyalty(data.email, data.amount_total);

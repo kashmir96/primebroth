@@ -27,7 +27,7 @@ const HEADERS = {
 };
 
 const MAX_REFERRALS_PER_EMAIL = 3;
-const EXPIRY_DAYS = 30;
+const EXPIRY_DAYS = 7;
 
 function reply(code, body) {
   return { statusCode: code, headers: HEADERS, body: JSON.stringify(body) };
@@ -57,7 +57,52 @@ exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') return reply(405, { error: 'Method not allowed' });
 
   try {
-    const { referrerEmail, friendEmail, utm } = JSON.parse(event.body);
+    const body = JSON.parse(event.body);
+
+    // ── Generate shareable gift link (no friend email needed) ──
+    if (body.action === 'generate_link') {
+      const { referrerEmail, token } = body;
+      if (!referrerEmail || !token) return reply(400, { error: 'Missing params' });
+
+      const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+      const couponId = process.env.QUIZ_REFERRAL_COUPON_ID;
+      if (!couponId) return reply(500, { error: 'Not configured' });
+
+      const expiryDate = new Date(Date.now() + EXPIRY_DAYS * 24 * 60 * 60 * 1000);
+      const expiresAt = Math.floor(expiryDate.getTime() / 1000);
+      const code = 'GIFT-' + token.toUpperCase().slice(0, 10);
+
+      const promoCode = await stripe.promotionCodes.create({
+        coupon: couponId,
+        code,
+        max_redemptions: 1,
+        expires_at: expiresAt,
+        restrictions: { first_time_transaction: true, minimum_amount: 2500, minimum_amount_currency: 'nzd' },
+        metadata: { type: 'gift_link', referrer_email: referrerEmail.toLowerCase(), share_token: token },
+      });
+
+      const supabaseUrl = process.env.SUPABASE_URL;
+      const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+      if (supabaseUrl && supabaseKey) {
+        sbFetch('/rest/v1/quiz_referrals', {
+          method: 'POST',
+          prefer: 'return=minimal',
+          body: {
+            referrer_email: referrerEmail.toLowerCase(),
+            friend_email: null,
+            share_token: token,
+            friend_code: promoCode.code,
+            referrer_rewarded: false,
+            expires_at: expiryDate.toISOString(),
+            created_at: new Date().toISOString(),
+          },
+        }).catch(err => console.error('[quiz-referral] Supabase insert error:', err.message));
+      }
+
+      return reply(200, { success: true, code: promoCode.code, expiryDate: formatExpiryDate(expiryDate) });
+    }
+
+    const { referrerEmail, friendEmail, utm } = body;
     const utmData = utm || {};
 
     // ── Basic validation ──
