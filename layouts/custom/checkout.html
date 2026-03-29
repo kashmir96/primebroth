@@ -99,7 +99,10 @@
     font-family: 'DM Sans', sans-serif; font-size: 0.75rem;
     color: #8B7355; opacity: 0.7;
 }
-@media (max-width: 480px) { .pp-co-social-proof { display: none; } }
+@media (max-width: 640px) {
+    .pp-co-header-inner { flex-wrap: wrap; padding: 12px 20px 10px; gap: 6px; }
+    .pp-co-social-proof { order: 3; width: 100%; justify-content: center; padding-top: 6px; border-top: 1px solid rgba(139,115,85,0.1); }
+}
 
 /* ── Page ── */
 body {
@@ -165,7 +168,6 @@ body {
 .pp-co-error button:hover { background: #4A3728; }
 
 @media (max-width: 640px) {
-    .pp-co-header-inner { padding: 14px 20px; }
     .pp-co-footer-inner { padding: 16px 20px; flex-direction: column; gap: 8px; text-align: center; }
 }
 </style>
