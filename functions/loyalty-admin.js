@@ -219,6 +219,21 @@ exports.handler = async (event) => {
         return reply(200, { total_issued: totalIssued, total_redeemed: totalRedeemed, outstanding, customers });
       }
 
+      // Gift voucher stats
+      if (action === 'gift_stats') {
+        const now = new Date().toISOString();
+        const res = await sbFetch(
+          `/rest/v1/quiz_referrals?share_token=not.is.null&select=id,referrer_email,friend_code,click_count,redeemed_at,redeemed_by,expires_at,created_at&order=created_at.desc`
+        );
+        const rows = await res.json();
+        if (!Array.isArray(rows)) return reply(200, { total: 0, clicks: 0, redeemed: 0, active: 0, recent: [] });
+        const total = rows.length;
+        const clicks = rows.reduce((s, r) => s + (r.click_count || 0), 0);
+        const redeemed = rows.filter(r => r.redeemed_at).length;
+        const active = rows.filter(r => !r.redeemed_at && r.expires_at && r.expires_at > now).length;
+        return reply(200, { total, clicks, redeemed, active, recent: rows.slice(0, 30) });
+      }
+
       // Transaction log
       if (action === 'log') {
         const limit = parseInt(event.queryStringParameters?.limit) || 50;

@@ -157,6 +157,7 @@ exports.handler = async (event, context) => {
       metadata: {
         market,
         ...(quizBundle ? { quiz_bundle: 'true' } : {}),
+        ...(giftCode && giftPromoId ? { gift_code: giftCode } : {}),
         ...(visitorHash ? { visitor_hash: visitorHash } : {}),
         ...(osoMeta ? {
           oso_lp: osoMeta.landing_page || '',

@@ -61,7 +61,7 @@ exports.handler = async (event) => {
       const token = (event.queryStringParameters || {}).token;
       if (!token) return reply(400, { error: 'Missing token' });
       const res = await sbFetch(
-        `/rest/v1/quiz_referrals?share_token=eq.${encodeURIComponent(token)}&select=friend_code,expires_at&limit=1`
+        `/rest/v1/quiz_referrals?share_token=eq.${encodeURIComponent(token)}&select=id,friend_code,expires_at,click_count&limit=1`
       );
       const rows = await res.json();
       if (!Array.isArray(rows) || !rows[0] || !rows[0].friend_code) {
@@ -71,6 +71,12 @@ exports.handler = async (event) => {
       if (row.expires_at && new Date(row.expires_at) < new Date()) {
         return reply(410, { error: 'This link has expired' });
       }
+      // Increment click count (fire & forget)
+      sbFetch(`/rest/v1/quiz_referrals?id=eq.${row.id}`, {
+        method: 'PATCH',
+        prefer: 'return=minimal',
+        body: { click_count: (row.click_count || 0) + 1 },
+      }).catch(() => {});
       return reply(200, { code: row.friend_code, valid: true });
     } catch (err) {
       return reply(500, { error: 'Lookup failed' });

@@ -89,6 +89,20 @@ exports.handler = async (event, context) => {
 
       // Run FB CAPI and Airtable in parallel — fire-and-forget so failures
       // never prevent Stripe from receiving the 200 OK
+      // Mark gift voucher as redeemed if one was used (fire & forget)
+      const giftCode = session.metadata?.gift_code;
+      if (giftCode && market === 'NZ') {
+        const sbUrl = process.env.SUPABASE_URL;
+        const sbKey = process.env.SUPABASE_SERVICE_KEY;
+        if (sbUrl && sbKey) {
+          fetch(`${sbUrl}/rest/v1/quiz_referrals?friend_code=eq.${encodeURIComponent(giftCode)}&share_token=not.is.null`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json', apikey: sbKey, Authorization: `Bearer ${sbKey}`, Prefer: 'return=minimal' },
+            body: JSON.stringify({ redeemed_at: new Date().toISOString(), redeemed_by: customerEmail }),
+          }).catch(err => console.error('[webhook] gift redemption mark failed:', err.message));
+        }
+      }
+
       // Award loyalty points (NZ only — not AU)
       const { awardLoyaltyPoints } = require('./loyalty-earn');
       const loyaltyPromise = market === 'NZ'
