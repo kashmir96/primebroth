@@ -16,6 +16,10 @@
         <a href="/" class="pp-co-logo">
             <img src="{{ .Site.Params.logo.main | relURL }}" alt="PrimalPantry" class="pp-co-logo-img">
         </a>
+        <div class="pp-co-social-proof">
+            <span style="color:#00B67A;">★★★★★</span>
+            <span>4.7 Trustpilot &nbsp;·&nbsp; 90,000+ Kiwis</span>
+        </div>
         <a href="/cart/" class="pp-co-back">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
             Back to cart
@@ -27,10 +31,6 @@
     <div class="pp-co-container">
         <div id="pp-co-pts-banner" style="display:none;text-align:center;padding:10px 20px 0;font-family:'DM Sans',sans-serif;font-size:0.78rem;color:#9C8E84;">
             🔥 Complete your order to earn <strong id="pp-co-pts-val" style="color:#6B8F5B;font-weight:600;"></strong>
-        </div>
-        <div style="text-align:center;padding:10px 20px 0;font-family:'DM Sans',sans-serif;font-size:0.78rem;color:#6B5B45;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;">
-            <span style="color:#00B67A;font-weight:700;letter-spacing:0.01em;">★★★★★</span>
-            <span><strong style="color:#2D2A26;">4.7</strong> on Trustpilot &nbsp;·&nbsp; Trusted by <strong style="color:#2D2A26;">90,000+</strong> Kiwis</span>
         </div>
         <div id="checkout"></div>
         <div id="coLoading" class="pp-co-loading">
@@ -94,6 +94,12 @@
 .pp-co-trust {
     display: flex; align-items: center; gap: 6px;
 }
+.pp-co-social-proof {
+    display: flex; align-items: center; gap: 6px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.75rem;
+    color: #8B7355; opacity: 0.7;
+}
+@media (max-width: 480px) { .pp-co-social-proof { display: none; } }
 
 /* ── Page ── */
 body {
