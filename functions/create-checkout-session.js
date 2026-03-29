@@ -24,7 +24,7 @@ const getStripe = (market) => {
 
 exports.handler = async (event, context) => {
   try {
-    const { cart, countryCode, osoMeta, clientInfo, quizBundle } = JSON.parse(event.body);
+    const { cart, countryCode, osoMeta, clientInfo, quizBundle, giftCode } = JSON.parse(event.body);
 
     // Generate visitor_hash for analytics journey linking
     let visitorHash = '';
@@ -133,6 +133,18 @@ exports.handler = async (event, context) => {
     const baseURL = 'https://www.primalpantry.co.nz';
     const returnUrl = `${baseURL}/pages/thank-you?session_id={CHECKOUT_SESSION_ID}&landing_url=${encodeURIComponent(decodedLandingURL)}&market=${market}`;
 
+    // ── Resolve gift promo code ID (NZ only) ──
+    let giftPromoId = null;
+    if (giftCode && market === 'NZ') {
+      try {
+        const promos = await stripe.promotionCodes.list({ code: giftCode, active: true, limit: 1 });
+        if (promos.data.length > 0) giftPromoId = promos.data[0].id;
+        else console.warn('[checkout] gift code not found or inactive:', giftCode);
+      } catch (e) {
+        console.error('[checkout] gift promo lookup failed:', e.message);
+      }
+    }
+
     // ── Create session (embedded mode) ──────────────────────────────────────
     const session = await stripe.checkout.sessions.create({
       payment_method_types,
@@ -143,7 +155,7 @@ exports.handler = async (event, context) => {
       line_items: lineItems,
       mode: 'payment',
       ui_mode: 'embedded',
-      allow_promotion_codes: true,
+      ...(giftPromoId ? { discounts: [{ promotion_code: giftPromoId }] } : { allow_promotion_codes: true }),
       return_url: returnUrl,
       metadata: {
         market, // passed to webhook so it knows which Stripe account fired

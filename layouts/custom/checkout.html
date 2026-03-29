@@ -25,6 +25,9 @@
 
 <div class="pp-co-page">
     <div class="pp-co-container">
+        <div id="pp-co-pts-banner" style="display:none;text-align:center;padding:10px 20px 0;font-family:'DM Sans',sans-serif;font-size:0.78rem;color:#9C8E84;">
+            🔥 Complete your order to earn <strong id="pp-co-pts-val" style="color:#6B8F5B;font-weight:600;"></strong>
+        </div>
         <div id="checkout"></div>
         <div id="coLoading" class="pp-co-loading">
             <div class="pp-co-spinner"></div>
@@ -158,6 +161,27 @@ body {
 </style>
 
 <script>
+// PrimalPoints banner on checkout
+(function() {
+    try {
+        var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+        var subtotal = cart.reduce(function(sum, item) {
+            return sum + (parseFloat(item.price || 0) * (parseInt(item.quantity || 1)));
+        }, 0);
+        if (subtotal > 0) {
+            var pts = Math.ceil(subtotal) * 10;
+            var banner = document.getElementById('pp-co-pts-banner');
+            var val = document.getElementById('pp-co-pts-val');
+            if (banner && val) {
+                val.textContent = pts.toLocaleString() + ' PrimalPoints';
+                banner.style.display = '';
+            }
+        }
+    } catch(e) {}
+})();
+</script>
+
+<script>
 (function() {
     // Market-aware Stripe keys
     var market = (typeof window.MARKET !== 'undefined') ? window.MARKET : 'NZ';
@@ -235,7 +259,8 @@ body {
                     var cartPids = cart.map(function(i) { return i.priceId; });
                     return pids.every(function(pid) { return cartPids.indexOf(pid) !== -1; });
                 } catch(e) { return false; }
-            })()
+            })(),
+            giftCode: sessionStorage.getItem('pp_gift_code') || null
         })
     })
     .then(function(r) { return r.json(); })

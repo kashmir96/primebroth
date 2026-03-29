@@ -54,6 +54,29 @@ function formatExpiryDate(date) {
 
 exports.handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') return reply(204, '');
+
+  // ── GET: look up promo code by share token ──
+  if (event.httpMethod === 'GET') {
+    try {
+      const token = (event.queryStringParameters || {}).token;
+      if (!token) return reply(400, { error: 'Missing token' });
+      const res = await sbFetch(
+        `/rest/v1/quiz_referrals?share_token=eq.${encodeURIComponent(token)}&select=friend_code,expires_at&limit=1`
+      );
+      const rows = await res.json();
+      if (!Array.isArray(rows) || !rows[0] || !rows[0].friend_code) {
+        return reply(404, { error: 'Invalid or expired link' });
+      }
+      const row = rows[0];
+      if (row.expires_at && new Date(row.expires_at) < new Date()) {
+        return reply(410, { error: 'This link has expired' });
+      }
+      return reply(200, { code: row.friend_code, valid: true });
+    } catch (err) {
+      return reply(500, { error: 'Lookup failed' });
+    }
+  }
+
   if (event.httpMethod !== 'POST') return reply(405, { error: 'Method not allowed' });
 
   try {
