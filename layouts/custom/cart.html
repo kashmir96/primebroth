@@ -6,7 +6,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- Stripe loaded on /checkout/ page instead -->
+    <!-- Prefetch Stripe so it's cached when user navigates to checkout -->
+    <link rel="prefetch" href="https://js.stripe.com/v3/" as="script">
 </head>
 <body>
     {{- partial "header_new.html" . }}
@@ -48,6 +49,10 @@
                             <div class="summary-row total-row">
                                 <span>Total</span>
                                 <span id="total-cost">$0.00</span>
+                            </div>
+
+                            <div id="pp-cart-pts-row" class="pp-cart-pts-row" style="display:none;">
+                                🔥 Earn <strong id="pp-cart-pts"></strong> on this order
                             </div>
 
                             <button id="proceed-to-checkout" class="checkout-btn" disabled>Proceed to Checkout</button>
@@ -288,6 +293,16 @@
                 subtotalCostElement.innerHTML = `$${subtotal.toFixed(2)}${totalPriceSuffix}`;
                 totalCostElement.innerHTML = `$${totalCost.toFixed(2)}${totalPriceSuffix}`;
                 proceedToCheckoutButton.disabled = cart.length === 0;
+
+                // PrimalPoints tally
+                const ppRow = document.getElementById('pp-cart-pts-row');
+                const ppVal = document.getElementById('pp-cart-pts');
+                if (ppRow && ppVal && subtotal > 0) {
+                    ppVal.textContent = (Math.ceil(subtotal) * 10).toLocaleString() + ' PrimalPoints';
+                    ppRow.style.display = '';
+                } else if (ppRow) {
+                    ppRow.style.display = 'none';
+                }
 
                 const cartContainer = document.querySelector('.cartcontainerall');
                 const cartEmptyDiv = document.querySelector('#cartempty');
@@ -543,6 +558,17 @@
             color: var(--sage-dark);
             font-weight: 600;
         }
+
+        .pp-cart-pts-row {
+            text-align: center;
+            font-size: 0.78rem;
+            color: #9C8E84;
+            margin: 10px 0 4px;
+            padding: 7px 10px;
+            background: #f8f5f0;
+            border-radius: 8px;
+        }
+        .pp-cart-pts-row strong { color: #6B8F5B; font-weight: 600; }
 
         .total-row {
             font-size: 1rem;

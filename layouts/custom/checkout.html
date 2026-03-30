@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://js.stripe.com/v3/" async></script>
 </head>
 <body>
 
@@ -278,12 +278,20 @@ body {
     .then(function(r) { return r.json(); })
     .then(function(data) {
         if (data.clientSecret) {
-            var stripe = Stripe(stripeKey);
-            stripe.initEmbeddedCheckout({ clientSecret: data.clientSecret })
-                .then(function(checkout) {
-                    document.getElementById('coLoading').style.display = 'none';
-                    checkout.mount('#checkout');
-                });
+            // Wait for async Stripe script if it hasn't loaded yet
+            function mountCheckout() {
+                var stripe = Stripe(stripeKey);
+                stripe.initEmbeddedCheckout({ clientSecret: data.clientSecret })
+                    .then(function(checkout) {
+                        document.getElementById('coLoading').style.display = 'none';
+                        checkout.mount('#checkout');
+                    });
+            }
+            if (typeof Stripe !== 'undefined') {
+                mountCheckout();
+            } else {
+                document.querySelector('script[src*="js.stripe.com"]').addEventListener('load', mountCheckout);
+            }
         } else {
             document.getElementById('coLoading').style.display = 'none';
             document.getElementById('coError').style.display = '';
