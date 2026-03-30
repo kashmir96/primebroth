@@ -113,19 +113,26 @@ exports.handler = async (event) => {
       const supabaseUrl = process.env.SUPABASE_URL;
       const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
       if (supabaseUrl && supabaseKey) {
-        sbFetch('/rest/v1/quiz_referrals', {
-          method: 'POST',
-          prefer: 'return=minimal',
-          body: {
-            referrer_email: referrerEmail.toLowerCase(),
-            friend_email: null,
-            share_token: token,
-            friend_code: promoCode.code,
-            referrer_rewarded: false,
-            expires_at: expiryDate.toISOString(),
-            created_at: new Date().toISOString(),
-          },
-        }).catch(err => console.error('[quiz-referral] Supabase insert error:', err.message));
+        try {
+          const sbRes = await sbFetch('/rest/v1/quiz_referrals', {
+            method: 'POST',
+            prefer: 'return=minimal',
+            body: {
+              referrer_email: referrerEmail.toLowerCase(),
+              friend_email: null,
+              share_token: token,
+              friend_code: promoCode.code,
+              referrer_rewarded: false,
+              expires_at: expiryDate.toISOString(),
+              created_at: new Date().toISOString(),
+            },
+          });
+          if (!sbRes.ok) {
+            console.error('[quiz-referral] Supabase insert failed:', sbRes.status, await sbRes.text());
+          }
+        } catch (err) {
+          console.error('[quiz-referral] Supabase insert error:', err.message);
+        }
       }
 
       return reply(200, { success: true, code: promoCode.code, expiryDate: formatExpiryDate(expiryDate) });
