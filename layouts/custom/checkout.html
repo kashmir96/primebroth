@@ -34,7 +34,6 @@
         <div id="pp-co-pts-banner" style="display:none;text-align:center;padding:10px 20px 0;font-family:'DM Sans',sans-serif;font-size:0.78rem;color:#9C8E84;">
             🔥 Complete your order to earn <strong id="pp-co-pts-val" style="color:#6B8F5B;font-weight:600;"></strong>
         </div>
-        <div id="checkout"></div>
         <div id="coLoading" class="pp-co-loading">
             <div class="pp-co-spinner"></div>
             <p>Loading secure checkout...</p>
@@ -44,6 +43,7 @@
             <a href="/cart/" class="pp-co-error-back">Back to cart</a>
             <button onclick="window.location.reload()">Try Again</button>
         </div>
+        <div id="checkout"></div>
     </div>
 </div>
 
@@ -124,9 +124,11 @@ body {
     min-height: 100vh;
 }
 
-/* Stripe embed fills the container */
+/* Stripe embed fills the container — no min-height until mounted */
 #checkout {
     width: 100%;
+}
+#checkout:not(:empty) {
     min-height: 100vh;
 }
 
