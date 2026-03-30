@@ -19,7 +19,11 @@
       if (d.code) {
         sessionStorage.setItem('pp_gift_code', d.code);
         sessionStorage.removeItem('pp_gift_dismissed');
-        document.addEventListener('DOMContentLoaded', ppShowGiftPill);
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', ppShowGiftPill);
+        } else {
+          ppShowGiftPill();
+        }
       }
     }).catch(function(){});
 })();
