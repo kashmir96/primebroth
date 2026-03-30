@@ -891,7 +891,7 @@
             .then(function(r) { return r.json(); })
             .then(function(data) {
                 if (data.error) return;
-                var rate = data.points_per_dollar || 50;
+                var rate = data.points_per_dollar || 100;
                 var earned = Math.ceil((orderAmountDollars || 0) * rate / 10) * 10;
                 var newBalance = (data.balance || 0) + earned;
 

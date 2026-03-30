@@ -4,13 +4,20 @@
  * Redeems PrimalPoints for a Stripe promo code.
  *
  * POST /.netlify/functions/loyalty-redeem
- * Body: { email, points_to_redeem }
+ * Body: { session_token, points_to_redeem }
+ *   — OR legacy: { email, points_to_redeem } (for admin use only)
+ *
+ * Security:
+ *   - Requires valid session token (from loyalty-auth.js)
+ *   - Rate limited to 3 redemptions per email per day
  *
  * Returns: { promo_code, dollar_value, new_balance }
  *
  * Env vars required:
  *   SUPABASE_URL, SUPABASE_SERVICE_KEY, STRIPE_SECRET_KEY
  */
+
+const { resolveSession } = require('./loyalty-auth');
 
 const HEADERS = {
   'Access-Control-Allow-Origin': '*',
@@ -53,16 +60,41 @@ exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') return reply(405, { error: 'Method not allowed' });
 
   try {
-    const { email, points_to_redeem } = JSON.parse(event.body || '{}');
-    if (!email || !points_to_redeem) return reply(400, { error: 'email and points_to_redeem required' });
+    const { session_token, email: legacyEmail, points_to_redeem } = JSON.parse(event.body || '{}');
+    if (!points_to_redeem) return reply(400, { error: 'points_to_redeem required' });
 
-    const emailLower = email.toLowerCase();
+    // Resolve email from session token (secure) or fall back to legacy email (for admin/webhook use)
+    let emailLower;
+    if (session_token) {
+      emailLower = await resolveSession(session_token);
+      if (!emailLower) return reply(401, { error: 'Invalid or expired session. Please log in again.' });
+    } else if (legacyEmail) {
+      // Legacy path — only allow if called from admin (check for staff token)
+      const staffToken = event.headers['x-staff-token'] || '';
+      if (staffToken !== process.env.OSO_STAFF_TOKEN) {
+        return reply(401, { error: 'Authentication required. Please log in.' });
+      }
+      emailLower = legacyEmail.toLowerCase();
+    } else {
+      return reply(400, { error: 'session_token required' });
+    }
+
+    // Rate limit: max 3 redemptions per email per day
+    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    const rateRes = await sbFetch(
+      `/rest/v1/loyalty_points?email=eq.${encodeURIComponent(emailLower)}&type=eq.redeem&created_at=gte.${encodeURIComponent(oneDayAgo)}&select=id`
+    );
+    const recentRedemptions = await rateRes.json();
+    if (Array.isArray(recentRedemptions) && recentRedemptions.length >= 3) {
+      return reply(429, { error: 'Too many redemptions today. Please try again tomorrow.' });
+    }
+
     const pointsToRedeem = Math.floor(Number(points_to_redeem));
 
     // Get settings
     const settingsRes = await sbFetch('/rest/v1/loyalty_settings?id=eq.1&select=*');
     const settingsArr = await settingsRes.json();
-    const settings = settingsArr?.[0] || { points_to_dollar_rate: 100, min_redemption_points: 500 };
+    const settings = settingsArr?.[0] || { points_to_dollar_rate: 2000, min_redemption_points: 2000 };
 
     if (pointsToRedeem < settings.min_redemption_points) {
       return reply(400, { error: `Minimum redemption is ${settings.min_redemption_points} points` });

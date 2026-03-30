@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{- partial "head.html" . -}}
+    <title>My PrimalPoints — PrimalPantry</title>
+    <style>
+      .loy-wrap { max-width:700px;margin:0 auto;padding:32px 16px; }
+      .loy-header { display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px; }
+      .loy-header h1 { font-family:Georgia,serif;font-size:24px;color:#1C1A17;margin:0; }
+      .loy-logout { background:none;border:1px solid #ccc;border-radius:8px;padding:8px 16px;font-size:13px;cursor:pointer;color:#8A7D70; }
+
+      .loy-balance-card { background:#3D5230;border-radius:16px;padding:40px 32px;text-align:center;color:#fff;margin-bottom:24px; }
+      .loy-balance-label { font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.16em;color:rgba(255,255,255,0.6);margin:0 0 8px; }
+      .loy-balance-pts { font-family:Georgia,serif;font-size:3rem;font-weight:700;margin:0;line-height:1; }
+      .loy-balance-sub { font-size:0.95rem;color:rgba(255,255,255,0.75);margin:8px 0 0; }
+      .loy-balance-worth { font-size:1.4rem;font-weight:700;color:#C8A87A;margin:16px 0 0; }
+
+      .loy-expiry-banner { background:#FFF3CD;border:1px solid #F0DCA0;border-radius:12px;padding:14px 18px;margin-bottom:24px;font-size:0.85rem;color:#856404;display:none; }
+
+      .loy-card { background:#fff;border-radius:12px;padding:24px;border:1px solid rgba(123,92,58,0.12);margin-bottom:16px; }
+      .loy-card h3 { font-family:Georgia,serif;font-size:18px;color:#1C1A17;margin:0 0 16px; }
+
+      .loy-redeem-info { font-size:0.85rem;color:#8A7D70;line-height:1.6;margin:0 0 16px; }
+      .loy-redeem-slider { width:100%;margin:0 0 8px;accent-color:#3D5230; }
+      .loy-redeem-preview { display:flex;justify-content:space-between;align-items:center;background:#F7F2EB;border-radius:10px;padding:16px;margin-bottom:16px; }
+      .loy-redeem-preview-pts { font-size:1.1rem;font-weight:700;color:#1C1A17; }
+      .loy-redeem-preview-val { font-size:1.4rem;font-weight:800;color:#3D5230; }
+      .loy-redeem-btn { width:100%;padding:14px;background:#3D5230;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer; }
+      .loy-redeem-btn:disabled { opacity:0.5;cursor:not-allowed; }
+
+      .loy-code-result { display:none;text-align:center;padding:20px 0; }
+      .loy-code-box { background:#F0EBE3;border:2px dashed #C8A87A;border-radius:12px;padding:20px;margin:16px 0;cursor:pointer; }
+      .loy-code-box code { font-size:1.6rem;font-weight:900;color:#1C1A17;letter-spacing:0.08em; }
+      .loy-code-copy { font-size:12px;color:#8A7D70;margin-top:6px; }
+
+      .loy-redeem-error { display:none;background:#fce4e4;color:#c0392b;padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:16px; }
+
+      .loy-info { font-size:0.8rem;color:#8A7D70;line-height:1.6; }
+
+      @media(max-width:600px) {
+        .loy-balance-pts { font-size:2.4rem; }
+      }
+    </style>
+</head>
+<body>
+    {{- partial "header_new.html" . -}}
+
+    <div style="background:#F7F2EB;min-height:80vh;">
+
+      <!-- Dashboard -->
+      <div class="loy-wrap" id="loyDash" style="display:none;">
+        <div class="loy-header">
+          <h1>My PrimalPoints</h1>
+          <button class="loy-logout" onclick="loyLogout()">Log out</button>
+        </div>
+
+        <!-- Balance -->
+        <div class="loy-balance-card">
+          <p class="loy-balance-label">Your Balance</p>
+          <p class="loy-balance-pts" id="loyBalance">0</p>
+          <p class="loy-balance-sub">PrimalPoints</p>
+          <p class="loy-balance-worth" id="loyWorth">Worth $0.00 off</p>
+        </div>
+
+        <!-- Expiry Warning -->
+        <div class="loy-expiry-banner" id="loyExpiry"></div>
+
+        <!-- Redeem -->
+        <div class="loy-card" id="loyRedeemCard">
+          <h3>Redeem Points</h3>
+
+          <div id="loyRedeemForm">
+            <p class="loy-redeem-info">Choose how many points to redeem. You'll get a promo code to use at checkout.</p>
+
+            <input type="range" class="loy-redeem-slider" id="loySlider" min="0" max="0" step="100" value="0" oninput="updateSlider()">
+
+            <div class="loy-redeem-preview">
+              <div>
+                <div style="font-size:0.72rem;color:#8A7D70;text-transform:uppercase;font-weight:600;">Redeem</div>
+                <div class="loy-redeem-preview-pts" id="loySliderPts">0 pts</div>
+              </div>
+              <div>
+                <div style="font-size:0.72rem;color:#8A7D70;text-transform:uppercase;font-weight:600;">You Get</div>
+                <div class="loy-redeem-preview-val" id="loySliderVal">$0 off</div>
+              </div>
+            </div>
+
+            <div class="loy-redeem-error" id="loyRedeemError"></div>
+            <button class="loy-redeem-btn" id="loyRedeemBtn" onclick="redeemPoints()" disabled>Redeem Points</button>
+          </div>
+
+          <!-- Success result -->
+          <div class="loy-code-result" id="loyCodeResult">
+            <div style="font-size:32px;margin-bottom:8px;">🎉</div>
+            <h3 style="font-family:Georgia,serif;color:#1C1A17;margin:0 0 4px;">Here's your code</h3>
+            <p style="font-size:0.85rem;color:#8A7D70;margin:0 0 4px;">Enter this at checkout for <strong id="loyCodeValue">$0</strong> off</p>
+            <div class="loy-code-box" onclick="copyCode()">
+              <code id="loyCodeText">-</code>
+              <div class="loy-code-copy">Click to copy</div>
+            </div>
+            <p style="font-size:0.8rem;color:#8A7D70;margin:0 0 16px;">One use only. Expires in 60 days.</p>
+            <button class="loy-redeem-btn" onclick="resetRedeem()" style="background:#F0EBE3;color:#1C1A17;">Redeem More</button>
+          </div>
+        </div>
+
+        <!-- Not enough points -->
+        <div class="loy-card" id="loyNotEnough" style="display:none;text-align:center;">
+          <p style="font-size:0.95rem;color:#8A7D70;margin:0 0 12px;">You don't have enough points to redeem yet. Keep shopping to earn more!</p>
+          <a href="/shop/" style="display:inline-block;background:#3D5230;color:#fff;text-decoration:none;padding:12px 28px;border-radius:10px;font-weight:700;font-size:0.9rem;">Shop Now</a>
+        </div>
+
+        <!-- Info -->
+        <div class="loy-card">
+          <h3>How It Works</h3>
+          <p class="loy-info">
+            <strong>Earning:</strong> You earn 100 PrimalPoints per $1 spent on every NZ order (5% back).<br>
+            <strong>Redeeming:</strong> 2,000 points = $1 off. Minimum redemption is 2,000 points ($1).<br>
+            <strong>Expiry:</strong> Points expire 60 days after they're earned. We'll email you before they go.<br>
+            <strong>Promo codes:</strong> Codes are single-use and valid for 60 days. Apply at checkout.
+          </p>
+        </div>
+      </div>
+
+      <!-- Loading -->
+      <div id="loyLoading" style="text-align:center;padding:80px 16px;">
+        <p style="color:#8A7D70;font-size:14px;">Loading your points...</p>
+      </div>
+    </div>
+
+    <script>
+    var loyToken = localStorage.getItem('pp_loyalty_token');
+    var loyEmail = localStorage.getItem('pp_loyalty_email');
+    var loyData = null; // store balance data
+
+    if (!loyToken) {
+      window.location.href = '/primalpoints/login/';
+    } else {
+      validateAndLoad();
+    }
+
+    async function validateAndLoad() {
+      try {
+        // Validate session
+        var valRes = await fetch('/.netlify/functions/loyalty-auth', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'validate', session_token: loyToken }),
+        });
+        var valData = await valRes.json();
+
+        if (!valData.success) {
+          localStorage.removeItem('pp_loyalty_token');
+          localStorage.removeItem('pp_loyalty_email');
+          window.location.href = '/primalpoints/login/';
+          return;
+        }
+
+        loyEmail = valData.email;
+        localStorage.setItem('pp_loyalty_email', loyEmail);
+
+        // Fetch balance (authenticated — no email in URL)
+        var balRes = await fetch('/.netlify/functions/loyalty-auth', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'balance', session_token: loyToken }),
+        });
+        loyData = await balRes.json();
+
+        if (balRes.status === 401) {
+          localStorage.removeItem('pp_loyalty_token');
+          localStorage.removeItem('pp_loyalty_email');
+          window.location.href = '/primalpoints/login/';
+          return;
+        }
+
+        renderDashboard(loyData);
+      } catch (err) {
+        document.getElementById('loyLoading').innerHTML = '<p style="color:#c0392b;">Failed to load your points. Please try again.</p>';
+      }
+    }
+
+    function renderDashboard(data) {
+      var balance = data.balance || 0;
+      var rate = data.points_to_dollar_rate || 2000;
+      var minRedeem = data.min_redemption_points || 500;
+      var dollarValue = (balance / rate).toFixed(2);
+
+      // Balance card
+      document.getElementById('loyBalance').textContent = balance.toLocaleString();
+      document.getElementById('loyWorth').textContent = 'Worth $' + dollarValue + ' off';
+
+      // Expiry warning
+      if (data.pending_expiry > 0 && data.expiry_date) {
+        var expDate = new Date(data.expiry_date).toLocaleDateString('en-NZ', { day: 'numeric', month: 'long' });
+        var el = document.getElementById('loyExpiry');
+        el.innerHTML = '⏰ <strong>' + data.pending_expiry.toLocaleString() + ' points</strong> expire on ' + expDate + '. Redeem or shop before then!';
+        el.style.display = 'block';
+      }
+
+      // Redeem section
+      if (balance >= minRedeem) {
+        var slider = document.getElementById('loySlider');
+        // Round down to nearest step
+        var maxRedeem = Math.floor(balance / 100) * 100;
+        slider.min = minRedeem;
+        slider.max = maxRedeem;
+        slider.value = minRedeem;
+        slider.step = 100;
+        updateSlider();
+        document.getElementById('loyRedeemBtn').disabled = false;
+        document.getElementById('loyRedeemCard').style.display = 'block';
+        document.getElementById('loyNotEnough').style.display = 'none';
+      } else {
+        document.getElementById('loyRedeemCard').style.display = 'none';
+        document.getElementById('loyNotEnough').style.display = 'block';
+      }
+
+      // Show dashboard
+      document.getElementById('loyLoading').style.display = 'none';
+      document.getElementById('loyDash').style.display = 'block';
+    }
+
+    function updateSlider() {
+      var pts = parseInt(document.getElementById('loySlider').value);
+      var rate = (loyData && loyData.points_to_dollar_rate) || 2000;
+      var dollars = Math.floor(pts / rate);
+      document.getElementById('loySliderPts').textContent = pts.toLocaleString() + ' pts';
+      document.getElementById('loySliderVal').textContent = '$' + dollars + ' off';
+    }
+
+    async function redeemPoints() {
+      var btn = document.getElementById('loyRedeemBtn');
+      var errEl = document.getElementById('loyRedeemError');
+      var pts = parseInt(document.getElementById('loySlider').value);
+      errEl.style.display = 'none';
+      btn.disabled = true;
+      btn.textContent = 'Redeeming...';
+
+      try {
+        var res = await fetch('/.netlify/functions/loyalty-redeem', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ session_token: loyToken, points_to_redeem: pts }),
+        });
+        var data = await res.json();
+
+        if (data.error) {
+          errEl.textContent = data.error;
+          errEl.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = 'Redeem Points';
+          return;
+        }
+
+        // Show code
+        document.getElementById('loyCodeText').textContent = data.promo_code;
+        document.getElementById('loyCodeValue').textContent = '$' + data.dollar_value;
+        document.getElementById('loyRedeemForm').style.display = 'none';
+        document.getElementById('loyCodeResult').style.display = 'block';
+
+        // Update balance
+        document.getElementById('loyBalance').textContent = (data.new_balance || 0).toLocaleString();
+        var rate = (loyData && loyData.points_to_dollar_rate) || 2000;
+        document.getElementById('loyWorth').textContent = 'Worth $' + ((data.new_balance || 0) / rate).toFixed(2) + ' off';
+
+        // Update local data
+        if (loyData) loyData.balance = data.new_balance || 0;
+
+      } catch (err) {
+        errEl.textContent = 'Something went wrong. Please try again.';
+        errEl.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Redeem Points';
+      }
+    }
+
+    function resetRedeem() {
+      document.getElementById('loyCodeResult').style.display = 'none';
+      document.getElementById('loyRedeemForm').style.display = 'block';
+      document.getElementById('loyRedeemBtn').textContent = 'Redeem Points';
+
+      var minRedeem = (loyData && loyData.min_redemption_points) || 500;
+      var balance = (loyData && loyData.balance) || 0;
+
+      if (balance >= minRedeem) {
+        var maxRedeem = Math.floor(balance / 100) * 100;
+        var slider = document.getElementById('loySlider');
+        slider.max = maxRedeem;
+        slider.value = Math.min(parseInt(slider.value), maxRedeem);
+        if (parseInt(slider.value) < minRedeem) slider.value = minRedeem;
+        updateSlider();
+        document.getElementById('loyRedeemBtn').disabled = false;
+      } else {
+        document.getElementById('loyRedeemCard').style.display = 'none';
+        document.getElementById('loyNotEnough').style.display = 'block';
+      }
+    }
+
+    function copyCode() {
+      var code = document.getElementById('loyCodeText').textContent;
+      navigator.clipboard.writeText(code).then(function() {
+        document.getElementById('loyCodeResult').querySelector('.loy-code-copy').textContent = 'Copied!';
+        setTimeout(function() {
+          document.getElementById('loyCodeResult').querySelector('.loy-code-copy').textContent = 'Click to copy';
+        }, 2000);
+      });
+    }
+
+    function loyLogout() {
+      localStorage.removeItem('pp_loyalty_token');
+      localStorage.removeItem('pp_loyalty_email');
+      window.location.href = '/primalpoints/login/';
+    }
+    </script>
+
+    {{- partial "footer.html" . -}}
+</body>
+</html>

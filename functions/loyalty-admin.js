@@ -85,7 +85,7 @@ function spinInviteHtml({ spinUrl }) {
     <div style="background:rgba(255,255,255,0.06);border-radius:12px;padding:16px;margin-bottom:24px;">
       <p style="margin:0 0 6px;font-size:0.75rem;color:rgba(200,168,122,0.7);text-transform:uppercase;letter-spacing:0.1em;font-weight:700;">Win one of these</p>
       <p style="margin:0;font-size:1.3rem;font-weight:800;color:#C8A87A;">250 · 500 · 750 · 1,000 · 1,500 · 2,500</p>
-      <p style="margin:4px 0 0;font-size:0.75rem;color:rgba(255,255,255,0.4);">100 pts = $1 off your next order</p>
+      <p style="margin:4px 0 0;font-size:0.75rem;color:rgba(255,255,255,0.4);">2,000 pts = $1 off your next order</p>
     </div>
     <a href="${spinUrl}" style="display:inline-block;background:linear-gradient(135deg,#C8A87A 0%,#D4A84B 100%);color:#1a1008;padding:15px 36px;border-radius:100px;font-weight:800;font-size:1rem;text-decoration:none;">🎡 Spin Now</a>
     <p style="margin:14px 0 0;font-size:0.7rem;color:rgba(255,255,255,0.3);">One spin per link · Valid 30 days</p>
@@ -125,7 +125,7 @@ function balanceEmailHtml({ email, balance, expiryDate, minRedeem, redeemRate })
       ? `<p style="margin:0 0 20px;font-size:0.9rem;color:#2E1A0E;line-height:1.6;">You have enough points to redeem! Head to <a href="https://www.primalpantry.co.nz" style="color:#3D5230;">primalpantry.co.nz</a>, place your order and you'll be able to redeem your points at checkout.</p>`
       : `<p style="margin:0 0 20px;font-size:0.9rem;color:#2E1A0E;line-height:1.6;">You're ${(minRedeem - balance).toLocaleString()} points away from your first redemption. Keep shopping to earn more!</p>`
     }
-    <p style="margin:0;font-size:0.78rem;color:#C8A87A;">⭐ <strong>How it works:</strong> Earn points on every purchase. 100 points = $1 off.</p>
+    <p style="margin:0;font-size:0.78rem;color:#C8A87A;">⭐ <strong>How it works:</strong> Earn 100 points per $1 spent. 2,000 points = $1 off (5% back).</p>
   </td></tr>
   <tr><td style="padding:20px 32px;border-top:1px solid #ede5d8;text-align:center;">
     <p style="margin:0;font-size:0.72rem;color:#9c9287;">PrimalPantry · New Zealand</p>
@@ -163,7 +163,7 @@ exports.handler = async (event) => {
         ]);
         const rows = await rowsRes.json();
         const settingsArr = await settingsRes.json();
-        const settings = settingsArr?.[0] || { points_to_dollar_rate: 1000, min_redemption_points: 1000 };
+        const settings = settingsArr?.[0] || { points_to_dollar_rate: 2000, min_redemption_points: 2000 };
 
         const balance = Array.isArray(rows) ? rows.reduce((sum, r) => {
           if (r.expires_at === null || r.expires_at > now) return sum + r.points;
@@ -352,7 +352,7 @@ exports.handler = async (event) => {
 
       const settingsRes = await sbFetch('/rest/v1/loyalty_settings?id=eq.1&select=*');
       const settingsArr = await settingsRes.json();
-      const settings = settingsArr?.[0] || { points_to_dollar_rate: 1000, min_redemption_points: 1000 };
+      const settings = settingsArr?.[0] || { points_to_dollar_rate: 2000, min_redemption_points: 2000 };
 
       let sent = 0;
       for (const email of emails) {
