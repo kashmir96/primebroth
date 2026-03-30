@@ -5,107 +5,214 @@
     <title>PrimalPoints — Earn Rewards on Every Order | PrimalPantry</title>
     <meta name="description" content="Earn PrimalPoints every time you shop. Redeem them for dollars off your next order. PrimalPantry's loyalty rewards programme for Kiwis.">
     <style>
-      .pp-hero { background:#3D5230;padding:80px 16px;text-align:center;color:#fff; }
-      .pp-hero h1 { font-family:Georgia,serif;font-size:2.6rem;font-weight:400;margin:0 0 12px;color:#fff; }
-      .pp-hero p { font-size:1.1rem;color:rgba(255,255,255,0.8);margin:0 0 28px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.6; }
-      .pp-hero-btn { display:inline-block;background:#C8A87A;color:#1a1008;text-decoration:none;padding:16px 36px;border-radius:10px;font-weight:700;font-size:1rem; }
-      .pp-hero-btn:hover { background:#b89565;color:#1a1008;text-decoration:none; }
+      /* Hero */
+      .pp-hero { position:relative;overflow:hidden;min-height:520px;display:flex;align-items:center;justify-content:center; }
+      .pp-hero-bg { position:absolute;inset:0;z-index:0; }
+      .pp-hero-bg img { width:100%;height:100%;object-fit:cover;filter:brightness(0.35); }
+      .pp-hero-content { position:relative;z-index:1;text-align:center;padding:80px 20px;max-width:640px;margin:0 auto; }
+      .pp-hero-badge { display:inline-block;background:rgba(200,168,122,0.2);border:1px solid rgba(200,168,122,0.4);color:#C8A87A;font-size:0.68rem;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;padding:6px 18px;border-radius:100px;margin-bottom:20px; }
+      .pp-hero h1 { font-family:Georgia,serif;font-size:3.2rem;font-weight:400;margin:0 0 16px;color:#fff;line-height:1.15; }
+      .pp-hero p { font-size:1.15rem;color:rgba(255,255,255,0.85);margin:0 0 32px;line-height:1.7; }
+      .pp-hero-btn { display:inline-block;background:#C8A87A;color:#1a1008;text-decoration:none;padding:16px 40px;border-radius:100px;font-weight:800;font-size:1rem;transition:all 0.2s; }
+      .pp-hero-btn:hover { background:#d4b88e;color:#1a1008;text-decoration:none;transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,0.3); }
+      .pp-hero-sub { margin-top:16px;font-size:0.78rem;color:rgba(255,255,255,0.45); }
 
-      .pp-steps { background:#F7F2EB;padding:80px 16px; }
-      .pp-steps h2 { font-family:Georgia,serif;font-size:1.8rem;text-align:center;color:#1C1A17;margin:0 0 48px; }
-      .pp-steps-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:900px;margin:0 auto; }
-      .pp-step { text-align:center;padding:0 16px; }
-      .pp-step-icon { width:72px;height:72px;border-radius:50%;background:#3D5230;color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.8rem; }
-      .pp-step h3 { font-family:Georgia,serif;font-size:1.15rem;color:#1C1A17;margin:0 0 8px; }
-      .pp-step p { font-size:0.9rem;color:#8A7D70;line-height:1.6;margin:0; }
+      /* Big number callout */
+      .pp-callout { background:#1C1A17;padding:48px 20px;text-align:center; }
+      .pp-callout-grid { display:flex;justify-content:center;gap:48px;flex-wrap:wrap;max-width:700px;margin:0 auto; }
+      .pp-callout-item { text-align:center; }
+      .pp-callout-num { font-family:Georgia,serif;font-size:2.4rem;font-weight:700;color:#C8A87A;line-height:1; }
+      .pp-callout-label { font-size:0.75rem;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.12em;margin-top:6px;font-weight:600; }
 
-      .pp-details { padding:80px 16px;background:#fff; }
+      /* Steps */
+      .pp-steps { background:#F7F2EB;padding:80px 20px; }
+      .pp-steps-header { text-align:center;margin-bottom:56px; }
+      .pp-steps-header h2 { font-family:Georgia,serif;font-size:2rem;color:#1C1A17;margin:0 0 10px; }
+      .pp-steps-header p { font-size:0.95rem;color:#8A7D70;margin:0; }
+      .pp-steps-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:960px;margin:0 auto; }
+      .pp-step { background:#fff;border-radius:16px;padding:32px 24px;text-align:center;border:1px solid rgba(123,92,58,0.08);transition:box-shadow 0.2s; }
+      .pp-step:hover { box-shadow:0 8px 32px rgba(0,0,0,0.06); }
+      .pp-step-num { display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#3D5230,#4E6840);color:#fff;font-size:1.2rem;font-weight:800;margin-bottom:16px; }
+      .pp-step h3 { font-family:Georgia,serif;font-size:1.2rem;color:#1C1A17;margin:0 0 8px; }
+      .pp-step p { font-size:0.88rem;color:#8A7D70;line-height:1.65;margin:0; }
+
+      /* Split image + text */
+      .pp-split { display:grid;grid-template-columns:1fr 1fr;min-height:480px; }
+      .pp-split-img { overflow:hidden; }
+      .pp-split-img img { width:100%;height:100%;object-fit:cover; }
+      .pp-split-text { display:flex;align-items:center;padding:60px 48px; }
+      .pp-split-text-inner { max-width:420px; }
+      .pp-split--dark { background:#1C1A17; }
+      .pp-split--dark .pp-split-text-inner h2 { font-family:Georgia,serif;font-size:1.8rem;color:#fff;margin:0 0 16px;line-height:1.3; }
+      .pp-split--dark .pp-split-text-inner p { font-size:0.95rem;color:rgba(255,255,255,0.65);line-height:1.7;margin:0 0 12px; }
+      .pp-split--light { background:#fff; }
+      .pp-split--light .pp-split-text-inner h2 { font-family:Georgia,serif;font-size:1.8rem;color:#1C1A17;margin:0 0 16px;line-height:1.3; }
+      .pp-split--light .pp-split-text-inner p { font-size:0.95rem;color:#8A7D70;line-height:1.7;margin:0 0 12px; }
+      .pp-split-highlight { display:inline-block;background:#F0EBE3;border-radius:8px;padding:12px 18px;margin-top:8px; }
+      .pp-split-highlight span { font-size:1.1rem;font-weight:800;color:#3D5230; }
+
+      /* Details */
+      .pp-details { padding:80px 20px;background:#F7F2EB; }
       .pp-details-inner { max-width:700px;margin:0 auto; }
-      .pp-details h2 { font-family:Georgia,serif;font-size:1.8rem;text-align:center;color:#1C1A17;margin:0 0 40px; }
-      .pp-detail-row { display:flex;align-items:flex-start;gap:16px;margin-bottom:28px; }
-      .pp-detail-icon { flex-shrink:0;width:40px;height:40px;border-radius:10px;background:#F0EBE3;display:flex;align-items:center;justify-content:center;font-size:1.1rem; }
+      .pp-details h2 { font-family:Georgia,serif;font-size:1.8rem;text-align:center;color:#1C1A17;margin:0 0 48px; }
+      .pp-detail-row { display:flex;align-items:flex-start;gap:18px;margin-bottom:28px;background:#fff;padding:20px 24px;border-radius:12px;border:1px solid rgba(123,92,58,0.08); }
+      .pp-detail-icon { flex-shrink:0;width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#3D5230,#4E6840);display:flex;align-items:center;justify-content:center;font-size:1.15rem; }
       .pp-detail-text h4 { font-size:1rem;color:#1C1A17;margin:0 0 4px;font-weight:700; }
-      .pp-detail-text p { font-size:0.9rem;color:#8A7D70;line-height:1.6;margin:0; }
+      .pp-detail-text p { font-size:0.88rem;color:#8A7D70;line-height:1.6;margin:0; }
 
-      .pp-cta { background:#F0EBE3;padding:80px 16px;text-align:center; }
-      .pp-cta h2 { font-family:Georgia,serif;font-size:1.8rem;color:#1C1A17;margin:0 0 12px; }
-      .pp-cta p { font-size:1rem;color:#8A7D70;margin:0 0 28px;max-width:460px;margin-left:auto;margin-right:auto;line-height:1.6; }
-      .pp-cta-btn { display:inline-block;background:#3D5230;color:#fff;text-decoration:none;padding:16px 36px;border-radius:10px;font-weight:700;font-size:1rem; }
-      .pp-cta-btn:hover { background:#2e4024;color:#fff;text-decoration:none; }
+      /* CTA */
+      .pp-cta { background:linear-gradient(135deg,#3D5230 0%,#2a3b1f 100%);padding:80px 20px;text-align:center; }
+      .pp-cta h2 { font-family:Georgia,serif;font-size:2rem;color:#fff;margin:0 0 12px; }
+      .pp-cta p { font-size:1.05rem;color:rgba(255,255,255,0.7);margin:0 0 32px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.6; }
+      .pp-cta-btn { display:inline-block;background:#C8A87A;color:#1a1008;text-decoration:none;padding:16px 40px;border-radius:100px;font-weight:800;font-size:1rem;transition:all 0.2s; }
+      .pp-cta-btn:hover { background:#d4b88e;color:#1a1008;text-decoration:none;transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,0.2); }
+      .pp-cta-trust { margin-top:20px;font-size:0.78rem;color:rgba(255,255,255,0.4); }
 
       @media(max-width:768px) {
-        .pp-hero h1 { font-size:2rem; }
-        .pp-steps-grid { grid-template-columns:1fr;max-width:360px; }
+        .pp-hero h1 { font-size:2.2rem; }
+        .pp-hero { min-height:420px; }
+        .pp-steps-grid { grid-template-columns:1fr;max-width:400px; }
+        .pp-split { grid-template-columns:1fr; }
+        .pp-split-img { height:280px; }
+        .pp-split-text { padding:40px 24px; }
+        .pp-split--reverse .pp-split-img { order:-1; }
+        .pp-callout-grid { gap:32px; }
+        .pp-callout-num { font-size:1.8rem; }
       }
     </style>
 </head>
 <body>
     {{- partial "header_new.html" . -}}
 
-    <!-- Hero -->
+    <!-- Hero with lifestyle bg -->
     <div class="pp-hero">
-      <p style="margin:0 0 8px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:rgba(255,255,255,0.6);">PrimalPantry Rewards</p>
-      <h1>PrimalPoints</h1>
-      <p>Earn points every time you shop. Redeem them for real dollars off your next order. It's our way of saying thanks.</p>
-      <a href="/primalpoints/login/" class="pp-hero-btn">Check My Points</a>
+      <div class="pp-hero-bg">
+        <img src="/img/dec24/balmtriotable.webp" alt="" loading="eager">
+      </div>
+      <div class="pp-hero-content">
+        <div class="pp-hero-badge">PrimalPantry Rewards</div>
+        <h1>Every order earns you<br>money back</h1>
+        <p>Earn PrimalPoints on every purchase. Redeem them for real dollars off. No sign-up, no cards, no fuss.</p>
+        <a href="/primalpoints/login/" class="pp-hero-btn">Check My Points</a>
+        <div class="pp-hero-sub">Already ordered? You probably have points waiting.</div>
+      </div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="pp-callout">
+      <div class="pp-callout-grid">
+        <div class="pp-callout-item">
+          <div class="pp-callout-num">5%</div>
+          <div class="pp-callout-label">Back on every order</div>
+        </div>
+        <div class="pp-callout-item">
+          <div class="pp-callout-num">100</div>
+          <div class="pp-callout-label">Points per $1 spent</div>
+        </div>
+        <div class="pp-callout-item">
+          <div class="pp-callout-num">60 days</div>
+          <div class="pp-callout-label">To use your points</div>
+        </div>
+        <div class="pp-callout-item">
+          <div class="pp-callout-num">90,000+</div>
+          <div class="pp-callout-label">Kiwis trust us</div>
+        </div>
+      </div>
     </div>
 
     <!-- How It Works -->
     <div class="pp-steps">
-      <h2>How It Works</h2>
+      <div class="pp-steps-header">
+        <h2>How It Works</h2>
+        <p>Three steps. No sign-up. Your email is your account.</p>
+      </div>
       <div class="pp-steps-grid">
         <div class="pp-step">
-          <div class="pp-step-icon">1</div>
+          <div class="pp-step-num">1</div>
           <h3>Shop</h3>
-          <p>Place an order on primalpantry.co.nz as usual. No sign-up needed — your email is your account.</p>
+          <p>Place an order on primalpantry.co.nz as usual. Points are tied to your email — nothing extra to do.</p>
         </div>
         <div class="pp-step">
-          <div class="pp-step-icon">2</div>
+          <div class="pp-step-num">2</div>
           <h3>Earn</h3>
-          <p>You'll automatically earn 100 PrimalPoints for every $1 you spend. Points land in your account instantly.</p>
+          <p>You'll automatically earn 100 PrimalPoints for every $1 you spend. They land in your account instantly.</p>
         </div>
         <div class="pp-step">
-          <div class="pp-step-icon">3</div>
+          <div class="pp-step-num">3</div>
           <h3>Redeem</h3>
-          <p>Log in to your PrimalPoints dashboard, choose how many points to redeem, and get a discount code for your next order.</p>
+          <p>Log in with your email, choose how many points to convert, and get a discount code for checkout.</p>
         </div>
+      </div>
+    </div>
+
+    <!-- Split: Earn -->
+    <div class="pp-split pp-split--dark">
+      <div class="pp-split-img">
+        <img src="/img/reviana-smell-lifestyle.webp" alt="PrimalPantry tallow skincare products" loading="lazy">
+      </div>
+      <div class="pp-split-text">
+        <div class="pp-split-text-inner">
+          <h2>Earn points on every order</h2>
+          <p>Every dollar you spend earns 100 PrimalPoints. A $40 order? That's 4,000 points in your account instantly.</p>
+          <p>Points are awarded automatically after checkout — no codes to enter, no loyalty cards to carry.</p>
+          <div class="pp-split-highlight" style="background:rgba(200,168,122,0.15);">
+            <span style="color:#C8A87A;">$40 order = 4,000 points = $2 off next time</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Split: Redeem (reversed) -->
+    <div class="pp-split pp-split--light pp-split--reverse">
+      <div class="pp-split-text">
+        <div class="pp-split-text-inner">
+          <h2>Redeem for real dollars off</h2>
+          <p>When you're ready, log in to your PrimalPoints dashboard. Slide to choose how many points to redeem and we'll generate a promo code on the spot.</p>
+          <p>Use it at checkout. Simple as that.</p>
+          <div class="pp-split-highlight">
+            <span>2,000 points = $1 off your order</span>
+          </div>
+        </div>
+      </div>
+      <div class="pp-split-img">
+        <img src="/img/dec24/triotable.webp" alt="PrimalPantry tallow balm collection" loading="lazy">
       </div>
     </div>
 
     <!-- Details -->
     <div class="pp-details">
       <div class="pp-details-inner">
-        <h2>The Details</h2>
+        <h2>Good to Know</h2>
 
         <div class="pp-detail-row">
           <div class="pp-detail-icon">💰</div>
           <div class="pp-detail-text">
             <h4>Earning Rate</h4>
-            <p>100 points per $1 spent. That's 5% back on every order.</p>
+            <p>100 points per $1 spent — that's 5% back on every order.</p>
           </div>
         </div>
 
         <div class="pp-detail-row">
           <div class="pp-detail-icon">🎁</div>
           <div class="pp-detail-text">
-            <h4>Redemption Rate</h4>
-            <p>Every 2,000 points = $1 off. Minimum redemption is 2,000 points ($1 off).</p>
+            <h4>Redemption</h4>
+            <p>2,000 points = $1 off. Minimum redemption is 2,000 points ($1 off).</p>
           </div>
         </div>
 
         <div class="pp-detail-row">
           <div class="pp-detail-icon">⏰</div>
           <div class="pp-detail-text">
-            <h4>Points Expiry</h4>
-            <p>Points expire 60 days after they're earned. Use them or lose them — we'll email you a reminder before they go.</p>
+            <h4>Expiry</h4>
+            <p>Points expire 60 days after they're earned. We'll email you a heads-up before they go.</p>
           </div>
         </div>
 
         <div class="pp-detail-row">
           <div class="pp-detail-icon">🔐</div>
           <div class="pp-detail-text">
-            <h4>No Password Needed</h4>
-            <p>We use magic links. Enter the email you ordered with and we'll send you a secure login link — no password to remember.</p>
+            <h4>No Password</h4>
+            <p>We use magic links. Enter the email you ordered with and we'll send you a secure login — no password to remember.</p>
           </div>
         </div>
 
@@ -122,8 +229,9 @@
     <!-- CTA -->
     <div class="pp-cta">
       <h2>Ready to check your balance?</h2>
-      <p>If you've ordered from us before, you probably already have points waiting.</p>
+      <p>If you've ordered from us before, you probably already have points waiting to be redeemed.</p>
       <a href="/primalpoints/login/" class="pp-cta-btn">Log In to PrimalPoints</a>
+      <div class="pp-cta-trust">Trusted by 90,000+ Kiwis · No sign-up required</div>
     </div>
 
     {{- partial "footer.html" . -}}

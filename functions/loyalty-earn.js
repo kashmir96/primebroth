@@ -171,7 +171,7 @@ async function awardLoyaltyPoints({ email, totalValue, lineItems, orderId }) {
     const newBalance = await getBalance(emailLower);
     await sendEmail({
       to: email,
-      subject: `You earned ${pointsEarned.toLocaleString()} PrimalPoints 🌿`,
+      subject: `You earned ${pointsEarned.toLocaleString()} PrimalPoints`,
       html: purchaseEmailHtml({
         email,
         pointsEarned,
