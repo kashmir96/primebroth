@@ -52,6 +52,19 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 {{- partial "analytics" . -}}
+<link rel="prefetch" href="https://js.stripe.com/v3/" as="script">
+<script>
+// Warm the checkout function so there's no cold start
+(function(){
+  if (sessionStorage.getItem('pp_fn_warm')) return;
+  sessionStorage.setItem('pp_fn_warm', '1');
+  fetch('/.netlify/functions/create-checkout-session', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: '{"warmup":true}'
+  }).catch(function(){});
+})();
+</script>
 <meta charset="utf-8">
 <title>{{site.Title}}{{if not .IsHome}} | {{.Title}}{{end}}</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">

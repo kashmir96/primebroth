@@ -23,6 +23,11 @@ const getStripe = (market) => {
 };
 
 exports.handler = async (event, context) => {
+  // Keep-warm ping — return fast without touching Stripe
+  if (event.httpMethod === 'GET' || (event.body && event.body === '{"warmup":true}')) {
+    return { statusCode: 200, body: '{"warm":true}' };
+  }
+
   try {
     const { cart, countryCode, osoMeta, clientInfo, quizBundle, giftCode } = JSON.parse(event.body);
 
