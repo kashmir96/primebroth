@@ -363,8 +363,54 @@
             updateCart();
 
             proceedToCheckoutButton.addEventListener('click', function () {
-                // Navigate to embedded checkout page
-                window.location.href = '/checkout/';
+                // Pre-fetch checkout session before navigating so it's ready on arrival
+                proceedToCheckoutButton.disabled = true;
+                proceedToCheckoutButton.textContent = 'Loading...';
+
+                var ss = sessionStorage;
+                var osoMeta = {
+                    landing_page: ss.getItem('oso_lp') || '',
+                    analytics_source: ss.getItem('oso_src') || '',
+                    magnet_product: ss.getItem('oso_magnet') || '',
+                    last_product_page: ss.getItem('oso_last_product') || ''
+                };
+                var clientInfo = {
+                    browser: (navigator.userAgent.match(/(Chrome|Firefox|Safari|Edge|Opera)[\/\s](\d+)/) || [])[1] || '',
+                    device: window.innerWidth < 768 ? 'Mobile' : window.innerWidth < 1024 ? 'Tablet' : 'Desktop',
+                    os: navigator.platform || '',
+                    screenWidth: window.innerWidth
+                };
+
+                fetch('/.netlify/functions/create-checkout-session', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        cart: cart.map(function(i) { return { priceId: i.priceId, quantity: parseInt(i.quantity) || 1 }; }),
+                        countryCode: countryCode,
+                        osoMeta: osoMeta,
+                        clientInfo: clientInfo,
+                        quizBundle: (function() {
+                            try {
+                                var pids = JSON.parse(localStorage.getItem('quiz_bundle_pids') || '[]');
+                                if (!pids.length) return false;
+                                var cartPids = cart.map(function(i) { return i.priceId; });
+                                return pids.every(function(pid) { return cartPids.indexOf(pid) !== -1; });
+                            } catch(e) { return false; }
+                        })(),
+                        giftCode: sessionStorage.getItem('pp_gift_code') || null
+                    })
+                })
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    if (data.clientSecret) {
+                        sessionStorage.setItem('pp_checkout_secret', data.clientSecret);
+                    }
+                    window.location.href = '/checkout/';
+                })
+                .catch(function() {
+                    // If pre-fetch fails, navigate anyway — checkout page will retry
+                    window.location.href = '/checkout/';
+                });
             });
         });
     </script>

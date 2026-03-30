@@ -242,69 +242,77 @@ body {
     }
     if (typeof oso === 'function') oso('event', 'proceed to checkout');
 
-    // Oso attribution metadata
-    var ss = sessionStorage;
-    var osoMeta = {
-        landing_page: ss.getItem('oso_lp') || '',
-        analytics_source: ss.getItem('oso_src') || '',
-        magnet_product: ss.getItem('oso_magnet') || '',
-        last_product_page: ss.getItem('oso_last_product') || ''
-    };
-
-    // Client info for analytics
-    var clientInfo = {
-        browser: (navigator.userAgent.match(/(Chrome|Firefox|Safari|Edge|Opera)[\/\s](\d+)/) || [])[1] || '',
-        device: window.innerWidth < 768 ? 'Mobile' : window.innerWidth < 1024 ? 'Tablet' : 'Desktop',
-        os: navigator.platform || '',
-        screenWidth: window.innerWidth
-    };
-
-    // Create embedded checkout session
-    fetch('/.netlify/functions/create-checkout-session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            cart: cart.map(function(i) { return { priceId: i.priceId, quantity: parseInt(i.quantity) || 1 }; }),
-            countryCode: countryCode,
-            osoMeta: osoMeta,
-            clientInfo: clientInfo,
-            quizBundle: (function() {
-                try {
-                    var pids = JSON.parse(localStorage.getItem('quiz_bundle_pids') || '[]');
-                    if (!pids.length) return false;
-                    var cartPids = cart.map(function(i) { return i.priceId; });
-                    return pids.every(function(pid) { return cartPids.indexOf(pid) !== -1; });
-                } catch(e) { return false; }
-            })(),
-            giftCode: sessionStorage.getItem('pp_gift_code') || null
-        })
-    })
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-        if (data.clientSecret) {
-            // Wait for async Stripe script if it hasn't loaded yet
-            function mountCheckout() {
-                var stripe = Stripe(stripeKey);
-                stripe.initEmbeddedCheckout({ clientSecret: data.clientSecret })
-                    .then(function(checkout) {
-                        document.getElementById('coLoading').style.display = 'none';
-                        checkout.mount('#checkout');
-                    });
-            }
-            if (typeof Stripe !== 'undefined') {
-                mountCheckout();
-            } else {
-                document.querySelector('script[src*="js.stripe.com"]').addEventListener('load', mountCheckout);
-            }
+    // Mount Stripe checkout with a given clientSecret
+    function mountWithSecret(clientSecret) {
+        function mountCheckout() {
+            var stripe = Stripe(stripeKey);
+            stripe.initEmbeddedCheckout({ clientSecret: clientSecret })
+                .then(function(checkout) {
+                    document.getElementById('coLoading').style.display = 'none';
+                    checkout.mount('#checkout');
+                });
+        }
+        if (typeof Stripe !== 'undefined') {
+            mountCheckout();
         } else {
+            document.querySelector('script[src*="js.stripe.com"]').addEventListener('load', mountCheckout);
+        }
+    }
+
+    // Check if cart/drawer pre-fetched the checkout session
+    var prefetchedSecret = sessionStorage.getItem('pp_checkout_secret');
+    if (prefetchedSecret) {
+        sessionStorage.removeItem('pp_checkout_secret');
+        mountWithSecret(prefetchedSecret);
+    } else {
+        // Fallback: fetch checkout session from here (direct navigation / bookmark)
+        var ss = sessionStorage;
+        var osoMeta = {
+            landing_page: ss.getItem('oso_lp') || '',
+            analytics_source: ss.getItem('oso_src') || '',
+            magnet_product: ss.getItem('oso_magnet') || '',
+            last_product_page: ss.getItem('oso_last_product') || ''
+        };
+        var clientInfo = {
+            browser: (navigator.userAgent.match(/(Chrome|Firefox|Safari|Edge|Opera)[\/\s](\d+)/) || [])[1] || '',
+            device: window.innerWidth < 768 ? 'Mobile' : window.innerWidth < 1024 ? 'Tablet' : 'Desktop',
+            os: navigator.platform || '',
+            screenWidth: window.innerWidth
+        };
+
+        fetch('/.netlify/functions/create-checkout-session', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                cart: cart.map(function(i) { return { priceId: i.priceId, quantity: parseInt(i.quantity) || 1 }; }),
+                countryCode: countryCode,
+                osoMeta: osoMeta,
+                clientInfo: clientInfo,
+                quizBundle: (function() {
+                    try {
+                        var pids = JSON.parse(localStorage.getItem('quiz_bundle_pids') || '[]');
+                        if (!pids.length) return false;
+                        var cartPids = cart.map(function(i) { return i.priceId; });
+                        return pids.every(function(pid) { return cartPids.indexOf(pid) !== -1; });
+                    } catch(e) { return false; }
+                })(),
+                giftCode: sessionStorage.getItem('pp_gift_code') || null
+            })
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            if (data.clientSecret) {
+                mountWithSecret(data.clientSecret);
+            } else {
+                document.getElementById('coLoading').style.display = 'none';
+                document.getElementById('coError').style.display = '';
+            }
+        })
+        .catch(function() {
             document.getElementById('coLoading').style.display = 'none';
             document.getElementById('coError').style.display = '';
-        }
-    })
-    .catch(function() {
-        document.getElementById('coLoading').style.display = 'none';
-        document.getElementById('coError').style.display = '';
-    });
+        });
+    }
 })();
 </script>
 
