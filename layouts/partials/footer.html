@@ -16,22 +16,30 @@
   <script src='{{ "/js/custom.js" | relURL }}?v=1' defer></script>
 
   {{ if not .IsHome }}
-  <!-- Defer non-critical JS — saves ~300 KiB from main thread during page load -->
-  <script src='{{ "/js/clipboard.min.js" | relURL }}' defer></script>
-  <script src='{{ "/js/highlight.min.js" | relURL }}' defer></script>
-  <script src='{{ "/js/highlightjs-line-numbers.min.js" | relURL }}' defer></script>
-  <script src='{{ "/js/sweetalert2.min.js" | relURL }}' defer></script>
+  <!-- Only load code-highlighting & clipboard JS on pages that have code blocks -->
   <script>
-    // Wait for deferred scripts to load before initialising
-    window.addEventListener('load', function() {
-      if (typeof hljs !== 'undefined') {
-        hljs.highlightAll();
-        hljs.initLineNumbersOnLoad();
-      }
-      if (typeof ClipboardJS !== 'undefined') {
-        new ClipboardJS('.url');
-      }
-    });
+    if (document.querySelector('pre code')) {
+      ['{{ "/js/clipboard.min.js" | relURL }}',
+       '{{ "/js/highlight.min.js" | relURL }}',
+       '{{ "/js/highlightjs-line-numbers.min.js" | relURL }}',
+       '{{ "/js/sweetalert2.min.js" | relURL }}'
+      ].forEach(function(src) {
+        var s = document.createElement('script');
+        s.src = src;
+        s.defer = true;
+        document.head.appendChild(s);
+      });
+
+      window.addEventListener('load', function() {
+        if (typeof hljs !== 'undefined') {
+          hljs.highlightAll();
+          hljs.initLineNumbersOnLoad();
+        }
+        if (typeof ClipboardJS !== 'undefined') {
+          new ClipboardJS('.url');
+        }
+      });
+    }
 
     function OnClickURL() {
       if (typeof Swal !== 'undefined') {
