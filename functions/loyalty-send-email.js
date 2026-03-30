@@ -210,7 +210,7 @@ exports.handler = async (event) => {
     let subject, html;
 
     if (type === 'spin_invite') {
-      subject = '🌿 You\'ve got a spin waiting — crack the code';
+      subject = 'You\'ve got a spin waiting — crack the code';
       html = spinInviteHtml(data || {});
     } else if (type === 'balance_update') {
       subject = `Your PrimalPoints balance: ${(data?.balance || 0).toLocaleString()} pts`;
@@ -219,7 +219,7 @@ exports.handler = async (event) => {
       subject = `Your $${data?.dollarValue || ''} PrimalPoints code is here`;
       html = redemptionEmailHtml(data || {});
     } else if (type === 'expiring') {
-      subject = `⏰ ${(data?.expiringPoints || 0).toLocaleString()} PrimalPoints expire soon`;
+      subject = `${(data?.expiringPoints || 0).toLocaleString()} PrimalPoints expire soon`;
       html = expiringEmailHtml(data || {});
     } else {
       return { statusCode: 400, headers: HEADERS, body: JSON.stringify({ error: 'Unknown email type' }) };

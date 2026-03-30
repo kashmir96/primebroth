@@ -231,7 +231,7 @@ exports.handler = async (event) => {
           // Send invite email
           await sendEmail({
             to: friendEmail,
-            subject: `${fromEmail ? fromEmail.split('@')[0] : 'A friend'} sent you a free spin 🎡`,
+            subject: `${fromEmail ? fromEmail.split('@')[0] : 'A friend'} sent you a free spin`,
             html: spinInviteEmailHtml({ spinUrl, fromEmail }),
           });
 

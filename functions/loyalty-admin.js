@@ -331,7 +331,7 @@ exports.handler = async (event) => {
 
           await sendEmail({
             to: e,
-            subject: 'You have a free spin waiting 🎡',
+            subject: 'You have a free spin waiting',
             html: spinInviteHtml({ spinUrl }),
           });
 
@@ -376,7 +376,7 @@ exports.handler = async (event) => {
 
           await sendEmail({
             to: e,
-            subject: `Your PrimalPoints balance: ${balance.toLocaleString()} pts 🌿`,
+            subject: `Your PrimalPoints balance: ${balance.toLocaleString()} pts`,
             html: balanceEmailHtml({
               email: e,
               balance,
