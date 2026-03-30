@@ -34,7 +34,7 @@ function ppShowGiftPill() {
   if (document.getElementById('pp-gift-pill')) return;
   var el = document.createElement('div');
   el.id = 'pp-gift-pill';
-  el.innerHTML = '🎁 <strong>$5 off</strong> — add $25+ to unlock'
+  el.innerHTML = '🎁 <strong>$5 off</strong> — spend $25+ to unlock'
     + '<button onclick="ppDismissGiftPill()" aria-label="Dismiss">✕</button>';
   document.body.appendChild(el);
   setTimeout(function(){ el.classList.add('pp-gift-pill-in'); }, 80);
