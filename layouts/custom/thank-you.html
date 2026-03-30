@@ -20,12 +20,14 @@
           if (typeof oso === 'function') oso('event', 'checkout completed');
         });
     </script>
-    <!-- Event snippet for Purchase (1) conversion page -->
+    <!-- Event snippet for Purchase (1) conversion page — deferred until transaction ID is known -->
 <script>
-    gtag('event', 'conversion', {
+    window._ppFireGadsConversion = function(txId) {
+      gtag('event', 'conversion', {
         'send_to': 'AW-16543078874/NBm3CM_yx9MZENqzrdA9',
-        'transaction_id': ''
-    });
+        'transaction_id': txId || ''
+      });
+    };
   </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -750,6 +752,11 @@
       items: items
     }
   });
+
+  // Fire Google Ads conversion with the same transaction ID for dedup
+  if (typeof window._ppFireGadsConversion === 'function') {
+    window._ppFireGadsConversion(transactionId);
+  }
 </script>
 
     <script>
