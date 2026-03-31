@@ -19,102 +19,7 @@
  */
 
 const crypto = require('crypto');
-const { sendEmail: _sendEmailDefault } = require('./send-quiz-email');
-
-// ── Email via OSO Supabase gmail_accounts ────────────────────────────────────
-// The gmail_accounts table lives in OSO's Supabase, not primebroth's.
-// Use OSO_SUPABASE_URL + OSO_SUPABASE_SERVICE_KEY env vars to reach it.
-
-function osoFetch(path, opts = {}) {
-  const url = process.env.OSO_SUPABASE_URL || process.env.SUPABASE_URL;
-  const key = process.env.OSO_SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_KEY;
-  return fetch(`${url}${path}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      apikey: key,
-      Authorization: `Bearer ${key}`,
-      ...(opts.prefer ? { Prefer: opts.prefer } : {}),
-    },
-    method: opts.method || 'GET',
-    body: opts.body ? JSON.stringify(opts.body) : undefined,
-  });
-}
-
-function encodeBase64Url(str) {
-  return Buffer.from(str, 'utf-8').toString('base64')
-    .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-}
-
-async function getOsoGmailAccount() {
-  const accountId = process.env.GMAIL_ACCOUNT_ID;
-  const query = accountId
-    ? `/rest/v1/gmail_accounts?id=eq.${accountId}&active=eq.true&select=*`
-    : '/rest/v1/gmail_accounts?active=eq.true&select=*&limit=1';
-  const res = await osoFetch(query);
-  const rows = await res.json();
-  if (!rows || rows.length === 0) return null;
-  const row = rows[0];
-  // Refresh token if expired
-  if (new Date(row.expires_at) < new Date(Date.now() + 60000)) {
-    const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        grant_type: 'refresh_token',
-        refresh_token: row.refresh_token,
-        client_id: process.env.GOOGLE_CLIENT_ID,
-        client_secret: process.env.GOOGLE_CLIENT_SECRET,
-      }).toString(),
-    });
-    const tokenData = await tokenRes.json();
-    if (!tokenData.access_token) {
-      console.error('[loyalty-auth] Gmail token refresh failed:', tokenData);
-      return null;
-    }
-    const expiresAt = new Date(Date.now() + tokenData.expires_in * 1000).toISOString();
-    await osoFetch(`/rest/v1/gmail_accounts?id=eq.${row.id}`, {
-      method: 'PATCH',
-      body: { access_token: tokenData.access_token, expires_at: expiresAt },
-    });
-    row.access_token = tokenData.access_token;
-  }
-  return row;
-}
-
-async function sendEmail({ to, subject, html }) {
-  try {
-    const acct = await getOsoGmailAccount();
-    if (!acct) {
-      console.error('[loyalty-auth] No active Gmail account found in OSO Supabase');
-      return false;
-    }
-    const lines = [
-      `From: PrimalPantry <${acct.email_address}>`,
-      `To: ${to}`,
-      `Subject: ${subject}`,
-      'Content-Type: text/html; charset=utf-8',
-      'MIME-Version: 1.0',
-      '',
-      html,
-    ];
-    const raw = encodeBase64Url(lines.join('\r\n'));
-    const sendRes = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/messages/send', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${acct.access_token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ raw }),
-    });
-    const sendData = await sendRes.json();
-    if (!sendRes.ok) {
-      console.error('[loyalty-auth] Gmail send error:', sendData);
-      return false;
-    }
-    console.log(`[loyalty-auth] Email sent to ${to} | gmail_id: ${sendData.id}`);
-    return true;
-  } catch (err) {
-    console.error('[loyalty-auth] sendEmail error:', err.message);
-    return false;
-  }
-}
+const { sendEmail } = require('./send-quiz-email');
 
 const HEADERS = {
   'Access-Control-Allow-Origin': '*',
@@ -225,18 +130,13 @@ async function handleRequestLink(email) {
     return reply(500, { error: 'Something went wrong. Please try again.' });
   }
 
-  // Send magic link email
+  // Send magic link email (non-blocking, same pattern as affiliate-auth)
   const loginUrl = `https://www.primalpantry.co.nz/primalpoints/login/?token=${token}`;
-  try {
-    const sent = await sendEmail({
-      to: emailLower,
-      subject: 'Your PrimalPoints Login Link',
-      html: magicLinkHtml({ loginUrl }),
-    });
-    console.log('[loyalty-auth] Magic link email to', emailLower, '- sent:', sent);
-  } catch (err) {
-    console.error('[loyalty-auth] Email send error:', err.message);
-  }
+  sendEmail({
+    to: emailLower,
+    subject: 'Your PrimalPoints Login Link',
+    html: magicLinkHtml({ loginUrl }),
+  }).catch(err => console.error('[loyalty-auth] Email send error:', err.message));
 
   return reply(200, { success: true, message: 'If a PrimalPoints account exists for this email, a login link has been sent.' });
 }
@@ -375,17 +275,6 @@ exports.handler = async (event) => {
     if (action === 'verify_token') return await handleVerifyToken(token);
     if (action === 'validate') return await handleValidate(session_token);
     if (action === 'balance') return await handleBalance(session_token);
-    if (action === 'debug_email') {
-      try {
-        const acct = await getOsoGmailAccount();
-        if (!acct) return reply(200, { error: 'No Gmail account found. Check OSO_SUPABASE_URL/OSO_SUPABASE_SERVICE_KEY env vars.' });
-        const sent = await sendEmail({ to: email, subject: 'PrimalPoints Debug Test', html: '<p>If you see this, email sending works.</p>' });
-        return reply(200, { sent, email, acctEmail: acct.email_address });
-      } catch (err) {
-        return reply(200, { error: err.message });
-      }
-    }
-
     return reply(400, { error: 'Invalid action.' });
   } catch (err) {
     console.error('[loyalty-auth] Error:', err.message);
