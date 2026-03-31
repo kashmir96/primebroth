@@ -669,7 +669,7 @@
             document.getElementById("option-price-display").textContent = price.toFixed(2);
             document.querySelector('.btn-add-to-cart span').textContent = `Add To Cart — $${price.toFixed(2)}`;
             var ppPtsEl = document.getElementById('pp-pts-label');
-            if (ppPtsEl) ppPtsEl.textContent = ppCalcPoints(price) + ' PrimalPoints';
+            if (ppPtsEl) ppPtsEl.textContent = ppCalcPoints(price, window.location.pathname) + ' PrimalPoints';
         }
     }
 

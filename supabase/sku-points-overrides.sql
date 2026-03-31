@@ -21,6 +21,6 @@ INSERT INTO sku_points_overrides (sku, description, multiplier) VALUES
   ('shampoo-bottle',     'Tallow Shampoo - Fresh Geranium 500ml',        1),
   ('eye-c',              'Tallow Eye Cream',                              1),
   ('day-night-duo',      'Day n Night Duo',                               1),
-  ('reviana-night',      'Night Cream 50ml - Reviana',                    2),
-  ('reviana-complexion', 'Complexion Bundle - Reviana',                   2)
+  ('reviana-night',      'Night Cream 50ml - Reviana',                    1),
+  ('reviana-complexion', 'Complexion Bundle - Reviana',                   1)
 ON CONFLICT (sku) DO NOTHING;

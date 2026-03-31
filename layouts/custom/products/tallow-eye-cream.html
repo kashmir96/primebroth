@@ -694,7 +694,7 @@
             document.getElementById("priceWas").textContent = `$${(price / 0.80).toFixed(2)}`;
 
             var ppPtsEl = document.getElementById('pp-pts-label');
-            if (ppPtsEl) ppPtsEl.textContent = ppCalcPoints(price) + ' PrimalPoints';
+            if (ppPtsEl) ppPtsEl.textContent = ppCalcPoints(price, window.location.pathname) + ' PrimalPoints';
         }
     }
 

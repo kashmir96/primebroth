@@ -375,7 +375,7 @@
         document.getElementById('cartBtnLabel').textContent = 'Add To Cart — $' + price.toFixed(2);
         document.querySelector('.buy-now').setAttribute('data-price-id', pricing.priceId);
         var ppPtsEl = document.getElementById('pp-pts-label');
-        if (ppPtsEl) ppPtsEl.textContent = ppCalcPoints(price) + ' PrimalPoints';
+        if (ppPtsEl) ppPtsEl.textContent = ppCalcPoints(price, window.location.pathname) + ' PrimalPoints';
     }
     var quantityInput = document.getElementById('quantityAll');
     document.querySelector('.btn-increase').addEventListener('click', function() { quantityInput.value = parseInt(quantityInput.value) + 1; });

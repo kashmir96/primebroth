@@ -724,7 +724,7 @@ Watch as light and fluffy balm soaks deeply into your skin, going to work giving
             if (cartDisplay) cartDisplay.textContent = price.toFixed(2);
 
             var ppPtsEl = document.getElementById('pp-pts-label');
-            if (ppPtsEl) ppPtsEl.textContent = ppCalcPoints(price) + ' PrimalPoints';
+            if (ppPtsEl) ppPtsEl.textContent = ppCalcPoints(price, window.location.pathname) + ' PrimalPoints';
 
             // Show sale badge for 3-pack
             var saleBadge = document.getElementById('special');

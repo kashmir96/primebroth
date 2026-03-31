@@ -50,6 +50,10 @@ exports.handler = async (event) => {
       overridesArr.forEach(r => {
         if (r.multiplier && r.multiplier !== 1) {
           overrides[r.sku] = Number(r.multiplier);
+          // Also key by description (product name) for fuzzy frontend matching
+          if (r.description) {
+            overrides[r.description.toLowerCase()] = Number(r.multiplier);
+          }
         }
       });
     }
