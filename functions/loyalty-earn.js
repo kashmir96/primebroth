@@ -219,19 +219,19 @@ async function awardLoyaltyPoints({ email, totalValue, lineItems, orderId }) {
 
     console.log(`[loyalty-earn] Awarded ${pointsEarned} pts to ${emailLower} (max sku mult: ${maxMult}×)`);
 
-    // Send email
-    const newBalance = await getBalance(emailLower);
-    await sendEmail({
-      to: email,
-      subject: `You earned ${pointsEarned.toLocaleString()} PrimalPoints`,
-      html: purchaseEmailHtml({
-        email,
-        pointsEarned,
-        newBalance,
-        orderTotal: totalValue,
-        expiryDate: expiresAt,
-      }),
-    });
+    // Send email — DISABLED
+    // const newBalance = await getBalance(emailLower);
+    // await sendEmail({
+    //   to: email,
+    //   subject: `You earned ${pointsEarned.toLocaleString()} PrimalPoints`,
+    //   html: purchaseEmailHtml({
+    //     email,
+    //     pointsEarned,
+    //     newBalance,
+    //     orderTotal: totalValue,
+    //     expiryDate: expiresAt,
+    //   }),
+    // });
   } catch (err) {
     console.error('[loyalty-earn] Error:', err.message);
   }

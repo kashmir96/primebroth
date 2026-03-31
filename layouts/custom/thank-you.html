@@ -644,13 +644,14 @@
             <div id="shareThisContainer" style="display:none;"></div>
         </div>
 
-        <!-- PrimalPoints widget -->
+        <!-- PrimalPoints widget — DISABLED
         <div id="pp-pts-widget" class="pp-pts-widget" style="display:none;">
             <p class="pp-pts-line">
                 🌿 You earned <strong id="ppEarnedNum">0 PrimalPoints</strong> this order
                 <span class="pp-pts-total" id="ppBalanceLine"></span>
             </p>
         </div>
+        PP DISABLED -->
 
         <!-- Referral section (shown when session_id present + customer email retrieved) -->
         <div id="pp-ty-referral-section" class="pp-ty-referral" style="display:none;">
@@ -876,8 +877,8 @@
                     document.getElementById('pp-ty-referral-section').style.display = 'block';
                     ppInitGiftLinks(data.email);
 
-                    // PrimalPoints widget
-                    ppLoadLoyalty(data.email, data.amount_total);
+                    // PrimalPoints widget — DISABLED
+                    // ppLoadLoyalty(data.email, data.amount_total);
                 }
             })
             .catch(() => {}); // silently fail — not critical
