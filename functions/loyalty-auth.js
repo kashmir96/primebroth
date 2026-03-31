@@ -130,75 +130,15 @@ async function handleRequestLink(email) {
     return reply(500, { error: 'Something went wrong. Please try again.' });
   }
 
-  // Send magic link email — inline with full error detail for debugging
+  // Send magic link email
   const loginUrl = `https://www.primalpantry.co.nz/primalpoints/login/?token=${token}`;
-  let sendResult = { sent: false };
-  try {
-    const { sendEmail: _se, ...rest } = require('./send-quiz-email');
-    // Replicate sendEmail inline to capture exact error
-    const acctRes = await sbFetch('/rest/v1/gmail_accounts?active=eq.true&select=*&limit=1');
-    const acctRows = await acctRes.json();
-    if (!acctRows || acctRows.length === 0) {
-      sendResult.error = 'No gmail_accounts rows found';
-    } else {
-      const acct = acctRows[0];
-      sendResult.acctEmail = acct.email_address;
-      sendResult.tokenExpired = new Date(acct.expires_at) < new Date();
+  sendEmail({
+    to: emailLower,
+    subject: 'Your PrimalPoints Login Link',
+    html: magicLinkHtml({ loginUrl }),
+  }).catch(err => console.error('[loyalty-auth] Email send error:', err.message));
 
-      // Refresh if needed
-      let accessToken = acct.access_token;
-      if (new Date(acct.expires_at) < new Date(Date.now() + 60000)) {
-        const refreshRes = await fetch('https://oauth2.googleapis.com/token', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams({
-            grant_type: 'refresh_token',
-            refresh_token: acct.refresh_token,
-            client_id: process.env.GOOGLE_CLIENT_ID,
-            client_secret: process.env.GOOGLE_CLIENT_SECRET,
-          }).toString(),
-        });
-        const refreshData = await refreshRes.json();
-        if (refreshData.access_token) {
-          accessToken = refreshData.access_token;
-          sendResult.refreshed = true;
-        } else {
-          sendResult.refreshError = refreshData;
-        }
-      }
-
-      if (!sendResult.refreshError) {
-        const emailHtml = magicLinkHtml({ loginUrl });
-        const lines = [
-          `From: PrimalPantry <${acct.email_address}>`,
-          `To: ${emailLower}`,
-          `Subject: Your PrimalPoints Login Link`,
-          'Content-Type: text/html; charset=utf-8',
-          'MIME-Version: 1.0',
-          '',
-          emailHtml,
-        ];
-        const raw = Buffer.from(lines.join('\r\n'), 'utf-8').toString('base64')
-          .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-        const gmailRes = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/messages/send', {
-          method: 'POST',
-          headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
-          body: JSON.stringify({ raw }),
-        });
-        const gmailData = await gmailRes.json();
-        if (gmailRes.ok) {
-          sendResult.sent = true;
-          sendResult.gmailId = gmailData.id;
-        } else {
-          sendResult.gmailError = gmailData;
-        }
-      }
-    }
-  } catch (err) {
-    sendResult.error = err.message;
-  }
-
-  return reply(200, { success: true, ...sendResult, message: 'Debug: see sendResult fields' });
+  return reply(200, { success: true, message: 'If a PrimalPoints account exists for this email, a login link has been sent.' });
 }
 
 // ── Verify Token ──────────────────────────────────────────────────────────────
