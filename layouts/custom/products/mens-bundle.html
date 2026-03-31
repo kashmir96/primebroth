@@ -27,9 +27,9 @@
 .gallery-mobile { margin-bottom: 16px; }
 .gallery-mobile .product-swiper .swiper-slide { width: 90%; aspect-ratio: 4/5; border-radius: 12px; overflow: hidden; background: #F5EDE3; }
 .gallery-mobile .product-swiper .swiper-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.gallery-mobile .swiper-pagination { position: relative; margin-top: 12px; text-align: center; }
-.gallery-mobile .swiper-pagination-bullet { width: 8px; height: 8px; background: #EDE0D1; opacity: 1; }
-.gallery-mobile .swiper-pagination-bullet-active { background: #2C1810; }
+.gallery-mobile .swiper-pagination { position: relative; margin-top: 10px; margin-bottom: 0; display: flex; justify-content: flex-start; gap: 4px; }
+.gallery-mobile .swiper-pagination-bullet { width: 48px; height: 48px; border-radius: 6px; overflow: hidden; opacity: 0.5; border: 2px solid transparent; transition: opacity 0.2s, border-color 0.2s; background: none; margin: 0 !important; } .gallery-mobile .swiper-pagination-bullet img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 4px; }
+.gallery-mobile .swiper-pagination-bullet-active { opacity: 1; border-color: #2C1810; }
 .pp-points-hint{position:absolute;top:-14px;right:0;font-size:0.72rem;color:#9C8E84;font-weight:400;margin:0;display:inline-flex;align-items:center;gap:4px;line-height:1;}
 .pp-points-hint strong{color:#6B8F5B;font-weight:600;}
 .pp-pts-info{position:relative;display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;border-radius:50%;background:rgba(107,143,91,0.1);border:1px solid rgba(107,143,91,0.22);color:#6B8F5B;font-size:0.58rem;font-weight:800;cursor:help;flex-shrink:0;font-style:normal;}
@@ -576,7 +576,7 @@ if (window.innerWidth <= 900) {
   new Swiper(".product-swiper", {
     slidesPerView: "auto",
     spaceBetween: 5,
-    pagination: { el: ".swiper-pagination", clickable: true }
+    pagination: { el: ".swiper-pagination", clickable: true, renderBullet: function(i,c){ var img=document.querySelectorAll(".product-swiper .swiper-slide img")[i]; return "<span class=\"" + c + "\"><img src=\"" + (img?img.getAttribute("src"):"") + "\"></span>"; } }
   });
 }
 </script>    {{- partial "footer.html" . }}

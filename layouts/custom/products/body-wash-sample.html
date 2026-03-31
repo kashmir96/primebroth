@@ -620,7 +620,7 @@ if (window.innerWidth <= 900) {
   new Swiper('.product-swiper', {
     slidesPerView: 'auto',
     spaceBetween: 5,
-    pagination: { el: '.swiper-pagination', clickable: true }
+    pagination: { el: '.swiper-pagination', clickable: true, renderBullet: function(i,c){ var img=document.querySelectorAll('.product-swiper .swiper-slide img')[i]; return '<span class="'+c+'"><img src="'+(img?img.getAttribute('src'):'')+'"></span>'; } }
   });
 }
 </script>
