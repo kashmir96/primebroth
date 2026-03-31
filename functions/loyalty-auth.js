@@ -99,14 +99,14 @@ async function handleRequestLink(email) {
 
   const emailLower = email.toLowerCase();
 
-  // Rate limit: max 3 magic link requests per email per hour
-  const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+  // Rate limit: max 1 magic link request per email per minute
+  const oneMinAgo = new Date(Date.now() - 60 * 1000).toISOString();
   const rateRes = await sbFetch(
-    `/rest/v1/loyalty_tokens?email=eq.${encodeURIComponent(emailLower)}&created_at=gte.${encodeURIComponent(oneHourAgo)}&select=id`
+    `/rest/v1/loyalty_tokens?email=eq.${encodeURIComponent(emailLower)}&created_at=gte.${encodeURIComponent(oneMinAgo)}&select=id`
   );
   const recentTokens = await rateRes.json();
-  if (Array.isArray(recentTokens) && recentTokens.length >= 3) {
-    return reply(429, { error: 'Too many login requests. Please wait an hour and try again.' });
+  if (Array.isArray(recentTokens) && recentTokens.length >= 1) {
+    return reply(429, { error: 'A login link was just sent. Please wait a minute and try again.' });
   }
 
   // Generate token — send link to any valid email (new visitors see 0 balance + shop prompt)
