@@ -916,7 +916,7 @@
             document.getElementById("price").textContent = `$${price.toFixed(2)}`;
             document.getElementById("afterpay_price").textContent = `${(price/4).toFixed(2)}`;
             var ppPtsEl = document.getElementById('pp-pts-label');
-            if (ppPtsEl) ppPtsEl.textContent = `${Math.round(price * 10).toLocaleString()} PrimalPoints`;
+            if (ppPtsEl) ppPtsEl.textContent = ppCalcPoints(price, window.location.pathname) + ' PrimalPoints';
 
             // Update cart button price
             var cartDisplay = document.getElementById('cartPriceDisplay');

@@ -10,16 +10,15 @@
 
 // ── PrimalPoints rates (fetched once, used everywhere) ──
 window.PP_RATES = null;
+window.PP_RATES_LOADED = false;
 window.ppGetRate = function(identifier) {
   if (!PP_RATES) return 100;
   var base = PP_RATES.points_per_dollar || 100;
   var mult = 1;
   if (identifier && PP_RATES.overrides) {
     var id = identifier.toLowerCase();
-    // Exact SKU match first
     if (PP_RATES.overrides[id]) { mult = PP_RATES.overrides[id]; }
     else {
-      // Fuzzy: match override key against identifier (works with SKUs or product names)
       var idClean = id.replace(/[-_\s]+/g, '');
       for (var k in PP_RATES.overrides) {
         var kClean = k.toLowerCase().replace(/[-_\s]+/g, '');
@@ -32,10 +31,26 @@ window.ppGetRate = function(identifier) {
 window.ppCalcPoints = function(price, identifier) {
   return Math.ceil(price * ppGetRate(identifier) / 10) * 10;
 };
+// Store last-known price/identifier per page so we can re-render when rates arrive
+window._ppLastCalc = null;
+window.ppCalcAndShow = function(price, identifier) {
+  window._ppLastCalc = { price: price, id: identifier };
+  var el = document.getElementById('pp-pts-label');
+  if (el) el.textContent = ppCalcPoints(price, identifier) + ' PrimalPoints';
+};
 fetch('/.netlify/functions/loyalty-rates')
   .then(function(r) { return r.json(); })
-  .then(function(d) { window.PP_RATES = d; document.dispatchEvent(new Event('pp-rates-loaded')); })
-  .catch(function() {});
+  .then(function(d) {
+    window.PP_RATES = d;
+    window.PP_RATES_LOADED = true;
+    // Re-render any points labels that were set before rates loaded
+    if (window._ppLastCalc) {
+      var el = document.getElementById('pp-pts-label');
+      if (el) el.textContent = ppCalcPoints(window._ppLastCalc.price, window._ppLastCalc.id) + ' PrimalPoints';
+    }
+    document.dispatchEvent(new Event('pp-rates-loaded'));
+  })
+  .catch(function() { window.PP_RATES_LOADED = true; });
 
 // ── Gift link detection ──
 (function() {
