@@ -103,7 +103,15 @@
           </div>
         </div>
 
-        <!-- Not enough points -->
+        <!-- Zero balance — new visitor -->
+        <div class="loy-card" id="loyZeroState" style="display:none;text-align:center;">
+          <div style="font-size:40px;margin-bottom:12px;">🛒</div>
+          <h3 style="font-family:Georgia,serif;color:#1C1A17;margin:0 0 8px;">Start Earning Rewards</h3>
+          <p style="font-size:0.95rem;color:#8A7D70;margin:0 0 16px;line-height:1.6;">You don't have any PrimalPoints yet. Place your first order and you'll earn points automatically — then come back here to redeem them for dollars off.</p>
+          <a href="/shop/" style="display:inline-block;background:#3D5230;color:#fff;text-decoration:none;padding:14px 32px;border-radius:10px;font-weight:700;font-size:0.95rem;">Shop Now to Earn Points</a>
+        </div>
+
+        <!-- Not enough points to redeem -->
         <div class="loy-card" id="loyNotEnough" style="display:none;text-align:center;">
           <p style="font-size:0.95rem;color:#8A7D70;margin:0 0 12px;">You don't have enough points to redeem yet. Keep shopping to earn more!</p>
           <a href="/shop/" style="display:inline-block;background:#3D5230;color:#fff;text-decoration:none;padding:12px 28px;border-radius:10px;font-weight:700;font-size:0.9rem;">Shop Now</a>
@@ -195,6 +203,16 @@
         var el = document.getElementById('loyExpiry');
         el.innerHTML = '⏰ <strong>' + data.pending_expiry.toLocaleString() + ' points</strong> expire on ' + expDate + '. Redeem or shop before then!';
         el.style.display = 'block';
+      }
+
+      // Zero balance — show start earning state
+      if (balance === 0) {
+        document.getElementById('loyRedeemCard').style.display = 'none';
+        document.getElementById('loyNotEnough').style.display = 'none';
+        document.getElementById('loyZeroState').style.display = 'block';
+        document.getElementById('loyLoading').style.display = 'none';
+        document.getElementById('loyDash').style.display = 'block';
+        return;
       }
 
       // Redeem section

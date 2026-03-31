@@ -109,18 +109,7 @@ async function handleRequestLink(email) {
     return reply(429, { error: 'Too many login requests. Please wait an hour and try again.' });
   }
 
-  // Check they have at least one row in loyalty_points
-  const checkRes = await sbFetch(
-    `/rest/v1/loyalty_points?email=eq.${encodeURIComponent(emailLower)}&select=id&limit=1`
-  );
-  const rows = await checkRes.json();
-
-  if (!Array.isArray(rows) || rows.length === 0) {
-    // Don't reveal whether email exists
-    return reply(200, { success: true, message: 'If a PrimalPoints account exists for this email, a login link has been sent.' });
-  }
-
-  // Generate token
+  // Generate token — send link to any valid email (new visitors see 0 balance + shop prompt)
   const token = crypto.randomBytes(32).toString('hex');
   const expiresAt = new Date(Date.now() + 60 * 60 * 1000).toISOString(); // 1 hour
 
