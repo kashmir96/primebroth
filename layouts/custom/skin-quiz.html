@@ -2489,7 +2489,8 @@ function drawIngredientBars(recs) {
         'rosacea': { 'Bisabolol': 9, 'Ceramides': 8, 'Niacinamide': 7, 'Colloidal Oat': 6, 'Aloe Vera': 5 },
         'baby': { 'Chamomile': 8, 'Colloidal Oat': 7, 'Aloe Vera': 6 },
         'cradle-cap': { 'Colloidal Oat': 7, 'Chamomile': 6 },
-        'nappy-rash': { 'Chamomile': 7, 'Aloe Vera': 6 }
+        'nappy-rash': { 'Chamomile': 7, 'Aloe Vera': 6 },
+        'general': { 'Tallow': 9, 'Hyaluronic Acid': 8, 'Niacinamide': 8, 'Ceramides': 7, 'Bakuchiol': 7, 'Vitamin C': 6 }
     };
 
     // For babies/children, always show baby-safe ingredients
@@ -2503,6 +2504,10 @@ function drawIngredientBars(recs) {
                 ingredients[ing] = Math.max(ingredients[ing] || 0, ings[ing]);
             });
         });
+        // Fallback if no ingredients matched (e.g. unknown concern)
+        if (Object.keys(ingredients).length === 0) {
+            ingredients = { 'Tallow': 9, 'Hyaluronic Acid': 8, 'Niacinamide': 8, 'Ceramides': 7, 'Bakuchiol': 7, 'Vitamin C': 6 };
+        }
     }
 
     // Sort by score desc, take top 6
