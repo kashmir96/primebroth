@@ -455,6 +455,34 @@ exports.handler = async (event) => {
       return reply(200, { ok: true, expired: expireRows.length });
     }
 
+    // ── SKU points overrides ──
+
+    if (action === 'sku_points') {
+      const res = await sbFetch('/rest/v1/sku_points_overrides?select=sku,description,multiplier,updated_at&order=description.asc');
+      const rows = await res.json();
+      return reply(200, { overrides: Array.isArray(rows) ? rows : [] });
+    }
+
+    if (action === 'update_sku_points') {
+      const { sku, multiplier, description } = body;
+      if (!sku || multiplier === undefined) return reply(400, { error: 'sku and multiplier required' });
+
+      // Upsert
+      await sbFetch('/rest/v1/sku_points_overrides', {
+        method: 'POST',
+        prefer: 'resolution=merge-duplicates,return=minimal',
+        body: {
+          sku,
+          multiplier: Number(multiplier),
+          description: description || sku,
+          updated_at: new Date().toISOString(),
+        },
+      });
+
+      console.log(`[loyalty-admin] SKU points updated: ${sku} → ${multiplier}×`);
+      return reply(200, { ok: true });
+    }
+
     return reply(400, { error: 'Unknown action' });
   } catch (err) {
     console.error('[loyalty-admin] Error:', err.message);

@@ -185,7 +185,7 @@ body {
             return sum + (parseFloat(item.price || 0) * (parseInt(item.quantity || 1)));
         }, 0);
         if (subtotal > 0) {
-            var pts = Math.ceil(subtotal) * 10;
+            var pts = ppCalcPoints(subtotal);
             var banner = document.getElementById('pp-co-pts-banner');
             var val = document.getElementById('pp-co-pts-val');
             if (banner && val) {

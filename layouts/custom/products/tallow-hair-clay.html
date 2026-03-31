@@ -599,7 +599,7 @@
             document.getElementById("price").textContent = `$${price.toFixed(2)}`;
             document.getElementById("afterpay_price").textContent = `${(price/4).toFixed(2)}`;
             var ppPtsEl = document.getElementById('pp-pts-label');
-            if (ppPtsEl) ppPtsEl.textContent = Math.ceil(price) * 10 + ' PrimalPoints';
+            if (ppPtsEl) ppPtsEl.textContent = ppCalcPoints(price) + ' PrimalPoints';
         } else {
             document.getElementById("price").textContent = "N/A";
             document.getElementById("afterpay_price").textContent = "N/A";

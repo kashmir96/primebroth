@@ -710,7 +710,7 @@ Watch as light and fluffy balm soaks deeply into your skin, going to work giving
             if (cartPriceEl) cartPriceEl.textContent = price.toFixed(2);
 
             var ppPtsEl = document.getElementById('pp-pts-label');
-            if (ppPtsEl) ppPtsEl.textContent = Math.ceil(price) * 10 + ' PrimalPoints';
+            if (ppPtsEl) ppPtsEl.textContent = ppCalcPoints(price) + ' PrimalPoints';
 
             // Sale badge + was price for three_pack
             const specialEl = document.getElementById("special");

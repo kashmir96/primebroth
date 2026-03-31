@@ -769,7 +769,7 @@
 
         // Update PrimalPoints
         var ppPtsEl = document.getElementById('pp-pts-label');
-        if (ppPtsEl) ppPtsEl.textContent = Math.ceil(price) * 10 + ' PrimalPoints';
+        if (ppPtsEl) ppPtsEl.textContent = ppCalcPoints(price) + ' PrimalPoints';
 
         // Trigger original price ID update
         if (typeof updatePriceId === 'function') {

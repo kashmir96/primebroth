@@ -119,34 +119,86 @@ function purchaseEmailHtml({ email, pointsEarned, newBalance, orderTotal, expiry
 /**
  * Main export — called directly (not as HTTP handler) from checkout-completed.js
  */
+async function getSkuOverrides() {
+  try {
+    const res = await sbFetch('/rest/v1/sku_points_overrides?select=sku,multiplier');
+    const rows = await res.json();
+    if (!Array.isArray(rows)) return {};
+    const map = {};
+    rows.forEach(r => { if (r.sku && r.multiplier) map[r.sku.toLowerCase()] = Number(r.multiplier); });
+    return map;
+  } catch (e) {
+    return {};
+  }
+}
+
+function getSkuMultiplier(lineItem, overrides) {
+  const sku = (lineItem.price?.product?.metadata?.sku || '').toLowerCase();
+  const name = (lineItem.price?.product?.name || lineItem.description || '').toLowerCase();
+  // Check exact SKU match first
+  if (sku && overrides[sku]) return overrides[sku];
+  // Check if any override key appears in the name (e.g. "reviana" in "Reviana Night Cream")
+  for (const [key, mult] of Object.entries(overrides)) {
+    if (name.includes(key)) return mult;
+  }
+  return 1;
+}
+
 async function awardLoyaltyPoints({ email, totalValue, lineItems, orderId }) {
   try {
     if (!email || !totalValue) return;
     const emailLower = email.toLowerCase();
 
-    const settings = await getSettings();
+    const [settings, skuOverrides] = await Promise.all([
+      getSettings(),
+      getSkuOverrides(),
+    ]);
 
-    // Calculate points — check for double points
-    let multiplier = 1;
-    if (settings.double_points_active) {
-      const now = new Date();
-      const until = settings.double_points_until ? new Date(settings.double_points_until) : null;
-      const expired = until && now > until;
-      if (!expired) {
-        if (!settings.double_points_sku) {
-          multiplier = 2; // global double points
-        } else {
-          // Check if any line item matches the SKU
-          const hasMatchingSku = (lineItems || []).some(li => {
-            const sku = li.price?.product?.metadata?.sku || li.price?.product?.name || '';
-            return sku.toLowerCase().includes(settings.double_points_sku.toLowerCase());
-          });
-          if (hasMatchingSku) multiplier = 2;
+    // Calculate points per line item with SKU-specific multipliers
+    let pointsEarned = 0;
+    const items = lineItems || [];
+
+    if (items.length > 0) {
+      // Per-item calculation
+      for (const li of items) {
+        const itemPrice = (li.amount_total || li.price?.unit_amount || 0) / 100;
+        const qty = li.quantity || 1;
+        const skuMult = getSkuMultiplier(li, skuOverrides);
+
+        // Also check global double points on top
+        let doubleMult = 1;
+        if (settings.double_points_active) {
+          const now = new Date();
+          const until = settings.double_points_until ? new Date(settings.double_points_until) : null;
+          const expired = until && now > until;
+          if (!expired) {
+            if (!settings.double_points_sku) {
+              doubleMult = 2;
+            } else {
+              const sku = li.price?.product?.metadata?.sku || li.price?.product?.name || '';
+              if (sku.toLowerCase().includes(settings.double_points_sku.toLowerCase())) {
+                doubleMult = 2;
+              }
+            }
+          }
         }
+
+        pointsEarned += Math.round(itemPrice * settings.points_per_dollar * skuMult * doubleMult);
       }
+    } else {
+      // Fallback: no line items, use total value with base rate
+      let multiplier = 1;
+      if (settings.double_points_active) {
+        const now = new Date();
+        const until = settings.double_points_until ? new Date(settings.double_points_until) : null;
+        if (!(until && now > until) && !settings.double_points_sku) multiplier = 2;
+      }
+      pointsEarned = Math.round(totalValue * settings.points_per_dollar * multiplier);
     }
 
-    const pointsEarned = Math.round(totalValue * settings.points_per_dollar * multiplier);
+    const maxMult = items.length > 0
+      ? Math.max(...items.map(li => getSkuMultiplier(li, skuOverrides)))
+      : 1;
     const expiresAt = new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString(); // 60 days
 
     // Insert points row
@@ -158,14 +210,14 @@ async function awardLoyaltyPoints({ email, totalValue, lineItems, orderId }) {
         points: pointsEarned,
         type: 'purchase',
         order_id: orderId || null,
-        description: multiplier > 1
-          ? `${multiplier}× double points on $${totalValue.toFixed(2)} order`
+        description: maxMult > 1
+          ? `Bonus points (${maxMult}×) on $${totalValue.toFixed(2)} order`
           : `Purchase — $${totalValue.toFixed(2)} order`,
         expires_at: expiresAt,
       },
     });
 
-    console.log(`[loyalty-earn] Awarded ${pointsEarned} pts to ${emailLower} (×${multiplier})`);
+    console.log(`[loyalty-earn] Awarded ${pointsEarned} pts to ${emailLower} (max sku mult: ${maxMult}×)`);
 
     // Send email
     const newBalance = await getBalance(emailLower);

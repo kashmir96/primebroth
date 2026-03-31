@@ -160,7 +160,8 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
         <span id="atcText">Add to Cart — ${{ $p.price_nz }}</span>
       </button>
-      <p class="pp-points-hint">~<strong>{{ math.Round (math.Mul (float $p.price_nz) 50) }} PrimalPoints</strong> <i class="pp-pts-info" data-tip="Earn points on every purchase — redeem on your next order">i</i></p>
+      <p class="pp-points-hint">~<strong id="pp-pts-label">PrimalPoints</strong> <i class="pp-pts-info" data-tip="Earn points on every purchase — redeem on your next order">i</i></p>
+    <script>document.addEventListener("DOMContentLoaded",function(){var el=document.getElementById("pp-pts-label");if(el){var price={{ $p.price_nz }};function u(){el.textContent=ppCalcPoints(price,"reviana")+" PrimalPoints";}if(window.PP_RATES)u();else document.addEventListener("pp-rates-loaded",u);}});</script>
     </div>
     <p class="sub-cta">Money back guarantee · Speedy NZ-wide shipping</p>
     <div class="rv-guarantees">

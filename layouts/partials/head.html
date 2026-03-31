@@ -8,6 +8,22 @@
   document.cookie = 'country_code=NZ; expires=' + new Date(Date.now() + 30*24*60*60*1000).toUTCString() + '; path=/';
 })();
 
+// ── PrimalPoints rates (fetched once, used everywhere) ──
+window.PP_RATES = null;
+window.ppGetRate = function(sku) {
+  if (!PP_RATES) return 100;
+  var base = PP_RATES.points_per_dollar || 100;
+  var mult = (sku && PP_RATES.overrides && PP_RATES.overrides[sku]) || 1;
+  return base * mult;
+};
+window.ppCalcPoints = function(price, sku) {
+  return Math.ceil(price * ppGetRate(sku) / 10) * 10;
+};
+fetch('/.netlify/functions/loyalty-rates')
+  .then(function(r) { return r.json(); })
+  .then(function(d) { window.PP_RATES = d; document.dispatchEvent(new Event('pp-rates-loaded')); })
+  .catch(function() {});
+
 // ── Gift link detection ──
 (function() {
   var params = new URLSearchParams(window.location.search);

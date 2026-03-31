@@ -757,7 +757,7 @@
                 if (cartDisplay) cartDisplay.textContent = price.toFixed(2);
 
                 var ppPtsEl = document.getElementById('pp-pts-label');
-                if (ppPtsEl) ppPtsEl.textContent = Math.ceil(price) * 10 + ' PrimalPoints';
+                if (ppPtsEl) ppPtsEl.textContent = ppCalcPoints(price) + ' PrimalPoints';
                 var saleBadge = document.getElementById('special');
                 var priceWas = document.getElementById('priceWas');
                 if (orderType === 'three_pack') {
