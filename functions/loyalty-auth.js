@@ -132,11 +132,16 @@ async function handleRequestLink(email) {
 
   // Send magic link email
   const loginUrl = `https://www.primalpantry.co.nz/primalpoints/login/?token=${token}`;
-  sendEmail({
-    to: emailLower,
-    subject: 'Your PrimalPoints Login Link',
-    html: magicLinkHtml({ loginUrl }),
-  }).catch(err => console.error('[loyalty-auth] Email send error:', err.message));
+  try {
+    const sent = await sendEmail({
+      to: emailLower,
+      subject: 'Your PrimalPoints Login Link',
+      html: magicLinkHtml({ loginUrl }),
+    });
+    console.log('[loyalty-auth] Magic link email to', emailLower, '- sent:', sent);
+  } catch (err) {
+    console.error('[loyalty-auth] Email send error:', err.message);
+  }
 
   return reply(200, { success: true, message: 'If a PrimalPoints account exists for this email, a login link has been sent.' });
 }
