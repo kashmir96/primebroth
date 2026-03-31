@@ -31,6 +31,14 @@ CREATE TABLE IF NOT EXISTS loyalty_settings (
 -- Seed default settings
 INSERT INTO loyalty_settings (id) VALUES (1) ON CONFLICT (id) DO NOTHING;
 
+-- ── Migration: correct rates to 5% cashback (50 pts/$1, 1000 pts = $1 off) ──
+UPDATE loyalty_settings
+SET points_per_dollar = 50,
+    points_to_dollar_rate = 1000,
+    min_redemption_points = 1000,
+    updated_at = NOW()
+WHERE id = 1;
+
 -- 3. Spin game log
 CREATE TABLE IF NOT EXISTS loyalty_spins (
   id              BIGSERIAL PRIMARY KEY,

@@ -177,10 +177,15 @@ exports.handler = async (event) => {
       if (action === 'leaderboard') {
         const limit = parseInt(event.queryStringParameters?.limit) || 20;
         const now = new Date().toISOString();
-        const res = await sbFetch(`/rest/v1/loyalty_points?select=email,points,expires_at`);
+        const [res, settingsRes] = await Promise.all([
+          sbFetch(`/rest/v1/loyalty_points?select=email,points,expires_at`),
+          sbFetch('/rest/v1/loyalty_settings?id=eq.1&select=points_to_dollar_rate,points_per_dollar'),
+        ]);
         const rows = await res.json();
+        const settingsArr = await settingsRes.json();
+        const settings = settingsArr?.[0] || { points_to_dollar_rate: 1000, points_per_dollar: 50 };
 
-        if (!Array.isArray(rows)) return reply(200, { leaderboard: [] });
+        if (!Array.isArray(rows)) return reply(200, { leaderboard: [], settings });
 
         const totals = {};
         rows.forEach(r => {
@@ -194,7 +199,7 @@ exports.handler = async (event) => {
           .sort((a, b) => b.balance - a.balance)
           .slice(0, limit);
 
-        return reply(200, { leaderboard });
+        return reply(200, { leaderboard, settings });
       }
 
       // Stats
