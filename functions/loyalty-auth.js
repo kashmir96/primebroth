@@ -130,15 +130,16 @@ async function handleRequestLink(email) {
     return reply(500, { error: 'Something went wrong. Please try again.' });
   }
 
-  // Send magic link email (non-blocking, same pattern as affiliate-auth)
+  // Send magic link email (must await — non-blocking causes function to exit before send completes)
   const loginUrl = `https://www.primalpantry.co.nz/primalpoints/login/?token=${token}`;
-  sendEmail({
+  const sent = await sendEmail({
     to: emailLower,
     subject: 'Your PrimalPoints Login Link',
     html: magicLinkHtml({ loginUrl }),
-  }).catch(err => console.error('[loyalty-auth] Email send error:', err.message));
+  });
+  console.log('[loyalty-auth] Magic link to', emailLower, '- sent:', sent);
 
-  return reply(200, { success: true, message: 'If a PrimalPoints account exists for this email, a login link has been sent.' });
+  return reply(200, { success: true, sent, message: 'If a PrimalPoints account exists for this email, a login link has been sent.' });
 }
 
 // ── Verify Token ──────────────────────────────────────────────────────────────
