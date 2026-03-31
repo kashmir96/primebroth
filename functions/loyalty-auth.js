@@ -282,10 +282,12 @@ exports.handler = async (event) => {
     if (action === 'balance') return await handleBalance(session_token);
     if (action === 'debug_email') {
       try {
-        const sent = await sendEmail({ to: email, subject: 'PrimalPoints Debug Test', html: '<p>If you see this, email sending works.</p>' });
+        const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error('sendEmail timed out after 8s')), 8000));
+        const send = sendEmail({ to: email, subject: 'PrimalPoints Debug Test', html: '<p>If you see this, email sending works.</p>' });
+        const sent = await Promise.race([send, timeout]);
         return reply(200, { sent, email });
       } catch (err) {
-        return reply(200, { error: err.message, stack: err.stack });
+        return reply(200, { error: err.message });
       }
     }
 
