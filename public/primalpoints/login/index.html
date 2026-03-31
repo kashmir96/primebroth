@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><script>
+(function(){
+  
+  window.MARKET = 'NZ';
+  window.country_code = 'NZ';
+  
+  localStorage.removeItem('market');
+  document.cookie = 'country_code=NZ; expires=' + new Date(Date.now() + 30*24*60*60*1000).toUTCString() + '; path=/';
+})();
+
+
+window.ppCalcPoints = function(price) { return Math.round((parseFloat(price) || 0) * 100); };
+
+
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var token = params.get('pp_gift');
+  if (!token) return;
+  fetch('/.netlify/functions/quiz-referral?token=' + encodeURIComponent(token))
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      if (d.code) {
+        sessionStorage.setItem('pp_gift_code', d.code);
+        sessionStorage.removeItem('pp_gift_dismissed');
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', ppShowGiftPill);
+        } else {
+          ppShowGiftPill();
+        }
+      }
+    }).catch(function(){});
+})();
+
+function ppShowGiftPill() {
+  if (!sessionStorage.getItem('pp_gift_code')) return;
+  if (sessionStorage.getItem('pp_gift_dismissed')) return;
+  if (document.getElementById('pp-gift-pill')) return;
+  var el = document.createElement('div');
+  el.id = 'pp-gift-pill';
+  el.innerHTML = '🎁 <strong>$5 off</strong> — spend $25 to unlock'
+    + '<button onclick="ppDismissGiftPill()" aria-label="Dismiss">✕</button>';
+  document.body.appendChild(el);
+  setTimeout(function(){ el.classList.add('pp-gift-pill-in'); }, 80);
+}
+
+function ppDismissGiftPill() {
+  sessionStorage.setItem('pp_gift_dismissed', '1');
+  var el = document.getElementById('pp-gift-pill');
+  if (el) { el.classList.remove('pp-gift-pill-in'); setTimeout(function(){ el.remove(); }, 350); }
+}
+
+
+document.addEventListener('DOMContentLoaded', ppShowGiftPill);
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.au-content').forEach(function(el) { el.style.display = 'none'; });
+  document.querySelectorAll('.nz-content').forEach(function(el) { el.style.display = 'inline'; });
+});
+</script><link rel="preconnect" href="https://oso.nz" crossorigin>
+<script defer src="https://oso.nz/t.js" data-site="PrimalPantry.co.nz"></script>
+<link rel="prefetch" href="https://js.stripe.com/v3/" as="script">
+<script>
+
+(function(){
+  if (sessionStorage.getItem('pp_fn_warm')) return;
+  sessionStorage.setItem('pp_fn_warm', '1');
+  fetch('/.netlify/functions/create-checkout-session', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: '{"warmup":true}'
+  }).catch(function(){});
+})();
+</script>
+<meta charset="utf-8">
+<title>PrimalPantry | PrimalPoints Login</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="apple-touch-icon" sizes="180x180" href='/apple-touch-icon.png'>
+<link rel="icon" type="image/png" sizes="32x32" href='favicon-32x32.png'>
+<link rel="icon" type="image/png" sizes="16x16" href='favicon-16x16.png'>
+<link rel="manifest" href='/site.webmanifest'>
+
+<link rel="canonical" href="http://localhost:1313/primalpoints/login/">
+<style>
+#pp-gift-pill{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(16px);background:#2E3D1F;color:#fff;padding:11px 14px 11px 18px;border-radius:100px;font-size:0.83rem;font-family:'DM Sans',sans-serif;white-space:nowrap;z-index:9999;opacity:0;transition:opacity 0.35s,transform 0.35s;box-shadow:0 4px 20px rgba(0,0,0,0.28);display:flex;align-items:center;gap:10px;}
+#pp-gift-pill.pp-gift-pill-in{opacity:1;transform:translateX(-50%) translateY(0);}
+#pp-gift-pill button{background:rgba(255,255,255,0.15);border:none;color:#fff;width:20px;height:20px;border-radius:50%;font-size:0.65rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;line-height:1;}
+#pp-gift-pill button:hover{background:rgba(255,255,255,0.28);}
+</style>
+
+
+
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  <link href='/css/style.min.css' rel="stylesheet" type="text/css">
+
+
+
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P54M5QLZ');</script>
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZR6LL35JPP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  
+  gtag('config', 'G-ZR6LL35JPP');
+
+  
+  gtag('config', 'AW-16543078874');
+</script>
+
+
+<script>
+!function (w, d, t) {
+  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+
+  ttq.load('CVEJ0HBC77U2AAG9J2P0');
+  ttq.page();
+}(window, document, 'ttq');
+</script>
+
+
+
+<title>PrimalPoints Login — PrimalPantry</title>
+</head>
+<body><header>
+    <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
+    <link rel="preconnect" href="https://www.primalpantry.co.nz" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <link rel="preload" as="image" href="/img/logo/logo.webp" fetchpriority="high">
+
+    
+
+    <script>
+        !function(f,b,e,v,n,t,s) {
+            if(f.fbq) return;
+            n = f.fbq = function() { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments) };
+            if(!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = [];
+            t = b.createElement(e); t.async = !0; t.src = v;
+            s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
+        }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '809100344281173');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=809100344281173&ev=PageView&noscript=1"/></noscript>
+
+    <style>
+     
+    .navbar .nav-link {
+        font-size: 1rem !important;
+        padding-top: 0.4rem !important;
+        padding-bottom: 0.4rem !important;
+        padding-left: 0.7rem !important;
+        padding-right: 0.7rem !important;
+    }
+
+     
+    .nav-item.has-dropdown { position: relative; }
+
+    .nav-dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        padding-top: 10px;
+        background: transparent;
+        z-index: 9999;
+        pointer-events: none;
+        min-width: 268px;
+    }
+    .nav-dropdown-inner {
+        background: #fff;
+        border: 1px solid rgba(123,92,58,0.12);
+        border-radius: 14px;
+        box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+        padding: 8px;
+        opacity: 0;
+        transform: translateY(-4px);
+        transition: opacity 0.18s ease, transform 0.18s ease;
+        position: relative;
+    }
+    .nav-dropdown-inner::before {
+        content: '';
+        position: absolute;
+        top: -5px; left: 50%;
+        width: 10px; height: 10px;
+        background: #fff;
+        border-left: 1px solid rgba(123,92,58,0.12);
+        border-top: 1px solid rgba(123,92,58,0.12);
+        transform: translateX(-50%) rotate(45deg);
+    }
+    .nav-item.has-dropdown:hover .nav-dropdown,
+    .nav-item.has-dropdown:focus-within .nav-dropdown {
+        display: block;
+        pointer-events: all;
+    }
+    .nav-item.has-dropdown:hover .nav-dropdown-inner,
+    .nav-item.has-dropdown:focus-within .nav-dropdown-inner {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .nav-dropdown-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 11px;
+        padding: 9px 11px;
+        border-radius: 9px;
+        text-decoration: none;
+        transition: background 0.15s;
+        color: #1C1A17;
+    }
+    .nav-dropdown-item:hover { background: #F7F2EB; color: #1C1A17; text-decoration: none; }
+
+    .nav-dropdown-icon {
+        width: 34px; height: 34px;
+        border-radius: 8px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1rem; flex-shrink: 0;
+    }
+    .nav-dropdown-icon.soothe  { background: #F0E6D8; }
+    .nav-dropdown-icon.reviana { background: #2D3D22; }
+
+    .nav-dropdown-label { font-size: 0.76rem; font-weight: 700; color: #1C1A17; line-height: 1.25; margin-bottom: 1px; }
+    .nav-dropdown-sub   { font-size: 0.66rem; color: #8A7D70; line-height: 1.3; }
+
+    .nav-chevron {
+        display: inline-block; width: 10px; height: 10px;
+        margin-left: 3px; vertical-align: middle;
+        transition: transform 0.2s; opacity: 0.6;
+    }
+    .nav-item.has-dropdown:hover .nav-chevron { transform: rotate(180deg); }
+
+    .nav-dropdown-divider { height: 1px; background: rgba(123,92,58,0.1); margin: 4px 8px; }
+
+     
+    #overlay .nav-parent-label {
+        font-size: 0.68rem; text-transform: uppercase;
+        letter-spacing: 0.13em; opacity: 0.4;
+        margin-top: 10px; margin-bottom: 2px; display: block;
+    }
+    #overlay .nav-child-link {
+        font-size: 0.95rem !important; opacity: 0.8;
+        padding: 5px 0 !important; display: block;
+    }
+    </style>
+
+    
+    <div id="overlay">
+        <ul class="text-center list-unstyled text-white fs-5">
+            
+            
+            <li class="p-2">
+                <a href="/shop/"><span>Shop Tallow Skincare</span></a>
+            </li>
+            <li class="p-1"><a class="nav-child-link" href="/shop/"><span>Shop Tallow Skincare</span></a></li>
+            
+            
+            
+            <li class="p-2">
+                <a href="/pages/reviews/"><span>Reviews</span></a>
+            </li>
+            
+            
+            
+            <li class="p-2">
+                <a href="/skin-quiz/"><span>Skin Quiz</span></a>
+            </li>
+            
+            
+            
+            <li class="p-2">
+                <a href="/pages/about/"><span>About</span></a>
+            </li>
+            
+            
+        </ul>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid d-flex flex-row flex-nowrap align-items-center justify-content-between">
+
+            <div class="d-block d-lg-none flex-shrink-0">
+                <div id="hamburgerbtn" class="flex cursor-pointer items-center w-14 h-10 py-2 rounded mopen">
+                    <span class="top"></span>
+                    <span class="middle"></span>
+                    <span class="bottom"></span>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center flex-shrink-1 text-xl text-grey-900" style="min-width:0;">
+                <a href="http://localhost:1313/" aria-label="PrimalPantry">
+                    <img alt="" class="sitelogo mr-3" src="/img/logo/logo.webp" width="120" height="36">
+                </a>
+            </div>
+
+            <button class="iglink d-lg-none pp-cart-trigger flex-shrink-0" aria-label="Open cart" style="background:none;border:none;cursor:pointer;padding:0;">
+                <div class="cart-icon-container" style="position: relative; display: inline-block;">
+                    <img src="/img/cart.webp" alt="Cart for PrimalPantry" width="24" height="24">
+                    <span class="cart-badge" style="display:none;position:absolute;top:0;right:0;background-color:#9CAF88;color:white;border-radius:50%;width:20px;height:20px;align-items:center;justify-content:center;font-size:12px;">0</span>
+                </div>
+            </button>
+
+            <div class="d-none w-full block flex-grow d-lg-flex align-items-center w-lg-auto" id="mobileMenu">
+                <ul class="navbar-nav ms-auto">
+                    
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="/shop/">Shop Tallow Skincare</a>
+                    </li>
+                    
+                    
+                    
+                    <li class="nav-item">
+                        <a class="nav-link " aria-current="page" href="/pages/reviews/">Reviews</a>
+                    </li>
+                    
+                    
+                    
+                    <li class="nav-item">
+                        <a class="nav-link " aria-current="page" href="/skin-quiz/">Skin Quiz</a>
+                    </li>
+                    
+                    
+                    
+                    <li class="nav-item">
+                        <a class="nav-link " aria-current="page" href="/pages/about/">About</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                <button class="iglink mob-hide me-6 pp-cart-trigger" aria-label="Open cart" style="background:none;border:none;cursor:pointer;padding:0;">
+                    <div class="cart-icon-container" style="position: relative; display: inline-block;">
+                        <img src="/img/cart.webp" alt="Cart for PrimalPantry" width="24" height="24">
+                        <span class="cart-badge" style="display:none;position:absolute;top:0;right:0;background-color:#9CAF88;color:white;border-radius:50%;width:20px;height:20px;align-items:center;justify-content:center;font-size:12px;">0</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+</header>
+<div class="pp-cart-overlay" id="ppCartOverlay"></div>
+
+
+<div class="pp-cart-drawer" id="ppCartDrawer">
+    <div class="pp-drawer-header">
+        <div>
+            <span class="pp-drawer-title">Your Cart</span>
+            <span class="pp-drawer-count" id="ppDrawerCount"></span>
+        </div>
+        <button class="pp-drawer-close" id="ppDrawerClose" aria-label="Close cart">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+    </div>
+    <div class="pp-drawer-items" id="ppDrawerItems"></div>
+    <div id="ppDrawerShipProgress" style="padding:8px 16px 0;"></div>
+    <div class="pp-drawer-footer" id="ppDrawerFooter">
+        <div class="pp-drawer-subtotal">
+            <span class="pp-drawer-subtotal-label">Subtotal</span>
+            <span class="pp-drawer-subtotal-val" id="ppDrawerSubtotal">$0.00</span>
+        </div>
+        <div class="pp-drawer-subtotal pp-drawer-ship-row" id="ppDrawerShipRow" style="margin-top:6px;">
+            <span style="display:flex;align-items:center;gap:6px;">
+                Shipping
+                <span class="pp-drawer-ship-tag" id="ppDrawerShipTag">NZ flat rate</span>
+            </span>
+            <span style="font-weight:700;" id="ppDrawerShipCost">$6.95</span>
+        </div>
+        <div class="pp-drawer-subtotal pp-drawer-ship-row" id="ppDrawerFreeRow" style="margin-top:6px;display:none;">
+            <span style="display:flex;align-items:center;gap:6px;">
+                Shipping
+                <span class="pp-drawer-free-badge">FREE</span>
+            </span>
+            <span style="font-weight:700;color:var(--pp-sage,#9CAF88);">$0.00</span>
+        </div>
+        <div id="ppDrawerGiftRow" style="margin-top:8px;display:none;">
+            <div class="pp-drawer-subtotal" id="ppDrawerGiftApplied" style="color:#3a5c2e;display:none;">
+                <span style="display:flex;align-items:center;gap:5px;font-size:0.82rem;">🎁 Gift voucher</span>
+                <span style="font-weight:700;font-size:0.82rem;">−$5.00</span>
+            </div>
+            <div id="ppDrawerGiftNudge" style="display:none;background:#f5f8f2;border:1px solid #c8d9b8;border-radius:8px;padding:8px 12px;font-size:0.78rem;color:#3a5c2e;line-height:1.4;">
+                🎁 You have a <strong>$5 voucher</strong> — add <strong id="ppDrawerGiftNeeded">$25</strong> more to unlock it
+            </div>
+        </div>
+        <div class="pp-drawer-subtotal" style="margin-top:10px;padding-top:10px;border-top:1px solid var(--pp-border,rgba(139,115,85,0.15));">
+            <span style="font-weight:700;font-size:0.95rem;">Total</span>
+            <span id="ppDrawerTotal" style="font-weight:700;font-size:0.95rem;">$0.00</span>
+        </div>
+        <button class="pp-drawer-checkout-btn" id="ppDrawerCheckout">Proceed to Checkout</button>
+        <div id="ppDrawerPoints" class="pp-drawer-points" style="display:none;"></div>
+        <a href="/cart" class="pp-drawer-viewcart" id="ppDrawerViewCart">View Full Cart</a>
+        <button class="pp-drawer-continue" id="ppDrawerContinue">Continue Shopping</button>
+    </div>
+</div>
+
+<style>
+ 
+.pp-cart-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 9998;
+    opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
+    backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+}
+.pp-cart-overlay.open { opacity: 1; visibility: visible; }
+
+.pp-cart-drawer {
+    position: fixed; top: 0; right: 0; bottom: 0; width: 420px; max-width: 92vw;
+    background: #fff; z-index: 9999; display: flex; flex-direction: column;
+    transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: -4px 0 24px rgba(0,0,0,0.12);
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+.pp-cart-drawer.open { transform: translateX(0); }
+
+.pp-drawer-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 20px; border-bottom: 1px solid rgba(139,115,85,0.15);
+}
+.pp-drawer-title { font-weight: 700; font-size: 1.05rem; color: #2D2A26; }
+.pp-drawer-count { font-size: 0.82rem; color: #8B7355; margin-left: 6px; }
+.pp-drawer-close {
+    background: none; border: none; cursor: pointer; color: #8B7355; padding: 4px;
+    border-radius: 6px; transition: background 0.2s;
+}
+.pp-drawer-close:hover { background: rgba(139,115,85,0.08); }
+
+.pp-drawer-items { flex: 1; overflow-y: auto; padding: 0; }
+
+.pp-drawer-empty {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 60px 20px; gap: 16px; color: #8B7355; text-align: center;
+}
+.pp-drawer-empty p { font-size: 0.9rem; margin: 0; }
+.pp-drawer-empty a {
+    display: inline-block; background: #2D2A26; color: #fff; padding: 12px 24px;
+    border-radius: 4px; text-decoration: none; font-size: 0.82rem; font-weight: 600;
+    letter-spacing: 0.05em; text-transform: uppercase;
+}
+.pp-drawer-empty a:hover { background: #4A3728; color: #fff; }
+
+.pp-drawer-item {
+    display: grid; grid-template-columns: 56px 1fr auto; gap: 4px 12px;
+    padding: 14px 20px; border-bottom: 1px solid rgba(139,115,85,0.1);
+    align-items: center;
+}
+.pp-drawer-item-img {
+    width: 56px; height: 56px; border-radius: 8px; overflow: hidden;
+    background: #FAF7F2; border: 1px solid rgba(139,115,85,0.1);
+    flex-shrink: 0;
+}
+.pp-drawer-item-img img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.pp-drawer-item-name { font-weight: 600; font-size: 0.88rem; color: #2D2A26; }
+.pp-drawer-item-meta { font-size: 0.75rem; color: #8B7355; margin-top: 2px; }
+.pp-drawer-item-right { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.pp-drawer-item-price { font-weight: 700; font-size: 0.88rem; color: #2D2A26; }
+.pp-drawer-item-actions { display: flex; align-items: center; gap: 6px; }
+.pp-drawer-qty-btn {
+    width: 26px; height: 26px; border: 1px solid rgba(139,115,85,0.2); background: #fff;
+    border-radius: 4px; cursor: pointer; font-size: 0.85rem; color: #2D2A26;
+    display: flex; align-items: center; justify-content: center; transition: border-color 0.2s;
+}
+.pp-drawer-qty-btn:hover { border-color: #9CAF88; }
+.pp-drawer-qty-val { min-width: 18px; text-align: center; font-size: 0.82rem; font-weight: 600; }
+.pp-drawer-remove {
+    background: none; border: none; cursor: pointer; color: #8B7355; opacity: 0.5; padding: 2px;
+    margin-left: 4px; transition: opacity 0.2s;
+}
+.pp-drawer-remove:hover { opacity: 1; color: #c44; }
+
+ 
+.pp-ship-progress-wrap {
+    background: #FAF7F2; border-radius: 10px; padding: 10px 14px;
+    border: 1px solid rgba(139,115,85,0.15);
+}
+.pp-ship-progress-text { font-size: 0.74rem; font-weight: 600; color: #2D2A26; margin-bottom: 6px; }
+.pp-ship-progress-text.unlocked { color: #7A9168; }
+.pp-ship-bar-track { height: 5px; background: rgba(139,115,85,0.15); border-radius: 99px; overflow: hidden; }
+.pp-ship-bar-fill { height: 100%; background: #4A3728; border-radius: 99px; transition: width 0.4s ease; }
+.pp-ship-bar-fill.full { background: #9CAF88; }
+
+ 
+.pp-drawer-footer { padding: 16px 20px; border-top: 1px solid rgba(139,115,85,0.15); }
+.pp-drawer-subtotal { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #2D2A26; }
+.pp-drawer-subtotal-label { color: #8B7355; }
+.pp-drawer-ship-tag {
+    font-size: 0.6rem; font-weight: 700; letter-spacing: 0.04em;
+    background: #FAF7F2; border: 1px solid rgba(139,115,85,0.15); color: #8B7355;
+    padding: 2px 6px; border-radius: 4px; white-space: nowrap;
+}
+.pp-drawer-free-badge {
+    font-size: 0.6rem; font-weight: 700; background: #9CAF88; color: #fff;
+    padding: 2px 6px; border-radius: 4px; letter-spacing: 0.04em;
+}
+.pp-drawer-checkout-btn {
+    width: 100%; background: #2D2A26; color: #fff; border: none; padding: 14px 20px;
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; border-radius: 4px; margin-top: 14px; transition: background 0.2s;
+}
+.pp-drawer-checkout-btn:hover:not(:disabled) { background: #4A3728; }
+.pp-drawer-checkout-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.pp-drawer-viewcart {
+    display: block; text-align: center; margin-top: 8px; font-size: 0.78rem;
+    color: #8B7355; text-decoration: underline; text-underline-offset: 3px;
+}
+.pp-drawer-viewcart:hover { color: #4A3728; }
+.pp-drawer-continue {
+    width: 100%; background: none; border: none; padding: 10px; margin-top: 4px;
+    font-size: 0.78rem; color: #8B7355; cursor: pointer; text-decoration: underline;
+    text-underline-offset: 3px;
+}
+.pp-drawer-continue:hover { color: #4A3728; }
+
+ 
+.pp-drawer-points {
+    font-size: 0.7rem; color: #A89880; text-align: center;
+    margin: 8px 0 0; padding: 0;
+}
+.pp-drawer-points strong { color: #7A9168; font-weight: 600; }
+
+ 
+@keyframes ppCartBounce {
+    0%, 100% { transform: scale(1); }
+    20% { transform: scale(1.2) rotate(-10deg); }
+    40% { transform: scale(1.1) rotate(10deg); }
+    60% { transform: scale(1.15) rotate(-5deg); }
+    80% { transform: scale(1.05) rotate(3deg); }
+}
+@keyframes ppBadgePop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); background-color: #7A9168; }
+    100% { transform: scale(1); background-color: #9CAF88; }
+}
+.cart-icon-container.bounce .cart-icon,
+.cart-icon-container.bounce img { animation: ppCartBounce 0.6s ease-in-out; }
+.cart-icon-container.bounce .cart-badge { animation: ppBadgePop 0.4s ease-in-out; }
+</style>
+
+
+
+<script>
+(function() {
+    
+    if (window._ppDrawerInit) return;
+    window._ppDrawerInit = true;
+
+    
+    var market = (typeof window.MARKET !== 'undefined') ? window.MARKET : 'NZ';
+    var shippingCost = market === 'AU' ? 9.95 : 6.95;
+    var freeShipThreshold = market === 'AU' ? 150 : 75;
+    var currencyCode = market === 'AU' ? 'AUD' : 'NZD';
+    var countryCode = market || 'NZ';
+
+    
+    var overlay = document.getElementById('ppCartOverlay');
+    var drawer = document.getElementById('ppCartDrawer');
+    var closeBtn = document.getElementById('ppDrawerClose');
+    var itemsEl = document.getElementById('ppDrawerItems');
+    var footerEl = document.getElementById('ppDrawerFooter');
+    var subtotalEl = document.getElementById('ppDrawerSubtotal');
+    var countEl = document.getElementById('ppDrawerCount');
+    var checkoutBtn = document.getElementById('ppDrawerCheckout');
+    var continueBtn = document.getElementById('ppDrawerContinue');
+    var shipProgressEl = document.getElementById('ppDrawerShipProgress');
+
+    
+    var _origSetItem = localStorage.setItem.bind(localStorage);
+    var _lastCartLen = (JSON.parse(localStorage.getItem('cartV2')) || []).length;
+
+    
+    function getCart() { return JSON.parse(localStorage.getItem('cartV2')) || []; }
+    function saveCart(c) { _origSetItem('cartV2', JSON.stringify(c)); _lastCartLen = c.length; }
+    function getTotalQty(cart) { return cart.reduce(function(s, i) { return s + (parseInt(i.quantity) || 1); }, 0); }
+
+    
+    function openDrawer() {
+        renderDrawer();
+        checkoutBtn.disabled = false;
+        checkoutBtn.textContent = 'Proceed to Checkout';
+        drawer.classList.add('open');
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+        drawer.classList.remove('open');
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    
+    function updateBadge() {
+        var cart = getCart(), count = getTotalQty(cart);
+        document.querySelectorAll('.cart-badge').forEach(function(badge) {
+            badge.textContent = count;
+            badge.style.display = count > 0 ? 'flex' : 'none';
+        });
+    }
+
+    function triggerBounce() {
+        document.querySelectorAll('.cart-icon-container').forEach(function(c) {
+            c.classList.remove('bounce');
+            void c.offsetWidth;
+            c.classList.add('bounce');
+            setTimeout(function() { c.classList.remove('bounce'); }, 700);
+        });
+    }
+
+    
+    function renderShipProgress(subtotal) {
+        if (!shipProgressEl) return;
+        var pct = Math.min(subtotal / freeShipThreshold * 100, 100);
+        var remaining = (freeShipThreshold - subtotal).toFixed(2);
+        var unlocked = subtotal >= freeShipThreshold;
+        var symbol = market === 'AU' ? 'A$' : '$';
+        shipProgressEl.innerHTML =
+            '<div class="pp-ship-progress-wrap">'
+          + '<div class="pp-ship-progress-text' + (unlocked ? ' unlocked' : '') + '">'
+          + (unlocked
+              ? '&#10003; Free shipping unlocked!'
+              : 'Add ' + symbol + remaining + ' more for <strong>free shipping</strong>')
+          + '</div>'
+          + '<div class="pp-ship-bar-track"><div class="pp-ship-bar-fill' + (unlocked ? ' full' : '') + '" style="width:' + pct + '%"></div></div>'
+          + '</div>';
+    }
+
+    
+    function renderDrawer() {
+        var cart = getCart(), count = getTotalQty(cart);
+        countEl.textContent = count > 0 ? '(' + count + ')' : '';
+
+        if (cart.length === 0) {
+            itemsEl.innerHTML = '<div class="pp-drawer-empty">'
+                + '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>'
+                + '<p>Your cart is empty</p>'
+                + '<a href="/shop">Shop Now</a></div>';
+            footerEl.style.display = 'none';
+            shipProgressEl.innerHTML = '';
+            return;
+        }
+        footerEl.style.display = '';
+
+        var html = '', subtotal = 0;
+        cart.forEach(function(item, i) {
+            var qty = parseInt(item.quantity) || 1;
+            var price = parseFloat(item.unitPrice) || 0;
+            var line = price * qty;
+            subtotal += line;
+
+            var priceSuffix = '';
+            if (item.orderType && item.orderType.indexOf('Quarterly') > -1) priceSuffix = '/3mo';
+            else if (item.orderType && item.orderType.indexOf('Monthly') > -1) priceSuffix = '/mo';
+
+            var metaFlavor = (item.title === 'Soothing Tallow Routine Starter Kit') ? null : item.flavor;
+            var metaSize = (item.title === 'Soothing Tallow Routine Starter Kit') ? 'Balm, Shampoo bar & Lip balm' : item.size;
+            var meta = [metaFlavor, metaSize].filter(Boolean).join(' \u00b7 ');
+            if (item.orderType && item.orderType !== 'Single') {
+                meta += (meta ? ' \u00b7 ' : '') + item.orderType;
+            }
+
+            var imgSrc = item.image || _cardImages[item.title] || '';
+            var imgHtml = imgSrc
+                ? '<div class="pp-drawer-item-img"><img src="' + imgSrc + '" alt="' + (item.title || '') + '"></div>'
+                : '<div class="pp-drawer-item-img"></div>';
+
+            html += '<div class="pp-drawer-item">'
+                + imgHtml
+                + '<div><div class="pp-drawer-item-name">' + (item.title || 'Product') + '</div>'
+                + '<div class="pp-drawer-item-meta">' + meta + '</div></div>'
+                + '<div class="pp-drawer-item-right">'
+                + '<div class="pp-drawer-item-price">$' + line.toFixed(2) + priceSuffix + '</div>'
+                + '<div class="pp-drawer-item-actions">'
+                + '<button class="pp-drawer-qty-btn" data-action="minus" data-i="' + i + '">\u2212</button>'
+                + '<span class="pp-drawer-qty-val">' + qty + '</span>'
+                + '<button class="pp-drawer-qty-btn" data-action="plus" data-i="' + i + '">+</button>'
+                + '<button class="pp-drawer-remove" data-i="' + i + '"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>'
+                + '</div></div></div>';
+        });
+        itemsEl.innerHTML = html;
+
+        
+        var freeShip = subtotal >= freeShipThreshold;
+        var shipping = freeShip ? 0 : shippingCost;
+        var giftCode = (typeof sessionStorage !== 'undefined') ? sessionStorage.getItem('pp_gift_code') : null;
+        var giftMinimum = 25;
+        var giftMet = giftCode && market === 'NZ' && subtotal >= giftMinimum;
+        var giftDiscount = giftMet ? 5 : 0;
+        var giftRow = document.getElementById('ppDrawerGiftRow');
+        var giftApplied = document.getElementById('ppDrawerGiftApplied');
+        var giftNudge = document.getElementById('ppDrawerGiftNudge');
+        var giftNeeded = document.getElementById('ppDrawerGiftNeeded');
+        if (giftRow) giftRow.style.display = giftCode && market === 'NZ' ? '' : 'none';
+        if (giftApplied) giftApplied.style.display = giftMet ? '' : 'none';
+        if (giftNudge) giftNudge.style.display = (giftCode && market === 'NZ' && !giftMet) ? '' : 'none';
+        if (giftNeeded && !giftMet) giftNeeded.textContent = '$' + (giftMinimum - subtotal).toFixed(2);
+        var total = Math.max(0, subtotal + shipping - giftDiscount);
+
+        subtotalEl.textContent = '$' + subtotal.toFixed(2);
+
+        var shipRow = document.getElementById('ppDrawerShipRow');
+        var freeRow = document.getElementById('ppDrawerFreeRow');
+        var totalEl = document.getElementById('ppDrawerTotal');
+        var shipTag = document.getElementById('ppDrawerShipTag');
+        var shipCostEl = document.getElementById('ppDrawerShipCost');
+        if (shipRow) shipRow.style.display = freeShip ? 'none' : '';
+        if (freeRow) freeRow.style.display = freeShip ? '' : 'none';
+        if (totalEl) totalEl.textContent = '$' + total.toFixed(2);
+        if (shipTag) shipTag.textContent = market === 'AU' ? 'AU flat rate' : 'NZ flat rate';
+        if (shipCostEl) shipCostEl.textContent = '$' + shippingCost.toFixed(2);
+
+        renderShipProgress(subtotal);
+
+        
+        var ptsEl = document.getElementById('ppDrawerPoints');
+        if (ptsEl && subtotal > 0) {
+            var pts = ppCalcPoints(subtotal);
+            ptsEl.innerHTML = 'Earn ~<strong>' + pts.toLocaleString() + ' PrimalPoints</strong> on this order';
+            ptsEl.style.display = '';
+        } else if (ptsEl) {
+            ptsEl.style.display = 'none';
+        }
+
+        
+        itemsEl.querySelectorAll('.pp-drawer-qty-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var c = getCart(), idx = parseInt(btn.dataset.i);
+                if (btn.dataset.action === 'plus') {
+                    c[idx].quantity = (parseInt(c[idx].quantity) || 1) + 1;
+                } else {
+                    if ((parseInt(c[idx].quantity) || 1) > 1) c[idx].quantity = parseInt(c[idx].quantity) - 1;
+                    else c.splice(idx, 1);
+                }
+                saveCart(c); updateBadge(); renderDrawer();
+            });
+        });
+        
+        itemsEl.querySelectorAll('.pp-drawer-remove').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var c = getCart(); c.splice(parseInt(btn.dataset.i), 1);
+                saveCart(c); updateBadge(); renderDrawer();
+            });
+        });
+    }
+
+    
+    checkoutBtn.addEventListener('click', function() {
+        var cart = getCart();
+        if (!cart.length) return;
+
+        
+        if (typeof gtag !== 'undefined') {
+            var sub = cart.reduce(function(s, i) { return s + (parseFloat(i.unitPrice) || 0) * (parseInt(i.quantity) || 1); }, 0);
+            gtag('event', 'begin_checkout', {
+                currency: currencyCode,
+                value: sub,
+                items: cart.map(function(i) {
+                    return { item_id: i.priceId, item_name: i.title, item_variant: i.flavor || '', item_category: i.size || '', price: parseFloat(i.unitPrice), quantity: parseInt(i.quantity) || 1 };
+                })
+            });
+        }
+        
+        if (typeof oso === 'function') oso('event', 'proceed to checkout');
+
+        
+        checkoutBtn.disabled = true;
+        checkoutBtn.textContent = 'Loading...';
+
+        var ss = sessionStorage;
+        var osoMeta = {
+            landing_page: ss.getItem('oso_lp') || '',
+            analytics_source: ss.getItem('oso_src') || '',
+            magnet_product: ss.getItem('oso_magnet') || '',
+            last_product_page: ss.getItem('oso_last_product') || ''
+        };
+        var clientInfo = {
+            browser: (navigator.userAgent.match(/(Chrome|Firefox|Safari|Edge|Opera)[\/\s](\d+)/) || [])[1] || '',
+            device: window.innerWidth < 768 ? 'Mobile' : window.innerWidth < 1024 ? 'Tablet' : 'Desktop',
+            os: navigator.platform || '',
+            screenWidth: window.innerWidth
+        };
+
+        fetch('/.netlify/functions/create-checkout-session', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                cart: cart.map(function(i) { return { priceId: i.priceId, quantity: parseInt(i.quantity) || 1 }; }),
+                countryCode: countryCode,
+                osoMeta: osoMeta,
+                clientInfo: clientInfo,
+                quizBundle: (function() {
+                    try {
+                        var pids = JSON.parse(localStorage.getItem('quiz_bundle_pids') || '[]');
+                        if (!pids.length) return false;
+                        var cartPids = cart.map(function(i) { return i.priceId; });
+                        return pids.every(function(pid) { return cartPids.indexOf(pid) !== -1; });
+                    } catch(e) { return false; }
+                })(),
+                giftCode: sessionStorage.getItem('pp_gift_code') || null
+            })
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            if (data.clientSecret) {
+                sessionStorage.setItem('pp_checkout_secret', data.clientSecret);
+            }
+            window.location.href = '/checkout/';
+        })
+        .catch(function() {
+            window.location.href = '/checkout/';
+        });
+    });
+
+    
+    
+    document.querySelectorAll('.pp-cart-trigger').forEach(function(btn) {
+        btn.addEventListener('click', function(e) { e.preventDefault(); openDrawer(); });
+    });
+    overlay.addEventListener('click', closeDrawer);
+    closeBtn.addEventListener('click', closeDrawer);
+    continueBtn.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeDrawer(); });
+
+    
+    window.ppOpenCartDrawer = function() { triggerBounce(); openDrawer(); };
+
+    
+    window.updateCartBadge = function() { updateBadge(); };
+    window.triggerCartBounce = function(productName) { triggerBounce(); openDrawer(); };
+
+    
+    var _cardImages = {
+        "Tallow Balm - Whipped":"/img/shop/balm.webp",
+        "Whipped Tallow Balm":"/img/shop/balm.webp",
+        "Tallow & Honey Balm":"/img/shop/honeyshop.webp",
+        "Tallow Eye Cream":"/img/shop/eyecream.webp",
+        "Tallow Glow Serum":"/img/serum-shop.webp",
+        "Tallow Deodorant":"/img/shop/deod.webp",
+        "Tallow Lip Balm":"/img/lip-balm-images1.webp",
+        "Tallow Lip Balm Stick":"/img/shop/lipshop.webp",
+        "Tallow Shampoo Bar":"/img/shampoobar/shampoo-bar-prodcutpage.webp",
+        "Tallow Scalp Shampoo":"/img/liqshampoo-shop.webp",
+        "Tallow Conditioner":"/img/conditioner-shop.webp",
+        "Tallow Hair Clay":"/img/shop/hair-clay-shop.webp",
+        "Tallow Beard Balm":"/img/shop/shopbeardi.webp",
+        "Unwhipped Tallow Balm":"/img/shop/shop-unwhipped.webp",
+        "Tallow Cleanser":"/img/cleanser/tallow-cleasner-productpage.webp",
+        "Tallow Body Oil":"/img/cleanser/tallow-cleasner-productpage.webp",
+        "Tallow Liquid Soap":"/img/natural-soap-cutout.webp",
+        "Aloe Tallow Body Lotion":"/img/body-lotion-natural-cutout.webp",
+        "Tallow Soap":"/img/soaps/tallow-soap-range-productpage.webp",
+        "Tallow Soap Mixed Sampler":"/img/soaps-new/mixed-prod.webp",
+        "Manuka Honey Soap":"/img/shop/honey_soap1.webp",
+        "Non-Tox Tallow Dish Block":"/img/dish-shop.webp",
+        "Colloidal Oat Bath Soak":"/img/colloidal_oat1.webp",
+        "Tallow + Zinc Summer Balm":"/img/summer1.webp",
+        "Tallow Sunbalm":"/img/sunscreen/main.webp",
+        "Tallow Day n Night Balms":"/img/limited-shop.webp",
+        "Tallow Baby Butter":"/img/baby-butter-shop.webp",
+        "Tallow Baby Skincare Kit":"/img/bundle-babies-skincare.webp",
+        "Tallow Giftbox":"/img/valentines-shop.webp",
+        "Eczema Bundle":"/img/shop/EANZ-bundle.webp",
+        "Men's Bundle":"/img/shop/fathersbundle1.webp",
+        "Tallow Haircare Bundle":"/img/scalpbundle-shop.webp",
+        "Ultimate Tallow Bundle":"/img/ultimate-bundle.webp",
+        "Tallow Balm Mixed Bundle":"/img/dec24/product-trio.webp",
+        "Tallow Liquid Soap & Lotion Bundle":"/img/liquid-shop.webp",
+        "The Golden Stack":"/img/shop/shop-gold.webp",
+        "Tallow Soothing Routine":"/img/shop/shop-gold.webp",
+        "Soothing Tallow Routine Starter Kit":"/img/shop/shop-gold.webp",
+        "Sensitive Skin Tallow Stack":"/img/sensitive-stack-tub.webp",
+        "Tallow Anti-aging Kit":"/img/wrinkleskinnew.webp",
+        "Tallow Balm - DIY kit":"/img/tallow-balm.webp",
+        "Reviana Day Cream":"/img/reviana-day-jar.webp",
+        "Reviana Night Cream":"/img/reviana-night-jar.webp",
+        "Reviana Eye Cream":"/img/reviana-eye-jar.webp",
+        "Reviana Serum":"/img/reviana-serum-jar.webp",
+        "Reviana Complete Ritual Bundle":"/img/r2-reviana-range-square.webp",
+        "Reviana - Tallow Cosmetics":"/img/r2-reviana-range-square.webp",
+        "Nourishing Tallow Conditioner":"/img/conditioner-shop.webp"
+    };
+
+    
+    localStorage.setItem = function(key, value) {
+        
+        if (key === 'cartV2') {
+            try {
+                var parsed = JSON.parse(value) || [];
+                var patched = false;
+                for (var k = 0; k < parsed.length; k++) {
+                    if (!parsed[k].image && parsed[k].title && _cardImages[parsed[k].title]) {
+                        parsed[k].image = _cardImages[parsed[k].title];
+                        patched = true;
+                    }
+                }
+                if (patched) value = JSON.stringify(parsed);
+            } catch(e) {}
+        }
+        _origSetItem(key, value);
+        if (key === 'cartV2') {
+            var newCart = [];
+            try { newCart = JSON.parse(value) || []; } catch(e) {}
+            updateBadge();
+            
+            if (newCart.length > _lastCartLen) {
+                triggerBounce();
+                openDrawer();
+
+                
+                if (typeof gtag !== 'undefined') {
+                    var newest = newCart[newCart.length - 1];
+                    if (newest) {
+                        gtag('event', 'add_to_cart', {
+                            currency: currencyCode,
+                            value: (parseFloat(newest.unitPrice) || 0) * (parseInt(newest.quantity) || 1),
+                            items: [{ item_id: newest.priceId, item_name: newest.title, item_variant: newest.flavor || '', item_category: newest.size || '', price: parseFloat(newest.unitPrice), quantity: parseInt(newest.quantity) || 1 }]
+                        });
+                    }
+                }
+                
+                var newest = newCart[newCart.length - 1];
+                if (typeof oso === 'function' && newest) oso('event', 'add to cart', newest.title);
+            }
+            _lastCartLen = newCart.length;
+        }
+    };
+
+    
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'cartV2') {
+            updateBadge();
+            _lastCartLen = getCart().length;
+        }
+    });
+
+    
+    
+    
+    
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        var oldModal = document.getElementById('addedToCartModal');
+        if (oldModal) oldModal.remove();
+    });
+    var _origAlert = window.alert;
+    window.alert = function(msg) {
+        if (typeof msg === 'string' && msg.indexOf('added to cart') > -1) {
+            
+            updateBadge();
+            triggerBounce();
+            openDrawer();
+            return;
+        }
+        return _origAlert.apply(window, arguments);
+    };
+
+    
+    updateBadge();
+
+    
+    var tiktokparams = new URLSearchParams(window.location.search);
+    var ttclid = tiktokparams.get('ttclid');
+    if (ttclid) { _origSetItem('ttclid', ttclid); }
+})();
+</script>
+<script type="application/javascript">
+    var country_code = 'NZ';
+    document.cookie = 'country_code=NZ; expires=' + new Date(Date.now() + 30*24*60*60*1000).toUTCString() + '; path=/';
+    var outOfStockLinks = document.querySelectorAll('.outOfStock a');
+    outOfStockLinks.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            if (this.closest('.outOfStock')) { event.preventDefault(); alert('This item is out of stock!'); }
+        });
+    });
+</script>
+
+<script>
+    window.onload = function() {
+        var shipping_rate = document.getElementById('shipping_rate');
+        if (shipping_rate) { shipping_rate.textContent = '$75'; }
+        document.querySelectorAll('.au-content').forEach(function(item) { item.style.display = 'none'; });
+        document.querySelectorAll('.nz-content').forEach(function(item) { item.style.display = 'inline'; });
+    };
+</script>
+<div style="min-height:70vh;display:flex;align-items:center;justify-content:center;background:#F7F2EB;padding:40px 16px;">
+      <div style="width:100%;max-width:420px;">
+        <div style="background:#fff;border-radius:16px;padding:32px;border:1px solid rgba(123,92,58,0.12);">
+
+          
+          <div id="loginForm">
+            <div style="text-align:center;margin-bottom:20px;">
+              <div style="width:48px;height:48px;border-radius:50%;background:#3D5230;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:12px;">⭐</div>
+            </div>
+            <h1 style="font-family:Georgia,serif;font-size:24px;color:#1C1A17;margin:0 0 8px;text-align:center;">PrimalPoints Login</h1>
+            <p style="text-align:center;color:#8A7D70;font-size:14px;margin:0 0 24px;">Enter the email you ordered with and we'll send you a magic link — no password needed.</p>
+
+            <form onsubmit="return requestMagicLink(event)">
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:600;color:#1C1A17;margin-bottom:4px;">Email Address</label>
+                <input type="email" id="loginEmail" required placeholder="you@example.com" style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:14px;box-sizing:border-box;">
+              </div>
+              <div id="loginError" style="display:none;background:#fce4e4;color:#c0392b;padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:16px;"></div>
+              <button type="submit" id="loginBtn" style="width:100%;padding:14px;background:#3D5230;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;">Send Magic Link</button>
+            </form>
+
+            <p style="text-align:center;margin-top:20px;font-size:13px;color:#8A7D70;">
+              Don't have points yet? <a href="/shop/" style="color:#3D5230;font-weight:600;">Shop now to start earning</a>
+            </p>
+          </div>
+
+          
+          <div id="loginSent" style="display:none;text-align:center;padding:20px 0;">
+            <div style="font-size:32px;margin-bottom:12px;">📧</div>
+            <h2 style="font-family:Georgia,serif;color:#1C1A17;margin:0 0 8px;">Check Your Email</h2>
+            <p style="color:#8A7D70;font-size:14px;margin:0 0 16px;">If a PrimalPoints account exists for this email, we've sent a login link. It expires in 1 hour.</p>
+            <p style="color:#8A7D70;font-size:13px;margin:0;">Check your spam folder if you don't see it.</p>
+          </div>
+
+          
+          <div id="loginVerifying" style="display:none;text-align:center;padding:20px 0;">
+            <div style="font-size:32px;margin-bottom:12px;">🔄</div>
+            <p style="color:#8A7D70;font-size:14px;">Verifying your login link...</p>
+          </div>
+
+          
+          <div id="loginVerifyError" style="display:none;text-align:center;padding:20px 0;">
+            <div style="font-size:32px;margin-bottom:12px;">⚠️</div>
+            <h2 style="font-family:Georgia,serif;color:#1C1A17;margin:0 0 8px;">Link Expired</h2>
+            <p style="color:#8A7D70;font-size:14px;margin:0 0 16px;" id="verifyErrorMsg">This login link has expired or is invalid.</p>
+            <a href="/primalpoints/login/" style="color:#3D5230;font-weight:600;font-size:14px;">Request a new link</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script>
+    (function() {
+      
+      if (localStorage.getItem('pp_loyalty_token')) {
+        window.location.href = '/primalpoints/dashboard/';
+        return;
+      }
+
+      
+      var params = new URLSearchParams(window.location.search);
+      var token = params.get('token');
+
+      if (token) {
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('loginVerifying').style.display = 'block';
+
+        fetch('/.netlify/functions/loyalty-auth', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'verify_token', token: token }),
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          if (data.success && data.session_token) {
+            localStorage.setItem('pp_loyalty_token', data.session_token);
+            localStorage.setItem('pp_loyalty_email', data.email);
+            window.location.href = '/primalpoints/dashboard/';
+          } else {
+            document.getElementById('loginVerifying').style.display = 'none';
+            document.getElementById('loginVerifyError').style.display = 'block';
+            if (data.error) document.getElementById('verifyErrorMsg').textContent = data.error;
+          }
+        })
+        .catch(function() {
+          document.getElementById('loginVerifying').style.display = 'none';
+          document.getElementById('loginVerifyError').style.display = 'block';
+        });
+      }
+    })();
+
+    function requestMagicLink(e) {
+      e.preventDefault();
+      var email = document.getElementById('loginEmail').value.trim();
+      var btn = document.getElementById('loginBtn');
+      var errEl = document.getElementById('loginError');
+      errEl.style.display = 'none';
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+
+      fetch('/.netlify/functions/loyalty-auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'request_link', email: email }),
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data.error) {
+          errEl.textContent = data.error;
+          errEl.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = 'Send Magic Link';
+        } else {
+          document.getElementById('loginForm').style.display = 'none';
+          document.getElementById('loginSent').style.display = 'block';
+        }
+      })
+      .catch(function() {
+        errEl.textContent = 'Something went wrong. Please try again.';
+        errEl.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Send Magic Link';
+      });
+      return false;
+    }
+    </script>
+
+<footer class="pp-footer">
+  
+  <script src='/js/custom.js?v=1' defer></script>
+
+  
+  
+  <script>
+    if (document.querySelector('pre code')) {
+      ['\/js\/clipboard.min.js',
+       '\/js\/highlight.min.js',
+       '\/js\/highlightjs-line-numbers.min.js',
+       '\/js\/sweetalert2.min.js'
+      ].forEach(function(src) {
+        var s = document.createElement('script');
+        s.src = src;
+        s.defer = true;
+        document.head.appendChild(s);
+      });
+
+      window.addEventListener('load', function() {
+        if (typeof hljs !== 'undefined') {
+          hljs.highlightAll();
+          hljs.initLineNumbersOnLoad();
+        }
+        if (typeof ClipboardJS !== 'undefined') {
+          new ClipboardJS('.url');
+        }
+      });
+    }
+
+    function OnClickURL() {
+      if (typeof Swal !== 'undefined') {
+        Swal.fire({
+          icon: 'success',
+          title: 'Copied!',
+          text: 'Copied the URL and title.'
+        })
+      }
+    }
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    function setCookie(name, value, days) {
+        const d = new Date();
+        d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+        const expires = "expires=" + d.toUTCString();
+        document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/";
+    }
+
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+        }
+        return null;
+    }
+
+    if (!getCookie('landingURL')) {
+        setCookie('landingURL', window.location.href, 30);
+    }
+
+    
+    var refParam = new URLSearchParams(window.location.search).get('ref');
+    if (refParam) {
+        setCookie('pp_ref', refParam, 30);
+        fetch('/.netlify/functions/affiliate-track?code=' + encodeURIComponent(refParam) + '&page=' + encodeURIComponent(window.location.pathname)).catch(function(){});
+    }
+});
+  </script>
+  
+
+  <script>
+    function toggleNav() {
+      var hamburger = document.getElementById("hamburgerbtn");
+      var overlay = document.getElementById("overlay");
+      var body = document.body;
+
+      hamburger.addEventListener("click", function () {
+        overlay.classList.toggle("open");
+        hamburger.classList.toggle("is-open");
+        body.classList.toggle("scroll-lock");
+      });
+    }
+    toggleNav();
+  </script>
+
+  <script>
+    window.addEventListener('load', (event) => {
+      document.querySelectorAll('.buy-now').forEach(item => {
+        item.addEventListener('click', event => {
+          gtag('event', 'click', {
+            'event_category': 'ecommerce',
+            'event_label': 'buy-now',
+            'value': 1
+          });
+        });
+      });
+    });
+  </script>
+
+  
+  
+  
+    
+    <link rel="stylesheet" href="/css/webfonts.min.css">
+    
+  
+
+  
+  <style>
+    .pp-footer-inner {
+      background: #2E1A0E;
+      color: #FAF4EB;
+      padding: 64px 80px 32px;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .pp-footer-inner a { text-decoration: none; color: inherit; }
+    .pp-f-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    .pp-f-brand h3 { font-family: 'Fraunces', serif; font-size: 1.3rem; color: #FAF4EB; margin-bottom: 10px; font-weight: 400; }
+    .pp-f-brand p { font-size: 0.82rem; opacity: 0.55; line-height: 1.6; max-width: 280px; margin-bottom: 16px; }
+    .pp-f-social { display: flex; gap: 10px; }
+    .pp-f-social a {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.3s;
+    }
+    .pp-f-social a:hover { background: rgba(255,255,255,0.12); }
+    .pp-f-social svg { width: 15px; height: 15px; fill: #FAF4EB; }
+    .pp-f-col h4 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em;
+      font-weight: 700; margin-bottom: 16px; opacity: 0.4;
+    }
+    .pp-f-col a { display: block; font-size: 0.82rem; opacity: 0.6; margin-bottom: 10px; transition: opacity 0.2s; }
+    .pp-f-col a:hover { opacity: 1; }
+    .pp-f-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 24px;
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;
+    }
+    .pp-f-bottom p { font-size: 0.7rem; opacity: 0.3; margin: 0; }
+    .pp-f-disc { font-size: 0.6rem; opacity: 0.2; max-width: 560px; line-height: 1.5; }
+    .pp-f-badges { float: right; padding-right: 20px; max-height: 28px; }
+
+    @media (max-width: 1024px) {
+      .pp-f-grid { grid-template-columns: 1fr 1fr; }
+      .pp-footer-inner { padding: 48px 24px 24px; }
+      .pp-f-bottom { flex-direction: column; }
+    }
+    @media (max-width: 640px) {
+      .pp-f-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+  </style>
+
+  <div class="pp-footer-inner">
+    <div class="pp-f-grid">
+      <div class="pp-f-brand">
+        <h3>PrimalPantry</h3>
+        <p>Skincare that soothes, hydrates & moisturises sensitive skin. NZ made tallow balm, tallow cream & more — all natural, honestly affordable.</p>
+        <div class="pp-f-social">
+          <a href="https://www.facebook.com/profile.php?id=61560358912834" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/primalpantry.nz/" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="#FAF4EB" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="#FAF4EB" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="pp-f-col">
+        <h4>Shop</h4>
+        <a href="/shop/">All Tallow Products</a>
+        <a href="/tallow-for-sensitive-skin/">Tallow for Eczema-Prone Skin</a>
+        <a href="/tallow-for-babies/">Tallow for Babies</a>
+        <a href="/tallow-for-wrinkles/">Tallow Cream & Anti-Aging</a>
+        <a href="/shop/">Tallow Shampoo & Haircare</a>
+        <a href="/shop/">Tallow Lip Balm</a>
+        <a href="/cosmetic-tallow-reviana/">Brighten &amp; Refine — Reviana</a>
+        <a href="/subscribe/">Subscribe &amp; Save</a>
+      </div>
+      <div class="pp-f-col">
+        <h4>Help</h4>
+        <a href="/support/">Customer Support</a>
+        <a href="/faq/">FAQs</a>
+        <a href="/pages/refund-policy/">Refund Policy</a>
+        <a href="https://billing.stripe.com/p/login/4gMeVd6XT3X0b9qabyco000" target="_blank">Manage Subscription</a>
+      </div>
+      <div class="pp-f-col">
+        <h4>Company</h4>
+        <a href="/pages/about/">Our Story — Christchurch NZ</a>
+        <a href="/pages/reviews/">Primal Pantry Reviews</a>
+        <a href="/posts/">Blog</a>
+        <a href="/contact/">Contact</a>
+        <a href="/affiliates/">Become an Affiliate</a>
+        <a href="/affiliates/login">Affiliate Login</a>
+      </div>
+    </div>
+    
+  </div>
+
+</footer>
+
+
+<script>
+(function(){
+    var thumbs = document.querySelectorAll('.product-image');
+    if (!thumbs.length) return;
+    var main = document.querySelector('.main-image');
+    if (!main) return;
+    main.style.transition = 'opacity 0.15s';
+    thumbs.forEach(function(thumb){
+        thumb.addEventListener('click', function(){
+            main.style.opacity = '0';
+            setTimeout(function(){ main.src = thumb.src; main.style.opacity = '1'; }, 150);
+            thumbs.forEach(function(t){ t.classList.remove('active'); });
+            thumb.classList.add('active');
+        });
+    });
+})();
+</script>
+
+
+
+
+</body>
+</html>

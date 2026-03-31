@@ -57,12 +57,9 @@
 
     <!-- Gallery -->
     <div class="product-gallery gallery-desktop">
-        <div class="gallery-main">
+        <div class="gallery-main" style="position:relative;">{{- partial "eanz-badge.html" . -}}
             <img class="main-image" id="mainImage" fetchpriority="high" src="/img/lotion-prod.webp" alt="Tallow Body Lotion NZ - natural aloe tallow lotion for face and body">
-            <div class="exclusive-badge">
-                <span class="dot"></span> Online Exclusive
-            </div>
-        </div>
+</div>
         <div class="gallery-thumbs">
             <div class="thumb active" onclick="switchImage('/img/lotion-prod.webp', this)">
                 <img src="/img/lotion-prod.webp" alt="Aloe tallow body lotion">
@@ -82,7 +79,7 @@
     <div class="product-gallery gallery-mobile">
         <div class="swiper product-swiper">
             <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="/img/lotion-prod.webp" alt="Tallow Body Lotion NZ - natural aloe tallow lotion for face and body"></div>
+                <div class="swiper-slide" style="position:relative;overflow:visible;"><img src="/img/lotion-prod.webp" alt="Tallow Body Lotion NZ - natural aloe tallow lotion for face and body" style="width:100%;height:100%;object-fit:cover;border-radius:12px;display:block;">{{- partial "eanz-badge.html" . -}}</div>
                 <div class="swiper-slide"><img src="/img/lotion-use.webp" alt="Tallow lotion in use"></div>
                 <div class="swiper-slide"><img src="/img/lotion-tree.webp" alt="Tallow body lotion natural ingredients"></div>
                 <div class="swiper-slide"><img src="/img/lotion-reviews.webp" alt="Tallow body lotion customer reviews NZ"></div>
@@ -782,7 +779,7 @@ if (window.innerWidth <= 900) {
   new Swiper('.product-swiper', {
     slidesPerView: 'auto',
     spaceBetween: 5,
-    pagination: { el: '.swiper-pagination', clickable: true, renderBullet: function(i,c){ var img=document.querySelectorAll('.product-swiper .swiper-slide img')[i]; return '<span class="'+c+'"><img src="'+(img?img.getAttribute('src'):'')+'"></span>'; } }
+    pagination: { el: '.swiper-pagination', clickable: true, renderBullet: function(i,c){ var img=document.querySelectorAll('.product-swiper .swiper-slide img:not([data-eanz-badge])')[i]; return '<span class="'+c+'"><img src="'+(img?img.getAttribute('src'):'')+'"></span>'; } }
   });
 }
 </script>

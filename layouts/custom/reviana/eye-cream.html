@@ -315,7 +315,7 @@ if (window.innerWidth <= 900) {
       el: '.swiper-pagination',
       clickable: true,
       renderBullet: function(index, className) {
-        var img = document.querySelectorAll('.product-swiper .swiper-slide img')[index];
+        var img = document.querySelectorAll('.product-swiper .swiper-slide img:not([data-eanz-badge])')[index];
         var src = img ? img.getAttribute('src') : '';
         return '<span class="' + className + '"><img src="' + src + '" alt=""></span>';
       }

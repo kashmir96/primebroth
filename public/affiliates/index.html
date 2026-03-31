@@ -11,11 +11,70 @@
 })();
 
 
+window.ppCalcPoints = function(price) { return Math.round((parseFloat(price) || 0) * 100); };
+
+
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var token = params.get('pp_gift');
+  if (!token) return;
+  fetch('/.netlify/functions/quiz-referral?token=' + encodeURIComponent(token))
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      if (d.code) {
+        sessionStorage.setItem('pp_gift_code', d.code);
+        sessionStorage.removeItem('pp_gift_dismissed');
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', ppShowGiftPill);
+        } else {
+          ppShowGiftPill();
+        }
+      }
+    }).catch(function(){});
+})();
+
+function ppShowGiftPill() {
+  if (!sessionStorage.getItem('pp_gift_code')) return;
+  if (sessionStorage.getItem('pp_gift_dismissed')) return;
+  if (document.getElementById('pp-gift-pill')) return;
+  var el = document.createElement('div');
+  el.id = 'pp-gift-pill';
+  el.innerHTML = '🎁 <strong>$5 off</strong> — spend $25 to unlock'
+    + '<button onclick="ppDismissGiftPill()" aria-label="Dismiss">✕</button>';
+  document.body.appendChild(el);
+  setTimeout(function(){ el.classList.add('pp-gift-pill-in'); }, 80);
+}
+
+function ppDismissGiftPill() {
+  sessionStorage.setItem('pp_gift_dismissed', '1');
+  var el = document.getElementById('pp-gift-pill');
+  if (el) { el.classList.remove('pp-gift-pill-in'); setTimeout(function(){ el.remove(); }, 350); }
+}
+
+
+document.addEventListener('DOMContentLoaded', ppShowGiftPill);
+
+
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.au-content').forEach(function(el) { el.style.display = 'none'; });
   document.querySelectorAll('.nz-content').forEach(function(el) { el.style.display = 'inline'; });
 });
-</script><meta charset="utf-8">
+</script><link rel="preconnect" href="https://oso.nz" crossorigin>
+<script defer src="https://oso.nz/t.js" data-site="PrimalPantry.co.nz"></script>
+<link rel="prefetch" href="https://js.stripe.com/v3/" as="script">
+<script>
+
+(function(){
+  if (sessionStorage.getItem('pp_fn_warm')) return;
+  sessionStorage.setItem('pp_fn_warm', '1');
+  fetch('/.netlify/functions/create-checkout-session', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: '{"warmup":true}'
+  }).catch(function(){});
+})();
+</script>
+<meta charset="utf-8">
 <title>PrimalPantry | Affiliates program - Primalpantry</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link rel="apple-touch-icon" sizes="180x180" href='/apple-touch-icon.png'>
@@ -24,6 +83,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <link rel="manifest" href='/site.webmanifest'>
 
 <link rel="canonical" href="http://localhost:1313/affiliates/">
+<style>
+#pp-gift-pill{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(16px);background:#2E3D1F;color:#fff;padding:11px 14px 11px 18px;border-radius:100px;font-size:0.83rem;font-family:'DM Sans',sans-serif;white-space:nowrap;z-index:9999;opacity:0;transition:opacity 0.35s,transform 0.35s;box-shadow:0 4px 20px rgba(0,0,0,0.28);display:flex;align-items:center;gap:10px;}
+#pp-gift-pill.pp-gift-pill-in{opacity:1;transform:translateX(-50%) translateY(0);}
+#pp-gift-pill button{background:rgba(255,255,255,0.15);border:none;color:#fff;width:20px;height:20px;border-radius:50%;font-size:0.65rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;line-height:1;}
+#pp-gift-pill button:hover{background:rgba(255,255,255,0.28);}
+</style>
 
 
 
@@ -42,20 +107,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 
-<link rel="preconnect" href="https://dev.visualwebsiteoptimizer.com" />
-<script type='text/javascript' id='vwoCode'>
-window._vwo_code || (function() {
-var account_id=920032,
-version=2.1,
-settings_tolerance=2000,
-hide_element='body',
-hide_element_style = 'opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;transition:none !important;',
- 
-f=false,w=window,d=document,v=d.querySelector('#vwoCode'),cK='_vwo_'+account_id+'_settings',cc={};try{var c=JSON.parse(localStorage.getItem('_vwo_'+account_id+'_config'));cc=c&&typeof c==='object'?c:{}}catch(e){}var stT=cc.stT==='session'?w.sessionStorage:w.localStorage;code={nonce:v&&v.nonce,library_tolerance:function(){return typeof library_tolerance!=='undefined'?library_tolerance:undefined},settings_tolerance:function(){return cc.sT||settings_tolerance},hide_element_style:function(){return'{'+(cc.hES||hide_element_style)+'}'},hide_element:function(){if(performance.getEntriesByName('first-contentful-paint')[0]){return''}return typeof cc.hE==='string'?cc.hE:hide_element},getVersion:function(){return version},finish:function(e){if(!f){f=true;var t=d.getElementById('_vis_opt_path_hides');if(t)t.parentNode.removeChild(t);if(e)(new Image).src='https://dev.visualwebsiteoptimizer.com/ee.gif?a='+account_id+e}},finished:function(){return f},addScript:function(e){var t=d.createElement('script');t.type='text/javascript';if(e.src){t.src=e.src}else{t.text=e.text}v&&t.setAttribute('nonce',v.nonce);d.getElementsByTagName('head')[0].appendChild(t)},load:function(e,t){var n=this.getSettings(),i=d.createElement('script'),r=this;t=t||{};if(n){i.textContent=n;d.getElementsByTagName('head')[0].appendChild(i);if(!w.VWO||VWO.caE){stT.removeItem(cK);r.load(e)}}else{var o=new XMLHttpRequest;o.open('GET',e,true);o.withCredentials=!t.dSC;o.responseType=t.responseType||'text';o.onload=function(){if(t.onloadCb){return t.onloadCb(o,e)}if(o.status===200||o.status===304){_vwo_code.addScript({text:o.responseText})}else{_vwo_code.finish('&e=loading_failure:'+e)}};o.onerror=function(){if(t.onerrorCb){return t.onerrorCb(e)}_vwo_code.finish('&e=loading_failure:'+e)};o.send()}},getSettings:function(){try{var e=stT.getItem(cK);if(!e){return}e=JSON.parse(e);if(Date.now()>e.e){stT.removeItem(cK);return}return e.s}catch(e){return}},init:function(){if(d.URL.indexOf('__vwo_disable__')>-1)return;var e=this.settings_tolerance();w._vwo_settings_timer=setTimeout(function(){_vwo_code.finish();stT.removeItem(cK)},e);var t;if(this.hide_element()!=='body'){t=d.createElement('style');var n=this.hide_element(),i=n?n+this.hide_element_style():'',r=d.getElementsByTagName('head')[0];t.setAttribute('id','_vis_opt_path_hides');v&&t.setAttribute('nonce',v.nonce);t.setAttribute('type','text/css');if(t.styleSheet)t.styleSheet.cssText=i;else t.appendChild(d.createTextNode(i));r.appendChild(t)}else{t=d.getElementsByTagName('head')[0];var i=d.createElement('div');i.style.cssText='z-index: 2147483647 !important;position: fixed !important;left: 0 !important;top: 0 !important;width: 100% !important;height: 100% !important;background: white !important;display: block !important;';i.setAttribute('id','_vis_opt_path_hides');i.classList.add('_vis_hide_layer');t.parentNode.insertBefore(i,t.nextSibling)}var o=window._vis_opt_url||d.URL,s='https://dev.visualwebsiteoptimizer.com/j.php?a='+account_id+'&u='+encodeURIComponent(o)+'&vn='+version;if(w.location.search.indexOf('_vwo_xhr')!==-1){this.addScript({src:s})}else{this.load(s+'&x=true')}}};w._vwo_code=code;code.init();})();
-</script>
-
-
-
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZR6LL35JPP"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -68,7 +119,6 @@ f=false,w=window,d=document,v=d.querySelector('#vwoCode'),cK='_vwo_'+account_id+
   
   gtag('config', 'AW-16543078874');
 </script>
-<script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0124/4549.js" async="async"></script>
 
 
 <script>
@@ -84,151 +134,229 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 
 
 
-<meta name="description" content="The tallow skincare company making the most silky smooth tallow in Christchurch for Kiwis around NZ." />
-    <meta property="og:title" content="Ancestral products for wellness inside and out" />
-    <meta property="og:type" content="" />
-    <meta property="og:url" content="" />
-    <meta property="og:image" content="/img/about/header.webp" />
-    <meta property="og:description" content="The tallow skincare company making the most silky smooth tallow in Christchurch for Kiwis around NZ." />
-    <meta name="twitter:card" content="" />
-    <meta name="twitter:site" content="" />
-    <meta name="twitter:creator" content="" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
-    <style>
-        .accordion-content {
-            display: none;
-        }
-        .accordion-item.active .accordion-content {
-            display: block;
-        }
-    </style>
-    <script>
-        $(document).ready(function() {
-            $('.accordion-heading').click(function() {
-                var $accordionItem = $(this).parent();
-
-                
-                $('.accordion-item').not($accordionItem).removeClass('active').find('.accordion-content').slideUp();
-
-                
-                $accordionItem.toggleClass('active');
-                $accordionItem.find('.accordion-content').slideToggle();
-            });
-
-            
-            $('.accordion-item').first().addClass('active');
-            $('.accordion-item').first().find('.accordion-content').show();
-        });
-    </script>
+<title>Partner With Us — PrimalPantry</title>
 </head>
 <body><header>
-    
-    <script defer src="https://oso.nz/t.js" data-site="PrimalPantry.co.nz"></script>
+    <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
+    <link rel="preconnect" href="https://www.primalpantry.co.nz" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     
-    
-    
+    <link rel="preload" as="image" href="/img/logo/logo.webp" fetchpriority="high">
 
     
+
     <script>
         !function(f,b,e,v,n,t,s) {
             if(f.fbq) return;
-            n = f.fbq = function() {
-                n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            };
-            if(!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = !0;
-            n.version = '2.0';
-            n.queue = [];
-            t = b.createElement(e);
-            t.async = !0;
-            t.src = v;
-            s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s)
+            n = f.fbq = function() { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments) };
+            if(!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = [];
+            t = b.createElement(e); t.async = !0; t.src = v;
+            s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
         }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
         fbq('init', '809100344281173');
         fbq('track', 'PageView');
     </script>
-    <noscript>
-        <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=809100344281173&ev=PageView&noscript=1"/>
-    </noscript>
-    
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=809100344281173&ev=PageView&noscript=1"/></noscript>
 
+    <style>
+     
+    .navbar .nav-link {
+        font-size: 1rem !important;
+        padding-top: 0.4rem !important;
+        padding-bottom: 0.4rem !important;
+        padding-left: 0.7rem !important;
+        padding-right: 0.7rem !important;
+    }
+
+     
+    .nav-item.has-dropdown { position: relative; }
+
+    .nav-dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        padding-top: 10px;
+        background: transparent;
+        z-index: 9999;
+        pointer-events: none;
+        min-width: 268px;
+    }
+    .nav-dropdown-inner {
+        background: #fff;
+        border: 1px solid rgba(123,92,58,0.12);
+        border-radius: 14px;
+        box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+        padding: 8px;
+        opacity: 0;
+        transform: translateY(-4px);
+        transition: opacity 0.18s ease, transform 0.18s ease;
+        position: relative;
+    }
+    .nav-dropdown-inner::before {
+        content: '';
+        position: absolute;
+        top: -5px; left: 50%;
+        width: 10px; height: 10px;
+        background: #fff;
+        border-left: 1px solid rgba(123,92,58,0.12);
+        border-top: 1px solid rgba(123,92,58,0.12);
+        transform: translateX(-50%) rotate(45deg);
+    }
+    .nav-item.has-dropdown:hover .nav-dropdown,
+    .nav-item.has-dropdown:focus-within .nav-dropdown {
+        display: block;
+        pointer-events: all;
+    }
+    .nav-item.has-dropdown:hover .nav-dropdown-inner,
+    .nav-item.has-dropdown:focus-within .nav-dropdown-inner {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .nav-dropdown-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 11px;
+        padding: 9px 11px;
+        border-radius: 9px;
+        text-decoration: none;
+        transition: background 0.15s;
+        color: #1C1A17;
+    }
+    .nav-dropdown-item:hover { background: #F7F2EB; color: #1C1A17; text-decoration: none; }
+
+    .nav-dropdown-icon {
+        width: 34px; height: 34px;
+        border-radius: 8px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1rem; flex-shrink: 0;
+    }
+    .nav-dropdown-icon.soothe  { background: #F0E6D8; }
+    .nav-dropdown-icon.reviana { background: #2D3D22; }
+
+    .nav-dropdown-label { font-size: 0.76rem; font-weight: 700; color: #1C1A17; line-height: 1.25; margin-bottom: 1px; }
+    .nav-dropdown-sub   { font-size: 0.66rem; color: #8A7D70; line-height: 1.3; }
+
+    .nav-chevron {
+        display: inline-block; width: 10px; height: 10px;
+        margin-left: 3px; vertical-align: middle;
+        transition: transform 0.2s; opacity: 0.6;
+    }
+    .nav-item.has-dropdown:hover .nav-chevron { transform: rotate(180deg); }
+
+    .nav-dropdown-divider { height: 1px; background: rgba(123,92,58,0.1); margin: 4px 8px; }
+
+     
+    #overlay .nav-parent-label {
+        font-size: 0.68rem; text-transform: uppercase;
+        letter-spacing: 0.13em; opacity: 0.4;
+        margin-top: 10px; margin-bottom: 2px; display: block;
+    }
+    #overlay .nav-child-link {
+        font-size: 0.95rem !important; opacity: 0.8;
+        padding: 5px 0 !important; display: block;
+    }
+    </style>
+
+    
     <div id="overlay">
-        <ul class="text-center list-none text-white text-xl">
+        <ul class="text-center list-unstyled text-white fs-5">
+            
             
             <li class="p-2">
-                <a href="/shop/">
-                    <span>Shop Tallow Skincare</span>
-                </a>
+                <a href="/shop/"><span>Shop Tallow Skincare</span></a>
             </li>
+            <li class="p-1"><a class="nav-child-link" href="/shop/"><span>Shop Tallow Skincare</span></a></li>
+            
+            
             
             <li class="p-2">
-                <a href="/pages/reviews/">
-                    <span>Reviews</span>
-                </a>
+                <a href="/pages/reviews/"><span>Reviews</span></a>
             </li>
             
+            
+            
             <li class="p-2">
-                <a href="/pages/about/">
-                    <span>About</span>
-                </a>
+                <a href="/skin-quiz/"><span>Skin Quiz</span></a>
             </li>
+            
+            
+            
+            <li class="p-2">
+                <a href="/pages/about/"><span>About</span></a>
+            </li>
+            
             
         </ul>
     </div>
 
-    <nav class="flex items-center justify-between flex-wrap bg-opacity-100 p-2">
-        <div class="block lg:hidden">
-            <div id="hamburgerbtn" class="flex cursor-pointer items-center w-14 h-10 py-2 rounded mopen">
-                <span class="top"></span>
-                <span class="middle"></span>
-                <span class="bottom"></span>
-            </div>
-        </div>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid d-flex flex-row flex-nowrap align-items-center justify-content-between">
 
-        <div class="flex items-center flex-shrink-0 text-xl text-grey-900">
-            <a href="http://localhost:1313/" aria-label="PrimalPantry">
-                <img alt="" class="sitelogo mr-3" src="/img/logo/logo.webp">
-            </a>
-        </div>
+            <div class="d-block d-lg-none flex-shrink-0">
+                <div id="hamburgerbtn" class="flex cursor-pointer items-center w-14 h-10 py-2 rounded mopen">
+                    <span class="top"></span>
+                    <span class="middle"></span>
+                    <span class="bottom"></span>
+                </div>
+            </div>
 
-        <button class="iglink lg:hidden pp-cart-trigger" aria-label="Open cart" style="background:none;border:none;cursor:pointer;padding:0;">
-            <div class="cart-icon-container" style="position: relative; display: inline-block;">
-                <img src="/img/cart.webp" alt="Cart for PrimalPantry" class="cart-icon">
-                <span class="cart-badge" style="display:none;position:absolute;top:0;right:0;background-color:#9CAF88;color:white;border-radius:50%;width:20px;height:20px;align-items:center;justify-content:center;font-size:12px;">0</span>
+            <div class="d-flex align-items-center flex-shrink-1 text-xl text-grey-900" style="min-width:0;">
+                <a href="http://localhost:1313/" aria-label="PrimalPantry">
+                    <img alt="" class="sitelogo mr-3" src="/img/logo/logo.webp" width="120" height="36">
+                </a>
             </div>
-        </button>
 
-        <div class="hidden w-full block flex-grow lg:flex lg:items-center lg:w-auto" id="mobileMenu">
-            <div class="text-lg lg:flex-grow">
-            </div>
-            <div class="text-lg">
-                
-                <a href="/shop/" class="duration-200 block lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
-                    Shop Tallow Skincare
-                </a>
-                
-                <a href="/pages/reviews/" class="duration-200 block lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
-                    Reviews
-                </a>
-                
-                <a href="/pages/about/" class="duration-200 block lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
-                    About
-                </a>
-                
-            </div>
-            <button class="iglink mob-hide mr-6 pp-cart-trigger" aria-label="Open cart" style="background:none;border:none;cursor:pointer;padding:0;">
+            <button class="iglink d-lg-none pp-cart-trigger flex-shrink-0" aria-label="Open cart" style="background:none;border:none;cursor:pointer;padding:0;">
                 <div class="cart-icon-container" style="position: relative; display: inline-block;">
-                    <img src="/img/cart.webp" alt="Cart for PrimalPantry" class="cart-icon">
+                    <img src="/img/cart.webp" alt="Cart for PrimalPantry" width="24" height="24">
                     <span class="cart-badge" style="display:none;position:absolute;top:0;right:0;background-color:#9CAF88;color:white;border-radius:50%;width:20px;height:20px;align-items:center;justify-content:center;font-size:12px;">0</span>
                 </div>
             </button>
+
+            <div class="d-none w-full block flex-grow d-lg-flex align-items-center w-lg-auto" id="mobileMenu">
+                <ul class="navbar-nav ms-auto">
+                    
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="/shop/">Shop Tallow Skincare</a>
+                    </li>
+                    
+                    
+                    
+                    <li class="nav-item">
+                        <a class="nav-link " aria-current="page" href="/pages/reviews/">Reviews</a>
+                    </li>
+                    
+                    
+                    
+                    <li class="nav-item">
+                        <a class="nav-link " aria-current="page" href="/skin-quiz/">Skin Quiz</a>
+                    </li>
+                    
+                    
+                    
+                    <li class="nav-item">
+                        <a class="nav-link " aria-current="page" href="/pages/about/">About</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                <button class="iglink mob-hide me-6 pp-cart-trigger" aria-label="Open cart" style="background:none;border:none;cursor:pointer;padding:0;">
+                    <div class="cart-icon-container" style="position: relative; display: inline-block;">
+                        <img src="/img/cart.webp" alt="Cart for PrimalPantry" width="24" height="24">
+                        <span class="cart-badge" style="display:none;position:absolute;top:0;right:0;background-color:#9CAF88;color:white;border-radius:50%;width:20px;height:20px;align-items:center;justify-content:center;font-size:12px;">0</span>
+                    </div>
+                </button>
+            </div>
         </div>
     </nav>
+
 </header>
 <div class="pp-cart-overlay" id="ppCartOverlay"></div>
 
@@ -264,11 +392,21 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             </span>
             <span style="font-weight:700;color:var(--pp-sage,#9CAF88);">$0.00</span>
         </div>
+        <div id="ppDrawerGiftRow" style="margin-top:8px;display:none;">
+            <div class="pp-drawer-subtotal" id="ppDrawerGiftApplied" style="color:#3a5c2e;display:none;">
+                <span style="display:flex;align-items:center;gap:5px;font-size:0.82rem;">🎁 Gift voucher</span>
+                <span style="font-weight:700;font-size:0.82rem;">−$5.00</span>
+            </div>
+            <div id="ppDrawerGiftNudge" style="display:none;background:#f5f8f2;border:1px solid #c8d9b8;border-radius:8px;padding:8px 12px;font-size:0.78rem;color:#3a5c2e;line-height:1.4;">
+                🎁 You have a <strong>$5 voucher</strong> — add <strong id="ppDrawerGiftNeeded">$25</strong> more to unlock it
+            </div>
+        </div>
         <div class="pp-drawer-subtotal" style="margin-top:10px;padding-top:10px;border-top:1px solid var(--pp-border,rgba(139,115,85,0.15));">
             <span style="font-weight:700;font-size:0.95rem;">Total</span>
             <span id="ppDrawerTotal" style="font-weight:700;font-size:0.95rem;">$0.00</span>
         </div>
         <button class="pp-drawer-checkout-btn" id="ppDrawerCheckout">Proceed to Checkout</button>
+        <div id="ppDrawerPoints" class="pp-drawer-points" style="display:none;"></div>
         <a href="/cart" class="pp-drawer-viewcart" id="ppDrawerViewCart">View Full Cart</a>
         <button class="pp-drawer-continue" id="ppDrawerContinue">Continue Shopping</button>
     </div>
@@ -393,6 +531,13 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 .pp-drawer-continue:hover { color: #4A3728; }
 
  
+.pp-drawer-points {
+    font-size: 0.7rem; color: #A89880; text-align: center;
+    margin: 8px 0 0; padding: 0;
+}
+.pp-drawer-points strong { color: #7A9168; font-weight: 600; }
+
+ 
 @keyframes ppCartBounce {
     0%, 100% { transform: scale(1); }
     20% { transform: scale(1.2) rotate(-10deg); }
@@ -411,7 +556,6 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 </style>
 
 
-<script src="https://js.stripe.com/v3/" defer></script>
 
 <script>
 (function() {
@@ -422,21 +566,9 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     
     var market = (typeof window.MARKET !== 'undefined') ? window.MARKET : 'NZ';
     var shippingCost = market === 'AU' ? 9.95 : 6.95;
-    var freeShipThreshold = market === 'AU' ? 150 : 80;
+    var freeShipThreshold = market === 'AU' ? 150 : 75;
     var currencyCode = market === 'AU' ? 'AUD' : 'NZD';
     var countryCode = market || 'NZ';
-
-    
-    var stripeKey = market === 'AU'
-        ? 'pk_live_51T7LFcJzNO9WRf4JmC4gn05XRKUSJ4h8YQ8d93SGfArOteqfBBgWWGQRyPYNubwdgcgerXV6UjT6MyeHH1arTd8I007AaC7fyZ'
-        : 'pk_live_51QKEaJFZRwx5tlYmhyIEFR3mGroCdpqIHHVT68y9jGnizGDZXypuSfjilbCSkMarU39KeV4kUulC6HfpReRSJwb000fyIehR3I';
-    var stripeInstance = null;
-    function getStripe() {
-        if (!stripeInstance && typeof Stripe !== 'undefined') {
-            try { stripeInstance = Stripe(stripeKey); } catch(e) {}
-        }
-        return stripeInstance;
-    }
 
     
     var overlay = document.getElementById('ppCartOverlay');
@@ -537,8 +669,8 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             if (item.orderType && item.orderType.indexOf('Quarterly') > -1) priceSuffix = '/3mo';
             else if (item.orderType && item.orderType.indexOf('Monthly') > -1) priceSuffix = '/mo';
 
-            var metaFlavor = (item.title === 'Tallow Soothing Routine') ? null : item.flavor;
-            var metaSize = (item.title === 'Tallow Soothing Routine') ? 'Balm, Shampoo bar & Lip balm' : item.size;
+            var metaFlavor = (item.title === 'Soothing Tallow Routine Starter Kit') ? null : item.flavor;
+            var metaSize = (item.title === 'Soothing Tallow Routine Starter Kit') ? 'Balm, Shampoo bar & Lip balm' : item.size;
             var meta = [metaFlavor, metaSize].filter(Boolean).join(' \u00b7 ');
             if (item.orderType && item.orderType !== 'Single') {
                 meta += (meta ? ' \u00b7 ' : '') + item.orderType;
@@ -567,7 +699,19 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         
         var freeShip = subtotal >= freeShipThreshold;
         var shipping = freeShip ? 0 : shippingCost;
-        var total = subtotal + shipping;
+        var giftCode = (typeof sessionStorage !== 'undefined') ? sessionStorage.getItem('pp_gift_code') : null;
+        var giftMinimum = 25;
+        var giftMet = giftCode && market === 'NZ' && subtotal >= giftMinimum;
+        var giftDiscount = giftMet ? 5 : 0;
+        var giftRow = document.getElementById('ppDrawerGiftRow');
+        var giftApplied = document.getElementById('ppDrawerGiftApplied');
+        var giftNudge = document.getElementById('ppDrawerGiftNudge');
+        var giftNeeded = document.getElementById('ppDrawerGiftNeeded');
+        if (giftRow) giftRow.style.display = giftCode && market === 'NZ' ? '' : 'none';
+        if (giftApplied) giftApplied.style.display = giftMet ? '' : 'none';
+        if (giftNudge) giftNudge.style.display = (giftCode && market === 'NZ' && !giftMet) ? '' : 'none';
+        if (giftNeeded && !giftMet) giftNeeded.textContent = '$' + (giftMinimum - subtotal).toFixed(2);
+        var total = Math.max(0, subtotal + shipping - giftDiscount);
 
         subtotalEl.textContent = '$' + subtotal.toFixed(2);
 
@@ -583,6 +727,16 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         if (shipCostEl) shipCostEl.textContent = '$' + shippingCost.toFixed(2);
 
         renderShipProgress(subtotal);
+
+        
+        var ptsEl = document.getElementById('ppDrawerPoints');
+        if (ptsEl && subtotal > 0) {
+            var pts = ppCalcPoints(subtotal);
+            ptsEl.innerHTML = 'Earn ~<strong>' + pts.toLocaleString() + ' PrimalPoints</strong> on this order';
+            ptsEl.style.display = '';
+        } else if (ptsEl) {
+            ptsEl.style.display = 'none';
+        }
 
         
         itemsEl.querySelectorAll('.pp-drawer-qty-btn').forEach(function(btn) {
@@ -607,11 +761,9 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     }
 
     
-    var attempts = 0;
     checkoutBtn.addEventListener('click', function() {
         var cart = getCart();
         if (!cart.length) return;
-        attempts = 0;
 
         
         if (typeof gtag !== 'undefined') {
@@ -627,22 +779,22 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         
         if (typeof oso === 'function') oso('event', 'proceed to checkout');
 
-        doCheckout();
-    });
-
-    function doCheckout() {
-        var cart = getCart();
-        if (!cart.length) return;
-        checkoutBtn.disabled = true;
-        checkoutBtn.textContent = attempts > 0 ? 'Retrying\u2026' : 'Processing\u2026';
-
         
+        checkoutBtn.disabled = true;
+        checkoutBtn.textContent = 'Loading...';
+
         var ss = sessionStorage;
         var osoMeta = {
             landing_page: ss.getItem('oso_lp') || '',
             analytics_source: ss.getItem('oso_src') || '',
             magnet_product: ss.getItem('oso_magnet') || '',
             last_product_page: ss.getItem('oso_last_product') || ''
+        };
+        var clientInfo = {
+            browser: (navigator.userAgent.match(/(Chrome|Firefox|Safari|Edge|Opera)[\/\s](\d+)/) || [])[1] || '',
+            device: window.innerWidth < 768 ? 'Mobile' : window.innerWidth < 1024 ? 'Tablet' : 'Desktop',
+            os: navigator.platform || '',
+            screenWidth: window.innerWidth
         };
 
         fetch('/.netlify/functions/create-checkout-session', {
@@ -652,35 +804,29 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                 cart: cart.map(function(i) { return { priceId: i.priceId, quantity: parseInt(i.quantity) || 1 }; }),
                 countryCode: countryCode,
                 osoMeta: osoMeta,
-                clientInfo: {
-                    browser: (navigator.userAgent.match(/(Chrome|Firefox|Safari|Edge|Opera)[\/\s](\d+)/) || [])[1] || '',
-                    device: window.innerWidth < 768 ? 'Mobile' : window.innerWidth < 1024 ? 'Tablet' : 'Desktop',
-                    os: navigator.platform || '',
-                    screenWidth: window.innerWidth
-                }
+                clientInfo: clientInfo,
+                quizBundle: (function() {
+                    try {
+                        var pids = JSON.parse(localStorage.getItem('quiz_bundle_pids') || '[]');
+                        if (!pids.length) return false;
+                        var cartPids = cart.map(function(i) { return i.priceId; });
+                        return pids.every(function(pid) { return cartPids.indexOf(pid) !== -1; });
+                    } catch(e) { return false; }
+                })(),
+                giftCode: sessionStorage.getItem('pp_gift_code') || null
             })
         })
         .then(function(r) { return r.json(); })
         .then(function(data) {
-            var stripe = getStripe();
-            if (data.sessionId && stripe) {
-                localStorage.setItem('previouscart', JSON.stringify(cart));
-                stripe.redirectToCheckout({ sessionId: data.sessionId });
-            } else { handleErr(); }
+            if (data.clientSecret) {
+                sessionStorage.setItem('pp_checkout_secret', data.clientSecret);
+            }
+            window.location.href = '/checkout/';
         })
-        .catch(function() { handleErr(); });
-    }
-
-    function handleErr() {
-        attempts++;
-        if (attempts < 2) setTimeout(doCheckout, 1000);
-        else {
-            checkoutBtn.disabled = false;
-            checkoutBtn.textContent = 'Proceed to Checkout';
-            alert('Something went wrong. Please try again or contact us.');
-            attempts = 0;
-        }
-    }
+        .catch(function() {
+            window.location.href = '/checkout/';
+        });
+    });
 
     
     
@@ -738,9 +884,15 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         "Tallow Liquid Soap & Lotion Bundle":"/img/liquid-shop.webp",
         "The Golden Stack":"/img/shop/shop-gold.webp",
         "Tallow Soothing Routine":"/img/shop/shop-gold.webp",
+        "Soothing Tallow Routine Starter Kit":"/img/shop/shop-gold.webp",
         "Sensitive Skin Tallow Stack":"/img/sensitive-stack-tub.webp",
         "Tallow Anti-aging Kit":"/img/wrinkleskinnew.webp",
         "Tallow Balm - DIY kit":"/img/tallow-balm.webp",
+        "Reviana Day Cream":"/img/reviana-day-jar.webp",
+        "Reviana Night Cream":"/img/reviana-night-jar.webp",
+        "Reviana Eye Cream":"/img/reviana-eye-jar.webp",
+        "Reviana Serum":"/img/reviana-serum-jar.webp",
+        "Reviana Complete Ritual Bundle":"/img/r2-reviana-range-square.webp",
         "Reviana - Tallow Cosmetics":"/img/r2-reviana-range-square.webp",
         "Nourishing Tallow Conditioner":"/img/conditioner-shop.webp"
     };
@@ -828,15 +980,13 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     if (ttclid) { _origSetItem('ttclid', ttclid); }
 })();
 </script>
-<script>
-    
+<script type="application/javascript">
+    var country_code = 'NZ';
+    document.cookie = 'country_code=NZ; expires=' + new Date(Date.now() + 30*24*60*60*1000).toUTCString() + '; path=/';
     var outOfStockLinks = document.querySelectorAll('.outOfStock a');
-    outOfStockLinks.forEach(function (link) {
-        link.addEventListener('click', function (event) {
-            if (this.closest('.outOfStock')) {
-                event.preventDefault();
-                alert('This item is out of stock!');
-            }
+    outOfStockLinks.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            if (this.closest('.outOfStock')) { event.preventDefault(); alert('This item is out of stock!'); }
         });
     });
 </script>
@@ -844,157 +994,143 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 <script>
     window.onload = function() {
         var shipping_rate = document.getElementById('shipping_rate');
-        if (shipping_rate) { shipping_rate.textContent = '$80'; }
+        if (shipping_rate) { shipping_rate.textContent = '$75'; }
         document.querySelectorAll('.au-content').forEach(function(item) { item.style.display = 'none'; });
         document.querySelectorAll('.nz-content').forEach(function(item) { item.style.display = 'inline'; });
     };
 </script>
-<div class="scroll-top rounded-full">
-        <span class="icon-keyboard_arrow_up text-2xl"></span>
-    </div><div class="swiper-container">
-    <div class="swiper-wrapper">
-        
-    </div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-</div>
+<div style="background:#F7F2EB;padding:60px 16px 0;">
 
+      
+      <div style="max-width:600px;margin:0 auto;text-align:center;">
+        <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:#4A5E38;margin:0 0 8px;">PrimalPantry Partners</p>
+        <h1 style="font-family:Georgia,serif;font-size:32px;color:#1C1A17;margin:0 0 12px;line-height:1.2;">Share Skincare That Actually Works</h1>
+        <p style="font-size:15px;color:#8A7D70;line-height:1.7;margin:0 0 40px;">Love our products? Partner with us and earn while sharing NZ-made tallow skincare with your community. We'll give you everything you need — a unique code, a referral link, and a dashboard to track it all.</p>
+      </div>
 
-    <div class="container">
-        <div class="row peach max-width text-center">
-            <h1>The Bonelyfans Affiliate Program by PrimalPantry</h1>
+      
+      <div style="max-width:700px;margin:0 auto 40px;display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div style="background:#fff;border-radius:12px;padding:20px;border:1px solid rgba(123,92,58,0.1);">
+          <h3 style="font-family:Georgia,serif;font-size:16px;color:#1C1A17;margin:0 0 6px;">Your Own Code</h3>
+          <p style="font-size:13px;color:#8A7D70;margin:0;line-height:1.5;">A unique discount code your audience can use at checkout. They save, you earn.</p>
         </div>
-        <div class="row justify-content-around">
-            <div class="col-md-12 col-sm-12">
-                <div class="faq">
-                    <div class="accordion-item grow">
-                        <h4 class="accordion-heading">Process</h4>
-                        <div class="accordion-content">
-                            <p>Approved affiliates are provided a unique link to share with their audience offering them a 15% discount off any PrimalPantry products. Any qualified sales generated from that link will be paid out to the affiliate at a rate of 20% of the revenue (less any advertised shipping costs).</p>
-                        </div>
-                    </div>
-                    <div class="accordion-item grow">
-                        <h4 class="accordion-heading">About the product</h4>
-                        <div class="accordion-content">
-                            <p>PrimalPantry is a high quality bone broth powder designed for pets and people.</p>
-                            <p><strong>For people:</strong> Coming soon.</p>
-                            <p><strong>For pets:</strong></p>
-                            <p>A great way to get picky pets to take an interest and enjoy their kibble while adding extra nutrition value:</p>
-                            <ul>
-                                <li>100% human grade</li>
-                                <li>Organic, no additives</li>
-                                <li>Transforms pets from picky to piggy</li>
-                                <li>Healthy skin and coat</li>
-                                <li>Better digestion</li>
-                                <li>Strong joints</li>
-                                <li>Shelf-stable</li>
-                            </ul>
-                            <h6>Ingredients:</h6>
-                            <p>Organic Beef Bones, Carrots, Celery, Apple cider vinegar</p>
-                            <h6>Recommended serving size:</h6>
-                            <ul>
-                                <li>Small dogs (&lt;10 kg): ½ tsp daily</li>
-                                <li>Medium dogs (10-35 kg): 1 tsp daily</li>
-                                <li>Big dogs (35 kg +): 1½ - 2 tsp daily</li>
-                            </ul>
-                            <h6>Directions:</h6>
-                            <p>Sprinkle on your pet’s food once a day as powder or mix it with hot water first (1 tsp per 100ml).</p>
-                            <h6>Servings (depends on pet size):</h6>
-                            <p>12g pack - Up to 7 servings; 20g pack - Up to 12 servings; 50g pack - Up to 33 servings; 200g pack - Up to 132 servings</p>
-                            <h6>Storage:</h6>
-                            <p>Keep in a dry place. Use within 4 months of opening or 24 months unopened.</p>
-                            <p>For more information on the product please see the <a href="/partner-resources">Partner Resources</a> page or feel free to contact us.</p>
-                        </div>
-                    </div>
-                    <div class="accordion-item grow">
-                        <h4 class="accordion-heading">Ideal customers for PrimalPantry</h4>
-                        <div class="accordion-content">
-                            <p><strong>PrimalPantry for people:</strong></p>
-                            <ul>
-                                <li>People interested in Health & Wellness - muscle gain, weight loss, sleep support, recovery, joint support.</li>
-                                <li>Older people</li>
-                                <li>Dairy free, gluten free, keto or carnivores.</li>
-                            </ul>
-                            <p><strong>PrimalPantry for pets:</strong></p>
-                            <ul>
-                                <li>Owners of picky pets</li>
-                                <li>Owners of pets with joint, skin, coat or nail issues (Note: Bone broth promotes these, but does not cure)</li>
-                                <li>Owners of pets who like to treat/pamper their pet</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="accordion-item grow">
-                        <h4 class="accordion-heading">Affiliate Bounty</h4>
-                        <div class="accordion-content">
-                            <p>To you the affiliate, we will offer a 20% share of any revenue generated from customers using your special link at the checkout. Some of our products are free shipping, but if the customer pays for shipping this is excluded from the revenue amount used in calculating the payout.</p>
-                            <h3>Standard payout rates</h3>
-                            <ul>                        
+        <div style="background:#fff;border-radius:12px;padding:20px;border:1px solid rgba(123,92,58,0.1);">
+          <h3 style="font-family:Georgia,serif;font-size:16px;color:#1C1A17;margin:0 0 6px;">Referral Link</h3>
+          <p style="font-size:13px;color:#8A7D70;margin:0;line-height:1.5;">A tracked link that credits you for any purchases — even if they don't use a code.</p>
+        </div>
+        <div style="background:#fff;border-radius:12px;padding:20px;border:1px solid rgba(123,92,58,0.1);">
+          <h3 style="font-family:Georgia,serif;font-size:16px;color:#1C1A17;margin:0 0 6px;">Performance Dashboard</h3>
+          <p style="font-size:13px;color:#8A7D70;margin:0;line-height:1.5;">See your clicks, orders, and earnings in real time. Paid out monthly.</p>
+        </div>
+        <div style="background:#fff;border-radius:12px;padding:20px;border:1px solid rgba(123,92,58,0.1);">
+          <h3 style="font-family:Georgia,serif;font-size:16px;color:#1C1A17;margin:0 0 6px;">Products That Sell</h3>
+          <p style="font-size:13px;color:#8A7D70;margin:0;line-height:1.5;">Tallow skincare with real results. Over 90,000 Kiwis served. Your audience will thank you.</p>
+        </div>
+      </div>
 
-                                <li>20g:</li>
-                                <ul>
-                                    <li>Normal price: 
-                                        
-                                            $34.95
-                                        
-                                    </li>
-                                    <li>With your code they save 15%: $8.46</li>
-                                    <li>Your 20% revenue share: $2</li>
-                                </ul>
-                                <li>50g:</li>
-                                <ul>
-                                    <li>Normal price: 
-        
-            $44.95
-        
-    </li>
-                                    <li>With your code they save 15%: $16.11</li>
-                                    <li>Your 20% revenue share: $4</li>
-                                </ul>
+      
+      <div style="max-width:520px;margin:0 auto;padding-bottom:60px;">
+        <div style="background:#fff;border-radius:16px;padding:32px;border:1px solid rgba(123,92,58,0.12);">
+          <h2 style="font-family:Georgia,serif;font-size:22px;color:#1C1A17;margin:0 0 6px;text-align:center;">Apply to Partner</h2>
+          <p style="text-align:center;color:#8A7D70;font-size:13px;margin:0 0 24px;">We'll review your application and be in touch within 48 hours.</p>
 
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="accordion-item grow">
-                        <h4 class="accordion-heading">Tracking sales</h4>
-                        <div class="accordion-content">
-                            <p>Your unique link will track the revenue you generate (and therefore your earned commission). It’s important to make your audience aware of this, because if they convert on another link (e.g. visiting our homepage and buying through the normal store) it won't be tracked - you won't earn the commission and they won’t get their discount.</p>
-                        </div>
-                    </div>
-                    <div class="accordion-item grow">
-                        <h4 class="accordion-heading">What doesn't count to your revenue share</h4>
-                        <div class="accordion-content">
-                            <ul>
-                                <li>Shipping fees</li>
-                                <li>Customers that refund their product before our designated returns policy window.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="accordion-item grow">
-                        <h4 class="accordion-heading">Getting paid</h4>
-                        <div class="accordion-content">
-                            <p>At the beginning of the month you will be paid out for your share of the revenue generated from your unique link the month prior to a designated bank account you provide during the affiliate sign up process.</p>
-                        </div>
-                    </div>
-                    <div class="accordion-item grow">
-                        <h4 class="accordion-heading">Creating content</h4>
-                        <div class="accordion-content">
-                            <p>While we can supply templates to use below, you are welcome and encouraged to create and share your own content to promote your unique link. For logos and other resources, please visit the <a href="/partner-resources">Partner Resources</a> page. Our product can be sent to you to use as a test, click the link below to order.</p>
-                            <p><a href="https://www.PrimalPantry.co.nz/shop/products/free-pets-powder/" target="_blank">Order PrimalPantry for Pets</a></p>
-                        </div>
-                    </div>
-                </div>                         
+          <form id="affForm" onsubmit="return submitAffiliateForm(event)">
+            <div style="margin-bottom:14px;">
+              <label style="display:block;font-size:13px;font-weight:600;color:#1C1A17;margin-bottom:4px;">Full Name *</label>
+              <input type="text" name="name" required style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:14px;box-sizing:border-box;">
             </div>
+            <div style="margin-bottom:14px;">
+              <label style="display:block;font-size:13px;font-weight:600;color:#1C1A17;margin-bottom:4px;">Email *</label>
+              <input type="email" name="email" required style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:14px;box-sizing:border-box;">
+            </div>
+            <div style="margin-bottom:14px;">
+              <label style="display:block;font-size:13px;font-weight:600;color:#1C1A17;margin-bottom:4px;">Social Media Links</label>
+              <textarea name="social_links" rows="2" placeholder="Instagram, TikTok, YouTube, etc." style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:14px;box-sizing:border-box;resize:vertical;"></textarea>
+            </div>
+            <div style="margin-bottom:14px;">
+              <label style="display:block;font-size:13px;font-weight:600;color:#1C1A17;margin-bottom:4px;">Website URL</label>
+              <input type="url" name="website" placeholder="https://" style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:14px;box-sizing:border-box;">
+            </div>
+            <div style="margin-bottom:14px;">
+              <label style="display:block;font-size:13px;font-weight:600;color:#1C1A17;margin-bottom:4px;">Audience Size</label>
+              <select name="audience_size" style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:14px;box-sizing:border-box;background:#fff;">
+                <option value="">Select...</option>
+                <option value="Under 1,000">Under 1,000</option>
+                <option value="1,000 - 5,000">1,000 - 5,000</option>
+                <option value="5,000 - 10,000">5,000 - 10,000</option>
+                <option value="10,000 - 50,000">10,000 - 50,000</option>
+                <option value="50,000+">50,000+</option>
+              </select>
+            </div>
+            <div style="margin-bottom:14px;">
+              <label style="display:block;font-size:13px;font-weight:600;color:#1C1A17;margin-bottom:4px;">Tell us a bit about yourself *</label>
+              <textarea name="reason" rows="3" required placeholder="What you do, your audience, and why you'd be a good fit" style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:14px;box-sizing:border-box;resize:vertical;"></textarea>
+            </div>
+            <div style="margin-bottom:18px;">
+              <label style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#1C1A17;cursor:pointer;">
+                <input type="checkbox" name="terms_accepted" required style="margin-top:2px;">
+                <span>I agree to the <a href="/pages/terms-of-use" target="_blank" style="color:#4A5E38;text-decoration:underline;">Terms & Conditions</a></span>
+              </label>
+            </div>
+            <div id="affError" style="display:none;background:#fce4e4;color:#c0392b;padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:14px;"></div>
+            <button type="submit" id="affSubmitBtn" style="width:100%;padding:14px;background:#4A5E38;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;">Submit Application</button>
+          </form>
+
+          <div id="affSuccess" style="display:none;text-align:center;padding:20px 0;">
+            <h3 style="font-family:Georgia,serif;color:#1C1A17;margin:0 0 8px;">Application Submitted</h3>
+            <p style="color:#8A7D70;font-size:14px;margin:0;">We'll review your application and be in touch within 48 hours.</p>
+          </div>
+
+          <p style="text-align:center;margin-top:16px;font-size:13px;color:#8A7D70;">
+            Already a partner? <a href="/affiliates/login" style="color:#4A5E38;font-weight:600;">Log in here</a>
+          </p>
         </div>
-        <h3>Partner Resources</h3>
-<p>Regardless of your partnership type, we're dedicated to supporting you in achieving the best results with our products. Explore our partner resources page for valuable information and templates to assist with marketing and answering customer questions about PrimalPantry products.</p>
-<a href="/partner-resources">Visit Partner Resources</a>
+      </div>
     </div>
-<div class="row peach mb-0 text-center">
-    <h3>Ready to become an affiliate and earn commission selling PrimalPantry?</h3>
-    <p>Complete our <a style="color:palevioletred; text-decoration: underline;" href="/partner-request">partner request form</a> to express your interest.</p>
-</div>
-   
-    
+
+    <script>
+    async function submitAffiliateForm(e) {
+      e.preventDefault();
+      var form = document.getElementById('affForm');
+      var btn = document.getElementById('affSubmitBtn');
+      var errEl = document.getElementById('affError');
+      errEl.style.display = 'none';
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+
+      try {
+        var res = await fetch('/.netlify/functions/affiliate-apply', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: form.name.value.trim(),
+            email: form.email.value.trim(),
+            social_links: form.social_links.value.trim(),
+            website: form.website.value.trim(),
+            audience_size: form.audience_size.value,
+            reason: form.reason.value.trim(),
+            terms_accepted: form.terms_accepted.checked,
+          }),
+        });
+        var data = await res.json();
+        if (data.error) {
+          errEl.textContent = data.error;
+          errEl.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = 'Submit Application';
+          return false;
+        }
+        form.style.display = 'none';
+        document.getElementById('affSuccess').style.display = 'block';
+      } catch (err) {
+        errEl.textContent = 'Something went wrong. Please try again.';
+        errEl.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Submit Application';
+      }
+      return false;
+    }
+    </script>
 
 <footer class="pp-footer">
   
@@ -1002,21 +1138,29 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 
   
   
-  <script src='/js/clipboard.min.js' defer></script>
-  <script src='/js/highlight.min.js' defer></script>
-  <script src='/js/highlightjs-line-numbers.min.js' defer></script>
-  <script src='/js/sweetalert2.min.js' defer></script>
   <script>
-    
-    window.addEventListener('load', function() {
-      if (typeof hljs !== 'undefined') {
-        hljs.highlightAll();
-        hljs.initLineNumbersOnLoad();
-      }
-      if (typeof ClipboardJS !== 'undefined') {
-        new ClipboardJS('.url');
-      }
-    });
+    if (document.querySelector('pre code')) {
+      ['\/js\/clipboard.min.js',
+       '\/js\/highlight.min.js',
+       '\/js\/highlightjs-line-numbers.min.js',
+       '\/js\/sweetalert2.min.js'
+      ].forEach(function(src) {
+        var s = document.createElement('script');
+        s.src = src;
+        s.defer = true;
+        document.head.appendChild(s);
+      });
+
+      window.addEventListener('load', function() {
+        if (typeof hljs !== 'undefined') {
+          hljs.highlightAll();
+          hljs.initLineNumbersOnLoad();
+        }
+        if (typeof ClipboardJS !== 'undefined') {
+          new ClipboardJS('.url');
+        }
+      });
+    }
 
     function OnClickURL() {
       if (typeof Swal !== 'undefined') {
@@ -1051,9 +1195,13 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 
     if (!getCookie('landingURL')) {
         setCookie('landingURL', window.location.href, 30);
-        console.log('Landing URL stored:', window.location.href);
-    } else {
-        console.log('Landing URL already exists:', getCookie('landingURL'));
+    }
+
+    
+    var refParam = new URLSearchParams(window.location.search).get('ref');
+    if (refParam) {
+        setCookie('pp_ref', refParam, 30);
+        fetch('/.netlify/functions/affiliate-track?code=' + encodeURIComponent(refParam) + '&page=' + encodeURIComponent(window.location.pathname)).catch(function(){});
     }
 });
   </script>
@@ -1170,6 +1318,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         <a href="/tallow-for-wrinkles/">Tallow Cream & Anti-Aging</a>
         <a href="/shop/">Tallow Shampoo & Haircare</a>
         <a href="/shop/">Tallow Lip Balm</a>
+        <a href="/cosmetic-tallow-reviana/">Brighten &amp; Refine — Reviana</a>
         <a href="/subscribe/">Subscribe &amp; Save</a>
       </div>
       <div class="pp-f-col">
@@ -1178,7 +1327,6 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         <a href="/faq/">FAQs</a>
         <a href="/pages/refund-policy/">Refund Policy</a>
         <a href="https://billing.stripe.com/p/login/4gMeVd6XT3X0b9qabyco000" target="_blank">Manage Subscription</a>
-        <a href="/stockists/">Where to Buy — Stockists</a>
       </div>
       <div class="pp-f-col">
         <h4>Company</h4>
@@ -1186,6 +1334,8 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         <a href="/pages/reviews/">Primal Pantry Reviews</a>
         <a href="/posts/">Blog</a>
         <a href="/contact/">Contact</a>
+        <a href="/affiliates/">Become an Affiliate</a>
+        <a href="/affiliates/login">Affiliate Login</a>
       </div>
     </div>
     

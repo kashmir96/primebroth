@@ -292,6 +292,7 @@
       .mpb-wrap { padding-left: 20px; padding-right: 20px; }
       .soothe-header { flex-direction: column; gap: 12px; }
       .eanz-badge { display: none; }
+      .shop-eanz-pill { display: flex !important; }
 
       .soothe-bundle { padding: 14px 16px; gap: 12px; }
       .soothe-bundle-img { width: 64px; height: 64px; border-radius: 10px; }
@@ -337,6 +338,13 @@
         <!-- Header -->
         <div class="soothe-header">
           <div>
+            <div class="shop-eanz-pill" style="float:right;margin:0 0 4px 10px;z-index:5;display:none;align-items:center;cursor:pointer;" onclick="var m=document.getElementById('shop-eanz-modal');if(m){m.classList.add('is-open');document.body.style.overflow='hidden';}">
+              <img src="/img/home/eanz.webp" alt="Eczema Association NZ" style="width:53px;height:53px;object-fit:contain;position:relative;z-index:2;flex-shrink:0;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.12));">
+              <div style="background:rgba(255,255,255,0.78);backdrop-filter:blur(4px);border-radius:0 14px 14px 0;padding:3px 7px 3px 4px;margin-left:-12px;box-shadow:0 1px 3px rgba(0,0,0,0.1);display:flex;flex-direction:column;justify-content:center;">
+                <span style="font-size:8px;color:#6B5849;font-weight:700;line-height:1.2;padding-left:14px;">Gold Supporter</span>
+                <span style="font-size:7px;color:#9CAF88;text-decoration:underline;padding-left:14px;">What's this?</span>
+              </div>
+            </div>
             <span class="soothe-eyebrow">PrimalCare · Calm &amp; Soothe</span>
             <h2 class="soothe-title">The routine for <em>calm, comfortable skin.</em></h2>
             <p class="soothe-subtitle">Our best-sellers for sensitive, reactive and dry skin — built around pure tallow.</p>
@@ -407,11 +415,6 @@
         </div>
 
         <div class="pp-card-grid" id="product-grid">
-            <!-- Section: Best Sellers for Soothing -->
-            <div class="pp-grid-heading" data-section-for="skincare balm">
-              <h3>Best Sellers for <em>Soothing</em></h3>
-              <p>Gentle tallow-based essentials for dry, sensitive & irritated skin</p>
-            </div>
             {{- partial "prodcardtallowskin.html" . -}}
             {{- partial "prodcardshampoo.html" . -}}
             {{- partial "prodcard-day-n-night.html" . -}}

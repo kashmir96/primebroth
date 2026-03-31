@@ -50,7 +50,7 @@
             <div class="col-12 d-lg-none gallery-mobile">
                 <div class="swiper product-swiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide"><img src="/img/sunscreen/main.webp" alt="Tallow sunbalm main"></div>
+                        <div class="swiper-slide" style="position:relative;overflow:visible;"><img src="/img/sunscreen/main.webp" alt="Tallow sunbalm main" style="width:100%;height:100%;object-fit:cover;border-radius:12px;display:block;">{{- partial "eanz-badge.html" . -}}</div>
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
@@ -119,7 +119,7 @@
 
 
                 <!-- Add to Cart Button -->
-                <div class="text-center mb-4" style="position:relative;">
+                <div class="text-center mb-4">
                     <p class="pp-points-hint">~<strong id="pp-pts-label">PrimalPoints</strong> <i class="pp-pts-info" data-tip="Earn points on every purchase — redeem on your next order">i</i></p>
                     <!-- <button type="button" class="btn btn-primary btn-lg buy-now" data-price-id="" data-quantity-id="quantityAll">Add To Cart</button> -->
                 </div>
@@ -914,7 +914,7 @@ if (window.innerWidth <= 900) {
   new Swiper(".product-swiper", {
     slidesPerView: "auto",
     spaceBetween: 5,
-    pagination: { el: ".swiper-pagination", clickable: true, renderBullet: function(i,c){ var img=document.querySelectorAll(".product-swiper .swiper-slide img")[i]; return "<span class=\"" + c + "\"><img src=\"" + (img?img.getAttribute("src"):"") + "\"></span>"; } }
+    pagination: { el: ".swiper-pagination", clickable: true, renderBullet: function(i,c){ var img=document.querySelectorAll(".product-swiper .swiper-slide img:not([data-eanz-badge])")[i]; return "<span class=\"" + c + "\"><img src=\"" + (img?img.getAttribute("src"):"") + "\"></span>"; } }
   });
 }
 </script>    {{- partial "footer.html" . }}

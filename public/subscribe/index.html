@@ -11,11 +11,70 @@
 })();
 
 
+window.ppCalcPoints = function(price) { return Math.round((parseFloat(price) || 0) * 100); };
+
+
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var token = params.get('pp_gift');
+  if (!token) return;
+  fetch('/.netlify/functions/quiz-referral?token=' + encodeURIComponent(token))
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      if (d.code) {
+        sessionStorage.setItem('pp_gift_code', d.code);
+        sessionStorage.removeItem('pp_gift_dismissed');
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', ppShowGiftPill);
+        } else {
+          ppShowGiftPill();
+        }
+      }
+    }).catch(function(){});
+})();
+
+function ppShowGiftPill() {
+  if (!sessionStorage.getItem('pp_gift_code')) return;
+  if (sessionStorage.getItem('pp_gift_dismissed')) return;
+  if (document.getElementById('pp-gift-pill')) return;
+  var el = document.createElement('div');
+  el.id = 'pp-gift-pill';
+  el.innerHTML = '🎁 <strong>$5 off</strong> — spend $25 to unlock'
+    + '<button onclick="ppDismissGiftPill()" aria-label="Dismiss">✕</button>';
+  document.body.appendChild(el);
+  setTimeout(function(){ el.classList.add('pp-gift-pill-in'); }, 80);
+}
+
+function ppDismissGiftPill() {
+  sessionStorage.setItem('pp_gift_dismissed', '1');
+  var el = document.getElementById('pp-gift-pill');
+  if (el) { el.classList.remove('pp-gift-pill-in'); setTimeout(function(){ el.remove(); }, 350); }
+}
+
+
+document.addEventListener('DOMContentLoaded', ppShowGiftPill);
+
+
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.au-content').forEach(function(el) { el.style.display = 'none'; });
   document.querySelectorAll('.nz-content').forEach(function(el) { el.style.display = 'inline'; });
 });
-</script><meta charset="utf-8">
+</script><link rel="preconnect" href="https://oso.nz" crossorigin>
+<script defer src="https://oso.nz/t.js" data-site="PrimalPantry.co.nz"></script>
+<link rel="prefetch" href="https://js.stripe.com/v3/" as="script">
+<script>
+
+(function(){
+  if (sessionStorage.getItem('pp_fn_warm')) return;
+  sessionStorage.setItem('pp_fn_warm', '1');
+  fetch('/.netlify/functions/create-checkout-session', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: '{"warmup":true}'
+  }).catch(function(){});
+})();
+</script>
+<meta charset="utf-8">
 <title>PrimalPantry | Tallow Skincare Subscription | Monthly Delivery NZ - PrimalCare</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link rel="apple-touch-icon" sizes="180x180" href='/apple-touch-icon.png'>
@@ -24,6 +83,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <link rel="manifest" href='/site.webmanifest'>
 
 <link rel="canonical" href="http://localhost:1313/subscribe/">
+<style>
+#pp-gift-pill{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(16px);background:#2E3D1F;color:#fff;padding:11px 14px 11px 18px;border-radius:100px;font-size:0.83rem;font-family:'DM Sans',sans-serif;white-space:nowrap;z-index:9999;opacity:0;transition:opacity 0.35s,transform 0.35s;box-shadow:0 4px 20px rgba(0,0,0,0.28);display:flex;align-items:center;gap:10px;}
+#pp-gift-pill.pp-gift-pill-in{opacity:1;transform:translateX(-50%) translateY(0);}
+#pp-gift-pill button{background:rgba(255,255,255,0.15);border:none;color:#fff;width:20px;height:20px;border-radius:50%;font-size:0.65rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;line-height:1;}
+#pp-gift-pill button:hover{background:rgba(255,255,255,0.28);}
+</style>
 
 
   
@@ -43,20 +108,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 
-<link rel="preconnect" href="https://dev.visualwebsiteoptimizer.com" />
-<script type='text/javascript' id='vwoCode'>
-window._vwo_code || (function() {
-var account_id=920032,
-version=2.1,
-settings_tolerance=2000,
-hide_element='body',
-hide_element_style = 'opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;transition:none !important;',
- 
-f=false,w=window,d=document,v=d.querySelector('#vwoCode'),cK='_vwo_'+account_id+'_settings',cc={};try{var c=JSON.parse(localStorage.getItem('_vwo_'+account_id+'_config'));cc=c&&typeof c==='object'?c:{}}catch(e){}var stT=cc.stT==='session'?w.sessionStorage:w.localStorage;code={nonce:v&&v.nonce,library_tolerance:function(){return typeof library_tolerance!=='undefined'?library_tolerance:undefined},settings_tolerance:function(){return cc.sT||settings_tolerance},hide_element_style:function(){return'{'+(cc.hES||hide_element_style)+'}'},hide_element:function(){if(performance.getEntriesByName('first-contentful-paint')[0]){return''}return typeof cc.hE==='string'?cc.hE:hide_element},getVersion:function(){return version},finish:function(e){if(!f){f=true;var t=d.getElementById('_vis_opt_path_hides');if(t)t.parentNode.removeChild(t);if(e)(new Image).src='https://dev.visualwebsiteoptimizer.com/ee.gif?a='+account_id+e}},finished:function(){return f},addScript:function(e){var t=d.createElement('script');t.type='text/javascript';if(e.src){t.src=e.src}else{t.text=e.text}v&&t.setAttribute('nonce',v.nonce);d.getElementsByTagName('head')[0].appendChild(t)},load:function(e,t){var n=this.getSettings(),i=d.createElement('script'),r=this;t=t||{};if(n){i.textContent=n;d.getElementsByTagName('head')[0].appendChild(i);if(!w.VWO||VWO.caE){stT.removeItem(cK);r.load(e)}}else{var o=new XMLHttpRequest;o.open('GET',e,true);o.withCredentials=!t.dSC;o.responseType=t.responseType||'text';o.onload=function(){if(t.onloadCb){return t.onloadCb(o,e)}if(o.status===200||o.status===304){_vwo_code.addScript({text:o.responseText})}else{_vwo_code.finish('&e=loading_failure:'+e)}};o.onerror=function(){if(t.onerrorCb){return t.onerrorCb(e)}_vwo_code.finish('&e=loading_failure:'+e)};o.send()}},getSettings:function(){try{var e=stT.getItem(cK);if(!e){return}e=JSON.parse(e);if(Date.now()>e.e){stT.removeItem(cK);return}return e.s}catch(e){return}},init:function(){if(d.URL.indexOf('__vwo_disable__')>-1)return;var e=this.settings_tolerance();w._vwo_settings_timer=setTimeout(function(){_vwo_code.finish();stT.removeItem(cK)},e);var t;if(this.hide_element()!=='body'){t=d.createElement('style');var n=this.hide_element(),i=n?n+this.hide_element_style():'',r=d.getElementsByTagName('head')[0];t.setAttribute('id','_vis_opt_path_hides');v&&t.setAttribute('nonce',v.nonce);t.setAttribute('type','text/css');if(t.styleSheet)t.styleSheet.cssText=i;else t.appendChild(d.createTextNode(i));r.appendChild(t)}else{t=d.getElementsByTagName('head')[0];var i=d.createElement('div');i.style.cssText='z-index: 2147483647 !important;position: fixed !important;left: 0 !important;top: 0 !important;width: 100% !important;height: 100% !important;background: white !important;display: block !important;';i.setAttribute('id','_vis_opt_path_hides');i.classList.add('_vis_hide_layer');t.parentNode.insertBefore(i,t.nextSibling)}var o=window._vis_opt_url||d.URL,s='https://dev.visualwebsiteoptimizer.com/j.php?a='+account_id+'&u='+encodeURIComponent(o)+'&vn='+version;if(w.location.search.indexOf('_vwo_xhr')!==-1){this.addScript({src:s})}else{this.load(s+'&x=true')}}};w._vwo_code=code;code.init();})();
-</script>
-
-
-
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZR6LL35JPP"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -69,7 +120,6 @@ f=false,w=window,d=document,v=d.querySelector('#vwoCode'),cK='_vwo_'+account_id+
   
   gtag('config', 'AW-16543078874');
 </script>
-<script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0124/4549.js" async="async"></script>
 
 
 <script>
@@ -483,12 +533,11 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 }
 </style>
 
-<div class="pp-topbar">2 Get 1 Free on Select 3pk Bundles · Free shipping over $80</div>
+<div class="pp-topbar">2 Get 1 Free on Select 3pk Bundles · Free shipping over $75</div>
 
 
 
 <header>
-    <link rel="preconnect" href="https://oso.nz" crossorigin>
     <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
     <link rel="preconnect" href="https://www.primalpantry.co.nz" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -497,7 +546,6 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     
     <link rel="preload" as="image" href="/img/logo/logo.webp" fetchpriority="high">
 
-    <script defer src="https://oso.nz/t.js" data-site="PrimalPantry.co.nz"></script>
     
 
     <script>
@@ -623,13 +671,18 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             <li class="p-2">
                 <a href="/shop/"><span>Shop Tallow Skincare</span></a>
             </li>
-            <li class="p-1"><a class="nav-child-link" href="/shop/"><span>Primalcare - Calm &amp; Soothe</span></a></li>
-            <li class="p-1"><a class="nav-child-link" href="/cosmetic-tallow-reviana/"><span>Reviana - Fine Lines &amp; Brightening</span></a></li>
+            <li class="p-1"><a class="nav-child-link" href="/shop/"><span>Shop Tallow Skincare</span></a></li>
             
             
             
             <li class="p-2">
                 <a href="/pages/reviews/"><span>Reviews</span></a>
+            </li>
+            
+            
+            
+            <li class="p-2">
+                <a href="/skin-quiz/"><span>Skin Quiz</span></a>
             </li>
             
             
@@ -670,34 +723,20 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                 <ul class="navbar-nav ms-auto">
                     
                     
-                    <li class="nav-item has-dropdown">
-                        <a class="nav-link" href="/shop/">
-                            Shop Tallow Skincare
-                            <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
-                        </a>
-                        <div class="nav-dropdown"><div class="nav-dropdown-inner">
-                            <a class="nav-dropdown-item" href="/shop/">
-                                <div class="nav-dropdown-icon soothe">🤍</div>
-                                <div>
-                                    <div class="nav-dropdown-label">Calm &amp; Soothe</div>
-                                    <div class="nav-dropdown-sub">PrimalCare · sensitive &amp; dry skin</div>
-                                </div>
-                            </a>
-                            <div class="nav-dropdown-divider"></div>
-                            <a class="nav-dropdown-item" href="/cosmetic-tallow-reviana/">
-                                <div class="nav-dropdown-icon reviana">✨</div>
-                                <div>
-                                    <div class="nav-dropdown-label">Brighten &amp; Refine</div>
-                                    <div class="nav-dropdown-sub">Reviana · Vitamin C, Bakuchiol &amp; more</div>
-                                </div>
-                            </a>
-                        </div></div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/shop/">Shop Tallow Skincare</a>
                     </li>
                     
                     
                     
                     <li class="nav-item">
                         <a class="nav-link " aria-current="page" href="/pages/reviews/">Reviews</a>
+                    </li>
+                    
+                    
+                    
+                    <li class="nav-item">
+                        <a class="nav-link " aria-current="page" href="/skin-quiz/">Skin Quiz</a>
                     </li>
                     
                     
@@ -754,11 +793,21 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             </span>
             <span style="font-weight:700;color:var(--pp-sage,#9CAF88);">$0.00</span>
         </div>
+        <div id="ppDrawerGiftRow" style="margin-top:8px;display:none;">
+            <div class="pp-drawer-subtotal" id="ppDrawerGiftApplied" style="color:#3a5c2e;display:none;">
+                <span style="display:flex;align-items:center;gap:5px;font-size:0.82rem;">🎁 Gift voucher</span>
+                <span style="font-weight:700;font-size:0.82rem;">−$5.00</span>
+            </div>
+            <div id="ppDrawerGiftNudge" style="display:none;background:#f5f8f2;border:1px solid #c8d9b8;border-radius:8px;padding:8px 12px;font-size:0.78rem;color:#3a5c2e;line-height:1.4;">
+                🎁 You have a <strong>$5 voucher</strong> — add <strong id="ppDrawerGiftNeeded">$25</strong> more to unlock it
+            </div>
+        </div>
         <div class="pp-drawer-subtotal" style="margin-top:10px;padding-top:10px;border-top:1px solid var(--pp-border,rgba(139,115,85,0.15));">
             <span style="font-weight:700;font-size:0.95rem;">Total</span>
             <span id="ppDrawerTotal" style="font-weight:700;font-size:0.95rem;">$0.00</span>
         </div>
         <button class="pp-drawer-checkout-btn" id="ppDrawerCheckout">Proceed to Checkout</button>
+        <div id="ppDrawerPoints" class="pp-drawer-points" style="display:none;"></div>
         <a href="/cart" class="pp-drawer-viewcart" id="ppDrawerViewCart">View Full Cart</a>
         <button class="pp-drawer-continue" id="ppDrawerContinue">Continue Shopping</button>
     </div>
@@ -883,6 +932,13 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 .pp-drawer-continue:hover { color: #4A3728; }
 
  
+.pp-drawer-points {
+    font-size: 0.7rem; color: #A89880; text-align: center;
+    margin: 8px 0 0; padding: 0;
+}
+.pp-drawer-points strong { color: #7A9168; font-weight: 600; }
+
+ 
 @keyframes ppCartBounce {
     0%, 100% { transform: scale(1); }
     20% { transform: scale(1.2) rotate(-10deg); }
@@ -901,7 +957,6 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 </style>
 
 
-<script src="https://js.stripe.com/v3/" defer></script>
 
 <script>
 (function() {
@@ -912,21 +967,9 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     
     var market = (typeof window.MARKET !== 'undefined') ? window.MARKET : 'NZ';
     var shippingCost = market === 'AU' ? 9.95 : 6.95;
-    var freeShipThreshold = market === 'AU' ? 150 : 80;
+    var freeShipThreshold = market === 'AU' ? 150 : 75;
     var currencyCode = market === 'AU' ? 'AUD' : 'NZD';
     var countryCode = market || 'NZ';
-
-    
-    var stripeKey = market === 'AU'
-        ? 'pk_live_51T7LFcJzNO9WRf4JmC4gn05XRKUSJ4h8YQ8d93SGfArOteqfBBgWWGQRyPYNubwdgcgerXV6UjT6MyeHH1arTd8I007AaC7fyZ'
-        : 'pk_live_51QKEaJFZRwx5tlYmhyIEFR3mGroCdpqIHHVT68y9jGnizGDZXypuSfjilbCSkMarU39KeV4kUulC6HfpReRSJwb000fyIehR3I';
-    var stripeInstance = null;
-    function getStripe() {
-        if (!stripeInstance && typeof Stripe !== 'undefined') {
-            try { stripeInstance = Stripe(stripeKey); } catch(e) {}
-        }
-        return stripeInstance;
-    }
 
     
     var overlay = document.getElementById('ppCartOverlay');
@@ -1027,8 +1070,8 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             if (item.orderType && item.orderType.indexOf('Quarterly') > -1) priceSuffix = '/3mo';
             else if (item.orderType && item.orderType.indexOf('Monthly') > -1) priceSuffix = '/mo';
 
-            var metaFlavor = (item.title === 'Tallow Soothing Routine') ? null : item.flavor;
-            var metaSize = (item.title === 'Tallow Soothing Routine') ? 'Balm, Shampoo bar & Lip balm' : item.size;
+            var metaFlavor = (item.title === 'Soothing Tallow Routine Starter Kit') ? null : item.flavor;
+            var metaSize = (item.title === 'Soothing Tallow Routine Starter Kit') ? 'Balm, Shampoo bar & Lip balm' : item.size;
             var meta = [metaFlavor, metaSize].filter(Boolean).join(' \u00b7 ');
             if (item.orderType && item.orderType !== 'Single') {
                 meta += (meta ? ' \u00b7 ' : '') + item.orderType;
@@ -1057,7 +1100,19 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         
         var freeShip = subtotal >= freeShipThreshold;
         var shipping = freeShip ? 0 : shippingCost;
-        var total = subtotal + shipping;
+        var giftCode = (typeof sessionStorage !== 'undefined') ? sessionStorage.getItem('pp_gift_code') : null;
+        var giftMinimum = 25;
+        var giftMet = giftCode && market === 'NZ' && subtotal >= giftMinimum;
+        var giftDiscount = giftMet ? 5 : 0;
+        var giftRow = document.getElementById('ppDrawerGiftRow');
+        var giftApplied = document.getElementById('ppDrawerGiftApplied');
+        var giftNudge = document.getElementById('ppDrawerGiftNudge');
+        var giftNeeded = document.getElementById('ppDrawerGiftNeeded');
+        if (giftRow) giftRow.style.display = giftCode && market === 'NZ' ? '' : 'none';
+        if (giftApplied) giftApplied.style.display = giftMet ? '' : 'none';
+        if (giftNudge) giftNudge.style.display = (giftCode && market === 'NZ' && !giftMet) ? '' : 'none';
+        if (giftNeeded && !giftMet) giftNeeded.textContent = '$' + (giftMinimum - subtotal).toFixed(2);
+        var total = Math.max(0, subtotal + shipping - giftDiscount);
 
         subtotalEl.textContent = '$' + subtotal.toFixed(2);
 
@@ -1073,6 +1128,16 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         if (shipCostEl) shipCostEl.textContent = '$' + shippingCost.toFixed(2);
 
         renderShipProgress(subtotal);
+
+        
+        var ptsEl = document.getElementById('ppDrawerPoints');
+        if (ptsEl && subtotal > 0) {
+            var pts = ppCalcPoints(subtotal);
+            ptsEl.innerHTML = 'Earn ~<strong>' + pts.toLocaleString() + ' PrimalPoints</strong> on this order';
+            ptsEl.style.display = '';
+        } else if (ptsEl) {
+            ptsEl.style.display = 'none';
+        }
 
         
         itemsEl.querySelectorAll('.pp-drawer-qty-btn').forEach(function(btn) {
@@ -1097,11 +1162,9 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     }
 
     
-    var attempts = 0;
     checkoutBtn.addEventListener('click', function() {
         var cart = getCart();
         if (!cart.length) return;
-        attempts = 0;
 
         
         if (typeof gtag !== 'undefined') {
@@ -1117,22 +1180,22 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         
         if (typeof oso === 'function') oso('event', 'proceed to checkout');
 
-        doCheckout();
-    });
-
-    function doCheckout() {
-        var cart = getCart();
-        if (!cart.length) return;
-        checkoutBtn.disabled = true;
-        checkoutBtn.textContent = attempts > 0 ? 'Retrying\u2026' : 'Processing\u2026';
-
         
+        checkoutBtn.disabled = true;
+        checkoutBtn.textContent = 'Loading...';
+
         var ss = sessionStorage;
         var osoMeta = {
             landing_page: ss.getItem('oso_lp') || '',
             analytics_source: ss.getItem('oso_src') || '',
             magnet_product: ss.getItem('oso_magnet') || '',
             last_product_page: ss.getItem('oso_last_product') || ''
+        };
+        var clientInfo = {
+            browser: (navigator.userAgent.match(/(Chrome|Firefox|Safari|Edge|Opera)[\/\s](\d+)/) || [])[1] || '',
+            device: window.innerWidth < 768 ? 'Mobile' : window.innerWidth < 1024 ? 'Tablet' : 'Desktop',
+            os: navigator.platform || '',
+            screenWidth: window.innerWidth
         };
 
         fetch('/.netlify/functions/create-checkout-session', {
@@ -1142,35 +1205,29 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                 cart: cart.map(function(i) { return { priceId: i.priceId, quantity: parseInt(i.quantity) || 1 }; }),
                 countryCode: countryCode,
                 osoMeta: osoMeta,
-                clientInfo: {
-                    browser: (navigator.userAgent.match(/(Chrome|Firefox|Safari|Edge|Opera)[\/\s](\d+)/) || [])[1] || '',
-                    device: window.innerWidth < 768 ? 'Mobile' : window.innerWidth < 1024 ? 'Tablet' : 'Desktop',
-                    os: navigator.platform || '',
-                    screenWidth: window.innerWidth
-                }
+                clientInfo: clientInfo,
+                quizBundle: (function() {
+                    try {
+                        var pids = JSON.parse(localStorage.getItem('quiz_bundle_pids') || '[]');
+                        if (!pids.length) return false;
+                        var cartPids = cart.map(function(i) { return i.priceId; });
+                        return pids.every(function(pid) { return cartPids.indexOf(pid) !== -1; });
+                    } catch(e) { return false; }
+                })(),
+                giftCode: sessionStorage.getItem('pp_gift_code') || null
             })
         })
         .then(function(r) { return r.json(); })
         .then(function(data) {
-            var stripe = getStripe();
-            if (data.sessionId && stripe) {
-                localStorage.setItem('previouscart', JSON.stringify(cart));
-                stripe.redirectToCheckout({ sessionId: data.sessionId });
-            } else { handleErr(); }
+            if (data.clientSecret) {
+                sessionStorage.setItem('pp_checkout_secret', data.clientSecret);
+            }
+            window.location.href = '/checkout/';
         })
-        .catch(function() { handleErr(); });
-    }
-
-    function handleErr() {
-        attempts++;
-        if (attempts < 2) setTimeout(doCheckout, 1000);
-        else {
-            checkoutBtn.disabled = false;
-            checkoutBtn.textContent = 'Proceed to Checkout';
-            alert('Something went wrong. Please try again or contact us.');
-            attempts = 0;
-        }
-    }
+        .catch(function() {
+            window.location.href = '/checkout/';
+        });
+    });
 
     
     
@@ -1228,9 +1285,15 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         "Tallow Liquid Soap & Lotion Bundle":"/img/liquid-shop.webp",
         "The Golden Stack":"/img/shop/shop-gold.webp",
         "Tallow Soothing Routine":"/img/shop/shop-gold.webp",
+        "Soothing Tallow Routine Starter Kit":"/img/shop/shop-gold.webp",
         "Sensitive Skin Tallow Stack":"/img/sensitive-stack-tub.webp",
         "Tallow Anti-aging Kit":"/img/wrinkleskinnew.webp",
         "Tallow Balm - DIY kit":"/img/tallow-balm.webp",
+        "Reviana Day Cream":"/img/reviana-day-jar.webp",
+        "Reviana Night Cream":"/img/reviana-night-jar.webp",
+        "Reviana Eye Cream":"/img/reviana-eye-jar.webp",
+        "Reviana Serum":"/img/reviana-serum-jar.webp",
+        "Reviana Complete Ritual Bundle":"/img/r2-reviana-range-square.webp",
         "Reviana - Tallow Cosmetics":"/img/r2-reviana-range-square.webp",
         "Nourishing Tallow Conditioner":"/img/conditioner-shop.webp"
     };
@@ -1332,7 +1395,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 <script>
     window.onload = function() {
         var shipping_rate = document.getElementById('shipping_rate');
-        if (shipping_rate) { shipping_rate.textContent = '$80'; }
+        if (shipping_rate) { shipping_rate.textContent = '$75'; }
         document.querySelectorAll('.au-content').forEach(function(item) { item.style.display = 'none'; });
         document.querySelectorAll('.nz-content').forEach(function(item) { item.style.display = 'inline'; });
     };
@@ -1382,61 +1445,13 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                 </div>
                 <div class="sub-category-body">
 
-                    <div class="sub-product-card" data-scent="vanilla-rose" data-price="19.95" data-price-id="price_1SxJSpFZRwx5tlYm3WpElJHH" data-size="120ml" data-img="/img/vanillarose.jpg" data-title="Whipped Tallow Balm">
-                        <img class="sub-product-img" src="/img/vanillarose.jpg" alt="Vanilla & Rose">
-                        <div class="sub-product-info">
-                            <p class="sub-product-name">Vanilla & Rose</p>
-                            <p class="sub-product-meta">120ml · Whipped</p>
-                            <p class="sub-product-price">$19.95/mo <span class="sub-product-rrp">$24.95</span></p>
-                        </div>
-                        <div class="sub-qty-controls">
-                            <button type="button" class="sub-qty-minus">−</button>
-                            <input type="number" class="sub-qty-input" value="0" min="0">
-                            <button type="button" class="sub-qty-plus">+</button>
-                        </div>
-                    </div>
+                    
 
-                    <div class="sub-product-card" data-scent="lavender" data-price="19.95" data-price-id="price_1SxJT2FZRwx5tlYmVeY4rdQu" data-size="120ml" data-img="/img/lavender.jpg" data-title="Whipped Tallow Balm">
-                        <img class="sub-product-img" src="/img/lavender.jpg" alt="Lavender">
-                        <div class="sub-product-info">
-                            <p class="sub-product-name">Lavender</p>
-                            <p class="sub-product-meta">120ml · Whipped</p>
-                            <p class="sub-product-price">$19.95/mo <span class="sub-product-rrp">$24.95</span></p>
-                        </div>
-                        <div class="sub-qty-controls">
-                            <button type="button" class="sub-qty-minus">−</button>
-                            <input type="number" class="sub-qty-input" value="0" min="0">
-                            <button type="button" class="sub-qty-plus">+</button>
-                        </div>
-                    </div>
+                    
 
-                    <div class="sub-product-card" data-scent="frankincense" data-price="19.95" data-price-id="price_1SxJTFFZRwx5tlYm0AtUpzph" data-size="120ml" data-img="/img/shop/balm.webp" data-title="Whipped Tallow Balm">
-                        <img class="sub-product-img" src="/img/frankincense.webp" alt="Frankincense">
-                        <div class="sub-product-info">
-                            <p class="sub-product-name">Frankincense</p>
-                            <p class="sub-product-meta">120ml · Whipped</p>
-                            <p class="sub-product-price">$19.95/mo <span class="sub-product-rrp">$24.95</span></p>
-                        </div>
-                        <div class="sub-qty-controls">
-                            <button type="button" class="sub-qty-minus">−</button>
-                            <input type="number" class="sub-qty-input" value="0" min="0">
-                            <button type="button" class="sub-qty-plus">+</button>
-                        </div>
-                    </div>
+                    
 
-                    <div class="sub-product-card" data-scent="neutral" data-price="19.95" data-price-id="price_1SxJSYFZRwx5tlYmIntDkWUz" data-size="120ml" data-img="/img/natural.jpg" data-title="Whipped Tallow Balm">
-                        <img class="sub-product-img" src="/img/natural.jpg" alt="Natural">
-                        <div class="sub-product-info">
-                            <p class="sub-product-name">Natural (Unscented)</p>
-                            <p class="sub-product-meta">120ml · Whipped</p>
-                            <p class="sub-product-price">$19.95/mo <span class="sub-product-rrp">$24.95</span></p>
-                        </div>
-                        <div class="sub-qty-controls">
-                            <button type="button" class="sub-qty-minus">−</button>
-                            <input type="number" class="sub-qty-input" value="0" min="0">
-                            <button type="button" class="sub-qty-plus">+</button>
-                        </div>
-                    </div>
+                    
 
                 </div>
             </div>
@@ -1469,6 +1484,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                             <p class="sub-product-name">Mānuka & Blue Tansy <span class="sub-product-tag">Premium</span></p>
                             <p class="sub-product-meta">120ml · Whipped</p>
                             <p class="sub-product-price">$24.95/mo <span class="sub-product-rrp">$29.95</span></p>
+                            <p style="font-size:0.7rem;color:#c87000;margin:0.2rem 0 0;">On backorder — ships when back in stock</p>
                         </div>
                         <div class="sub-qty-controls">
                             <button type="button" class="sub-qty-minus">−</button>
@@ -1488,33 +1504,9 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                 </div>
                 <div class="sub-category-body">
 
-                    <div class="sub-product-card" data-scent="unwhipped-natural" data-price="16.95" data-price-id="price_1SxJXyFZRwx5tlYmcT5d19zw" data-size="60ml" data-img="/img/shop/shop-unwhipped.webp" data-title="Unwhipped Tallow Balm">
-                        <img class="sub-product-img" src="/img/shop/shop-unwhipped.webp" alt="Unwhipped Natural">
-                        <div class="sub-product-info">
-                            <p class="sub-product-name">Unwhipped — Natural</p>
-                            <p class="sub-product-meta">60ml · Unwhipped</p>
-                            <p class="sub-product-price">$16.95/mo <span class="sub-product-rrp">$18.95</span></p>
-                        </div>
-                        <div class="sub-qty-controls">
-                            <button type="button" class="sub-qty-minus">−</button>
-                            <input type="number" class="sub-qty-input" value="0" min="0">
-                            <button type="button" class="sub-qty-plus">+</button>
-                        </div>
-                    </div>
+                    
 
-                    <div class="sub-product-card" data-scent="unwhipped-vanilla-rose" data-price="16.95" data-price-id="price_1SxJYkFZRwx5tlYmnCK1Re9T" data-size="60ml" data-img="/img/shop/shop-unwhipped.webp" data-title="Unwhipped Tallow Balm">
-                        <img class="sub-product-img" src="/img/shop/shop-unwhipped.webp" alt="Unwhipped Vanilla & Rose">
-                        <div class="sub-product-info">
-                            <p class="sub-product-name">Unwhipped — Vanilla & Rose</p>
-                            <p class="sub-product-meta">60ml · Unwhipped</p>
-                            <p class="sub-product-price">$16.95/mo <span class="sub-product-rrp">$18.95</span></p>
-                        </div>
-                        <div class="sub-qty-controls">
-                            <button type="button" class="sub-qty-minus">−</button>
-                            <input type="number" class="sub-qty-input" value="0" min="0">
-                            <button type="button" class="sub-qty-plus">+</button>
-                        </div>
-                    </div>
+                    
 
                 </div>
             </div>
@@ -1555,19 +1547,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                         </div>
                     </div>
 
-                    <div class="sub-product-card" data-scent="cleanser" data-price="19.95" data-price-id="price_1SxKWqFZRwx5tlYmQBFRZXKI" data-size="100ml" data-img="/img/cleanser/tallow-cleasner-productpage.webp" data-title="Tallow Cleanser">
-                        <img class="sub-product-img" src="/img/cleanser/tallow-cleasner-productpage.webp" alt="Tallow Cleanser">
-                        <div class="sub-product-info">
-                            <p class="sub-product-name">Tallow Cleanser</p>
-                            <p class="sub-product-meta">100ml</p>
-                            <p class="sub-product-price">$19.95/mo <span class="sub-product-rrp">$24.95</span></p>
-                        </div>
-                        <div class="sub-qty-controls">
-                            <button type="button" class="sub-qty-minus">−</button>
-                            <input type="number" class="sub-qty-input" value="0" min="0">
-                            <button type="button" class="sub-qty-plus">+</button>
-                        </div>
-                    </div>
+                    
 
                 </div>
             </div>
@@ -1608,145 +1588,25 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                         </div>
                     </div>
 
-                    <div class="sub-product-card" data-scent="deo-vanilla-rose" data-price="14.35" data-price-id="price_1SxKZPFZRwx5tlYmCQkOyVX9" data-size="60ml" data-img="/img/shop/deod.webp" data-title="Tallow Deodorant">
-                        <img class="sub-product-img" src="/img/shop/deod.webp" alt="Deodorant Vanilla Rose">
-                        <div class="sub-product-info">
-                            <p class="sub-product-name">Deodorant — Vanilla Rose</p>
-                            <p class="sub-product-meta">60ml</p>
-                            <p class="sub-product-price">$14.35/mo <span class="sub-product-rrp">$17.95</span></p>
-                        </div>
-                        <div class="sub-qty-controls">
-                            <button type="button" class="sub-qty-minus">−</button>
-                            <input type="number" class="sub-qty-input" value="0" min="0">
-                            <button type="button" class="sub-qty-plus">+</button>
-                        </div>
-                    </div>
+                    
 
-                    <div class="sub-product-card" data-scent="deo-cedarwood" data-price="14.35" data-price-id="price_1SxKZuFZRwx5tlYmIFWikHkW" data-size="60ml" data-img="/img/shop/deod.webp" data-title="Tallow Deodorant">
-                        <img class="sub-product-img" src="/img/shop/deod.webp" alt="Deodorant Cedarwood">
-                        <div class="sub-product-info">
-                            <p class="sub-product-name">Deodorant — Cedarwood</p>
-                            <p class="sub-product-meta">60ml</p>
-                            <p class="sub-product-price">$14.35/mo <span class="sub-product-rrp">$17.95</span></p>
-                        </div>
-                        <div class="sub-qty-controls">
-                            <button type="button" class="sub-qty-minus">−</button>
-                            <input type="number" class="sub-qty-input" value="0" min="0">
-                            <button type="button" class="sub-qty-plus">+</button>
-                        </div>
-                    </div>
+                    
 
-                    <div class="sub-product-card" data-scent="lip-manuka" data-price="10.35" data-price-id="price_1SxKaWFZRwx5tlYmgHAjI0Kq" data-size="15ml" data-img="/img/lip-balm-images1.webp" data-title="Tallow Lip Balm">
-                        <img class="sub-product-img" src="/img/lip-balm-images1.webp" alt="Lip Balm Mānuka">
-                        <div class="sub-product-info">
-                            <p class="sub-product-name">Lip Balm — Mānuka</p>
-                            <p class="sub-product-meta">15ml</p>
-                            <p class="sub-product-price">$10.35/mo <span class="sub-product-rrp">$12.95</span></p>
-                        </div>
-                        <div class="sub-qty-controls">
-                            <button type="button" class="sub-qty-minus">−</button>
-                            <input type="number" class="sub-qty-input" value="0" min="0">
-                            <button type="button" class="sub-qty-plus">+</button>
-                        </div>
-                    </div>
+                    
 
-                    <div class="sub-product-card" data-scent="lip-raspberry" data-price="10.35" data-price-id="price_1SxKbCFZRwx5tlYmMA30zLoc" data-size="15ml" data-img="/img/lip-balm-images1.webp" data-title="Tallow Lip Balm">
-                        <img class="sub-product-img" src="/img/lip-balm-images1.webp" alt="Lip Balm Raspberry">
-                        <div class="sub-product-info">
-                            <p class="sub-product-name">Lip Balm — Raspberry</p>
-                            <p class="sub-product-meta">15ml</p>
-                            <p class="sub-product-price">$10.35/mo <span class="sub-product-rrp">$12.95</span></p>
-                        </div>
-                        <div class="sub-qty-controls">
-                            <button type="button" class="sub-qty-minus">−</button>
-                            <input type="number" class="sub-qty-input" value="0" min="0">
-                            <button type="button" class="sub-qty-plus">+</button>
-                        </div>
-                    </div>
+                    
 
-                    <div class="sub-product-card" data-scent="lip-mint" data-price="10.35" data-price-id="price_1SxKbgFZRwx5tlYmpIAvSJ5b" data-size="15ml" data-img="/img/lip-balm-images1.webp" data-title="Tallow Lip Balm">
-                        <img class="sub-product-img" src="/img/lip-balm-images1.webp" alt="Lip Balm Mint">
-                        <div class="sub-product-info">
-                            <p class="sub-product-name">Lip Balm — Mint</p>
-                            <p class="sub-product-meta">15ml</p>
-                            <p class="sub-product-price">$10.35/mo <span class="sub-product-rrp">$12.95</span></p>
-                        </div>
-                        <div class="sub-qty-controls">
-                            <button type="button" class="sub-qty-minus">−</button>
-                            <input type="number" class="sub-qty-input" value="0" min="0">
-                            <button type="button" class="sub-qty-plus">+</button>
-                        </div>
-                    </div>
+                    
 
-                    <div class="sub-product-card" data-scent="lipstick-manuka" data-price="10.35" data-price-id="price_1SxKcEFZRwx5tlYm19js7Lsq" data-size="10ml" data-img="/img/shop/lipshop.webp" data-title="Tallow Lip Balm Stick">
-                        <img class="sub-product-img" src="/img/shop/lipshop.webp" alt="Lip Balm Stick Mānuka">
-                        <div class="sub-product-info">
-                            <p class="sub-product-name">Lip Balm Stick — Mānuka</p>
-                            <p class="sub-product-meta">10ml</p>
-                            <p class="sub-product-price">$10.35/mo <span class="sub-product-rrp">$12.95</span></p>
-                        </div>
-                        <div class="sub-qty-controls">
-                            <button type="button" class="sub-qty-minus">−</button>
-                            <input type="number" class="sub-qty-input" value="0" min="0">
-                            <button type="button" class="sub-qty-plus">+</button>
-                        </div>
-                    </div>
+                    
 
-                    <div class="sub-product-card" data-scent="soap-natural" data-price="11.95" data-price-id="price_1SxKcoFZRwx5tlYm3aYyc6HB" data-size="120g" data-img="/img/soaps/tallow-soap-range-productpage.webp" data-title="Tallow Soap">
-                        <img class="sub-product-img" src="/img/soaps/tallow-soap-range-productpage.webp" alt="Soap Natural">
-                        <div class="sub-product-info">
-                            <p class="sub-product-name">Tallow Soap — Natural</p>
-                            <p class="sub-product-meta">120g</p>
-                            <p class="sub-product-price">$11.95/mo <span class="sub-product-rrp">$14.95</span></p>
-                        </div>
-                        <div class="sub-qty-controls">
-                            <button type="button" class="sub-qty-minus">−</button>
-                            <input type="number" class="sub-qty-input" value="0" min="0">
-                            <button type="button" class="sub-qty-plus">+</button>
-                        </div>
-                    </div>
+                    
 
-                    <div class="sub-product-card" data-scent="soap-charcoal" data-price="11.95" data-price-id="price_1SxKcxFZRwx5tlYmMgqOuIkB" data-size="120g" data-img="/img/soaps/tallow-soap-range-productpage.webp" data-title="Tallow Soap">
-                        <img class="sub-product-img" src="/img/soaps/tallow-soap-range-productpage.webp" alt="Soap Charcoal">
-                        <div class="sub-product-info">
-                            <p class="sub-product-name">Tallow Soap — Charcoal</p>
-                            <p class="sub-product-meta">120g</p>
-                            <p class="sub-product-price">$11.95/mo <span class="sub-product-rrp">$14.95</span></p>
-                        </div>
-                        <div class="sub-qty-controls">
-                            <button type="button" class="sub-qty-minus">−</button>
-                            <input type="number" class="sub-qty-input" value="0" min="0">
-                            <button type="button" class="sub-qty-plus">+</button>
-                        </div>
-                    </div>
+                    
 
-                    <div class="sub-product-card" data-scent="soap-oat" data-price="11.95" data-price-id="price_1SxKd5FZRwx5tlYmmiKFi6HM" data-size="120g" data-img="/img/soaps/tallow-soap-range-productpage.webp" data-title="Tallow Soap">
-                        <img class="sub-product-img" src="/img/soaps/tallow-soap-range-productpage.webp" alt="Soap Oat">
-                        <div class="sub-product-info">
-                            <p class="sub-product-name">Tallow Soap — Oat</p>
-                            <p class="sub-product-meta">120g</p>
-                            <p class="sub-product-price">$11.95/mo <span class="sub-product-rrp">$14.95</span></p>
-                        </div>
-                        <div class="sub-qty-controls">
-                            <button type="button" class="sub-qty-minus">−</button>
-                            <input type="number" class="sub-qty-input" value="0" min="0">
-                            <button type="button" class="sub-qty-plus">+</button>
-                        </div>
-                    </div>
+                    
 
-                    <div class="sub-product-card" data-scent="soap-manuka" data-price="11.95" data-price-id="price_1SxKdEFZRwx5tlYmfYDX5Kv9" data-size="120g" data-img="/img/soaps/tallow-soap-range-productpage.webp" data-title="Tallow Soap">
-                        <img class="sub-product-img" src="/img/soaps/tallow-soap-range-productpage.webp" alt="Soap Mānuka">
-                        <div class="sub-product-info">
-                            <p class="sub-product-name">Tallow Soap — Mānuka</p>
-                            <p class="sub-product-meta">120g</p>
-                            <p class="sub-product-price">$11.95/mo <span class="sub-product-rrp">$14.95</span></p>
-                        </div>
-                        <div class="sub-qty-controls">
-                            <button type="button" class="sub-qty-minus">−</button>
-                            <input type="number" class="sub-qty-input" value="0" min="0">
-                            <button type="button" class="sub-qty-plus">+</button>
-                        </div>
-                    </div>
+                    
 
                     <div class="sub-product-card" data-scent="liqsoap-geranium" data-price="23.95" data-price-id="price_1SxKyeFZRwx5tlYmWMySoyvX" data-size="250ml" data-img="/img/natural-soap-cutout.webp" data-title="Tallow Liquid Soap">
                         <img class="sub-product-img" src="/img/natural-soap-cutout.webp" alt="Liquid Soap Geranium">
@@ -1801,19 +1661,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                         </div>
                     </div>
 
-                    <div class="sub-product-card" data-scent="colloidal-oat" data-price="15.95" data-price-id="price_1SxKdgFZRwx5tlYme0RSWa5X" data-size="200g" data-img="/img/colloidal_oat1.webp" data-title="Colloidal Oat Bath Soak">
-                        <img class="sub-product-img" src="/img/colloidal_oat1.webp" alt="Colloidal Oat Bath Soak">
-                        <div class="sub-product-info">
-                            <p class="sub-product-name">Colloidal Oat Bath Soak</p>
-                            <p class="sub-product-meta">200g</p>
-                            <p class="sub-product-price">$15.95/mo <span class="sub-product-rrp">$19.95</span></p>
-                        </div>
-                        <div class="sub-qty-controls">
-                            <button type="button" class="sub-qty-minus">−</button>
-                            <input type="number" class="sub-qty-input" value="0" min="0">
-                            <button type="button" class="sub-qty-plus">+</button>
-                        </div>
-                    </div>
+                    
 
                 </div>
             </div>
@@ -1854,47 +1702,11 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                         </div>
                     </div>
 
-                    <div class="sub-product-card" data-scent="shampoo-bar" data-price="14.35" data-price-id="price_1SxKeVFZRwx5tlYmWQPetyp8" data-size="120g" data-img="/img/shampoobar/shampoo-bar-prodcutpage.webp" data-title="Tallow Shampoo Bar">
-                        <img class="sub-product-img" src="/img/shampoobar/shampoo-bar-prodcutpage.webp" alt="Tallow Shampoo Bar">
-                        <div class="sub-product-info">
-                            <p class="sub-product-name">Tallow Shampoo Bar</p>
-                            <p class="sub-product-meta">120g</p>
-                            <p class="sub-product-price">$14.35/mo <span class="sub-product-rrp">$17.95</span></p>
-                        </div>
-                        <div class="sub-qty-controls">
-                            <button type="button" class="sub-qty-minus">−</button>
-                            <input type="number" class="sub-qty-input" value="0" min="0">
-                            <button type="button" class="sub-qty-plus">+</button>
-                        </div>
-                    </div>
+                    
 
-                    <div class="sub-product-card" data-scent="beard-balm" data-price="15.15" data-price-id="price_1SxKedFZRwx5tlYmPgcOcYMv" data-size="60ml" data-img="/img/shop/shopbeardi.webp" data-title="Tallow Beard Balm">
-                        <img class="sub-product-img" src="/img/shop/shopbeardi.webp" alt="Tallow Beard Balm">
-                        <div class="sub-product-info">
-                            <p class="sub-product-name">Tallow Beard Balm</p>
-                            <p class="sub-product-meta">60ml</p>
-                            <p class="sub-product-price">$15.15/mo <span class="sub-product-rrp">$18.95</span></p>
-                        </div>
-                        <div class="sub-qty-controls">
-                            <button type="button" class="sub-qty-minus">−</button>
-                            <input type="number" class="sub-qty-input" value="0" min="0">
-                            <button type="button" class="sub-qty-plus">+</button>
-                        </div>
-                    </div>
+                    
 
-                    <div class="sub-product-card" data-scent="hair-clay" data-price="15.15" data-price-id="price_1SxKejFZRwx5tlYmRlmhpI2d" data-size="60ml" data-img="/img/shop/hair-clay-shop.webp" data-title="Tallow Hair Clay">
-                        <img class="sub-product-img" src="/img/shop/hair-clay-shop.webp" alt="Tallow Hair Clay">
-                        <div class="sub-product-info">
-                            <p class="sub-product-name">Tallow Hair Clay</p>
-                            <p class="sub-product-meta">60ml</p>
-                            <p class="sub-product-price">$15.15/mo <span class="sub-product-rrp">$18.95</span></p>
-                        </div>
-                        <div class="sub-qty-controls">
-                            <button type="button" class="sub-qty-minus">−</button>
-                            <input type="number" class="sub-qty-input" value="0" min="0">
-                            <button type="button" class="sub-qty-plus">+</button>
-                        </div>
-                    </div>
+                    
 
                 </div>
             </div>
@@ -2304,21 +2116,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
   
   
-  <script src='/js/clipboard.min.js' defer></script>
-  <script src='/js/highlight.min.js' defer></script>
-  <script src='/js/highlightjs-line-numbers.min.js' defer></script>
-  <script src='/js/sweetalert2.min.js' defer></script>
   <script>
-    
-    window.addEventListener('load', function() {
-      if (typeof hljs !== 'undefined') {
-        hljs.highlightAll();
-        hljs.initLineNumbersOnLoad();
-      }
-      if (typeof ClipboardJS !== 'undefined') {
-        new ClipboardJS('.url');
-      }
-    });
+    if (document.querySelector('pre code')) {
+      ['\/js\/clipboard.min.js',
+       '\/js\/highlight.min.js',
+       '\/js\/highlightjs-line-numbers.min.js',
+       '\/js\/sweetalert2.min.js'
+      ].forEach(function(src) {
+        var s = document.createElement('script');
+        s.src = src;
+        s.defer = true;
+        document.head.appendChild(s);
+      });
+
+      window.addEventListener('load', function() {
+        if (typeof hljs !== 'undefined') {
+          hljs.highlightAll();
+          hljs.initLineNumbersOnLoad();
+        }
+        if (typeof ClipboardJS !== 'undefined') {
+          new ClipboardJS('.url');
+        }
+      });
+    }
 
     function OnClickURL() {
       if (typeof Swal !== 'undefined') {
@@ -2353,9 +2173,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (!getCookie('landingURL')) {
         setCookie('landingURL', window.location.href, 30);
-        console.log('Landing URL stored:', window.location.href);
-    } else {
-        console.log('Landing URL already exists:', getCookie('landingURL'));
+    }
+
+    
+    var refParam = new URLSearchParams(window.location.search).get('ref');
+    if (refParam) {
+        setCookie('pp_ref', refParam, 30);
+        fetch('/.netlify/functions/affiliate-track?code=' + encodeURIComponent(refParam) + '&page=' + encodeURIComponent(window.location.pathname)).catch(function(){});
     }
 });
   </script>
@@ -2472,6 +2296,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <a href="/tallow-for-wrinkles/">Tallow Cream & Anti-Aging</a>
         <a href="/shop/">Tallow Shampoo & Haircare</a>
         <a href="/shop/">Tallow Lip Balm</a>
+        <a href="/cosmetic-tallow-reviana/">Brighten &amp; Refine — Reviana</a>
         <a href="/subscribe/">Subscribe &amp; Save</a>
       </div>
       <div class="pp-f-col">
@@ -2480,7 +2305,6 @@ document.addEventListener('DOMContentLoaded', function () {
         <a href="/faq/">FAQs</a>
         <a href="/pages/refund-policy/">Refund Policy</a>
         <a href="https://billing.stripe.com/p/login/4gMeVd6XT3X0b9qabyco000" target="_blank">Manage Subscription</a>
-        <a href="/stockists/">Where to Buy — Stockists</a>
       </div>
       <div class="pp-f-col">
         <h4>Company</h4>
@@ -2488,6 +2312,8 @@ document.addEventListener('DOMContentLoaded', function () {
         <a href="/pages/reviews/">Primal Pantry Reviews</a>
         <a href="/posts/">Blog</a>
         <a href="/contact/">Contact</a>
+        <a href="/affiliates/">Become an Affiliate</a>
+        <a href="/affiliates/login">Affiliate Login</a>
       </div>
     </div>
     

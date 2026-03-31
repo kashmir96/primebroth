@@ -138,8 +138,7 @@
             <li class="p-2">
                 <a href="/shop/"><span>{{ .Name }}</span></a>
             </li>
-            <li class="p-1"><a class="nav-child-link" href="/shop/"><span>Primalcare - Calm &amp; Soothe</span></a></li>
-            <li class="p-1"><a class="nav-child-link" href="/cosmetic-tallow-reviana/"><span>Reviana - Fine Lines &amp; Brightening</span></a></li>
+            <li class="p-1"><a class="nav-child-link" href="/shop/"><span>Shop Tallow Skincare</span></a></li>
             {{ else if not .Parent }}
             <li class="p-2">
                 <a href="{{ .URL | safeURL }}"><span>{{ .Name }}</span></a>
@@ -177,28 +176,8 @@
                 <ul class="navbar-nav ms-auto">
                     {{ range .Site.Menus.main }}
                     {{ if eq .Identifier "tallow-skincare" }}
-                    <li class="nav-item has-dropdown">
-                        <a class="nav-link" href="{{ .URL | safeURL }}">
-                            {{ .Name }}
-                            <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
-                        </a>
-                        <div class="nav-dropdown"><div class="nav-dropdown-inner">
-                            <a class="nav-dropdown-item" href="/shop/">
-                                <div class="nav-dropdown-icon soothe">🤍</div>
-                                <div>
-                                    <div class="nav-dropdown-label">Calm &amp; Soothe</div>
-                                    <div class="nav-dropdown-sub">PrimalCare · sensitive &amp; dry skin</div>
-                                </div>
-                            </a>
-                            <div class="nav-dropdown-divider"></div>
-                            <a class="nav-dropdown-item" href="/cosmetic-tallow-reviana/">
-                                <div class="nav-dropdown-icon reviana">✨</div>
-                                <div>
-                                    <div class="nav-dropdown-label">Brighten &amp; Refine</div>
-                                    <div class="nav-dropdown-sub">Reviana · Vitamin C, Bakuchiol &amp; more</div>
-                                </div>
-                            </a>
-                        </div></div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/shop/">Shop Tallow Skincare</a>
                     </li>
                     {{ else if not .Parent }}
                     <li class="nav-item">

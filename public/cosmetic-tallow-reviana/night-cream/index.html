@@ -11,11 +11,70 @@
 })();
 
 
+window.ppCalcPoints = function(price) { return Math.round((parseFloat(price) || 0) * 100); };
+
+
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var token = params.get('pp_gift');
+  if (!token) return;
+  fetch('/.netlify/functions/quiz-referral?token=' + encodeURIComponent(token))
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      if (d.code) {
+        sessionStorage.setItem('pp_gift_code', d.code);
+        sessionStorage.removeItem('pp_gift_dismissed');
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', ppShowGiftPill);
+        } else {
+          ppShowGiftPill();
+        }
+      }
+    }).catch(function(){});
+})();
+
+function ppShowGiftPill() {
+  if (!sessionStorage.getItem('pp_gift_code')) return;
+  if (sessionStorage.getItem('pp_gift_dismissed')) return;
+  if (document.getElementById('pp-gift-pill')) return;
+  var el = document.createElement('div');
+  el.id = 'pp-gift-pill';
+  el.innerHTML = '🎁 <strong>$5 off</strong> — spend $25 to unlock'
+    + '<button onclick="ppDismissGiftPill()" aria-label="Dismiss">✕</button>';
+  document.body.appendChild(el);
+  setTimeout(function(){ el.classList.add('pp-gift-pill-in'); }, 80);
+}
+
+function ppDismissGiftPill() {
+  sessionStorage.setItem('pp_gift_dismissed', '1');
+  var el = document.getElementById('pp-gift-pill');
+  if (el) { el.classList.remove('pp-gift-pill-in'); setTimeout(function(){ el.remove(); }, 350); }
+}
+
+
+document.addEventListener('DOMContentLoaded', ppShowGiftPill);
+
+
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.au-content').forEach(function(el) { el.style.display = 'none'; });
   document.querySelectorAll('.nz-content').forEach(function(el) { el.style.display = 'inline'; });
 });
-</script><meta charset="utf-8">
+</script><link rel="preconnect" href="https://oso.nz" crossorigin>
+<script defer src="https://oso.nz/t.js" data-site="PrimalPantry.co.nz"></script>
+<link rel="prefetch" href="https://js.stripe.com/v3/" as="script">
+<script>
+
+(function(){
+  if (sessionStorage.getItem('pp_fn_warm')) return;
+  sessionStorage.setItem('pp_fn_warm', '1');
+  fetch('/.netlify/functions/create-checkout-session', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: '{"warmup":true}'
+  }).catch(function(){});
+})();
+</script>
+<meta charset="utf-8">
 <title>PrimalPantry | Tallow Night Cream, Overnight Renewal with Bakuchiol - Reviana by PrimalPantry</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link rel="apple-touch-icon" sizes="180x180" href='/apple-touch-icon.png'>
@@ -24,6 +83,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <link rel="manifest" href='/site.webmanifest'>
 
 <link rel="canonical" href="http://localhost:1313/cosmetic-tallow-reviana/night-cream/">
+<style>
+#pp-gift-pill{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(16px);background:#2E3D1F;color:#fff;padding:11px 14px 11px 18px;border-radius:100px;font-size:0.83rem;font-family:'DM Sans',sans-serif;white-space:nowrap;z-index:9999;opacity:0;transition:opacity 0.35s,transform 0.35s;box-shadow:0 4px 20px rgba(0,0,0,0.28);display:flex;align-items:center;gap:10px;}
+#pp-gift-pill.pp-gift-pill-in{opacity:1;transform:translateX(-50%) translateY(0);}
+#pp-gift-pill button{background:rgba(255,255,255,0.15);border:none;color:#fff;width:20px;height:20px;border-radius:50%;font-size:0.65rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;line-height:1;}
+#pp-gift-pill button:hover{background:rgba(255,255,255,0.28);}
+</style>
 
 
   
@@ -43,20 +108,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 
-<link rel="preconnect" href="https://dev.visualwebsiteoptimizer.com" />
-<script type='text/javascript' id='vwoCode'>
-window._vwo_code || (function() {
-var account_id=920032,
-version=2.1,
-settings_tolerance=2000,
-hide_element='body',
-hide_element_style = 'opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;transition:none !important;',
- 
-f=false,w=window,d=document,v=d.querySelector('#vwoCode'),cK='_vwo_'+account_id+'_settings',cc={};try{var c=JSON.parse(localStorage.getItem('_vwo_'+account_id+'_config'));cc=c&&typeof c==='object'?c:{}}catch(e){}var stT=cc.stT==='session'?w.sessionStorage:w.localStorage;code={nonce:v&&v.nonce,library_tolerance:function(){return typeof library_tolerance!=='undefined'?library_tolerance:undefined},settings_tolerance:function(){return cc.sT||settings_tolerance},hide_element_style:function(){return'{'+(cc.hES||hide_element_style)+'}'},hide_element:function(){if(performance.getEntriesByName('first-contentful-paint')[0]){return''}return typeof cc.hE==='string'?cc.hE:hide_element},getVersion:function(){return version},finish:function(e){if(!f){f=true;var t=d.getElementById('_vis_opt_path_hides');if(t)t.parentNode.removeChild(t);if(e)(new Image).src='https://dev.visualwebsiteoptimizer.com/ee.gif?a='+account_id+e}},finished:function(){return f},addScript:function(e){var t=d.createElement('script');t.type='text/javascript';if(e.src){t.src=e.src}else{t.text=e.text}v&&t.setAttribute('nonce',v.nonce);d.getElementsByTagName('head')[0].appendChild(t)},load:function(e,t){var n=this.getSettings(),i=d.createElement('script'),r=this;t=t||{};if(n){i.textContent=n;d.getElementsByTagName('head')[0].appendChild(i);if(!w.VWO||VWO.caE){stT.removeItem(cK);r.load(e)}}else{var o=new XMLHttpRequest;o.open('GET',e,true);o.withCredentials=!t.dSC;o.responseType=t.responseType||'text';o.onload=function(){if(t.onloadCb){return t.onloadCb(o,e)}if(o.status===200||o.status===304){_vwo_code.addScript({text:o.responseText})}else{_vwo_code.finish('&e=loading_failure:'+e)}};o.onerror=function(){if(t.onerrorCb){return t.onerrorCb(e)}_vwo_code.finish('&e=loading_failure:'+e)};o.send()}},getSettings:function(){try{var e=stT.getItem(cK);if(!e){return}e=JSON.parse(e);if(Date.now()>e.e){stT.removeItem(cK);return}return e.s}catch(e){return}},init:function(){if(d.URL.indexOf('__vwo_disable__')>-1)return;var e=this.settings_tolerance();w._vwo_settings_timer=setTimeout(function(){_vwo_code.finish();stT.removeItem(cK)},e);var t;if(this.hide_element()!=='body'){t=d.createElement('style');var n=this.hide_element(),i=n?n+this.hide_element_style():'',r=d.getElementsByTagName('head')[0];t.setAttribute('id','_vis_opt_path_hides');v&&t.setAttribute('nonce',v.nonce);t.setAttribute('type','text/css');if(t.styleSheet)t.styleSheet.cssText=i;else t.appendChild(d.createTextNode(i));r.appendChild(t)}else{t=d.getElementsByTagName('head')[0];var i=d.createElement('div');i.style.cssText='z-index: 2147483647 !important;position: fixed !important;left: 0 !important;top: 0 !important;width: 100% !important;height: 100% !important;background: white !important;display: block !important;';i.setAttribute('id','_vis_opt_path_hides');i.classList.add('_vis_hide_layer');t.parentNode.insertBefore(i,t.nextSibling)}var o=window._vis_opt_url||d.URL,s='https://dev.visualwebsiteoptimizer.com/j.php?a='+account_id+'&u='+encodeURIComponent(o)+'&vn='+version;if(w.location.search.indexOf('_vwo_xhr')!==-1){this.addScript({src:s})}else{this.load(s+'&x=true')}}};w._vwo_code=code;code.init();})();
-</script>
-
-
-
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZR6LL35JPP"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -69,7 +120,6 @@ f=false,w=window,d=document,v=d.querySelector('#vwoCode'),cK='_vwo_'+account_id+
   
   gtag('config', 'AW-16543078874');
 </script>
-<script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0124/4549.js" async="async"></script>
 
 
 <script>
@@ -91,7 +141,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     <meta property="og:type" content="product" />
     <link rel="canonical" href="https://primalpantry.co.nz/cosmetic-tallow-reviana/night-cream/" />
     
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Reviana Night Cream","brand":{"@type":"Brand","name":"PrimalPantry"},"offers":{"@type":"Offer","priceCurrency":"NZD","price":"49.95","availability":"https://schema.org/InStock"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Reviana Night Cream","brand":{"@type":"Brand","name":"PrimalPantry"},"offers":{"@type":"Offer","priceCurrency":"NZD","price":"39.95","availability":"https://schema.org/InStock"}}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -104,9 +154,9 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400;line-height:1.1;margin:0;}p{margin:0;}a{text-decoration:none;color:inherit;}img{max-width:100%;display:block;}
     .rv-breadcrumb{font-size:0.78rem;color:var(--rv-warm-gray);padding:14px 0 0;max-width:1240px;margin:0 auto;padding-left:40px;}
     .rv-breadcrumb a{color:var(--rv-warm-gray);transition:color 0.2s;}.rv-breadcrumb a:hover{color:var(--rv-sage);}
-    .rv-pdp{display:grid;grid-template-columns:1fr 1fr;gap:56px;max-width:1240px;margin:0 auto;padding:32px 40px 64px;align-items:start;}
-    .rv-gal-main{background:var(--rv-cream);border-radius:20px;overflow:hidden;aspect-ratio:1;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
-    .rv-gal-main img{width:92%;height:92%;object-fit:contain;transition:opacity 0.2s;}
+    .rv-pdp{display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:1200px;margin:0 auto;padding:0 48px 60px;align-items:start;}
+    .rv-gal-main{background:var(--rv-cream);border-radius:16px;overflow:hidden;aspect-ratio:4/5;position:relative;margin-bottom:12px;}
+    .rv-gal-main img{width:100%;height:100%;object-fit:cover;object-position:center bottom;display:block;transition:opacity 0.2s;}
     .rv-gal-thumbs{display:flex;gap:10px;}
     .rv-gal-thumb{width:72px;height:72px;border-radius:10px;overflow:hidden;cursor:pointer;border:2px solid var(--rv-cream-deep,#EDE5D8);transition:border-color 0.2s;background:var(--rv-cream);}
     .rv-gal-thumb.active,.rv-gal-thumb:hover{border-color:#2C1810;}
@@ -120,6 +170,12 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     .rv-stars{display:flex;align-items:center;gap:8px;margin-bottom:16px;color:var(--rv-sage);}.rv-stars span{font-size:0.82rem;color:var(--rv-warm-gray);}
     .rv-desc{font-size:0.92rem;color:var(--rv-bark-light);line-height:1.78;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--rv-border);}
     .rv-price-row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
+    .pp-points-hint{position:absolute;top:-14px;right:0;font-size:0.72rem;color:#9C8E84;font-weight:400;margin:0;display:inline-flex;align-items:center;gap:4px;line-height:1;}
+    .pp-points-hint strong{color:#6B8F5B;font-weight:600;}
+    .pp-pts-info{position:relative;display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;border-radius:50%;background:rgba(107,143,91,0.1);border:1px solid rgba(107,143,91,0.22);color:#6B8F5B;font-size:0.58rem;font-weight:800;cursor:help;flex-shrink:0;font-style:normal;}
+    .pp-pts-info::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);background:#2E1A0E;color:rgba(255,255,255,0.85);font-size:0.72rem;font-weight:400;line-height:1.45;padding:7px 11px;border-radius:8px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity 0.15s;z-index:200;}
+    .pp-pts-info:hover::after{opacity:1;}
+    @media(max-width:600px){.rv-actions{margin-top:20px;}.pp-points-hint{font-size:0.68rem;}}
     .rv-price{font-family:'Playfair Display',serif;font-size:1.85rem;font-weight:600;color:var(--rv-bark);}
     .rv-afterpay{font-size:0.82rem;color:var(--rv-warm-gray);margin-bottom:24px;}.rv-afterpay img{vertical-align:middle;display:inline;}
     .rv-opt{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border:2px solid var(--rv-border);border-radius:12px;cursor:pointer;transition:all 0.2s;margin-bottom:8px;}
@@ -131,7 +187,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     .rv-opt-label{font-weight:600;font-size:0.88rem;}.rv-opt-sublabel{font-size:0.78rem;color:var(--rv-warm-gray);}.rv-opt-price{font-weight:700;font-size:0.92rem;}
     .rv-stock{font-size:0.82rem;color:var(--rv-sage);font-weight:600;margin:18px 0;display:flex;align-items:center;gap:6px;}
     .rv-stock-dot{width:7px;height:7px;border-radius:50%;background:var(--rv-sage);}
-    .rv-actions{display:flex;gap:12px;margin-bottom:16px;}
+    .rv-actions{position:relative;display:flex;gap:12px;margin-bottom:16px;}
     .rv-qty{display:flex;border:2px solid var(--rv-border);border-radius:10px;overflow:hidden;}
     .rv-qty button{width:42px;height:48px;border:none;background:var(--rv-white);font-size:1rem;cursor:pointer;color:var(--rv-bark);transition:background 0.2s;}.rv-qty button:hover{background:var(--rv-cream);}
     .rv-qty input{width:44px;text-align:center;border:none;border-left:1px solid var(--rv-border);border-right:1px solid var(--rv-border);font-size:0.9rem;font-weight:600;-moz-appearance:textfield;}
@@ -148,7 +204,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     .rv-tab-panel{display:none;}.rv-tab-panel.active{display:block;}
     .rv-tab-panel h4{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:10px;}
     .rv-tab-panel p{font-size:0.9rem;color:var(--rv-bark-light);line-height:1.75;margin-bottom:10px;}
-    .rv-research{padding:64px 0;background:var(--rv-cream);border-top:1px solid var(--rv-border);}
+    .rv-research{padding:64px 0;background:var(--rv-white);}
     .rv-research-inner{max-width:1240px;margin:0 auto;padding:0 40px;}
     .rv-research-eyebrow{font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--rv-sage);margin-bottom:10px;text-align:center;display:block;}
     .rv-research-sub{font-size:0.88rem;color:var(--rv-warm-gray);text-align:center;margin-bottom:36px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.6;}
@@ -156,7 +212,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     .rv-research-card{padding:24px 20px;background:var(--rv-white);border-radius:14px;border:1px solid var(--rv-border);}
     .rv-research-card-icon{font-size:1.3rem;margin-bottom:12px;}.rv-research-card-name{font-weight:700;font-size:0.85rem;color:var(--rv-bark);margin-bottom:6px;}
     .rv-research-card-desc{font-size:0.78rem;color:var(--rv-warm-gray);line-height:1.55;}
-    .rv-why{padding:80px 0;background:var(--rv-white);}
+    .rv-why{padding:80px 0;background:var(--rv-cream);}
     .rv-why-inner{max-width:1240px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center;}
     .rv-why h2{font-size:1.8rem;margin-bottom:16px;}.rv-why p{font-size:0.92rem;color:var(--rv-bark-light);line-height:1.75;margin-bottom:12px;}
     .rv-ing-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
@@ -181,15 +237,32 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
       .gallery-mobile { display: block; width: 100%; overflow: hidden; border-radius: 16px; }
       .product-swiper .swiper-slide { width: 95%; aspect-ratio: 1; border-radius: 12px; overflow: hidden; background: var(--rv-cream, #F5F0E8); }
       .product-swiper .swiper-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
-      .product-swiper .swiper-pagination { position: relative; margin-top: 12px; }
-      .product-swiper .swiper-pagination-bullet { width: 8px; height: 8px; background: #EDE0D1; opacity: 1; }
-      .product-swiper .swiper-pagination-bullet-active { background: #3D5E2F; }
+      .product-swiper .swiper-pagination { position: relative; margin-top: 10px; margin-bottom: 0; display: flex; justify-content: flex-start; gap: 4px; }
+      .product-swiper .swiper-pagination-bullet { width: 48px; height: 48px; border-radius: 6px; overflow: hidden; opacity: 0.5; border: 2px solid transparent; transition: opacity 0.2s, border-color 0.2s; background: none; margin: 0 !important; }
+      .product-swiper .swiper-pagination-bullet img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 4px; }
+      .product-swiper .swiper-pagination-bullet-active { opacity: 1; border-color: #3D5E2F; }
     }
     </style>
     <link rel="stylesheet" href="/css/swiper-bundle.min.css">
 </head>
-<body><header>
-    <link rel="preconnect" href="https://oso.nz" crossorigin>
+<body><style>
+.pp-topbar {
+  background: #2E1A0E;
+  color: #FAF4EB;
+  text-align: center;
+  padding: 9px 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  font-family: 'DM Sans', sans-serif;
+}
+</style>
+
+<div class="pp-topbar">2 Get 1 Free on Select 3pk Bundles · Free shipping over $75</div>
+
+
+
+<header>
     <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
     <link rel="preconnect" href="https://www.primalpantry.co.nz" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -198,7 +271,6 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     
     <link rel="preload" as="image" href="/img/logo/logo.webp" fetchpriority="high">
 
-    <script defer src="https://oso.nz/t.js" data-site="PrimalPantry.co.nz"></script>
     
 
     <script>
@@ -324,13 +396,18 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             <li class="p-2">
                 <a href="/shop/"><span>Shop Tallow Skincare</span></a>
             </li>
-            <li class="p-1"><a class="nav-child-link" href="/shop/"><span>Primalcare - Calm &amp; Soothe</span></a></li>
-            <li class="p-1"><a class="nav-child-link" href="/cosmetic-tallow-reviana/"><span>Reviana - Fine Lines &amp; Brightening</span></a></li>
+            <li class="p-1"><a class="nav-child-link" href="/shop/"><span>Shop Tallow Skincare</span></a></li>
             
             
             
             <li class="p-2">
                 <a href="/pages/reviews/"><span>Reviews</span></a>
+            </li>
+            
+            
+            
+            <li class="p-2">
+                <a href="/skin-quiz/"><span>Skin Quiz</span></a>
             </li>
             
             
@@ -371,34 +448,20 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                 <ul class="navbar-nav ms-auto">
                     
                     
-                    <li class="nav-item has-dropdown">
-                        <a class="nav-link" href="/shop/">
-                            Shop Tallow Skincare
-                            <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
-                        </a>
-                        <div class="nav-dropdown"><div class="nav-dropdown-inner">
-                            <a class="nav-dropdown-item" href="/shop/">
-                                <div class="nav-dropdown-icon soothe">🤍</div>
-                                <div>
-                                    <div class="nav-dropdown-label">Calm &amp; Soothe</div>
-                                    <div class="nav-dropdown-sub">PrimalCare · sensitive &amp; dry skin</div>
-                                </div>
-                            </a>
-                            <div class="nav-dropdown-divider"></div>
-                            <a class="nav-dropdown-item" href="/cosmetic-tallow-reviana/">
-                                <div class="nav-dropdown-icon reviana">✨</div>
-                                <div>
-                                    <div class="nav-dropdown-label">Brighten &amp; Refine</div>
-                                    <div class="nav-dropdown-sub">Reviana · Vitamin C, Bakuchiol &amp; more</div>
-                                </div>
-                            </a>
-                        </div></div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/shop/">Shop Tallow Skincare</a>
                     </li>
                     
                     
                     
                     <li class="nav-item">
                         <a class="nav-link " aria-current="page" href="/pages/reviews/">Reviews</a>
+                    </li>
+                    
+                    
+                    
+                    <li class="nav-item">
+                        <a class="nav-link " aria-current="page" href="/skin-quiz/">Skin Quiz</a>
                     </li>
                     
                     
@@ -455,11 +518,21 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             </span>
             <span style="font-weight:700;color:var(--pp-sage,#9CAF88);">$0.00</span>
         </div>
+        <div id="ppDrawerGiftRow" style="margin-top:8px;display:none;">
+            <div class="pp-drawer-subtotal" id="ppDrawerGiftApplied" style="color:#3a5c2e;display:none;">
+                <span style="display:flex;align-items:center;gap:5px;font-size:0.82rem;">🎁 Gift voucher</span>
+                <span style="font-weight:700;font-size:0.82rem;">−$5.00</span>
+            </div>
+            <div id="ppDrawerGiftNudge" style="display:none;background:#f5f8f2;border:1px solid #c8d9b8;border-radius:8px;padding:8px 12px;font-size:0.78rem;color:#3a5c2e;line-height:1.4;">
+                🎁 You have a <strong>$5 voucher</strong> — add <strong id="ppDrawerGiftNeeded">$25</strong> more to unlock it
+            </div>
+        </div>
         <div class="pp-drawer-subtotal" style="margin-top:10px;padding-top:10px;border-top:1px solid var(--pp-border,rgba(139,115,85,0.15));">
             <span style="font-weight:700;font-size:0.95rem;">Total</span>
             <span id="ppDrawerTotal" style="font-weight:700;font-size:0.95rem;">$0.00</span>
         </div>
         <button class="pp-drawer-checkout-btn" id="ppDrawerCheckout">Proceed to Checkout</button>
+        <div id="ppDrawerPoints" class="pp-drawer-points" style="display:none;"></div>
         <a href="/cart" class="pp-drawer-viewcart" id="ppDrawerViewCart">View Full Cart</a>
         <button class="pp-drawer-continue" id="ppDrawerContinue">Continue Shopping</button>
     </div>
@@ -584,6 +657,13 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 .pp-drawer-continue:hover { color: #4A3728; }
 
  
+.pp-drawer-points {
+    font-size: 0.7rem; color: #A89880; text-align: center;
+    margin: 8px 0 0; padding: 0;
+}
+.pp-drawer-points strong { color: #7A9168; font-weight: 600; }
+
+ 
 @keyframes ppCartBounce {
     0%, 100% { transform: scale(1); }
     20% { transform: scale(1.2) rotate(-10deg); }
@@ -602,7 +682,6 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 </style>
 
 
-<script src="https://js.stripe.com/v3/" defer></script>
 
 <script>
 (function() {
@@ -613,21 +692,9 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     
     var market = (typeof window.MARKET !== 'undefined') ? window.MARKET : 'NZ';
     var shippingCost = market === 'AU' ? 9.95 : 6.95;
-    var freeShipThreshold = market === 'AU' ? 150 : 80;
+    var freeShipThreshold = market === 'AU' ? 150 : 75;
     var currencyCode = market === 'AU' ? 'AUD' : 'NZD';
     var countryCode = market || 'NZ';
-
-    
-    var stripeKey = market === 'AU'
-        ? 'pk_live_51T7LFcJzNO9WRf4JmC4gn05XRKUSJ4h8YQ8d93SGfArOteqfBBgWWGQRyPYNubwdgcgerXV6UjT6MyeHH1arTd8I007AaC7fyZ'
-        : 'pk_live_51QKEaJFZRwx5tlYmhyIEFR3mGroCdpqIHHVT68y9jGnizGDZXypuSfjilbCSkMarU39KeV4kUulC6HfpReRSJwb000fyIehR3I';
-    var stripeInstance = null;
-    function getStripe() {
-        if (!stripeInstance && typeof Stripe !== 'undefined') {
-            try { stripeInstance = Stripe(stripeKey); } catch(e) {}
-        }
-        return stripeInstance;
-    }
 
     
     var overlay = document.getElementById('ppCartOverlay');
@@ -728,8 +795,8 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             if (item.orderType && item.orderType.indexOf('Quarterly') > -1) priceSuffix = '/3mo';
             else if (item.orderType && item.orderType.indexOf('Monthly') > -1) priceSuffix = '/mo';
 
-            var metaFlavor = (item.title === 'Tallow Soothing Routine') ? null : item.flavor;
-            var metaSize = (item.title === 'Tallow Soothing Routine') ? 'Balm, Shampoo bar & Lip balm' : item.size;
+            var metaFlavor = (item.title === 'Soothing Tallow Routine Starter Kit') ? null : item.flavor;
+            var metaSize = (item.title === 'Soothing Tallow Routine Starter Kit') ? 'Balm, Shampoo bar & Lip balm' : item.size;
             var meta = [metaFlavor, metaSize].filter(Boolean).join(' \u00b7 ');
             if (item.orderType && item.orderType !== 'Single') {
                 meta += (meta ? ' \u00b7 ' : '') + item.orderType;
@@ -758,7 +825,19 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         
         var freeShip = subtotal >= freeShipThreshold;
         var shipping = freeShip ? 0 : shippingCost;
-        var total = subtotal + shipping;
+        var giftCode = (typeof sessionStorage !== 'undefined') ? sessionStorage.getItem('pp_gift_code') : null;
+        var giftMinimum = 25;
+        var giftMet = giftCode && market === 'NZ' && subtotal >= giftMinimum;
+        var giftDiscount = giftMet ? 5 : 0;
+        var giftRow = document.getElementById('ppDrawerGiftRow');
+        var giftApplied = document.getElementById('ppDrawerGiftApplied');
+        var giftNudge = document.getElementById('ppDrawerGiftNudge');
+        var giftNeeded = document.getElementById('ppDrawerGiftNeeded');
+        if (giftRow) giftRow.style.display = giftCode && market === 'NZ' ? '' : 'none';
+        if (giftApplied) giftApplied.style.display = giftMet ? '' : 'none';
+        if (giftNudge) giftNudge.style.display = (giftCode && market === 'NZ' && !giftMet) ? '' : 'none';
+        if (giftNeeded && !giftMet) giftNeeded.textContent = '$' + (giftMinimum - subtotal).toFixed(2);
+        var total = Math.max(0, subtotal + shipping - giftDiscount);
 
         subtotalEl.textContent = '$' + subtotal.toFixed(2);
 
@@ -774,6 +853,16 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         if (shipCostEl) shipCostEl.textContent = '$' + shippingCost.toFixed(2);
 
         renderShipProgress(subtotal);
+
+        
+        var ptsEl = document.getElementById('ppDrawerPoints');
+        if (ptsEl && subtotal > 0) {
+            var pts = ppCalcPoints(subtotal);
+            ptsEl.innerHTML = 'Earn ~<strong>' + pts.toLocaleString() + ' PrimalPoints</strong> on this order';
+            ptsEl.style.display = '';
+        } else if (ptsEl) {
+            ptsEl.style.display = 'none';
+        }
 
         
         itemsEl.querySelectorAll('.pp-drawer-qty-btn').forEach(function(btn) {
@@ -798,11 +887,9 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     }
 
     
-    var attempts = 0;
     checkoutBtn.addEventListener('click', function() {
         var cart = getCart();
         if (!cart.length) return;
-        attempts = 0;
 
         
         if (typeof gtag !== 'undefined') {
@@ -818,22 +905,22 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         
         if (typeof oso === 'function') oso('event', 'proceed to checkout');
 
-        doCheckout();
-    });
-
-    function doCheckout() {
-        var cart = getCart();
-        if (!cart.length) return;
-        checkoutBtn.disabled = true;
-        checkoutBtn.textContent = attempts > 0 ? 'Retrying\u2026' : 'Processing\u2026';
-
         
+        checkoutBtn.disabled = true;
+        checkoutBtn.textContent = 'Loading...';
+
         var ss = sessionStorage;
         var osoMeta = {
             landing_page: ss.getItem('oso_lp') || '',
             analytics_source: ss.getItem('oso_src') || '',
             magnet_product: ss.getItem('oso_magnet') || '',
             last_product_page: ss.getItem('oso_last_product') || ''
+        };
+        var clientInfo = {
+            browser: (navigator.userAgent.match(/(Chrome|Firefox|Safari|Edge|Opera)[\/\s](\d+)/) || [])[1] || '',
+            device: window.innerWidth < 768 ? 'Mobile' : window.innerWidth < 1024 ? 'Tablet' : 'Desktop',
+            os: navigator.platform || '',
+            screenWidth: window.innerWidth
         };
 
         fetch('/.netlify/functions/create-checkout-session', {
@@ -843,35 +930,29 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                 cart: cart.map(function(i) { return { priceId: i.priceId, quantity: parseInt(i.quantity) || 1 }; }),
                 countryCode: countryCode,
                 osoMeta: osoMeta,
-                clientInfo: {
-                    browser: (navigator.userAgent.match(/(Chrome|Firefox|Safari|Edge|Opera)[\/\s](\d+)/) || [])[1] || '',
-                    device: window.innerWidth < 768 ? 'Mobile' : window.innerWidth < 1024 ? 'Tablet' : 'Desktop',
-                    os: navigator.platform || '',
-                    screenWidth: window.innerWidth
-                }
+                clientInfo: clientInfo,
+                quizBundle: (function() {
+                    try {
+                        var pids = JSON.parse(localStorage.getItem('quiz_bundle_pids') || '[]');
+                        if (!pids.length) return false;
+                        var cartPids = cart.map(function(i) { return i.priceId; });
+                        return pids.every(function(pid) { return cartPids.indexOf(pid) !== -1; });
+                    } catch(e) { return false; }
+                })(),
+                giftCode: sessionStorage.getItem('pp_gift_code') || null
             })
         })
         .then(function(r) { return r.json(); })
         .then(function(data) {
-            var stripe = getStripe();
-            if (data.sessionId && stripe) {
-                localStorage.setItem('previouscart', JSON.stringify(cart));
-                stripe.redirectToCheckout({ sessionId: data.sessionId });
-            } else { handleErr(); }
+            if (data.clientSecret) {
+                sessionStorage.setItem('pp_checkout_secret', data.clientSecret);
+            }
+            window.location.href = '/checkout/';
         })
-        .catch(function() { handleErr(); });
-    }
-
-    function handleErr() {
-        attempts++;
-        if (attempts < 2) setTimeout(doCheckout, 1000);
-        else {
-            checkoutBtn.disabled = false;
-            checkoutBtn.textContent = 'Proceed to Checkout';
-            alert('Something went wrong. Please try again or contact us.');
-            attempts = 0;
-        }
-    }
+        .catch(function() {
+            window.location.href = '/checkout/';
+        });
+    });
 
     
     
@@ -929,9 +1010,15 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         "Tallow Liquid Soap & Lotion Bundle":"/img/liquid-shop.webp",
         "The Golden Stack":"/img/shop/shop-gold.webp",
         "Tallow Soothing Routine":"/img/shop/shop-gold.webp",
+        "Soothing Tallow Routine Starter Kit":"/img/shop/shop-gold.webp",
         "Sensitive Skin Tallow Stack":"/img/sensitive-stack-tub.webp",
         "Tallow Anti-aging Kit":"/img/wrinkleskinnew.webp",
         "Tallow Balm - DIY kit":"/img/tallow-balm.webp",
+        "Reviana Day Cream":"/img/reviana-day-jar.webp",
+        "Reviana Night Cream":"/img/reviana-night-jar.webp",
+        "Reviana Eye Cream":"/img/reviana-eye-jar.webp",
+        "Reviana Serum":"/img/reviana-serum-jar.webp",
+        "Reviana Complete Ritual Bundle":"/img/r2-reviana-range-square.webp",
         "Reviana - Tallow Cosmetics":"/img/r2-reviana-range-square.webp",
         "Nourishing Tallow Conditioner":"/img/conditioner-shop.webp"
     };
@@ -1033,7 +1120,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 <script>
     window.onload = function() {
         var shipping_rate = document.getElementById('shipping_rate');
-        if (shipping_rate) { shipping_rate.textContent = '$80'; }
+        if (shipping_rate) { shipping_rate.textContent = '$75'; }
         document.querySelectorAll('.au-content').forEach(function(item) { item.style.display = 'none'; });
         document.querySelectorAll('.nz-content').forEach(function(item) { item.style.display = 'inline'; });
     };
@@ -1044,22 +1131,28 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 
 <div class="rv-pdp">
   <div>
-    <div class="gallery-desktop">
-      <div class="rv-gal-main"><img id="mainImg" src="/img/reviana-night-jar.webp" alt="Reviana Night Cream 50ml" style="width:100%;height:100%;object-fit:cover;"></div>
-      <div class="rv-gal-thumbs">
-        <div class="rv-gal-thumb active" onclick="swImg('/img/reviana-night-jar.webp',this)"><img src="/img/reviana-night-jar.webp" alt="Jar" loading="lazy"></div>
-        <div class="rv-gal-thumb" onclick="swImg('/img/nightcream-texture-2.webp',this)"><img src="/img/nightcream-texture-2.webp" alt="Texture" loading="lazy"></div>
-        <div class="rv-gal-thumb" onclick="swImg('/img/nightcream-benefits.webp',this)"><img src="/img/nightcream-benefits.webp" alt="Benefits" loading="lazy"></div>
-        <div class="rv-gal-thumb" onclick="swImg('/img/night-features.webp',this)"><img src="/img/night-features.webp" alt="Features" loading="lazy"></div>
+    <div class="product-gallery gallery-desktop">
+      <div class="gallery-main"><img id="mainImg" class="main-image" src="/img/reviana-night-trix.webp" alt="Reviana Night Cream applied" fetchpriority="high"></div>
+      <div class="gallery-thumbs">
+        <div class="thumb active" onclick="swImg('/img/reviana-night-trix.webp',this)"><img src="/img/reviana-night-trix.webp" alt="Reviana Night Cream applied" loading="lazy"></div>
+        <div class="thumb" onclick="swImg('/img/nightcream-lifestyle.webp',this)"><img src="/img/nightcream-lifestyle.webp" alt="Lifestyle" loading="lazy"></div>
+        <div class="thumb" onclick="swImg('/img/reviana-night-outdoor.webp',this)"><img src="/img/reviana-night-outdoor.webp" alt="Outdoor" loading="lazy"></div>
+        <div class="thumb" onclick="swImg('/img/reviana-before-afters.webp',this)"><img src="/img/reviana-before-afters.webp" alt="Before and After" loading="lazy"></div>
+        <div class="thumb" onclick="swImg('/img/nightcream-texture-2.webp',this)"><img src="/img/nightcream-texture-2.webp" alt="Texture" loading="lazy"></div>
+        <div class="thumb" onclick="swImg('/img/nightcream-benefits.webp',this)"><img src="/img/nightcream-benefits.webp" alt="Benefits" loading="lazy"></div>
+        <div class="thumb" onclick="swImg('/img/reviana-smell-lifestyle.webp',this)"><img src="/img/reviana-smell-lifestyle.webp" alt="Scent" loading="lazy"></div>
       </div>
     </div>
     <div class="gallery-mobile">
       <div class="swiper product-swiper">
         <div class="swiper-wrapper">
-          <div class="swiper-slide"><img src="/img/reviana-night-jar.webp" alt="Reviana Night Cream 50ml"></div>
+          <div class="swiper-slide"><img src="/img/reviana-night-trix.webp" alt="Reviana Night Cream applied" style="object-fit:cover;width:100%;height:100%;"></div>
+          <div class="swiper-slide"><img src="/img/nightcream-lifestyle.webp" alt="Reviana Night Cream Lifestyle"></div>
+          <div class="swiper-slide"><img src="/img/reviana-night-outdoor.webp" alt="Outdoor"></div>
+          <div class="swiper-slide"><img src="/img/reviana-before-afters.webp" alt="Before and After" style="object-fit:contain;object-position:bottom;max-height:800px;"></div>
           <div class="swiper-slide"><img src="/img/nightcream-texture-2.webp" alt="Texture"></div>
           <div class="swiper-slide"><img src="/img/nightcream-benefits.webp" alt="Benefits"></div>
-          <div class="swiper-slide"><img src="/img/night-features.webp" alt="Features"></div>
+          <div class="swiper-slide"><img src="/img/reviana-smell-lifestyle.webp" alt="Scent"></div>
         </div>
         <div class="swiper-pagination"></div>
       </div>
@@ -1069,19 +1162,28 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     <span class="rv-label" style="margin-bottom:4px;">Reviana · By PrimalPantry</span>
     <div class="rv-mt">
       <span>Trusted by <strong>90,000+</strong> kiwis</span><span class="rv-mt-dot"></span>
-      <span>4.7★ rating</span><span class="rv-mt-dot"></span>
+      <span>Formulated for sensitive skin</span><span class="rv-mt-dot"></span>
       <span class="rv-mt-nz">NZ Made</span>
     </div>
-    <h1 class="rv-pdp-title">Night Cream</h1>
-    <p class="rv-pdp-subtitle">Intensive overnight anti-aging restoration — 50ml</p>
+    <h1 class="rv-pdp-title">Tallow Night Cream</h1>
+    <p class="rv-pdp-subtitle">Intensive overnight restoration — 50ml</p>
     <div class="rv-stars">★★★★★ <span>4.7 · Verified Reviews</span></div>
-    <p class="rv-desc">Your skin does its deepest repair work overnight — this cream is designed to support that. A rich, nourishing formulation of bio-identical lipids and restorative actives that work while you sleep, visibly reducing the look of fine lines and restoring a firmer-looking complexion by morning. No heaviness — just deeply replenished, younger-looking skin.</p>
-    <div class="rv-price-row"><span class="rv-price" id="dispPrice">$49.95</span></div>
-    <p class="rv-afterpay">or 4 interest free payments of $<span id="afterpayPrice"></span> with <img src="/img/afterpay.webp" height="20" alt="afterpay"></p>
+    <p class="rv-desc">A rich, nourishing formulation of bio-identical lipids and restorative actives that work while you sleep. No heaviness — just deeply replenished, younger-looking skin. Formulated for sensitive skin.</p>
+    <p style="font-style:italic;font-size:0.88rem;color:var(--rv-sage-mid,#4E6840);margin:4px 0 0;">New formulations that smell so good you'll swear they're fat free.</p>
+    <div style="background:#f8f6f2;border-radius:10px;padding:14px 16px;margin:12px 0 16px;border-left:3px solid var(--rv-sage,#7A8B6F);">
+      <p style="font-size:0.88rem;line-height:1.6;color:#3D2B1F;margin:0;font-style:italic;">"The night cream smells amazing. My skin feels super soft and hydrated by morning."</p>
+      <p style="font-size:0.75rem;color:#94918A;margin:4px 0 0;font-weight:600;">— Brenda ★★★★★</p>
+    </div>
+    <div class="rv-price-row">
+      <span style="display:inline-block;background:#6B8F5B;color:#fff;font-size:0.72rem;font-weight:700;letter-spacing:0.5px;padding:3px 10px;border-radius:20px;margin-bottom:6px;">-20% Launch Deal</span><br>
+      <span class="rv-price" id="dispPrice">$39.95</span>
+      <span style="text-decoration:line-through;color:var(--rv-warm-gray,#877B71);font-size:0.95rem;margin-left:8px;">$49.95</span>
+    </div>
+    <p class="rv-afterpay">or 4 interest free payments of $<span id="afterpayPrice">9.99</span> with <img src="/img/afterpay.webp" height="20" alt="afterpay"></p>
     <div style="margin-bottom:24px;">
-      <div class="rv-opt sel" data-pid="price_1TClQiFZRwx5tlYm2kt8A7wx" data-price="49.95" onclick="selOpt(this)">
+      <div class="rv-opt sel" data-pid="price_1TEzTDFZRwx5tlYmJexNM4nn" data-price="39.95" onclick="selOpt(this)">
         <div class="rv-opt-left"><div class="rv-opt-radio"><div class="rv-opt-dot"></div></div><div><div class="rv-opt-label">One-Time Purchase</div><div class="rv-opt-sublabel">50ml · 2–3 months supply</div></div></div>
-        <div class="rv-opt-price">$49.95</div>
+        <div class="rv-opt-price">$39.95</div>
       </div>
     </div>
     <div class="rv-stock"><span class="rv-stock-dot"></span> In Stock · Ships 1–3 business days</div>
@@ -1093,8 +1195,10 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
       </div>
       <button class="rv-btn-atc" id="atcBtn">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-        <span id="atcText">Add to Cart — $49.95</span>
+        <span id="atcText">Add to Cart — $39.95</span>
       </button>
+      <p class="pp-points-hint">~<strong id="pp-pts-label">PrimalPoints</strong> <i class="pp-pts-info" data-tip="Earn points on every purchase — redeem on your next order">i</i></p>
+    <script>document.addEventListener("DOMContentLoaded",function(){var el=document.getElementById("pp-pts-label");if(el){el.textContent=ppCalcPoints( 39.95 )+" PrimalPoints";}});</script>
     </div>
     <p class="sub-cta">Money back guarantee · Speedy NZ-wide shipping</p>
     <div class="rv-guarantees">
@@ -1109,38 +1213,82 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 
 <div class="rv-tabs">
   <div class="rv-tabs-nav">
-    <button class="rv-tab-btn active" onclick="swTab('ing',this)">Ingredients</button>
-    <button class="rv-tab-btn" onclick="swTab('dir',this)">How to Use</button>
+    <button class="rv-tab-btn active" onclick="swTab('dir',this)">How to Use</button>
+    <button class="rv-tab-btn" onclick="swTab('ing',this)">Ingredients</button>
     <button class="rv-tab-btn" onclick="swTab('ship',this)">Shipping</button>
   </div>
-  <div class="rv-tab-panel active" id="tab-ing">
+  <div class="rv-tab-panel" id="tab-ing">
     <h4>Full Ingredient List</h4>
     <p>Water/Aqua, Glycerin, Tallow, Cetearyl Olivate &amp; Sorbitan Olivate, Caprylic/Capric Triglyceride, Niacinamide, Simmondsia Chinensis (Jojoba) Seed Oil, Squalane, Tetrahexyldecyl Ascorbate, Cetearyl Alcohol, Butyrospermum Parkii (Shea) Butter, Terminalia Ferdinandiana Fruit Extract, Bakuchiol, Benzyl Alcohol, Dehydroacetic Acid, Tocopherol, Helianthus Annuus (Sunflower) Seed Oil, Alpha-Bisabolol, Aloe Barbadensis (Aloe Vera) Leaf Extract, D-Panthenol (Pro-Vitamin B5), Sodium Phytate (and) Aqua (and) Alcohol, Sodium Acrylates Copolymer (and) Lecithin, Ceramide NP, Sodium Hyaluronate.</p>
     <p>As with any new skincare, patch test before full use.</p>
   </div>
-  <div class="rv-tab-panel" id="tab-dir">
+  <div class="rv-tab-panel active" id="tab-dir">
     <h4>Evening routine</h4>
     <p>After cleansing, apply a generous amount to face, neck and décolletage. Gently massage in upward motions. Allow to absorb — you'll feel the richness but it won't transfer to your pillow. Use nightly for best results. One jar typically lasts 2–3 months.</p>
   </div>
   <div class="rv-tab-panel" id="tab-ship">
     <h4>Shipping</h4>
     <p><strong>Processing:</strong> 1–3 business days + 3–5 business days NZ-wide.</p>
-    <p><strong>Cost:</strong> $6.95, or free on orders over $80.</p>
+    <p><strong>Cost:</strong> $6.95, or free on orders over $75.</p>
     <p><strong>International:</strong> Currently NZ only.</p>
   </div>
 </div>
 
-<section class="rv-research">
-  <div class="rv-research-inner">
-    <span class="rv-research-eyebrow">Research-Backed Actives</span>
-    <p class="rv-research-sub">Every ingredient earns its place. Here's what the key actives in this formula do for overnight renewal, firmness and a more youthful-looking complexion.</p>
-    <div class="rv-research-grid">
-      <div class="rv-research-card"><div class="rv-research-card-icon">🌿</div><div class="rv-research-card-name">Bakuchiol</div><p class="rv-research-card-desc">A natural compound shown in peer-reviewed trials to deliver retinol-comparable results — visibly reducing the look of fine lines and improving firmness — without peeling or photosensitivity.</p></div>
-      <div class="rv-research-card"><div class="rv-research-card-icon">🧱</div><div class="rv-research-card-name">Ceramide NP</div><p class="rv-research-card-desc">Ceramides make up roughly 50% of the skin's lipid matrix. Topical ceramide supplementation has been shown to restore barrier integrity and significantly reduce water loss overnight.</p></div>
-      <div class="rv-research-card"><div class="rv-research-card-icon">💧</div><div class="rv-research-card-name">Sodium Hyaluronate</div><p class="rv-research-card-desc">Low molecular weight hyaluronic acid penetrates deeper than standard HA, delivering lasting hydration beneath the surface. Skin is measurably plumper and firmer with nightly use.</p></div>
-      <div class="rv-research-card"><div class="rv-research-card-icon">🔬</div><div class="rv-research-card-name">Niacinamide (B3)</div><p class="rv-research-card-desc">Clinically studied to reduce the look of fine lines, improve skin elasticity, and even skin tone. Works with the skin's overnight repair cycle to reinforce barrier function.</p></div>
+<section style="padding:48px 0;background:var(--rv-cream,#F5F0E8);">
+  <div style="max-width:1100px;margin:0 auto;padding:0 20px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;">
+      
+      <div>
+        <p style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--rv-sage,#7A8B6F);margin-bottom:16px;">From the Founder</p>
+        <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:20px;">
+          <img src="https://www.primalpantry.co.nz/img/about/founder.webp" alt="Curtis" style="width:52px;height:52px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 4px 16px rgba(0,0,0,0.1);flex-shrink:0;">
+          <div>
+            <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.05rem;line-height:1.7;color:#2E1A0E;margin:0;">"I wanted something you'd actually look forward to putting on before bed. The kind of cream that makes you excited to wake up and see your skin."</p>
+            <p style="font-size:0.78rem;font-weight:700;color:var(--rv-sage,#6B8F5B);margin:10px 0 0;">Curtis Fairweather <span style="font-weight:400;color:#877B71;">· Founder</span></p>
+          </div>
+        </div>
+        <div style="background:white;border-radius:12px;padding:20px 22px;border-left:3px solid var(--rv-sage,#7A8B6F);">
+          <p style="font-size:0.88rem;line-height:1.7;color:#5A4A3A;margin:0;">We knew tallow alone wasn't enough for this. So we partnered with one of NZ's most awarded cosmetic formulators — someone who's spent decades developing for some of the world's largest billion-dollar beauty brands — then hired specialist in-house staff to manufacture every batch to the highest standard.</p>
+          <p style="font-size:0.88rem;line-height:1.7;color:#5A4A3A;margin:12px 0 0;">It's cosmeceutical skincare, built to a level the NZ tallow industry has never seen — and it all starts with the ingredient your skin already trusts.</p>
+        </div>
+      </div>
+      
+      <div>
+        <p style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--rv-sage,#7A8B6F);margin-bottom:16px;">Verified Reviews</p>
+        <div style="display:grid;gap:14px;">
+          <div style="background:white;border-radius:12px;padding:18px 20px;text-align:left;border-left:3px solid var(--rv-sage,#7A8B6F);">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <div style="width:34px;height:34px;border-radius:50%;background:#E8E2D8;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#5A4A3A;">K</div>
+              <div><p style="margin:0;font-weight:600;font-size:0.82rem;color:#2C1810;">Kerry <span style="color:#D4A853;">★★★★★</span></p><p style="margin:0;font-size:0.68rem;color:#94918A;">Age 56 · Mar 2026</p></div>
+            </div>
+            <p style="font-size:0.88rem;line-height:1.6;color:#3D2B1F;margin:0;font-style:italic;">"I was surprised when they told me there's tallow in here — there's no beef smell at all. It has a nice smooth texture that goes into the skin seamlessly."</p>
+          </div>
+          <div style="background:white;border-radius:12px;padding:18px 20px;text-align:left;border-left:3px solid var(--rv-sage,#7A8B6F);">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <div style="width:34px;height:34px;border-radius:50%;background:#E8E2D8;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#5A4A3A;">B</div>
+              <div><p style="margin:0;font-weight:600;font-size:0.82rem;color:#2C1810;">Brenda <span style="color:#D4A853;">★★★★★</span></p><p style="margin:0;font-size:0.68rem;color:#94918A;">Age 69 · Mar 2026</p></div>
+            </div>
+            <p style="font-size:0.88rem;line-height:1.6;color:#3D2B1F;margin:0;font-style:italic;">"The night cream smells amazing and feels so nice on my skin. It's rich without feeling too heavy, and it glides on really smoothly. My skin feels super soft and hydrated."</p>
+          </div>
+          <div style="background:white;border-radius:12px;padding:18px 20px;text-align:left;border-left:3px solid var(--rv-sage,#7A8B6F);">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <div style="width:34px;height:34px;border-radius:50%;background:#E8E2D8;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#5A4A3A;">A</div>
+              <div><p style="margin:0;font-weight:600;font-size:0.82rem;color:#2C1810;">Andrea <span style="color:#D4A853;">★★★★★</span></p><p style="margin:0;font-size:0.68rem;color:#94918A;">Age 40 · Mar 2026</p></div>
+            </div>
+            <p style="font-size:0.88rem;line-height:1.6;color:#3D2B1F;margin:0;font-style:italic;">"The night cream has a lovely texture."</p>
+          </div>
+          <div style="background:white;border-radius:12px;padding:18px 20px;text-align:left;border-left:3px solid var(--rv-sage,#7A8B6F);">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <div style="width:34px;height:34px;border-radius:50%;background:#E8E2D8;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#5A4A3A;">C</div>
+              <div><p style="margin:0;font-weight:600;font-size:0.82rem;color:#2C1810;">CJ <span style="color:#D4A853;">★★★★★</span></p><p style="margin:0;font-size:0.68rem;color:#94918A;">Age 46 · Mar 2026</p></div>
+            </div>
+            <p style="font-size:0.88rem;line-height:1.6;color:#3D2B1F;margin:0;font-style:italic;">"A real creamy thickness that feels substantial — it sinks into the skin beautifully but doesn't disappear, so you feel like it will keep working while you sleep. The scent reminds me of a flower garden blooming at night. Quite magical."</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  <style>@media(max-width:768px){section > div > [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important;}}</style>
 </section>
 
 <section class="rv-why">
@@ -1152,10 +1300,10 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
       <p>Wake up to visibly firmer, smoother, more radiant skin — without the irritation.</p>
     </div>
     <div class="rv-ing-grid">
-      <div class="rv-ing-card"><h4>🧬 Bio-Identical Lipids</h4><p>Mirrors your skin's natural sebum for deep absorption and nourishment.</p></div>
-      <div class="rv-ing-card"><h4>🌙 Squalane</h4><p>Lightweight emollient that locks in moisture without clogging pores.</p></div>
-      <div class="rv-ing-card"><h4>🌿 Bakuchiol</h4><p>Natural retinol alternative — promotes cell renewal while you sleep.</p></div>
-      <div class="rv-ing-card"><h4>🍑 Kakadu Plum</h4><p>World's highest natural Vitamin C source — antioxidant and brightening.</p></div>
+      <div class="rv-ing-card"><h4>🌿 Bakuchiol</h4><p>A natural retinol alternative shown in peer-reviewed trials to visibly reduce the look of fine lines and improve firmness — without peeling or photosensitivity.</p></div>
+      <div class="rv-ing-card"><h4>🧱 Ceramide NP</h4><p>Ceramides make up roughly 50% of the skin's lipid matrix. Restores barrier integrity and significantly reduces water loss overnight.</p></div>
+      <div class="rv-ing-card"><h4>💧 Sodium Hyaluronate</h4><p>Low molecular weight HA penetrates deeper than standard hyaluronic acid, delivering lasting hydration beneath the surface.</p></div>
+      <div class="rv-ing-card"><h4>🔬 Niacinamide (B3)</h4><p>Clinically studied to reduce the look of fine lines, improve elasticity, and even skin tone. Works with your overnight repair cycle.</p></div>
     </div>
   </div>
 </section>
@@ -1176,10 +1324,10 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 </section>
 
 <script>
-function swImg(s,el){var i=document.getElementById('mainImg');i.style.opacity='0';setTimeout(function(){i.src=s;i.style.opacity='1';},150);document.querySelectorAll('.rv-gal-thumb').forEach(function(t){t.classList.remove('active');});el.classList.add('active');}
+function swImg(s,el){var i=document.getElementById('mainImg');i.style.opacity='0';setTimeout(function(){i.src=s;if(s.includes('before-after')){i.style.objectFit='contain';i.style.objectPosition='bottom';i.style.maxHeight='800px';}else{i.style.objectFit='';i.style.objectPosition='';i.style.maxHeight='';}i.style.opacity='1';},150);document.querySelectorAll('.gallery-thumbs .thumb').forEach(function(t){t.classList.remove('active');});el.classList.add('active');}
 function swTab(id,btn){document.querySelectorAll('.rv-tab-panel').forEach(function(p){p.classList.remove('active');});document.querySelectorAll('.rv-tab-btn').forEach(function(b){b.classList.remove('active');});document.getElementById('tab-'+id).classList.add('active');btn.classList.add('active');}
 function selOpt(el){document.querySelectorAll('.rv-opt').forEach(function(o){o.classList.remove('sel');});el.classList.add('sel');selPid=el.dataset.pid;selPrice=parseFloat(el.dataset.price);document.getElementById('dispPrice').textContent='$'+selPrice.toFixed(2);document.getElementById('afterpayPrice').textContent=(selPrice/4).toFixed(2);document.getElementById('atcText').textContent='Add to Cart — $'+selPrice.toFixed(2);}
-var selPid='price_1TClQiFZRwx5tlYm2kt8A7wx', selPrice= 49.95 ;
+var selPid='price_1TEzTDFZRwx5tlYmJexNM4nn', selPrice= 39.95 ;
 var q=document.getElementById('qty');
 document.getElementById('qPlus').addEventListener('click',function(){q.value=parseInt(q.value)+1;});
 document.getElementById('qMinus').addEventListener('click',function(){if(parseInt(q.value)>1)q.value=parseInt(q.value)-1;});
@@ -1196,10 +1344,177 @@ if (window.innerWidth <= 900) {
   new Swiper('.product-swiper', {
     slidesPerView: 'auto',
     spaceBetween: 5,
-    pagination: { el: '.swiper-pagination', clickable: true }
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+      renderBullet: function(index, className) {
+        var img = document.querySelectorAll('.product-swiper .swiper-slide img:not([data-eanz-badge])')[index];
+        var src = img ? img.getAttribute('src') : '';
+        return '<span class="' + className + '"><img src="' + src + '" alt=""></span>';
+      }
+    }
   });
 }
 </script>
+
+
+
+
+
+
+<style>
+.rv-xs { background: linear-gradient(135deg, #2C1810 0%, #3D2B1F 100%); padding: 60px 0; margin-top: 0; }
+.rv-xs-wrap { max-width: 1000px; margin: 0 auto; padding: 0 20px; text-align: center; }
+.rv-xs-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #B8A080; text-transform: uppercase; margin-bottom: 12px; }
+.rv-xs-title { font-family: 'Fraunces','DM Serif Display',serif; font-size: 2rem; color: #F5F0E8; margin: 0 0 8px; font-weight: 500; }
+.rv-xs-sub { font-size: 0.9rem; color: #C4B8A8; margin: 0 0 10px; max-width: 520px; display: inline-block; line-height: 1.6; }
+.rv-xs-tagline { font-size: 0.75rem; color: #8A7D6E; margin: 0 0 36px; font-style: italic; }
+.rv-xs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+.rv-xs-card { background: #F5F0E8; border-radius: 14px; overflow: hidden; text-align: center; transition: transform 0.2s; position: relative; }
+.rv-xs-card:hover { transform: translateY(-3px); }
+.rv-xs-card img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+.rv-xs-card-serum img { object-position: center 30%; }
+.rv-xs-card-badge { position: absolute; top: 10px; left: 10px; font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 10px; border-radius: 50px; z-index: 3; background: #6B8F5B; color: #fff; }
+.rv-xs-card-body { padding: 12px 10px 14px; }
+.rv-xs-card-name { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 13px; color: #2C1810; margin: 0 0 2px; }
+.rv-xs-card-meta { font-size: 11px; color: #94918A; margin: 0 0 6px; }
+.rv-xs-card-price { font-weight: 700; font-size: 14px; color: #2C1810; margin: 0 0 8px; }
+.rv-xs-card-price-was { text-decoration: line-through; color: #877B71; font-weight: 400; font-size: 0.85em; margin-left: 4px; }
+.rv-xs-card-cta { display: flex; gap: 6px; }
+.rv-xs-card-atc { flex: 1; background: #3D2B1F; color: #F5F0E8; border: none; padding: 8px 6px; border-radius: 8px; font-size: 11px; font-weight: 600; cursor: pointer; transition: background 0.2s; font-family: 'DM Sans', sans-serif; }
+.rv-xs-card-atc:hover { background: #5A4535; }
+.rv-xs-card-atc.added { background: #4CAF50 !important; }
+.rv-xs-card-view { flex: 0 0 auto; background: none; border: 1px solid #C4B8A8; color: #2C1810; padding: 8px 12px; border-radius: 8px; font-size: 11px; font-weight: 500; cursor: pointer; text-decoration: none; font-family: 'DM Sans', sans-serif; transition: border-color 0.2s; }
+.rv-xs-card-view:hover { border-color: #2C1810; }
+.rv-xs-bundle { display: inline-flex; align-items: center; gap: 16px; background: rgba(245,240,232,0.1); border: 1px solid rgba(245,240,232,0.2); border-radius: 12px; padding: 14px 28px; margin-bottom: 20px; }
+.rv-xs-bundle-text { text-align: left; }
+.rv-xs-bundle-label { font-size: 12px; font-weight: 600; color: #F5F0E8; margin: 0; }
+.rv-xs-bundle-save { font-size: 11px; color: #B8A080; margin: 2px 0 0; }
+.rv-xs-bundle-btn { background: #C9A96E; color: #2C1810; border: none; padding: 10px 22px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; transition: background 0.2s; font-family: 'DM Sans', sans-serif; white-space: nowrap; }
+.rv-xs-bundle-btn:hover { background: #D4B87A; }
+.rv-xs-bundle-btn.added { background: #4CAF50 !important; color: #fff; }
+.rv-xs-explore { display: inline-block; color: #B8A080; font-size: 13px; text-decoration: none; font-weight: 500; transition: color 0.2s; }
+.rv-xs-explore:hover { color: #F5F0E8; }
+@media (max-width: 640px) {
+    .rv-xs-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .rv-xs-title { font-size: 1.5rem; }
+    .rv-xs-bundle { flex-direction: column; gap: 10px; padding: 16px 20px; }
+    .rv-xs-bundle-text { text-align: center; }
+}
+</style>
+
+<div class="rv-xs">
+    <div class="rv-xs-wrap">
+        <p class="rv-xs-label">From the makers of PrimalCare</p>
+        <h2 class="rv-xs-title">Ready for the next step?</h2>
+        <p class="rv-xs-sub">If you find tallow calming and soothing on your skin, but found yourself asking what's next — Reviana is it. The same tallow-first philosophy, with added ceramides and peptides. Built for sensitive skin, just like everything we make.</p>
+        <p class="rv-xs-tagline">Formulated for sensitive skin · No tallow scent · NZ made</p>
+
+        <div class="rv-xs-grid">
+
+            
+            <div class="rv-xs-card">
+                <span class="rv-xs-card-badge">-20% Launch Deal</span>
+                <a href="/cosmetic-tallow-reviana/day-cream/"><img src="/img/reviana-day-jar.webp" alt="Reviana Day Cream" loading="lazy"></a>
+                <div class="rv-xs-card-body">
+                    <p class="rv-xs-card-name">Day Cream</p>
+                    <p class="rv-xs-card-meta">Barrier building moisturiser · 50ml</p>
+                    <p class="rv-xs-card-price">NZ$39.95 <span class="rv-xs-card-price-was">NZ$49.95</span></p>
+                    <div class="rv-xs-card-cta">
+                        <button class="rv-xs-card-atc" data-atc-pid="price_1TEzSzFZRwx5tlYmfcgyCYpQ" data-atc-price="39.95" data-atc-title="Reviana Day Cream" data-atc-size="50ml" data-atc-flavor="Day Formula" data-atc-image="/img/reviana-day-jar.webp">Add to Cart</button>
+                        <a href="/cosmetic-tallow-reviana/day-cream/" class="rv-xs-card-view">View</a>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="rv-xs-card">
+                <span class="rv-xs-card-badge">-20% Launch Deal</span>
+                <a href="/cosmetic-tallow-reviana/night-cream/"><img src="/img/reviana-night-jar.webp" alt="Reviana Night Cream" loading="lazy"></a>
+                <div class="rv-xs-card-body">
+                    <p class="rv-xs-card-name">Night Cream</p>
+                    <p class="rv-xs-card-meta">Overnight renewal · 50ml</p>
+                    <p class="rv-xs-card-price">NZ$39.95 <span class="rv-xs-card-price-was">NZ$49.95</span></p>
+                    <div class="rv-xs-card-cta">
+                        <button class="rv-xs-card-atc" data-atc-pid="price_1TEzTDFZRwx5tlYmJexNM4nn" data-atc-price="39.95" data-atc-title="Reviana Night Cream" data-atc-size="50ml" data-atc-flavor="Night Formula" data-atc-image="/img/reviana-night-jar.webp">Add to Cart</button>
+                        <a href="/cosmetic-tallow-reviana/night-cream/" class="rv-xs-card-view">View</a>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="rv-xs-card">
+                <span class="rv-xs-card-badge">-20% Launch Deal</span>
+                <a href="/cosmetic-tallow-reviana/eye-cream/"><img src="/img/reviana-eye-jar.webp" alt="Reviana Eye Cream" loading="lazy"></a>
+                <div class="rv-xs-card-body">
+                    <p class="rv-xs-card-name">Eye Cream</p>
+                    <p class="rv-xs-card-meta">Brightening eye treatment · 15ml</p>
+                    <p class="rv-xs-card-price">NZ$43.95 <span class="rv-xs-card-price-was">NZ$54.95</span></p>
+                    <div class="rv-xs-card-cta">
+                        <button class="rv-xs-card-atc" data-atc-pid="price_1TEzVaFZRwx5tlYmWnJsFdwN" data-atc-price="43.95" data-atc-title="Reviana Eye Cream" data-atc-size="15ml" data-atc-flavor="Vitamin C" data-atc-image="/img/reviana-eye-jar.webp">Add to Cart</button>
+                        <a href="/cosmetic-tallow-reviana/eye-cream/" class="rv-xs-card-view">View</a>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="rv-xs-card rv-xs-card-serum">
+                <span class="rv-xs-card-badge">-20% Launch Deal</span>
+                <a href="/cosmetic-tallow-reviana/serum/"><img src="/img/reviana-serum-jar.webp" alt="Reviana Serum" loading="lazy"></a>
+                <div class="rv-xs-card-body">
+                    <p class="rv-xs-card-name">Serum</p>
+                    <p class="rv-xs-card-meta">Complexion-refining · 15ml</p>
+                    <p class="rv-xs-card-price">NZ$47.95 <span class="rv-xs-card-price-was">NZ$59.95</span></p>
+                    <div class="rv-xs-card-cta">
+                        <button class="rv-xs-card-atc" data-atc-pid="price_1TEzeQFZRwx5tlYmSCFller5" data-atc-price="47.95" data-atc-title="Reviana Serum" data-atc-size="15ml" data-atc-flavor="Complexion Serum" data-atc-image="/img/reviana-serum-jar.webp">Add to Cart</button>
+                        <a href="/cosmetic-tallow-reviana/serum/" class="rv-xs-card-view">View</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        
+        <div class="rv-xs-bundle">
+            <div class="rv-xs-bundle-text">
+                <p class="rv-xs-bundle-label">Grab the set — NZ$161.1</p>
+                
+                
+                <p class="rv-xs-bundle-save">Save NZ$10.70 vs buying individually</p>
+            </div>
+            <button class="rv-xs-bundle-btn" data-atc-pid="price_1TF02WFZRwx5tlYm7Ogoducx" data-atc-price="161.1" data-atc-title="Reviana Complete Ritual Bundle" data-atc-size="Full Set" data-atc-flavor="All 4 Products" data-atc-image="/img/r2-reviana-range-square.webp">Add Bundle to Cart</button>
+        </div>
+
+        <br>
+        <a href="/cosmetic-tallow-reviana/" class="rv-xs-explore">Explore the full Reviana range &rarr;</a>
+    </div>
+</div>
+
+<script>
+(function(){
+  document.querySelectorAll('[data-atc-pid]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var pid = this.getAttribute('data-atc-pid');
+      var price = this.getAttribute('data-atc-price');
+      var title = this.getAttribute('data-atc-title');
+      var size = this.getAttribute('data-atc-size');
+      var flavor = this.getAttribute('data-atc-flavor');
+      var image = this.getAttribute('data-atc-image');
+      var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+      cart.push({ priceId: pid, title: title, size: size, flavor: flavor, orderType: 'Single', quantity: 1, unitPrice: parseFloat(price), eligibleForDiscount: false, image: image });
+      localStorage.setItem('cartV2', JSON.stringify(cart));
+      if (typeof oso === 'function') oso('event', 'quick-add-reviana', title);
+      if (typeof window.ppOpenCartDrawer === 'function') window.ppOpenCartDrawer();
+      var orig = this.textContent.trim();
+      this.classList.add('added');
+      this.textContent = 'Added ✓';
+      var b = this;
+      setTimeout(function(){ b.classList.remove('added'); b.textContent = orig; }, 2500);
+    });
+  });
+})();
+</script>
+
 
 <footer class="pp-footer">
   
@@ -1207,21 +1522,29 @@ if (window.innerWidth <= 900) {
 
   
   
-  <script src='/js/clipboard.min.js' defer></script>
-  <script src='/js/highlight.min.js' defer></script>
-  <script src='/js/highlightjs-line-numbers.min.js' defer></script>
-  <script src='/js/sweetalert2.min.js' defer></script>
   <script>
-    
-    window.addEventListener('load', function() {
-      if (typeof hljs !== 'undefined') {
-        hljs.highlightAll();
-        hljs.initLineNumbersOnLoad();
-      }
-      if (typeof ClipboardJS !== 'undefined') {
-        new ClipboardJS('.url');
-      }
-    });
+    if (document.querySelector('pre code')) {
+      ['\/js\/clipboard.min.js',
+       '\/js\/highlight.min.js',
+       '\/js\/highlightjs-line-numbers.min.js',
+       '\/js\/sweetalert2.min.js'
+      ].forEach(function(src) {
+        var s = document.createElement('script');
+        s.src = src;
+        s.defer = true;
+        document.head.appendChild(s);
+      });
+
+      window.addEventListener('load', function() {
+        if (typeof hljs !== 'undefined') {
+          hljs.highlightAll();
+          hljs.initLineNumbersOnLoad();
+        }
+        if (typeof ClipboardJS !== 'undefined') {
+          new ClipboardJS('.url');
+        }
+      });
+    }
 
     function OnClickURL() {
       if (typeof Swal !== 'undefined') {
@@ -1256,9 +1579,13 @@ if (window.innerWidth <= 900) {
 
     if (!getCookie('landingURL')) {
         setCookie('landingURL', window.location.href, 30);
-        console.log('Landing URL stored:', window.location.href);
-    } else {
-        console.log('Landing URL already exists:', getCookie('landingURL'));
+    }
+
+    
+    var refParam = new URLSearchParams(window.location.search).get('ref');
+    if (refParam) {
+        setCookie('pp_ref', refParam, 30);
+        fetch('/.netlify/functions/affiliate-track?code=' + encodeURIComponent(refParam) + '&page=' + encodeURIComponent(window.location.pathname)).catch(function(){});
     }
 });
   </script>
@@ -1375,6 +1702,7 @@ if (window.innerWidth <= 900) {
         <a href="/tallow-for-wrinkles/">Tallow Cream & Anti-Aging</a>
         <a href="/shop/">Tallow Shampoo & Haircare</a>
         <a href="/shop/">Tallow Lip Balm</a>
+        <a href="/cosmetic-tallow-reviana/">Brighten &amp; Refine — Reviana</a>
         <a href="/subscribe/">Subscribe &amp; Save</a>
       </div>
       <div class="pp-f-col">
@@ -1383,7 +1711,6 @@ if (window.innerWidth <= 900) {
         <a href="/faq/">FAQs</a>
         <a href="/pages/refund-policy/">Refund Policy</a>
         <a href="https://billing.stripe.com/p/login/4gMeVd6XT3X0b9qabyco000" target="_blank">Manage Subscription</a>
-        <a href="/stockists/">Where to Buy — Stockists</a>
       </div>
       <div class="pp-f-col">
         <h4>Company</h4>
@@ -1391,6 +1718,8 @@ if (window.innerWidth <= 900) {
         <a href="/pages/reviews/">Primal Pantry Reviews</a>
         <a href="/posts/">Blog</a>
         <a href="/contact/">Contact</a>
+        <a href="/affiliates/">Become an Affiliate</a>
+        <a href="/affiliates/login">Affiliate Login</a>
       </div>
     </div>
     

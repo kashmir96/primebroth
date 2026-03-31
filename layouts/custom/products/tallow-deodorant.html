@@ -221,7 +221,7 @@
 
     <!-- Gallery -->
     <div class="product-gallery gallery-desktop">
-        <div class="gallery-main">
+        <div class="gallery-main" style="position:relative;">{{- partial "eanz-badge.html" . -}}
             <img class="main-image" id="mainImage" fetchpriority="high" src="/img/shop/deod4.webp" alt="Tallow Deodorant">
             <!-- EANZ Pill Overlay -->
             <div class="pp-eanz-pill">
@@ -236,10 +236,7 @@
                     </button>
                 </div>
             </div>
-            <div class="exclusive-badge">
-                <span class="dot"></span> Online Exclusive
-            </div>
-        </div>
+</div>
         <div class="gallery-thumbs">
             <div class="thumb active" onclick="switchImage('/img/shop/deod4.webp', this)">
                 <img src="/img/shop/deod4.webp" alt="Tallow deodorant" loading="lazy">
@@ -258,7 +255,7 @@
     <div class="product-gallery gallery-mobile">
         <div class="swiper product-swiper">
             <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="/img/shop/deod4.webp" alt="Tallow deodorant"></div>
+                <div class="swiper-slide" style="position:relative;overflow:visible;"><img src="/img/shop/deod4.webp" alt="Tallow deodorant" style="width:100%;height:100%;object-fit:cover;border-radius:12px;display:block;">{{- partial "eanz-badge.html" . -}}</div>
                 <div class="swiper-slide"><img src="/img/shop/deod2.webp" alt="Tallow deodorant ingredients"></div>
                 <div class="swiper-slide"><img src="/img/shop/deod3.webp" alt="Tallow deodorant application"></div>
                 <div class="swiper-slide"><img src="/img/deod-reviews.webp" alt="Tallow deodorant customer reviews"></div>
@@ -760,7 +757,7 @@ if (window.innerWidth <= 900) {
   new Swiper('.product-swiper', {
     slidesPerView: 'auto',
     spaceBetween: 5,
-    pagination: { el: '.swiper-pagination', clickable: true, renderBullet: function(i,c){ var img=document.querySelectorAll('.product-swiper .swiper-slide img')[i]; return '<span class="'+c+'"><img src="'+(img?img.getAttribute('src'):'')+'"></span>'; } }
+    pagination: { el: '.swiper-pagination', clickable: true, renderBullet: function(i,c){ var img=document.querySelectorAll('.product-swiper .swiper-slide img:not([data-eanz-badge])')[i]; return '<span class="'+c+'"><img src="'+(img?img.getAttribute('src'):'')+'"></span>'; } }
   });
 }
 </script>

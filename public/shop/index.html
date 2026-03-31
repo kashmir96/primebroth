@@ -11,11 +11,70 @@
 })();
 
 
+window.ppCalcPoints = function(price) { return Math.round((parseFloat(price) || 0) * 100); };
+
+
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var token = params.get('pp_gift');
+  if (!token) return;
+  fetch('/.netlify/functions/quiz-referral?token=' + encodeURIComponent(token))
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      if (d.code) {
+        sessionStorage.setItem('pp_gift_code', d.code);
+        sessionStorage.removeItem('pp_gift_dismissed');
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', ppShowGiftPill);
+        } else {
+          ppShowGiftPill();
+        }
+      }
+    }).catch(function(){});
+})();
+
+function ppShowGiftPill() {
+  if (!sessionStorage.getItem('pp_gift_code')) return;
+  if (sessionStorage.getItem('pp_gift_dismissed')) return;
+  if (document.getElementById('pp-gift-pill')) return;
+  var el = document.createElement('div');
+  el.id = 'pp-gift-pill';
+  el.innerHTML = '🎁 <strong>$5 off</strong> — spend $25 to unlock'
+    + '<button onclick="ppDismissGiftPill()" aria-label="Dismiss">✕</button>';
+  document.body.appendChild(el);
+  setTimeout(function(){ el.classList.add('pp-gift-pill-in'); }, 80);
+}
+
+function ppDismissGiftPill() {
+  sessionStorage.setItem('pp_gift_dismissed', '1');
+  var el = document.getElementById('pp-gift-pill');
+  if (el) { el.classList.remove('pp-gift-pill-in'); setTimeout(function(){ el.remove(); }, 350); }
+}
+
+
+document.addEventListener('DOMContentLoaded', ppShowGiftPill);
+
+
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.au-content').forEach(function(el) { el.style.display = 'none'; });
   document.querySelectorAll('.nz-content').forEach(function(el) { el.style.display = 'inline'; });
 });
-</script><meta charset="utf-8">
+</script><link rel="preconnect" href="https://oso.nz" crossorigin>
+<script defer src="https://oso.nz/t.js" data-site="PrimalPantry.co.nz"></script>
+<link rel="prefetch" href="https://js.stripe.com/v3/" as="script">
+<script>
+
+(function(){
+  if (sessionStorage.getItem('pp_fn_warm')) return;
+  sessionStorage.setItem('pp_fn_warm', '1');
+  fetch('/.netlify/functions/create-checkout-session', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: '{"warmup":true}'
+  }).catch(function(){});
+})();
+</script>
+<meta charset="utf-8">
 <title>PrimalPantry | Shop - PrimalPantry</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link rel="apple-touch-icon" sizes="180x180" href='/apple-touch-icon.png'>
@@ -24,6 +83,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <link rel="manifest" href='/site.webmanifest'>
 
 <link rel="canonical" href="http://localhost:1313/shop/">
+<style>
+#pp-gift-pill{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(16px);background:#2E3D1F;color:#fff;padding:11px 14px 11px 18px;border-radius:100px;font-size:0.83rem;font-family:'DM Sans',sans-serif;white-space:nowrap;z-index:9999;opacity:0;transition:opacity 0.35s,transform 0.35s;box-shadow:0 4px 20px rgba(0,0,0,0.28);display:flex;align-items:center;gap:10px;}
+#pp-gift-pill.pp-gift-pill-in{opacity:1;transform:translateX(-50%) translateY(0);}
+#pp-gift-pill button{background:rgba(255,255,255,0.15);border:none;color:#fff;width:20px;height:20px;border-radius:50%;font-size:0.65rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;line-height:1;}
+#pp-gift-pill button:hover{background:rgba(255,255,255,0.28);}
+</style>
 
 
   
@@ -43,20 +108,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 
-<link rel="preconnect" href="https://dev.visualwebsiteoptimizer.com" />
-<script type='text/javascript' id='vwoCode'>
-window._vwo_code || (function() {
-var account_id=920032,
-version=2.1,
-settings_tolerance=2000,
-hide_element='body',
-hide_element_style = 'opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;transition:none !important;',
- 
-f=false,w=window,d=document,v=d.querySelector('#vwoCode'),cK='_vwo_'+account_id+'_settings',cc={};try{var c=JSON.parse(localStorage.getItem('_vwo_'+account_id+'_config'));cc=c&&typeof c==='object'?c:{}}catch(e){}var stT=cc.stT==='session'?w.sessionStorage:w.localStorage;code={nonce:v&&v.nonce,library_tolerance:function(){return typeof library_tolerance!=='undefined'?library_tolerance:undefined},settings_tolerance:function(){return cc.sT||settings_tolerance},hide_element_style:function(){return'{'+(cc.hES||hide_element_style)+'}'},hide_element:function(){if(performance.getEntriesByName('first-contentful-paint')[0]){return''}return typeof cc.hE==='string'?cc.hE:hide_element},getVersion:function(){return version},finish:function(e){if(!f){f=true;var t=d.getElementById('_vis_opt_path_hides');if(t)t.parentNode.removeChild(t);if(e)(new Image).src='https://dev.visualwebsiteoptimizer.com/ee.gif?a='+account_id+e}},finished:function(){return f},addScript:function(e){var t=d.createElement('script');t.type='text/javascript';if(e.src){t.src=e.src}else{t.text=e.text}v&&t.setAttribute('nonce',v.nonce);d.getElementsByTagName('head')[0].appendChild(t)},load:function(e,t){var n=this.getSettings(),i=d.createElement('script'),r=this;t=t||{};if(n){i.textContent=n;d.getElementsByTagName('head')[0].appendChild(i);if(!w.VWO||VWO.caE){stT.removeItem(cK);r.load(e)}}else{var o=new XMLHttpRequest;o.open('GET',e,true);o.withCredentials=!t.dSC;o.responseType=t.responseType||'text';o.onload=function(){if(t.onloadCb){return t.onloadCb(o,e)}if(o.status===200||o.status===304){_vwo_code.addScript({text:o.responseText})}else{_vwo_code.finish('&e=loading_failure:'+e)}};o.onerror=function(){if(t.onerrorCb){return t.onerrorCb(e)}_vwo_code.finish('&e=loading_failure:'+e)};o.send()}},getSettings:function(){try{var e=stT.getItem(cK);if(!e){return}e=JSON.parse(e);if(Date.now()>e.e){stT.removeItem(cK);return}return e.s}catch(e){return}},init:function(){if(d.URL.indexOf('__vwo_disable__')>-1)return;var e=this.settings_tolerance();w._vwo_settings_timer=setTimeout(function(){_vwo_code.finish();stT.removeItem(cK)},e);var t;if(this.hide_element()!=='body'){t=d.createElement('style');var n=this.hide_element(),i=n?n+this.hide_element_style():'',r=d.getElementsByTagName('head')[0];t.setAttribute('id','_vis_opt_path_hides');v&&t.setAttribute('nonce',v.nonce);t.setAttribute('type','text/css');if(t.styleSheet)t.styleSheet.cssText=i;else t.appendChild(d.createTextNode(i));r.appendChild(t)}else{t=d.getElementsByTagName('head')[0];var i=d.createElement('div');i.style.cssText='z-index: 2147483647 !important;position: fixed !important;left: 0 !important;top: 0 !important;width: 100% !important;height: 100% !important;background: white !important;display: block !important;';i.setAttribute('id','_vis_opt_path_hides');i.classList.add('_vis_hide_layer');t.parentNode.insertBefore(i,t.nextSibling)}var o=window._vis_opt_url||d.URL,s='https://dev.visualwebsiteoptimizer.com/j.php?a='+account_id+'&u='+encodeURIComponent(o)+'&vn='+version;if(w.location.search.indexOf('_vwo_xhr')!==-1){this.addScript({src:s})}else{this.load(s+'&x=true')}}};w._vwo_code=code;code.init();})();
-</script>
-
-
-
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZR6LL35JPP"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -69,7 +120,6 @@ f=false,w=window,d=document,v=d.querySelector('#vwoCode'),cK='_vwo_'+account_id+
   
   gtag('config', 'AW-16543078874');
 </script>
-<script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0124/4549.js" async="async"></script>
 
 
 <script>
@@ -719,6 +769,24 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
      
 
      
+    .pp-grid-heading {
+      grid-column: 1 / -1;
+      padding: 32px 0 8px;
+    }
+    .pp-grid-heading:first-child { padding-top: 0; }
+    .pp-grid-heading h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.3rem, 2vw, 1.6rem);
+      font-weight: 400; color: var(--pc-black);
+      margin: 0 0 4px; line-height: 1.2;
+    }
+    .pp-grid-heading h3 em { color: var(--pc-brown); font-style: italic; }
+    .pp-grid-heading p {
+      font-size: 0.82rem; color: var(--pc-warm-gray);
+      margin: 0; line-height: 1.5;
+    }
+
+     
     .soothe-ritual {
       background: var(--pc-white); border: 1px solid var(--pc-border);
       border-radius: 12px; overflow: hidden; margin-bottom: 0;
@@ -851,13 +919,16 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
       .mpb-wrap { padding-left: 20px; padding-right: 20px; }
       .soothe-header { flex-direction: column; gap: 12px; }
       .eanz-badge { display: none; }
+      .shop-eanz-pill { display: flex !important; }
 
-      .soothe-bundle { padding: 16px; gap: 14px; }
-      .soothe-bundle-img { width: 80px; height: 80px; border-radius: 10px; }
-      .soothe-bundle-right { flex-direction: column; align-items: flex-start; }
-      .soothe-bundle-name { font-size: 1.05rem; }
-      .soothe-bundle-sub { margin-bottom: 8px; font-size: 0.75rem; }
-      .soothe-bundle-row { flex-direction: row; align-items: center; }
+      .soothe-bundle { padding: 14px 16px; gap: 12px; }
+      .soothe-bundle-img { width: 64px; height: 64px; border-radius: 10px; }
+      .soothe-bundle-right { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .soothe-bundle-name { font-size: 0.95rem; margin-bottom: 1px; }
+      .soothe-bundle-sub { font-size: 0.72rem; margin-bottom: 0; }
+      .soothe-bundle-row { flex-direction: row; align-items: center; gap: 10px; flex-wrap: nowrap; }
+      .soothe-bundle-price { font-size: 1.1rem; }
+      .soothe-bundle-atc { padding: 8px 16px; font-size: 0.78rem; }
 
       .mpb-inner { flex-direction: column; align-items: flex-start; gap: 10px; }
       .mpb-pills { display: none; }
@@ -880,12 +951,11 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 }
 </style>
 
-<div class="pp-topbar">2 Get 1 Free on Select 3pk Bundles · Free shipping over $80</div>
+<div class="pp-topbar">2 Get 1 Free on Select 3pk Bundles · Free shipping over $75</div>
 
 
 
 <header>
-    <link rel="preconnect" href="https://oso.nz" crossorigin>
     <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
     <link rel="preconnect" href="https://www.primalpantry.co.nz" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -894,7 +964,6 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     
     <link rel="preload" as="image" href="/img/logo/logo.webp" fetchpriority="high">
 
-    <script defer src="https://oso.nz/t.js" data-site="PrimalPantry.co.nz"></script>
     
 
     <script>
@@ -1020,13 +1089,18 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             <li class="p-2">
                 <a href="/shop/"><span>Shop Tallow Skincare</span></a>
             </li>
-            <li class="p-1"><a class="nav-child-link" href="/shop/"><span>Primalcare - Calm &amp; Soothe</span></a></li>
-            <li class="p-1"><a class="nav-child-link" href="/cosmetic-tallow-reviana/"><span>Reviana - Fine Lines &amp; Brightening</span></a></li>
+            <li class="p-1"><a class="nav-child-link" href="/shop/"><span>Shop Tallow Skincare</span></a></li>
             
             
             
             <li class="p-2">
                 <a href="/pages/reviews/"><span>Reviews</span></a>
+            </li>
+            
+            
+            
+            <li class="p-2">
+                <a href="/skin-quiz/"><span>Skin Quiz</span></a>
             </li>
             
             
@@ -1067,34 +1141,20 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                 <ul class="navbar-nav ms-auto">
                     
                     
-                    <li class="nav-item has-dropdown">
-                        <a class="nav-link" href="/shop/">
-                            Shop Tallow Skincare
-                            <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
-                        </a>
-                        <div class="nav-dropdown"><div class="nav-dropdown-inner">
-                            <a class="nav-dropdown-item" href="/shop/">
-                                <div class="nav-dropdown-icon soothe">🤍</div>
-                                <div>
-                                    <div class="nav-dropdown-label">Calm &amp; Soothe</div>
-                                    <div class="nav-dropdown-sub">PrimalCare · sensitive &amp; dry skin</div>
-                                </div>
-                            </a>
-                            <div class="nav-dropdown-divider"></div>
-                            <a class="nav-dropdown-item" href="/cosmetic-tallow-reviana/">
-                                <div class="nav-dropdown-icon reviana">✨</div>
-                                <div>
-                                    <div class="nav-dropdown-label">Brighten &amp; Refine</div>
-                                    <div class="nav-dropdown-sub">Reviana · Vitamin C, Bakuchiol &amp; more</div>
-                                </div>
-                            </a>
-                        </div></div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/shop/">Shop Tallow Skincare</a>
                     </li>
                     
                     
                     
                     <li class="nav-item">
                         <a class="nav-link " aria-current="page" href="/pages/reviews/">Reviews</a>
+                    </li>
+                    
+                    
+                    
+                    <li class="nav-item">
+                        <a class="nav-link " aria-current="page" href="/skin-quiz/">Skin Quiz</a>
                     </li>
                     
                     
@@ -1151,11 +1211,21 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             </span>
             <span style="font-weight:700;color:var(--pp-sage,#9CAF88);">$0.00</span>
         </div>
+        <div id="ppDrawerGiftRow" style="margin-top:8px;display:none;">
+            <div class="pp-drawer-subtotal" id="ppDrawerGiftApplied" style="color:#3a5c2e;display:none;">
+                <span style="display:flex;align-items:center;gap:5px;font-size:0.82rem;">🎁 Gift voucher</span>
+                <span style="font-weight:700;font-size:0.82rem;">−$5.00</span>
+            </div>
+            <div id="ppDrawerGiftNudge" style="display:none;background:#f5f8f2;border:1px solid #c8d9b8;border-radius:8px;padding:8px 12px;font-size:0.78rem;color:#3a5c2e;line-height:1.4;">
+                🎁 You have a <strong>$5 voucher</strong> — add <strong id="ppDrawerGiftNeeded">$25</strong> more to unlock it
+            </div>
+        </div>
         <div class="pp-drawer-subtotal" style="margin-top:10px;padding-top:10px;border-top:1px solid var(--pp-border,rgba(139,115,85,0.15));">
             <span style="font-weight:700;font-size:0.95rem;">Total</span>
             <span id="ppDrawerTotal" style="font-weight:700;font-size:0.95rem;">$0.00</span>
         </div>
         <button class="pp-drawer-checkout-btn" id="ppDrawerCheckout">Proceed to Checkout</button>
+        <div id="ppDrawerPoints" class="pp-drawer-points" style="display:none;"></div>
         <a href="/cart" class="pp-drawer-viewcart" id="ppDrawerViewCart">View Full Cart</a>
         <button class="pp-drawer-continue" id="ppDrawerContinue">Continue Shopping</button>
     </div>
@@ -1280,6 +1350,13 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 .pp-drawer-continue:hover { color: #4A3728; }
 
  
+.pp-drawer-points {
+    font-size: 0.7rem; color: #A89880; text-align: center;
+    margin: 8px 0 0; padding: 0;
+}
+.pp-drawer-points strong { color: #7A9168; font-weight: 600; }
+
+ 
 @keyframes ppCartBounce {
     0%, 100% { transform: scale(1); }
     20% { transform: scale(1.2) rotate(-10deg); }
@@ -1298,7 +1375,6 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 </style>
 
 
-<script src="https://js.stripe.com/v3/" defer></script>
 
 <script>
 (function() {
@@ -1309,21 +1385,9 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     
     var market = (typeof window.MARKET !== 'undefined') ? window.MARKET : 'NZ';
     var shippingCost = market === 'AU' ? 9.95 : 6.95;
-    var freeShipThreshold = market === 'AU' ? 150 : 80;
+    var freeShipThreshold = market === 'AU' ? 150 : 75;
     var currencyCode = market === 'AU' ? 'AUD' : 'NZD';
     var countryCode = market || 'NZ';
-
-    
-    var stripeKey = market === 'AU'
-        ? 'pk_live_51T7LFcJzNO9WRf4JmC4gn05XRKUSJ4h8YQ8d93SGfArOteqfBBgWWGQRyPYNubwdgcgerXV6UjT6MyeHH1arTd8I007AaC7fyZ'
-        : 'pk_live_51QKEaJFZRwx5tlYmhyIEFR3mGroCdpqIHHVT68y9jGnizGDZXypuSfjilbCSkMarU39KeV4kUulC6HfpReRSJwb000fyIehR3I';
-    var stripeInstance = null;
-    function getStripe() {
-        if (!stripeInstance && typeof Stripe !== 'undefined') {
-            try { stripeInstance = Stripe(stripeKey); } catch(e) {}
-        }
-        return stripeInstance;
-    }
 
     
     var overlay = document.getElementById('ppCartOverlay');
@@ -1424,8 +1488,8 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             if (item.orderType && item.orderType.indexOf('Quarterly') > -1) priceSuffix = '/3mo';
             else if (item.orderType && item.orderType.indexOf('Monthly') > -1) priceSuffix = '/mo';
 
-            var metaFlavor = (item.title === 'Tallow Soothing Routine') ? null : item.flavor;
-            var metaSize = (item.title === 'Tallow Soothing Routine') ? 'Balm, Shampoo bar & Lip balm' : item.size;
+            var metaFlavor = (item.title === 'Soothing Tallow Routine Starter Kit') ? null : item.flavor;
+            var metaSize = (item.title === 'Soothing Tallow Routine Starter Kit') ? 'Balm, Shampoo bar & Lip balm' : item.size;
             var meta = [metaFlavor, metaSize].filter(Boolean).join(' \u00b7 ');
             if (item.orderType && item.orderType !== 'Single') {
                 meta += (meta ? ' \u00b7 ' : '') + item.orderType;
@@ -1454,7 +1518,19 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         
         var freeShip = subtotal >= freeShipThreshold;
         var shipping = freeShip ? 0 : shippingCost;
-        var total = subtotal + shipping;
+        var giftCode = (typeof sessionStorage !== 'undefined') ? sessionStorage.getItem('pp_gift_code') : null;
+        var giftMinimum = 25;
+        var giftMet = giftCode && market === 'NZ' && subtotal >= giftMinimum;
+        var giftDiscount = giftMet ? 5 : 0;
+        var giftRow = document.getElementById('ppDrawerGiftRow');
+        var giftApplied = document.getElementById('ppDrawerGiftApplied');
+        var giftNudge = document.getElementById('ppDrawerGiftNudge');
+        var giftNeeded = document.getElementById('ppDrawerGiftNeeded');
+        if (giftRow) giftRow.style.display = giftCode && market === 'NZ' ? '' : 'none';
+        if (giftApplied) giftApplied.style.display = giftMet ? '' : 'none';
+        if (giftNudge) giftNudge.style.display = (giftCode && market === 'NZ' && !giftMet) ? '' : 'none';
+        if (giftNeeded && !giftMet) giftNeeded.textContent = '$' + (giftMinimum - subtotal).toFixed(2);
+        var total = Math.max(0, subtotal + shipping - giftDiscount);
 
         subtotalEl.textContent = '$' + subtotal.toFixed(2);
 
@@ -1470,6 +1546,16 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         if (shipCostEl) shipCostEl.textContent = '$' + shippingCost.toFixed(2);
 
         renderShipProgress(subtotal);
+
+        
+        var ptsEl = document.getElementById('ppDrawerPoints');
+        if (ptsEl && subtotal > 0) {
+            var pts = ppCalcPoints(subtotal);
+            ptsEl.innerHTML = 'Earn ~<strong>' + pts.toLocaleString() + ' PrimalPoints</strong> on this order';
+            ptsEl.style.display = '';
+        } else if (ptsEl) {
+            ptsEl.style.display = 'none';
+        }
 
         
         itemsEl.querySelectorAll('.pp-drawer-qty-btn').forEach(function(btn) {
@@ -1494,11 +1580,9 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     }
 
     
-    var attempts = 0;
     checkoutBtn.addEventListener('click', function() {
         var cart = getCart();
         if (!cart.length) return;
-        attempts = 0;
 
         
         if (typeof gtag !== 'undefined') {
@@ -1514,22 +1598,22 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         
         if (typeof oso === 'function') oso('event', 'proceed to checkout');
 
-        doCheckout();
-    });
-
-    function doCheckout() {
-        var cart = getCart();
-        if (!cart.length) return;
-        checkoutBtn.disabled = true;
-        checkoutBtn.textContent = attempts > 0 ? 'Retrying\u2026' : 'Processing\u2026';
-
         
+        checkoutBtn.disabled = true;
+        checkoutBtn.textContent = 'Loading...';
+
         var ss = sessionStorage;
         var osoMeta = {
             landing_page: ss.getItem('oso_lp') || '',
             analytics_source: ss.getItem('oso_src') || '',
             magnet_product: ss.getItem('oso_magnet') || '',
             last_product_page: ss.getItem('oso_last_product') || ''
+        };
+        var clientInfo = {
+            browser: (navigator.userAgent.match(/(Chrome|Firefox|Safari|Edge|Opera)[\/\s](\d+)/) || [])[1] || '',
+            device: window.innerWidth < 768 ? 'Mobile' : window.innerWidth < 1024 ? 'Tablet' : 'Desktop',
+            os: navigator.platform || '',
+            screenWidth: window.innerWidth
         };
 
         fetch('/.netlify/functions/create-checkout-session', {
@@ -1539,35 +1623,29 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                 cart: cart.map(function(i) { return { priceId: i.priceId, quantity: parseInt(i.quantity) || 1 }; }),
                 countryCode: countryCode,
                 osoMeta: osoMeta,
-                clientInfo: {
-                    browser: (navigator.userAgent.match(/(Chrome|Firefox|Safari|Edge|Opera)[\/\s](\d+)/) || [])[1] || '',
-                    device: window.innerWidth < 768 ? 'Mobile' : window.innerWidth < 1024 ? 'Tablet' : 'Desktop',
-                    os: navigator.platform || '',
-                    screenWidth: window.innerWidth
-                }
+                clientInfo: clientInfo,
+                quizBundle: (function() {
+                    try {
+                        var pids = JSON.parse(localStorage.getItem('quiz_bundle_pids') || '[]');
+                        if (!pids.length) return false;
+                        var cartPids = cart.map(function(i) { return i.priceId; });
+                        return pids.every(function(pid) { return cartPids.indexOf(pid) !== -1; });
+                    } catch(e) { return false; }
+                })(),
+                giftCode: sessionStorage.getItem('pp_gift_code') || null
             })
         })
         .then(function(r) { return r.json(); })
         .then(function(data) {
-            var stripe = getStripe();
-            if (data.sessionId && stripe) {
-                localStorage.setItem('previouscart', JSON.stringify(cart));
-                stripe.redirectToCheckout({ sessionId: data.sessionId });
-            } else { handleErr(); }
+            if (data.clientSecret) {
+                sessionStorage.setItem('pp_checkout_secret', data.clientSecret);
+            }
+            window.location.href = '/checkout/';
         })
-        .catch(function() { handleErr(); });
-    }
-
-    function handleErr() {
-        attempts++;
-        if (attempts < 2) setTimeout(doCheckout, 1000);
-        else {
-            checkoutBtn.disabled = false;
-            checkoutBtn.textContent = 'Proceed to Checkout';
-            alert('Something went wrong. Please try again or contact us.');
-            attempts = 0;
-        }
-    }
+        .catch(function() {
+            window.location.href = '/checkout/';
+        });
+    });
 
     
     
@@ -1625,9 +1703,15 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         "Tallow Liquid Soap & Lotion Bundle":"/img/liquid-shop.webp",
         "The Golden Stack":"/img/shop/shop-gold.webp",
         "Tallow Soothing Routine":"/img/shop/shop-gold.webp",
+        "Soothing Tallow Routine Starter Kit":"/img/shop/shop-gold.webp",
         "Sensitive Skin Tallow Stack":"/img/sensitive-stack-tub.webp",
         "Tallow Anti-aging Kit":"/img/wrinkleskinnew.webp",
         "Tallow Balm - DIY kit":"/img/tallow-balm.webp",
+        "Reviana Day Cream":"/img/reviana-day-jar.webp",
+        "Reviana Night Cream":"/img/reviana-night-jar.webp",
+        "Reviana Eye Cream":"/img/reviana-eye-jar.webp",
+        "Reviana Serum":"/img/reviana-serum-jar.webp",
+        "Reviana Complete Ritual Bundle":"/img/r2-reviana-range-square.webp",
         "Reviana - Tallow Cosmetics":"/img/r2-reviana-range-square.webp",
         "Nourishing Tallow Conditioner":"/img/conditioner-shop.webp"
     };
@@ -1729,7 +1813,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 <script>
     window.onload = function() {
         var shipping_rate = document.getElementById('shipping_rate');
-        if (shipping_rate) { shipping_rate.textContent = '$80'; }
+        if (shipping_rate) { shipping_rate.textContent = '$75'; }
         document.querySelectorAll('.au-content').forEach(function(item) { item.style.display = 'none'; });
         document.querySelectorAll('.nz-content').forEach(function(item) { item.style.display = 'inline'; });
     };
@@ -1745,12 +1829,24 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     
 
     
+    <div style="background:#F0EBE3;text-align:center;padding:14px 20px;font-family:'DM Sans',sans-serif;font-size:0.92rem;color:#3D2B1F;">
+      Not sure which to choose? <a href="/skin-quiz/" style="color:#6B8F5B;font-weight:700;text-decoration:underline;">Try our Skin Quiz</a>
+    </div>
+
+    
     <section class="soothe-section">
       <div class="soothe-inner">
 
         
         <div class="soothe-header">
           <div>
+            <div class="shop-eanz-pill" style="float:right;margin:0 0 4px 10px;z-index:5;display:none;align-items:center;cursor:pointer;" onclick="var m=document.getElementById('shop-eanz-modal');if(m){m.classList.add('is-open');document.body.style.overflow='hidden';}">
+              <img src="/img/home/eanz.webp" alt="Eczema Association NZ" style="width:53px;height:53px;object-fit:contain;position:relative;z-index:2;flex-shrink:0;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.12));">
+              <div style="background:rgba(255,255,255,0.78);backdrop-filter:blur(4px);border-radius:0 14px 14px 0;padding:3px 7px 3px 4px;margin-left:-12px;box-shadow:0 1px 3px rgba(0,0,0,0.1);display:flex;flex-direction:column;justify-content:center;">
+                <span style="font-size:8px;color:#6B5849;font-weight:700;line-height:1.2;padding-left:14px;">Gold Supporter</span>
+                <span style="font-size:7px;color:#9CAF88;text-decoration:underline;padding-left:14px;">What's this?</span>
+              </div>
+            </div>
             <span class="soothe-eyebrow">PrimalCare · Calm &amp; Soothe</span>
             <h2 class="soothe-title">The routine for <em>calm, comfortable skin.</em></h2>
             <p class="soothe-subtitle">Our best-sellers for sensitive, reactive and dry skin — built around pure tallow.</p>
@@ -1770,29 +1866,6 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         </div>
 
         
-        <div class="soothe-bundle soothe-bundle--stacked">
-          <span class="soothe-bundle-badge">Best Value</span>
-          <div class="soothe-bundle-imgs">
-            <div class="soothe-bundle-img"><img src="/img/shop/shop-gold.webp" alt="Tallow Soothing Routine Bundle" style="width:100%;height:100%;object-fit:cover;padding:0;"></div>
-          </div>
-          <div class="soothe-bundle-right">
-            <div class="soothe-bundle-text">
-              <div class="soothe-bundle-name">Tallow Soothing Routine</div>
-              <div class="soothe-bundle-sub">Soothe your face, lips, body and scalp</div>
-            </div>
-            <div class="soothe-bundle-row">
-              <span class="soothe-bundle-price">NZ$54.95</span>
-              <button class="soothe-bundle-atc"
-                data-atc-pid="price_1Rm1kFFZRwx5tlYmID3EjS6j"
-                data-atc-price="54.95"
-                data-atc-title="Tallow Soothing Routine"
-                data-atc-size="Balm, Shampoo bar & Lip balm"
-                data-atc-flavor="Unscented">
-                Add to Cart
-              </button>
-            </div>
-          </div>
-        </div>
 
 
       </div>
@@ -1808,7 +1881,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
           <input type="radio" name="product-filter" id="f-all" value="all" checked>
           <label for="f-all">All</label>
           <input type="radio" name="product-filter" id="f-bundle" value="bundle">
-          <label for="f-bundle">Bundle &amp; Save</label>
+          <label for="f-bundle">Bundles</label>
           <input type="radio" name="product-filter" id="f-skincare" value="skincare">
           <label for="f-skincare">Skincare</label>
           <input type="radio" name="product-filter" id="f-haircare" value="haircare">
@@ -1817,8 +1890,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
           <label for="f-balm">Balms</label>
         </div>
 
-        <div class="pp-card-grid" id="product-grid">
-            <div class="pp-card" data-category="skincare bestseller balm" id="prodcardtallowskin">
+        <div class="pp-card-grid" id="product-grid"><div class="pp-card" data-category="skincare bestseller balm" id="prodcardtallowskin">
     <span class="pp-card-badge">Best Seller</span>
     <div class="pp-card-img">
         <a href="/shop/products/tallow-skin">
@@ -1902,7 +1974,217 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         <button class="pp-var-submit" disabled>Add to Cart</button>
     </div>
 </div>
-<div class="pp-card" data-category="skincare bestseller balm" id="prodcard-honeybalm">
+<div class="product-card pp-card" data-category="haircare bestseller" id="prodcardshampoo">
+    <span class="pp-card-badge">Online Exclusive</span>
+    <div class="pp-card-img">
+        <a href="/shop/products/tallow-shampoo-bar">
+            <img src="/img/shampoobar/shampoo-bar-prodcutpage.webp" alt="Tallow Shampoo Bar" loading="lazy">
+        </a>
+    </div>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/shop/products/tallow-shampoo-bar">Tallow Shampoo Bar</a></div>
+        <div class="pp-card-sub">Scalp health shampoo</div>
+        <div class="pp-card-price">
+            
+            <span class="nz-content">$17.95</span>
+            <span class="au-content" style="display:none;">A$19.95</span>
+            
+        </div>
+        <div class="pp-card-cta">
+            
+            <button class="pp-card-atc" data-pp-atc
+                data-pp-pid="price_1Qh7s8FZRwx5tlYmoGIr66aB"
+                data-pp-pid-au="price_1T7QpRJzNO9WRf4J15bomC1c"
+                data-pp-price="17.95"
+                data-pp-price-au="19.95"
+                data-pp-title="Tallow Shampoo Bar"
+                data-pp-size="120g"
+                data-pp-flavor="peppermintrosemary"
+                data-pp-flavor-label="Unscented">Add to Cart</button>
+            
+            <a href="/shop/products/tallow-shampoo-bar" class="pp-card-view">View</a>
+        </div>
+    </div>
+</div>
+<div class="product-card pp-card" data-category="skincare bundle balm" id="prodcarddaynnight">
+    <span class="pp-card-badge" style="background:rgba(180,160,220,0.22);color:#7B5FA0;">Limited Edition Balm</span>
+    <div class="pp-card-img">
+        <a href="/shop/products/tallow-day-n-night-duo">
+            <img src="/img/limited-shop.webp" alt="Tallow Day n Night Balms" loading="lazy">
+        </a>
+    </div>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/shop/products/tallow-day-n-night-duo">Tallow Day n Night Balms</a></div>
+        <div class="pp-card-sub">Limited Edition!</div>
+        <div class="pp-card-price">
+            <span class="from">From </span>
+            <span class="nz-content">$29.95</span>
+            <span class="au-content" style="display:none;">A$29.95</span>
+        </div>
+        <div class="pp-card-cta">
+            <button class="pp-card-atc" data-pp-variants>Add to Cart</button>
+            <a href="/shop/products/tallow-day-n-night-duo" class="pp-card-view">View</a>
+        </div>
+    </div>
+    <script type="application/json" class="pp-card-variant-data">
+    {
+        "title": "Tallow Day n Night Balms",
+        "defaultScent": "midnight",
+        "scents": ["midnight","sunrise","duo"],
+        "scentLabels": {
+            "midnight": "Midnight Mousse",
+            "sunrise": "Sunrise Glow",
+            "duo": "Day n Night Duo"
+        },
+        "pricing": [
+            {"scent":"midnight","NZ":29.95},
+            {"scent":"sunrise","NZ":29.95},
+            {"scent":"duo","NZ":54.95}
+        ],
+        "ids": {
+            "single": {
+                "midnight": {"NZ":"price_1T6yIxFZRwx5tlYmyPkzCHof"},
+                "sunrise": {"NZ":"price_1T6zWoFZRwx5tlYm705284wk"},
+                "duo": {"NZ":"price_1T71VpFZRwx5tlYmVRWfXb8k"}
+            }
+        },
+        "flavorLabels": {
+            "midnight": "Cacao & Blood Orange (Limited Edition)",
+            "sunrise": "Ylang Ylang & Buckthorn (Limited Edition)",
+            "duo": "Day n Night Duo (Midnight Mousse + Sunrise Glow)"
+        }
+    }
+    </script>
+    <div class="pp-card-variants-panel">
+        <div class="pp-var-row">
+            <span class="pp-var-label">Option</span>
+            <select class="pp-var-select pp-var-scent"></select>
+        </div>
+        <div class="pp-var-price"></div>
+        <button class="pp-var-submit" disabled>Add to Cart</button>
+    </div>
+</div>
+<div class="product-card pp-card" data-category="skincare bestseller" id="eyecream">
+    <span class="pp-card-badge special">20% Off</span>
+    <div class="pp-card-img">
+        <a href="/shop/products/tallow-eye-cream">
+            <img src="/img/shop/eyecream.webp" alt="Tallow Eye Cream" loading="lazy">
+        </a>
+    </div>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/shop/products/tallow-eye-cream">Tallow Eye Cream</a></div>
+        <div class="pp-card-sub">Gently wake up your undereyes</div>
+        <div class="pp-card-price">
+            
+            
+            <span class="nz-content"><span class="pp-card-price-was">$34.94</span>$27.95</span>
+            <span class="au-content" style="display:none;"><span class="pp-card-price-was">A$49.94</span>A$39.95</span>
+            
+        </div>
+        <div class="pp-card-cta">
+            
+            <button class="pp-card-atc" data-pp-atc
+                data-pp-pid="price_1SRemTFZRwx5tlYm6MEoiaQK"
+                data-pp-pid-au="price_1T7QpmJzNO9WRf4Joez0FtHQ"
+                data-pp-price="27.95"
+                data-pp-price-au="39.95"
+                data-pp-title="Tallow Eye Cream"
+                data-pp-size="15ml"
+                data-pp-flavor="manukahoney_vitc">Add to Cart</button>
+            
+            <a href="/shop/products/tallow-eye-cream" class="pp-card-view">View</a>
+        </div>
+    </div>
+</div>
+
+            <div class="pp-grid-heading" data-section-for="skincare">
+              <h3>Next Step — <em>Reviana</em></h3>
+              <p>Our next-level soothing tallow cosmetics, designed for beauty & zero hint of tallow.</p>
+            </div>
+<div class="product-card pp-card" data-category="skincare" id="prodcard-reviana-day">
+    <span class="pp-card-badge" style="background:#6B8F5B;color:#fff;">-20% Launch Deal</span>
+    <div class="pp-card-img">
+        <a href="/cosmetic-tallow-reviana/day-cream/">
+            <img src="/img/reviana-day-jar.webp" alt="Reviana Day Cream 50ml" loading="lazy">
+        </a>
+    </div>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/cosmetic-tallow-reviana/day-cream/">Tallow Day Cream</a></div>
+        <div class="pp-card-sub">Barrier building moisturiser · 50ml</div>
+        <div class="pp-card-price">
+            <span class="nz-content">$39.95 <span style="text-decoration:line-through;color:#877B71;font-size:0.85em;">$49.95</span></span>
+        </div>
+        <div class="pp-card-cta">
+            <button class="pp-card-atc" data-atc-pid="price_1TEzSzFZRwx5tlYmfcgyCYpQ" data-atc-price="39.95" data-atc-title="Reviana Day Cream" data-atc-size="50ml" data-atc-flavor="Day Formula" data-atc-image="/img/reviana-day-jar.webp">Add to Cart</button>
+            <a href="/cosmetic-tallow-reviana/day-cream/" class="pp-card-view">View</a>
+        </div>
+    </div>
+</div>
+
+<div class="product-card pp-card" data-category="skincare" id="prodcard-reviana-night">
+    <span class="pp-card-badge" style="background:#6B8F5B;color:#fff;">-20% Launch Deal</span>
+    <div class="pp-card-img">
+        <a href="/cosmetic-tallow-reviana/night-cream/">
+            <img src="/img/reviana-night-jar.webp" alt="Reviana Night Cream 50ml" loading="lazy">
+        </a>
+    </div>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/cosmetic-tallow-reviana/night-cream/">Tallow Night Cream</a></div>
+        <div class="pp-card-sub">Overnight renewal cream · 50ml</div>
+        <div class="pp-card-price">
+            <span class="nz-content">$39.95 <span style="text-decoration:line-through;color:#877B71;font-size:0.85em;">$49.95</span></span>
+        </div>
+        <div class="pp-card-cta">
+            <button class="pp-card-atc" data-atc-pid="price_1TEzTDFZRwx5tlYmJexNM4nn" data-atc-price="39.95" data-atc-title="Reviana Night Cream" data-atc-size="50ml" data-atc-flavor="Night Formula" data-atc-image="/img/reviana-night-jar.webp">Add to Cart</button>
+            <a href="/cosmetic-tallow-reviana/night-cream/" class="pp-card-view">View</a>
+        </div>
+    </div>
+</div>
+
+<div class="product-card pp-card" data-category="skincare" id="prodcard-reviana-eye">
+    <span class="pp-card-badge" style="background:#6B8F5B;color:#fff;">-20% Launch Deal</span>
+    <div class="pp-card-img">
+        <a href="/cosmetic-tallow-reviana/eye-cream/">
+            <img src="/img/reviana-eye-jar.webp" alt="Reviana Eye Cream 15ml" loading="lazy">
+        </a>
+    </div>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/cosmetic-tallow-reviana/eye-cream/">Tallow Eye Cream</a></div>
+        <div class="pp-card-sub">Brightening eye treatment · 15ml</div>
+        <div class="pp-card-price">
+            <span class="nz-content">$43.95 <span style="text-decoration:line-through;color:#877B71;font-size:0.85em;">$54.95</span></span>
+        </div>
+        <div class="pp-card-cta">
+            <button class="pp-card-atc" data-atc-pid="price_1TEzVaFZRwx5tlYmWnJsFdwN" data-atc-price="43.95" data-atc-title="Reviana Eye Cream" data-atc-size="15ml" data-atc-flavor="Vitamin C" data-atc-image="/img/reviana-eye-jar.webp">Add to Cart</button>
+            <a href="/cosmetic-tallow-reviana/eye-cream/" class="pp-card-view">View</a>
+        </div>
+    </div>
+</div>
+
+<div class="product-card pp-card" data-category="skincare" id="prodcard-reviana-serum">
+    <span class="pp-card-badge" style="background:#B8860B;color:#fff;">On Backorder</span>
+    <div class="pp-card-img">
+        <a href="/cosmetic-tallow-reviana/serum/">
+            <img src="/img/reviana-serum-jar.webp" alt="Reviana Serum 15ml" loading="lazy" style="object-position:center 30%;">
+        </a>
+    </div>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/cosmetic-tallow-reviana/serum/">Tallow Serum</a></div>
+        <div class="pp-card-sub">Complexion-refining serum · 15ml</div>
+        <div class="pp-card-price">
+            <span class="nz-content">$47.95 <span style="text-decoration:line-through;color:#877B71;font-size:0.85em;">$59.95</span></span>
+        </div>
+        <div style="font-size:0.72rem;color:#B8860B;margin-top:2px;">On backorder — ships when back in stock</div>
+        <div class="pp-card-cta">
+            <button class="pp-card-atc" data-atc-pid="price_1TEzeQFZRwx5tlYmSCFller5" data-atc-price="47.95" data-atc-title="Reviana Serum" data-atc-size="15ml" data-atc-flavor="Complexion Serum" data-atc-image="/img/reviana-serum-jar.webp">Add to Cart</button>
+            <a href="/cosmetic-tallow-reviana/serum/" class="pp-card-view">View</a>
+        </div>
+    </div>
+</div>
+
+            <div class="pp-grid-heading" data-section-for="all">
+              <h3>All Products</h3>
+            </div><div class="pp-card" data-category="skincare bestseller balm" id="prodcard-honeybalm">
     <span class="pp-card-badge">Best Seller</span>
     <div class="pp-card-img">
         <a href="/shop/products/tallow-honey-balm">
@@ -1964,70 +2246,6 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         <button class="pp-var-submit" disabled>Add to Cart</button>
     </div>
 </div>
-<div class="product-card pp-card" data-category="skincare bestseller" id="eyecream">
-    <span class="pp-card-badge special">20% Off</span>
-    <div class="pp-card-img">
-        <a href="/shop/products/tallow-eye-cream">
-            <img src="/img/shop/eyecream.webp" alt="Tallow Eye Cream" loading="lazy">
-        </a>
-    </div>
-    <div class="pp-card-body">
-        <div class="pp-card-name"><a href="/shop/products/tallow-eye-cream">Tallow Eye Cream</a></div>
-        <div class="pp-card-sub">Gently wake up your undereyes</div>
-        <div class="pp-card-price">
-            
-            
-            <span class="nz-content"><span class="pp-card-price-was">$34.94</span>$27.95</span>
-            <span class="au-content" style="display:none;"><span class="pp-card-price-was">A$49.94</span>A$39.95</span>
-            
-        </div>
-        <div class="pp-card-cta">
-            
-            <button class="pp-card-atc" data-pp-atc
-                data-pp-pid="price_1SRemTFZRwx5tlYm6MEoiaQK"
-                data-pp-pid-au="price_1T7QpmJzNO9WRf4Joez0FtHQ"
-                data-pp-price="27.95"
-                data-pp-price-au="39.95"
-                data-pp-title="Tallow Eye Cream"
-                data-pp-size="15ml"
-                data-pp-flavor="manukahoney_vitc">Add to Cart</button>
-            
-            <a href="/shop/products/tallow-eye-cream" class="pp-card-view">View</a>
-        </div>
-    </div>
-</div>
-<div class="product-card pp-card" data-category="haircare bestseller" id="prodcardshampoo">
-    <span class="pp-card-badge">Online Exclusive</span>
-    <div class="pp-card-img">
-        <a href="/shop/products/tallow-shampoo-bar">
-            <img src="/img/shampoobar/shampoo-bar-prodcutpage.webp" alt="Tallow Shampoo Bar" loading="lazy">
-        </a>
-    </div>
-    <div class="pp-card-body">
-        <div class="pp-card-name"><a href="/shop/products/tallow-shampoo-bar">Tallow Shampoo Bar</a></div>
-        <div class="pp-card-sub">Scalp health shampoo</div>
-        <div class="pp-card-price">
-            
-            <span class="nz-content">$17.95</span>
-            <span class="au-content" style="display:none;">A$19.95</span>
-            
-        </div>
-        <div class="pp-card-cta">
-            
-            <button class="pp-card-atc" data-pp-atc
-                data-pp-pid="price_1Qh7s8FZRwx5tlYmoGIr66aB"
-                data-pp-pid-au="price_1T7QpRJzNO9WRf4J15bomC1c"
-                data-pp-price="17.95"
-                data-pp-price-au="19.95"
-                data-pp-title="Tallow Shampoo Bar"
-                data-pp-size="120g"
-                data-pp-flavor="peppermintrosemary"
-                data-pp-flavor-label="Unscented">Add to Cart</button>
-            
-            <a href="/shop/products/tallow-shampoo-bar" class="pp-card-view">View</a>
-        </div>
-    </div>
-</div>
 <div class="product-card pp-card" data-category="skincare" id="prodcardtallowserum">
     <span class="pp-card-badge">Best Seller</span>
     <div class="pp-card-img">
@@ -2056,85 +2274,6 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                 data-pp-flavor="vitc">Add to Cart</button>
             
             <a href="/shop/products/tallow-serum" class="pp-card-view">View</a>
-        </div>
-    </div>
-</div>
-<div class="product-card pp-card" data-category="skincare bundle balm" id="prodcarddaynnight">
-    <span class="pp-card-badge" style="background:rgba(180,160,220,0.22);color:#7B5FA0;">Balm of the Month</span>
-    <div class="pp-card-img">
-        <a href="/shop/products/tallow-day-n-night-duo">
-            <img src="/img/limited-shop.webp" alt="Tallow Day n Night Balms" loading="lazy">
-        </a>
-    </div>
-    <div class="pp-card-body">
-        <div class="pp-card-name"><a href="/shop/products/tallow-day-n-night-duo">Tallow Day n Night Balms</a></div>
-        <div class="pp-card-sub">Limited Edition!</div>
-        <div class="pp-card-price">
-            <span class="from">From </span>
-            <span class="nz-content">$29.95</span>
-            <span class="au-content" style="display:none;">A$29.95</span>
-        </div>
-        <div class="pp-card-cta">
-            <button class="pp-card-atc" data-pp-variants>Add to Cart</button>
-            <a href="/shop/products/tallow-day-n-night-duo" class="pp-card-view">View</a>
-        </div>
-    </div>
-    <script type="application/json" class="pp-card-variant-data">
-    {
-        "title": "Tallow Day n Night Balms",
-        "defaultScent": "midnight",
-        "scents": ["midnight","sunrise","duo"],
-        "scentLabels": {
-            "midnight": "Midnight Mousse",
-            "sunrise": "Sunrise Glow",
-            "duo": "Day n Night Duo"
-        },
-        "pricing": [
-            {"scent":"midnight","NZ":29.95},
-            {"scent":"sunrise","NZ":29.95},
-            {"scent":"duo","NZ":54.95}
-        ],
-        "ids": {
-            "single": {
-                "midnight": {"NZ":"price_1T6yIxFZRwx5tlYmyPkzCHof"},
-                "sunrise": {"NZ":"price_1T6zWoFZRwx5tlYm705284wk"},
-                "duo": {"NZ":"price_1T71VpFZRwx5tlYmVRWfXb8k"}
-            }
-        },
-        "flavorLabels": {
-            "midnight": "Cacao & Blood Orange (Limited Edition)",
-            "sunrise": "Ylang Ylang & Buckthorn (Limited Edition)",
-            "duo": "Day n Night Duo (Midnight Mousse + Sunrise Glow)"
-        }
-    }
-    </script>
-    <div class="pp-card-variants-panel">
-        <div class="pp-var-row">
-            <span class="pp-var-label">Option</span>
-            <select class="pp-var-select pp-var-scent"></select>
-        </div>
-        <div class="pp-var-price"></div>
-        <button class="pp-var-submit" disabled>Add to Cart</button>
-    </div>
-</div>
-<div class="pp-card pp-card--reviana" data-category="skincare" id="prodcard-reviana">
-    <div class="pp-card-img" style="position: relative;">
-        <a href="/cosmetic-tallow-reviana/">
-            <img src="/img/r2-reviana-range-square.webp" alt="Reviana cosmetic tallow skincare range" loading="lazy">
-        </a>
-        <div class="pp-reviana-pills">
-            <span>Vitamin C</span>
-            <span>Bakuchiol</span>
-            <span>Ceramides</span>
-            <span>Peptides</span>
-        </div>
-    </div>
-    <div class="pp-card-body">
-        <div class="pp-card-name"><a href="/cosmetic-tallow-reviana/">Reviana - Tallow Cosmetics (awareness card)</a></div>
-        <div class="pp-card-sub">Tallow + Anti-aging & Brightening Actives</div>
-        <div class="pp-card-cta">
-            <a href="/cosmetic-tallow-reviana/" class="pp-card-atc" style="text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;">Discover</a>
-            <a href="/cosmetic-tallow-reviana/" class="pp-card-view">View</a>
         </div>
     </div>
 </div>
@@ -2403,7 +2542,6 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     </div>
 </div>
 <div class="product-card pp-card" data-category="skincare" id="prodcardtallowbundle">
-    <span class="pp-card-badge special">25% Off</span>
     <div class="pp-card-img">
         <a href="/shop/products/tallow-deodorant">
             <img src="/img/shop/deod.webp" alt="Tallow Deodorant" loading="lazy">
@@ -2415,8 +2553,8 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         <div class="pp-card-price">
             
             
-            <span class="nz-content"><span class="pp-card-price-was">$17.95</span>$13.46</span>
-            <span class="au-content" style="display:none;"><span class="pp-card-price-was">A$26.60</span>A$19.95</span>
+            <span class="nz-content">$13.46</span>
+            <span class="au-content" style="display:none;">A$19.95</span>
             
         </div>
         <div class="pp-card-cta">
@@ -2504,8 +2642,8 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         </a>
     </div>
     <div class="pp-card-body">
-        <div class="pp-card-name"><a href="/shop/products/golden-tallow-honey-stack/">Tallow Soothing Routine (bundle)</a></div>
-        <div class="pp-card-sub">Soothe your face, lips, body and scalp</div>
+        <div class="pp-card-name"><a href="/shop/products/golden-tallow-honey-stack/">Soothing Tallow Routine Starter Kit (bundle)</a></div>
+        <div class="pp-card-sub">Everything you need to soothe your face, lips, body and scalp</div>
         <div class="pp-card-price">
             
             <span class="nz-content"><span class="pp-card-price-was">$60.85</span>$54.95</span>
@@ -2519,7 +2657,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                 data-pp-pid-au="price_1T7S3kJzNO9WRf4JLnM0nGoh"
                 data-pp-price="54.95"
                 data-pp-price-au="59.95"
-                data-pp-title="Tallow Soothing Routine"
+                data-pp-title="Soothing Tallow Routine Starter Kit"
                 data-pp-size="Balm, Shampoo bar & Lip balm"
                 data-pp-flavor="unscented">Add to Cart</button>
             
@@ -2806,6 +2944,27 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         </div>
     </div>
 </div>
+
+<div class="product-card pp-card" data-category="skincare bundle" id="prodcard-reviana-bundle">
+    <span class="pp-card-badge" style="background:rgba(45,61,34,0.12);color:#2D3D22;">Save 15%</span>
+    <div class="pp-card-img">
+        <a href="/cosmetic-tallow-reviana/">
+            <img src="/img/r2-reviana-range-square.webp" alt="Reviana Complexion Bundle" loading="lazy">
+        </a>
+    </div>
+    <div class="pp-card-body">
+        <div class="pp-card-name"><a href="/cosmetic-tallow-reviana/">Reviana Complexion Bundle</a></div>
+        <div class="pp-card-sub">Day + Night + Eye + Serum</div>
+        <div class="pp-card-price">
+            <span class="nz-content">$161.1</span>
+        </div>
+        <div style="font-size:0.72rem;color:#B8860B;margin-top:2px;">Serum backorder — ships separate</div>
+        <div class="pp-card-cta">
+            <button class="pp-card-atc" data-atc-pid="price_1TF02WFZRwx5tlYm7Ogoducx" data-atc-price="161.1" data-atc-title="Reviana Complexion Bundle" data-atc-size="Full Set" data-atc-flavor="All 4 Products" data-atc-image="/img/r2-reviana-range-square.webp">Add to Cart</button>
+            <a href="/cosmetic-tallow-reviana/" class="pp-card-view">View</a>
+        </div>
+    </div>
+</div>
 </div>
       </div>
     </section>
@@ -2866,11 +3025,18 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         var val = $(this).val();
         if (val === 'all') {
           $('.all-products-section .pp-card').show();
+          $('.all-products-section .pp-grid-heading').show();
         } else {
           $('.all-products-section .pp-card').hide();
           $('.all-products-section .pp-card').filter(function () {
             return ($(this).data('category') || '').split(' ').includes(val);
           }).show();
+           
+          $('.all-products-section .pp-grid-heading').each(function () {
+            var $heading = $(this);
+            var $next = $heading.nextUntil('.pp-grid-heading').filter('.pp-card');
+            $heading.toggle($next.filter(':visible').length > 0);
+          });
         }
       });
       $('input[name="product-filter"]:checked').change();
@@ -2905,21 +3071,29 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 
   
   
-  <script src='/js/clipboard.min.js' defer></script>
-  <script src='/js/highlight.min.js' defer></script>
-  <script src='/js/highlightjs-line-numbers.min.js' defer></script>
-  <script src='/js/sweetalert2.min.js' defer></script>
   <script>
-    
-    window.addEventListener('load', function() {
-      if (typeof hljs !== 'undefined') {
-        hljs.highlightAll();
-        hljs.initLineNumbersOnLoad();
-      }
-      if (typeof ClipboardJS !== 'undefined') {
-        new ClipboardJS('.url');
-      }
-    });
+    if (document.querySelector('pre code')) {
+      ['\/js\/clipboard.min.js',
+       '\/js\/highlight.min.js',
+       '\/js\/highlightjs-line-numbers.min.js',
+       '\/js\/sweetalert2.min.js'
+      ].forEach(function(src) {
+        var s = document.createElement('script');
+        s.src = src;
+        s.defer = true;
+        document.head.appendChild(s);
+      });
+
+      window.addEventListener('load', function() {
+        if (typeof hljs !== 'undefined') {
+          hljs.highlightAll();
+          hljs.initLineNumbersOnLoad();
+        }
+        if (typeof ClipboardJS !== 'undefined') {
+          new ClipboardJS('.url');
+        }
+      });
+    }
 
     function OnClickURL() {
       if (typeof Swal !== 'undefined') {
@@ -2954,9 +3128,13 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 
     if (!getCookie('landingURL')) {
         setCookie('landingURL', window.location.href, 30);
-        console.log('Landing URL stored:', window.location.href);
-    } else {
-        console.log('Landing URL already exists:', getCookie('landingURL'));
+    }
+
+    
+    var refParam = new URLSearchParams(window.location.search).get('ref');
+    if (refParam) {
+        setCookie('pp_ref', refParam, 30);
+        fetch('/.netlify/functions/affiliate-track?code=' + encodeURIComponent(refParam) + '&page=' + encodeURIComponent(window.location.pathname)).catch(function(){});
     }
 });
   </script>
@@ -3073,6 +3251,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         <a href="/tallow-for-wrinkles/">Tallow Cream & Anti-Aging</a>
         <a href="/shop/">Tallow Shampoo & Haircare</a>
         <a href="/shop/">Tallow Lip Balm</a>
+        <a href="/cosmetic-tallow-reviana/">Brighten &amp; Refine — Reviana</a>
         <a href="/subscribe/">Subscribe &amp; Save</a>
       </div>
       <div class="pp-f-col">
@@ -3081,7 +3260,6 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         <a href="/faq/">FAQs</a>
         <a href="/pages/refund-policy/">Refund Policy</a>
         <a href="https://billing.stripe.com/p/login/4gMeVd6XT3X0b9qabyco000" target="_blank">Manage Subscription</a>
-        <a href="/stockists/">Where to Buy — Stockists</a>
       </div>
       <div class="pp-f-col">
         <h4>Company</h4>
@@ -3089,6 +3267,8 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         <a href="/pages/reviews/">Primal Pantry Reviews</a>
         <a href="/posts/">Blog</a>
         <a href="/contact/">Contact</a>
+        <a href="/affiliates/">Become an Affiliate</a>
+        <a href="/affiliates/login">Affiliate Login</a>
       </div>
     </div>
     
