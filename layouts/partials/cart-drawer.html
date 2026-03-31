@@ -47,7 +47,7 @@
             <span id="ppDrawerTotal" style="font-weight:700;font-size:0.95rem;">$0.00</span>
         </div>
         <button class="pp-drawer-checkout-btn" id="ppDrawerCheckout">Proceed to Checkout</button>
-        <!-- PP DISABLED <div id="ppDrawerPoints" class="pp-drawer-points" style="display:none;"></div> PP DISABLED -->
+        <div id="ppDrawerPoints" class="pp-drawer-points" style="display:none;"></div>
         <a href="/cart" class="pp-drawer-viewcart" id="ppDrawerViewCart">View Full Cart</a>
         <button class="pp-drawer-continue" id="ppDrawerContinue">Continue Shopping</button>
     </div>
@@ -369,15 +369,15 @@
 
         renderShipProgress(subtotal);
 
-        // PrimalPoints hint — DISABLED
-        // var ptsEl = document.getElementById('ppDrawerPoints');
-        // if (ptsEl && market === 'NZ' && subtotal > 0) {
-        //     var pts = ppCalcPoints(subtotal);
-        //     ptsEl.innerHTML = 'Earn ~<strong>' + pts.toLocaleString() + ' PrimalPoints</strong> on this order';
-        //     ptsEl.style.display = '';
-        // } else if (ptsEl) {
-        //     ptsEl.style.display = 'none';
-        // }
+        // PrimalPoints hint
+        var ptsEl = document.getElementById('ppDrawerPoints');
+        if (ptsEl && subtotal > 0) {
+            var pts = ppCalcPoints(subtotal);
+            ptsEl.innerHTML = 'Earn ~<strong>' + pts.toLocaleString() + ' PrimalPoints</strong> on this order';
+            ptsEl.style.display = '';
+        } else if (ptsEl) {
+            ptsEl.style.display = 'none';
+        }
 
         // Qty +/- handlers
         itemsEl.querySelectorAll('.pp-drawer-qty-btn').forEach(function(btn) {

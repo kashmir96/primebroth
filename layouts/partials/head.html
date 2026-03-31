@@ -8,12 +8,8 @@
   document.cookie = 'country_code=NZ; expires=' + new Date(Date.now() + 30*24*60*60*1000).toUTCString() + '; path=/';
 })();
 
-// ── PrimalPoints rates — DISABLED (uncomment to re-enable) ──
-// window.PP_RATES = null;
-// window.PP_RATES_LOADED = false;
-window.ppGetRate = function() { return 0; };
-window.ppCalcPoints = function() { return 0; };
-window.ppCalcAndShow = function() {};
+// ── PrimalPoints — simple: 100 points per $1 spent ──
+window.ppCalcPoints = function(price) { return Math.round((parseFloat(price) || 0) * 100); };
 
 // ── Gift link detection ──
 (function() {
