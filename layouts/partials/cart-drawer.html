@@ -240,6 +240,7 @@
         drawer.classList.add('open');
         overlay.classList.add('open');
         document.body.style.overflow = 'hidden';
+        if (typeof oso === 'function') oso('event', 'cart open');
     }
     function closeDrawer() {
         drawer.classList.remove('open');
