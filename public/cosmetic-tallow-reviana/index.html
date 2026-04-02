@@ -61,6 +61,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script><link rel="preconnect" href="https://oso.nz" crossorigin>
 <script defer src="https://oso.nz/t.js" data-site="PrimalPantry.co.nz"></script>
+<link rel="preconnect" href="https://cdn.usefathom.com" crossorigin>
+<script src="https://cdn.usefathom.com/script.js" data-site="SUFMJROW" defer></script>
 <link rel="prefetch" href="https://js.stripe.com/v3/" as="script">
 <script>
 
@@ -160,7 +162,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 }
 </style>
 
-<div class="pp-topbar">2 Get 1 Free on Select 3pk Bundles · Free shipping over $75</div>
+<div class="pp-topbar">Reviana Easter Deal! 20% off + Free Choc Lip Balm · Free shipping over $75</div>
 
 
 
@@ -298,7 +300,6 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             <li class="p-2">
                 <a href="/shop/"><span>Shop Tallow Skincare</span></a>
             </li>
-            <li class="p-1"><a class="nav-child-link" href="/shop/"><span>Shop Tallow Skincare</span></a></li>
             
             
             
@@ -309,13 +310,13 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             
             
             <li class="p-2">
-                <a href="/skin-quiz/"><span>Skin Quiz</span></a>
+                <a href="/pages/about/"><span>About</span></a>
             </li>
             
             
             
             <li class="p-2">
-                <a href="/pages/about/"><span>About</span></a>
+                <a href="/contact/"><span>Contact Us</span></a>
             </li>
             
             
@@ -363,13 +364,13 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                     
                     
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/skin-quiz/">Skin Quiz</a>
+                        <a class="nav-link " aria-current="page" href="/pages/about/">About</a>
                     </li>
                     
                     
                     
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/pages/about/">About</a>
+                        <a class="nav-link " aria-current="page" href="/contact/">Contact Us</a>
                     </li>
                     
                     
@@ -627,6 +628,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         drawer.classList.add('open');
         overlay.classList.add('open');
         document.body.style.overflow = 'hidden';
+        if (typeof oso === 'function') oso('event', 'cart open');
     }
     function closeDrawer() {
         drawer.classList.remove('open');
@@ -1063,25 +1065,24 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 .ta-eyebrow { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.18em; color: var(--ta-forest-light); margin-bottom: 12px; display: block; }
 
  
-.ta-hero { min-height: 92vh; display: grid; position: relative; overflow: hidden; }
+.ta-hero { display: grid; position: relative; overflow: hidden; }
 .ta-hero-bg-img { position: absolute; inset: 0; background-image: url('/img/aging-2.webp'); background-size: cover; background-position: center; z-index: 0; }
 .ta-hero-bg-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(25,36,19,0.91) 0%, rgba(61,82,48,0.78) 100%); }
-.ta-hero-inner { max-width: 1400px; margin: 0 auto; padding: 130px 80px 80px; width: 100%; position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.ta-hero-inner { max-width: 1400px; margin: 0 auto; padding: 70px 80px 50px; width: 100%; position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
 .ta-hero-pc-badge { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 100px; padding: 6px 16px 6px 10px; margin-bottom: 24px; width: fit-content; }
 .ta-hero-pc-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ta-stone); }
 .ta-hero-pc-badge span { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; color: rgba(255,255,255,0.7); }
-.ta-hero h1 { font-size: clamp(2.6rem, 3.8vw, 4.2rem); color: #fff; margin-bottom: 22px; line-height: 1.04; }
+.ta-hero h1 { font-size: clamp(1.9rem, 2.8vw, 3rem); color: #fff; margin-bottom: 14px; line-height: 1.1; }
 .ta-hero h1 em { color: var(--ta-stone-light); font-style: italic; }
-.ta-hero-sub { font-size: 1rem; color: rgba(255,255,255,0.62); line-height: 1.72; max-width: 540px; margin-bottom: 34px; }
-.ta-hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+.ta-hero-sub { font-size: 0.92rem; color: rgba(255,255,255,0.62); line-height: 1.65; max-width: 540px; margin-bottom: 24px; }
+.ta-hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
 .ta-hero .ta-btn-primary { background: #fff; color: var(--ta-forest) !important; }
 .ta-hero .ta-btn-primary:hover { background: var(--ta-stone-light); color: var(--ta-forest) !important; }
 .ta-hero .ta-btn-outline { border-color: rgba(255,255,255,0.7); color: #fff; }
 .ta-hero .ta-btn-outline:hover { background: rgba(255,255,255,0.15); color: #fff; border-color: #fff; }
-.ta-hero-tags { display: flex; gap: 10px; flex-wrap: wrap; }
-.ta-hero-tag { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 100px; padding: 5px 14px; font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,0.62); }
+.ta-hero-tags { display: none; }
 .ta-hero-image { display: flex; align-items: center; justify-content: flex-end; position: relative; }
-.ta-hero-image img { border-radius: 24px; width: 100%; max-height: 72vh; object-fit: cover; box-shadow: 0 40px 80px rgba(0,0,0,0.35); }
+.ta-hero-image img { border-radius: 24px; width: 100%; max-height: 40vh; object-fit: cover; box-shadow: 0 40px 80px rgba(0,0,0,0.35); }
 .ta-hero-float-card { position: absolute; bottom: 32px; left: -24px; background: #fff; border-radius: 16px; padding: 16px 20px; box-shadow: 0 12px 36px rgba(0,0,0,0.22); min-width: 210px; animation: ta-float 3s ease-in-out infinite; }
 .ta-hero-float-card .fc-label { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ta-forest-light); margin-bottom: 6px; }
 .ta-hero-float-card .fc-val { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--ta-black); }
@@ -1196,8 +1197,9 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 
  
 @media (max-width: 1024px) {
-  .ta-hero-inner { grid-template-columns: 1fr; padding: 24px 24px 56px; min-height: auto; gap: 40px; }
+  .ta-hero-inner { grid-template-columns: 1fr; padding: 48px 24px 48px; min-height: auto; gap: 0; }
   .ta-hero-float-card { display: none; }
+  .ta-hero-image { display: none; }
   .ta-bridge-inner { grid-template-columns: 1fr; padding: 0 24px; gap: 40px; }
   .ta-products-inner { padding: 0 24px; }
   .ta-p-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1266,54 +1268,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
       <span class="ta-eyebrow">The Collection</span>
       <h2>Four products. One elevated face ritual.</h2>
       <p>Ultra-purified cosmetic tallow, elevated with science-backed actives for brighter, smoother, more even-looking skin.</p>
-      <p style="font-style:italic;color:var(--ta-bark-light,#6B4D38);margin-top:8px;">New formulations that smell so good you'll swear they're fat free.</p>
-    </div>
-
-    <div class="ta-ritual-strip">
-      <div class="ta-ritual-half">
-        <div class="ta-ritual-half-label">☀️ Morning — before makeup</div>
-        <div class="ta-ritual-steps">
-          <div class="ta-ritual-step"><span class="ta-ritual-step-dot">1</span> Serum</div>
-          <span class="ta-ritual-arrow">→</span>
-          <div class="ta-ritual-step"><span class="ta-ritual-step-dot">2</span> Day Cream</div>
-          <span class="ta-ritual-arrow">→</span>
-          <div class="ta-ritual-step ta-ritual-step-ghost">SPF (yours)</div>
-        </div>
-      </div>
-      <div class="ta-ritual-half">
-        <div class="ta-ritual-half-label">🌙 Night</div>
-        <div class="ta-ritual-steps">
-          <div class="ta-ritual-step"><span class="ta-ritual-step-dot">1</span> Serum</div>
-          <span class="ta-ritual-arrow">→</span>
-          <div class="ta-ritual-step"><span class="ta-ritual-step-dot">2</span> Night Cream</div>
-          <span class="ta-ritual-arrow">→</span>
-          <div class="ta-ritual-step"><span class="ta-ritual-step-dot">3</span> Eye Cream</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="ta-bundle-card ta-reveal">
-      <span class="ta-bundle-badge">Best Value</span>
-      <div class="ta-bundle-imgs">
-        <div class="ta-bundle-img"><img src="/img/reviana-serum-jar.webp" alt="Serum" style="object-fit:cover;padding:0;"></div>
-        <div class="ta-bundle-img"><img src="/img/reviana-day-jar.webp" alt="Day Cream" style="object-fit:cover;padding:0;"></div>
-        <div class="ta-bundle-img"><img src="/img/reviana-night-jar.webp" alt="Night Cream" style="object-fit:cover;padding:0;"></div>
-        <div class="ta-bundle-img"><img src="/img/reviana-eye-jar.webp" alt="Eye Cream" style="object-fit:cover;padding:0;"></div>
-      </div>
-      <div class="ta-bundle-content">
-        <h3>The Complete Ritual — All 4 Products</h3>
-        <p>Serum · Day Cream · Night Cream · Eye Cream — the full Reviana ritual for glow, tone, texture and a more youthful-looking complexion.</p>
-        <div class="ta-bundle-price-row">
-          <span class="ta-bundle-price">NZ$161.1</span>
-          <span class="ta-bundle-was">NZ$214.8</span>
-          <span class="ta-bundle-save">-25% Launch Deal</span>
-        </div>
-        <div style="font-size:0.75rem;color:rgba(255,255,255,0.55);margin-bottom:10px;">⚠️ Serum on backorder — ships separately when back in stock</div>
-        <button class="ta-bundle-atc" data-atc-pid="price_1TF02WFZRwx5tlYm7Ogoducx" data-atc-price="161.1" data-atc-title="Reviana Complete Ritual Bundle" data-atc-size="Full Set" data-atc-flavor="All 4 Products" data-atc-image="/img/r2-reviana-range-square.webp">
-          Add Bundle to Cart
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
-      </div>
+      <p style="font-style:italic;color:var(--ta-bark-light,#6B4D38);margin-top:8px;">Smells so good you'll swear it's fat free.</p>
     </div>
 
     <div class="ta-p-grid">
@@ -1374,6 +1329,53 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         </div>
       </div>
     </div>
+    <div class="ta-ritual-strip">
+      <div class="ta-ritual-half">
+        <div class="ta-ritual-half-label">☀️ Morning — before makeup</div>
+        <div class="ta-ritual-steps">
+          <div class="ta-ritual-step"><span class="ta-ritual-step-dot">1</span> Serum</div>
+          <span class="ta-ritual-arrow">→</span>
+          <div class="ta-ritual-step"><span class="ta-ritual-step-dot">2</span> Day Cream</div>
+          <span class="ta-ritual-arrow">→</span>
+          <div class="ta-ritual-step ta-ritual-step-ghost">SPF (yours)</div>
+        </div>
+      </div>
+      <div class="ta-ritual-half">
+        <div class="ta-ritual-half-label">🌙 Night</div>
+        <div class="ta-ritual-steps">
+          <div class="ta-ritual-step"><span class="ta-ritual-step-dot">1</span> Serum</div>
+          <span class="ta-ritual-arrow">→</span>
+          <div class="ta-ritual-step"><span class="ta-ritual-step-dot">2</span> Night Cream</div>
+          <span class="ta-ritual-arrow">→</span>
+          <div class="ta-ritual-step"><span class="ta-ritual-step-dot">3</span> Eye Cream</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ta-bundle-card ta-reveal">
+      <span class="ta-bundle-badge">Best Value</span>
+      <div class="ta-bundle-imgs">
+        <div class="ta-bundle-img"><img src="/img/reviana-serum-jar.webp" alt="Serum" style="object-fit:cover;padding:0;"></div>
+        <div class="ta-bundle-img"><img src="/img/reviana-day-jar.webp" alt="Day Cream" style="object-fit:cover;padding:0;"></div>
+        <div class="ta-bundle-img"><img src="/img/reviana-night-jar.webp" alt="Night Cream" style="object-fit:cover;padding:0;"></div>
+        <div class="ta-bundle-img"><img src="/img/reviana-eye-jar.webp" alt="Eye Cream" style="object-fit:cover;padding:0;"></div>
+      </div>
+      <div class="ta-bundle-content">
+        <h3>The Complete Ritual — All 4 Products</h3>
+        <p>Serum · Day Cream · Night Cream · Eye Cream — the full Reviana ritual for glow, tone, texture and a more youthful-looking complexion.</p>
+        <div class="ta-bundle-price-row">
+          <span class="ta-bundle-price">NZ$161.1</span>
+          <span class="ta-bundle-was">NZ$214.8</span>
+          <span class="ta-bundle-save">-25% Launch Deal</span>
+        </div>
+        <div style="font-size:0.75rem;color:rgba(255,255,255,0.55);margin-bottom:10px;">⚠️ Serum on backorder — ships separately when back in stock</div>
+        <button class="ta-bundle-atc" data-atc-pid="price_1TF02WFZRwx5tlYm7Ogoducx" data-atc-price="161.1" data-atc-title="Reviana Complete Ritual Bundle" data-atc-size="Full Set" data-atc-flavor="All 4 Products" data-atc-image="/img/r2-reviana-range-square.webp">
+          Add Bundle to Cart
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
     <p class="ta-products-note">Made in Christchurch · By PrimalPantry · Online only</p>
   </div>
 </section>
@@ -1719,6 +1721,7 @@ document.querySelectorAll('.ta-reveal').forEach(function(el, i) {
         <a href="/shop/">Tallow Lip Balm</a>
         <a href="/cosmetic-tallow-reviana/">Brighten &amp; Refine — Reviana</a>
         <a href="/subscribe/">Subscribe &amp; Save</a>
+        <a href="/skin-quiz/">Skin Quiz — Find Your Match</a>
       </div>
       <div class="pp-f-col">
         <h4>Help</h4>

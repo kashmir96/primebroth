@@ -61,6 +61,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script><link rel="preconnect" href="https://oso.nz" crossorigin>
 <script defer src="https://oso.nz/t.js" data-site="PrimalPantry.co.nz"></script>
+<link rel="preconnect" href="https://cdn.usefathom.com" crossorigin>
+<script src="https://cdn.usefathom.com/script.js" data-site="SUFMJROW" defer></script>
 <link rel="prefetch" href="https://js.stripe.com/v3/" as="script">
 <script>
 
@@ -198,14 +200,14 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             </li>
             
             <li class="p-2">
-                <a href="/skin-quiz/">
-                    <span>Skin Quiz</span>
+                <a href="/pages/about/">
+                    <span>About</span>
                 </a>
             </li>
             
             <li class="p-2">
-                <a href="/pages/about/">
-                    <span>About</span>
+                <a href="/contact/">
+                    <span>Contact Us</span>
                 </a>
             </li>
             
@@ -247,12 +249,12 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                     Reviews
                 </a>
                 
-                <a href="/skin-quiz/" class="duration-200 block lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
-                    Skin Quiz
-                </a>
-                
                 <a href="/pages/about/" class="duration-200 block lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
                     About
+                </a>
+                
+                <a href="/contact/" class="duration-200 block lg:inline-block lg:mt-0 text-black hover:opacity-60 mr-8">
+                    Contact Us
                 </a>
                 
             </div>
@@ -506,6 +508,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         drawer.classList.add('open');
         overlay.classList.add('open');
         document.body.style.overflow = 'hidden';
+        if (typeof oso === 'function') oso('event', 'cart open');
     }
     function closeDrawer() {
         drawer.classList.remove('open');
@@ -1358,6 +1361,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         <a href="/shop/">Tallow Lip Balm</a>
         <a href="/cosmetic-tallow-reviana/">Brighten &amp; Refine — Reviana</a>
         <a href="/subscribe/">Subscribe &amp; Save</a>
+        <a href="/skin-quiz/">Skin Quiz — Find Your Match</a>
       </div>
       <div class="pp-f-col">
         <h4>Help</h4>

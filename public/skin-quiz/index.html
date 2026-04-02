@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><script>
+<head><script>
 (function(){
   
   window.MARKET = 'NZ';
@@ -61,6 +61,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script><link rel="preconnect" href="https://oso.nz" crossorigin>
 <script defer src="https://oso.nz/t.js" data-site="PrimalPantry.co.nz"></script>
+<link rel="preconnect" href="https://cdn.usefathom.com" crossorigin>
+<script src="https://cdn.usefathom.com/script.js" data-site="SUFMJROW" defer></script>
 <link rel="prefetch" href="https://js.stripe.com/v3/" as="script">
 <script>
 
@@ -82,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <link rel="icon" type="image/png" sizes="16x16" href='favicon-16x16.png'>
 <link rel="manifest" href='/site.webmanifest'>
 
-<link rel="canonical" href="http://localhost:1313/skin-quiz/">
+<link rel="canonical" href="https://www.primalpantry.co.nz/skin-quiz/">
 <style>
 #pp-gift-pill{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(16px);background:#2E3D1F;color:#fff;padding:11px 14px 11px 18px;border-radius:100px;font-size:0.83rem;font-family:'DM Sans',sans-serif;white-space:nowrap;z-index:9999;opacity:0;transition:opacity 0.35s,transform 0.35s;box-shadow:0 4px 20px rgba(0,0,0,0.28);display:flex;align-items:center;gap:10px;}
 #pp-gift-pill.pp-gift-pill-in{opacity:1;transform:translateX(-50%) translateY(0);}
@@ -95,7 +97,8 @@ document.addEventListener('DOMContentLoaded', function() {
   <link rel="stylesheet" href="/css/bootstrap.min.css" />
   
   
-  <link rel="stylesheet" href="/css/style_new.css">
+  
+  <link rel="stylesheet" href="/css/style_new.min.cd7dbb9d6b693484b5e48e7799efef2628e92885982301cadbb4b66a5f4cbc98.css" />
   
 
 
@@ -514,7 +517,6 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             <li class="p-2">
                 <a href="/shop/"><span>Shop Tallow Skincare</span></a>
             </li>
-            <li class="p-1"><a class="nav-child-link" href="/shop/"><span>Shop Tallow Skincare</span></a></li>
             
             
             
@@ -525,13 +527,13 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             
             
             <li class="p-2">
-                <a href="/skin-quiz/"><span>Skin Quiz</span></a>
+                <a href="/pages/about/"><span>About</span></a>
             </li>
             
             
             
             <li class="p-2">
-                <a href="/pages/about/"><span>About</span></a>
+                <a href="/contact/"><span>Contact Us</span></a>
             </li>
             
             
@@ -550,7 +552,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             </div>
 
             <div class="d-flex align-items-center flex-shrink-1 text-xl text-grey-900" style="min-width:0;">
-                <a href="http://localhost:1313/" aria-label="PrimalPantry">
+                <a href="https://www.primalpantry.co.nz/" aria-label="PrimalPantry">
                     <img alt="" class="sitelogo mr-3" src="/img/logo/logo.webp" width="120" height="36">
                 </a>
             </div>
@@ -579,13 +581,13 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                     
                     
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/skin-quiz/">Skin Quiz</a>
+                        <a class="nav-link " aria-current="page" href="/pages/about/">About</a>
                     </li>
                     
                     
                     
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/pages/about/">About</a>
+                        <a class="nav-link " aria-current="page" href="/contact/">Contact Us</a>
                     </li>
                     
                     
@@ -843,6 +845,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         drawer.classList.add('open');
         overlay.classList.add('open');
         document.body.style.overflow = 'hidden';
+        if (typeof oso === 'function') oso('event', 'cart open');
     }
     function closeDrawer() {
         drawer.classList.remove('open');
@@ -1268,6 +1271,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     flex-direction: column;
     position: relative;
     height: 100%;
+    min-width: 0;  
 }
 .pp-card:hover {
     box-shadow: 0 12px 32px rgba(0,0,0,0.10);
@@ -1517,9 +1521,10 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     .pp-card-grid { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 768px) {
-    .pp-card-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; padding: 0 16px; }
+    .pp-card-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; padding: 0 16px; overflow-x: clip; }
     .pp-card-body { padding: 12px 14px 14px; }
     .pp-card-name { font-size: 0.88rem; }
+    .pp-card { overflow: hidden; }  
 }
 @media (max-width: 420px) {
     .pp-card-grid { gap: 10px; padding: 0 12px; }
@@ -1749,7 +1754,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         <span>Helping Kiwis understand their skin</span>
     </div>
     <h1>Find Your <em>Perfect Match</em></h1>
-    <p class="sq-hero-sub">Answer a few quick questions about your skin and we'll build you a personalised tallow skincare routine — backed by research, not guesswork.</p>
+    <p class="sq-hero-sub">Answer a few quick questions about your skin and we'll build you a personalised tallow skincare routine — backed by data, not guesswork.</p>
 
     <div class="sq-hero-stats">
         <div class="sq-hero-stat"><div class="sq-hero-stat-val">90,000+</div><div class="sq-hero-stat-lbl">Kiwis Served</div></div>
@@ -1793,7 +1798,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             <div class="sq-opt" data-val="eczema">
                 <span class="sq-opt-icon">&#x1FA79;</span>
                 <span class="sq-opt-label">Red & Rashy</span>
-                <span class="sq-opt-desc">Eczema-prone, psoriasis, or other red rashy conditions</span>
+                <span class="sq-opt-desc">Eczema-prone, psoriasis-prone, or other red rashy conditions</span>
             </div>
             <div class="sq-opt" data-val="dry">
                 <span class="sq-opt-icon">&#x1F3DC;</span>
@@ -2605,6 +2610,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         drawer.classList.add('open');
         overlay.classList.add('open');
         document.body.style.overflow = 'hidden';
+        if (typeof oso === 'function') oso('event', 'cart open');
     }
     function closeDrawer() {
         drawer.classList.remove('open');
@@ -3096,7 +3102,8 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
   
   
     
-    <link rel="stylesheet" href="/css/webfonts.min.css">
+    
+    <link rel="stylesheet" href="/css/webfonts.min.min.d4dac5b1ea952e43d923f20db7177335dafaee43cf8b43702471b8f867f3bb29.css" />
     
   
 
@@ -3176,6 +3183,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         <a href="/shop/">Tallow Lip Balm</a>
         <a href="/cosmetic-tallow-reviana/">Brighten &amp; Refine — Reviana</a>
         <a href="/subscribe/">Subscribe &amp; Save</a>
+        <a href="/skin-quiz/">Skin Quiz — Find Your Match</a>
       </div>
       <div class="pp-f-col">
         <h4>Help</h4>
@@ -4827,7 +4835,8 @@ function drawIngredientBars(recs) {
         'rosacea': { 'Bisabolol': 9, 'Ceramides': 8, 'Niacinamide': 7, 'Colloidal Oat': 6, 'Aloe Vera': 5 },
         'baby': { 'Chamomile': 8, 'Colloidal Oat': 7, 'Aloe Vera': 6 },
         'cradle-cap': { 'Colloidal Oat': 7, 'Chamomile': 6 },
-        'nappy-rash': { 'Chamomile': 7, 'Aloe Vera': 6 }
+        'nappy-rash': { 'Chamomile': 7, 'Aloe Vera': 6 },
+        'general': { 'Tallow': 9, 'Hyaluronic Acid': 8, 'Niacinamide': 8, 'Ceramides': 7, 'Bakuchiol': 7, 'Vitamin C': 6 }
     };
 
     
@@ -4841,6 +4850,10 @@ function drawIngredientBars(recs) {
                 ingredients[ing] = Math.max(ingredients[ing] || 0, ings[ing]);
             });
         });
+        
+        if (Object.keys(ingredients).length === 0) {
+            ingredients = { 'Tallow': 9, 'Hyaluronic Acid': 8, 'Niacinamide': 8, 'Ceramides': 7, 'Bakuchiol': 7, 'Vitamin C': 6 };
+        }
     }
 
     

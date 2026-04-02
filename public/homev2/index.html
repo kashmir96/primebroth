@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><script>
+<head><script>
 (function(){
   
   window.MARKET = 'NZ';
@@ -61,6 +61,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script><link rel="preconnect" href="https://oso.nz" crossorigin>
 <script defer src="https://oso.nz/t.js" data-site="PrimalPantry.co.nz"></script>
+<link rel="preconnect" href="https://cdn.usefathom.com" crossorigin>
+<script src="https://cdn.usefathom.com/script.js" data-site="SUFMJROW" defer></script>
 <link rel="prefetch" href="https://js.stripe.com/v3/" as="script">
 <script>
 
@@ -82,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <link rel="icon" type="image/png" sizes="16x16" href='favicon-16x16.png'>
 <link rel="manifest" href='/site.webmanifest'>
 
-<link rel="canonical" href="http://localhost:1313/homev2/">
+<link rel="canonical" href="https://www.primalpantry.co.nz/homev2/">
 <style>
 #pp-gift-pill{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(16px);background:#2E3D1F;color:#fff;padding:11px 14px 11px 18px;border-radius:100px;font-size:0.83rem;font-family:'DM Sans',sans-serif;white-space:nowrap;z-index:9999;opacity:0;transition:opacity 0.35s,transform 0.35s;box-shadow:0 4px 20px rgba(0,0,0,0.28);display:flex;align-items:center;gap:10px;}
 #pp-gift-pill.pp-gift-pill-in{opacity:1;transform:translateX(-50%) translateY(0);}
@@ -95,7 +97,8 @@ document.addEventListener('DOMContentLoaded', function() {
   <link rel="stylesheet" href="/css/bootstrap.min.css" />
   
   
-  <link rel="stylesheet" href="/css/style_new.css">
+  
+  <link rel="stylesheet" href="/css/style_new.min.cd7dbb9d6b693484b5e48e7799efef2628e92885982301cadbb4b66a5f4cbc98.css" />
   
 
 
@@ -622,7 +625,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 }
 </style>
 
-<div class="pp-topbar">2 Get 1 Free on Select 3pk Bundles · Free shipping over $75</div>
+<div class="pp-topbar">Reviana Easter Deal! 20% off + Free Choc Lip Balm · Free shipping over $75</div>
 
 
 
@@ -760,7 +763,6 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             <li class="p-2">
                 <a href="/shop/"><span>Shop Tallow Skincare</span></a>
             </li>
-            <li class="p-1"><a class="nav-child-link" href="/shop/"><span>Shop Tallow Skincare</span></a></li>
             
             
             
@@ -771,13 +773,13 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             
             
             <li class="p-2">
-                <a href="/skin-quiz/"><span>Skin Quiz</span></a>
+                <a href="/pages/about/"><span>About</span></a>
             </li>
             
             
             
             <li class="p-2">
-                <a href="/pages/about/"><span>About</span></a>
+                <a href="/contact/"><span>Contact Us</span></a>
             </li>
             
             
@@ -796,7 +798,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             </div>
 
             <div class="d-flex align-items-center flex-shrink-1 text-xl text-grey-900" style="min-width:0;">
-                <a href="http://localhost:1313/" aria-label="PrimalPantry">
+                <a href="https://www.primalpantry.co.nz/" aria-label="PrimalPantry">
                     <img alt="" class="sitelogo mr-3" src="/img/logo/logo.webp" width="120" height="36">
                 </a>
             </div>
@@ -825,13 +827,13 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                     
                     
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/skin-quiz/">Skin Quiz</a>
+                        <a class="nav-link " aria-current="page" href="/pages/about/">About</a>
                     </li>
                     
                     
                     
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/pages/about/">About</a>
+                        <a class="nav-link " aria-current="page" href="/contact/">Contact Us</a>
                     </li>
                     
                     
@@ -1089,6 +1091,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         drawer.classList.add('open');
         overlay.classList.add('open');
         document.body.style.overflow = 'hidden';
+        if (typeof oso === 'function') oso('event', 'cart open');
     }
     function closeDrawer() {
         drawer.classList.remove('open');
@@ -1703,25 +1706,6 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 </section>
 
 
-<section class="stores">
-  <div class="stores-left">
-    <h2>Where to buy tallow skincare in NZ — 120+ stores</h2>
-    <p>Pick up our soothing tallow balm in store at retailers nationwide. For the full range — including lip balm, eye cream, serum, shampoo & more — shop online.</p>
-    <a href="/stockists/" class="stores-cta">
-      Find your nearest store
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </a>
-  </div>
-  <div class="store-brands">
-    <div class="store-brand"><div class="store-brand-name">Chemist Warehouse</div><div class="store-brand-count">30+ stores</div></div>
-    <div class="store-brand"><div class="store-brand-name">Bargain Chemist</div><div class="store-brand-count">20+ stores</div></div>
-    <div class="store-brand"><div class="store-brand-name">Health2000</div><div class="store-brand-count">20+ stores</div></div>
-    <div class="store-brand"><div class="store-brand-name">New World</div><div class="store-brand-count">15+ stores</div></div>
-    <div class="store-brand"><div class="store-brand-name">Pak'n'Save</div><div class="store-brand-count">Select stores</div></div>
-    <div class="store-brand"><div class="store-brand-name">Unichem</div><div class="store-brand-count">Select stores</div></div>
-  </div>
-</section>
-
 
 <section class="origin">
   <div class="origin-inner">
@@ -1879,7 +1863,8 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
   
   
     
-    <link rel="stylesheet" href="/css/webfonts.min.css">
+    
+    <link rel="stylesheet" href="/css/webfonts.min.min.d4dac5b1ea952e43d923f20db7177335dafaee43cf8b43702471b8f867f3bb29.css" />
     
   
 
@@ -1959,6 +1944,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         <a href="/shop/">Tallow Lip Balm</a>
         <a href="/cosmetic-tallow-reviana/">Brighten &amp; Refine — Reviana</a>
         <a href="/subscribe/">Subscribe &amp; Save</a>
+        <a href="/skin-quiz/">Skin Quiz — Find Your Match</a>
       </div>
       <div class="pp-f-col">
         <h4>Help</h4>
