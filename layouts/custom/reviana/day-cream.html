@@ -56,11 +56,11 @@
 .rv-qty input::-webkit-outer-spin-button,.rv-qty input::-webkit-inner-spin-button{-webkit-appearance:none;}
 .rv-btn-atc{flex:1;background:var(--sage);color:#fff;border:none;padding:14px 24px;border-radius:10px;font-weight:800;font-size:0.92rem;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:8px;}
 .rv-btn-atc:hover{background:var(--sage-mid);transform:translateY(-1px);box-shadow:0 6px 20px rgba(107,143,91,0.35);}
-.rv-guarantees{display:flex;gap:12px;flex-wrap:wrap;padding-bottom:16px;border-bottom:1px solid var(--border);margin-bottom:16px;}
-.rv-g{font-size:0.78rem;font-weight:600;color:var(--warm-gray);display:flex;align-items:center;gap:4px;}
-.rv-g svg{width:13px;height:13px;color:var(--sage);}
-.rv-online-note{font-size:0.78rem;color:var(--warm-gray);display:flex;align-items:center;gap:6px;}
-.rv-online-note svg{width:13px;height:13px;color:var(--warm-gray);}
+.rv-opt{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border:2px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.2s;margin-bottom:8px;}
+.rv-opt.sel{border-color:var(--sage);background:var(--sage-pale);}.rv-opt:hover{border-color:var(--sage);}
+.rv-opt-left{display:flex;align-items:center;gap:12px;}.rv-opt-radio{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:border-color 0.2s;}.rv-opt.sel .rv-opt-radio{border-color:var(--sage);background:var(--sage-pale);}
+.rv-opt-dot{width:8px;height:8px;border-radius:50%;background:var(--sage);transform:scale(0);transition:transform 0.2s;}.rv-opt.sel .rv-opt-dot{transform:scale(1);}
+.rv-opt-label{font-weight:600;font-size:0.88rem;}.rv-opt-sublabel{font-size:0.78rem;color:var(--warm-gray);}.rv-opt-price{font-weight:700;font-size:0.92rem;}
 .rv-tabs{max-width:1240px;margin:0 auto;padding:0 40px 64px;}
 .rv-tabs-nav{display:flex;border-bottom:1px solid var(--border);margin-bottom:24px;}
 .rv-tab-btn{padding:12px 20px;font-size:0.85rem;font-weight:600;color:var(--warm-gray);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all 0.25s;}
@@ -121,6 +121,9 @@
   .rv-research-grid{grid-template-columns:1fr;}
   .rv-research-inner,.rv-expect-inner{padding:0 18px;}
   .rv-timeline{grid-template-columns:1fr;}
+  .rv-tabs{padding:0 18px 48px;}
+  .rv-tabs-nav{overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;gap:0;}
+  .rv-tab-btn{white-space:nowrap;flex-shrink:0;padding:12px 14px;font-size:0.78rem;}
 }
 .gallery-mobile { display: none; }
 @media (max-width: 900px) {
@@ -169,14 +172,15 @@
   </div>
   <div>
     <div class="rv-mt">
-      <span class="rv-mt-item">Trusted by <strong>90,000+</strong> kiwis</span>
-      <span class="rv-mt-dot"></span>
-      <span class="rv-mt-item">Formulated for sensitive skin</span>
-      <span class="rv-mt-dot"></span>
-      <span class="rv-mt-nz">NZ Made</span>
+      <span class="rv-mt-item">Trusted by <strong>95,000+</strong> kiwis</span><span class="rv-mt-dot"></span>
+      <span class="rv-mt-nz">NZ Made for sensitive skin</span>
     </div>
     <h1 class="rv-pdp-title">Tallow Day Cream</h1>
     <p class="rv-pdp-sub">Soothing Barrier building moisturiser for healthy, protected skin — 50ml</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+      <span style="font-size:0.72rem;font-weight:700;padding:4px 12px;border-radius:20px;background:#EDEDEC;color:#5A5A58;">First of its kind in NZ</span>
+      <span style="font-size:0.72rem;font-weight:700;padding:4px 12px;border-radius:20px;background:#EDEDEC;color:#5A5A58;">Sold out twice at launch</span>
+    </div>
     <div class="rv-pdp-stars">★★★★★ <span>4.7 · Verified Reviews</span></div>
     <p class="rv-pdp-desc">Wake up and prepare for your day with cucumber fresh tallow day cream, lightweight, fast absorbing and barrier building. Tallow, Vitamin C, Niacinamide and Zinc Oxide.</p>
     <p style="font-style:italic;font-size:0.88rem;color:var(--sage-mid,#4E6840);margin:4px 0 0;">Smells so good you'll swear it's fat free.</p>
@@ -190,6 +194,12 @@
       {{ if $p.compare_price }}<span style="text-decoration:line-through;color:var(--warm-gray,#877B71);font-size:0.95rem;margin-left:8px;">${{ $p.compare_price }}</span>{{ end }}
     </div>
     <p class="rv-afterpay">or 4 interest free payments of $<span id="afterpayPrice">{{ printf "%.2f" (math.Div (float $p.price_nz) 4) }}</span> with <img src="/img/afterpay.webp" height="20" alt="afterpay"></p>
+    <div style="margin-bottom:24px;">
+      <div class="rv-opt sel" data-pid="{{ $p.price_id_nz }}" data-price="{{ $p.price_nz }}" onclick="selOpt(this)">
+        <div class="rv-opt-left"><div class="rv-opt-radio"><div class="rv-opt-dot"></div></div><div><div class="rv-opt-label">One-Time Purchase</div><div class="rv-opt-sublabel">50ml · 2–3 months supply</div></div></div>
+        <div class="rv-opt-price">${{ $p.price_nz }}</div>
+      </div>
+    </div>
     <div class="rv-stock"><span class="rv-stock-dot"></span> In Stock · Ships 1–3 business days</div>
     <div class="rv-actions">
       <div class="rv-qty">
@@ -204,31 +214,47 @@
       <p class="pp-points-hint">~<strong id="pp-pts-label">PrimalPoints</strong> <i class="pp-pts-info" data-tip="Earn points on every purchase — redeem on your next order">i</i></p>
     <script>document.addEventListener("DOMContentLoaded",function(){var el=document.getElementById("pp-pts-label");if(el){el.textContent=ppCalcPoints({{ $p.price_nz }})+" PrimalPoints";}});</script>
     </div>
-    <p style="font-size:0.78rem;color:var(--warm-gray);margin-bottom:14px;">Money back guarantee · Speedy NZ-wide shipping</p>
-    <div class="rv-guarantees">
-      <div class="rv-g"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>Naturally Derived</div>
-      <div class="rv-g"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>NZ Made</div>
-      <div class="rv-g"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>Formulated for Sensitive Skin</div>
-      <div class="rv-g"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>Money Back</div>
-    </div>
-    <div class="rv-online-note">
-      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h14l-1.68 8.39A2 2 0 0113.36 13H6.64a2 2 0 01-1.96-1.61L3 3z" stroke-linejoin="round"/><circle cx="8" cy="17" r="1" fill="currentColor" stroke="none"/><circle cx="13" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
-      Reviana — online only · not available in stores
-    </div>
+    <p class="sub-cta" style="font-size:0.78rem;color:var(--warm-gray);margin:0;">Naturally derived · Money back guarantee · Free shipping over $75</p>
   </div>
 </div>
 
 <div class="rv-tabs">
   <div class="rv-tabs-nav">
-    <button class="rv-tab-btn active" onclick="swTab('dir',this)">How to Use</button>
+    <button class="rv-tab-btn active" onclick="swTab('why',this)">Why's it special?</button>
+    <button class="rv-tab-btn" onclick="swTab('dir',this)">How to Use</button>
     <button class="rv-tab-btn" onclick="swTab('ing',this)">Ingredients</button>
     <button class="rv-tab-btn" onclick="swTab('ship',this)">Shipping</button>
+  </div>
+  <div class="rv-tab-panel active" id="tab-why">
+    <h4 style="font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--bark);margin:0 0 14px;">Why's this cream so special?</h4>
+    <div style="display:flex;flex-direction:column;gap:0;position:relative;padding-left:28px;">
+      <div style="position:absolute;left:9px;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,var(--sage,#6B8F5B),var(--cream-deep,#EEDED0));border-radius:2px;"></div>
+      <div style="position:relative;padding:10px 0;">
+        <div style="position:absolute;left:-23px;top:14px;width:14px;height:14px;border-radius:50%;background:var(--sage,#6B8F5B);border:2px solid #fff;box-shadow:0 0 0 2px var(--sage,#6B8F5B);"></div>
+        <p style="font-weight:700;font-size:0.85rem;color:var(--bark);margin:0 0 2px;">Your skin is losing what it needs</p>
+        <p style="font-size:0.82rem;color:var(--warm-gray,#877B71);line-height:1.55;margin:0;">As we age, our skin stops producing natural oils — leaving it drier, more reactive and less protected against the elements.</p>
+      </div>
+      <div style="position:relative;padding:10px 0;">
+        <div style="position:absolute;left:-23px;top:14px;width:14px;height:14px;border-radius:50%;background:var(--sage,#6B8F5B);border:2px solid #fff;box-shadow:0 0 0 2px var(--sage,#6B8F5B);"></div>
+        <p style="font-weight:700;font-size:0.85rem;color:var(--bark);margin:0 0 2px;">Tallow puts it back</p>
+        <p style="font-size:0.82rem;color:var(--warm-gray,#877B71);line-height:1.55;margin:0;">Tallow contains lipids identical to the oil we produce ourselves — a skin food that replenishes what's going missing and rebuilds your barrier.</p>
+      </div>
+      <div style="position:relative;padding:10px 0;">
+        <div style="position:absolute;left:-23px;top:14px;width:14px;height:14px;border-radius:50%;background:var(--sage,#6B8F5B);border:2px solid #fff;box-shadow:0 0 0 2px var(--sage,#6B8F5B);"></div>
+        <p style="font-weight:700;font-size:0.85rem;color:var(--bark);margin:0 0 2px;">Your skin soaks it up — and everything in it</p>
+        <p style="font-size:0.82rem;color:var(--warm-gray,#877B71);line-height:1.55;margin:0;">Because your skin recognises tallow, it readily accepts the actives we've added — Vitamin C, Niacinamide and Zinc Oxide — to brighten, protect and build a stronger barrier.</p>
+      </div>
+      <div style="position:relative;padding:10px 0;">
+        <div style="position:absolute;left:-23px;top:14px;width:14px;height:14px;border-radius:50%;background:#C8A87A;border:2px solid #fff;box-shadow:0 0 0 2px #C8A87A;"></div>
+        <p style="font-weight:700;font-size:0.85rem;color:#C8A87A;margin:0;">A winning combo for healthier, more protected skin.</p>
+      </div>
+    </div>
   </div>
   <div class="rv-tab-panel" id="tab-ing">
     <h4>Full Ingredient List</h4>
     <p>Aqua (Water), Squalane, Glycerin, Tallow, Niacinamide, Zinc Oxide (and) Coco-Caprylate/Caprate (and) Polyhydroxystearic Acid, Sodium Acrylates Copolymer (and) Lecithin, Simmondsia Chinensis (Jojoba) Seed Oil, Caprylic/Capric Triglyceride, Cetearyl Olivate (and) Sorbitan Olivate, Tetrahexyldecyl Ascorbate, Terminalia Ferdinandiana Fruit Extract, Benzyl Alcohol (and) Dehydroacetic Acid, Panthenol, Butyrospermum Parkii (Shea) Butter, Sodium Hyaluronate, Aloe Barbadensis Leaf Extract, Bisabolol, Sodium Phytate (and) Aqua (and) Alcohol, Tocopherol (and) Helianthus Annuus (Sunflower) Seed Oil.</p>
   </div>
-  <div class="rv-tab-panel active" id="tab-dir">
+  <div class="rv-tab-panel" id="tab-dir">
     <h4>Morning routine</h4>
     <p>After cleansing, apply a small amount to face and neck. Gently press into skin using upward motions. Allow to absorb 1–2 minutes before makeup or sunscreen. A little goes a long way — one jar typically lasts 2–3 months.</p>
     <p>As with any new skincare, patch test before full use.</p>

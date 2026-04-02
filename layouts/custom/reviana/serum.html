@@ -97,7 +97,7 @@
     .rv-step-title{font-weight:700;font-size:0.85rem;color:var(--rv-bark);margin-bottom:6px;}.rv-step-desc{font-size:0.78rem;color:var(--rv-warm-gray);line-height:1.55;}
     .rv-timeline-note{text-align:center;margin-top:36px;font-size:0.75rem;color:var(--rv-warm-gray);font-style:italic;}
     @media(max-width:1024px){.rv-pdp{grid-template-columns:1fr;gap:32px;padding:24px 24px 48px;}.rv-breadcrumb{padding-left:24px;}.rv-tabs,.rv-research-inner,.rv-why-inner,.rv-timeline-inner{padding:0 24px;}.rv-research-grid{grid-template-columns:repeat(2,1fr);}.rv-why-inner{grid-template-columns:1fr;gap:40px;}.rv-steps{grid-template-columns:repeat(2,1fr);gap:32px;}.rv-steps::before{display:none;}}
-    @media(max-width:640px){.rv-pdp{padding:16px 18px 36px;}.rv-pdp-title{font-size:1.65rem;}.rv-ing-grid,.rv-research-grid{grid-template-columns:1fr;}.rv-steps{grid-template-columns:1fr;}.rv-tabs,.rv-research-inner,.rv-timeline-inner{padding:0 18px;}}
+    @media(max-width:640px){.rv-pdp{padding:16px 18px 36px;}.rv-pdp-title{font-size:1.65rem;}.rv-ing-grid,.rv-research-grid{grid-template-columns:1fr;}.rv-steps{grid-template-columns:1fr;}.rv-tabs,.rv-research-inner,.rv-timeline-inner{padding:0 18px;}.rv-tabs-nav{overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;gap:0;}.rv-tab-btn{white-space:nowrap;flex-shrink:0;padding:12px 14px;font-size:0.78rem;}}
     .gallery-mobile { display: none; }
     @media (max-width: 900px) {
       .gallery-desktop { display: none; }
@@ -134,7 +134,7 @@
     <div class="gallery-mobile">
       <div class="swiper product-swiper">
         <div class="swiper-wrapper">
-          <div class="swiper-slide"><img src="/img/reviana-serum-jar.webp" alt="Reviana Serum 15ml" style="object-fit:cover;width:100%;height:100%;object-position:center 100%;"></div>
+          <div class="swiper-slide"><img src="/img/reviana-serum-jar.webp" alt="Reviana Serum 15ml" style="object-fit:cover;width:100%;height:100%;object-position:center 20%;"></div>
           <div class="swiper-slide"><img src="/img/reviana-serum-trix.webp" alt="Reviana Serum applied" style="object-fit:cover;width:100%;height:100%;"></div>
           <div class="swiper-slide"><img src="/img/reviana-before-afters.webp" alt="Before and After" style="object-fit:contain;object-position:bottom;max-height:800px;"></div>
           <div class="swiper-slide"><img src="/img/serum-benefits.webp" alt="Benefits"></div>
@@ -145,12 +145,15 @@
   </div>
   <div>
     <div class="rv-mt">
-      <span>Trusted by <strong>90,000+</strong> kiwis</span><span class="rv-mt-dot"></span>
-      <span>Formulated for sensitive skin</span><span class="rv-mt-dot"></span>
-      <span class="rv-mt-nz">NZ Made</span>
+      <span>Trusted by <strong>95,000+</strong> kiwis</span><span class="rv-mt-dot"></span>
+      <span class="rv-mt-nz">NZ Made for sensitive skin</span>
     </div>
     <h1 class="rv-pdp-title">Tallow Serum</h1>
     <p class="rv-pdp-subtitle">Soothes &amp; gives smoother skin and a more even complexion — 15ml</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+      <span style="font-size:0.72rem;font-weight:700;padding:4px 12px;border-radius:20px;background:#EDEDEC;color:#5A5A58;">First of its kind in NZ</span>
+      <span style="font-size:0.72rem;font-weight:700;padding:4px 12px;border-radius:20px;background:#EDEDEC;color:#5A5A58;">Currently Sold Out - Backorder</span>
+    </div>
     <div class="rv-stars">★★★★★ <span>4.7 · Verified Reviews</span></div>
     <p class="rv-desc">Designed for fine lines, dark spots and wrinkles smoothing. Tallow powered with Azelaic Acid, Niacinamide, Centella Asiatica and Hyaluronic Acid.</p>
     <p style="font-style:italic;font-size:0.88rem;color:var(--rv-sage-mid,#4E6840);margin:4px 0 0;">Smells so good you'll swear it's fat free.</p>
@@ -170,7 +173,7 @@
         <div class="rv-opt-price">${{ $p.price_nz }}</div>
       </div>
     </div>
-    <div class="rv-stock" style="color:#B8860B;"><span class="rv-stock-dot" style="background:#B8860B;"></span> On backorder — orders containing this will ship when it's back</div>
+    <div class="rv-stock" style="color:#B8860B;"><span class="rv-stock-dot" style="background:#B8860B;"></span> Backorder - orders containing this ship when it's back</div>
     <div class="rv-actions">
       <div class="rv-qty">
         <button type="button" id="qMinus">−</button>
@@ -184,29 +187,48 @@
       <p class="pp-points-hint">~<strong id="pp-pts-label">PrimalPoints</strong> <i class="pp-pts-info" data-tip="Earn points on every purchase — redeem on your next order">i</i></p>
     <script>document.addEventListener("DOMContentLoaded",function(){var el=document.getElementById("pp-pts-label");if(el){el.textContent=ppCalcPoints({{ $p.price_nz }})+" PrimalPoints";}});</script>
     </div>
-    <p class="sub-cta">Money back guarantee · Speedy NZ-wide shipping</p>
-    <div class="rv-guarantees">
-      <div class="rv-g"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>Naturally Derived</div>
-      <div class="rv-g"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>NZ Made</div>
-      <div class="rv-g"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>Formulated for Sensitive Skin</div>
-      <div class="rv-g"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>Money Back</div>
-    </div>
-    <div class="rv-online-note"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" style="width:14px;height:14px;"><path d="M3 3h14l-1.68 8.39A2 2 0 0113.36 13H6.64a2 2 0 01-1.96-1.61L3 3z" stroke-linejoin="round"/><circle cx="8" cy="17" r="1" fill="currentColor" stroke="none"/><circle cx="13" cy="17" r="1" fill="currentColor" stroke="none"/></svg>Reviana is exclusively online — not in stores</div>
+    <p class="sub-cta" style="font-size:0.78rem;color:var(--rv-warm-gray);margin:0;">Naturally derived · Money back guarantee · Free shipping over $75</p>
   </div>
 </div>
 
 <div class="rv-tabs">
   <div class="rv-tabs-nav">
-    <button class="rv-tab-btn active" onclick="swTab('dir',this)">How to Use</button>
+    <button class="rv-tab-btn active" onclick="swTab('why',this)">Why's it special?</button>
+    <button class="rv-tab-btn" onclick="swTab('dir',this)">How to Use</button>
     <button class="rv-tab-btn" onclick="swTab('ing',this)">Ingredients</button>
     <button class="rv-tab-btn" onclick="swTab('ship',this)">Shipping</button>
+  </div>
+  <div class="rv-tab-panel active" id="tab-why">
+    <h4 style="font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--rv-bark);margin:0 0 14px;">Why's this serum so special?</h4>
+    <div style="display:flex;flex-direction:column;gap:0;position:relative;padding-left:28px;">
+      <div style="position:absolute;left:9px;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,var(--rv-sage,#6B8F5B),var(--rv-cream-deep,#EDE5D8));border-radius:2px;"></div>
+      <div style="position:relative;padding:10px 0;">
+        <div style="position:absolute;left:-23px;top:14px;width:14px;height:14px;border-radius:50%;background:var(--rv-sage,#6B8F5B);border:2px solid #fff;box-shadow:0 0 0 2px var(--rv-sage,#6B8F5B);"></div>
+        <p style="font-weight:700;font-size:0.85rem;color:var(--rv-bark);margin:0 0 2px;">Your skin is losing what it needs</p>
+        <p style="font-size:0.82rem;color:var(--rv-warm-gray,#877B71);line-height:1.55;margin:0;">As we age, our skin stops producing natural oils — leaving it duller, less even and more prone to fine lines and dark spots.</p>
+      </div>
+      <div style="position:relative;padding:10px 0;">
+        <div style="position:absolute;left:-23px;top:14px;width:14px;height:14px;border-radius:50%;background:var(--rv-sage,#6B8F5B);border:2px solid #fff;box-shadow:0 0 0 2px var(--rv-sage,#6B8F5B);"></div>
+        <p style="font-weight:700;font-size:0.85rem;color:var(--rv-bark);margin:0 0 2px;">Tallow puts it back</p>
+        <p style="font-size:0.82rem;color:var(--rv-warm-gray,#877B71);line-height:1.55;margin:0;">Tallow contains lipids identical to the oil we produce ourselves — a skin food that replenishes what's going missing and primes your skin to absorb actives.</p>
+      </div>
+      <div style="position:relative;padding:10px 0;">
+        <div style="position:absolute;left:-23px;top:14px;width:14px;height:14px;border-radius:50%;background:var(--rv-sage,#6B8F5B);border:2px solid #fff;box-shadow:0 0 0 2px var(--rv-sage,#6B8F5B);"></div>
+        <p style="font-weight:700;font-size:0.85rem;color:var(--rv-bark);margin:0 0 2px;">Your skin soaks it up — and everything in it</p>
+        <p style="font-size:0.82rem;color:var(--rv-warm-gray,#877B71);line-height:1.55;margin:0;">Because your skin recognises tallow, it readily accepts the actives we've added — Azelaic Acid, Niacinamide, Centella Asiatica and Hyaluronic Acid — to smooth, brighten and even out your complexion.</p>
+      </div>
+      <div style="position:relative;padding:10px 0;">
+        <div style="position:absolute;left:-23px;top:14px;width:14px;height:14px;border-radius:50%;background:#C8A87A;border:2px solid #fff;box-shadow:0 0 0 2px #C8A87A;"></div>
+        <p style="font-weight:700;font-size:0.85rem;color:#C8A87A;margin:0;">A winning combo for smoother, more even-looking skin.</p>
+      </div>
+    </div>
   </div>
   <div class="rv-tab-panel" id="tab-ing">
     <h4>Full Ingredient List</h4>
     <p>Water/Aqua, Glycerin, Azelaic Acid, Niacinamide, Tallow, Benzyl Alcohol, Dehydroacetic Acid, Tocopherol, Helianthus Annuus (Sunflower) Seed Oil, Polyacrylate Crosspolymer-6, Aloe Barbadensis (Aloe Vera) Leaf Extract, Alpha-Bisabolol, Sodium Hyaluronate, Asiaticoside (and) Madecassic Acid (and) Asiatic Acid, D-Panthenol (Pro-Vitamin B5), Glycerin (and) Water (and) Glycyrrhiza Glabra (Licorice) Root Extract, Sodium Phytate (and) Aqua (and) Alcohol.</p>
     <p>As with any new skincare, patch test before full use.</p>
   </div>
-  <div class="rv-tab-panel active" id="tab-dir">
+  <div class="rv-tab-panel" id="tab-dir">
     <h4>Morning and evening — before moisturiser</h4>
     <p>After cleansing, apply 3–4 drops to face and neck. Press gently into skin — don't rub. Allow 30–60 seconds to absorb, then follow with Reviana Day Cream (morning) or Night Cream (evening).</p>
     <p>A 15ml bottle lasts approximately 2–3 months with twice-daily use.</p>
