@@ -11,7 +11,6 @@
     <meta name="twitter:card" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_card }}" />
     <meta name="twitter:site" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_site }}" />
     <meta name="twitter:creator" content="{{ .Site.Params.homepage_meta_tags.meta_twitter_creator }}" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <style>
@@ -231,8 +230,6 @@
         });
     </script>  
 
-    <!-- Include Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://player.vimeo.com/api/player.js"></script>
     <script>
        document.querySelectorAll('.image-container img').forEach(function(image) {
@@ -516,12 +513,8 @@ const flavor = document.querySelector(`label[for="${selectedFlavor.id}"]`).textC
 
     console.log('Cart updated:', cart); // Debugging
 
-    // Trigger success modal or alert
-    const modal = document.getElementById('addedToCartModal');
-    if (modal) {
-        $('#addedToCartModal').modal('show');
-    } else {
-        alert('Item added to cart successfully!');
+    if (typeof window.ppAddToCart === 'function') {
+        window.ppAddToCart(priceId, unitPrice, title, size, flavor, quantity);
     }
 }
 
@@ -543,25 +536,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-<!-- Modal for Add to Cart Confirmation -->
-<div class="modal fade" id="addedToCartModal" tabindex="-1" aria-labelledby="addedToCartModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addedToCartModalLabel">Item Added to Cart</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
-                </button>
-            </div>
-            <div class="modal-body">
-                Your item has been successfully added to the cart. What would you like to do next?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
-                <a href="/cart" class="btn btn-black">Go to Cart</a>
-            </div>
-        </div>
-    </div>
-</div>
 
     <!-- YAML SCRIPT ENDS -->
 
