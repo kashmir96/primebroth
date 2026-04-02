@@ -57,7 +57,7 @@
 .ta-hero { display: grid; position: relative; overflow: hidden; }
 .ta-hero-bg-img { position: absolute; inset: 0; background-image: url('/img/aging-2.webp'); background-size: cover; background-position: center; z-index: 0; }
 .ta-hero-bg-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(25,36,19,0.91) 0%, rgba(61,82,48,0.78) 100%); }
-.ta-hero-inner { max-width: 760px; margin: 0 auto; padding: 64px 80px 44px; width: 100%; position: relative; z-index: 2; }
+.ta-hero-inner { max-width: 1400px; margin: 0 auto; padding: 70px 80px 50px; width: 100%; position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
 .ta-hero-pc-badge { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 100px; padding: 6px 16px 6px 10px; margin-bottom: 18px; width: fit-content; }
 .ta-hero-pc-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ta-stone); }
 .ta-hero-pc-badge span { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; color: rgba(255,255,255,0.7); }
@@ -69,7 +69,9 @@
 .ta-hero .ta-btn-primary:hover { background: var(--ta-stone-light); color: var(--ta-forest) !important; }
 .ta-hero .ta-btn-outline { border-color: rgba(255,255,255,0.7); color: #fff; }
 .ta-hero .ta-btn-outline:hover { background: rgba(255,255,255,0.15); color: #fff; border-color: #fff; }
-.ta-hero-image { display: none; }
+.ta-hero-image { display: flex; align-items: center; justify-content: flex-end; position: relative; }
+.ta-hero-image img { border-radius: 24px; width: 100%; max-height: 40vh; object-fit: cover; box-shadow: 0 40px 80px rgba(0,0,0,0.35); }
+.ta-hero-float-card { position: absolute; bottom: 32px; left: -24px; background: #fff; border-radius: 16px; padding: 16px 20px; box-shadow: 0 12px 36px rgba(0,0,0,0.22); min-width: 210px; animation: ta-float 3s ease-in-out infinite; }
 .ta-hero-tags { display: none; }
 .ta-hero-float-card { position: absolute; bottom: 32px; left: -24px; background: #fff; border-radius: 16px; padding: 16px 20px; box-shadow: 0 12px 36px rgba(0,0,0,0.22); min-width: 210px; animation: ta-float 3s ease-in-out infinite; }
 .ta-hero-float-card .fc-label { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ta-forest-light); margin-bottom: 6px; }
@@ -185,7 +187,9 @@
 
 /* RESPONSIVE */
 @media (max-width: 1024px) {
-  .ta-hero-inner { grid-template-columns: 1fr; padding: 24px 24px 56px; min-height: auto; gap: 40px; }
+  .ta-hero-inner { grid-template-columns: 1fr; padding: 48px 24px 48px; min-height: auto; gap: 0; }
+  .ta-hero-image { display: none; }
+  .ta-hero-float-card { display: none; }
   .ta-hero-float-card { display: none; }
   .ta-bridge-inner { grid-template-columns: 1fr; padding: 0 24px; gap: 40px; }
   .ta-products-inner { padding: 0 24px; }
