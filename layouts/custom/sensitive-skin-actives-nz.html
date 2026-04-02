@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{- partial "head.html" . -}}
+    <title>Sensitive Skin Actives NZ — Bakuchiol, Azelaic Acid, Niacinamide | Reviana</title>
+    <meta name="description" content="Bakuchiol, Azelaic Acid, Niacinamide, Vitamin C and Peptides — in formulations made for sensitive skin that reacts to conventional serums and creams. Made in NZ by Reviana." />
+    <meta property="og:title" content="Sensitive Skin Actives NZ — Bakuchiol, Azelaic Acid, Niacinamide | Reviana" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://primalpantry.co.nz/sensitive-skin-actives-nz/" />
+    <meta property="og:image" content="https://primalpantry.co.nz/img/r2-reviana-range-square.webp" />
+    <meta property="og:description" content="Bakuchiol, Azelaic Acid, Niacinamide, Vitamin C and Peptides — formulated for sensitive skin that reacts to conventional serums. Made in NZ." />
+    <link rel="canonical" href="https://primalpantry.co.nz/sensitive-skin-actives-nz/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+{{- partial "alert.html" . -}}
+{{- partial "header_new.html" . -}}
+
+{{ $day    := site.Data.pricing.reviana.day_cream }}
+{{ $night  := site.Data.pricing.reviana.night_cream }}
+{{ $eye    := site.Data.pricing.reviana.eye_cream }}
+{{ $serum  := site.Data.pricing.reviana.serum }}
+{{ $bundle := site.Data.pricing.reviana.complexion_bundle }}
+
+<style>
+:root {
+  --ta-cream: #F7F4EF;
+  --ta-cream-deep: #EDE5D8;
+  --ta-black: #191714;
+  --ta-forest: #3D5230;
+  --ta-forest-mid: #4E6840;
+  --ta-forest-light: #6B8F5B;
+  --ta-forest-pale: #E5EDE0;
+  --ta-stone: #C8A87A;
+  --ta-stone-light: #DEC49A;
+  --ta-warm-gray: #877B71;
+  --ta-border: rgba(61,82,48,0.13);
+  --ta-white: #FDFBF8;
+}
+.ta * { box-sizing: border-box; }
+.ta { font-family: 'DM Sans', sans-serif; color: var(--ta-black); -webkit-font-smoothing: antialiased; }
+.ta h1,.ta h2,.ta h3,.ta h4 { font-family: 'Playfair Display', serif; font-weight: 400; line-height: 1.1; margin: 0; padding: 0; }
+.ta p { margin: 0; }
+.ta a { text-decoration: none; color: inherit; }
+.ta img { max-width: 100%; display: block; }
+.ta-btn-primary { display: inline-flex; align-items: center; gap: 9px; background: var(--ta-forest); color: #fff !important; padding: 15px 32px; border-radius: 100px; font-weight: 700; font-size: 0.9rem; transition: all 0.3s; text-decoration: none; border: none; cursor: pointer; }
+.ta-btn-primary:hover { background: var(--ta-forest-mid); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(61,82,48,0.25); color: #fff !important; }
+.ta-btn-primary svg { width: 16px; height: 16px; transition: transform 0.3s; }
+.ta-btn-primary:hover svg { transform: translateX(3px); }
+.ta-btn-outline { display: inline-flex; align-items: center; gap: 9px; background: transparent; color: var(--ta-forest); padding: 14px 30px; border-radius: 100px; font-weight: 700; font-size: 0.9rem; border: 2px solid var(--ta-forest); transition: all 0.3s; text-decoration: none; }
+.ta-btn-outline:hover { background: var(--ta-forest); color: #fff; }
+.ta-eyebrow { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.18em; color: var(--ta-forest-light); margin-bottom: 12px; display: block; }
+
+/* HERO */
+.ta-hero { min-height: 92vh; display: grid; position: relative; overflow: hidden; }
+.ta-hero-bg-img { position: absolute; inset: 0; background-image: url('/img/aging-2.webp'); background-size: cover; background-position: center; z-index: 0; }
+.ta-hero-bg-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(25,36,19,0.91) 0%, rgba(61,82,48,0.78) 100%); }
+.ta-hero-inner { max-width: 1400px; margin: 0 auto; padding: 130px 80px 80px; width: 100%; position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.ta-hero-pc-badge { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 100px; padding: 6px 16px 6px 10px; margin-bottom: 24px; width: fit-content; }
+.ta-hero-pc-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ta-stone); }
+.ta-hero-pc-badge span { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; color: rgba(255,255,255,0.7); }
+.ta-hero h1 { font-size: clamp(2.6rem, 3.8vw, 4.2rem); color: #fff; margin-bottom: 22px; line-height: 1.04; }
+.ta-hero h1 em { color: var(--ta-stone-light); font-style: italic; }
+.ta-hero-sub { font-size: 1rem; color: rgba(255,255,255,0.62); line-height: 1.72; max-width: 540px; margin-bottom: 34px; }
+.ta-hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+.ta-hero .ta-btn-primary { background: #fff; color: var(--ta-forest) !important; }
+.ta-hero .ta-btn-primary:hover { background: var(--ta-stone-light); color: var(--ta-forest) !important; }
+.ta-hero .ta-btn-outline { border-color: rgba(255,255,255,0.7); color: #fff; }
+.ta-hero .ta-btn-outline:hover { background: rgba(255,255,255,0.15); color: #fff; border-color: #fff; }
+.ta-hero-tags { display: flex; gap: 10px; flex-wrap: wrap; }
+.ta-hero-tag { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 100px; padding: 5px 14px; font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,0.62); }
+.ta-hero-image { display: flex; align-items: center; justify-content: flex-end; position: relative; }
+.ta-hero-image img { border-radius: 24px; width: 100%; max-height: 72vh; object-fit: cover; box-shadow: 0 40px 80px rgba(0,0,0,0.35); }
+.ta-hero-float-card { position: absolute; bottom: 32px; left: -24px; background: #fff; border-radius: 16px; padding: 16px 20px; box-shadow: 0 12px 36px rgba(0,0,0,0.22); min-width: 210px; animation: ta-float 3s ease-in-out infinite; }
+.ta-hero-float-card .fc-label { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ta-forest-light); margin-bottom: 6px; }
+.ta-hero-float-card .fc-val { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--ta-black); }
+.ta-hero-float-card .fc-sub { font-size: 0.72rem; color: var(--ta-warm-gray); margin-top: 2px; }
+@keyframes ta-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+/* PRODUCTS */
+.ta-products { padding: 80px 0 100px; background: var(--ta-cream); }
+.ta-products-inner { max-width: 1240px; margin: 0 auto; padding: 0 80px; }
+.ta-products-top { text-align: center; margin-bottom: 44px; }
+.ta-products-top h2 { font-size: clamp(2rem, 2.6vw, 2.6rem); color: var(--ta-black); margin-bottom: 10px; }
+.ta-products-top p { font-size: 0.9rem; color: var(--ta-warm-gray); max-width: 520px; margin: 0 auto; line-height: 1.7; }
+.ta-ritual-strip { display: flex; align-items: center; gap: 0; margin-bottom: 40px; background: var(--ta-white); border-radius: 16px; border: 1px solid var(--ta-border); overflow: hidden; }
+.ta-ritual-half { flex: 1; padding: 20px 28px; }
+.ta-ritual-half:first-child { border-right: 1px solid var(--ta-border); }
+.ta-ritual-half-label { font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ta-forest-light); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.ta-ritual-steps { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.ta-ritual-step { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 600; color: var(--ta-black); }
+.ta-ritual-step-dot { width: 28px; height: 28px; border-radius: 50%; background: var(--ta-forest-pale); border: 1px solid var(--ta-border); display: flex; align-items: center; justify-content: center; font-size: 0.62rem; font-weight: 800; color: var(--ta-forest); flex-shrink: 0; }
+.ta-ritual-arrow { font-size: 0.9rem; color: var(--ta-stone); opacity: 0.7; }
+.ta-ritual-step-ghost { opacity: 0.4; font-size: 0.78rem; }
+.ta-bundle-card { background: var(--ta-forest); border-radius: 20px; padding: 28px 32px; display: flex; align-items: center; gap: 32px; margin-bottom: 28px; position: relative; overflow: hidden; }
+.ta-bundle-card::before { content: ''; position: absolute; top: -40px; right: -40px; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,0.04); }
+.ta-bundle-badge { background: var(--ta-stone); color: var(--ta-black); font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; padding: 4px 12px; border-radius: 100px; position: absolute; top: 16px; right: 16px; }
+.ta-bundle-imgs { display: flex; flex-shrink: 0; }
+.ta-bundle-img { width: 56px; height: 56px; border-radius: 10px; background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.15); overflow: hidden; margin-left: -8px; }
+.ta-bundle-img:first-child { margin-left: 0; }
+.ta-bundle-img img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+.ta-bundle-content { flex: 1; }
+.ta-bundle-content h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #fff; margin-bottom: 4px; }
+.ta-bundle-content p { font-size: 0.82rem; color: rgba(255,255,255,0.58); margin-bottom: 12px; line-height: 1.5; }
+.ta-bundle-price-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+.ta-bundle-price { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #fff; }
+.ta-bundle-was { font-size: 0.82rem; color: rgba(255,255,255,0.38); text-decoration: line-through; }
+.ta-bundle-save { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ta-stone); background: rgba(200,168,122,0.15); padding: 3px 10px; border-radius: 100px; }
+.ta-bundle-atc { background: #fff; color: var(--ta-forest) !important; border: none; padding: 12px 24px; border-radius: 100px; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: all 0.25s; display: inline-flex; align-items: center; gap: 7px; text-decoration: none; }
+.ta-bundle-atc:hover { background: var(--ta-stone-light); transform: translateY(-1px); }
+.ta-p-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; align-items: start; }
+.ta-p-card { background: var(--ta-white); border-radius: 20px; border: 1px solid var(--ta-border); overflow: hidden; transition: all 0.35s; display: flex; flex-direction: column; position: relative; }
+.ta-p-card:hover { box-shadow: 0 18px 44px rgba(61,82,48,0.1); transform: translateY(-4px); border-color: transparent; }
+.ta-p-card-img { aspect-ratio: 3/4; background: var(--ta-cream); display: block; overflow: hidden; width: 100%; position: relative; }
+.ta-p-card-img a { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; position: absolute; inset: 0; }
+.ta-p-card-img img { width: 85%; height: 85%; object-fit: contain; transition: transform 0.5s ease; display: block; }
+.ta-p-card:hover .ta-p-card-img img { transform: scale(1.06); }
+.ta-p-card-body { padding: 16px 18px 20px; flex: 1; display: flex; flex-direction: column; }
+.ta-p-card-name { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--ta-black); margin-bottom: 2px; }
+.ta-p-card-sub { font-size: 0.74rem; color: var(--ta-warm-gray); margin-bottom: 6px; line-height: 1.45; }
+.ta-p-card-price { font-size: 1.1rem; font-weight: 700; color: var(--ta-forest); margin-bottom: 6px; }
+.ta-p-card-added { font-size: 0.7rem; color: var(--ta-forest-light); font-weight: 600; margin-bottom: 12px; flex: 1; display: flex; align-items: flex-start; gap: 5px; line-height: 1.4; }
+.ta-p-card-added::before { content: '+'; font-weight: 800; color: var(--ta-stone); flex-shrink: 0; font-size: 0.8rem; margin-top: 1px; }
+.ta-p-card-cta { display: flex; gap: 8px; }
+.ta-p-card-atc { flex: 1; background: var(--ta-forest); color: #fff; border: none; padding: 10px 14px; border-radius: 8px; font-weight: 700; font-size: 0.76rem; cursor: pointer; transition: all 0.25s; }
+.ta-p-card-atc:hover { background: var(--ta-forest-mid); }
+.ta-p-card-view { background: rgba(0,0,0,0.06); color: var(--ta-black); border: none; padding: 10px 14px; border-radius: 8px; font-weight: 600; font-size: 0.76rem; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+.ta-p-card-view:hover { background: rgba(0,0,0,0.12); }
+.ta-products-note { text-align: center; font-size: 0.78rem; color: var(--ta-warm-gray); }
+
+/* BRIDGE */
+.ta-bridge { background: var(--ta-white); padding: 100px 0; }
+.ta-bridge-inner { max-width: 1240px; margin: 0 auto; padding: 0 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.ta-bridge h2 { font-size: clamp(2rem, 2.8vw, 2.8rem); color: var(--ta-black); margin-bottom: 20px; }
+.ta-bridge h2 em { color: var(--ta-forest); font-style: italic; }
+.ta-bridge-body p { font-size: 0.9rem; color: var(--ta-warm-gray); line-height: 1.75; margin-bottom: 14px; }
+.ta-bridge-body strong { color: var(--ta-black); }
+.ta-bridge-img { border-radius: 20px; overflow: hidden; }
+.ta-bridge-img img { width: 100%; height: auto; display: block; }
+
+/* ACTIVES */
+.ta-actives { padding: 100px 0; background: var(--ta-forest); }
+.ta-actives-inner { max-width: 1240px; margin: 0 auto; padding: 0 80px; }
+.ta-actives-top { text-align: center; margin-bottom: 56px; }
+.ta-actives-top .ta-eyebrow { color: var(--ta-stone); }
+.ta-actives-top h2 { font-size: clamp(2rem, 2.8vw, 2.8rem); color: #fff; margin-bottom: 10px; }
+.ta-actives-top p { font-size: 0.9rem; color: rgba(255,255,255,0.5); max-width: 580px; margin: 0 auto; line-height: 1.7; }
+.ta-actives-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 20px; }
+.ta-active-card { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 32px 28px; transition: border-color 0.3s; }
+.ta-active-card:hover { border-color: rgba(200,168,122,0.4); }
+.ta-active-icon { font-size: 1.6rem; margin-bottom: 16px; }
+.ta-active-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #fff; margin-bottom: 4px; }
+.ta-active-tag { font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ta-stone); margin-bottom: 14px; display: block; }
+.ta-active-desc { font-size: 0.83rem; color: rgba(255,255,255,0.56); line-height: 1.68; margin-bottom: 14px; }
+.ta-active-claims { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 7px; }
+.ta-active-claims li { font-size: 0.77rem; color: rgba(255,255,255,0.68); display: flex; align-items: flex-start; gap: 8px; line-height: 1.4; }
+.ta-active-claims li::before { content: '✓'; color: var(--ta-stone); font-weight: 800; font-size: 0.68rem; flex-shrink: 0; margin-top: 2px; }
+.ta-actives-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.ta-actives-row2-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px 28px; display: flex; align-items: flex-start; gap: 16px; }
+.ta-actives-row2-card p { font-size: 0.84rem; color: rgba(255,255,255,0.52); line-height: 1.6; flex: 1; }
+.ta-actives-row2-card strong { color: rgba(255,255,255,0.84); }
+
+/* TRUST */
+.ta-trust { padding: 80px 0; background: var(--ta-cream-deep); }
+.ta-trust-inner { max-width: 1240px; margin: 0 auto; padding: 0 80px; }
+.ta-trust-top { text-align: center; margin-bottom: 40px; }
+.ta-trust-top h2 { font-size: clamp(1.8rem, 2.4vw, 2.4rem); color: var(--ta-black); margin-bottom: 8px; }
+.ta-trust-top p { font-size: 0.88rem; color: var(--ta-warm-gray); max-width: 560px; margin: 0 auto; line-height: 1.7; }
+.ta-trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.ta-trust-card { background: var(--ta-white); border-radius: 16px; padding: 28px 20px; border: 1px solid var(--ta-border); text-align: center; }
+.ta-trust-num { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--ta-forest); font-weight: 600; margin-bottom: 4px; line-height: 1; }
+.ta-trust-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ta-warm-gray); line-height: 1.4; }
+
+/* CTA */
+.ta-cta { padding: 100px 80px; background: var(--ta-cream-deep); text-align: center; border-top: 1px solid var(--ta-border); }
+.ta-cta-inner { max-width: 680px; margin: 0 auto; }
+.ta-cta .ta-eyebrow { color: var(--ta-forest); }
+.ta-cta h2 { font-size: clamp(2.2rem, 3vw, 3rem); color: var(--ta-black); margin-bottom: 16px; }
+.ta-cta h2 em { color: var(--ta-forest); font-style: italic; }
+.ta-cta p { font-size: 0.95rem; color: var(--ta-warm-gray); margin-bottom: 32px; line-height: 1.7; }
+.ta-cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.ta-cta-trust { display: flex; justify-content: center; gap: 24px; margin-top: 28px; flex-wrap: wrap; }
+.ta-cta-trust-item { font-size: 0.72rem; font-weight: 600; color: var(--ta-warm-gray); display: flex; align-items: center; gap: 5px; }
+.ta-cta-trust-item::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--ta-forest-light); flex-shrink: 0; }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .ta-hero-inner { grid-template-columns: 1fr; padding: 24px 24px 56px; min-height: auto; gap: 40px; }
+  .ta-hero-float-card { display: none; }
+  .ta-bridge-inner { grid-template-columns: 1fr; padding: 0 24px; gap: 40px; }
+  .ta-products-inner { padding: 0 24px; }
+  .ta-p-grid { grid-template-columns: repeat(2, 1fr); }
+  .ta-bundle-card { flex-direction: column; align-items: flex-start; gap: 16px; padding: 24px; }
+  .ta-bundle-imgs { display: none; }
+  .ta-ritual-strip { flex-direction: column; }
+  .ta-ritual-half { width: 100%; }
+  .ta-ritual-half:first-child { border-right: none; border-bottom: 1px solid var(--ta-border); }
+  .ta-actives-inner { padding: 0 24px; }
+  .ta-actives-grid { grid-template-columns: 1fr; }
+  .ta-actives-row2 { grid-template-columns: 1fr; }
+  .ta-trust-inner { padding: 0 24px; }
+  .ta-trust-grid { grid-template-columns: repeat(3, 1fr); }
+  .ta-cta { padding: 72px 24px; }
+}
+@media (max-width: 640px) {
+  .ta-p-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .ta-trust-grid { grid-template-columns: 1fr; }
+  .ta-cta-btns { flex-direction: column; align-items: center; }
+  .ta-bundle-price-row { flex-wrap: wrap; }
+  .ta-ritual-steps { gap: 6px; }
+}
+
+.ta-reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.ta-reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+
+<div class="ta">
+
+<section class="ta-hero">
+  <div class="ta-hero-bg-img"></div>
+  <div class="ta-hero-inner">
+    <div>
+      <div class="ta-hero-pc-badge">
+        <span class="ta-hero-pc-dot"></span>
+        <span>By PrimalPantry · Made in NZ</span>
+      </div>
+      <h1>The actives your skin needs,<br>in a base it <em>won't fight.</em></h1>
+      <p class="ta-hero-sub">Bakuchiol, Azelaic Acid, Niacinamide, Vitamin C and Peptides — formulated specifically for sensitive skin that reacts to conventional serums and creams. Four products. No synthetic fragrance. No harsh solvents.</p>
+      <div class="ta-hero-btns">
+        <a href="#products" class="ta-btn-primary">
+          See the Products
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="ta-hero-tags">
+        <span class="ta-hero-tag">Bakuchiol — retinol alternative</span>
+        <span class="ta-hero-tag">Azelaic Acid</span>
+        <span class="ta-hero-tag">Niacinamide</span>
+        <span class="ta-hero-tag">NZ Made · Online only</span>
+      </div>
+    </div>
+    <div class="ta-hero-image">
+      <img src="/img/r2-reviana-range-square.webp" alt="Reviana sensitive skin actives range — NZ made">
+      <div class="ta-hero-float-card">
+        <div class="fc-label">Night Cream</div>
+        <div class="fc-val">NZ${{ $night.price_nz }}</div>
+        <div class="fc-sub">Bakuchiol · Ceramide NP · Hyaluronic Acid</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ta-products" id="products">
+  <div class="ta-products-inner">
+    <div class="ta-products-top">
+      <span class="ta-eyebrow">The Collection</span>
+      <h2>Four products. Every active covered.</h2>
+      <p>A complete routine for sensitive skin that wants results, not reactions. Day Cream, Night Cream, Eye Cream and Serum — each built around a specific active your skin actually needs.</p>
+    </div>
+
+    <div class="ta-ritual-strip">
+      <div class="ta-ritual-half">
+        <div class="ta-ritual-half-label">☀️ Morning — before makeup</div>
+        <div class="ta-ritual-steps">
+          <div class="ta-ritual-step"><span class="ta-ritual-step-dot">1</span> Serum</div>
+          <span class="ta-ritual-arrow">→</span>
+          <div class="ta-ritual-step"><span class="ta-ritual-step-dot">2</span> Day Cream</div>
+          <span class="ta-ritual-arrow">→</span>
+          <div class="ta-ritual-step ta-ritual-step-ghost">SPF (yours)</div>
+        </div>
+      </div>
+      <div class="ta-ritual-half">
+        <div class="ta-ritual-half-label">🌙 Night</div>
+        <div class="ta-ritual-steps">
+          <div class="ta-ritual-step"><span class="ta-ritual-step-dot">1</span> Serum</div>
+          <span class="ta-ritual-arrow">→</span>
+          <div class="ta-ritual-step"><span class="ta-ritual-step-dot">2</span> Night Cream</div>
+          <span class="ta-ritual-arrow">→</span>
+          <div class="ta-ritual-step"><span class="ta-ritual-step-dot">3</span> Eye Cream</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ta-bundle-card ta-reveal">
+      <span class="ta-bundle-badge">Best Value</span>
+      <div class="ta-bundle-imgs">
+        <div class="ta-bundle-img"><img src="/img/reviana-serum-jar.webp" alt="Serum" style="object-fit:cover;padding:0;"></div>
+        <div class="ta-bundle-img"><img src="/img/reviana-day-jar.webp" alt="Day Cream" style="object-fit:cover;padding:0;"></div>
+        <div class="ta-bundle-img"><img src="/img/reviana-night-jar.webp" alt="Night Cream" style="object-fit:cover;padding:0;"></div>
+        <div class="ta-bundle-img"><img src="/img/reviana-eye-jar.webp" alt="Eye Cream" style="object-fit:cover;padding:0;"></div>
+      </div>
+      <div class="ta-bundle-content">
+        <h3>The Complete Ritual — All 4 Products</h3>
+        <p>Serum · Day Cream · Night Cream · Eye Cream — every active covered, for sensitive skin that wants a full routine without having to guess what it'll react to.</p>
+        <div class="ta-bundle-price-row">
+          <span class="ta-bundle-price">NZ${{ $bundle.price_nz }}</span>
+          {{ if $bundle.compare_price }}<span class="ta-bundle-was">NZ${{ $bundle.compare_price }}</span>{{ end }}
+          <span class="ta-bundle-save">-25% Launch Deal</span>
+        </div>
+        <div style="font-size:0.75rem;color:rgba(255,255,255,0.55);margin-bottom:10px;">⚠️ Serum on backorder — ships separately when back in stock</div>
+        <button class="ta-bundle-atc" data-atc-pid="{{ $bundle.price_id_nz }}" data-atc-price="{{ $bundle.price_nz }}" data-atc-title="Reviana Complete Ritual Bundle" data-atc-size="Full Set" data-atc-flavor="All 4 Products" data-atc-image="/img/r2-reviana-range-square.webp">
+          Add Bundle to Cart
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="ta-p-grid">
+      <div class="ta-p-card ta-reveal">
+        <div class="ta-p-card-img" style="position:relative;"><a href="/cosmetic-tallow-reviana/day-cream/"><img src="/img/reviana-day-jar.webp" alt="Day Cream 50ml" style="width:100%;height:100%;object-fit:cover;"></a><span style="position:absolute;top:10px;left:10px;background:#6B8F5B;color:#fff;font-size:0.68rem;font-weight:700;letter-spacing:0.5px;padding:4px 12px;border-radius:20px;z-index:1;">-20% Launch Deal</span></div>
+        <div class="ta-p-card-body">
+          <div class="ta-p-card-name">Day Cream</div>
+          <div class="ta-p-card-sub">Niacinamide · Kakadu Plum Vitamin C · 50ml</div>
+          <div class="ta-p-card-price">NZ${{ $day.price_nz }} {{ if $day.compare_price }}<span style="text-decoration:line-through;color:#877B71;font-size:0.85em;">NZ${{ $day.compare_price }}</span>{{ end }}</div>
+          <div class="ta-p-card-added">Brightening and barrier-building</div>
+          <div class="ta-p-card-cta">
+            <button class="ta-p-card-atc" data-atc-pid="{{ $day.price_id_nz }}" data-atc-price="{{ $day.price_nz }}" data-atc-title="Reviana Day Cream" data-atc-size="50ml" data-atc-flavor="Day Formula" data-atc-image="/img/reviana-day-jar.webp">Add to Cart</button>
+            <a href="/cosmetic-tallow-reviana/day-cream/" class="ta-p-card-view">View</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="ta-p-card ta-reveal">
+        <div class="ta-p-card-img" style="position:relative;"><a href="/cosmetic-tallow-reviana/night-cream/"><img src="/img/reviana-night-jar.webp" alt="Night Cream 50ml" style="width:100%;height:100%;object-fit:cover;"></a><span style="position:absolute;top:10px;left:10px;background:#6B8F5B;color:#fff;font-size:0.68rem;font-weight:700;letter-spacing:0.5px;padding:4px 12px;border-radius:20px;z-index:1;">-20% Launch Deal</span></div>
+        <div class="ta-p-card-body">
+          <div class="ta-p-card-name">Night Cream</div>
+          <div class="ta-p-card-sub">Bakuchiol · Ceramide NP · Hyaluronic Acid · 50ml</div>
+          <div class="ta-p-card-price">NZ${{ $night.price_nz }} {{ if $night.compare_price }}<span style="text-decoration:line-through;color:#877B71;font-size:0.85em;">NZ${{ $night.compare_price }}</span>{{ end }}</div>
+          <div class="ta-p-card-added">Bakuchiol — fine lines and firmness overnight</div>
+          <div class="ta-p-card-cta">
+            <button class="ta-p-card-atc" data-atc-pid="{{ $night.price_id_nz }}" data-atc-price="{{ $night.price_nz }}" data-atc-title="Reviana Night Cream" data-atc-size="50ml" data-atc-flavor="Night Formula" data-atc-image="/img/reviana-night-jar.webp">Add to Cart</button>
+            <a href="/cosmetic-tallow-reviana/night-cream/" class="ta-p-card-view">View</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="ta-p-card ta-reveal">
+        <div class="ta-p-card-img" style="position:relative;"><a href="/cosmetic-tallow-reviana/eye-cream/"><img src="/img/reviana-eye-jar.webp" alt="Eye Cream 15ml" style="width:100%;height:100%;object-fit:cover;"></a><span style="position:absolute;top:10px;left:10px;background:#6B8F5B;color:#fff;font-size:0.68rem;font-weight:700;letter-spacing:0.5px;padding:4px 12px;border-radius:20px;z-index:1;">-20% Launch Deal</span></div>
+        <div class="ta-p-card-body">
+          <div class="ta-p-card-name">Eye Cream</div>
+          <div class="ta-p-card-sub">Caffeine · Vitamin C · Peptides · 15ml</div>
+          <div class="ta-p-card-price">NZ${{ $eye.price_nz }} {{ if $eye.compare_price }}<span style="text-decoration:line-through;color:#877B71;font-size:0.85em;">NZ${{ $eye.compare_price }}</span>{{ end }}</div>
+          <div class="ta-p-card-added">Caffeine, Peptides and Vitamin C for the eye area</div>
+          <div class="ta-p-card-cta">
+            <button class="ta-p-card-atc" data-atc-pid="{{ $eye.price_id_nz }}" data-atc-price="{{ $eye.price_nz }}" data-atc-title="Reviana Eye Cream" data-atc-size="15ml" data-atc-flavor="Vitamin C" data-atc-image="/img/reviana-eye-jar.webp">Add to Cart</button>
+            <a href="/cosmetic-tallow-reviana/eye-cream/" class="ta-p-card-view">View</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="ta-p-card ta-reveal">
+        <div class="ta-p-card-img" style="position:relative;"><a href="/cosmetic-tallow-reviana/serum/"><img src="/img/reviana-serum-jar.webp" alt="Serum 15ml" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;"></a><span style="position:absolute;top:10px;left:10px;background:#B8860B;color:#fff;font-size:0.68rem;font-weight:700;letter-spacing:0.5px;padding:4px 12px;border-radius:20px;z-index:1;">On Backorder</span></div>
+        <div class="ta-p-card-body">
+          <div class="ta-p-card-name">Serum</div>
+          <div class="ta-p-card-sub">Azelaic Acid · Niacinamide · Cica · 15ml</div>
+          <div class="ta-p-card-price">NZ${{ $serum.price_nz }} {{ if $serum.compare_price }}<span style="text-decoration:line-through;color:#877B71;font-size:0.85em;">NZ${{ $serum.compare_price }}</span>{{ end }}</div>
+          <div style="font-size:0.72rem;color:#B8860B;margin-bottom:4px;">On backorder — ships when back in stock</div>
+          <div class="ta-p-card-added">Azelaic Acid and Niacinamide for tone and texture</div>
+          <div class="ta-p-card-cta">
+            <button class="ta-p-card-atc" data-atc-pid="{{ $serum.price_id_nz }}" data-atc-price="{{ $serum.price_nz }}" data-atc-title="Reviana Serum" data-atc-size="15ml" data-atc-flavor="Complexion Serum" data-atc-image="/img/reviana-serum-jar.webp">Add to Cart</button>
+            <a href="/cosmetic-tallow-reviana/serum/" class="ta-p-card-view">View</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="ta-products-note">Made in Christchurch · By PrimalPantry · Online only</p>
+  </div>
+</section>
+
+<section class="ta-bridge">
+  <div class="ta-bridge-inner">
+    <div>
+      <span class="ta-eyebrow">Why Reviana exists</span>
+      <h2>Great actives.<br><em>Shame about everything else.</em></h2>
+      <div class="ta-bridge-body">
+        <p>Most active-forward serums pack their hero ingredients alongside synthetic fragrance, alcohol solvents, or emulsifier blends that sensitive skin tends to object to. The active isn't the problem — the rest of the formula is.</p>
+        <p>Reviana formulates around that: Bakuchiol, Azelaic Acid, Niacinamide, Vitamin C and Peptides, carried in a grass-fed tallow lipid base your skin already recognises — with nothing added that we didn't need.</p>
+        <p><strong>No synthetic fragrance. No harsh solvents. No emulsifier cocktails.</strong> Just the actives, in a base that works.</p>
+      </div>
+    </div>
+    <div class="ta-bridge-img">
+      <img src="/img/woman.webp" alt="Reviana — sensitive skin actives, NZ made" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section class="ta-actives">
+  <div class="ta-actives-inner">
+    <div class="ta-actives-top">
+      <span class="ta-eyebrow">What's inside</span>
+      <h2>Five actives, chosen for sensitive skin.</h2>
+      <p>Each active was selected for its evidence base and its tolerability profile — the ingredients reactive skin can actually use, without the trade-offs.</p>
+    </div>
+
+    <div class="ta-actives-grid">
+      <div class="ta-active-card ta-reveal">
+        <div class="ta-active-icon">🌿</div>
+        <div class="ta-active-name">Bakuchiol</div>
+        <span class="ta-active-tag">Retinol Alternative · Night Cream</span>
+        <p class="ta-active-desc">Shown in peer-reviewed trials to reduce the appearance of fine lines and improve firmness — without the peeling, redness or photosensitivity that makes retinol difficult for reactive skin to use consistently.</p>
+        <ul class="ta-active-claims">
+          <li>Clinically shown to reduce visible fine lines</li>
+          <li>No photosensitivity — no need to change your SPF routine</li>
+          <li>Gentler mechanism than retinol — typically better tolerated</li>
+        </ul>
+      </div>
+      <div class="ta-active-card ta-reveal">
+        <div class="ta-active-icon">⚗️</div>
+        <div class="ta-active-name">Azelaic Acid</div>
+        <span class="ta-active-tag">Even Tone · Serum</span>
+        <p class="ta-active-desc">One of the few brightening actives clinically recognised for use on sensitive, rosacea-affected and acne-prone skin. Refines texture and evens tone without the irritation profile of AHAs like glycolic or lactic acid.</p>
+        <ul class="ta-active-claims">
+          <li>Clinically recognised for rosacea and sensitive skin</li>
+          <li>Reduces post-acne marks and uneven tone</li>
+          <li>No aggressive exfoliation — works with your barrier</li>
+        </ul>
+      </div>
+      <div class="ta-active-card ta-reveal">
+        <div class="ta-active-icon">✨</div>
+        <div class="ta-active-name">Vitamin C — two forms</div>
+        <span class="ta-active-tag">Brightening · Day Cream + Eye Cream</span>
+        <p class="ta-active-desc">Kakadu Plum — the world's highest natural Vitamin C source — in the Day Cream. Oil-soluble Tetrahexyldecyl Ascorbate in the Eye Cream. Both forms chosen for stability and tolerability over standard L-Ascorbic Acid.</p>
+        <ul class="ta-active-claims">
+          <li>Kakadu Plum: world's highest natural Vitamin C</li>
+          <li>Antioxidant protection from daily environmental exposure</li>
+          <li>More stable and better tolerated than standard Vitamin C</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ta-actives-row2">
+      <div class="ta-actives-row2-card">
+        <span style="font-size:1.8rem;flex-shrink:0;">🔬</span>
+        <p><strong>Niacinamide (Vitamin B3)</strong> — in both the Day Cream and the Serum. It stimulates ceramide production, reduces the appearance of pores and supports a calmer, more even complexion. One of the most widely tolerated actives in skincare.</p>
+      </div>
+      <div class="ta-actives-row2-card">
+        <span style="font-size:1.8rem;flex-shrink:0;">👁️</span>
+        <p><strong>Caffeine + Peptides</strong> — in the Eye Cream. Caffeine targets fluid retention to reduce puffiness. Acetyl Hexapeptide-8 smooths the appearance of expression lines. Both in a lightweight, fragrance-free base designed for the delicate eye area.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ta-trust">
+  <div class="ta-trust-inner">
+    <div class="ta-trust-top">
+      <span class="ta-eyebrow">From the makers of PrimalCare</span>
+      <h2>Sensitive skin is what we know.</h2>
+      <p>PrimalCare was built for eczema-prone and reactive skin. Reviana is the next step — the same considered formulation approach, now with science-backed actives for people whose skin wants results, not reactions.</p>
+    </div>
+    <div class="ta-trust-grid">
+      <div class="ta-trust-card ta-reveal">
+        <div class="ta-trust-num">90,000+</div>
+        <div class="ta-trust-label">Kiwis already trust PrimalCare for sensitive skin</div>
+      </div>
+      <div class="ta-trust-card ta-reveal">
+        <div class="ta-trust-num">4.7★</div>
+        <div class="ta-trust-label">Average PrimalCare product rating</div>
+      </div>
+      <div class="ta-trust-card ta-reveal">
+        <div class="ta-trust-num">NZ Made</div>
+        <div class="ta-trust-label">Small batch · Christchurch · online only</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ta-cta">
+  <div class="ta-cta-inner">
+    <span class="ta-eyebrow">Shop Reviana</span>
+    <h2>The actives.<br><em>Without the rest.</em></h2>
+    <p>Bakuchiol, Azelaic Acid, Niacinamide, Vitamin C, Caffeine and Peptides — four products, each built around an active your sensitive skin can actually use. As with any new skincare, patch test on your inner arm and wait 24 hours before full use. Made in Christchurch, NZ. Online only.</p>
+    <div class="ta-cta-btns">
+      <a href="#products" class="ta-btn-primary">
+        Shop the Collection
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="/shop/" class="ta-btn-outline">All PrimalCare Products</a>
+    </div>
+    <div class="ta-cta-trust">
+      <span class="ta-cta-trust-item">By PrimalPantry</span>
+      <span class="ta-cta-trust-item">90,000+ customers</span>
+      <span class="ta-cta-trust-item">Made in Christchurch NZ</span>
+      <span class="ta-cta-trust-item">Money back guarantee</span>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<script>
+function ppAddToCart(pid, price, title, size, flavor, image) {
+  var cart = JSON.parse(localStorage.getItem('cartV2')) || [];
+  var item = { priceId: pid, title: title, size: size, flavor: flavor, orderType: 'Single', quantity: 1, unitPrice: parseFloat(price), eligibleForDiscount: false };
+  if (image) item.image = image;
+  cart.push(item);
+  localStorage.setItem('cartV2', JSON.stringify(cart));
+  if (typeof window.ppOpenCartDrawer === 'function') window.ppOpenCartDrawer();
+}
+document.querySelectorAll('[data-atc-pid]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    ppAddToCart(btn.dataset.atcPid, btn.dataset.atcPrice, btn.dataset.atcTitle, btn.dataset.atcSize, btn.dataset.atcFlavor, btn.dataset.atcImage);
+    var orig = btn.textContent.trim();
+    btn.textContent = 'Added ✓';
+    setTimeout(function() { btn.textContent = orig; }, 2500);
+  });
+});
+var io = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
+document.querySelectorAll('.ta-reveal').forEach(function(el, i) {
+  el.style.transitionDelay = (Math.floor(i % 4) * 0.08) + 's';
+  io.observe(el);
+});
+</script>
+
+{{- partial "footer.html" . -}}
+</body>
+</html>
