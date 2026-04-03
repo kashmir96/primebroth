@@ -96,9 +96,9 @@
 <div class="rv-pdp">
   <div>
     <div class="product-gallery gallery-desktop">
-      <div class="gallery-main"><img id="mainImg" class="main-image" src="/img/reviana-eye-jar.webp" alt="Reviana Eye Cream Brightening" fetchpriority="high"></div>
+      <div class="gallery-main"><img id="mainImg" class="main-image" src="/img/reviana-eye-cream-pdp.webp" alt="Reviana Eye Cream Brightening" fetchpriority="high"></div>
       <div class="gallery-thumbs">
-        <div class="thumb active" onclick="swImg('/img/reviana-eye-jar.webp',this)"><img src="/img/reviana-eye-jar.webp" alt="Reviana Eye Cream Brightening" loading="lazy"></div>
+        <div class="thumb active" onclick="swImg('/img/reviana-eye-cream-pdp.webp',this)"><img src="/img/reviana-eye-cream-pdp.webp" alt="Reviana Eye Cream Brightening" loading="lazy"></div>
         <div class="thumb" onclick="swImg('/img/reviana-eye-cucumber.webp',this)"><img src="/img/reviana-eye-cucumber.webp" alt="Reviana Eye Cream — Fresh, De-puffed, Cucumber-cool" loading="lazy"></div>
         <div class="thumb" onclick="swImg('/img/reviana-before-afters.webp',this)"><img src="/img/reviana-before-afters.webp" alt="Before and After" loading="lazy"></div>
         <div class="thumb" onclick="swImg('/img/reviana-eye-trix.webp',this)"><img src="/img/reviana-eye-trix.webp" alt="Reviana Eye Cream applied" loading="lazy"></div>
@@ -109,7 +109,7 @@
     <div class="gallery-mobile">
       <div class="swiper product-swiper">
         <div class="swiper-wrapper">
-          <div class="swiper-slide"><img src="/img/reviana-eye-jar.webp" alt="Reviana Eye Cream Brightening"></div>
+          <div class="swiper-slide"><img src="/img/reviana-eye-cream-pdp.webp" alt="Reviana Eye Cream Brightening"></div>
           <div class="swiper-slide"><img src="/img/reviana-eye-cucumber.webp" alt="Reviana Eye Cream — Fresh, De-puffed, Cucumber-cool" style="object-fit:cover;width:100%;height:100%;"></div>
           <div class="swiper-slide"><img src="/img/reviana-before-afters.webp" alt="Before and After" style="object-fit:contain;object-position:bottom;max-height:800px;"></div>
           <div class="swiper-slide"><img src="/img/reviana-eye-trix.webp" alt="Reviana Eye Cream applied" style="object-fit:cover;width:100%;height:100%;"></div>
@@ -317,7 +317,7 @@ document.getElementById('qPlus').addEventListener('click',function(){q.value=par
 document.getElementById('qMinus').addEventListener('click',function(){if(parseInt(q.value)>1)q.value=parseInt(q.value)-1;});
 document.getElementById('atcBtn').addEventListener('click',function(){
   var cart=JSON.parse(localStorage.getItem('cartV2'))||[];
-  cart.push({priceId:selPid,title:'Reviana Eye Cream',size:'15ml',flavor:'Vitamin C',orderType:'Single',quantity:parseInt(q.value)||1,unitPrice:selPrice,eligibleForDiscount:false,image:'/img/reviana-eye-jar.webp'});
+  cart.push({priceId:selPid,title:'Reviana Eye Cream',size:'15ml',flavor:'Vitamin C',orderType:'Single',quantity:parseInt(q.value)||1,unitPrice:selPrice,eligibleForDiscount:false,image:'/img/reviana-eye-cream-pdp.webp'});
   localStorage.setItem('cartV2',JSON.stringify(cart));
   if(typeof window.ppOpenCartDrawer==='function') window.ppOpenCartDrawer();
 });
