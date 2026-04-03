@@ -333,16 +333,8 @@
         <!-- Header -->
         <div class="soothe-header">
           <div>
-            <div class="shop-eanz-pill" style="float:right;margin:0 0 4px 10px;z-index:5;display:none;align-items:center;cursor:pointer;" onclick="var m=document.getElementById('shop-eanz-modal');if(m){m.classList.add('is-open');document.body.style.overflow='hidden';}">
-              <img src="/img/home/eanz.webp" alt="Eczema Association NZ" style="width:53px;height:53px;object-fit:contain;position:relative;z-index:2;flex-shrink:0;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.12));">
-              <div style="background:rgba(255,255,255,0.78);backdrop-filter:blur(4px);border-radius:0 14px 14px 0;padding:3px 7px 3px 4px;margin-left:-12px;box-shadow:0 1px 3px rgba(0,0,0,0.1);display:flex;flex-direction:column;justify-content:center;">
-                <span style="font-size:8px;color:#6B5849;font-weight:700;line-height:1.2;padding-left:14px;">Gold Supporter</span>
-                <span style="font-size:7px;color:#9CAF88;text-decoration:underline;padding-left:14px;">What's this?</span>
-              </div>
-            </div>
-            <span class="soothe-eyebrow">PrimalCare · Calm &amp; Soothe</span>
-            <h2 class="soothe-title">The routine for <em>calm, comfortable skin.</em></h2>
-            <p class="soothe-subtitle">Our best-sellers for sensitive, reactive and dry skin — built around pure tallow.</p>
+            <h2 class="soothe-title">Shop <em>PrimalPantry</em> Tallow Skincare</h2>
+            <p class="soothe-subtitle">Gentle tallow skincare for kiwis with sensitive skin. As used by 95,000 kiwis, seen on SevenSharp and Stuff.</p>
           </div>
           <div class="eanz-badge">
             <img src="/img/home/eanz.webp" alt="Eczema Association of New Zealand" width="52" height="52">
@@ -410,25 +402,27 @@
         </div>
 
         <div class="pp-card-grid" id="product-grid">
-            {{- partial "prodcardtallowskin.html" . -}}
-            {{- partial "prodcardshampoo.html" . -}}
-            {{- partial "prodcard-day-n-night.html" . -}}
-            {{- partial "prodcard-talloweye.html" . -}}
-
-            <!-- Section: Next Step — Reviana -->
+            <!-- Section: Reviana -->
             <div class="pp-grid-heading" data-section-for="skincare">
-              <h3>Next Step — <em>Reviana</em></h3>
-              <p>Our next-level soothing tallow cosmetics, designed for beauty & zero hint of tallow.</p>
+              <span class="soothe-eyebrow" style="color:var(--pc-green);">New!</span>
+              <h3>Meet <em>Reviana</em> — Tallow for your face</h3>
+              <p>No tallow smell guaranteed. Made for sensitive, powered up with beauty enhancing actives.</p>
             </div>
             {{- partial "prodcard-reviana-day.html" . -}}
             {{- partial "prodcard-reviana-night.html" . -}}
             {{- partial "prodcard-reviana-eye.html" . -}}
             {{- partial "prodcard-reviana-serum.html" . -}}
 
-            <!-- Section: All Products -->
-            <div class="pp-grid-heading" data-section-for="all">
-              <h3>All Products</h3>
+            <!-- Section: PrimalCare -->
+            <div class="pp-grid-heading" data-section-for="skincare">
+              <h3><em>PrimalCare</em> — Calm &amp; Soothe</h3>
+              <p>The routine for calm, comfortable skin. Our best-sellers for sensitive, reactive and dry skin — built around pure tallow.</p>
             </div>
+            {{- partial "prodcardtallowskin.html" . -}}
+            {{- partial "prodcardshampoo.html" . -}}
+            {{- partial "prodcard-day-n-night.html" . -}}
+            {{- partial "prodcard-talloweye.html" . -}}
+
             {{- partial "prodcard-honeybalm.html" . -}}
             {{- partial "prodcard-serum.html" . -}}
             {{- partial "prodcard-baby-butter.html" . -}}
