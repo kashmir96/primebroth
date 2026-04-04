@@ -68,6 +68,21 @@ document.addEventListener('DOMContentLoaded', function() {
   var isAU = window.MARKET === 'AU';
   document.querySelectorAll('.au-content').forEach(function(el) { el.style.display = isAU ? 'inline' : 'none'; });
   document.querySelectorAll('.nz-content').forEach(function(el) { el.style.display = isAU ? 'none' : 'inline'; });
+
+  // Replace "Kiwi/Kiwis/kiwis/kiwi" with "customers" for AU visitors
+  if (isAU) {
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+    while (walker.nextNode()) {
+      var node = walker.currentNode;
+      if (/[Kk]iwis?\b/.test(node.nodeValue)) {
+        node.nodeValue = node.nodeValue
+          .replace(/\bKiwis\b/g, 'Customers')
+          .replace(/\bkiwis\b/g, 'customers')
+          .replace(/\bKiwi\b/g, 'Customer')
+          .replace(/\bkiwi\b/g, 'customer');
+      }
+    }
+  }
 });
 </script>
 {{- partial "analytics" . -}}
