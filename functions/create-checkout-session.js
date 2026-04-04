@@ -129,8 +129,8 @@ exports.handler = async (event, context) => {
           ];
     } else {
       payment_method_types = ['card'];
-      shippingOptions = totalAmount >= 15000
-        ? [{ shipping_rate: 'shr_1T7S8WJzNO9WRf4JEZCFS42D' }]           // free AU ($150+)
+      shippingOptions = totalAmount >= 8500
+        ? [{ shipping_rate: 'shr_1T7S8WJzNO9WRf4JEZCFS42D' }]           // free AU ($85+)
         : [{ shipping_rate: 'shr_1T7S91JzNO9WRf4JjAvxwbaj' }];          // standard AU
     }
 

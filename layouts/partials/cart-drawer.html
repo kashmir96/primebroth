@@ -22,9 +22,9 @@
         <div class="pp-drawer-subtotal pp-drawer-ship-row" id="ppDrawerShipRow" style="margin-top:6px;">
             <span style="display:flex;align-items:center;gap:6px;">
                 Shipping
-                <span class="pp-drawer-ship-tag" id="ppDrawerShipTag">NZ flat rate</span>
+                <span class="pp-drawer-ship-tag" id="ppDrawerShipTag"><span class="nz-content">NZ flat rate</span><span class="au-content" style="display:none;">AU flat rate</span></span>
             </span>
-            <span style="font-weight:700;" id="ppDrawerShipCost">$6.95</span>
+            <span style="font-weight:700;" id="ppDrawerShipCost"><span class="nz-content">$6.95</span><span class="au-content" style="display:none;">A$9.95</span></span>
         </div>
         <div class="pp-drawer-subtotal pp-drawer-ship-row" id="ppDrawerFreeRow" style="margin-top:6px;display:none;">
             <span style="display:flex;align-items:center;gap:6px;">
@@ -207,7 +207,7 @@
     // --- Market config ---
     var market = (typeof window.MARKET !== 'undefined') ? window.MARKET : 'NZ';
     var shippingCost = market === 'AU' ? 9.95 : 6.95;
-    var freeShipThreshold = market === 'AU' ? 150 : 75;
+    var freeShipThreshold = market === 'AU' ? 85 : 75;
     var currencyCode = market === 'AU' ? 'AUD' : 'NZD';
     var countryCode = market || 'NZ';
 

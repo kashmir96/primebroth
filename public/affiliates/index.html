@@ -3,11 +3,22 @@
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><script>
 (function(){
   
-  window.MARKET = 'NZ';
-  window.country_code = 'NZ';
-  
-  localStorage.removeItem('market');
-  document.cookie = 'country_code=NZ; expires=' + new Date(Date.now() + 30*24*60*60*1000).toUTCString() + '; path=/';
+  var cc = 'NZ';
+  try {
+    var params = new URLSearchParams(window.location.search);
+    var marketParam = (params.get('market') || '').toUpperCase();
+    if (marketParam === 'AU') {
+      cc = 'AU';
+    } else {
+      var ck = document.cookie.match(/(?:^|;\s*)country_code=(\w+)/);
+      if (ck && ck[1] === 'AU') {
+        cc = 'AU';
+      }
+    }
+  } catch(e) {}
+  window.MARKET = cc;
+  window.country_code = cc;
+  document.cookie = 'country_code=' + cc + '; expires=' + new Date(Date.now() + 30*24*60*60*1000).toUTCString() + '; path=/';
 })();
 
 
@@ -56,8 +67,24 @@ document.addEventListener('DOMContentLoaded', ppShowGiftPill);
 
 
 document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.au-content').forEach(function(el) { el.style.display = 'none'; });
-  document.querySelectorAll('.nz-content').forEach(function(el) { el.style.display = 'inline'; });
+  var isAU = window.MARKET === 'AU';
+  document.querySelectorAll('.au-content').forEach(function(el) { el.style.display = isAU ? 'inline' : 'none'; });
+  document.querySelectorAll('.nz-content').forEach(function(el) { el.style.display = isAU ? 'none' : 'inline'; });
+
+  
+  if (isAU) {
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+    while (walker.nextNode()) {
+      var node = walker.currentNode;
+      if (/[Kk]iwis?\b/.test(node.nodeValue)) {
+        node.nodeValue = node.nodeValue
+          .replace(/\bKiwis\b/g, 'Customers')
+          .replace(/\bkiwis\b/g, 'customers')
+          .replace(/\bKiwi\b/g, 'Customer')
+          .replace(/\bkiwi\b/g, 'customer');
+      }
+    }
+  }
 });
 </script><link rel="preconnect" href="https://oso.nz" crossorigin>
 <script defer src="https://oso.nz/t.js" data-site="PrimalPantry.co.nz"></script>
@@ -382,9 +409,9 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         <div class="pp-drawer-subtotal pp-drawer-ship-row" id="ppDrawerShipRow" style="margin-top:6px;">
             <span style="display:flex;align-items:center;gap:6px;">
                 Shipping
-                <span class="pp-drawer-ship-tag" id="ppDrawerShipTag">NZ flat rate</span>
+                <span class="pp-drawer-ship-tag" id="ppDrawerShipTag"><span class="nz-content">NZ flat rate</span><span class="au-content" style="display:none;">AU flat rate</span></span>
             </span>
-            <span style="font-weight:700;" id="ppDrawerShipCost">$6.95</span>
+            <span style="font-weight:700;" id="ppDrawerShipCost"><span class="nz-content">$6.95</span><span class="au-content" style="display:none;">A$9.95</span></span>
         </div>
         <div class="pp-drawer-subtotal pp-drawer-ship-row" id="ppDrawerFreeRow" style="margin-top:6px;display:none;">
             <span style="display:flex;align-items:center;gap:6px;">
@@ -567,7 +594,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     
     var market = (typeof window.MARKET !== 'undefined') ? window.MARKET : 'NZ';
     var shippingCost = market === 'AU' ? 9.95 : 6.95;
-    var freeShipThreshold = market === 'AU' ? 150 : 75;
+    var freeShipThreshold = market === 'AU' ? 85 : 75;
     var currencyCode = market === 'AU' ? 'AUD' : 'NZD';
     var countryCode = market || 'NZ';
 
@@ -890,9 +917,9 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         "Sensitive Skin Tallow Stack":"/img/sensitive-stack-tub.webp",
         "Tallow Anti-aging Kit":"/img/wrinkleskinnew.webp",
         "Tallow Balm - DIY kit":"/img/tallow-balm.webp",
-        "Reviana Day Cream":"/img/reviana-day-jar.webp",
-        "Reviana Night Cream":"/img/reviana-night-jar.webp",
-        "Reviana Eye Cream":"/img/reviana-eye-jar.webp",
+        "Reviana Day Cream":"/img/reviana-day-cream-pdp.webp",
+        "Reviana Night Cream":"/img/reviana-night-cream-pdp.webp",
+        "Reviana Eye Cream":"/img/reviana-eye-cream-pdp.webp",
         "Reviana Serum":"/img/reviana-serum-jar.webp",
         "Reviana Complete Ritual Bundle":"/img/r2-reviana-range-square.webp",
         "Reviana - Tallow Cosmetics":"/img/r2-reviana-range-square.webp",
@@ -996,7 +1023,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 <script>
     window.onload = function() {
         var shipping_rate = document.getElementById('shipping_rate');
-        if (shipping_rate) { shipping_rate.textContent = '$75'; }
+        if (shipping_rate) { shipping_rate.textContent = (window.MARKET === 'AU') ? 'A$85' : '$75'; }
         document.querySelectorAll('.au-content').forEach(function(item) { item.style.display = 'none'; });
         document.querySelectorAll('.nz-content').forEach(function(item) { item.style.display = 'inline'; });
     };
