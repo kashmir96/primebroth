@@ -2,14 +2,25 @@
  * create-checkout-session.js
  *
  * Env vars required in Netlify:
- *   STRIPE_SECRET_KEY      — NZ Stripe secret key
+ *   STRIPE_SECRET_KEY      — NZ Stripe secret key (existing, no rename needed)
+ *   STRIPE_SECRET_KEY_AU   — AU Stripe secret key
  *   SUPABASE_URL           — Supabase project URL (for visitor_hash salt)
  *   SUPABASE_SERVICE_KEY   — Supabase service_role key
  */
 
 const crypto = require('crypto');
 
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const getStripe = (market) => {
+  if (market === 'AU') {
+    const auKey = process.env.STRIPE_SECRET_KEY_AU;
+    if (!auKey) {
+      console.warn('[checkout] STRIPE_SECRET_KEY_AU not set, falling back to NZ');
+      return require('stripe')(process.env.STRIPE_SECRET_KEY);
+    }
+    return require('stripe')(auKey);
+  }
+  return require('stripe')(process.env.STRIPE_SECRET_KEY);
+};
 
 exports.handler = async (event, context) => {
   // Keep-warm ping — return fast without touching Stripe
@@ -39,7 +50,12 @@ exports.handler = async (event, context) => {
       }
     } catch (e) { console.warn('[checkout] visitor_hash generation failed:', e.message); }
 
-    const market = 'NZ';
+    // Only activate AU if the AU Stripe key is actually configured
+    const market = (countryCode === 'AU' && process.env.STRIPE_SECRET_KEY_AU)
+      ? 'AU'
+      : 'NZ';
+
+    const stripe = getStripe(market);
 
     // Validate cart
     if (!cart || !Array.isArray(cart) || cart.length === 0) {
@@ -100,21 +116,31 @@ exports.handler = async (event, context) => {
     console.log(`[${market}] Total: ${totalAmount} cents`);
 
     // ── Shipping options ─────────────────────────────────────────────────────
-    const payment_method_types = ['card', 'afterpay_clearpay'];
-    const shippingOptions = totalAmount >= 8000
-      ? [{ shipping_rate: 'shr_1RNoN3FZRwx5tlYmUStQxW5y' }]             // free NZ ($80+)
-      : [
-          { shipping_rate: 'shr_1RNoLQFZRwx5tlYmbtbV28PB' },             // standard NZ
-          { shipping_rate: 'shr_1RNoR5FZRwx5tlYmxFgyFs06' },             // rural NZ
-        ];
+    let shippingOptions = [];
+    let payment_method_types = [];
+
+    if (market === 'NZ') {
+      payment_method_types = ['card', 'afterpay_clearpay'];
+      shippingOptions = totalAmount >= 8000
+        ? [{ shipping_rate: 'shr_1RNoN3FZRwx5tlYmUStQxW5y' }]           // free NZ ($80+)
+        : [
+            { shipping_rate: 'shr_1RNoLQFZRwx5tlYmbtbV28PB' },           // standard NZ
+            { shipping_rate: 'shr_1RNoR5FZRwx5tlYmxFgyFs06' },           // rural NZ
+          ];
+    } else {
+      payment_method_types = ['card'];
+      shippingOptions = totalAmount >= 15000
+        ? [{ shipping_rate: 'shr_1T7S8WJzNO9WRf4JEZCFS42D' }]           // free AU ($150+)
+        : [{ shipping_rate: 'shr_1T7S91JzNO9WRf4JjAvxwbaj' }];          // standard AU
+    }
 
     // ── Return URL (embedded checkout uses return_url instead of success/cancel) ──
     const baseURL = 'https://www.primalpantry.co.nz';
     const returnUrl = `${baseURL}/pages/thank-you?session_id={CHECKOUT_SESSION_ID}&landing_url=${encodeURIComponent(decodedLandingURL)}&market=${market}`;
 
-    // ── Resolve gift promo code ID ──
+    // ── Resolve gift promo code ID (NZ only) ──
     let giftPromoId = null;
-    if (giftCode) {
+    if (giftCode && market === 'NZ') {
       try {
         const promos = await stripe.promotionCodes.list({ code: giftCode, active: true, limit: 1 });
         if (promos.data.length > 0) giftPromoId = promos.data[0].id;
@@ -127,7 +153,7 @@ exports.handler = async (event, context) => {
     // ── Create session (embedded mode) ──────────────────────────────────────
     const sessionParams = {
       payment_method_types,
-      shipping_address_collection: { allowed_countries: ['NZ'] },
+      shipping_address_collection: { allowed_countries: [market] },
       shipping_options: shippingOptions,
       line_items: lineItems,
       mode: 'payment',

@@ -1,11 +1,22 @@
 <script>
 (function(){
-  // NZ only — geo detection removed
-  window.MARKET = 'NZ';
-  window.country_code = 'NZ';
-  // Clear any stale AU values from returning visitors
-  localStorage.removeItem('market');
-  document.cookie = 'country_code=NZ; expires=' + new Date(Date.now() + 30*24*60*60*1000).toUTCString() + '; path=/';
+  // Detect AU visitors: ?market=au param (from au.primalpantry.co.nz redirect) or cookie
+  var cc = 'NZ';
+  try {
+    var params = new URLSearchParams(window.location.search);
+    var marketParam = (params.get('market') || '').toUpperCase();
+    if (marketParam === 'AU') {
+      cc = 'AU';
+    } else {
+      var ck = document.cookie.match(/(?:^|;\s*)country_code=(\w+)/);
+      if (ck && ck[1] === 'AU') {
+        cc = 'AU';
+      }
+    }
+  } catch(e) {}
+  window.MARKET = cc;
+  window.country_code = cc;
+  document.cookie = 'country_code=' + cc + '; expires=' + new Date(Date.now() + 30*24*60*60*1000).toUTCString() + '; path=/';
 })();
 
 // ── PrimalPoints — simple: 100 points per $1 spent ──
@@ -52,10 +63,11 @@ function ppDismissGiftPill() {
 // Show pill on every page while code is active (unless dismissed)
 document.addEventListener('DOMContentLoaded', ppShowGiftPill);
 
-// Toggle nz-content / au-content spans site-wide
+// Toggle nz-content / au-content spans site-wide based on detected market
 document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.au-content').forEach(function(el) { el.style.display = 'none'; });
-  document.querySelectorAll('.nz-content').forEach(function(el) { el.style.display = 'inline'; });
+  var isAU = window.MARKET === 'AU';
+  document.querySelectorAll('.au-content').forEach(function(el) { el.style.display = isAU ? 'inline' : 'none'; });
+  document.querySelectorAll('.nz-content').forEach(function(el) { el.style.display = isAU ? 'none' : 'inline'; });
 });
 </script>
 {{- partial "analytics" . -}}
