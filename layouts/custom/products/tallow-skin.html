@@ -271,36 +271,6 @@
                     </div>
                 </div>
 
-        <!-- Often Paired With: Shampoo Bar -->
-        <div class="pp-pair-with">
-            <p class="pp-pair-label">Often paired with</p>
-            <p style="font-size:13px;color:var(--pp-text-muted,#94918A);margin:0 0 4px;font-style:italic;">Soothe the itch, cleanse the hair</p>
-            <div class="pp-pair-card">
-                <a href="/shop/products/tallow-shampoo-bar">
-                    <img src="/img/shampoobar/shampoo-bar-prodcutpage.webp" alt="Tallow Shampoo Bar" class="pp-pair-img" loading="lazy">
-                </a>
-                <div class="pp-pair-info">
-                    <p class="pp-pair-title"><a href="/shop/products/tallow-shampoo-bar">Tallow Scalp Health Shampoo Bar</a></p>
-                    <p class="pp-pair-desc">Natural tallow bar that cleanses and soothes dry, irritated scalps</p>
-                    <div class="pp-pair-row">
-                        {{ with index site.Data.pricing.tallow.pricing.shampoo 0 }}
-                        <span class="pp-pair-price nz-content">${{ with .prices.NZ }}{{ .single_purchase }}{{ end }}</span>
-                        <span class="pp-pair-price au-content" style="display:none;">A${{ with .prices.AU }}{{ .single_purchase }}{{ end }}</span>
-                        {{ end }}
-                        {{ with index site.Data.pricing.tallow.pricing.shampoo 0 }}
-                        <button class="pp-pair-btn pair-with-quick-add"
-                            data-atc-pid="{{ index (index site.Data.pricing.tallow.ids.shampoo.single.peppermintrosemary "120g") "NZ" }}"
-                            data-atc-price="{{ with .prices.NZ }}{{ .single_purchase }}{{ end }}"
-                            data-atc-title="Tallow Shampoo Bar"
-                            data-atc-size="120g"
-                            data-atc-flavor="Peppermint & Rosemary"
-                            data-atc-image="/img/shampoobar/shampoo-bar-prodcutpage.webp">Quick Add</button>
-                        {{ end }}
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Shopping for your face? Try Reviana -->
         <div class="pp-pair-with" style="margin-top:20px;">
             <p class="pp-pair-label" style="font-size:13px;color:var(--pp-text-muted,#94918A);margin:0 0 4px;font-style:italic;">Shopping for your face? Try Reviana Instead</p>
