@@ -215,7 +215,8 @@
     window.onload = function() {
         var shipping_rate = document.getElementById('shipping_rate');
         if (shipping_rate) { shipping_rate.textContent = (window.MARKET === 'AU') ? 'A$85' : '$75'; }
-        document.querySelectorAll('.au-content').forEach(function(item) { item.style.display = 'none'; });
-        document.querySelectorAll('.nz-content').forEach(function(item) { item.style.display = 'inline'; });
+        var isAU = window.MARKET === 'AU';
+        document.querySelectorAll('.au-content').forEach(function(item) { item.style.display = isAU ? 'inline' : 'none'; });
+        document.querySelectorAll('.nz-content').forEach(function(item) { item.style.display = isAU ? 'none' : 'inline'; });
     };
 </script>
