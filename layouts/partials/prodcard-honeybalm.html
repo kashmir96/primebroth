@@ -30,18 +30,18 @@
         "pricing": [
             {{ with index site.Data.pricing.tallow.pricing.honeybalm 0 }}{"size":"60ml","NZ":{{ with .prices.NZ }}{{ .single_purchase }}{{ end }},"AU":{{ with .prices.AU }}{{ .single_purchase }}{{ end }} }{{ end }},
             {{ with index site.Data.pricing.tallow.pricing.honeybalm 1 }}{"size":"120ml","NZ":{{ with .prices.NZ }}{{ .single_purchase }}{{ end }},"AU":{{ with .prices.AU }}{{ .single_purchase }}{{ end }} }{{ end }},
-            {{ with index site.Data.pricing.tallow.pricing.honeybalm 2 }}{"size":"250ml","NZ":{{ with .prices.NZ }}{{ .single_purchase }}{{ end }} }{{ end }}
+            {{ with index site.Data.pricing.tallow.pricing.honeybalm 2 }}{"size":"250ml","NZ":{{ with .prices.NZ }}{{ .single_purchase }}{{ end }},"AU":{{ with .prices.AU }}{{ .single_purchase }}{{ end }} }{{ end }}
         ],
         "ids": {
             "single": {
                 "vanilla": {
                     {{ with index site.Data.pricing.tallow.ids.honeybalm.single.vanilla "60ml" }}"60ml": {"NZ":"{{ index . "NZ" }}"{{ if index . "AU" }},"AU":"{{ index . "AU" }}"{{ end }} }{{ end }}
                     {{ with index site.Data.pricing.tallow.ids.honeybalm.single.vanilla "120ml" }},"120ml": {"NZ":"{{ index . "NZ" }}"{{ if index . "AU" }},"AU":"{{ index . "AU" }}"{{ end }} }{{ end }}
-                    {{ with index site.Data.pricing.tallow.ids.honeybalm.single.vanilla "250ml" }},"250ml": {"NZ":"{{ index . "NZ" }}" }{{ end }}
+                    {{ with index site.Data.pricing.tallow.ids.honeybalm.single.vanilla "250ml" }},"250ml": {"NZ":"{{ index . "NZ" }}"{{ if index . "AU" }},"AU":"{{ index . "AU" }}"{{ end }} }{{ end }}
                 },
                 "tansy": {
                     {{ with index site.Data.pricing.tallow.ids.honeybalm.single.tansy "120ml" }}"120ml": {"NZ":"{{ index . "NZ" }}"{{ if index . "AU" }},"AU":"{{ index . "AU" }}"{{ end }} }{{ end }}
-                    {{ with index site.Data.pricing.tallow.ids.honeybalm.single.tansy "250ml" }},"250ml": {"NZ":"{{ index . "NZ" }}" }{{ end }}
+                    {{ with index site.Data.pricing.tallow.ids.honeybalm.single.tansy "250ml" }},"250ml": {"NZ":"{{ index . "NZ" }}"{{ if index . "AU" }},"AU":"{{ index . "AU" }}"{{ end }} }{{ end }}
                 }
             }
         }

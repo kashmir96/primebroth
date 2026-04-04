@@ -30,7 +30,7 @@
         "pricing": [
             {{ with index site.Data.pricing.tallow.pricing.balm 0 }}{"size":"60ml","NZ":{{ with .prices.NZ }}{{ .single_purchase }}{{ end }},"AU":{{ with .prices.AU }}{{ .single_purchase }}{{ end }} }{{ end }},
             {{ with index site.Data.pricing.tallow.pricing.balm 2 }}{"size":"120ml","NZ":{{ with .prices.NZ }}{{ .single_purchase }}{{ end }},"AU":{{ with .prices.AU }}{{ .single_purchase }}{{ end }} }{{ end }},
-            {{ with index site.Data.pricing.tallow.pricing.balm 4 }}{"size":"250ml","NZ":{{ with .prices.NZ }}{{ .single_purchase }}{{ end }} }{{ end }}
+            {{ with index site.Data.pricing.tallow.pricing.balm 4 }}{"size":"250ml","NZ":{{ with .prices.NZ }}{{ .single_purchase }}{{ end }},"AU":{{ with .prices.AU }}{{ .single_purchase }}{{ end }} }{{ end }}
         ],
         "ids": {
             "single": {
@@ -41,7 +41,7 @@
                 {{ if $i }},{{ end }}"{{ $scent }}": {
                     {{ if (index $s "60ml") }}"60ml": {"NZ":"{{ index (index $s "60ml") "NZ" }}"{{ if index (index $s "60ml") "AU" }},"AU":"{{ index (index $s "60ml") "AU" }}"{{ end }} }{{ end }}
                     {{ if (index $s "120ml") }},"120ml": {"NZ":"{{ index (index $s "120ml") "NZ" }}"{{ if index (index $s "120ml") "AU" }},"AU":"{{ index (index $s "120ml") "AU" }}"{{ end }} }{{ end }}
-                    {{ if (index $s "250ml") }},"250ml": {"NZ":"{{ index (index $s "250ml") "NZ" }}" }{{ end }}
+                    {{ if (index $s "250ml") }},"250ml": {"NZ":"{{ index (index $s "250ml") "NZ" }}"{{ if index (index $s "250ml") "AU" }},"AU":"{{ index (index $s "250ml") "AU" }}"{{ end }} }{{ end }}
                 }
                 {{ end }}
             }

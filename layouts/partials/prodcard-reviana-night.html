@@ -11,9 +11,10 @@
         <div class="pp-card-sub">Overnight renewal cream · 50ml</div>
         <div class="pp-card-price">
             <span class="nz-content">${{ $night.price_nz }} {{ if $night.compare_price }}<span style="text-decoration:line-through;color:#877B71;font-size:0.85em;">${{ $night.compare_price }}</span>{{ end }}</span>
+            <span class="au-content" style="display:none;">A${{ $night.price_au }} {{ if $night.compare_price_au }}<span style="text-decoration:line-through;color:#877B71;font-size:0.85em;">A${{ $night.compare_price_au }}</span>{{ end }}</span>
         </div>
         <div class="pp-card-cta">
-            <button class="pp-card-atc" data-atc-pid="{{ $night.price_id_nz }}" data-atc-price="{{ $night.price_nz }}" data-atc-title="Reviana Night Cream" data-atc-size="50ml" data-atc-flavor="Night Formula" data-atc-image="/img/reviana-night-cream-pdp.webp">Add to Cart</button>
+            <button class="pp-card-atc" data-atc-pid="{{ $night.price_id_nz }}" data-atc-pid-au="{{ $night.price_id_au }}" data-atc-price="{{ $night.price_nz }}" data-atc-title="Reviana Night Cream" data-atc-size="50ml" data-atc-flavor="Night Formula" data-atc-image="/img/reviana-night-cream-pdp.webp">Add to Cart</button>
             <a href="/cosmetic-tallow-reviana/night-cream/" class="pp-card-view">View</a>
         </div>
     </div>

@@ -11,9 +11,10 @@
         <div class="pp-card-sub">Barrier building moisturiser · 50ml</div>
         <div class="pp-card-price">
             <span class="nz-content">${{ $day.price_nz }} {{ if $day.compare_price }}<span style="text-decoration:line-through;color:#877B71;font-size:0.85em;">${{ $day.compare_price }}</span>{{ end }}</span>
+            <span class="au-content" style="display:none;">A${{ $day.price_au }} {{ if $day.compare_price_au }}<span style="text-decoration:line-through;color:#877B71;font-size:0.85em;">A${{ $day.compare_price_au }}</span>{{ end }}</span>
         </div>
         <div class="pp-card-cta">
-            <button class="pp-card-atc" data-atc-pid="{{ $day.price_id_nz }}" data-atc-price="{{ $day.price_nz }}" data-atc-title="Reviana Day Cream" data-atc-size="50ml" data-atc-flavor="Day Formula" data-atc-image="/img/reviana-day-cream-pdp.webp">Add to Cart</button>
+            <button class="pp-card-atc" data-atc-pid="{{ $day.price_id_nz }}" data-atc-pid-au="{{ $day.price_id_au }}" data-atc-price="{{ $day.price_nz }}" data-atc-title="Reviana Day Cream" data-atc-size="50ml" data-atc-flavor="Day Formula" data-atc-image="/img/reviana-day-cream-pdp.webp">Add to Cart</button>
             <a href="/cosmetic-tallow-reviana/day-cream/" class="pp-card-view">View</a>
         </div>
     </div>

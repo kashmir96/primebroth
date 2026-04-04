@@ -11,10 +11,11 @@
         <div class="pp-card-sub">Complexion-refining serum · 15ml</div>
         <div class="pp-card-price">
             <span class="nz-content">${{ $serum.price_nz }} {{ if $serum.compare_price }}<span style="text-decoration:line-through;color:#877B71;font-size:0.85em;">${{ $serum.compare_price }}</span>{{ end }}</span>
+            <span class="au-content" style="display:none;">A${{ $serum.price_au }} {{ if $serum.compare_price_au }}<span style="text-decoration:line-through;color:#877B71;font-size:0.85em;">A${{ $serum.compare_price_au }}</span>{{ end }}</span>
         </div>
         <div style="font-size:0.72rem;color:#B8860B;margin-top:2px;">On backorder — ships when back in stock</div>
         <div class="pp-card-cta">
-            <button class="pp-card-atc" data-atc-pid="{{ $serum.price_id_nz }}" data-atc-price="{{ $serum.price_nz }}" data-atc-title="Reviana Serum" data-atc-size="15ml" data-atc-flavor="Complexion Serum" data-atc-image="/img/reviana-serum-jar.webp">Add to Cart</button>
+            <button class="pp-card-atc" data-atc-pid="{{ $serum.price_id_nz }}" data-atc-pid-au="{{ $serum.price_id_au }}" data-atc-price="{{ $serum.price_nz }}" data-atc-title="Reviana Serum" data-atc-size="15ml" data-atc-flavor="Complexion Serum" data-atc-image="/img/reviana-serum-jar.webp">Add to Cart</button>
             <a href="/cosmetic-tallow-reviana/serum/" class="pp-card-view">View</a>
         </div>
     </div>
